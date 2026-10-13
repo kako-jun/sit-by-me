@@ -10,6 +10,8 @@
 - [物語](docs/story.md)
 - [ゲームシステム](docs/systems.md)
 - [素材の方針](docs/assets-policy.md)
+- [決定ログ](docs/decisions.md)
+- [ロードマップ](docs/roadmap.md)
 
 ## 状態
 
