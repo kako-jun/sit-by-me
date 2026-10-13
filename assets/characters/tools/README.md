@@ -8,9 +8,9 @@ uv run --with pillow --with numpy --with scipy python3 -I assets/characters/tool
 uv run --with pillow --with numpy --with scipy python3 -I assets/characters/tools/key_grid.py \
   assets/characters/poses/raw/nam-grid.png assets/characters/poses nam green
 uv run --with pillow --with numpy --with scipy python3 -I assets/characters/tools/key_grid.py \
-  assets/characters/poses/raw/shah-grid.png assets/characters/poses shah magenta 0
+  assets/characters/poses/raw/shah-grid.png assets/characters/poses shah magenta 0,1
 uv run --with pillow --with numpy --with scipy python3 -I assets/characters/tools/key_grid.py \
   assets/characters/poses/raw/peiko-grid.png assets/characters/poses peiko green
 ```
 
-シャーは服が緑なので背景をマゼンタにしている。ペー子の `down` だけはグリッドで倒れなかったため、`raw/peiko-down.png` を単独で生成して差し替えた。
+シャーは服が緑なので背景をマゼンタにしている。シャーの ready（1）は、刀は左でも顔が右を向いていたため反転している（反転すると顔が敵を向き、刀を頭の後ろに振りかぶった構えになる）。ペー子の `down` だけはグリッドで倒れなかったため、`raw/peiko-down.png` を単独で生成して差し替えた。
