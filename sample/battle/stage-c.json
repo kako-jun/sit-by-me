@@ -1,0 +1,16 @@
+{
+  "layout": "side",
+  "spriteStyle": "acrylic",
+  "windowStyle": "ff-blue",
+  "atb": "on",
+  "background": "backgrounds/stage-c.png",
+  "party": [
+    { "id": "otton", "name": "オットン", "hp": 30, "maxHp": 30, "mp": 8, "maxMp": 8, "atk": 8, "def": 4, "agi": 6, "sprite": "../../assets/characters/poses/otton-ready.png" },
+    { "id": "nam", "name": "ナム", "hp": 26, "maxHp": 26, "mp": 12, "maxMp": 12, "atk": 7, "def": 3, "agi": 7, "sprite": "../../assets/characters/poses/nam-ready.png" },
+    { "id": "shah", "name": "シャー", "hp": 32, "maxHp": 32, "mp": 4, "maxMp": 4, "atk": 9, "def": 5, "agi": 5, "sprite": "../../assets/characters/poses/shah-ready.png" },
+    { "id": "peiko", "name": "ペー子", "hp": 24, "maxHp": 24, "mp": 14, "maxMp": 14, "atk": 5, "def": 3, "agi": 6, "sprite": "../../assets/characters/poses/peiko-ready.png" }
+  ],
+  "enemies": [
+    { "id": "dragon", "name": "ダンボールドラゴン", "hp": 120, "maxHp": 120, "mp": 0, "maxMp": 0, "atk": 10, "def": 6, "agi": 4, "sprite": "enemy-dragon.png" }
+  ]
+}
