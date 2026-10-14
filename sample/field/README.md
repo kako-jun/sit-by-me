@@ -26,7 +26,6 @@
 | ファイル | 場所・個性 |
 |---|---|
 | `korinbo-crossroads-diorama.png` | 香林坊。店が連なる十字路と、地下へ下りる入口 |
-| `uchinada-dune-station-diorama.png` | 内灘。砂丘と海、浅野川鉄道の小駅と朽ちた車両、横の道と踏切 |
 | `korimon-station-plaza-diorama.png` | 金沢駅の鼓門前。左右対称の広い広場 |
 | `utatsuyama-sunnyland-diorama.png` | 卯辰山のサニーランド跡。斜めのうねる山道と廃遊具（うねる山道は正解。kako-jun 2026-10-14） |
 | `chaya-lane-diorama.png` | 茶屋街。用水沿いのL字の石畳 |
@@ -50,7 +49,7 @@
 | `schoolyard-diorama.png` | 小学校の校庭（L字の校舎） |
 | `hospital-exterior-diorama.png` | 私立病院の外観と駐車場（斜めの道） |
 | `abandoned-school-diorama.png` | 廃校（T字の道、廃墟探検） |
-| `uchinada-station-v2-diorama.png` | 内灘駅。調査に沿った版（住宅地の端の終着駅、銀とオレンジの電車、検車区、バス乗り場）。旧版 `uchinada-dune-station` は残す |
+| `uchinada-station-diorama.png` | 内灘駅（作り直し。kako-jun 指示で旧版 uchinada-dune-station・uchinada-station-v2 は破棄）。住宅地の端の終着駅、実物に寄せた小さな白い駅舎、直線と緩い曲線の線路、銀とオレンジ帯の電車、検車区、バス乗り場 |
 | `korimon-station-plaza-v3-diorama.png` | 鼓門前。現地調査に沿った版（ガラスのドーム、緑青の屋根、雪吊り） |
 | `utatsuyama-sunnyland-indoor-diorama.png` | サニーランド跡の屋内。円形のエントランスと白いシャチホコ |
 | `utatsuyama-sunnyland-aquarium-indoor-diorama.png` | サニーランド跡の屋内。水族館の水槽跡と動物園の檻 |
