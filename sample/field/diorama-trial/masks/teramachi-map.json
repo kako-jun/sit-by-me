@@ -1,0 +1,175 @@
+{
+ "note": "range は辺に沿った画素座標（left/right は y、top/bottom は x）。toRange と range は、座標の増える向きで相対位置を対応させる。to が null は行き止まり（歩けるが抜けられない）。",
+ "links": [
+  {
+   "from": "slope-top",
+   "edge": "right",
+   "range": [
+    175,
+    258
+   ],
+   "to": "wide-road",
+   "toEdge": "left",
+   "toRange": [
+    395,
+    625
+   ]
+  },
+  {
+   "from": "wide-road",
+   "edge": "left",
+   "range": [
+    395,
+    625
+   ],
+   "to": "slope-top",
+   "toEdge": "right",
+   "toRange": [
+    175,
+    258
+   ]
+  },
+  {
+   "from": "wide-road",
+   "edge": "right",
+   "range": [
+    395,
+    625
+   ],
+   "to": "connector",
+   "toEdge": "right",
+   "toRange": [
+    245,
+    515
+   ]
+  },
+  {
+   "from": "connector",
+   "edge": "right",
+   "range": [
+    245,
+    515
+   ],
+   "to": "wide-road",
+   "toEdge": "right",
+   "toRange": [
+    395,
+    625
+   ]
+  },
+  {
+   "from": "connector",
+   "edge": "top",
+   "range": [
+    216,
+    300
+   ],
+   "to": "narrow-lane",
+   "toEdge": "bottom",
+   "toRange": [
+    730,
+    845
+   ]
+  },
+  {
+   "from": "narrow-lane",
+   "edge": "bottom",
+   "range": [
+    730,
+    845
+   ],
+   "to": "connector",
+   "toEdge": "top",
+   "toRange": [
+    216,
+    300
+   ]
+  },
+  {
+   "from": "narrow-lane",
+   "edge": "top",
+   "range": [
+    724,
+    822
+   ],
+   "to": "kindergarten",
+   "toEdge": "bottom",
+   "toRange": [
+    340,
+    466
+   ]
+  },
+  {
+   "from": "kindergarten",
+   "edge": "bottom",
+   "range": [
+    340,
+    466
+   ],
+   "to": "narrow-lane",
+   "toEdge": "top",
+   "toRange": [
+    724,
+    822
+   ]
+  },
+  {
+   "from": "connector",
+   "edge": "bottom",
+   "range": [
+    216,
+    488
+   ],
+   "to": "sento",
+   "toEdge": "left",
+   "toRange": [
+    510,
+    635
+   ]
+  },
+  {
+   "from": "sento",
+   "edge": "left",
+   "range": [
+    510,
+    635
+   ],
+   "to": "connector",
+   "toEdge": "bottom",
+   "toRange": [
+    216,
+    488
+   ]
+  },
+  {
+   "from": "slope-top",
+   "edge": "bottom",
+   "range": [
+    332,
+    522
+   ],
+   "to": null,
+   "note": "団地の方向へ下る石畳の坂。団地の絵はまだ無いので行き止まり"
+  },
+  {
+   "from": "kindergarten",
+   "edge": "bottom",
+   "range": [
+    915,
+    1066
+   ],
+   "to": null,
+   "note": "園庭の下の出口。行き止まり"
+  },
+  {
+   "from": "sento",
+   "edge": "right",
+   "range": [
+    872,
+    1020
+   ],
+   "to": null,
+   "note": "斜めの道のもう一方の端。行き止まり"
+  }
+ ]
+}
