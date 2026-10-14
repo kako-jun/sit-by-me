@@ -81,7 +81,7 @@
 | M109 | 夜の森の葉・枝（悪魔に見える） | 錯視 | 夜の森（章は未定） | 未定 | 未定 | 未定 | 生成済み: assets/enemies/night-branches.png（mid-3 を採用: 顔なし・非対称の自然な枝葉で、上端の2本の枝が角、左の塊が肩、右の枝が腕に見える。採用: kako-jun 2026-10-14） | #12 |
 | M110 | 顔に見える壁の染み | 錯視 | 未定 | 未定 | 未定 | 未定 | 生成済み: assets/enemies/wall-stain.png（採用: kako-jun 2026-10-14） | #12 |
 | M111 | 防火シャッター | 展示物・玩具（環境敵） | 香林坊の閉店後の商店街 | 未定 | 未定 | 環境敵（背景と連動して戦場を狭める画面ギミック） | 仕様のみ（スプライトを持たない） | #12 |
-| M112 | マネキン | 展示物・玩具 | 香林坊のショーウィンドウ | 未定 | 未定 | 未定 | 仕様のみ | #12 |
+| M112 | マネキン | 展示物・玩具 | 香林坊のショーウィンドウ | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/mannequin.png`（採否待ち。右向き・透過・顔なし・立ち姿） | #12 |
 | M113 | 人形 | 展示物・玩具 | 子供部屋・古道具店・祭りの飾り（章・フィールドは未定） | 未定 | 未定 | 未定（並び替わる・手をつなぐ・合体して大きく見える） | 生成済み: `assets/enemies/doll.png`（採否待ち。右向き・座り姿・透過（陶器の人形・人間ではない）） | #12 |
 | M114 | 大人向けの本（目隠しされた表紙） | 恐怖メディア | 未定（棚の高い位置） | 未定 | 未定 | 未定 | 仕様のみ（露骨な中身は描かない） | #12 |
 | M115 | ホラーDVD | 恐怖メディア | 未定 | 未定 | 未定 | 未定 | 仕様のみ（実在作品名・ロゴは使わない） | #12 |
@@ -115,10 +115,10 @@
 | M143 | 割れた窓 | 崩壊・落下 | 未定 | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/broken-window.png`（採用: kako-jun 2026-10-14。右へ破片が突き出す・透過） | #12 |
 | M144 | 破れた障子 | 崩壊・落下 | 未定（茶屋街の茶室は障子の空間だが、出現の指定は記録に無い） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/torn-shoji.png`（採否待ち。右へ紙片がなびく・透過） | #12、#14 |
 | M145 | 割れた酒瓶（割れたビール瓶） | 崩壊・落下 | 未定 | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/broken-bottle.png`（口が割れた茶色いビール瓶・右向き・透過。2026-10-14生成、同日 kako-jun が採用） | #12 |
-| M146 | プロペラ | 回転する刃（風） | 未定 | 風 | 未定 | 未定 | 仕様のみ | art-direction.md、#26 |
+| M146 | プロペラ | 回転する刃（風） | 未定 | 風 | 未定 | 未定 | 生成済み: `assets/enemies/propeller.png`（採否待ち。三枚羽根・透過） | art-direction.md、#26 |
 | M147 | 扇風機・換気扇の羽根 | 回転する刃（風） | 未定 | 風 | 未定 | 未定 | 生成済み: `assets/enemies/fan-blades.png`（採否待ち。右向き・透過） | 同上 |
 | M148 | 凍った水たまり | 凍った足元（氷） | 未定 | 氷 | 未定 | 未定 | 生成済み: `assets/enemies/frozen-puddle.png`（採否待ち。横長・透過） | 同上 |
-| M149 | 石油ストーブ | 火事の原因（火） | 未定 | 火 | 未定 | 未定 | 仕様のみ（実際の火災は描かない） | 同上 |
+| M149 | 石油ストーブ | 火事の原因（火） | 未定 | 火 | 未定 | 未定 | 生成済み: `assets/enemies/kerosene-heater.png`（採否待ち。右向き・透過・火災は描かない） | 同上 |
 | M150 | ライター | 火事の原因（火） | 未定 | 火 | 未定 | 未定 | 生成済み: `assets/enemies/lighter.png`（採否待ち。炎が右上へ・透過・無人・ロゴなし） | 同上 |
 | M151 | 古いたこ足配線 | 火事の原因（火） | 未定 | 火 | 未定 | 未定 | 生成済み: `assets/enemies/octopus-wiring.png`（採否待ち。コードが右へ広がる・焦げた差込口・透過） | 同上 |
 
@@ -180,6 +180,7 @@
 | M108 | 1x1（普通） | `assets/enemies/open-manhole.png` 640x377、縦横比 1.70 |
 | M109 | 1x1（普通） | `assets/enemies/night-branches.png` 640x468、縦横比 1.37 |
 | M110 | 1x2（縦2倍） | `assets/enemies/wall-stain.png` 323x640、縦横比 0.50 |
+| M112 | 1x2（縦2倍） | `assets/enemies/mannequin.png` 192x640、縦横比 0.30 |
 | M113 | 1x1（普通） | `assets/enemies/doll.png` 570x640、縦横比 0.89 |
 | M118 | 1x1（普通） | `assets/enemies/laughing-bag.png` 532x640、縦横比 0.83 |
 | M121 | 1x1（普通） | `assets/enemies/encyclopedia.png` 465x640、縦横比 0.73 |
@@ -201,8 +202,10 @@
 | M143 | 1x1（普通） | `assets/enemies/broken-window.png` 470x640、縦横比 0.73 |
 | M144 | 1x1（普通） | `assets/enemies/torn-shoji.png` 465x640、縦横比 0.73 |
 | M145 | 2x1（横2倍） | `assets/enemies/broken-bottle.png` 640x199、縦横比 3.22 |
+| M146 | 1x1（普通） | `assets/enemies/propeller.png` 640x497、縦横比 1.29 |
 | M147 | 1x1（普通） | `assets/enemies/fan-blades.png` 640x621、縦横比 1.03 |
 | M148 | 2x1（横2倍） | `assets/enemies/frozen-puddle.png` 640x201、縦横比 3.18 |
+| M149 | 1x1（普通） | `assets/enemies/kerosene-heater.png` 640x589、縦横比 1.09 |
 | M150 | 1x1（普通） | `assets/enemies/lighter.png` 410x640、縦横比 0.64 |
 | M151 | 2x1（横2倍） | `assets/enemies/octopus-wiring.png` 640x337、縦横比 1.90 |
 
