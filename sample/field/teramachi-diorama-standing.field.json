@@ -73,11 +73,24 @@
         }
       ],
       "encounter": {
-        "rate": 6,
+        "rate": 8,
         "groups": [
-          "hornet",
-          "hornet+hornet",
-          "roadroller"
+          "dragon",
+          "roadroller",
+          "hornet+hornet+hornet",
+          "nail+nail",
+          "sea-urchin+sea-urchin+sea-urchin",
+          "icicle+icicle+icicle+icicle",
+          "broken-bottle+broken-bottle",
+          "broken-glass",
+          "hornet+roadroller",
+          "nail+broken-glass+broken-bottle",
+          "dragon+hornet+hornet",
+          "sea-urchin+icicle",
+          "roadroller+nail+sea-urchin+broken-glass",
+          "dragon+roadroller",
+          "hornet+nail+icicle+broken-bottle+sea-urchin",
+          "broken-glass+icicle+broken-bottle"
         ]
       }
     },
@@ -111,11 +124,24 @@
         }
       ],
       "encounter": {
-        "rate": 6,
+        "rate": 8,
         "groups": [
-          "hornet",
-          "hornet+hornet",
-          "roadroller"
+          "dragon",
+          "roadroller",
+          "hornet+hornet+hornet",
+          "nail+nail",
+          "sea-urchin+sea-urchin+sea-urchin",
+          "icicle+icicle+icicle+icicle",
+          "broken-bottle+broken-bottle",
+          "broken-glass",
+          "hornet+roadroller",
+          "nail+broken-glass+broken-bottle",
+          "dragon+hornet+hornet",
+          "sea-urchin+icicle",
+          "roadroller+nail+sea-urchin+broken-glass",
+          "dragon+roadroller",
+          "hornet+nail+icicle+broken-bottle+sea-urchin",
+          "broken-glass+icicle+broken-bottle"
         ]
       }
     },
@@ -133,10 +159,24 @@
         }
       ],
       "encounter": {
-        "rate": 5,
+        "rate": 8,
         "groups": [
           "dragon",
-          "dragon+hornet"
+          "roadroller",
+          "hornet+hornet+hornet",
+          "nail+nail",
+          "sea-urchin+sea-urchin+sea-urchin",
+          "icicle+icicle+icicle+icicle",
+          "broken-bottle+broken-bottle",
+          "broken-glass",
+          "hornet+roadroller",
+          "nail+broken-glass+broken-bottle",
+          "dragon+hornet+hornet",
+          "sea-urchin+icicle",
+          "roadroller+nail+sea-urchin+broken-glass",
+          "dragon+roadroller",
+          "hornet+nail+icicle+broken-bottle+sea-urchin",
+          "broken-glass+icicle+broken-bottle"
         ]
       }
     },
@@ -162,10 +202,24 @@
         }
       ],
       "encounter": {
-        "rate": 7,
+        "rate": 8,
         "groups": [
+          "dragon",
           "roadroller",
-          "roadroller+hornet"
+          "hornet+hornet+hornet",
+          "nail+nail",
+          "sea-urchin+sea-urchin+sea-urchin",
+          "icicle+icicle+icicle+icicle",
+          "broken-bottle+broken-bottle",
+          "broken-glass",
+          "hornet+roadroller",
+          "nail+broken-glass+broken-bottle",
+          "dragon+hornet+hornet",
+          "sea-urchin+icicle",
+          "roadroller+nail+sea-urchin+broken-glass",
+          "dragon+roadroller",
+          "hornet+nail+icicle+broken-bottle+sea-urchin",
+          "broken-glass+icicle+broken-bottle"
         ]
       }
     },
@@ -191,11 +245,24 @@
         }
       ],
       "encounter": {
-        "rate": 6,
+        "rate": 8,
         "groups": [
-          "hornet",
-          "hornet+hornet",
-          "roadroller"
+          "dragon",
+          "roadroller",
+          "hornet+hornet+hornet",
+          "nail+nail",
+          "sea-urchin+sea-urchin+sea-urchin",
+          "icicle+icicle+icicle+icicle",
+          "broken-bottle+broken-bottle",
+          "broken-glass",
+          "hornet+roadroller",
+          "nail+broken-glass+broken-bottle",
+          "dragon+hornet+hornet",
+          "sea-urchin+icicle",
+          "roadroller+nail+sea-urchin+broken-glass",
+          "dragon+roadroller",
+          "hornet+nail+icicle+broken-bottle+sea-urchin",
+          "broken-glass+icicle+broken-bottle"
         ]
       }
     },
@@ -221,11 +288,24 @@
         }
       ],
       "encounter": {
-        "rate": 6,
+        "rate": 8,
         "groups": [
-          "hornet",
-          "hornet+hornet",
-          "roadroller"
+          "dragon",
+          "roadroller",
+          "hornet+hornet+hornet",
+          "nail+nail",
+          "sea-urchin+sea-urchin+sea-urchin",
+          "icicle+icicle+icicle+icicle",
+          "broken-bottle+broken-bottle",
+          "broken-glass",
+          "hornet+roadroller",
+          "nail+broken-glass+broken-bottle",
+          "dragon+hornet+hornet",
+          "sea-urchin+icicle",
+          "roadroller+nail+sea-urchin+broken-glass",
+          "dragon+roadroller",
+          "hornet+nail+icicle+broken-bottle+sea-urchin",
+          "broken-glass+icicle+broken-bottle"
         ]
       }
     },
@@ -332,7 +412,7 @@
   },
   "monsters": {
     "dragon": {
-      "name": "ドラゴン",
+      "name": "段ボールのドラゴン",
       "hp": 40,
       "atk": 9,
       "def": 4,
@@ -360,6 +440,56 @@
       "exp": 15,
       "gold": 20,
       "sprite": "http://localhost:8765/assets/enemies/roadroller.png"
+    },
+    "nail": {
+      "name": "釘",
+      "hp": 12,
+      "atk": 6,
+      "def": 3,
+      "agi": 5,
+      "exp": 5,
+      "gold": 6,
+      "sprite": "http://localhost:8765/assets/enemies/nail.png"
+    },
+    "broken-glass": {
+      "name": "割れたガラス",
+      "hp": 14,
+      "atk": 6,
+      "def": 2,
+      "agi": 6,
+      "exp": 6,
+      "gold": 8,
+      "sprite": "http://localhost:8765/assets/enemies/broken-glass.png"
+    },
+    "sea-urchin": {
+      "name": "ウニ",
+      "hp": 16,
+      "atk": 5,
+      "def": 5,
+      "agi": 3,
+      "exp": 7,
+      "gold": 9,
+      "sprite": "http://localhost:8765/assets/enemies/sea-urchin.png"
+    },
+    "icicle": {
+      "name": "氷柱",
+      "hp": 15,
+      "atk": 7,
+      "def": 3,
+      "agi": 4,
+      "exp": 7,
+      "gold": 9,
+      "sprite": "http://localhost:8765/assets/enemies/icicle.png"
+    },
+    "broken-bottle": {
+      "name": "割れたビール瓶",
+      "hp": 13,
+      "atk": 6,
+      "def": 2,
+      "agi": 5,
+      "exp": 6,
+      "gold": 8,
+      "sprite": "http://localhost:8765/assets/enemies/broken-bottle.png"
     }
   },
   "party": [
@@ -406,6 +536,7 @@
     "layout": "side",
     "width": 800,
     "height": 450,
-    "background": "http://localhost:8765/sample/battle/backgrounds/bg-a.png"
+    "background": "http://localhost:8765/sample/battle/backgrounds/bg-a.png",
+    "spriteStyle": "acrylic"
   }
 }

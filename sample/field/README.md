@@ -10,3 +10,11 @@
 | `teramachi-wide-road.png` | 広い道路 |
 | `teramachi-narrow-lane.png` | 寺の土塀にはさまれた狭い道と用水 |
 | `teramachi-connector.png` | 狭い道と広い道路の角、用水の石橋 |
+
+## 寺町の歩行サンプルに全ての敵を出す実験（Issue #31）
+
+`teramachi-diorama-standing.field.json` / `teramachi-diorama-wheelchair.field.json` は、エンカウントのあるシーン（連絡路・日の見の曲がり・狭い道・広い道・井戸の合流・銭湯）で、生成済みの敵8体（スズメバチ・ロードローラー・釘・割れたガラス・ウニ・氷柱・割れたビール瓶・段ボールのドラゴン）を共通の16群から均等抽選で出す。
+
+- **実験用であり正本ではない。** 能力値・出現率（1/8）・群の構成はすべて仮。台帳 `docs/monsters.md` の「出る場所」は変えていない。
+- 戦闘は `side` ＋ `acrylic`。敵の絵は `assets/enemies/` と `sample/battle/enemy-dragon.png`。
+- 群は単独・同種2〜4体・異種の混成（最大5体）を混ぜた16通り。
