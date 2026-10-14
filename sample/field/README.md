@@ -28,5 +28,9 @@
 | `korinbo-crossroads-diorama.png` | 香林坊。店が連なる十字路と、地下へ下りる入口 |
 | `uchinada-dune-station-diorama.png` | 内灘。砂丘と海、浅野川鉄道の小駅と朽ちた車両、横の道と踏切 |
 | `korimon-station-plaza-diorama.png` | 金沢駅の鼓門前。左右対称の広い広場 |
-| `utatsuyama-sunnyland-diorama.png` | 卯辰山のサニーランド跡。斜めの山道と廃遊具 |
+| `utatsuyama-sunnyland-diorama.png` | 卯辰山のサニーランド跡。斜めのうねる山道と廃遊具（うねる山道は正解。kako-jun 2026-10-14） |
 | `chaya-lane-diorama.png` | 茶屋街。用水沿いのL字の石畳 |
+
+### -v2（採否待ち。再生成は kako-jun の指示があった場合だけ）
+
+`utatsuyama-sunnyland-v2.png` は、卯辰山の道を広い帯にした別案だが、うねる道が正解のため参考扱い。`chaya-lane-v2.png`（桜らしい木を除いた版）と `korimon-station-plaza-v2.png`（鼓門を実物から離した版）は、元の版と並べて kako-jun が選ぶ。元の版（`-diorama.png`）はそのまま残している。
