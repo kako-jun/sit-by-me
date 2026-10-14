@@ -31,3 +31,20 @@ uv run --with pillow --with numpy --with scipy python3 -I assets/characters/tool
 ```
 
 ペー子の `down` は今回もグリッドで倒れなかったので、`raw/peiko-down.png` を同じく園服に編集した `raw/peiko-uniform-down.png` を、緑キーで透過・タイトに切り抜いて `peiko-uniform-down.png` を差し替えた。
+
+## フィールドの歩き（幼稚園期・スノーボードウェア）
+
+`key_walk.py`: 4行×3列の歩きグリッド（クロマキー背景）を透過にし、12コマを同じ大きさの枠へ足元そろえで切り出す。絵がセル境界をまたぐので、`key_grid.py` と同じく全体でかたまりを見つけて重心でコマへ振り分ける。生成では2行目と3行目の向きが入れ替わることがあるので、行の向きを引数で指定する（顔を拡大して確かめる）。出力は `walk/{name}-walk-{down,left,right,up}-{1,2,3}.png`。
+
+```
+uv run --with pillow --with numpy --with scipy python3 -I assets/characters/tools/key_walk.py \
+  assets/characters/poses/raw/otton-walk-grid.png assets/characters/walk otton green down,right,left,up
+uv run --with pillow --with numpy --with scipy python3 -I assets/characters/tools/key_walk.py \
+  assets/characters/poses/raw/nam-walk-grid.png assets/characters/walk nam green down,right,left,up
+uv run --with pillow --with numpy --with scipy python3 -I assets/characters/tools/key_walk.py \
+  assets/characters/poses/raw/shah-walk-grid.png assets/characters/walk shah magenta down,left,right,up
+uv run --with pillow --with numpy --with scipy python3 -I assets/characters/tools/key_walk.py \
+  assets/characters/poses/raw/peiko-walk-grid.png assets/characters/walk peiko green down,right,left,up
+```
+
+コマ数（4方向×3コマ）と枠の大きさは仮。name-name にフィールド移動のモードができたら、その仕様に合わせる。
