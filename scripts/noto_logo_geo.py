@@ -1,6 +1,7 @@
 """石川県の行政区域(国土数値情報 N03-20230101)から能登半島の輪郭シルエットを描く。
 輪郭は座標変換(Web メルカトル)以外一切加工しない。能登島のポリゴンだけを除く。
-usage: uv run --with shapely python3 -I scripts/noto_logo_geo.py <N03 geojson> <outdir>
+タイトル文字は Cinzel Bold(SIL OFL 1.1, scripts/fonts/) をアウトライン化し、縦に引き伸ばして能登島の外接矩形内に収める。
+usage: uv run --with shapely --with fonttools python3 -I scripts/noto_logo_geo.py <N03 geojson> <outdir>
 出典: 国土交通省 国土数値情報 行政区域データ N03-20230101 石川県 (CC BY 4.0 相当、出典表示)
 """
 import json, math, sys
@@ -40,6 +41,35 @@ def project(g, bounds, W):
         parts.append(ring(pg.exterior) + "".join(ring(i) for i in pg.interiors))
     return " ".join(parts), W, H, p
 
+def title_paths(box_px, lines=("SIT", "BY", "ME"), xs=0.62, track=0.18, fill=1.04):
+    from fontTools.ttLib import TTFont
+    from fontTools.varLib import instancer
+    from fontTools.pens.svgPathPen import SVGPathPen
+    from fontTools.pens.transformPen import TransformPen
+    import os
+    f = instancer.instantiateVariableFont(TTFont(os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts", "Cinzel[wght].ttf")), {"wght": 700})
+    gs, cmap, upm = f.getGlyphSet(), f.getBestCmap(), f["head"].unitsPerEm
+    cap = f["OS/2"].sCapHeight
+    bx0, by0, bx1, by1 = box_px
+    W, H = bx1 - bx0, by1 - by0
+    lh = H / len(lines)
+    ch = lh * fill * 0.86              # 文字(キャップ)高さ
+    sy = ch / cap
+    sx = sy * xs
+    out = []
+    for i, ln in enumerate(lines):
+        adv = [gs[cmap[ord(c)]].width for c in ln]
+        tw = sum(adv) * sx + track * ch * (len(ln) - 1)
+        x = bx0 + (W - tw) / 2
+        base = by0 + lh * i + (lh - ch) / 2 + ch
+        for c, a in zip(ln, adv):
+            pen = SVGPathPen(gs)
+            gs[cmap[ord(c)]].draw(TransformPen(pen, (sx, 0, 0, -sy, x, base)))
+            out.append(pen.getCommands())
+            x += a * sx + track * ch
+    print("title box", W, H, "line h", ch, "text w max", tw)
+    return " ".join(out)
+
 def build(name, bounds, W, eyes):
     clip = land.intersection(box(*bounds))
     d, W, H, p = project(clip, bounds, W)
@@ -48,6 +78,11 @@ def build(name, bounds, W, eyes):
     for lon, lat, r in eyes:
         cx, cy = p(lon, lat)
         ex += f'<g transform="translate({cx:.1f},{cy:.1f}) rotate(-20)"><path d="M{-r},0 Q0,{-r*0.9} {r*1.3},{r*0.15} Q0,{r*0.5} {-r},0Z" fill="#e8eef5"/><ellipse cx="{r*0.2}" cy="{-r*0.05}" rx="{r*0.22}" ry="{r*0.4}" fill="#14213d"/></g>'
+    ib = island[0].bounds
+    a = p(ib[0], ib[3]); b = p(ib[2], ib[1])
+    tp = title_paths((a[0], a[1], b[0], b[1]))
+    ex += (f'<path d="{tp}" fill="#14213d" stroke="#14213d" stroke-width="7" stroke-linejoin="round"/>'
+           f'<path d="{tp}" fill="#e8eef5"/>')
     svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W:.0f} {H:.0f}" width="{W:.0f}" height="{H:.0f}">'
            f'<path d="{d}" fill="#14213d" fill-rule="evenodd" stroke="#e8eef5" stroke-width="3" stroke-linejoin="round"/>{ex}</svg>')
     open(f"{out}/{name}.svg", "w").write(svg)
