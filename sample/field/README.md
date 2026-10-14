@@ -18,3 +18,15 @@
 - **実験用であり正本ではない。** 能力値・出現率（1/8）・群の構成はすべて仮。台帳 `docs/monsters.md` の「出る場所」は変えていない。
 - 戦闘は `side` ＋ `acrylic`。敵の絵は `assets/enemies/` と `sample/battle/enemy-dragon.png`。
 - 群は単独・同種2〜4体・異種の混成（最大5体）を混ぜた16通り。
+
+## ジオラマ風の試作（寺町以外・2026-10-14〜15）
+
+`diorama-trial/` に、docs に仕様がある場所の背景を未採否で置いている（歩行マスクは未作成）。
+
+| ファイル | 場所・個性 |
+|---|---|
+| `korinbo-crossroads-diorama.png` | 香林坊。店が連なる十字路と、地下へ下りる入口 |
+| `uchinada-dune-station-diorama.png` | 内灘。砂丘と海、浅野川鉄道の小駅と朽ちた車両、横の道と踏切 |
+| `korimon-station-plaza-diorama.png` | 金沢駅の鼓門前。左右対称の広い広場 |
+| `utatsuyama-sunnyland-diorama.png` | 卯辰山のサニーランド跡。斜めの山道と廃遊具 |
+| `chaya-lane-diorama.png` | 茶屋街。用水沿いのL字の石畳 |
