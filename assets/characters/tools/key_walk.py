@@ -1,6 +1,7 @@
 """4行x3列の歩きグリッドを透過にし、12コマを同じ大きさの枠へ足元そろえで切り出す。
-usage: key_walk.py grid.png outdir name alpha|green|magenta ROWS
+usage: key_walk.py grid.png outdir name alpha|green|magenta ROWS [flip_rows]
 ROWS は上の行から順に向きを4つ、カンマ区切りで（例: down,right,left,up）。生成では2行目と3行目の向きが入れ替わることがあるので、顔を拡大して確かめて指定する。
+flip_rows は左右反転する行の番号（0 始まり、カンマ区切り）。生成で左右どちらも同じ向きに出たとき、片方を反転して反対向きにする。
 出力: {name}-walk-{down,left,right,up}-{1,2,3}.png"""
 import sys, os
 import numpy as np
@@ -8,6 +9,7 @@ from PIL import Image
 
 src, outdir, name, key, rows = sys.argv[1:6]
 rows = rows.split(',')
+flip_rows = set(int(x) for x in sys.argv[6].split(',')) if len(sys.argv) > 6 and sys.argv[6] else set()
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import keying
 out, alpha = keying.load(src, key)
@@ -31,6 +33,9 @@ fh = max(f.shape[0] for f in frames.values())
 os.makedirs(outdir, exist_ok=True)
 for (ri, ci), f in frames.items():
     canvas = Image.new('RGBA', (fw, fh), (0, 0, 0, 0))
-    canvas.paste(Image.fromarray(f), ((fw - f.shape[1]) // 2, fh - f.shape[0]))
+    img = Image.fromarray(f)
+    if ri in flip_rows:
+        img = img.transpose(Image.FLIP_LEFT_RIGHT)
+    canvas.paste(img, ((fw - f.shape[1]) // 2, fh - f.shape[0]))
     canvas.save(os.path.join(outdir, f'{name}-walk-{rows[ri]}-{ci + 1}.png'))
 print('ok', name, fw, fh)

@@ -76,3 +76,15 @@ $T/key_walk.py assets/characters/poses/raw/{name}-elementary-walk-grid.png asset
 ## 振り分けの方式（keying.split）
 
 透過生成の光は薄く広がって隣のコマとつながるので、かたまり単位でなく画素単位で振り分ける。体は濃い部分（alpha>0.5）のかたまりのうち重心のあるコマで最大のもの。残りの見える画素は、いちばん近い体へ付ける。足元より下に丸ごと離れて浮いた小さな塊（光の粒）は捨てる（付くと切り抜きの下端が足でなくなり、台座から浮く）。2026-10-14 にこの方式へ変えたとき、幼稚園期の切り出しも出し直した（差は縁の薄い画素と、足元の下の光の粒が取れたことだけ）。
+
+## 車椅子の主人公（小学生）
+
+`poses/raw/{otton,nam}-elementary-wheelchair-grid.png`（戦闘 3x3）と `-walk.png`（移動 4x3、ハンドリムをこぐ）は、`masters/{name}-elementary-wheelchair.png` と立ちポーズのグリッドを参照して、透過のまま生成した。車椅子は斜めから見た形で出るので、向きは**椅子の向き（前輪のキャスターが敵側＝左）**で判定する。戦闘グリッドはオトンの 3・7・9 番、ナムの 5 番が右向きだったので反転した。移動はオトンの 2 行目・3 行目がどちらも右向きだったため、3 行目を反転して左向きにしている。
+
+```
+T="uv run --with pillow --with numpy --with scipy python3 -I assets/characters/tools"
+$T/key_grid.py assets/characters/poses/raw/otton-elementary-wheelchair-grid.png assets/characters/poses otton-elementary-wheelchair alpha 2,6,8
+$T/key_grid.py assets/characters/poses/raw/nam-elementary-wheelchair-grid.png assets/characters/poses nam-elementary-wheelchair alpha 4
+$T/key_walk.py assets/characters/poses/raw/otton-elementary-wheelchair-walk.png assets/characters/walk otton-elementary-wheelchair alpha down,right,left,up 2
+$T/key_walk.py assets/characters/poses/raw/nam-elementary-wheelchair-walk.png assets/characters/walk nam-elementary-wheelchair alpha down,right,left,up
+```
