@@ -1,6 +1,6 @@
 ---
 name: sit-characters
-description: Sit by Me の人物（プレイヤー側キャラ）（オトン・ナム・シャー・ペー子）の素材を作る。マスター三面図、年齢段階、衣装差し替え、車椅子版、戦闘ポーズ（3x3）、フィールドの歩き（4方向x3コマ）を imagegen で作り、透過・切り出し・向きの確認・保存・記録まで再現可能に行う。敵・召喚獣・背景は sit-world
+description: Sit by Me の人物（オトン・ナム・シャー・ペー子と、子供3人など）の素材を作る。マスター三面図、年齢段階、衣装差し替え、車椅子版、戦闘ポーズ（3x3）、フィールドの歩き（4方向x3コマ）を imagegen で作り、透過・切り出し・向きの確認・保存・記録まで再現可能に行う。敵・召喚獣・背景は sit-world
 argument-hint: "中高生の戦闘ポーズ 4人 / オトンの壮年の車椅子版"
 allowed-tools: Read, Grep, Glob, Bash, Write, Edit, SendUserFile
 ---
