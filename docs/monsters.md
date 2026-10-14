@@ -87,7 +87,7 @@
 | M115 | ホラーDVD | 恐怖メディア | 未定 | 未定 | 未定 | 未定 | 仕様のみ（実在作品名・ロゴは使わない） | #12 |
 | M116 | 怪奇本 | 恐怖メディア | 未定 | 未定 | 未定 | 未定 | 仕様のみ | #12 |
 | M117 | 怪人・ひとさらい風の絵本キャラ | 恐怖メディア | 未定 | 未定 | 未定 | 未定 | 仕様のみ | #12 |
-| M118 | 笑い袋 | 恐怖メディア | 未定 | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/laughing-bag.png`（採否待ち。右向き・透過） | #12 |
+| M118 | 笑い袋 | 恐怖メディア | 未定 | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/laughing-bag.png`（採否待ち。赤い巾着袋・布面に笑った顔の絵・右向き三面・透過。旧版（唇の口）は却下（kako-jun 2026-10-15）） | #12 |
 | M119 | 指名手配風ポスター | 恐怖メディア | 未定 | 未定 | 未定 | 未定 | 仕様のみ（架空の図像。実在人物・氏名・事件は使わない） | #12 |
 | M120 | 誘拐を思わせる標識 | 恐怖メディア | 未定 | 未定 | 未定 | 未定 | 仕様のみ（同上） | #12 |
 | M121 | 分厚い百科事典・難解な勉強の本 | 知識の恐怖 | 未定 | 未定 | 未定 | 未定（ページがめくれるたびに難問・重みが増す） | 生成済み: `assets/enemies/encyclopedia.png`（採否待ち。背表紙を左・頁側を右・透過・文字なし） | #12 |
@@ -175,9 +175,13 @@
 | M101 | 1x1（普通） | `assets/enemies/roadroller.png` 640x393、縦横比 1.63 |
 | M102 | 2x1（横2倍） | `assets/enemies/drill.png` 640x271、縦横比 2.36 |
 | M103 | 2x1（横2倍） | `assets/enemies/gun.png` 640x197、縦横比 3.25 |
+| M104 | 1x1（普通） | `assets/enemies/reckless-bicycle.png` 640x418、縦横比 1.53 |
+| M106 | 2x1（横2倍） | `assets/enemies/loud-motorbike.png` 640x336、縦横比 1.90 |
 | M108 | 1x1（普通） | `assets/enemies/open-manhole.png` 640x377、縦横比 1.70 |
 | M109 | 1x1（普通） | `assets/enemies/night-branches.png` 640x468、縦横比 1.37 |
 | M110 | 1x2（縦2倍） | `assets/enemies/wall-stain.png` 323x640、縦横比 0.50 |
+| M118 | 1x1（普通） | `assets/enemies/laughing-bag.png` 532x640、縦横比 0.83 |
+| M121 | 1x1（普通） | `assets/enemies/encyclopedia.png` 465x640、縦横比 0.73 |
 | M122 | 1x2（縦2倍） | `assets/enemies/anatomical-model.png` 296x640、縦横比 0.46 |
 | M123 | 1x1（普通） | `assets/enemies/formalin-jar.png` 434x640、縦横比 0.68 |
 | M124 | 1x2（縦2倍） | `assets/enemies/skeleton-model.png` 234x640、縦横比 0.37 |
@@ -185,12 +189,16 @@
 | M126 | 2x1（横2倍） | `assets/enemies/dental-drill.png` 640x352、縦横比 1.82 |
 | M131 | 1x1（普通） | `assets/enemies/hornet.png` 640x636、縦横比 1.01 |
 | M132 | 1x1（普通） | `assets/enemies/pathogen.png` 640x462、縦横比 1.39 |
+| M133 | 1x1（普通） | `assets/enemies/poison-mushroom.png` 640x466、縦横比 1.37 |
 | M134 | 1x1（普通） | `assets/enemies/nail.png` 640x414、縦横比 1.55 |
 | M135 | 1x1（普通） | `assets/enemies/broken-glass.png` 640x421、縦横比 1.52 |
+| M136 | 1x1（普通） | `assets/enemies/wire-mesh.png` 640x458、縦横比 1.40 |
+| M137 | 1x1（普通） | `assets/enemies/barbed-wire.png` 640x359、縦横比 1.78 |
 | M138 | 1x1（普通） | `assets/enemies/icicle.png` 640x432、縦横比 1.48 |
 | M139 | 1x1（普通） | `assets/enemies/sea-urchin.png` 640x449、縦横比 1.43 |
 | M142 | 1x1（普通） | `assets/enemies/chandelier.png` 640x546、縦横比 1.17 |
 | M143 | 1x1（普通） | `assets/enemies/broken-window.png` 470x640、縦横比 0.73 |
+| M144 | 1x1（普通） | `assets/enemies/torn-shoji.png` 465x640、縦横比 0.73 |
 | M145 | 2x1（横2倍） | `assets/enemies/broken-bottle.png` 640x199、縦横比 3.22 |
 
 M001（段ボールのドラゴン）は「ボスか雑魚かの区分は未定」、M003（トクリュウの本物の竜）は役割の記述が無くボス明記の根拠が無いため載せていない。ボスと決まれば大型としてここに追加する。M127（イカ）は「大型ボス的」とあるが役割は未定のため、同様に載せていない。
