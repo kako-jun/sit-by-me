@@ -117,7 +117,7 @@
 | M145 | 割れた酒瓶（割れたビール瓶） | 崩壊・落下 | 未定 | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/broken-bottle.png`（口が割れた茶色いビール瓶・右向き・透過。2026-10-14生成、同日 kako-jun が採用） | #12 |
 | M146 | プロペラ | 回転する刃（風） | 未定 | 風 | 未定 | 未定 | 生成済み: `assets/enemies/propeller.png`（採否待ち。三枚羽根・透過） | art-direction.md、#26 |
 | M147 | 扇風機・換気扇の羽根 | 回転する刃（風） | 未定 | 風 | 未定 | 未定 | 生成済み: `assets/enemies/fan-blades.png`（採否待ち。右向き・透過） | 同上 |
-| M148 | 凍った水たまり | 凍った足元（氷） | 未定 | 氷 | 未定 | 未定 | 生成済み: `assets/enemies/frozen-puddle.png`（採否待ち。横長・透過）。別案 v2: `assets/enemies/frozen-puddle-v2.png`（採否待ち。ほぼ平面・白く曇った氷・ひびと気泡・縁に霜。v1 は盛り上がって凍った水たまりに見えにくいとの kako-jun 所見 2026-10-15） | 同上 |
+| M148 | 凍った水たまり | 凍った足元（氷） | 未定 | 氷 | 未定 | 未定 | 生成済み: `assets/enemies/frozen-puddle.png`（採否待ち。ほぼ平面・白く曇った氷・ひびと気泡・縁に霜。旧版は盛り上がって凍った水たまりに見えにくく不要とされ削除。kako-jun 2026-10-15） | 同上 |
 | M149 | 石油ストーブ | 火事の原因（火） | 未定 | 火 | 未定 | 未定 | 生成済み: `assets/enemies/kerosene-heater.png`（採否待ち。右向き・透過・火災は描かない） | 同上 |
 | M150 | ライター | 火事の原因（火） | 未定 | 火 | 未定 | 未定 | 生成済み: `assets/enemies/lighter.png`（採否待ち。炎が右上へ・透過・無人・ロゴなし） | 同上 |
 | M151 | 古いたこ足配線 | 火事の原因（火） | 未定 | 火 | 未定 | 未定 | 生成済み: `assets/enemies/octopus-wiring.png`（採否待ち。コードが右へ広がる・焦げた差込口・透過） | 同上 |
@@ -204,7 +204,7 @@
 | M145 | 2x1（横2倍） | `assets/enemies/broken-bottle.png` 640x199、縦横比 3.22 |
 | M146 | 1x1（普通） | `assets/enemies/propeller.png` 640x497、縦横比 1.29 |
 | M147 | 1x1（普通） | `assets/enemies/fan-blades.png` 640x621、縦横比 1.03 |
-| M148 | 2x1（横2倍） | `assets/enemies/frozen-puddle.png` 640x201、縦横比 3.18（v2 `frozen-puddle-v2.png` 640x323、縦横比 1.98 も 2x1） |
+| M148 | 2x1（横2倍） | `assets/enemies/frozen-puddle.png` 640x323、縦横比 1.98 |
 | M149 | 1x1（普通） | `assets/enemies/kerosene-heater.png` 640x589、縦横比 1.09 |
 | M150 | 1x1（普通） | `assets/enemies/lighter.png` 410x640、縦横比 0.64 |
 | M151 | 2x1（横2倍） | `assets/enemies/octopus-wiring.png` 640x337、縦横比 1.90 |
