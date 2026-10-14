@@ -52,6 +52,10 @@
 ### 作成済みのマスター（`assets/characters/masters/`）
 
 - `{otton,nam,shah,peiko}-kindergarten.png`: 幼稚園期・スノーボードウェアの三面図（正面・横・背面）。実写寄り。
+- `{otton,nam,shah,peiko}-kindergarten-uniform.png`: 幼稚園期・茶系の園服（お遊戯会の舞台用。鞄なし・上履き）。
+- `{otton,nam}-{elementary,teen,adult,midlife}.png`: 小学生・中高生・青年・壮年の三面図。
+- `{otton,nam}-{elementary,teen,adult,midlife}-wheelchair.png`: 事故後の主人公としての車椅子姿（膝掛けで脚を覆う）。
+- シャー・ペー子の小学生以降は案を選定中（Issue #3）。
 - AI の定番見た目だった旧テンプレ絵（成長シート・車椅子シート・方向確認サンプル）は 2026-10-14 に撤去した。
 
 ### 年齢段階と衣装
