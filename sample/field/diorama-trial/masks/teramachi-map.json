@@ -1,5 +1,15 @@
 {
- "note": "range は辺に沿った画素座標（left/right は y、top/bottom は x）。toRange と range は、座標の増える向きで相対位置を対応させる。to が null は行き止まり。つなぎ方の規則: 出た辺の反対の辺から入る／道の向き・幅・位置が合う。note に不一致を記したリンクは、生成の限界で残ったずれ。団地へ車椅子で通れる経路: sento.bottom → barrier-free-ramp → danchi-court。",
+ "note": "range は辺に沿った画素座標（left/right は y、top/bottom は x）。toRange と range は、座標の増える向きで相対位置を対応させる。to が null は行き止まり。variants: wheelchair は車椅子の時期（{名前}-mask.png）、standing は立てる時期（{名前}-standing-mask.png。slope-top と old-slope-foot の石段が白）。requires: \"standing\" のリンクは、立てる時期だけ通れる。requires が無いリンクは両方で通れる。つなぎ方の規則: 出た辺の反対の辺から入る／道の向き・幅・位置が合う。note に不一致を記したリンクは、生成の限界で残ったずれ。団地への車椅子の経路: sento.bottom → barrier-free-ramp → danchi-court。",
+ "variants": {
+  "wheelchair": {
+   "mask": "{name}-mask.png",
+   "note": "事故後の車椅子の主人公。石段は黒"
+  },
+  "standing": {
+   "mask": "{name}-standing-mask.png（無い絵は wheelchair と同じ）",
+   "note": "事故前の立てる主人公。古い石段は白"
+  }
+ },
  "links": [
   {
    "from": "connector",
@@ -129,17 +139,17 @@
    "to": "well-merge",
    "toEdge": "left",
    "toRange": [
-    410,
-    620
+    390,
+    585
    ],
-   "note": "横の道、幅一致"
+   "note": "横の道。幅 230 対 205"
   },
   {
    "from": "well-merge",
    "edge": "left",
    "range": [
-    410,
-    620
+    390,
+    585
    ],
    "to": "wide-road",
    "toEdge": "right",
@@ -147,14 +157,14 @@
     395,
     625
    ],
-   "note": "横の道、幅一致"
+   "note": "横の道。幅 230 対 205"
   },
   {
    "from": "well-merge",
    "edge": "right",
    "range": [
-    555,
-    755
+    630,
+    735
    ],
    "to": "sento",
    "toEdge": "left",
@@ -162,7 +172,7 @@
     510,
     635
    ],
-   "note": "右下がり「\\」の道。幅 200 対 126 で、相手は細い。傾きは近いが位置が少し下にずれる（生成の限界）"
+   "note": "右下がりの道。位置が約 100px ずれる（生成の限界）"
   },
   {
    "from": "sento",
@@ -174,47 +184,47 @@
    "to": "well-merge",
    "toEdge": "right",
    "toRange": [
-    555,
-    755
+    630,
+    735
    ],
-   "note": "右下がり「\\」の道。幅 200 対 126 で、相手は細い。傾きは近いが位置が少し下にずれる（生成の限界）"
+   "note": "右下がりの道。位置が約 100px ずれる（生成の限界）"
   },
   {
    "from": "sento",
    "edge": "bottom",
    "range": [
-    1260,
-    1530
+    1100,
+    1450
    ],
    "to": "barrier-free-ramp",
    "toEdge": "top",
    "toRange": [
-    1260,
-    1530
+    1060,
+    1400
    ],
-   "note": "団地へ下る車椅子で通れる緩い坂。傾き不一致（銭湯側は右下がり「\\」、坂側は左下がり「/」）で、境で道が折れる。位置は一致"
+   "note": "団地へ下る車椅子で通れる緩い坂。位置は合うが、傾きが不一致（銭湯側は右下がり「\\」、坂側は左下がり「/」）で、境で道が折れる（生成の限界）"
   },
   {
    "from": "barrier-free-ramp",
    "edge": "top",
    "range": [
-    1260,
-    1530
+    1060,
+    1400
    ],
    "to": "sento",
    "toEdge": "bottom",
    "toRange": [
-    1260,
-    1530
+    1100,
+    1450
    ],
-   "note": "団地へ下る車椅子で通れる緩い坂。傾き不一致（銭湯側は右下がり「\\」、坂側は左下がり「/」）で、境で道が折れる。位置は一致"
+   "note": "団地へ下る車椅子で通れる緩い坂。位置は合うが、傾きが不一致（銭湯側は右下がり「\\」、坂側は左下がり「/」）で、境で道が折れる（生成の限界）"
   },
   {
    "from": "barrier-free-ramp",
    "edge": "bottom",
    "range": [
-    410,
-    550
+    420,
+    540
    ],
    "to": "danchi-court",
    "toEdge": "top",
@@ -222,7 +232,7 @@
     458,
     565
    ],
-   "note": "縦の道、幅 145 対 115"
+   "note": "縦の道。幅 120 対 108。団地の中庭の入口 x452-570 は、坂と階段の共通の入口"
   },
   {
    "from": "danchi-court",
@@ -234,10 +244,74 @@
    "to": "barrier-free-ramp",
    "toEdge": "bottom",
    "toRange": [
-    410,
-    550
+    420,
+    540
    ],
-   "note": "縦の道、幅 145 対 115"
+   "note": "縦の道。幅 120 対 108。団地の中庭の入口 x452-570 は、坂と階段の共通の入口"
+  },
+  {
+   "from": "slope-top",
+   "edge": "bottom",
+   "range": [
+    348,
+    520
+   ],
+   "to": "old-slope-foot",
+   "toEdge": "top",
+   "toRange": [
+    448,
+    598
+   ],
+   "requires": "standing",
+   "note": "古風な石段まじりの坂。立てる時期だけ通れる（車椅子の時期は石段が黒）。範囲は部分的に重なる"
+  },
+  {
+   "from": "old-slope-foot",
+   "edge": "top",
+   "range": [
+    448,
+    598
+   ],
+   "to": "slope-top",
+   "toEdge": "bottom",
+   "toRange": [
+    348,
+    520
+   ],
+   "requires": "standing",
+   "note": "古風な石段まじりの坂。立てる時期だけ通れる（車椅子の時期は石段が黒）。範囲は部分的に重なる"
+  },
+  {
+   "from": "old-slope-foot",
+   "edge": "bottom",
+   "range": [
+    448,
+    665
+   ],
+   "to": "danchi-court",
+   "toEdge": "top",
+   "toRange": [
+    458,
+    565
+   ],
+   "requires": "standing",
+   "note": "石段が団地の中庭の入口に降りる。団地側の道（舗装）は車椅子でも歩けるが、石段が立てる時期専用なので requires は standing。団地の上端から出るとき、requires なしは坂、standing は階段。2つの行き先があり、立てる時期はゲームが『坂か階段か』を選ばせる"
+  },
+  {
+   "from": "danchi-court",
+   "edge": "top",
+   "range": [
+    458,
+    565
+   ],
+   "to": "old-slope-foot",
+   "toEdge": "bottom",
+   "toRange": [
+    448,
+    665
+   ],
+   "requires": "standing",
+   "note": "石段が団地の中庭の入口に降りる。団地側の道（舗装）は車椅子でも歩けるが、石段が立てる時期専用なので requires は standing。団地の上端から出るとき、requires なしは坂、standing は階段。2つの行き先があり、立てる時期はゲームが『坂か階段か』を選ばせる"
   },
   {
    "from": "connector",
@@ -287,17 +361,7 @@
     258
    ],
    "to": null,
-   "note": "細い横の石畳。左端に同じ道がある絵が無い（生成した井戸の合流の絵には届かなかった）。行き止まり"
-  },
-  {
-   "from": "slope-top",
-   "edge": "bottom",
-   "range": [
-    332,
-    522
-   ],
-   "to": null,
-   "note": "団地へ下る古風な石段まじりの坂。車椅子では通れないので行き止まり（手を貸してもらうイベントで通る）"
+   "note": "細い横の石畳。井戸の合流の絵を再生成しても、左端に届かなかった。行き止まり（terrace-path が要る）"
   }
  ]
 }
