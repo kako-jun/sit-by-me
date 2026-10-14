@@ -8,7 +8,7 @@ from PIL import Image, ImageDraw
 
 HERE = Path(__file__).resolve().parent
 TRIAL = HERE.parent
-NAMES = ["wide-road", "connector", "narrow-lane", "kindergarten", "sento", "slope-top"]
+NAMES = ["wide-road", "connector", "narrow-lane", "kindergarten", "sento", "slope-top", "hinomi-bend", "well-merge", "barrier-free-ramp", "danchi-court"]
 
 def build(name):
     spec = json.loads((HERE / f"{name}.json").read_text(encoding="utf-8"))

@@ -1,5 +1,5 @@
 {
- "note": "range は辺に沿った画素座標（left/right は y、top/bottom は x）。toRange と range は座標の増える向きで相対位置を対応させる。to が null は行き止まり。つなぎ方の規則: 出た辺の反対の辺から入る（右→左、左→右、上→下、下→上）／つなぐ位置で道の向き・幅・位置が合う。合う相手の絵が無い端は行き止まりにして、teramachi-map-plan.json に『足りない絵』として載せる。",
+ "note": "range は辺に沿った画素座標（left/right は y、top/bottom は x）。toRange と range は、座標の増える向きで相対位置を対応させる。to が null は行き止まり。つなぎ方の規則: 出た辺の反対の辺から入る／道の向き・幅・位置が合う。note に不一致を記したリンクは、生成の限界で残ったずれ。団地へ車椅子で通れる経路: sento.bottom → barrier-free-ramp → danchi-court。",
  "links": [
   {
    "from": "connector",
@@ -30,34 +30,214 @@
    ]
   },
   {
-   "from": "wide-road",
-   "edge": "left",
-   "range": [
-    395,
-    625
-   ],
-   "to": null,
-   "note": "M1（連絡カーブ）が必要。plan 参照"
-  },
-  {
-   "from": "wide-road",
-   "edge": "right",
-   "range": [
-    395,
-    625
-   ],
-   "to": null,
-   "note": "M2（銭湯への辻）が必要。plan 参照"
-  },
-  {
    "from": "connector",
    "edge": "right",
    "range": [
     245,
     515
    ],
-   "to": null,
-   "note": "斜め（右上がり）の道。M1 が必要"
+   "to": "hinomi-bend",
+   "toEdge": "left",
+   "toRange": [
+    330,
+    535
+   ],
+   "note": "右上がり「/」の斜めの道が続く。幅 270 対 215"
+  },
+  {
+   "from": "hinomi-bend",
+   "edge": "left",
+   "range": [
+    330,
+    535
+   ],
+   "to": "connector",
+   "toEdge": "right",
+   "toRange": [
+    245,
+    515
+   ],
+   "note": "右上がり「/」の斜めの道が続く。幅 270 対 215"
+  },
+  {
+   "from": "hinomi-bend",
+   "edge": "right",
+   "range": [
+    390,
+    595
+   ],
+   "to": "wide-road",
+   "toEdge": "left",
+   "toRange": [
+    395,
+    625
+   ],
+   "note": "横の道。幅 205 対 230"
+  },
+  {
+   "from": "wide-road",
+   "edge": "left",
+   "range": [
+    395,
+    625
+   ],
+   "to": "hinomi-bend",
+   "toEdge": "right",
+   "toRange": [
+    390,
+    595
+   ],
+   "note": "横の道。幅 205 対 230"
+  },
+  {
+   "from": "hinomi-bend",
+   "edge": "bottom",
+   "range": [
+    842,
+    925
+   ],
+   "to": "narrow-lane",
+   "toEdge": "top",
+   "toRange": [
+    724,
+    822
+   ],
+   "note": "縦の路地。範囲の隙間 13px"
+  },
+  {
+   "from": "narrow-lane",
+   "edge": "top",
+   "range": [
+    724,
+    822
+   ],
+   "to": "hinomi-bend",
+   "toEdge": "bottom",
+   "toRange": [
+    842,
+    925
+   ],
+   "note": "縦の路地。範囲の隙間 13px"
+  },
+  {
+   "from": "wide-road",
+   "edge": "right",
+   "range": [
+    395,
+    625
+   ],
+   "to": "well-merge",
+   "toEdge": "left",
+   "toRange": [
+    410,
+    620
+   ],
+   "note": "横の道、幅一致"
+  },
+  {
+   "from": "well-merge",
+   "edge": "left",
+   "range": [
+    410,
+    620
+   ],
+   "to": "wide-road",
+   "toEdge": "right",
+   "toRange": [
+    395,
+    625
+   ],
+   "note": "横の道、幅一致"
+  },
+  {
+   "from": "well-merge",
+   "edge": "right",
+   "range": [
+    555,
+    755
+   ],
+   "to": "sento",
+   "toEdge": "left",
+   "toRange": [
+    510,
+    635
+   ],
+   "note": "右下がり「\\」の道。幅 200 対 126 で、相手は細い。傾きは近いが位置が少し下にずれる（生成の限界）"
+  },
+  {
+   "from": "sento",
+   "edge": "left",
+   "range": [
+    510,
+    635
+   ],
+   "to": "well-merge",
+   "toEdge": "right",
+   "toRange": [
+    555,
+    755
+   ],
+   "note": "右下がり「\\」の道。幅 200 対 126 で、相手は細い。傾きは近いが位置が少し下にずれる（生成の限界）"
+  },
+  {
+   "from": "sento",
+   "edge": "bottom",
+   "range": [
+    1260,
+    1530
+   ],
+   "to": "barrier-free-ramp",
+   "toEdge": "top",
+   "toRange": [
+    1260,
+    1530
+   ],
+   "note": "団地へ下る車椅子で通れる緩い坂。傾き不一致（銭湯側は右下がり「\\」、坂側は左下がり「/」）で、境で道が折れる。位置は一致"
+  },
+  {
+   "from": "barrier-free-ramp",
+   "edge": "top",
+   "range": [
+    1260,
+    1530
+   ],
+   "to": "sento",
+   "toEdge": "bottom",
+   "toRange": [
+    1260,
+    1530
+   ],
+   "note": "団地へ下る車椅子で通れる緩い坂。傾き不一致（銭湯側は右下がり「\\」、坂側は左下がり「/」）で、境で道が折れる。位置は一致"
+  },
+  {
+   "from": "barrier-free-ramp",
+   "edge": "bottom",
+   "range": [
+    410,
+    550
+   ],
+   "to": "danchi-court",
+   "toEdge": "top",
+   "toRange": [
+    458,
+    565
+   ],
+   "note": "縦の道、幅 145 対 115"
+  },
+  {
+   "from": "danchi-court",
+   "edge": "top",
+   "range": [
+    458,
+    565
+   ],
+   "to": "barrier-free-ramp",
+   "toEdge": "bottom",
+   "toRange": [
+    410,
+    550
+   ],
+   "note": "縦の道、幅 145 対 115"
   },
   {
    "from": "connector",
@@ -67,17 +247,7 @@
     488
    ],
    "to": null,
-   "note": "斜め（左下へ）の道。上端に同じ斜めの道がある絵が無い"
-  },
-  {
-   "from": "narrow-lane",
-   "edge": "top",
-   "range": [
-    724,
-    822
-   ],
-   "to": null,
-   "note": "M5（鍵の手の路地）が必要"
+   "note": "斜め（左下へ）。上端に同じ斜めの道がある絵が無い"
   },
   {
    "from": "narrow-lane",
@@ -87,7 +257,7 @@
     845
    ],
    "to": null,
-   "note": "下端に縦の道がある絵が無い"
+   "note": "行き止まり"
   },
   {
    "from": "kindergarten",
@@ -97,17 +267,7 @@
     1066
    ],
    "to": null,
-   "note": "M5 が必要（園庭の下の出口）"
-  },
-  {
-   "from": "sento",
-   "edge": "left",
-   "range": [
-    510,
-    635
-   ],
-   "to": null,
-   "note": "M2 が必要"
+   "note": "園庭の下の出口。行き止まり"
   },
   {
    "from": "sento",
@@ -117,17 +277,7 @@
     1020
    ],
    "to": null,
-   "note": "右下がりの斜めの道の続き。左端に同じ斜めの道がある絵が無い"
-  },
-  {
-   "from": "sento",
-   "edge": "bottom",
-   "range": [
-    945,
-    1530
-   ],
-   "to": null,
-   "note": "D1（団地）が必要"
+   "note": "斜めの道のもう一方の端。行き止まり"
   },
   {
    "from": "slope-top",
@@ -137,7 +287,7 @@
     258
    ],
    "to": null,
-   "note": "細い（約90）横の石畳の道。左端に同じ道がある絵が無い"
+   "note": "細い横の石畳。左端に同じ道がある絵が無い（生成した井戸の合流の絵には届かなかった）。行き止まり"
   },
   {
    "from": "slope-top",
@@ -147,7 +297,7 @@
     522
    ],
    "to": null,
-   "note": "D1（団地）が必要"
+   "note": "団地へ下る古風な石段まじりの坂。車椅子では通れないので行き止まり（手を貸してもらうイベントで通る）"
   }
  ]
 }
