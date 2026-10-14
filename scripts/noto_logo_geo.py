@@ -41,7 +41,7 @@ def project(g, bounds, W):
         parts.append(ring(pg.exterior) + "".join(ring(i) for i in pg.interiors))
     return " ".join(parts), W, H, p
 
-def title_paths(box_px, lines=("SIT", "BY", "ME"), xs=0.62, track=0.18, fill=1.04):
+def title_paths(box_px, lines=("SIT BY ME",), xs=None, track=0.07, fill=1.0):
     from fontTools.ttLib import TTFont
     from fontTools.varLib import instancer
     from fontTools.pens.svgPathPen import SVGPathPen
@@ -53,8 +53,16 @@ def title_paths(box_px, lines=("SIT", "BY", "ME"), xs=0.62, track=0.18, fill=1.0
     bx0, by0, bx1, by1 = box_px
     W, H = bx1 - bx0, by1 - by0
     lh = H / len(lines)
-    ch = lh * fill * 0.86              # 文字(キャップ)高さ
+    ch = lh * fill * 0.9              # 文字(キャップ)高さ
     sy = ch / cap
+    if xs is None:  # 1行。字幅比 XS を決め、矩形幅(能登島の外接矩形の96%)に収まる最大の高さを求める
+        XS = 0.5
+        adv0 = sum(gs[cmap[ord(c)]].width for c in lines[0])
+        Wt = W * 0.96
+        ch = min(ch, Wt * 0.95 / (adv0 / cap * XS + track * (len(lines[0]) - 1)))
+        sy = ch / cap
+        xs = XS
+        bx0 -= (Wt - W) / 2; W = Wt
     sx = sy * xs
     out = []
     for i, ln in enumerate(lines):
