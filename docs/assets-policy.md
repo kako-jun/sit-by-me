@@ -46,6 +46,7 @@
 - `{otton,nam}-{elementary,teen,adult,midlife}.png`: 小学生・中高生・青年・壮年の三面図。
 - `{otton,nam}-{elementary,teen,adult,midlife}-wheelchair.png`: 事故後の主人公としての車椅子姿（膝掛けで脚を覆う）。
 - `{shah,peiko}-{elementary,teen,adult}.png`: シャー・ペー子の小学生・中高生・青年。壮年編では2人とも離脱するので壮年版は作らない。
+- フィールドの歩きは、上下左右の4方向に加え、**斜め4方向（左上・右上・左下・右下）も作る**（2026-10-14 kako-jun。斜めに歩く道があるため）。斜めの左向きは、右向きの反転でよい。
 - フィールドの歩きは主人公（男＝オトン／女＝ナム）の分だけ作る（フィールドは先頭の主人公1人だけ表示。2026-10-14）。他の仲間の歩きは不要。
 - フィールドの歩き: 幼稚園期（スノーボードウェア）は `assets/characters/walk/{name}-walk-{dir}-{1,2,3}.png`、小学生は `{name}-elementary-walk-{dir}-{1,2,3}.png`。戦闘ポーズの小学生版は `poses/{name}-elementary-{pose}.png`。事故後の主人公（オトン/ナム）の車椅子版は `{name}-elementary-wheelchair-{pose}.png` と `{name}-elementary-wheelchair-walk-{dir}-{1,2,3}.png`。4方向×3コマは仮の仕様で、name-name のフィールド移動の仕様が決まったら合わせる。
 - AI の定番見た目だった旧テンプレ絵（成長シート・車椅子シート・方向確認サンプル）は 2026-10-14 に撤去した。
