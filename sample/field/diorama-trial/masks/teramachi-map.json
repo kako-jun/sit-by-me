@@ -1,96 +1,12 @@
 {
- "note": "range は辺に沿った画素座標（left/right は y、top/bottom は x）。toRange と range は、座標の増える向きで相対位置を対応させる。to が null は行き止まり（歩けるが抜けられない）。",
+ "note": "range は辺に沿った画素座標（left/right は y、top/bottom は x）。toRange と range は座標の増える向きで相対位置を対応させる。to が null は行き止まり。つなぎ方の規則: 出た辺の反対の辺から入る（右→左、左→右、上→下、下→上）／つなぐ位置で道の向き・幅・位置が合う。合う相手の絵が無い端は行き止まりにして、teramachi-map-plan.json に『足りない絵』として載せる。",
  "links": [
   {
-   "from": "slope-top",
-   "edge": "right",
-   "range": [
-    175,
-    258
-   ],
-   "to": "wide-road",
-   "toEdge": "left",
-   "toRange": [
-    395,
-    625
-   ]
-  },
-  {
-   "from": "wide-road",
-   "edge": "left",
-   "range": [
-    395,
-    625
-   ],
-   "to": "slope-top",
-   "toEdge": "right",
-   "toRange": [
-    175,
-    258
-   ]
-  },
-  {
-   "from": "wide-road",
-   "edge": "right",
-   "range": [
-    395,
-    625
-   ],
-   "to": "connector",
-   "toEdge": "right",
-   "toRange": [
-    245,
-    515
-   ]
-  },
-  {
-   "from": "connector",
-   "edge": "right",
-   "range": [
-    245,
-    515
-   ],
-   "to": "wide-road",
-   "toEdge": "right",
-   "toRange": [
-    395,
-    625
-   ]
-  },
-  {
    "from": "connector",
    "edge": "top",
    "range": [
     216,
     300
-   ],
-   "to": "narrow-lane",
-   "toEdge": "bottom",
-   "toRange": [
-    730,
-    845
-   ]
-  },
-  {
-   "from": "narrow-lane",
-   "edge": "bottom",
-   "range": [
-    730,
-    845
-   ],
-   "to": "connector",
-   "toEdge": "top",
-   "toRange": [
-    216,
-    300
-   ]
-  },
-  {
-   "from": "narrow-lane",
-   "edge": "top",
-   "range": [
-    724,
-    822
    ],
    "to": "kindergarten",
    "toEdge": "bottom",
@@ -106,12 +22,42 @@
     340,
     466
    ],
-   "to": "narrow-lane",
+   "to": "connector",
    "toEdge": "top",
    "toRange": [
-    724,
-    822
+    216,
+    300
    ]
+  },
+  {
+   "from": "wide-road",
+   "edge": "left",
+   "range": [
+    395,
+    625
+   ],
+   "to": null,
+   "note": "M1（連絡カーブ）が必要。plan 参照"
+  },
+  {
+   "from": "wide-road",
+   "edge": "right",
+   "range": [
+    395,
+    625
+   ],
+   "to": null,
+   "note": "M2（銭湯への辻）が必要。plan 参照"
+  },
+  {
+   "from": "connector",
+   "edge": "right",
+   "range": [
+    245,
+    515
+   ],
+   "to": null,
+   "note": "斜め（右上がり）の道。M1 が必要"
   },
   {
    "from": "connector",
@@ -120,36 +66,28 @@
     216,
     488
    ],
-   "to": "sento",
-   "toEdge": "left",
-   "toRange": [
-    510,
-    635
-   ]
+   "to": null,
+   "note": "斜め（左下へ）の道。上端に同じ斜めの道がある絵が無い"
   },
   {
-   "from": "sento",
-   "edge": "left",
+   "from": "narrow-lane",
+   "edge": "top",
    "range": [
-    510,
-    635
-   ],
-   "to": "connector",
-   "toEdge": "bottom",
-   "toRange": [
-    216,
-    488
-   ]
-  },
-  {
-   "from": "slope-top",
-   "edge": "bottom",
-   "range": [
-    332,
-    522
+    724,
+    822
    ],
    "to": null,
-   "note": "団地の方向へ下る石畳の坂。団地の絵はまだ無いので行き止まり"
+   "note": "M5（鍵の手の路地）が必要"
+  },
+  {
+   "from": "narrow-lane",
+   "edge": "bottom",
+   "range": [
+    730,
+    845
+   ],
+   "to": null,
+   "note": "下端に縦の道がある絵が無い"
   },
   {
    "from": "kindergarten",
@@ -159,7 +97,17 @@
     1066
    ],
    "to": null,
-   "note": "園庭の下の出口。行き止まり"
+   "note": "M5 が必要（園庭の下の出口）"
+  },
+  {
+   "from": "sento",
+   "edge": "left",
+   "range": [
+    510,
+    635
+   ],
+   "to": null,
+   "note": "M2 が必要"
   },
   {
    "from": "sento",
@@ -169,7 +117,37 @@
     1020
    ],
    "to": null,
-   "note": "斜めの道のもう一方の端。行き止まり"
+   "note": "右下がりの斜めの道の続き。左端に同じ斜めの道がある絵が無い"
+  },
+  {
+   "from": "sento",
+   "edge": "bottom",
+   "range": [
+    945,
+    1530
+   ],
+   "to": null,
+   "note": "D1（団地）が必要"
+  },
+  {
+   "from": "slope-top",
+   "edge": "right",
+   "range": [
+    175,
+    258
+   ],
+   "to": null,
+   "note": "細い（約90）横の石畳の道。左端に同じ道がある絵が無い"
+  },
+  {
+   "from": "slope-top",
+   "edge": "bottom",
+   "range": [
+    332,
+    522
+   ],
+   "to": null,
+   "note": "D1（団地）が必要"
   }
  ]
 }
