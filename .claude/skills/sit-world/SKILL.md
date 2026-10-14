@@ -80,7 +80,9 @@ reproduce it with things you have at home"; the look is approved, see
   show slightly). No vanishing point, no distant background, no sky. The path
   or road crosses the frame as a wide, clearly readable horizontal band, because
   the acrylic standee stands on it and its size must not conflict with depth.
-  No people, no text.
+  No people, no text. **Keep the diorama base board and the surrounding room
+  visible at the frame edges** (cardboard base, tabletop, room beyond): kako-jun
+  says this is what makes it stop looking AI-made, so do not crop it away.
 - **Materials to name in the prompt**: snow = real cotton (fibres visible);
   trees = sponge / yarn / dried-flower clumps, coloured, clearly simplified like
   model-railway trees; buildings = cardboard / corrugated board / paper clay
