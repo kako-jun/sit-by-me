@@ -55,3 +55,4 @@
 | `utatsuyama-sunnyland-indoor-diorama.png` | サニーランド跡の屋内。円形のエントランスと白いシャチホコ |
 | `utatsuyama-sunnyland-aquarium-indoor-diorama.png` | サニーランド跡の屋内。水族館の水槽跡と動物園の檻 |
 | `utatsuyama-sunnyland-arcade-indoor-diorama.png` | サニーランド跡の屋内。ゲームセンターとござの和室 |
+| `chaya-tearoom-diorama.png` | 茶屋街の茶室の座敷（八畳、床の間、炉、障子、縁側、雪の坪庭、水屋）。docs/art-direction.md の茶屋街の調査に沿う |
