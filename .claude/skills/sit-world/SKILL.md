@@ -1,9 +1,9 @@
 ---
-name: sit-assets
-description: Create or organize Sit by Me enemy, summon, and map assets without duplicating existing work. Use for requests to generate or catalog these game assets; not for player-character pose sheets (use `sit-characters`).
+name: sit-world
+description: Create or organize Sit by Me world assets (enemies, summons, backgrounds and maps) without duplicating existing work. Use for requests to generate or catalog these game assets; not for the party characters' master sheets, poses or walk cycles (use `sit-characters`).
 ---
 
-# Sit Assets
+# Sit World
 
 Build assets for *Sit by Me* as an extension of its existing asset library, rather
 than as isolated image-generation requests.
