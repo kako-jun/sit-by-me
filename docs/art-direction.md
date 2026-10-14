@@ -143,7 +143,7 @@
 - 歴史: 内灘闘争（1950年代の米軍試射場）の専用線が砂丘方面へ延びたが、1957年の返還で廃止。粟ヶ崎遊園は旧浅野川電気鉄道の多角経営の一つ（出所: Wikipedia「北陸鉄道浅野川線」）。
 - docs の設計「朽ちたローカル車両」は kako-jun の記述を優先する。上の色・形は、現実の車両に寄せるための参考で、物語上の「魔列車」の演出（朽ちた姿）とは別に扱う。
 
-### 内灘駅の実際の姿と、`uchinada-station-v2-diorama.png` の違い（kako-jun の所見 2026-10-15）
+### 内灘駅の実際の姿と、破棄した旧版 `uchinada-station-v2` の違い（kako-jun の所見 2026-10-15。旧版は破棄して `uchinada-station-diorama.png` に作り直し）
 
 kako-jun の所見: v2 は「線路が直角に曲がっているのはおかしい」「内灘駅のデザインが違う」。再生成は指示待ち。参照写真（Commons: Uchinada-STA / Platform / Depot、MaedaAkihiko、CC BY-SA 4.0）との違い:
 
