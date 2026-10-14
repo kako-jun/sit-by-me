@@ -67,6 +67,47 @@ For insects and internal-bio enemies, preserve fear without turning toward
 revulsion. Do not propose cockroaches, rot, exposed organs, bodily fluids, or
 visible parasitism. Their silhouettes must remain readable at battle scale.
 
+## Diorama backgrounds (field)
+
+Since 2026-10-14 field backgrounds are **not photographic**. They must read as a
+hand-made miniature diorama built from everyday materials (kako-jun: "forcibly
+reproduce it with things you have at home"; the look is approved, see
+`sample/field/diorama-trial/teramachi-wide-road-diorama.png`). The four older
+`sample/field/teramachi-*.png` are photographic samples only.
+
+- **Composition**: no depth. Wide horizontally, shallow vertically, camera as
+  close to straight-down as possible (about 80-85 degrees; building sides may
+  show slightly). No vanishing point, no distant background, no sky. The path
+  or road crosses the frame as a wide, clearly readable horizontal band, because
+  the acrylic standee stands on it and its size must not conflict with depth.
+  No people, no text.
+- **Materials to name in the prompt**: snow = real cotton (fibres visible);
+  trees = sponge / yarn / dried-flower clumps, coloured, clearly simplified like
+  model-railway trees; buildings = cardboard / corrugated board / paper clay
+  (corrugated waves on roofs, finger and spatula marks on walls); walls and
+  stonework = paper clay or styrofoam with roughly painted stones; road = black
+  drawing paper or sandpaper with a thin clear varnish; water = blue cellophane
+  or clear resin; utility poles = chopsticks wrapped in coloured paper; snow
+  poles = toothpicks wrapped in red and white tape; small fixtures = beads or
+  buttons.
+- **Hand-made roughness to demand**: glue squeeze-out, thread lint, jagged
+  hand-cut paper edges, uneven paint, visible joints, a cardboard base showing
+  at the frame edge, plain indoor tabletop light, coarse grain.
+- **Process**: pass the existing photographic image as a reference for subject
+  and layout only, and say explicitly that photographic detail must not be
+  inherited. Generate **one** image and show it. Do not regenerate
+  automatically: kako-jun counts discarded generations as waste. Regenerate only
+  when kako-jun asks, and then strengthen the prompt as below. Save trials under
+  `sample/field/diorama-trial/` and a keeper under `sample/field/`.
+- **Known weak spots (strengthen only when asked)**: the road tends to keep a
+  wet-asphalt reflection (ask for black drawing paper with matte varnish);
+  walls and stonework come out too neat (ask for rough paper clay); paper edges
+  and glue squeeze-out stay too faint.
+- A walkable-area mask (white = walkable, black = not; wheelchair-accessible
+  floor only) is made per background after adoption, as in
+  `sample/field/masks/` (polygon JSON plus a script). New backgrounds need their
+  own mask.
+
 ## Generate and record
 
 - Use transparent-background generation by default. Store the generation
