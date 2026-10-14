@@ -40,3 +40,18 @@
 - 卯辰山のサニーランドは屋内施設で観覧車はない（docs/art-direction.md）。既存の `utatsuyama-sunnyland-diorama.png`（屋外の山道と廃遊具）は事実と違うが、うねる山道の屋外シーンとして残す。事実に沿った屋内の廃墟は `utatsuyama-sunnyland-*-indoor-diorama.png` として追加する。
 - 鼓門前は、現地調査の要点に沿った `korimon-station-plaza-v3-diorama.png` を追加（v1・v2 は採否待ちで残す）。
 - 背景は「場所のイメージ」で、地理・街並みの再現ではない。
+
+### 追加分の一覧（2026-10-15、すべて採否待ち）
+
+| ファイル | 内容 |
+|---|---|
+| `convenience-store-diorama.png` | コンビニ前（実在チェーンに似ない黄土色。横の道路） |
+| `temple-grounds-diorama.png` | 寺の境内（縦の参道、山門、本堂、鐘楼、地蔵） |
+| `schoolyard-diorama.png` | 小学校の校庭（L字の校舎） |
+| `hospital-exterior-diorama.png` | 私立病院の外観と駐車場（斜めの道） |
+| `abandoned-school-diorama.png` | 廃校（T字の道、廃墟探検） |
+| `uchinada-station-v2-diorama.png` | 内灘駅。調査に沿った版（住宅地の端の終着駅、銀とオレンジの電車、検車区、バス乗り場）。旧版 `uchinada-dune-station` は残す |
+| `korimon-station-plaza-v3-diorama.png` | 鼓門前。現地調査に沿った版（ガラスのドーム、緑青の屋根、雪吊り） |
+| `utatsuyama-sunnyland-indoor-diorama.png` | サニーランド跡の屋内。円形のエントランスと白いシャチホコ |
+| `utatsuyama-sunnyland-aquarium-indoor-diorama.png` | サニーランド跡の屋内。水族館の水槽跡と動物園の檻 |
+| `utatsuyama-sunnyland-arcade-indoor-diorama.png` | サニーランド跡の屋内。ゲームセンターとござの和室 |
