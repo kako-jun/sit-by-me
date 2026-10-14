@@ -34,3 +34,9 @@
 ### -v2（採否待ち。再生成は kako-jun の指示があった場合だけ）
 
 `utatsuyama-sunnyland-v2.png` は、卯辰山の道を広い帯にした別案だが、うねる道が正解のため参考扱い。`chaya-lane-v2.png`（桜らしい木を除いた版）と `korimon-station-plaza-v2.png`（鼓門を実物から離した版）は、元の版と並べて kako-jun が選ぶ。元の版（`-diorama.png`）はそのまま残している。
+
+### 事実に沿った追加（2026-10-15）
+
+- 卯辰山のサニーランドは屋内施設で観覧車はない（docs/art-direction.md）。既存の `utatsuyama-sunnyland-diorama.png`（屋外の山道と廃遊具）は事実と違うが、うねる山道の屋外シーンとして残す。事実に沿った屋内の廃墟は `utatsuyama-sunnyland-*-indoor-diorama.png` として追加する。
+- 鼓門前は、現地調査の要点に沿った `korimon-station-plaza-v3-diorama.png` を追加（v1・v2 は採否待ちで残す）。
+- 背景は「場所のイメージ」で、地理・街並みの再現ではない。
