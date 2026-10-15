@@ -92,5 +92,6 @@ Wikipedia の本文を取得して確認（写真の閲覧と色の確認は未�
 - 敵のサイズ区分は台帳（`docs/monsters.md` 3-7）の値: 大型ドリル・割れた酒瓶は 2x1、壁の染み・人体模型は 1x2。段ボールのドラゴンは、台帳（M001）では中ボスか雑魚かが未定でサイズ区分も無い。ここでは 2x2 の見え方を確かめるための仮置きで、台帳の値ではない。他は 1x1。
 - 群は 10 通り（出現率 1/3 に上げてある）。1 体だけ・大小の混成・`dragon@A1+icicle*2@E1`（ボスを奥、取り巻きを手前に配置指定）・`sea-urchin*1..6:2`（個数の幅と重み）など。
 - 収まらない群は読み込み時に無効化され、画面上部に赤字で一覧が出る（試すには群に `"icicle*13"` を足す。6x2 は 12 セルなので 13 体目が置けない。赤字はシーン遷移で消えるので、読み込み直後に見る）。
+- 戦闘の演出は FF 式（`battle.presentation: "ff"`・`battle.windowStyle: "ff-blue"`、name-name#883）。このサンプルで確認できる FF 式の演出は、攻撃で踏み出す・のけぞり・倒れる・ダメージ数字の跳ね・ff-blue の窓。技名の窓は呪文・アイテム・特技が要り、fieldSample は未対応（敵も通常攻撃のみ）なので出ない。この 2 キーはこの確認用ファイルだけに足してあり、`teramachi-diorama-standing.field.json` など既存のサンプルは従来どおり（ドラクエ式の窓）。#883 を含まない name-name ではこの 2 キーは無視される。
 - 開き方: このリポジトリのルートを CORS 付きで `http://localhost:8765` に配信する（設定 JSON の画像 URL が `http://localhost:8765/...` に固定されているため、ポートは 8765 にする）。例（リポジトリのルートで）: `npx http-server -p 8765 --cors`（`npx serve` なら `npx serve -l 8765 --cors`）。name-name 側は `field-sample.html?config=http://localhost:8765/sample/field/teramachi-diorama-standing-enemygrid.field.json` を開く。
 - 開始シーンは、エンカウントのある連絡路（connector）にしてある。「今すぐエンカウント（確認用）」でそのシーンの群から抽選される。

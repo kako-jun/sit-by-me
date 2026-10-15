@@ -537,6 +537,8 @@
     "height": 450,
     "background": "http://localhost:8765/sample/battle/backgrounds/bg-a.png",
     "spriteStyle": "acrylic",
-    "enemyGrid": "6x2"
+    "enemyGrid": "6x2",
+    "presentation": "ff",
+    "windowStyle": "ff-blue"
   }
 }
