@@ -103,7 +103,7 @@
 
 | From | To | 種別 | 主路・状態 |
 |---|---|---|---|
-| E01.bottom | E02.left | edge | 幼稚園正門から西へ折れる生活路。E02内で北行きへ曲がる。 |
+| E01.right | E02.left | edge | 幼稚園正門から東へ出る生活路。E02内で北行きへ曲がる。 |
 | E01.door-north | E11.door-kindergarten | door | 本堂脇の通用門 |
 | E02.right | E03.left | edge | 用水沿いの東行き |
 | E02.top | N2.bottom | edge | 寺町から北へ抜ける坂 |
@@ -171,9 +171,9 @@
 | F19.right | F21.left | edge | 右手の任意枝 |
 | F20.top | F22.bottom | edge | 左脚への枝 |
 | F21.top | F23.bottom | edge | 右脚への枝 |
-| F24.left | F25.right | edge | 胃への主路分岐 |
+| F24.right | F25.left | edge | 胃への主路分岐 |
 | F24.top | F26.bottom | edge | 心臓への直行路 |
-| F25.top | F26.left | edge | 胃から心臓へ戻る路 |
+| F25.bottom | F26.top | edge | 胃から心臓へ戻る路 |
 | F39.door-terminal | F40.door-security | door | K空港搭乗口 |
 | F40.door-gate | F27.door-arrival | door | 海外到着口（一方通行） |
 | F27.right | F28.left | edge | 凍結荒野A |
