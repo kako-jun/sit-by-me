@@ -34,7 +34,7 @@
 | E28 | legacy-needs-review | R004 | `diorama-trial/noto-railway-interior-v2-diorama.png`; mask未記録 | E21/E29door、車内通路とドア回転域を記録する |
 | E29 | legacy-needs-review | R004 | `diorama-trial/noto-takojima-station-diorama.png`; mask未記録 | N5端、終端線路のblocked域を記録する |
 | E30 | legacy-needs-review | R004 | `diorama-trial/noto-peko-house-seaside-v2-diorama.png`; mask未記録 | N7/E31端、家door、海側blocked域を記録する |
-| E31 | legacy-needs-review | R004 | `diorama-trial/noto-tetrapod-fishing-spot-diorama.png`; mask未記録 | 既存画像は海が上側で、正本の「能登の海は下側」と矛盾する。E30端・桟橋終端・海/テトラblocked域を確認し、回転ではなく再構図が必要か判定する |
+| E31 | legacy-needs-review | R004 | `diorama-trial/noto-tetrapod-fishing-spot-diorama.png`; mask未記録・採用禁止 | 既存画像は海が上側で、既定の「能登の海は下側」に違反する。回転での救済はしない。E30端・桟橋終端・海/テトラblocked域を満たす再構図版が必要 |
 | E32 | legacy-needs-review | R016 | `diorama-trial/abandoned-school-diorama.png`; mask未記録 | F18door、崩落棟blocked域と避難導線を記録する |
 | E33 | legacy-needs-review | R006,R011 | `diorama-trial/schoolyard-diorama.png`; mask未記録 | N10端、校門と校庭外周柵のblocked域を記録する |
 | N1 | blocked | R001,R002,R011 | 未生成・mask未作成 | E17/E14端、南北橋の型・欄干外blocked域をR001/R002と照合する |
