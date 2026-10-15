@@ -55,3 +55,4 @@
 | `utatsuyama-sunnyland-aquarium-indoor-diorama.png` | サニーランド跡の屋内。水族館の水槽跡と動物園の檻 |
 | `utatsuyama-sunnyland-arcade-indoor-diorama.png` | サニーランド跡の屋内。ゲームセンターとござの和室 |
 | `chaya-tearoom-diorama.png` | 茶屋街の茶室の座敷（八畳、床の間、炉、障子、縁側、雪の坪庭、水屋）。docs/art-direction.md の茶屋街の調査に沿う |
+| `korinbo-department-restaurant-diorama.png` | 香林坊のデパートのレストラン（屋内。序盤のワープ先）。窓一面の雪の街並み、L字の赤い絨毯の通路、食品サンプルのケース。高い天井と広い卓は巨大な親用 |
