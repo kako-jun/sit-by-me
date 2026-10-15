@@ -55,4 +55,5 @@
 | `utatsuyama-sunnyland-aquarium-indoor-diorama.png` | サニーランド跡の屋内。水族館の水槽跡と動物園の檻 |
 | `utatsuyama-sunnyland-arcade-indoor-diorama.png` | サニーランド跡の屋内。ゲームセンターとござの和室 |
 | `chaya-tearoom-diorama.png` | 茶屋街の茶室の座敷（八畳、床の間、炉、障子、縁側、雪の坪庭、水屋）。docs/art-direction.md の茶屋街の調査に沿う |
+| `noto-tetrapod-fishing-spot-diorama.png` | 能登の冬の海の釣り場（幼稚園の事故の舞台）。横の防波堤が右でL字に縦の桟橋へ曲がり、海側にテトラポッドの山。桟橋先に立入禁止の絵柄標識（赤丸斜線）と紅白テープ。釣り具・バケツ・クーラー、小さな漁港の船だまりと番小屋。荒れた灰青の海に波の花。人物・文字・事故描写なし。調べ: 国交省の七尾港立入禁止資料等で、標識のある防波堤・消波ブロックは立入禁止、消波ブロックは滑りやすく隙間に落ちると出られない。能登固有の漁港の資料は薄く、絵は一般的な漁港の形 |
 | `korinbo-department-restaurant-diorama.png` | 香林坊のデパートのレストラン（屋内。序盤のワープ先）。窓一面の雪の街並み、L字の赤い絨毯の通路、食品サンプルのケース。高い天井と広い卓は巨大な親用 |
