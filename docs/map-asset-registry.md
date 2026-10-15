@@ -1,0 +1,152 @@
+# フィールド画像台帳
+
+## 運用
+
+背景は**1画像1行**で管理する。生成前に各行へ、**一言特徴（この一枚は何の場所か）**、時期・景色（時代／場所／天候／生活の汚れ）・必須接続・禁止辺・通行不能物・車椅子の通行条件・任意枝の有無・**TBD**を埋める。TBD が1件でもあれば状態を `blocked` とし、生成しない。
+
+全画像の共通条件は、現代の K県、冬、手作りジオラマ、真上寄り、人物・文字なし。昭和から残る建物や設備は存在してよいが、時代設定を昭和に戻さない。汚れは雪国の日常（融雪水、砂、泥、塩の白残り、黒ずんだ木、錆）であり、廃墟でない場所を廃墟化しない。
+
+寺町では、[map-topology.md の「寺町の地形不変条件」](map-topology.md) が最優先である。河岸段丘の犀川側＝県営住宅、そこへは石段（立てる時期のみ）と車椅子用スロープ（生活経路）が別にある。段丘の反対側＝小学校で、長い通学坂は車椅子で通れる。この関係を壊すMAPは `blocked` とする。
+
+`ready` は全項目が記入済みかつ TBD=なし、`legacy` は既存画像で再生成・差し替えを禁止、`blocked` は個別契約またはTBDが残っている状態である。**「ただの道」「つなぎ」だけは一言特徴にならない**。道なら、交差点・橋・用水・寺の裏門・雪囲い・市場の角・坂の眺めなど、そこでしか成立しない主役を必ず持たせる。
+
+## 104行共通の画像契約
+
+全MAP行は、本文の略表に加えて次の契約を持つ。接続は `map-topology.md` の「MAP相互接続台帳 v2」、主役・時期・主路は `map-specifications.md` の同じID、参考は `map-reference-research.md` の同じIDまたは明示した共通Refを参照する。これらのどれかが無い行は `blocked` とする。
+
+| 必須欄 | 記録方法 |
+|---|---|
+| 状態・採否・出力 | `blocked` / `legacy-needs-review` / `ready`、背景・prompt・adoptionのパス |
+| 必須接続・禁止辺 | v2にある辺だけが必須。そこに無い外周辺は道路を出さない禁止辺 |
+| 通行不能物 | 水・建物・塀・柵・深雪・急段差・画面土台。MAP固有物は個別仕様に追記 |
+| 車椅子・任意枝 | `universal` / `assist` / `blocked` を `sit-field-mask` の編集PNGに記録。宝箱枝は必須接続と別で画面内終端 |
+| 景色・汚れ | 現代K県・冬・手作りジオラマを継承。屋外は融雪水、砂、泥、塩、黒ずみ、錆からMAPの地形に合うものだけ選ぶ。廃墟・被災後以外を荒廃させない |
+| 参考・TBD | Ref IDと、未解決なら「どの場所／何の資料／どの判定を得るか」を具体的に書く。`参照待ち`だけは無効 |
+| mask・red-team | traversal/foreground edit・runtime・review各パスと、敵対レビュー記録を追加してから `ready` を検討 |
+
+`legacy` は採用済みを意味しない。実パス・参考・マスク・red-teamが未記録のlegacyは `legacy-needs-review` として扱い、生成根拠にも接続根拠にも使わない。
+
+## 個別契約済み（生成できるのはこの表の `ready` のみ）
+
+N1〜N12 の詳細な接続契約は [map-specifications.md](map-specifications.md) と [map-topology.md](map-topology.md) にある。N4 は欠番である。ここでの `blocked` はトポロジー未決を意味しない。画像ごとの現地参照・既存画像端・歩行マスクを照合するまで生成を保留する状態である。
+
+| ID | 画像 | 状態 | 一言特徴 | 時期 | 必須接続 | TBD |
+|---|---|---|---|---|
+| N1 | `kanazawa-saigawa-bridge` | blocked | 雪と融雪水を抱えた犀川の鉄橋 | 幼稚園前半 | 茶屋街南岸 → 犀川橋 → 香林坊北岸 | 橋の実在形状・既存E14/E17端を参照してマスク照合 |
+| N2 | `teramachi-entry-slope` | blocked | 用水と黒瓦を見上げる寺町の坂 | 幼稚園前半 | コンビニ北 → 寺町connector南 | 既存E02/E19端を参照してマスク照合 |
+| N3 | `uchinada-pine-dune-path` | blocked | 風に鳴るクロマツ防砂林の木道 | 中学生後半 | 内灘駅 → 砂丘頂 → 砂浜 | 実在木道の幅・既存E26/E27端を参照してマスク照合 |
+| N5 | `noto-uphill` | blocked | 海を背にして上がる雪混じりの漁村坂 | 幼稚園後半 | 低地 → 尾根 | 被災前後の同一端をマスク照合 |
+| N6 | `noto-ridge` | blocked | 海を下に見下ろす小さな神社の尾根 | 幼稚園後半 | N5 → N7 | 被災前後の同一端をマスク照合 |
+| N7 | `noto-downhill` | blocked | 船揚げ場の屋根へ降りる急な集落坂 | 幼稚園後半 | 尾根 → 実家低地 | 被災前後の同一端をマスク照合 |
+| N8 | `utatsuyama-trailhead-slope` | blocked | 浅野川東岸の寺門と杉林の登り口 | 小学生前半 | 武蔵ヶ辻 → 浅野川橋 → 山中腹 | 東岸橋・既存E22端を参照してマスク照合 |
+| N9 | `hirosaka-slope` | blocked | 松と石垣の間で二手に分かれる広坂 | 壮年編 | 香林坊 → 兼六園／病院側 | 封鎖用柵の差分・既存E14/E20端を照合 |
+| N10 | `teramachi-school-slope` | blocked | 雪の手すりを伝う校門前の長い坂 | 中学生前半 | slope-top → 校門 | 既存E13/E33の校門位置をマスク照合 |
+| N11 | `musashigatsuji-crossing` | blocked | バス屋根と市場アーケードが交わる武蔵ヶ辻 | 幼稚園前半〜再訪 | 香林坊 → 金沢駅／浅野川橋側 | 既存E14/E21・N8端をマスク照合 |
+| N12 | `asanogawa-line-interior` | blocked | 結露した窓と赤い座席の浅野川線車内 | 中学生後半 | 金沢駅乗車 → 車内通路 → 内灘駅降車 | 実車扉幅と車椅子回転域を参照してマスク照合 |
+
+## 既存画像（再生成禁止・個別契約を逆算して追記する対象）
+
+| ID | 画像 | 地区 | 状態 |
+|---|---|---|---|
+| E01 | `teramachi-kindergarten-diorama` | 寺町 | legacy |
+| E02 | `teramachi-connector-shinshu-diorama` | 寺町 | legacy |
+| E03 | `teramachi-hinomi-bend-shinshu-diorama` | 寺町 | legacy |
+| E04 | `teramachi-wide-road-diorama` | 寺町 | legacy |
+| E05 | `teramachi-well-merge-diorama` | 寺町 | legacy |
+| E06 | `teramachi-sento-diorama` | 寺町 | legacy |
+| E07 | `teramachi-barrier-free-ramp-diorama` | 寺町 | legacy |
+| E08 | `teramachi-danchi-court-diorama` | 寺町 | legacy |
+| E09 | `teramachi-old-slope-foot-diorama` | 寺町 | legacy |
+| E10 | `teramachi-narrow-lane-diorama` | 寺町 | legacy |
+| E11 | `temple-grounds-shinshu-diorama` | 寺町 | legacy |
+| E12 | `temple-residence-interior-diorama` | 寺町 | legacy |
+| E13 | `teramachi-slope-top-diorama` | 寺町 | legacy |
+| E14 | `korinbo-crossroads-diorama` | 香林坊 | legacy |
+| E15 | `korinbo-daiwa-toy-floor-diorama` | 香林坊 | legacy |
+| E16 | `korinbo-department-restaurant-diorama-v2` | 香林坊 | legacy |
+| E17 | `chaya-lane-diorama` | 茶屋街 | legacy |
+| E18 | `chaya-tearoom-diorama` | 茶屋街 | legacy |
+| E19 | `convenience-store-diorama` | 戻り道 | legacy |
+| E20 | `hospital-exterior-diorama` | 病院 | legacy |
+| E21 | `korimon-station-plaza-v3-diorama` | 金沢駅 | legacy |
+| E22 | `utatsuyama-sunnyland-diorama` | 卯辰山 | legacy |
+| E23 | `utatsuyama-sunnyland-indoor-diorama` | サニーランド | legacy |
+| E24 | `utatsuyama-sunnyland-aquarium-indoor-diorama` | サニーランド | legacy |
+| E25 | `utatsuyama-sunnyland-arcade-indoor-diorama` | サニーランド | legacy |
+| E26 | `uchinada-station-diorama` | 内灘 | legacy |
+| E27 | `uchinada-beach-diorama` | 内灘 | legacy |
+| E28 | `noto-railway-interior-v2-diorama` | 能登（被災前） | legacy |
+| E29 | `noto-takojima-station-diorama` | 能登（被災前） | legacy |
+| E30 | `noto-peko-house-seaside-v2-diorama` | 能登（被災前） | legacy |
+| E31 | `noto-tetrapod-fishing-spot-diorama` | 能登（被災前） | legacy |
+| E32 | `abandoned-school-diorama` | 能登（被災後） | legacy |
+| E33 | `schoolyard-diorama` | 小学校 | legacy |
+
+旧版・不採用候補（`-v2` 以外の旧版、寺町の地蔵版、蛸島以外の小木駅版、駅前 v1/v2、サニーランド v2）は参照専用であり、マップの契約対象に数えない。
+
+## 個別仕様済みの将来枠（全て `blocked`：生成前の参照・マスク照合待ち）
+
+全行の一言特徴・方位・主路・通行条件は [map-specifications.md](map-specifications.md) に確定済み。下表の「未決のため必要な個別契約」は旧見出しであり、以降の各記述は参照・マスク照合項目として読む。
+
+| ID | 画像 | 地区 | 未決のため必要な個別契約 |
+|---|---|---|---|
+| F01 | `teramachi-main-hall-interior` | 寺町 | ドア接続・時期・室内通路 |
+| F02 | `teramachi-kindergarten-hall` | 寺町 | ドア接続・舞台と通路 |
+| F03 | `teramachi-danchi-interior` | 寺町 | ドア接続・車椅子動線 |
+| F04 | `utatsuyama-route-02` | 卯辰山 | 接続辺・中ボスまでの主経路 |
+| F05 | `utatsuyama-route-03` | 卯辰山 | 接続辺・中ボスまでの主経路 |
+| F06 | `utatsuyama-summon-clearing` | 卯辰山 | 接続辺・戦闘場の通行条件 |
+| F07 | `sunnyland-exterior-entry` | サニーランド | 崩落部と相方が押して通る経路 |
+| F08 | `sunnyland-hallway-01` | サニーランド | ドア接続・館内経路 |
+| F09 | `sunnyland-hallway-02` | サニーランド | ドア接続・館内経路 |
+| F10 | `sunnyland-service-room` | サニーランド | ドア接続・館内経路 |
+| F11 | `uchinada-dune-summit` | 内灘 | N3・砂浜との接続、車椅子経路 |
+| F12 | `noto-post-station` | 能登（被災後） | 被災前版との同一接続 |
+| F13 | `noto-post-uphill` | 能登（被災後） | N5との同一接続 |
+| F14 | `noto-post-ridge` | 能登（被災後） | N6との同一接続 |
+| F15 | `noto-post-downhill` | 能登（被災後） | N7との同一接続 |
+| F16 | `noto-post-house` | 能登（被災後） | 実家版との同一接続 |
+| F17 | `noto-post-fishing-spot` | 能登（被災後） | 釣り場版との同一接続 |
+| F18 | `noto-temporary-housing` | 能登（被災後） | 接続辺・生活動線 |
+| F19 | `body-mouth` | 体内 | 接続グラフ・安全な表現 |
+| F20 | `body-left-hand` | 体内 | 接続グラフ・安全な表現 |
+| F21 | `body-right-hand` | 体内 | 接続グラフ・安全な表現 |
+| F22 | `body-left-foot` | 体内 | 接続グラフ・安全な表現 |
+| F23 | `body-right-foot` | 体内 | 接続グラフ・安全な表現 |
+| F24 | `body-head` | 体内 | 接続グラフ・安全な表現 |
+| F25 | `body-stomach` | 体内 | 接続グラフ・安全な表現 |
+| F26 | `body-heart` | 体内 | 接続グラフ・安全な表現 |
+| F27 | `overseas-airport` | 海外 | 到着口・荒れ地への接続 |
+| F28 | `overseas-wasteland-a` | 海外 | 空港・荒れ地Bへの接続 |
+| F29 | `overseas-wasteland-b` | 海外 | 荒れ地A・都市への接続 |
+| F30 | `vertical-city-01` | 海外 | 地区・接続グラフ |
+| F31 | `vertical-city-02` | 海外 | 地区・接続グラフ |
+| F32 | `vertical-city-03` | 海外 | 地区・接続グラフ |
+| F33 | `vertical-city-04` | 海外 | 地区・接続グラフ |
+| F34 | `vertical-city-05` | 海外 | 地区・接続グラフ |
+| F35 | `vertical-city-06` | 海外 | 地区・接続グラフ |
+| F36 | `vertical-city-07` | 海外 | 地区・接続グラフ |
+| F37 | `vertical-city-08` | 海外 | 地区・接続グラフ |
+| F38 | `vertical-city-09` | 海外 | 地区・接続グラフ |
+| F39 | `k-airport-exterior` | K空港 | 広場・搭乗口への接続 |
+| F40 | `k-airport-interior` | K空港 | ドア接続・搭乗動線 |
+| F41 | `kenrokuen-01` | 兼六園 | 世界地図対応・接続グラフ |
+| F42 | `kenrokuen-02` | 兼六園 | 世界地図対応・接続グラフ |
+| F43 | `kenrokuen-03` | 兼六園 | 世界地図対応・接続グラフ |
+| F44 | `kenrokuen-04` | 兼六園 | 世界地図対応・接続グラフ |
+| F45 | `kenrokuen-05` | 兼六園 | 世界地図対応・接続グラフ |
+| F46 | `kenrokuen-06` | 兼六園 | 世界地図対応・接続グラフ |
+| F47 | `kenrokuen-07` | 兼六園 | 世界地図対応・接続グラフ |
+| F48 | `kenrokuen-08` | 兼六園 | 世界地図対応・接続グラフ |
+| F49 | `kenrokuen-09` | 兼六園 | 世界地図対応・接続グラフ |
+| F50 | `kenrokuen-10` | 兼六園 | 世界地図対応・接続グラフ |
+| F51 | `kanazawa-castle-01` | 金沢城 | ボス配置・接続グラフ |
+| F52 | `kanazawa-castle-02` | 金沢城 | ボス配置・接続グラフ |
+| F53 | `kanazawa-castle-03` | 金沢城 | ボス配置・接続グラフ |
+| F54 | `kanazawa-castle-04` | 金沢城 | ボス配置・接続グラフ |
+| F55 | `kanazawa-castle-05` | 金沢城 | ボス配置・接続グラフ |
+| F56 | `kanazawa-castle-06` | 金沢城 | ボス配置・接続グラフ |
+| F57 | `kanazawa-castle-07` | 金沢城 | ボス配置・接続グラフ |
+| F58 | `kanazawa-castle-08` | 金沢城 | ボス配置・接続グラフ |
+| F59 | `kanazawa-castle-09` | 金沢城 | ボス配置・接続グラフ |
+| F60 | `kanazawa-castle-10` | 金沢城 | ボス配置・接続グラフ |
