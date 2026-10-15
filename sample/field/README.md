@@ -50,6 +50,7 @@
 | `hospital-exterior-diorama.png` | 私立病院の外観と駐車場（斜めの道） |
 | `abandoned-school-diorama.png` | 廃校（T字の道、廃墟探検） |
 | `uchinada-station-diorama.png` | 内灘駅（作り直し。kako-jun 指示で旧版 uchinada-dune-station・uchinada-station-v2 は破棄）。住宅地の端の終着駅、実物に寄せた小さな白い駅舎、直線と緩い曲線の線路、銀とオレンジ帯の電車、検車区、バス乗り場 |
+| `uchinada-beach-diorama.png` | 内灘の砂浜・波打ち際（冬）。砂浜の手前のイベント、ペー子との会話、叫びの舞台。下から、枯れ草と砂止めの低い柵・板敷きの入口 → 風紋のある乾いた広い砂の帯 → 濡れ砂の暗い帯 → 白い綿の波頭が並ぶ荒い冬の海。海岸線は画面を水平に横切る。調査要点: 内灘砂丘は横列砂丘で海側が緩傾斜、冬の西風で砂が運ばれ、風紋が柔らかな曲線を描く。防砂林はクロマツ・ニセアカシア・ネムノキ（夏はハマナス）。冬1〜2月は荒れた日本海・風紋・足跡・貝殻。柵は文献で確認できず、一般的な砂防の簡易柵として表現。調査は文字情報のみで、実写真そのものは確認していない（出所: 内灘砂丘 Wikipedia、tabi-mag.jp/is0280、minnacamera spots/1768）。歩行マスクは未作成 |
 | `korimon-station-plaza-v3-diorama.png` | 鼓門前。現地調査に沿った版（ガラスのドーム、緑青の屋根、雪吊り） |
 | `utatsuyama-sunnyland-indoor-diorama.png` | サニーランド跡の屋内。円形のエントランスと白いシャチホコ |
 | `utatsuyama-sunnyland-aquarium-indoor-diorama.png` | サニーランド跡の屋内。水族館の水槽跡と動物園の檻 |
