@@ -1,0 +1,542 @@
+{
+  "startScene": "connector",
+  "start": {
+    "x": 258,
+    "y": 80
+  },
+  "speed": 220,
+  "edgeThreshold": 6,
+  "player": {
+    "sprites": {
+      "up": [
+        "http://localhost:8765/assets/characters/walk/nam-elementary-walk-up-1.png",
+        "http://localhost:8765/assets/characters/walk/nam-elementary-walk-up-2.png",
+        "http://localhost:8765/assets/characters/walk/nam-elementary-walk-up-3.png"
+      ],
+      "down": [
+        "http://localhost:8765/assets/characters/walk/nam-elementary-walk-down-1.png",
+        "http://localhost:8765/assets/characters/walk/nam-elementary-walk-down-2.png",
+        "http://localhost:8765/assets/characters/walk/nam-elementary-walk-down-3.png"
+      ],
+      "left": [
+        "http://localhost:8765/assets/characters/walk/nam-elementary-walk-left-1.png",
+        "http://localhost:8765/assets/characters/walk/nam-elementary-walk-left-2.png",
+        "http://localhost:8765/assets/characters/walk/nam-elementary-walk-left-3.png"
+      ],
+      "right": [
+        "http://localhost:8765/assets/characters/walk/nam-elementary-walk-right-1.png",
+        "http://localhost:8765/assets/characters/walk/nam-elementary-walk-right-2.png",
+        "http://localhost:8765/assets/characters/walk/nam-elementary-walk-right-3.png"
+      ]
+    },
+    "height": 90,
+    "frameMs": 140
+  },
+  "scenes": {
+    "kindergarten": {
+      "background": "http://localhost:8765/sample/field/diorama-trial/teramachi-kindergarten-diorama.png",
+      "mask": "http://localhost:8765/sample/field/diorama-trial/masks/kindergarten-mask.png",
+      "links": [
+        {
+          "edge": "bottom",
+          "range": [
+            340,
+            466
+          ],
+          "to": "connector"
+        }
+      ],
+      "encounter": {
+        "rate": 0,
+        "groups": []
+      }
+    },
+    "connector": {
+      "background": "http://localhost:8765/sample/field/diorama-trial/teramachi-connector-diorama.png",
+      "mask": "http://localhost:8765/sample/field/diorama-trial/masks/connector-mask.png",
+      "links": [
+        {
+          "edge": "top",
+          "range": [
+            216,
+            300
+          ],
+          "to": "kindergarten"
+        },
+        {
+          "edge": "right",
+          "range": [
+            245,
+            515
+          ],
+          "to": "hinomi-bend"
+        }
+      ],
+      "encounter": {
+        "rate": 3,
+        "groups": [
+          "icicle",
+          "icicle+nail+broken-glass",
+          "dragon",
+          "dragon@A1+icicle*2@E1",
+          "drill",
+          "drill+wall-stain+icicle",
+          "broken-bottle*2",
+          "wall-stain+anatomical-model+drill+broken-bottle+nail*1..3",
+          "sea-urchin*1..6:2",
+          "hornet*1..4+roadroller"
+        ]
+      }
+    },
+    "hinomi-bend": {
+      "background": "http://localhost:8765/sample/field/diorama-trial/teramachi-hinomi-bend-diorama.png",
+      "mask": "http://localhost:8765/sample/field/diorama-trial/masks/hinomi-bend-mask.png",
+      "links": [
+        {
+          "edge": "left",
+          "range": [
+            330,
+            535
+          ],
+          "to": "connector"
+        },
+        {
+          "edge": "right",
+          "range": [
+            390,
+            595
+          ],
+          "to": "wide-road"
+        },
+        {
+          "edge": "bottom",
+          "range": [
+            842,
+            925
+          ],
+          "to": "narrow-lane"
+        }
+      ],
+      "encounter": {
+        "rate": 3,
+        "groups": [
+          "icicle",
+          "icicle+nail+broken-glass",
+          "dragon",
+          "dragon@A1+icicle*2@E1",
+          "drill",
+          "drill+wall-stain+icicle",
+          "broken-bottle*2",
+          "wall-stain+anatomical-model+drill+broken-bottle+nail*1..3",
+          "sea-urchin*1..6:2",
+          "hornet*1..4+roadroller"
+        ]
+      }
+    },
+    "narrow-lane": {
+      "background": "http://localhost:8765/sample/field/diorama-trial/teramachi-narrow-lane-diorama.png",
+      "mask": "http://localhost:8765/sample/field/diorama-trial/masks/narrow-lane-mask.png",
+      "links": [
+        {
+          "edge": "top",
+          "range": [
+            724,
+            822
+          ],
+          "to": "hinomi-bend"
+        }
+      ],
+      "encounter": {
+        "rate": 3,
+        "groups": [
+          "icicle",
+          "icicle+nail+broken-glass",
+          "dragon",
+          "dragon@A1+icicle*2@E1",
+          "drill",
+          "drill+wall-stain+icicle",
+          "broken-bottle*2",
+          "wall-stain+anatomical-model+drill+broken-bottle+nail*1..3",
+          "sea-urchin*1..6:2",
+          "hornet*1..4+roadroller"
+        ]
+      }
+    },
+    "wide-road": {
+      "background": "http://localhost:8765/sample/field/diorama-trial/teramachi-wide-road-diorama.png",
+      "mask": "http://localhost:8765/sample/field/diorama-trial/masks/wide-road-mask.png",
+      "links": [
+        {
+          "edge": "left",
+          "range": [
+            395,
+            625
+          ],
+          "to": "hinomi-bend"
+        },
+        {
+          "edge": "right",
+          "range": [
+            395,
+            625
+          ],
+          "to": "well-merge"
+        }
+      ],
+      "encounter": {
+        "rate": 3,
+        "groups": [
+          "icicle",
+          "icicle+nail+broken-glass",
+          "dragon",
+          "dragon@A1+icicle*2@E1",
+          "drill",
+          "drill+wall-stain+icicle",
+          "broken-bottle*2",
+          "wall-stain+anatomical-model+drill+broken-bottle+nail*1..3",
+          "sea-urchin*1..6:2",
+          "hornet*1..4+roadroller"
+        ]
+      }
+    },
+    "well-merge": {
+      "background": "http://localhost:8765/sample/field/diorama-trial/teramachi-well-merge-diorama.png",
+      "mask": "http://localhost:8765/sample/field/diorama-trial/masks/well-merge-mask.png",
+      "links": [
+        {
+          "edge": "left",
+          "range": [
+            390,
+            585
+          ],
+          "to": "wide-road"
+        },
+        {
+          "edge": "right",
+          "range": [
+            630,
+            735
+          ],
+          "to": "sento"
+        }
+      ],
+      "encounter": {
+        "rate": 3,
+        "groups": [
+          "icicle",
+          "icicle+nail+broken-glass",
+          "dragon",
+          "dragon@A1+icicle*2@E1",
+          "drill",
+          "drill+wall-stain+icicle",
+          "broken-bottle*2",
+          "wall-stain+anatomical-model+drill+broken-bottle+nail*1..3",
+          "sea-urchin*1..6:2",
+          "hornet*1..4+roadroller"
+        ]
+      }
+    },
+    "sento": {
+      "background": "http://localhost:8765/sample/field/diorama-trial/teramachi-sento-diorama.png",
+      "mask": "http://localhost:8765/sample/field/diorama-trial/masks/sento-mask.png",
+      "links": [
+        {
+          "edge": "left",
+          "range": [
+            510,
+            635
+          ],
+          "to": "well-merge"
+        },
+        {
+          "edge": "bottom",
+          "range": [
+            1100,
+            1450
+          ],
+          "to": "barrier-free-ramp"
+        }
+      ],
+      "encounter": {
+        "rate": 3,
+        "groups": [
+          "icicle",
+          "icicle+nail+broken-glass",
+          "dragon",
+          "dragon@A1+icicle*2@E1",
+          "drill",
+          "drill+wall-stain+icicle",
+          "broken-bottle*2",
+          "wall-stain+anatomical-model+drill+broken-bottle+nail*1..3",
+          "sea-urchin*1..6:2",
+          "hornet*1..4+roadroller"
+        ]
+      }
+    },
+    "barrier-free-ramp": {
+      "background": "http://localhost:8765/sample/field/diorama-trial/teramachi-barrier-free-ramp-diorama.png",
+      "mask": "http://localhost:8765/sample/field/diorama-trial/masks/barrier-free-ramp-mask.png",
+      "links": [
+        {
+          "edge": "top",
+          "range": [
+            1060,
+            1400
+          ],
+          "to": "sento"
+        },
+        {
+          "edge": "bottom",
+          "range": [
+            420,
+            540
+          ],
+          "to": "danchi-court"
+        }
+      ],
+      "encounter": {
+        "rate": 0,
+        "groups": []
+      }
+    },
+    "danchi-court": {
+      "background": "http://localhost:8765/sample/field/diorama-trial/teramachi-danchi-court-diorama.png",
+      "mask": "http://localhost:8765/sample/field/diorama-trial/masks/danchi-court-mask.png",
+      "links": [
+        {
+          "edge": "top",
+          "range": [
+            458,
+            565
+          ],
+          "to": "barrier-free-ramp"
+        },
+        {
+          "edge": "top",
+          "range": [
+            458,
+            565
+          ],
+          "to": "old-slope-foot"
+        }
+      ],
+      "encounter": {
+        "rate": 0,
+        "groups": []
+      }
+    },
+    "slope-top": {
+      "background": "http://localhost:8765/sample/field/diorama-trial/teramachi-slope-top-diorama.png",
+      "mask": "http://localhost:8765/sample/field/diorama-trial/masks/slope-top-standing-mask.png",
+      "links": [
+        {
+          "edge": "bottom",
+          "range": [
+            348,
+            520
+          ],
+          "to": "old-slope-foot"
+        }
+      ],
+      "encounter": {
+        "rate": 0,
+        "groups": []
+      }
+    },
+    "old-slope-foot": {
+      "background": "http://localhost:8765/sample/field/diorama-trial/teramachi-old-slope-foot-diorama.png",
+      "mask": "http://localhost:8765/sample/field/diorama-trial/masks/old-slope-foot-standing-mask.png",
+      "links": [
+        {
+          "edge": "top",
+          "range": [
+            448,
+            598
+          ],
+          "to": "slope-top"
+        },
+        {
+          "edge": "bottom",
+          "range": [
+            448,
+            665
+          ],
+          "to": "danchi-court"
+        }
+      ],
+      "encounter": {
+        "rate": 0,
+        "groups": []
+      }
+    }
+  },
+  "encounter": {
+    "stepDistance": 80,
+    "minSteps": 3
+  },
+  "monsters": {
+    "dragon": {
+      "name": "段ボールのドラゴン",
+      "hp": 40,
+      "atk": 9,
+      "def": 4,
+      "agi": 5,
+      "exp": 20,
+      "gold": 30,
+      "sprite": "http://localhost:8765/sample/battle/enemy-dragon.png",
+      "size": "2x2"
+    },
+    "hornet": {
+      "name": "スズメバチ",
+      "hp": 18,
+      "atk": 7,
+      "def": 2,
+      "agi": 8,
+      "exp": 8,
+      "gold": 10,
+      "sprite": "http://localhost:8765/assets/enemies/hornet.png"
+    },
+    "roadroller": {
+      "name": "ロードローラー",
+      "hp": 30,
+      "atk": 8,
+      "def": 6,
+      "agi": 3,
+      "exp": 15,
+      "gold": 20,
+      "sprite": "http://localhost:8765/assets/enemies/roadroller.png"
+    },
+    "nail": {
+      "name": "釘",
+      "hp": 12,
+      "atk": 6,
+      "def": 3,
+      "agi": 5,
+      "exp": 5,
+      "gold": 6,
+      "sprite": "http://localhost:8765/assets/enemies/nail.png"
+    },
+    "broken-glass": {
+      "name": "割れたガラス",
+      "hp": 14,
+      "atk": 6,
+      "def": 2,
+      "agi": 6,
+      "exp": 6,
+      "gold": 8,
+      "sprite": "http://localhost:8765/assets/enemies/broken-glass.png"
+    },
+    "sea-urchin": {
+      "name": "ウニ",
+      "hp": 16,
+      "atk": 5,
+      "def": 5,
+      "agi": 3,
+      "exp": 7,
+      "gold": 9,
+      "sprite": "http://localhost:8765/assets/enemies/sea-urchin.png"
+    },
+    "icicle": {
+      "name": "氷柱",
+      "hp": 15,
+      "atk": 7,
+      "def": 3,
+      "agi": 4,
+      "exp": 7,
+      "gold": 9,
+      "sprite": "http://localhost:8765/assets/enemies/icicle.png"
+    },
+    "broken-bottle": {
+      "name": "割れたビール瓶",
+      "hp": 13,
+      "atk": 6,
+      "def": 2,
+      "agi": 5,
+      "exp": 6,
+      "gold": 8,
+      "sprite": "http://localhost:8765/assets/enemies/broken-bottle.png",
+      "size": "2x1"
+    },
+    "drill": {
+      "name": "大型ドリル",
+      "hp": 26,
+      "atk": 8,
+      "def": 5,
+      "agi": 3,
+      "exp": 14,
+      "gold": 18,
+      "sprite": "http://localhost:8765/assets/enemies/drill.png",
+      "size": "2x1"
+    },
+    "wall-stain": {
+      "name": "壁の染み",
+      "hp": 20,
+      "atk": 6,
+      "def": 4,
+      "agi": 2,
+      "exp": 9,
+      "gold": 10,
+      "sprite": "http://localhost:8765/assets/enemies/wall-stain.png",
+      "size": "1x2"
+    },
+    "anatomical-model": {
+      "name": "人体模型",
+      "hp": 24,
+      "atk": 7,
+      "def": 4,
+      "agi": 3,
+      "exp": 11,
+      "gold": 14,
+      "sprite": "http://localhost:8765/assets/enemies/anatomical-model.png",
+      "size": "1x2"
+    }
+  },
+  "party": [
+    {
+      "name": "ナム",
+      "hp": 40,
+      "mp": 10,
+      "atk": 10,
+      "def": 5,
+      "agi": 6,
+      "sprite": "http://localhost:8765/assets/characters/poses/nam-elementary-ready.png"
+    },
+    {
+      "name": "オトン",
+      "hp": 44,
+      "mp": 6,
+      "atk": 11,
+      "def": 6,
+      "agi": 7,
+      "sprite": "http://localhost:8765/assets/characters/poses/otton-elementary-ready.png"
+    },
+    {
+      "name": "シャー",
+      "hp": 46,
+      "mp": 4,
+      "atk": 12,
+      "def": 7,
+      "agi": 5,
+      "sprite": "http://localhost:8765/assets/characters/poses/shah-elementary-ready.png",
+      "row": "front"
+    },
+    {
+      "name": "ペー子",
+      "hp": 34,
+      "mp": 14,
+      "atk": 8,
+      "def": 4,
+      "agi": 8,
+      "sprite": "http://localhost:8765/assets/characters/poses/peiko-elementary-ready.png",
+      "row": "back"
+    }
+  ],
+  "battle": {
+    "layout": "side",
+    "width": 800,
+    "height": 450,
+    "background": "http://localhost:8765/sample/battle/backgrounds/bg-a.png",
+    "spriteStyle": "acrylic",
+    "enemyGrid": "6x2"
+  }
+}
