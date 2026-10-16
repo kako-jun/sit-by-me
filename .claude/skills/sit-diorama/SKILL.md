@@ -7,6 +7,14 @@ allowed-tools: Read, Grep, Glob, Bash, Write, Edit, SendUserFile
 
 Sit by Me のフィールド背景を、手作りのジオラマ（模型）に見える一枚絵として、生成 → 確認 → 保存 → 歩行マスクの順で作る。敵・召喚獣は `sit-world`、人物は `sit-characters`。このスキルは、**フィールドの背景だけ**。
 
+## 不変のキャンバス契約（2026-10-16、最優先）
+
+- 全フィールド背景、traversal/foreground edit、runtime mask、overlay、リンク座標は **1920×1080 px（16:9横長）** に固定する。例外はない。
+- 正方形・縦長・3:2・その他の寸法は、主役・配置・接続意図を読むための**参照画像**には使えるが、候補・mask・red-team・runtime入力には絶対に進めない。
+- 生成promptの先頭に `Canvas: exactly 1920×1080 pixels, 16:9 landscape. Never square, portrait, 3:2, cropped, or padded.` を逐語で入れる。出力を `file` で検査し、1920×1080以外なら保存・台帳登録・mask作成をせず、参照専用として隔離する。
+- 生成ごとに、完全prompt本文、入力参照画像のファイル名と役割、Ref ID、出力寸法、検査結果、採否を同じMAPの台帳へ記録する。これらが一つでも欠ければ `blocked`。
+- 実行時は16:9を等比`contain`表示する。端末比率に合わせたcrop、背景延長、可変world座標、縦長専用背景は作らない。自動回転は行わず、回転はUIの明示的な手動操作だけで扱う。
+
 先に `docs/content-registry.md` から対象の `MAP` ID を確定し、`docs/map-asset-registry.md` のその**1行だけ**の接続契約を読む。続けて `docs/map-topology.md` の**北上固定の大域配置**と、対象が寺町なら**寺町の地形不変条件**、`docs/art-direction.md`（背景の項）、`docs/assets-policy.md`、`docs/decisions.md`（2026-10-14 のジオラマの行）を読み、何がすでに決まっているかを確かめる。台帳の状態が `ready` でなければ生成しない。大域配置から導かれた方向と個別契約が食い違う場合も `blocked` に戻す。承認済みの見本は `sample/field/diorama-trial/teramachi-wide-road-diorama.png`。`sample/field/teramachi-*.png` の4枚は、実写寄りの試作サンプルで、ジオラマ風ではない。
 
 ## 目標の見た目（kako-jun 承認済み、2026-10-14）
@@ -72,9 +80,9 @@ Sit by Me のフィールド背景を、手作りのジオラマ（模型）に�
 
 1. プロンプトを、(a) `MAP` 行の**一言特徴（画面の主役）**、(b) 北上固定の大域配置から導く画像端の方角、(c) `MAP` 行の時期・場所・主経路・禁止辺・通行条件、(d) `art-direction.md`／`assets-policy.md` の共通方針、(e) このスキルの材料・構図規約、の順に組み立てる。「ただの道」だけのMAPは生成しない。台帳にない情報を補わない。既存の実写寄りの画像があれば、**題材と配置の参考としてだけ**参照画像に渡し、「写真の精密な質感・反射・木目を引き継がない」と明記する。
 2. `/image` スキル（Skill ツールで image）で生成する。gpt-image-2 を codex exec 経由で `$imagegen` を明示起動する（起動しないと偽造PNGを掴まされる）。
-3. **1枚だけ生成して、kako-jun に見せる。自動で再生成しない**（kako-jun は破棄が増えるのを無駄と考える）。見せるときに、接続契約の4点と、模型に見えるか・奥行きが浅いか・人物/文字なし・路面が広く読めるかを自己評価として添える。再生成は kako-jun が求めたときだけ、下の「弱点」を強めた指示で1回。
+3. **1枚だけ生成し、最初に `file` で1920×1080を機械検査する。** 不一致なら候補・台帳・mask工程に入れず、参照専用として隔離して終了する。一致した1枚だけを kako-jun に見せる。見せるときに接続契約の4点、寸法検査、模型性、浅い俯瞰、人物/文字なし、路面の読みやすさを添える。自動で再生成しない。
 4. 保存: 試作は `sample/field/diorama-trial/`、採用は `sample/field/` に。`git add` は名指し（`git add -A` 禁止）、Co-Authored-By を付けない。
-5. 採用後、その背景の**歩行マスク**を作る（背景ごとに必須）。方式は `docs/systems.md`「歩ける場所のマスク」と `.claude/skills/sit-field-mask/SKILL.md` に従う。`sample/field/masks/` の `make_masks.py` は、Photoshop編集用の塗りだけの `*-traversal-edit.png`（黒=誰も通れない、橙=立てる時期または相方の介助解禁後だけ、白=全員）を正本として、各実行時マスクを作る。前景の被さりは別の `*-foreground-edit.png` / `*-foreground-mask.png` にし、通行判定に混ぜない。JSONは背景・サイズ・リンクなどを記録し、初回用のポリゴン下書きは任意とする。端のリンク用に、道が画像の端に届く区間とその通行クラスを `links` に記す（土台の板の外側にはリンクを置けない）。
+5. 1920×1080検査済みの背景だけに**歩行マスク**を作る。背景・traversal/foreground edit・全runtime mask・overlayがすべて1920×1080であることを機械検査する。方式は `docs/systems.md`「歩ける場所のマスク」と `.claude/skills/sit-field-mask/SKILL.md` に従う。`sample/field/masks/` の `make_masks.py` は、Photoshop編集用の塗りだけの `*-traversal-edit.png`（黒=誰も通れない、橙=立てる時期または相方の介助解禁後だけ、白=全員）を正本として、各実行時マスクを作る。前景の被さりは別の `*-foreground-edit.png` / `*-foreground-mask.png` にし、通行判定に混ぜない。JSONは背景・サイズ・リンクなどを記録し、初回用のポリゴン下書きは任意とする。端のリンク用に、道が画像の端に届く区間とその通行クラスを `links` に記す（土台の板の外側にはリンクを置けない）。
 6. `*-mask-overlay.png` は輪郭入りの確認専用プレビューである。これを kako-jun に見せ、輪郭なし編集マップを直して `uv run --with pillow python3 sample/field/masks/make_masks.py` を再実行する。編集マップ自体に輪郭を描かない。JSONの初期下書きから意図して作り直す時だけ `--refresh-edit` を指定する。
 
 ## 弱点（kako-jun が求めたときだけ強める）

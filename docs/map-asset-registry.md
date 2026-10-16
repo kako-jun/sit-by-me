@@ -8,7 +8,7 @@
 
 寺町では、[map-topology.md の「寺町の地形不変条件」](map-topology.md) が最優先である。河岸段丘の犀川側＝県営住宅、そこへは石段（立てる時期のみ）と車椅子用スロープ（生活経路）が別にある。段丘の反対側＝小学校で、長い通学坂は車椅子で通れる。この関係を壊すMAPは `blocked` とする。
 
-`ready` は全項目が記入済みかつ TBD=なし、`legacy` は既存画像で再生成・差し替えを禁止、`blocked` は個別契約またはTBDが残っている状態である。**「ただの道」「つなぎ」だけは一言特徴にならない**。道なら、交差点・橋・用水・寺の裏門・雪囲い・市場の角・坂の眺めなど、そこでしか成立しない主役を必ず持たせる。
+`ready` は全項目が記入済みかつ TBD=なし、`legacy` は既存画像で再生成・差し替えを禁止、`blocked` は個別契約またはTBDが残っている状態である。寺町は2026-10-16の方針により、旧legacyを一枚も採用せず、E01–E13/F01–F03の新候補16枚を揃えて監査後に**一括**でruntimeへ差し替える。混在運用はしない。**「ただの道」「つなぎ」だけは一言特徴にならない**。道なら、交差点・橋・用水・寺の裏門・雪囲い・市場の角・坂の眺めなど、そこでしか成立しない主役を必ず持たせる。
 
 ## 104行共通の画像契約
 
@@ -48,19 +48,19 @@ N1〜N12 の詳細な接続契約は [map-specifications.md](map-specifications.
 
 | ID | 画像 | 地区 | 状態 |
 |---|---|---|---|
-| E01 | `teramachi-kindergarten-diorama` | 寺町 | legacy |
-| E02 | `teramachi-connector-shinshu-diorama` | 寺町 | legacy |
-| E03 | `teramachi-hinomi-bend-shinshu-diorama` | 寺町 | legacy |
-| E04 | `teramachi-wide-road-diorama` | 寺町 | legacy |
-| E05 | `teramachi-well-merge-diorama` | 寺町 | legacy |
-| E06 | `teramachi-sento-diorama` | 寺町 | legacy |
-| E07 | `teramachi-barrier-free-ramp-diorama` | 寺町 | legacy |
-| E08 | `teramachi-danchi-court-diorama` | 寺町 | legacy |
-| E09 | `teramachi-old-slope-foot-diorama` | 寺町 | legacy |
-| E10 | `teramachi-narrow-lane-diorama` | 寺町 | legacy |
-| E11 | `temple-grounds-shinshu-diorama` | 寺町 | legacy |
-| E12 | `temple-residence-interior-diorama` | 寺町 | legacy |
-| E13 | `teramachi-slope-top-diorama` | 寺町 | legacy |
+| E01 | `teramachi-kindergarten-diorama` | 寺町 | retired-replacement-required |
+| E02 | `teramachi-connector-shinshu-diorama` | 寺町 | retired-replacement-required |
+| E03 | `teramachi-hinomi-bend-shinshu-diorama` | 寺町 | retired-replacement-required |
+| E04 | `teramachi-wide-road-diorama` | 寺町 | retired-replacement-required |
+| E05 | `teramachi-well-merge-diorama` | 寺町 | retired-replacement-required |
+| E06 | `teramachi-sento-diorama` | 寺町 | retired-replacement-required |
+| E07 | `teramachi-barrier-free-ramp-diorama` | 寺町 | retired-replacement-required |
+| E08 | `teramachi-danchi-court-diorama` | 寺町 | retired-replacement-required |
+| E09 | `teramachi-old-slope-foot-diorama` | 寺町 | retired-replacement-required |
+| E10 | `teramachi-narrow-lane-diorama` | 寺町 | retired-replacement-required |
+| E11 | `temple-grounds-shinshu-diorama` | 寺町 | retired-replacement-required |
+| E12 | `temple-residence-interior-diorama` | 寺町 | retired-replacement-required |
+| E13 | `teramachi-slope-top-diorama` | 寺町 | retired-replacement-required |
 | E14 | `korinbo-crossroads-diorama` | 香林坊 | legacy |
 | E15 | `korinbo-daiwa-toy-floor-diorama` | 香林坊 | legacy |
 | E16 | `korinbo-department-restaurant-diorama-v2` | 香林坊 | legacy |
