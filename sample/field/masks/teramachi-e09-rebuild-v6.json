@@ -1,0 +1,16 @@
+{
+  "image": "rebuild/E09-teramachi-old-slope-foot-rebuild-v6-candidate.png",
+  "size": [1254, 1254],
+  "links": [
+    {"edge": "left", "range": [590, 690], "class": "assist", "target": "E08.right", "condition": "standing-or-companion-assist"},
+    {"edge": "top", "range": [590, 690], "class": "assist", "target": "E13.bottom", "condition": "standing-or-companion-assist"}
+  ],
+  "traversal": {
+    "universal": [],
+    "assist": [
+      [[0, 570], [0, 700], [260, 700], [390, 675], [500, 635], [590, 590], [655, 540], [700, 480], [735, 400], [735, 320], [715, 230], [700, 0], [580, 0], [590, 180], [600, 280], [590, 365], [560, 440], [520, 500], [450, 545], [350, 570], [220, 570]]
+    ],
+    "blocked": []
+  },
+  "foreground": []
+}

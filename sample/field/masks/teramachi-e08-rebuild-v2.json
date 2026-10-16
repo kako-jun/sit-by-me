@@ -3,7 +3,7 @@
   "size": [1254, 1254],
   "links": [
     {"edge": "top", "range": [490, 650], "class": "universal", "target": "E07.bottom"},
-    {"edge": "right", "range": [590, 760], "class": "assist", "target": "E09.left", "condition": "standing-or-companion-assist"},
+    {"edge": "right", "range": [590, 690], "class": "assist", "target": "E09.left", "condition": "standing-or-companion-assist"},
     {"edge": "door", "range": [820, 940], "class": "universal", "target": "F03.door", "anchor": [875, 300]}
   ],
   "traversal": {

@@ -12,7 +12,7 @@
 | E06 | legacy-needs-review | R006,R011 | `diorama-trial/teramachi-sento-diorama.png`; mask未記録 | E05/E07端、銭湯煙突・雪山のforeground/blockedを記録する |
 | E07 | legacy-needs-review | R006,R011 | `diorama-trial/teramachi-barrier-free-ramp-diorama.png`; mask未記録 | E06/E08を結ぶuniversalスロープの幅・折返しを記録する |
 | E08 | legacy-needs-review | R006,R011 | `diorama-trial/teramachi-danchi-court-diorama.png`; mask未記録 | E07/E09端、F03ドア、団地棟のforegroundを記録する |
-| E09 | legacy-needs-review | R006,R011 | `diorama-trial/teramachi-old-slope-foot-diorama.png`; mask未記録 | 立位期onlyのassist石段とE08/E13端を記録する |
+| E09 | candidate-reviewed-needs-adoption | R006,R011,R025 | `rebuild/E09-teramachi-old-slope-foot-rebuild-v6-candidate.png`; `masks/teramachi-e09-rebuild-v6.json` と `teramachi-e09-rebuild-v6-{traversal-edit,wheelchair-mask,standing-mask,assist-mask,mask,foreground-edit,foreground-mask,foreground,mask-overlay}.png` | 素材/マスク独立red-teamはpass（`reviews/artifact-redteam/20261016-teramachi-e09-v6-mask.md`）。legacy差替えとruntime参照更新を採用判断として残す |
 | E10 | legacy-needs-review | R006,R011 | `diorama-trial/teramachi-narrow-lane-diorama.png`; mask未記録 | E03からの入口以外を禁止辺とし、画面内終端を記録する |
 | E11 | legacy-needs-review | R006,R011 | `diorama-trial/temple-grounds-shinshu-diorama.png`; mask未記録 | E04端、E01/F01/E12ドア、池・墓地のblocked域を記録する |
 | E12 | legacy-needs-review | R006,R011 | `diorama-trial/temple-residence-interior-diorama.png`; mask未記録 | E11/F01/F02の各doorと火事時の遮断範囲を記録する |

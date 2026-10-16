@@ -14,7 +14,7 @@
 | E06 | `E06-teramachi-sento-rebuild-v2-candidate.png` | left→E05、bottom→E07 | 銭湯煙突、top/right閉鎖 | mask-created-needs-redteam |
 | E07 | `E07-teramachi-barrier-free-ramp-rebuild-v2-candidate.png` | top→E06、bottom→E08 | 犀川側へ蛇行する車椅子主路。石段なし | mask-created-needs-redteam |
 | E08 | `E08-teramachi-danchi-court-rebuild-v2-candidate.png` | top→E07、right→E09、door→F03 | 県営住宅中庭。石段は立位期のみ | mask-created-needs-redteam |
-| E09 | `E09-teramachi-old-slope-foot-rebuild-v6-candidate.png` | left→E08、top→E13 | 石段下、車椅子不可。画像端接続はpass、浅い俯瞰・mask・linksが未解決 | blocked |
+| E09 | `E09-teramachi-old-slope-foot-rebuild-v6-candidate.png` | left→E08、top→E13 | 石段下、車椅子不可。v6 mask/links作成済み、独立red-team待ち | mask-created-needs-redteam |
 | E10 | `E10-teramachi-narrow-lane-rebuild-candidate.png` | top→E03 | 画面内で終わる宝箱枝。他辺閉鎖 | review-pending |
 | E11 | `E11-temple-grounds-rebuild-v4-candidate.png` | bottom→E04、door-main→F01、door-residence→E12、door-kindergarten→E01 | 本堂と庫裏を別扉にし、段差なし主路 | image-pass-mask-needed |
 | E12 | `E12-temple-residence-rebuild-v3-candidate.png` | door-temple→E11、door-hall→F01、door-playroom→F02 | 庫裏。外部へ通じる偽出口なし | image-pass-mask-needed |
@@ -34,7 +34,7 @@
 
 - v2 の E04/E06/E07/E08/E13/F01/F03 は、画像契約を独立red-teamが通過し、候補用マスク一式を生成済み。ただしマスク込みの独立再監査と、相手MAPとの往復リンク照合が未完のため、採用不可。
 - E11 v4 と E12 v3 は画像契約のみ通過。三値マスク、foreground、door `links`、E01/F01/F02との往復照合が未作成。
-- E09 v6 は、left edgeの石畳から中央の石段を経てtop edgeへ抜ける再構図候補。独立red-teamはleft/top接続・right/bottom閉鎖を確認したが、浅い俯瞰の画風懸念とmask/links未作成によりblocked。詳細: `docs/reviews/artifact-redteam/20261016-teramachi-e09-v6.md`。
+- E09 v6 は、left edgeの石畳から中央の石段を経てtop edgeへ抜ける再構図候補。軽い奥行きは許容済み。独立red-teamが確認したleft/top接続・right/bottom閉鎖に対し、assist-onlyのmask/linksを追加した。マスク込みred-team通過まで採用不可。詳細: `docs/reviews/artifact-redteam/20261016-teramachi-e09-v6.md`。
 - E01/E02/E03/E05/E10/F02 は初回候補のまま。画像・mask・prompt記録・独立採否レビューが未完。
 - すべての候補で、生成時の完全なprompt本文と候補ごとの参照Refの記録が未完。記録なしに採用してはならない。
 
@@ -43,4 +43,5 @@
 - 出力: `sample/field/rebuild/E09-teramachi-old-slope-foot-rebuild-v6-candidate.png`（1254×1254）
 - Ref: `R006,R011`（寺町・生活圏の正本参照）。既存E09は題材・配置の参考に使わず、現行の接続正本だけを使用した。
 - prompt: `square, near-overhead handmade tabletop diorama; snowy fictional K-prefecture old stair foot; one broad standing-only route enters from the left image edge at mid-height as flat stone paving, turns to a steep old stone staircase, and continues through the top image edge near center. Both exits are open and continuous. No other external route: right/bottom edges are retaining walls, houses, snowbanks, exposed cardboard base. Cotton-fiber snow, rough paper-clay stone walls, hand-cut black-paper paving, sponge/yarn model trees, visible cardboard, glue seams and paint irregularities. Camera 80–85° overhead, shallow depth, no horizon or sky. No people, readable text, vehicles, photorealism, camera-level street view, or wheelchair ramp.`
-- adoption state: `blocked`。独立red-teamはleft/top到達とright/bottom閉鎖を確認したが、浅い俯瞰の画風懸念、traversal/foreground/runtime mask、E08/E13との相互links未作成をblockerとして記録した。
+- mask: `sample/field/masks/teramachi-e09-rebuild-v6.json` と同プレフィックスのtraversal/foreground/runtime/overlay一式。left/topはともに `590–690` の `assist` / `standing-or-companion-assist` で、E08.right・E13.bottomと同一範囲へ同期済み。white（universal）はなし。wheelchair/互換aliasは全黒。foregroundは透明RGBA（遮蔽なし）。
+- adoption state: `candidate-reviewed-needs-adoption`。軽い奥行きは許容済み、画像・mask独立red-teamはpass。legacy差替えとruntime参照更新はまだ行わない。
