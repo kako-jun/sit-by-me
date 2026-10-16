@@ -1,0 +1,17 @@
+{
+  "image": "rebuild/F01-temple-main-hall-rebuild-v2-candidate.png",
+  "size": [1254, 1254],
+  "links": [
+    {"edge": "door-south", "range": [480, 720], "class": "universal", "target": "E11.door-main", "anchor": [600, 1120]},
+    {"edge": "door-east", "range": [520, 760], "class": "universal", "target": "E12.door-hall", "anchor": [1120, 640]}
+  ],
+  "traversal": {
+    "universal": [
+      [[500, 390], [690, 390], [690, 1000], [720, 1000], [720, 1120], [480, 1120], [480, 1000], [500, 1000]],
+      [[600, 520], [1120, 520], [1120, 760], [600, 760]]
+    ],
+    "assist": [],
+    "blocked": []
+  },
+  "foreground": []
+}
