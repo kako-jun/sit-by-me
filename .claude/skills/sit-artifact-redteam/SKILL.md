@@ -7,6 +7,14 @@ description: Independently red-team Sit by Me planning, prompts, generated image
 
 Find evidence that a proposed or generated artifact is wrong before it is adopted. This is an **independent** review: the reviewer must not be the author of the target specification, prompt, image, mask, or prior review, and must receive the raw artifact and canonical records rather than the author's conclusion.
 
+## 一意解釈監査（このスキルの全行より優先）
+
+レビューで `少し`、`やや`、`広い`、`狭い`、`近い`、`遠い`、`自然`、`十分`、`明瞭`、`目立つ`、`適切`、`雰囲気`、`おおよそ`、`〜風`、`斜め`だけ、`奥行き`だけを根拠にしてはならない。各判定には原文ファイル行、参照画像パス、画面座標、ピクセル数、個数、色コード、または定義済み方角を添える。生成入力に変換不能な曖昧語が残っている場合は `major` とする。台帳にない道・水路・直線・直交・格子・等間隔の追加は `blocker` とする。
+
+## ミニチュア材料監査
+
+ミニチュア背景をレビューするとき、「模型に見える」は判定語として使わない。生成入力の材料・工作道具・加工法を原文で読み、原寸画像で各項目を一つずつ確認する。`foamboard`、段ボール断面、`paper clay` の刻み、綿雪、紙・紙やすりの地面、セロファン水、スポンジ木、マスキングテープ、PVA接着剤、ポスターカラーの筆跡のうち、生成入力で指定されたものが三つ未満しか確認できない候補は `major` とする。実景写真・実物素材・CG均一面しか確認できない場合は `blocker` とする。
+
 ## Inputs and canonical sources
 
 For a MAP review, first read:
@@ -16,9 +24,11 @@ For a MAP review, first read:
 - target row in `docs/map-specifications.md`
 - applicable graph in `docs/map-topology.md`
 - `docs/map-reference-research.md`
-- `docs/art-direction.md`, `docs/assets-policy.md`, and `.claude/skills/sit-diorama/SKILL.md`
+- `docs/art-direction.md`, `docs/assets-policy.md`, and `.claude/skills/sit-field-background/SKILL.md`
 
-For an enemy, magic, ability, job, event, or scenario review, replace the MAP sources with its corresponding type register from `content-registry.md`. Read the actual candidate and its source prompt/mask when they exist; never infer success from a filename.
+For an enemy review, read `.claude/skills/sit-enemy-sprite/SKILL.md`, the target `M` row, its source prompt, and the actual RGBA candidate. Record the declared `gridClass`, canvas px, transparent-pixel bounding rectangle, and whether head and torso each show the front plane and right plane. A 90° right-profile head or torso, a gridClass outside `1x1`/`2x1`/`1x2`/`2x2`, or an outside-rectangle measure outside 92–96% is a `blocker`.
+
+For a summon review, substitute `.claude/skills/sit-summon-sprite/SKILL.md` and the target `S` row. For magic, ability, job, event, or scenario review, use the corresponding type register from `content-registry.md`. Read the actual candidate and its source prompt/mask when they exist; never infer success from a filename.
 
 ## Review method
 

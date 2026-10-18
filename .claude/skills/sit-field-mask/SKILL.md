@@ -7,6 +7,14 @@ description: Create, edit, validate, and review Sit by Me field traversal masks 
 
 Treat a field mask as a first-class MAP asset, not as a finishing step. Its source must be a specific MAP row whose topology and image contract are `ready` or an approved `legacy` image under review. Read the target MAP specification, topology, relevant era/event conditions, and the accepted background before painting.
 
+## 一意解釈ゲート（このスキルの全行より優先）
+
+マスクの条件には、画像座標、画像端、ピクセル数、`#000000`、`#FF9D00`、`#FFFFFF`、`#00FFFF`、MAP ID、リンクID、または原文の通行条件だけを使う。`少し`、`広い`、`狭い`、`十分`、`安全`、`自然`、`近い`、`遠い`は塗り分け条件として禁止する。最小幅・座標・接続先へ変換できなければマスクを作らない。道路を補正するために直線・直交・格子状の白領域を足してはならない。
+
+## ミニチュア材料との分離
+
+マスクは材料の見た目を推測して作らない。背景の生成入力に記録された `paper clay`、綿雪、紙道路、セロファン水、段ボール土台などを原寸画像で確認し、それぞれを通行可能・不可にする根拠をMAP原文から一意に取る。材料名だけで通行クラスを決めること、見た目を補完することは禁止する。
+
 ## Three traversal classes
 
 The editable traversal source is a full-size RGB PNG with **flat fills only**—no baked contour or antialiased border. It is designed for direct Photoshop painting with the Pencil tool or Fill tool.

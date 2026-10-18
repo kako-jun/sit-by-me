@@ -33,9 +33,9 @@
 1. この目次から対象の種別・IDを確定する。
 2. 対象台帳の1行から、時期・場所・目的・接続／向き・必須／禁止・相互参照を取得する。
 3. [assets-policy.md](assets-policy.md) と [art-direction.md](art-direction.md) から全体の画風・時代・禁止事項を取得する。
-4. 対象別スキル（フィールドは `sit-diorama`、敵・召喚獣は `sit-world`、人物は `sit-characters`）から、材料・構図・出力・検査項目を取得する。
+4. 対象別スキル（フィールド背景は `sit-field-background`、敵スプライトは `sit-enemy-sprite`、召喚獣スプライトは `sit-summon-sprite`、人物スプライトは `sit-character-sprite`、戦闘背景は `sit-battle-background`、歩行マスクは `sit-field-mask`）から、材料・構図・出力・検査項目を取得する。
 5. 以上に無い要素は追加しない。TBDまたは欠けた項目があれば台帳を `blocked` にして、先に決定を記録する。
 
-`ruby scripts/build_map_prompt.rb MAP_ID` は、この規約を機械的に強制する補助である。`ready` かつTBD空欄のMAPだけがプロンプトを出力できる。出力後も `sit-diorama` の生成前・生成後検査を省略しない。
+`ruby scripts/build_map_prompt.rb MAP_ID` は、この規約を機械的に強制する補助である。`ready` かつTBD空欄のMAPだけがプロンプトを出力できる。出力後も `sit-field-background` の生成前・生成後検査を省略しない。
 
 生成後は、対象IDの行に出力パス・採否・歩行マスクまたは切り抜き・参照したIDを追記する。
