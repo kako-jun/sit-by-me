@@ -103,7 +103,7 @@ active = []
 pending = []
 opposite = { 'top' => 'bottom', 'bottom' => 'top', 'left' => 'right', 'right' => 'left' }
 topology_rows.each_with_index do |(from, to, kind, reason), index|
-  fail!("v2 row #{index + 1}: 未知・未設定の種別 #{kind.inspect}") unless %w[edge door pending].include?(kind)
+  fail!("v2 row #{index + 1}: 未知・未設定の種別 #{kind.inspect}") unless %w[edge door event oneway pending].include?(kind)
   [from, to].each do |endpoint|
     id = endpoint.split('.').first
     fail!("v2 row #{index + 1}: 未知MAP #{id}") unless expected.include?(id)
@@ -119,6 +119,8 @@ topology_rows.each_with_index do |(from, to, kind, reason), index|
   if kind == 'edge'
     fail!("v2 row #{index + 1}: 不正・反対辺でない #{from} -> #{to}") unless opposite.key?(from_side) && opposite[from_side] == to_side
     [from, to].each { |endpoint| edge_ends[endpoint] << index + 1 }
+  elsif kind == 'event'
+    fail!('物語イベントの端名が不正') unless [from,to].all? { |p| p.match?(/\.event-[A-Za-z0-9_-]+\z/) }
   else
     [from, to].each do |endpoint|
       fail!("v2 row #{index + 1}: 扉IDがない #{endpoint}") unless endpoint.match?(/\.door(?:-[A-Za-z0-9_-]+)?\z/)
@@ -135,6 +137,37 @@ reused_doors = door_ends.select { |_, rows| rows.length > 1 }
 fail!("同一扉端の二重使用: #{reused_doors.keys.join(', ')}") unless reused_doors.empty?
 
 fail!('旧サニーランドpendingは廃止') unless pending.empty?
+entry=topology_rows.select { |_,_,kind,_| kind=='event' }
+fail!('体内イベントは園庭E01から口F19への一方向のみ') unless entry.map { |a,b,k,_| [a,b,k] } == [['E01.event-kiss','F19.event-mouth','event']]
+flights=topology_rows.select { |_,_,kind,_| kind=='oneway' }
+fail!('一方向の海外渡航が不正') unless flights.map { |a,b,k,_| [a,b,k] } == [['F40.door-gate','F27.door-arrival','oneway']]
+membership=JSON.parse(read('topology/areas.json'))
+area_ids=membership.fetch('areas').map { |a| a.fetch('id') }
+fail!('エリアID重複') unless area_ids.uniq==area_ids
+members=membership.fetch('areas').flat_map { |a| a.fetch('maps') }
+fail!('エリア所属が全MAP一意網羅でない') unless members.sort==expected.sort
+membership.fetch('areas').each do |a|
+  fail!("エリア配置のMAP不一致 #{a['id']}") unless a.fetch('layout').keys.sort==a.fetch('maps').sort
+  fail!("エリア配置座標が不正 #{a['id']}") unless a['layout'].values.all? { |xy| xy.is_a?(Array) && xy.length==2 && xy.all? { |n| n.is_a?(Numeric) && n.finite? } }
+end
+body_paths=[%w[F19 F74],%w[F74 F76],%w[F74 F24],%w[F74 F77 F20],%w[F74 F78 F21],%w[F76 F79 F80 F22],%w[F76 F81 F82 F23],%w[F76 F25],%w[F74 F26],%w[F74 F75]]
+body=membership['areas'].find { |a| a['id']=='body' }
+fail!('体内17MAPの所属不一致') unless body && body['maps'].sort==body_paths.flatten.uniq.sort
+body_pairs=body_paths.flat_map { |path| path.each_cons(2).map(&:sort) }.sort
+body_active=active.select { |a,b,_| body['maps'].include?(a) && body['maps'].include?(b) }
+fail!('体内の上半身/下半身・手2枚・足3枚の一本道接続が不一致') unless body_active.map { |a,b,_| [a,b].sort }.sort==body_pairs && body_active.all? { |_,_,kind| kind=='door' }
+body_external=active.select { |a,b,_| body['maps'].include?(a) != body['maps'].include?(b) }
+fail!('園庭以外からの体内入口／逆方向出口がある') unless body_external==[['E01','F19','event']]
+coords=body['layout']; ux,uy=coords.fetch('F74');lx,ly=coords.fetch('F76')
+fail!('胴体は上半身と下半身の縦2MAP') unless ux==lx && uy<ly
+fail!('頭は胴体の上') unless coords['F24'][0]==ux && coords['F24'][1]<uy
+[%w[F74 F77 F20],%w[F74 F78 F21],%w[F76 F79 F80 F22],%w[F76 F81 F82 F23]].each_with_index do |path,i|
+  base_x,base_y=coords.fetch(path.first)
+  direction_x=i.even? ? -1:1; direction_y=i<2 ? -1:1
+  fail!('手は左右斜め上・足は左右斜め下の連続通路') unless path.drop(1).all? { |id| (coords[id][0]-base_x)*direction_x>0 } && path.each_cons(2).all? { |a,b| (coords[b][1]-coords[a][1])*direction_y>0 }
+end
+expected_spokes={'upper_torso'=>'F74','lower_torso'=>'F76','head'=>'F24','left_arm'=>%w[F77 F20],'right_arm'=>%w[F78 F21],'left_leg'=>%w[F79 F80 F22],'right_leg'=>%w[F81 F82 F23],'rooms'=>%w[F25 F26 F75]}
+fail!('体内方向・枚数契約不一致') unless membership['body_spokes']==expected_spokes
 sunny = %w[F07 F08 F09 E24 E23 F10 F63 F62 F61 E25 F64 F65]
 sunny_ring = %w[F07 F08 F09 E24 E23 F10 F63 F62 F61 F07]
 sunny_ring.each_cons(2) do |a,b|

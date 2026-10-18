@@ -2,7 +2,7 @@
 
 2026-10-18: サニーランドは口述と創作の円環接続へ更新。旧pending6接続は削除済み。
 
-`map-asset-registry.md` の117行を、生成可能にするまで追跡する行単位チェックリスト。接続の正本は `map-topology.md` の「MAP相互接続台帳 v2」、画面主役と主路は `map-specifications.md`、マスク形式は `sit-field-mask` である。全行は `blocked` または `legacy-needs-review` で始める。`TBD` が空でない限り `ready` にしない。台帳整合の独立再監査は [第3周レビュー](reviews/artifact-redteam/20261016-map-ledger-round3.md) を参照。
+`map-asset-registry.md` の126行を、生成可能にするまで追跡する行単位チェックリスト。接続の正本は `map-topology.md` の「MAP相互接続台帳 v2」、画面主役と主路は `map-specifications.md`、マスク形式は `sit-field-mask` である。全行は `blocked` または `legacy-needs-review` で始める。`TBD` が空でない限り `ready` にしない。台帳整合の独立再監査は [第3周レビュー](reviews/artifact-redteam/20261016-map-ledger-round3.md) を参照。
 
 **2026-10-18 / #51**: E01–E13/F01–F03は全て `recreate-required-1920x1080`、生成契約は `blocked`。以下の旧画像パスは参照専用で、旧mask・旧passは新候補の採用根拠にならない。現行再作成状態は [候補台帳](teramachi-rebuild-candidates.md)、建物群の生成前入力は [制作前確認](production/20261018-teramachi-preflight.md) を参照する。
 
@@ -70,14 +70,14 @@
 | F16 | blocked | R016,R028,R029 | 未生成・mask未作成 | F15/F17端、実家door封鎖と生活路の範囲を決める |
 | F17 | blocked | R016,R028,R029 | 未生成・mask未作成 | F16端、釣り場先端を終端にする柵と海のblocked域を決める |
 | F18 | blocked | R016,R028,R029 | 未生成・mask未作成 | F12/E32door、仮設住宅の生活路・集会所doorを決める |
-| F19 | blocked | R018 | 未生成・mask未作成 | 抽象素材の口入口、F20/F21/F24の3枝、非写実安全表現を確定する |
-| F20 | blocked | R018 | 未生成・mask未作成 | F19/F22端、左手枝を任意終端へする抽象地形を確定する |
-| F21 | blocked | R018 | 未生成・mask未作成 | F19/F23端、右手枝を任意終端へする抽象地形を確定する |
-| F22 | blocked | R018 | 未生成・mask未作成 | F20端、左脚枝の終端・戦闘域を確定する |
-| F23 | blocked | R018 | 未生成・mask未作成 | F21端、右脚枝の終端・戦闘域を確定する |
-| F24 | blocked | R018 | 未生成・mask未作成 | F19/F25/F26端、頭部室の外周主路・中ボス域を確定する |
-| F25 | blocked | R018 | 未生成・mask未作成 | F24/F26端、胃への遠回り主路と安全な抽象素材を確定する |
-| F26 | blocked | R018 | 未生成・mask未作成 | F24/F25端、心臓戦闘域・外周通路・終端を確定する |
+| F19 | blocked | R018 | 未生成・mask未作成 | 口・体内入口。door-passage-torso→F74.door-passage-mouth。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F20 | blocked | R018 | 未生成・mask未作成 | 左手通路2・末端。door-passage-base→F77.door-passage-tip。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F21 | blocked | R018 | 未生成・mask未作成 | 右手通路2・末端。door-passage-base→F78.door-passage-tip。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F22 | blocked | R018 | 未生成・mask未作成 | 左足通路3・末端。door-passage-base→F80.door-passage-tip。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F23 | blocked | R018 | 未生成・mask未作成 | 右足通路3・末端。door-passage-base→F82.door-passage-tip。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F24 | blocked | R018 | 未生成・mask未作成 | 頭・脳の迷路通路。door-passage-torso→F74.door-passage-head。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F25 | blocked | R018 | 未生成・mask未作成 | 胃・分岐室。door-passage-torso→F76.door-passage-stomach。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F26 | blocked | R018 | 未生成・mask未作成 | 心臓・分岐室。door-passage-torso→F74.door-passage-heart。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
 | F27 | blocked | R019,R033 | 未生成・mask未作成 | 到着口/F28端、凍結滑走路を通行不能にする空港導線を確定する |
 | F28 | blocked | R019,R033 | 未生成・mask未作成 | F27/F29端、凍った泉の画面内終端と乾燥寒冷地資料を確定する |
 | F29 | blocked | R019,R033 | 未生成・mask未作成 | F28/F30端、凍結穴・風食岩のblocked域を確定する |
@@ -130,3 +130,22 @@
 | F71 | blocked | R019 | 未生成・mask未作成 | 脱出第3塔4階・宝箱と下り階段。door-up→F70.door-down、door-down→F72.door-up。5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | F72 | blocked | R019 | 未生成・mask未作成 | 脱出第3塔3階・宝箱と下り階段。door-up→F71.door-down、door-down→F73.door-up。5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | F73 | blocked | R019 | 未生成・mask未作成 | 脱出第3塔2階・宝箱と下り階段。door-up→F72.door-down、door-down→F38.door-up。5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+
+## #74追加ID（胴体・肺）
+
+| ID | 状態 | Ref | mask / 出力 | 具体的TBD |
+|---|---|---|---|---|
+| F74 | blocked | R018 | 未生成・mask未作成 | 上半身・胴体上段。door-passage-mouth→F19.door-passage-torso、door-passage-lower→F76.door-passage-upper、door-passage-head→F24.door-passage-torso、door-passage-left-arm→F77.door-passage-torso、door-passage-right-arm→F78.door-passage-torso、door-passage-heart→F26.door-passage-torso、door-passage-lung→F75.door-passage-torso。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F75 | blocked | R018 | 未生成・mask未作成 | 肺・分岐室。door-passage-torso→F74.door-passage-lung。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+
+## #74追加ボリューム（上半身・下半身／手2／足3）
+
+| ID | 状態 | Ref | mask / 出力 | 具体的TBD |
+|---|---|---|---|---|
+| F76 | blocked | R018 | 未生成・mask未作成 | 下半身・胴体下段。door-passage-upper→F74.door-passage-lower、door-passage-left-leg→F79.door-passage-torso、door-passage-right-leg→F81.door-passage-torso、door-passage-stomach→F25.door-passage-torso。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F77 | blocked | R018 | 未生成・mask未作成 | 左手通路1・付け根側。door-passage-torso→F74.door-passage-left-arm、door-passage-tip→F20.door-passage-base。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F78 | blocked | R018 | 未生成・mask未作成 | 右手通路1・付け根側。door-passage-torso→F74.door-passage-right-arm、door-passage-tip→F21.door-passage-base。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F79 | blocked | R018 | 未生成・mask未作成 | 左足通路1・付け根側。door-passage-torso→F76.door-passage-left-leg、door-passage-middle→F80.door-passage-base。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F80 | blocked | R018 | 未生成・mask未作成 | 左足通路2・中間。door-passage-base→F79.door-passage-middle、door-passage-tip→F22.door-passage-base。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F81 | blocked | R018 | 未生成・mask未作成 | 右足通路1・付け根側。door-passage-torso→F76.door-passage-right-leg、door-passage-middle→F82.door-passage-base。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F82 | blocked | R018 | 未生成・mask未作成 | 右足通路2・中間。door-passage-base→F81.door-passage-middle、door-passage-tip→F23.door-passage-base。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |

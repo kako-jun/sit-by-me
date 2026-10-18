@@ -107,18 +107,18 @@
 
 ## 体内
 
-人体そのものを写実的・残酷に描かない。紙粘土・半透明セロファン・脈打つ光の抽象ダンジョンとし、口から入った主路は中枢へ向かう。左右の手足は任意順の枝で、全部を巡らなくても心臓へ到達できる。
+幼稚園児が想像する現実離れした架空人体の抽象概念。肌色寄りでよく、写実的な臓器・解剖図にしない。口から上半身・下半身へ入り、頭は上、手は左右斜め上各2MAP、足は左右斜め下各3MAPの一本道。脳は迷路、胃・心臓・肺は単純な分岐室。既存の心臓への発火条件を保持し、空間上の枝だけから全枝任意・即座の心臓到達を確定しない。攻略条件・迷路・maskはTBD。
 
 | MAP | 時期 | 一言特徴 | 方位・主路・通行条件 | 暫定固定 |
 |---|---|---|---|---|
-| F19 | 中3 | 歯形の白いアーチを抜ける入口洞 | 下から入り北の分岐へ。歯は壁であり主路に置かない。 | 口、雑魚のみ。 |
-| F20 | 中3 | 指先へ向かう青い血流の左手枝 | F19北分岐から西へ。先端で画面内終端。 | 任意の寄り道。 |
-| F21 | 中3 | 掌紋のような襞を走る右手枝 | F19北分岐から東へ。先端で画面内終端。 | 任意の寄り道。 |
-| F22 | 中3 | 雪洞のように白く収束する左脚管 | F19の中央路から西下へ折れる枝。 | 任意の寄り道。 |
-| F23 | 中3 | 赤い脈の橋がかかる右脚管 | F19の中央路から東下へ折れる枝。 | 任意の寄り道。 |
-| F24 | 中3 | 記憶の断片が浮く丸い頭部室 | F19から北の主路。外周だけ歩行可。 | 中枢手前の中ボス。 |
-| F25 | 中3 | 琥珀色の膜が波打つ胃の空洞 | F24東の下りスロープから入り、南へ心臓へ戻る。 | 主路の遠回り。 |
-| F26 | 中3 | 紙粘土の弁が開閉する心臓の祭壇 | F24／F25北から入り、北端で終了。中央は戦闘域。 | 体内編の終点。 |
+| F19 | 中3 | 口・体内入口 | door-passage-torso→F74.door-passage-mouth | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F20 | 中3 | 左手通路2・末端 | door-passage-base→F77.door-passage-tip | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F21 | 中3 | 右手通路2・末端 | door-passage-base→F78.door-passage-tip | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F22 | 中3 | 左足通路3・末端 | door-passage-base→F80.door-passage-tip | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F23 | 中3 | 右足通路3・末端 | door-passage-base→F82.door-passage-tip | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F24 | 中3 | 頭・脳の迷路通路 | door-passage-torso→F74.door-passage-head | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F25 | 中3 | 胃・分岐室 | door-passage-torso→F76.door-passage-stomach | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F26 | 中3 | 心臓・分岐室 | door-passage-torso→F74.door-passage-heart | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
 
 ## K空港・海外
 
@@ -192,3 +192,22 @@ K空港だけがワープ到達点。そこから飛行機で海外へ出た後�
 | F71 | 青年後半 | 脱出第3塔4階・宝箱と下り階段 | door-up→F70.door-down、door-down→F72.door-up | 5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | F72 | 青年後半 | 脱出第3塔3階・宝箱と下り階段 | door-up→F71.door-down、door-down→F73.door-up | 5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | F73 | 青年後半 | 脱出第3塔2階・宝箱と下り階段 | door-up→F72.door-down、door-down→F38.door-up | 5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+
+## #74追加ID（胴体・肺）
+
+| MAP | 時期 | 一言特徴 | 接続 | 不変条件／TBD |
+|---|---|---|---|---|
+| F74 | 中3 | 上半身・胴体上段 | door-passage-mouth→F19.door-passage-torso、door-passage-lower→F76.door-passage-upper、door-passage-head→F24.door-passage-torso、door-passage-left-arm→F77.door-passage-torso、door-passage-right-arm→F78.door-passage-torso、door-passage-heart→F26.door-passage-torso、door-passage-lung→F75.door-passage-torso | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F75 | 中3 | 肺・分岐室 | door-passage-torso→F74.door-passage-lung | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+
+## #74追加ボリューム（上半身・下半身／手2／足3）
+
+| MAP | 時期 | 一言特徴 | 接続 | 不変条件／TBD |
+|---|---|---|---|---|
+| F76 | 中3 | 下半身・胴体下段 | door-passage-upper→F74.door-passage-lower、door-passage-left-leg→F79.door-passage-torso、door-passage-right-leg→F81.door-passage-torso、door-passage-stomach→F25.door-passage-torso | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F77 | 中3 | 左手通路1・付け根側 | door-passage-torso→F74.door-passage-left-arm、door-passage-tip→F20.door-passage-base | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F78 | 中3 | 右手通路1・付け根側 | door-passage-torso→F74.door-passage-right-arm、door-passage-tip→F21.door-passage-base | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F79 | 中3 | 左足通路1・付け根側 | door-passage-torso→F76.door-passage-left-leg、door-passage-middle→F80.door-passage-base | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F80 | 中3 | 左足通路2・中間 | door-passage-base→F79.door-passage-middle、door-passage-tip→F22.door-passage-base | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F81 | 中3 | 右足通路1・付け根側 | door-passage-torso→F76.door-passage-right-leg、door-passage-middle→F82.door-passage-base | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| F82 | 中3 | 右足通路2・中間 | door-passage-base→F81.door-passage-middle、door-passage-tip→F23.door-passage-base | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
