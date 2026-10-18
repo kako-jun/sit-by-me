@@ -1,5 +1,7 @@
 # 寺町再構築候補・独立red-teamレビュー
 
+> 当時のパス・判定を保持した履歴です。現行配置・削除／復元元は [#68素材対応表](../../production/asset-layout.md) を参照。
+
 - 日付: 2026-10-16
 - レビュアー: 独立 red-team reviewer（候補画像・プロンプト・mask・自己評価の作者ではない）
 - 対象: `sample/field/rebuild/` の E01〜E13、F01〜F03（PNG 16件）

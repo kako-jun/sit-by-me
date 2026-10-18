@@ -5,7 +5,9 @@ description: Create, edit, validate, and review Sit by Me field traversal masks 
 
 # Sit by Me Field Masks
 
-Treat a field mask as a first-class MAP asset, not as a finishing step. Its source must be a specific MAP row whose topology and image contract are `ready` or an approved `legacy` image under review. Read the target MAP specification, topology, relevant era/event conditions, and the accepted background before painting.
+失敗素材の来歴（完全prompt・参照・実寸/検査結果・hash・判定理由）は保持する。ユーザーが失敗/旧画像の削除を指示した場合、取得元commitと削除理由を残して画像バイナリを削除できる。以下の原本保持指示は、削除指示後の永久保存・重複コピーを要求しない。
+
+Treat a field mask as a first-class MAP asset. Start only after the specific candidate passes independent raw-image review and its connection/era contract is resolved; final MAP `ready` is the result of masks and adoption review, not a prerequisite. Read the actual background, specification, topology, and era/event conditions. Under #51, old/legacy candidates and masks remain reference-only and cannot satisfy the new-image gate.
 
 ## 一意解釈ゲート（このスキルの全行より優先）
 
@@ -37,16 +39,18 @@ Keep foreground display independent of traversal:
 
 ## Workflow
 
+For #51, measure the actual background as 1920×1080 before authoring. Every edit PNG, runtime mask, foreground and metadata size must match that exact candidate. Verify outputs with image inspection, not their filenames. Do not rescale a rejected background or reuse its mask to manufacture compliance. Keep the candidate path/version and dimensions with the links and review evidence.
+
 1. Derive every traversable exit and forbidden edge from the MAP’s connection contract. Record edge ranges and traversal class in its JSON source.
 2. Start edit maps as flat colours at exactly the background resolution. Do not draw outlines into these edit files.
 3. Generate runtime masks and a separate review preview with the repository’s mask tool. The preview may tint classes and draw contours; it is disposable and is never the Photoshop source or runtime mask.
 4. Inspect at 100% and against the background: all mandatory paths reach their correct image edge; prohibited edges do not; black hazards cannot be crossed; orange is limited to assistable terrain; white has wheelchair clearance; cyan occlusion does not hide an exit or create an invisible collision.
-5. Save the source JSON, traversal edit map, runtime outputs, foreground edit map, and foreground PNG together under `sample/field/masks/` (or the adopted asset’s mask directory). Update the MAP ledger with all paths and the relevant era/assist condition.
+5. Save production edit maps, runtime masks and foreground PNGs as `assets/images/fields/masks/E01-{role}.png` (use the actual MAP ID). Existing legacy masks remain under `assets/images/fields/legacy/masks/`; VFIELD verification masks remain under `assets/images/fields/verification/masks/`. Keep verification JSON/templates/tools under `verification/fields/legacy-masks/` or `prototype-masks/`, never present them as adopted production assets. Update the MAP ledger with exact paths and era/assist conditions.
 6. Send the result to `sit-artifact-redteam` before marking it `ready`.
 
 ## Generator contract
 
-`sample/field/masks/make_masks.py` treats the two edit PNGs as canonical; JSON
+`verification/fields/legacy-masks/make_masks.py` treats the two edit PNGs as canonical; JSON
 holds background, size, links, and other metadata. It accepts legacy `walkable`
 as `traversal.universal`, so an existing MAP remains valid without conversion.
 Optional `traversal.universal`, `traversal.assist`, `traversal.blocked`, and

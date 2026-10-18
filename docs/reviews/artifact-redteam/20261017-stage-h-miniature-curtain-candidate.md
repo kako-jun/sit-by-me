@@ -1,5 +1,7 @@
 # Stage H miniature-curtain candidate — independent red-team review
 
+> 当時のパス・判定を保持した履歴です。現行配置・削除／復元元は [#68素材対応表](../../production/asset-layout.md) を参照。
+
 - Date: 2026-10-17
 - Reviewer: independent red-team reviewer (not the candidate, prompt, or prior-review author)
 - Scope: original-pixel review of one unadopted battle-background candidate. No asset, prompt, ledger, Issue, or adoption state was changed.

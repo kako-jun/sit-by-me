@@ -5,6 +5,8 @@ description: Sit by Me の敵スプライトを、敵台帳のID・4種グリッ
 
 # Sit by Me 敵スプライト
 
+失敗素材の来歴（完全prompt・参照・実寸/検査結果・hash・判定理由）は保持する。ユーザーが失敗/旧画像の削除を指示した場合、取得元commitと削除理由を残して画像バイナリを削除できる。以下の原本保持指示は、削除指示後の永久保存・重複コピーを要求しない。
+
 敵 `M` の戦闘用マスター画像だけを扱う。生成前に `docs/content-registry.md`、`docs/monsters.md` の対象行、必要なら `docs/dungeon-enemies.md`、`docs/art-direction.md`、`docs/assets-policy.md` を原文のまま読む。対象行が `ready` でない、サイズ種別が矛盾する、またはTBDが残る場合は生成しない。
 
 ## 一意解釈ゲート（このスキルの全行より優先）
@@ -34,8 +36,10 @@ description: Sit by Me の敵スプライトを、敵台帳のID・4種グリッ
 
 ## 生成・保存・検査
 
+生成前に完全prompt・台帳原文・参照画像と各用途を `sit-artifact-redteam` のpromptレビューへ渡す。生成は利用可能な `imagegen` スキルと組み込み `image_gen` を使い、透過をツール設定でも要求する。返却寸法・alphaは保証されない。`file` 等の実寸と、alpha=0の画素が存在すること、alpha>0の最小外接矩形の `(x,y,width,height)` と幅/高さ比率を測定・記録する。RGBAという形式名だけで透過を認定しない。頭部と胴体の正面面・右側面を原寸で個別に確認する。失敗原本も完全prompt・測定値とともに `failed` として残し、勝手な再生成・引伸ばしで通過させない。
+
 1. 原文台帳の敵ID、家族、出現場所、魔法、禁止事項を削除・要約・補完せずに生成入力へ入れる。
-2. 透過背景で1候補だけ生成する。原本は `assets/enemies/raw/`、利用PNGは `assets/enemies/` に置く。既存の採用画像を上書きしない。
+2. 透過背景で1候補だけ生成する。原本は `assets/images/enemies/raw/Mxxx[-variant].png`、利用PNGは `assets/images/enemies/Mxxx.png` に置く。M番号は敵台帳を正本にする。既存の採用画像を上書きしない。
 3. 原寸で、`45°` の頭部・胴体、瞳だけの `+x` 視線、`gridClass`、キャンバスpx、外接矩形92–96%、透明背景、文字・ロゴ・台座・接地影なしを確認する。一つでも満たさなければ候補を採用しない。
-4. 採用候補は `sit-artifact-redteam` の独立レビューへ渡す。採用決定前に Issue #17 または対象台帳の行を更新しない。
+4. 採用候補は `sit-artifact-redteam` の独立画像レビューへ渡す。生成前計画と生成後の来歴・失敗は Issue #17 または対象Issueへ記録するが、採用決定前に採用済み/`ready`へ変更しない。
 

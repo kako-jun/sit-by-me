@@ -1,5 +1,7 @@
 # 寺町 E09 v6 マスク・独立 red-team レビュー
 
+> 当時のパス・判定を保持した履歴です。現行配置・削除／復元元は [#68素材対応表](../../production/asset-layout.md) を参照。
+
 - 日付: 2026-10-16
 - レビュアー: 独立 red-team reviewer（候補・maskの作成者ではない）
 - 対象: `E09 old-slope-foot` v6 の背景、JSON、traversal/foreground edit、runtime masks

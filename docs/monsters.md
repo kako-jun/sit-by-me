@@ -17,7 +17,7 @@
 | 属性 | 火・水・氷・風・土・雷・聖。記録に無ければ「未定」。 |
 | 弱点・耐性 | 記録に無ければ「未定」。 |
 | 役割 | ラスボス / 中ボス / 雑魚 / 環境敵（背景と連動するギミック）。記録に無ければ「未定」。**呼称の決定（kako-jun 2026-10-15）: ラスボス以外のボスは、すべて「中ボス」と呼ぶ。1つのダンジョンに中ボスが2人いてもよい。** ラスボスは M004・M005（M004→M005 は一続きの最終形）・M006 だけ。**個性方針（決定 kako-jun 2026-10-15）: ボスはどれも個性豊かにする。FF5 の次元城のように、ボスごとに得意な攻撃も属性もバラバラにする（かぶらせない）。理由はボスラッシュが「これまでの集大成」だから。一覧は docs/enemy-allocation.md §5。** |
-| 絵の状態 | `assets/enemies/` などの実ファイル名 / 未生成 / 仕様のみ。 |
+| 絵の状態 | `assets/images/enemies/` などの実ファイル名 / 未生成 / 仕様のみ。 |
 | ドロップ | 倒したときに落とすアイテム。お金は別（decisions.md: お金は敵を倒すと落ちる）。記録に無ければ「未定」。 |
 | ぬすむ（通常枠） | ぬすんで得られるアイテムの通常枠。FF 同様、敵ごとに持つ（2026-10-14 kako-jun）。記録に無ければ「未定」。 |
 | ぬすむ（レア枠） | ぬすんで得られるアイテムのレア枠。通常枠とは別に持つ（同上）。記録に無ければ「未定」。 |
@@ -44,7 +44,7 @@
 
 | ID | 名前 | 分類 | 出る場所 | 属性 | 弱点・耐性 | 役割 | 絵の状態 | 根拠 |
 |---|---|---|---|---|---|---|---|---|
-| M001 | 段ボールのドラゴン | 劇用の手作り物 | 幼稚園編・冒頭のお遊戯会の劇（舞台） | 未定 | 未定 | 冒頭の戦闘相手。**脚本固定の特別戦闘。HP は極めて高い（数値は未決。kako-jun 2026-10-15）。味方は最強クラスの魔法・アビリティを固定付与で撃つ。勝敗は付かず、地震で中断**（decisions.md）。旧記述「劇は無事に終わる」は訂正済み（decisions.md 27 行）。中ボスか雑魚かの区分は未定 | `sample/battle/enemy-dragon.png`（仮置き生成。HP120等は戦闘サンプル `stage-b/c.json` の試作値で本番値ではない） | #1、story.md、assets-policy.md |
+| M001 | 段ボールのドラゴン | 劇用の手作り物 | 幼稚園編・冒頭のお遊戯会の劇（舞台） | 未定 | 未定 | 冒頭の戦闘相手。**脚本固定の特別戦闘。HP は極めて高い（数値は未決。kako-jun 2026-10-15）。味方は最強クラスの魔法・アビリティを固定付与で撃つ。勝敗は付かず、地震で中断**（decisions.md）。旧記述「劇は無事に終わる」は訂正済み（decisions.md 27 行）。中ボスか雑魚かの区分は未定 | `assets/images/enemies/M001.png`（仮置き生成。HP120等は戦闘サンプル `stage-b/c.json` の試作値で本番値ではない） | #1、story.md、assets-policy.md |
 | M002 | 不良（集団） | 物語の敵 | 少年編前半（小学生）。近所の冒険で絡まれて戦う | 未定 | 未定 | 未定 | 仕様のみ（敵として戦う記述のみ。「人間を敵にしない」原則との整合は未整理） | story.md |
 | M003 | 匿龍（トクリュウの本物の龍） | 物語の敵 | 中盤〜青年編・海外の砂漠の密集垂直都市（トクリュウ拠点） | 未定 | 未定 | 中盤の対決（四人が立ち向かう）。冒頭の劇の再来。（注記 2026-10-15: 劇の敵は竜〔M001〕、匿龍は龍で別。「劇の再来」の対応関係〔匿龍か雷竜か〕は要確認。decisions.md 末尾）匿龍のイメージは「醜いお金と、刃物や薬物など汚物」（kako-jun 2026-10-15。薬物は具体的な製法・商品・使用場面を描かず、汚れた物体の連想（濁った粉・錠剤のような不気味な塊・汚れた容器など抽象的な像）に留める。刃物も殺傷の描写でなく、錆びて汚れた刃の像に留める。お金は札・硬貨が醜くよじれ、汚れ、腐ったように見える像にする）。**毒攻撃と混乱攻撃がメイン**（kako-jun 2026-10-15。毒は属性体系（火・水・氷・風・土・雷）に無い状態異常。属性でなく状態異常としての「毒」の扱いは要確認。技名・具体の効果は決めない。敵の技は専用 `[特技]`＝docs/design/enemy-ai.md、ただしこのブランチの docs には同ファイルが無い） | 仕様のみ（絵は作らない。イメージの記録のみ） | story.md、decisions.md |
 | M004 | 日本海寒帯気団収束体（ラスボス・一周目） | 物語の敵 / 召喚獣 | 壮年編・一周目の最終ダンジョン（兼六園・金沢城、最終夜のイマジナリー天守閣。ラストダンジョンはボスラッシュで、ラスボスはその先） | 雷 | 未定 | ラスボス。表示名は漢字だけ。雲核を断つと M005 が現れる | 未生成 | #14、#20、story.md、systems.md |
@@ -65,13 +65,13 @@
 | ID | 名前 | 出る場所（取得・登場） | 属性 | 敵として戦うか | 絵の状態 | 根拠 |
 |---|---|---|---|---|---|---|
 | S001 | 日本海の召喚獣 | 幼稚園編の能登・日本海（水難事故）。能登の釣り場（被災前・被災後）の負けイベント。体内ダンジョン・心臓では「水の精霊」として現れ、心臓を止めようとする中ボス戦を行う（同一の存在のため新規IDは作らない。kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.5・§1.6、story.md 302行） | 水 | 敵になる（事故）。姿: 触手のようにうねる浮世絵風の白い日本海の荒波と、その中心に水中で黒くぼやける正体不明の巨大な塊（目・口・頭・触手は見せない）。蛸の姿にしない。ただの波にしない。巨大な黒い影を画面の主役（面積30〜40%、濃い黒〜濃藍、白い波は脇役）にする。透過PNGは四辺に余白（kako-jun 2026-10-14）。取得は必ず通過 | 未生成（作り直し中: sea-of-japan-{a,b}.png の2案を予定。旧版は破棄。生成の利用上限のため 2026-10-15 03:13 以降に再開） | story.md、systems.md |
-| S002 | 卯辰山の召喚獣 | 少年編前半・卯辰山の山のダンジョンの中ボス（山中。場所は山の続きの絵のどこか、後で）（kako-jun 2026-10-15、decisions.md） | 氷（凍った森。遭難の恐怖の具現化。人型・動物型にせず顔・目・口なし） | **中ボスとして戦う（取得は戦いを通る）**。のち味方 | 生成済み: assets/summons/utatsuyama-frozen-forest.png（採否待ち） | systems.md、art-direction.md |
-| S003 | 内灘の風の召喚獣（名前は未定） | 少年編後半・内灘（砂浜〜松林道）。**中ボス戦であることは確定（kako-jun 2026-10-15）。戦闘の中身は案（story.md 315行付近）**。砂丘。砲弾の欠片の気配が混ざる殺意の強風。土の要素を入れない。砲弾や尖った霧裂く風のイメージ。生き物のモチーフは飛ぶ鳥だが、鳥そのままにせず風そのものの形で鳥は暗示にとどめる） | 風 | **中ボスとして戦う（取得は勝つこと）**。取得後は味方 | 生成済み: assets/summons/uchinada-wind.png（C案の嘴状に尖る螺旋の気流を採用。kako-jun 2026-10-14） | art-direction.md、#26 |
-| S004 | 火の召喚獣（旧称「川から来た火の召喚獣」） | 中3の火事（寺の台所・庫裏。寺町）。ネコ型・会話できる・マスコット。**取得は中3の火事の戦いで確定（kako-jun 2026-10-15。先の「青年編前に川から」「体内編で得る」を置き換え。decisions.md）。川霧の火の造形の由来は要確認**。姿は川霧の青白い火の群れがネコの輪郭を取る（四つん這いで足が車輪） | 火 | **中ボスとして戦う（取得）**。バトルのあと平伏→大爆発。取得後は味方。二周目ラスボス戦では主人公が使う | 生成済み: assets/summons/river-mist-fire-cat.png（採否待ち） | systems.md、#26 |
-| S005 | 土の召喚獣（名前は未定） | 青年編・海外砂漠の密集垂直都市の脱出の中ボス。建物そのものが召喚獣。モチーフは九龍城砦（現存しない。2026-10-14 kako-jun）で、砂に半ば埋もれた九龍城砦風の都市が立ち上がる | 土 | 脱出の中ボスとして戦う（役割は中ボス） | 生成済み: assets/summons/vertical-city-beast.png（採否待ち） | systems.md、#26 |
-| S006 | 雷の召喚獣 | 壮年編一周目最終・金沢城。倒した後の二周目で最強の味方になる | 雷 | 一周目は敵（M004 と同一の存在） | 生成済み: assets/summons/kanazawa-thunder-dragon.png（採否待ち。雷竜 M005 の像。龍の形に見えるため、雷竜の形の方針〔(a)龍でない形／(b)龍を包含した禍々しい竜。未決〕に沿って要見直し。作り直しは指示があるまでしない） | systems.md、story.md |
-| S007 | イマジナリー鼓門（隠しの召喚獣） | 二周目ラストバトル（金沢駅の鼓門前）だけ。長子が使う。アレクサンダーのようにビーム | 建前上は聖。本当の属性は未定 | 味方 | 生成済み: assets/summons/kotomon-imaginary.png（採否待ち） | decisions.md、art-direction.md |
-| S008 | 水の召喚獣（配偶者が化身） | 二周目ラスボス戦で、配偶者が使い、のち水の召喚獣化して子供側につく | 水 | M006 戦の一部 | 生成済み: S001 と同一の存在のため assets/summons/sea-of-japan-white-kraken.png を使う（2026-10-14 kako-jun。decisions.md） | systems.md |
+| S002 | 卯辰山の召喚獣 | 少年編前半・卯辰山の山のダンジョンの中ボス（山中。場所は山の続きの絵のどこか、後で）（kako-jun 2026-10-15、decisions.md） | 氷（凍った森。遭難の恐怖の具現化。人型・動物型にせず顔・目・口なし） | **中ボスとして戦う（取得は戦いを通る）**。のち味方 | 生成済み: assets/images/summons/S002.png（採否待ち） | systems.md、art-direction.md |
+| S003 | 内灘の風の召喚獣（名前は未定） | 少年編後半・内灘（砂浜〜松林道）。**中ボス戦であることは確定（kako-jun 2026-10-15）。戦闘の中身は案（story.md 315行付近）**。砂丘。砲弾の欠片の気配が混ざる殺意の強風。土の要素を入れない。砲弾や尖った霧裂く風のイメージ。生き物のモチーフは飛ぶ鳥だが、鳥そのままにせず風そのものの形で鳥は暗示にとどめる） | 風 | **中ボスとして戦う（取得は勝つこと）**。取得後は味方 | 生成済み: assets/images/summons/S003.png（C案の嘴状に尖る螺旋の気流を採用。kako-jun 2026-10-14） | art-direction.md、#26 |
+| S004 | 火の召喚獣（旧称「川から来た火の召喚獣」） | 中3の火事（寺の台所・庫裏。寺町）。ネコ型・会話できる・マスコット。**取得は中3の火事の戦いで確定（kako-jun 2026-10-15。先の「青年編前に川から」「体内編で得る」を置き換え。decisions.md）。川霧の火の造形の由来は要確認**。姿は川霧の青白い火の群れがネコの輪郭を取る（四つん這いで足が車輪） | 火 | **中ボスとして戦う（取得）**。バトルのあと平伏→大爆発。取得後は味方。二周目ラスボス戦では主人公が使う | 生成済み: assets/images/summons/S004.png（採否待ち） | systems.md、#26 |
+| S005 | 土の召喚獣（名前は未定） | 青年編・海外砂漠の密集垂直都市の脱出の中ボス。建物そのものが召喚獣。モチーフは九龍城砦（現存しない。2026-10-14 kako-jun）で、砂に半ば埋もれた九龍城砦風の都市が立ち上がる | 土 | 脱出の中ボスとして戦う（役割は中ボス） | 生成済み: assets/images/summons/S005.png（採否待ち） | systems.md、#26 |
+| S006 | 雷の召喚獣 | 壮年編一周目最終・金沢城。倒した後の二周目で最強の味方になる | 雷 | 一周目は敵（M004 と同一の存在） | 生成済み: assets/images/summons/S006.png（採否待ち。雷竜 M005 の像。龍の形に見えるため、雷竜の形の方針〔(a)龍でない形／(b)龍を包含した禍々しい竜。未決〕に沿って要見直し。作り直しは指示があるまでしない） | systems.md、story.md |
+| S007 | イマジナリー鼓門（隠しの召喚獣） | 二周目ラストバトル（金沢駅の鼓門前）だけ。長子が使う。アレクサンダーのようにビーム | 建前上は聖。本当の属性は未定 | 味方 | 生成済み: assets/images/summons/S007.png（採否待ち） | decisions.md、art-direction.md |
+| S008 | 水の召喚獣（配偶者が化身） | 二周目ラスボス戦で、配偶者が使い、のち水の召喚獣化して子供側につく | 水 | M006 戦の一部 | 未生成: S001 と同一の存在を使う設計だが、旧S001案は削除済みで現存画像なし。S008のファイルを補作しない（2026-10-14 kako-jun。decisions.md） | systems.md |
 
 ### 3-3. 日常の恐怖・イマジナリー敵（#12 のカテゴリ表）
 
@@ -81,57 +81,57 @@
 
 | ID | 名前 | 分類 | 出る場所 | 属性 | 弱点・耐性 | 役割 | 絵の状態 | 根拠 |
 |---|---|---|---|---|---|---|---|---|
-| M101 | ロードローラー | 圧倒的な機械・物 | 雪国の道路（フィールド・章は未定）。寺町 wide-road（広い道路）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | `assets/enemies/roadroller.png`（右向き・透過・運転者なし。2026-10-14 採用） | #12。技: どろだらけ（土のラーニング元。2026-10-15 kako-jun 決定。敵の専用 `[特技]`。効果・ダメージは未決。属性欄・弱点は変えない） |
-| M102 | 大型ドリル | 圧倒的な機械・物 | 海外 密集垂直都市（青年後半）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.7） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/drill.png`（採用: kako-jun 2026-10-14。右向き・透過・無人） | #12。技: どろだらけ（土のラーニング元。2026-10-15 kako-jun 決定。敵の専用 `[特技]`。効果・ダメージは未決。属性欄・弱点は変えない） |
-| M103 | 使用者のいない銃 | 圧倒的な機械・物 | 海外 密集垂直都市（青年後半）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.7） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/gun.png`（採用: kako-jun 2026-10-14。右向き・透過・使用者なし） | #12 |
-| M104 | 乱暴な自転車 | 交通と騒音 | 寺町 hinomi-bend（弧の道）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/reckless-bicycle.png`（採否待ち。右向き（前輪が右）・透過・無人） | #12、art-direction.md |
+| M101 | ロードローラー | 圧倒的な機械・物 | 雪国の道路（フィールド・章は未定）。寺町 wide-road（広い道路）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | `assets/images/enemies/M101.png`（右向き・透過・運転者なし。2026-10-14 採用） | #12。技: どろだらけ（土のラーニング元。2026-10-15 kako-jun 決定。敵の専用 `[特技]`。効果・ダメージは未決。属性欄・弱点は変えない） |
+| M102 | 大型ドリル | 圧倒的な機械・物 | 海外 密集垂直都市（青年後半）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.7） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M102.png`（採用: kako-jun 2026-10-14。右向き・透過・無人） | #12。技: どろだらけ（土のラーニング元。2026-10-15 kako-jun 決定。敵の専用 `[特技]`。効果・ダメージは未決。属性欄・弱点は変えない） |
+| M103 | 使用者のいない銃 | 圧倒的な機械・物 | 海外 密集垂直都市（青年後半）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.7） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M103.png`（採用: kako-jun 2026-10-14。右向き・透過・使用者なし） | #12 |
+| M104 | 乱暴な自転車 | 交通と騒音 | 寺町 hinomi-bend（弧の道）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M104.png`（採否待ち。右向き（前輪が右）・透過・無人） | #12、art-direction.md |
 | M105 | 乱暴な車 | 交通と騒音 | 香林坊 korinbo-crossroads（十字）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 仕様のみ（運転者は描かない） | 同上 |
-| M106 | 大音量のバイク | 交通と騒音 | 香林坊 convenience-store（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/loud-motorbike.png`（採否待ち。右向き・透過・無人・ロゴなし） | 同上 |
+| M106 | 大音量のバイク | 交通と騒音 | 香林坊 convenience-store（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M106.png`（採否待ち。右向き・透過・無人・ロゴなし） | 同上 |
 | M107 | 大型立体看板のお神輿型 | 都市の巨大物 | 香林坊（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.2） | 未定 | 未定 | 中ボス | 仕様のみ | 同上 |
-| M108 | 蓋の開いたマンホール | 暗い開口部 | 寺町 well-merge（井戸の合流）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/open-manhole.png`（採用: kako-jun 2026-10-14。右向き・透過・無人） | 同上。技: どろだらけ（土のラーニング元。2026-10-15 kako-jun 決定。敵の専用 `[特技]`。効果・ダメージは未決。属性欄・弱点は変えない） |
-| M109 | 夜の森の葉・枝（悪魔に見える） | 錯視 | 夜の森（章は未定）。卯辰山 N8 登り口・山の続き（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: assets/enemies/night-branches.png（mid-3 を採用: 顔なし・非対称の自然な枝葉で、上端の2本の枝が角、左の塊が肩、右の枝が腕に見える。採用: kako-jun 2026-10-14） | #12 |
-| M110 | 顔に見える壁の染み | 錯視 | 寺町 narrow-lane（縦の路地）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.1） | 未定 | 未定 | 未定 | 生成済み: assets/enemies/wall-stain.png（採用: kako-jun 2026-10-14） | #12 |
+| M108 | 蓋の開いたマンホール | 暗い開口部 | 寺町 well-merge（井戸の合流）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M108.png`（採用: kako-jun 2026-10-14。右向き・透過・無人） | 同上。技: どろだらけ（土のラーニング元。2026-10-15 kako-jun 決定。敵の専用 `[特技]`。効果・ダメージは未決。属性欄・弱点は変えない） |
+| M109 | 夜の森の葉・枝（悪魔に見える） | 錯視 | 夜の森（章は未定）。卯辰山 N8 登り口・山の続き（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: assets/images/enemies/M109.png（mid-3 を採用: 顔なし・非対称の自然な枝葉で、上端の2本の枝が角、左の塊が肩、右の枝が腕に見える。採用: kako-jun 2026-10-14） | #12 |
+| M110 | 顔に見える壁の染み | 錯視 | 寺町 narrow-lane（縦の路地）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.1） | 未定 | 未定 | 未定 | 生成済み: assets/images/enemies/M110.png（採用: kako-jun 2026-10-14） | #12 |
 | M111 | 防火シャッター | 展示物・玩具（環境敵） | 香林坊の閉店後の商店街（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.2） | 未定 | 未定 | 環境敵（背景と連動して戦場を狭める画面ギミック） | 仕様のみ（スプライトを持たない） | #12 |
-| M112 | マネキン | 展示物・玩具 | 香林坊のショーウィンドウ（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.2） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/mannequin.png`（採否待ち。右向き・透過・顔なし・立ち姿） | #12 |
-| M113 | 人形 | 展示物・玩具 | 子供部屋・古道具店・祭りの飾り（章・フィールドは未定）。香林坊 chaya-lane（茶屋街）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定（並び替わる・手をつなぐ・合体して大きく見える） | 生成済み: `assets/enemies/doll.png`（採否待ち。右向き・座り姿・透過（陶器の人形・人間ではない）） | #12 |
+| M112 | マネキン | 展示物・玩具 | 香林坊のショーウィンドウ（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.2） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M112.png`（採否待ち。右向き・透過・顔なし・立ち姿） | #12 |
+| M113 | 人形 | 展示物・玩具 | 子供部屋・古道具店・祭りの飾り（章・フィールドは未定）。香林坊 chaya-lane（茶屋街）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定（並び替わる・手をつなぐ・合体して大きく見える） | 生成済み: `assets/images/enemies/M113.png`（採否待ち。右向き・座り姿・透過（陶器の人形・人間ではない）） | #12 |
 | M114 | 大人向けの本（目隠しされた表紙） | 恐怖メディア | 未定（棚の高い位置） | 未定 | 未定 | 未定 | 仕様のみ（露骨な中身は描かない） | #12 |
-| M115 | ホラーDVD | 恐怖メディア | サニーランド sunnyland-arcade-indoor（廃ゲームセンター）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.3） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/horror-dvd.png`（採否待ち。DVDケース3枚の束・抽象的な不穏な表紙・文字なし・透過） | #12 |
-| M116 | 怪奇本 | 恐怖メディア | サニーランド sunnyland-arcade-indoor（補充候補。採否待ち）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/occult-book.png`（採否待ち。右向き三面・架空の渦巻き意匠・文字なし・透過） | #12 |
+| M115 | ホラーDVD | 恐怖メディア | サニーランド sunnyland-arcade-indoor（廃ゲームセンター）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.3） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M115.png`（採否待ち。DVDケース3枚の束・抽象的な不穏な表紙・文字なし・透過） | #12 |
+| M116 | 怪奇本 | 恐怖メディア | サニーランド sunnyland-arcade-indoor（補充候補。採否待ち）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M116.png`（採否待ち。右向き三面・架空の渦巻き意匠・文字なし・透過） | #12 |
 | M117 | 怪人・ひとさらい風の絵本キャラ | 恐怖メディア | 未定 | 未定 | 未定 | 未定 | 仕様のみ | #12 |
-| M118 | 笑い袋 | 恐怖メディア | サニーランド sunnyland-arcade-indoor（廃ゲームセンター）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.3） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/laughing-bag.png`（採否待ち。赤い巾着袋・布面に笑った顔の絵・右向き三面・透過。旧版（唇の口）は却下（kako-jun 2026-10-15）） | #12 |
+| M118 | 笑い袋 | 恐怖メディア | サニーランド sunnyland-arcade-indoor（廃ゲームセンター）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.3） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M118.png`（採否待ち。赤い巾着袋・布面に笑った顔の絵・右向き三面・透過。旧版（唇の口）は却下（kako-jun 2026-10-15）） | #12 |
 | M119 | 指名手配風ポスター | 恐怖メディア | 未定 | 未定 | 未定 | 未定 | 仕様のみ（架空の図像。実在人物・氏名・事件は使わない） | #12 |
 | M120 | 誘拐を思わせる標識 | 恐怖メディア | 未定 | 未定 | 未定 | 未定 | 仕様のみ（同上） | #12 |
-| M121 | 分厚い百科事典・難解な勉強の本 | 知識の恐怖 | 未定 | 未定 | 未定 | 未定（ページがめくれるたびに難問・重みが増す） | 生成済み: `assets/enemies/encyclopedia.png`（採否待ち。背表紙を左・頁側を右・透過・文字なし） | #12 |
-| M122 | 人体模型 | 医療・理科室 | 体内ダンジョン・頭（脳）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/anatomical-model.png`（採用: kako-jun 2026-10-14。右向き・透過・プラスチック製の教材模型） | #12 |
-| M123 | ホルマリン漬けのびん | 医療・理科室 | 体内ダンジョン・頭（脳）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/formalin-jar.png`（採用: kako-jun 2026-10-14。透過・正面寄り・液中の影は不明瞭な形） | 同上 |
-| M124 | 骨格模型 | 医療・理科室 | 体内ダンジョン・心臓（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/skeleton-model.png`（採用: kako-jun 2026-10-14。ほぼ正面・透過・キャスター付きスタンド付き） | 同上 |
-| M125 | 注射器 | 医療・理科室 | 体内ダンジョン・両手・両足（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/syringe.png`（採用: kako-jun 2026-10-14。右向き・透過・無人） | 同上 |
-| M126 | 歯科ドリル | 医療・理科室 | 体内ダンジョン・口（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/dental-drill.png`（採用: kako-jun 2026-10-14。右向き・透過・無人） | 同上 |
+| M121 | 分厚い百科事典・難解な勉強の本 | 知識の恐怖 | 未定 | 未定 | 未定 | 未定（ページがめくれるたびに難問・重みが増す） | 生成済み: `assets/images/enemies/M121.png`（採否待ち。背表紙を左・頁側を右・透過・文字なし） | #12 |
+| M122 | 人体模型 | 医療・理科室 | 体内ダンジョン・頭（脳）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M122.png`（採用: kako-jun 2026-10-14。右向き・透過・プラスチック製の教材模型） | #12 |
+| M123 | ホルマリン漬けのびん | 医療・理科室 | 体内ダンジョン・頭（脳）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M123.png`（採用: kako-jun 2026-10-14。透過・正面寄り・液中の影は不明瞭な形） | 同上 |
+| M124 | 骨格模型 | 医療・理科室 | 体内ダンジョン・心臓（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M124.png`（採用: kako-jun 2026-10-14。ほぼ正面・透過・キャスター付きスタンド付き） | 同上 |
+| M125 | 注射器 | 医療・理科室 | 体内ダンジョン・両手・両足（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M125.png`（採用: kako-jun 2026-10-14。右向き・透過・無人） | 同上 |
+| M126 | 歯科ドリル | 医療・理科室 | 体内ダンジョン・口（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M126.png`（採用: kako-jun 2026-10-14。右向き・透過・無人） | 同上 |
 | M127 | イカ | 水辺の生物 | 水辺（章は未定）。サニーランド sunnyland-aquarium-indoor（補充候補。大型雑魚。2x2 の穴埋め）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 大型ボス的（巨体・長い触腕・墨） | 仕様のみ | #12 |
 | M128 | タコ | 水辺の生物 | 水辺（章は未定）。能登 実家 v2（被災前。水のラーニング元なので被災後の能登の海辺でも出て再戦できる）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 通常敵（吸い付き・からみつき・多腕のトリッキーな戦い） | 仕様のみ | #12 |
-| M129 | ゴンズイ | 水辺の生物 | 水辺（章は未定）。内灘 uchinada-beach（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定（群れと毒棘） | 生成済み: `assets/enemies/gonzui.png`（採否待ち。5匹の群れ・右向き・透過） | #12 |
-| M130 | フグ | 水辺の生物 | 水辺（章は未定）。サニーランド sunnyland-aquarium-indoor（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定（膨らみと毒） | 生成済み: `assets/enemies/pufferfish.png`（採否待ち。膨らんだ姿・右向き・透過） | #12 |
-| M131 | スズメバチ | 生物 | 卯辰山 N8 登り口（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | `assets/enemies/hornet.png`（imagegen 透過直生成を採用。長辺640。`raw/hornet-alpha.png` が元、`raw/hornet.png` は不採用の緑背景版） | #12、#17 |
-| M132 | 病原体（今どきのウイルスなど。実在の病原体名を使う。体内の敵は種類を増やす＝各種ウイルス・免疫細胞も出てよい。マクロファージは雑魚でなく部位の中ボスの1つ＝M012（体内では主人公が「異物」なので、免疫は主人公を異物と見て攻撃する）。kako-jun 2026-10-15。台帳へは後で起こす） | 毒と尖り | 体内ダンジョン（異性の友達の病院が舞台。中盤のトクリュウ対決より前）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/pathogen.png`（採用: kako-jun 2026-10-14。透過） | #12、story.md、assets-policy.md |
-| M133 | 毒キノコ | 毒と尖り | 湿った林・古い木壁・山の遊園地跡。卯辰山 utatsuyama-sunnyland（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定（胞子で視界や判断を乱す） | 生成済み: `assets/enemies/poison-mushroom.png`（採否待ち。透過・胞子つき） | #12 |
-| M134 | 釘 | 毒と尖り（尖ったもの） | 能登 N5 上り坂（被災後）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | `assets/enemies/nail.png`（透過・長辺640。採用: kako-jun 2026-10-14） | #12 |
-| M135 | 割れたガラス | 毒と尖り（尖ったもの） | 能登 N7 下り坂（被災後）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | `assets/enemies/broken-glass.png`（採用: kako-jun 2026-10-14） | #12 |
-| M136 | 金網 | 毒と尖り（尖ったもの） | 卯辰山 utatsuyama-sunnyland（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/wire-mesh.png`（採否待ち。右へ切れた針金が伸びる・透過） | #12 |
-| M137 | 有刺鉄線 | 毒と尖り（尖ったもの） | 海外 荒れ地A・B（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/barbed-wire.png`（採否待ち。右へ線が伸びる・透過） | #12 |
-| M138 | 氷柱 | 毒と尖り（尖ったもの） | 卯辰山 N8 登り口（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定（氷系の候補だが記録に属性の指定なし） | 未定 | 未定 | `assets/enemies/icicle.png`（採用: kako-jun 2026-10-14） | #12 |
-| M139 | ウニ | 毒と尖り（尖ったもの） | 能登 釣り場（被災前。水のラーニング元なので被災後の能登の海辺でも出て再戦できる）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | `assets/enemies/sea-urchin.png`（採用: kako-jun 2026-10-14） | #12 |
+| M129 | ゴンズイ | 水辺の生物 | 水辺（章は未定）。内灘 uchinada-beach（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定（群れと毒棘） | 生成済み: `assets/images/enemies/M129.png`（採否待ち。5匹の群れ・右向き・透過） | #12 |
+| M130 | フグ | 水辺の生物 | 水辺（章は未定）。サニーランド sunnyland-aquarium-indoor（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定（膨らみと毒） | 生成済み: `assets/images/enemies/M130.png`（採否待ち。膨らんだ姿・右向き・透過） | #12 |
+| M131 | スズメバチ | 生物 | 卯辰山 N8 登り口（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | `assets/images/enemies/M131.png`（imagegen 透過直生成を採用。長辺640。`raw/hornet-alpha.png` が元、`raw/hornet.png` は不採用の緑背景版） | #12、#17 |
+| M132 | 病原体（今どきのウイルスなど。実在の病原体名を使う。体内の敵は種類を増やす＝各種ウイルス・免疫細胞も出てよい。マクロファージは雑魚でなく部位の中ボスの1つ＝M012（体内では主人公が「異物」なので、免疫は主人公を異物と見て攻撃する）。kako-jun 2026-10-15。台帳へは後で起こす） | 毒と尖り | 体内ダンジョン（異性の友達の病院が舞台。中盤のトクリュウ対決より前）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M132.png`（採用: kako-jun 2026-10-14。透過） | #12、story.md、assets-policy.md |
+| M133 | 毒キノコ | 毒と尖り | 湿った林・古い木壁・山の遊園地跡。卯辰山 utatsuyama-sunnyland（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定（胞子で視界や判断を乱す） | 生成済み: `assets/images/enemies/M133.png`（採否待ち。透過・胞子つき） | #12 |
+| M134 | 釘 | 毒と尖り（尖ったもの） | 能登 N5 上り坂（被災後）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | `assets/images/enemies/M134.png`（透過・長辺640。採用: kako-jun 2026-10-14） | #12 |
+| M135 | 割れたガラス | 毒と尖り（尖ったもの） | 能登 N7 下り坂（被災後）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | `assets/images/enemies/M135.png`（採用: kako-jun 2026-10-14） | #12 |
+| M136 | 金網 | 毒と尖り（尖ったもの） | 卯辰山 utatsuyama-sunnyland（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M136.png`（採否待ち。右へ切れた針金が伸びる・透過） | #12 |
+| M137 | 有刺鉄線 | 毒と尖り（尖ったもの） | 海外 荒れ地A・B（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M137.png`（採否待ち。右へ線が伸びる・透過） | #12 |
+| M138 | 氷柱 | 毒と尖り（尖ったもの） | 卯辰山 N8 登り口（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定（氷系の候補だが記録に属性の指定なし） | 未定 | 未定 | `assets/images/enemies/M138.png`（採用: kako-jun 2026-10-14） | #12 |
+| M139 | ウニ | 毒と尖り（尖ったもの） | 能登 釣り場（被災前。水のラーニング元なので被災後の能登の海辺でも出て再戦できる）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | `assets/images/enemies/M139.png`（採用: kako-jun 2026-10-14） | #12 |
 | M140 | タバコの煙と灰 | におい・空気 | 未定 | 未定 | 未定 | 環境敵として検討（視界・詠唱・行動順に作用）。使用者は敵にしない | 仕様のみ | #12 |
 | M141 | 酒の強いアルコール臭と揺れる液面 | におい・空気 | 未定 | 未定 | 未定 | 環境敵として検討（同上）。飲酒者は敵にしない | 仕様のみ | #12 |
-| M142 | 落ちてきそうなシャンデリア | 崩壊・落下 | サニーランド sunnyland-indoor（円形ホール）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.3） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/chandelier.png`（採用: kako-jun 2026-10-14。右寄り斜め・透過・鎖は上端で切断） | #12 |
-| M143 | 割れた窓 | 崩壊・落下 | サニーランド sunnyland-indoor（円形ホール）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/broken-window.png`（採用: kako-jun 2026-10-14。右へ破片が突き出す・透過） | #12 |
-| M144 | 破れた障子 | 崩壊・落下 | 香林坊 chaya-lane（茶屋街）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.2） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/torn-shoji.png`（採否待ち。右へ紙片がなびく・透過） | #12、#14 |
-| M145 | 割れた酒瓶（割れたビール瓶） | 崩壊・落下 | 寺町 sento（銭湯）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.1） | 未定 | 未定 | 未定 | 生成済み: `assets/enemies/broken-bottle.png`（口が割れた茶色いビール瓶・右向き・透過。2026-10-14生成、同日 kako-jun が採用） | #12 |
-| M146 | プロペラ | 回転する刃（風） | 内灘 uchinada-station・N3 松林道（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.4） | 風 | 未定 | 未定 | 生成済み: `assets/enemies/propeller.png`（採否待ち。三枚羽根・透過） | art-direction.md、#26 |
-| M147 | 扇風機・換気扇の羽根 | 回転する刃（風） | 寺町 sento（銭湯）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 風 | 未定 | 未定 | 生成済み: `assets/enemies/fan-blades.png`（採否待ち。右向き・透過） | 同上 |
-| M148 | 凍った水たまり | 凍った足元（氷） | 寺町 connector・well-merge（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 氷 | 未定 | 未定 | 生成済み: `assets/enemies/frozen-puddle.png`（採否待ち。ほぼ平面・白く曇った氷・ひびと気泡・縁に霜。旧版は盛り上がって凍った水たまりに見えにくく不要とされ削除。kako-jun 2026-10-15） | 同上 |
-| M149 | 石油ストーブ | 火事の原因（火） | 寺町 sento（銭湯。中3の火事に向けて慣れさせる）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.1） | 火 | 未定 | 未定 | 生成済み: `assets/enemies/kerosene-heater.png`（採否待ち。右向き・透過・火災は描かない） | 同上 |
-| M150 | ライター | 火事の原因（火） | 寺町 sento（銭湯。中3の火事に向けて慣れさせる）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.1） | 火 | 未定 | 未定 | 生成済み: `assets/enemies/lighter.png`（採否待ち。炎が右上へ・透過・無人・ロゴなし） | 同上 |
-| M151 | 古いたこ足配線 | 火事の原因（火） | 寺町 sento（銭湯。雷のラーニング元を早く取れるよう寺町に置く）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 火 | 未定 | 未定 | 生成済み: `assets/enemies/octopus-wiring.png`（採否待ち。コードが右へ広がる・焦げた差込口・透過） | 同上。技: かんでん（雷のラーニング元。2026-10-15 kako-jun 決定。敵の専用 `[特技]`。効果・ダメージは未決。敵自身の属性は火のまま。火事の技と感電の技の両方を持ってよい） |
+| M142 | 落ちてきそうなシャンデリア | 崩壊・落下 | サニーランド sunnyland-indoor（円形ホール）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.3） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M142.png`（採用: kako-jun 2026-10-14。右寄り斜め・透過・鎖は上端で切断） | #12 |
+| M143 | 割れた窓 | 崩壊・落下 | サニーランド sunnyland-indoor（円形ホール）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M143.png`（採用: kako-jun 2026-10-14。右へ破片が突き出す・透過） | #12 |
+| M144 | 破れた障子 | 崩壊・落下 | 香林坊 chaya-lane（茶屋街）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.2） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M144.png`（採否待ち。右へ紙片がなびく・透過） | #12、#14 |
+| M145 | 割れた酒瓶（割れたビール瓶） | 崩壊・落下 | 寺町 sento（銭湯）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.1） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M145.png`（口が割れた茶色いビール瓶・右向き・透過。2026-10-14生成、同日 kako-jun が採用） | #12 |
+| M146 | プロペラ | 回転する刃（風） | 内灘 uchinada-station・N3 松林道（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.4） | 風 | 未定 | 未定 | 生成済み: `assets/images/enemies/M146.png`（採否待ち。三枚羽根・透過） | art-direction.md、#26 |
+| M147 | 扇風機・換気扇の羽根 | 回転する刃（風） | 寺町 sento（銭湯）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 風 | 未定 | 未定 | 生成済み: `assets/images/enemies/M147.png`（採否待ち。右向き・透過） | 同上 |
+| M148 | 凍った水たまり | 凍った足元（氷） | 寺町 connector・well-merge（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 氷 | 未定 | 未定 | 生成済み: `assets/images/enemies/M148.png`（採否待ち。ほぼ平面・白く曇った氷・ひびと気泡・縁に霜。旧版は盛り上がって凍った水たまりに見えにくく不要とされ削除。kako-jun 2026-10-15） | 同上 |
+| M149 | 石油ストーブ | 火事の原因（火） | 寺町 sento（銭湯。中3の火事に向けて慣れさせる）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.1） | 火 | 未定 | 未定 | 生成済み: `assets/images/enemies/M149.png`（採否待ち。右向き・透過・火災は描かない） | 同上 |
+| M150 | ライター | 火事の原因（火） | 寺町 sento（銭湯。中3の火事に向けて慣れさせる）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.1） | 火 | 未定 | 未定 | 生成済み: `assets/images/enemies/M150.png`（採否待ち。炎が右上へ・透過・無人・ロゴなし） | 同上 |
+| M151 | 古いたこ足配線 | 火事の原因（火） | 寺町 sento（銭湯。雷のラーニング元を早く取れるよう寺町に置く）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 火 | 未定 | 未定 | 生成済み: `assets/images/enemies/M151.png`（採否待ち。コードが右へ広がる・焦げた差込口・透過） | 同上。技: かんでん（雷のラーニング元。2026-10-15 kako-jun 決定。敵の専用 `[特技]`。効果・ダメージは未決。敵自身の属性は火のまま。火事の技と感電の技の両方を持ってよい） |
 | M152 | 砲弾の欠片 | 回転する刃（風）に準ずる風のラーニング元（形の気配に留める） | 内灘 N3 松林道（防砂林・砂丘）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.4） | 風（風のラーニング元「ざくざく」。kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.4） | 未定 | 未定 | 未定（生成していない。仕様のみ） | 形の気配に留め、実在の砲弾・兵器は再現しない（S003 の「砲弾の欠片の気配」と対応）。docs/enemy-allocation.md §1.4、art-direction.md |
 
 **属性の穴（解消。kako-jun 2026-10-15 決定。docs/enemy-allocation.md §2.2）**: 土（どろだらけ）＝M101・M102・M108 が技として持つ。雷（かんでん）＝M151 が技として持つ（M151 の敵属性は台帳どおり火。火事の技と感電の技の両方を持ってよい）。属性欄・弱点は決めない。技の効果・ダメージは未決。
@@ -152,13 +152,13 @@
 
 | ファイル | 内容 | 使われている所 |
 |---|---|---|
-| `sample/battle/backgrounds/bg-a.png` | 雪の寺町風の道（土塀・石垣・用水・赤白スノーポール） | 戦闘背景の素材（敵との対応は未定） |
-| `sample/battle/backgrounds/bg-b.png` | 雪の駐車場（波板塀・除雪の雪山） | 同上 |
-| `sample/battle/backgrounds/bg-c.png` | 雪の園庭（すべり台・ジャングルジム・ブランコ） | 同上 |
-| `sample/battle/backgrounds/stage-a.png` | お遊戯会の舞台の床（赤い緞帳） | 同上 |
-| `sample/battle/backgrounds/stage-b.png` | 舞台の床（雪山・城の書き割り） | `stage-b.json`（M001 との戦闘サンプル） |
-| `sample/battle/backgrounds/stage-c.png` | 舞台の床（紙飾り・段ボールの城） | `stage-c.json`（M001 との戦闘サンプル） |
-| `sample/field/` `sample/field/diorama-trial/` | 寺町のフィールド背景（overview・wide-road・narrow-lane・connector、試作の kindergarten・danchi-court・sento・well-merge など）と歩行マスク | フィールド。敵の配置は未定 |
+| `assets/images/battle-backgrounds/BG001.png` | 雪の寺町風の道（土塀・石垣・用水・赤白スノーポール） | 戦闘背景の素材（敵との対応は未定） |
+| `assets/images/battle-backgrounds/BG002.png` | 雪の駐車場（波板塀・除雪の雪山） | 同上 |
+| `assets/images/battle-backgrounds/BG003.png` | 雪の園庭（すべり台・ジャングルジム・ブランコ） | 同上 |
+| `assets/images/battle-backgrounds/BG004.png` | お遊戯会の舞台の床（赤い緞帳） | 同上 |
+| `assets/images/battle-backgrounds/BG005.png` | 舞台の床（雪山・城の書き割り） | `stage-b.json`（M001 との戦闘サンプル） |
+| `assets/images/battle-backgrounds/BG006.png` | 舞台の床（紙飾り・段ボールの城） | `stage-c.json`（M001 との戦闘サンプル） |
+| `assets/images/fields/` | 寺町のフィールド背景（overview・wide-road・narrow-lane・connector、試作の kindergarten・danchi-court・sento・well-merge など）と歩行マスク | フィールド。敵の配置は未定 |
 
 ### 3-6. 戦利品（ドロップ・ぬすむ）
 
@@ -200,46 +200,46 @@
 
 | ID | サイズ区分 | 画像・寸法・縦横比 |
 |---|---|---|
-| M101 | 1x1（普通） | `assets/enemies/roadroller.png` 640x393、縦横比 1.63 |
-| M102 | 2x1（横2倍） | `assets/enemies/drill.png` 640x271、縦横比 2.36 |
-| M103 | 2x1（横2倍） | `assets/enemies/gun.png` 640x197、縦横比 3.25 |
-| M104 | 1x1（普通） | `assets/enemies/reckless-bicycle.png` 640x418、縦横比 1.53 |
-| M106 | 2x1（横2倍） | `assets/enemies/loud-motorbike.png` 640x336、縦横比 1.90 |
-| M108 | 1x1（普通） | `assets/enemies/open-manhole.png` 640x377、縦横比 1.70 |
-| M109 | 1x1（普通） | `assets/enemies/night-branches.png` 640x468、縦横比 1.37 |
-| M110 | 1x2（縦2倍） | `assets/enemies/wall-stain.png` 323x640、縦横比 0.50 |
-| M112 | 1x2（縦2倍） | `assets/enemies/mannequin.png` 192x640、縦横比 0.30 |
-| M113 | 1x1（普通） | `assets/enemies/doll.png` 570x640、縦横比 0.89 |
-| M115 | 1x1（普通） | `assets/enemies/horror-dvd.png` 408x640、縦横比 0.64 |
-| M116 | 1x1（普通） | `assets/enemies/occult-book.png` 430x640、縦横比 0.67 |
-| M118 | 1x1（普通） | `assets/enemies/laughing-bag.png` 532x640、縦横比 0.83 |
-| M121 | 1x1（普通） | `assets/enemies/encyclopedia.png` 465x640、縦横比 0.73 |
-| M122 | 1x2（縦2倍） | `assets/enemies/anatomical-model.png` 296x640、縦横比 0.46 |
-| M123 | 1x1（普通） | `assets/enemies/formalin-jar.png` 434x640、縦横比 0.68 |
-| M124 | 1x2（縦2倍） | `assets/enemies/skeleton-model.png` 234x640、縦横比 0.37 |
-| M125 | 2x1（横2倍） | `assets/enemies/syringe.png` 640x137、縦横比 4.67 |
-| M126 | 2x1（横2倍） | `assets/enemies/dental-drill.png` 640x352、縦横比 1.82 |
-| M129 | 1x1（普通） | `assets/enemies/gonzui.png` 640x433、縦横比 1.48 |
-| M130 | 1x1（普通） | `assets/enemies/pufferfish.png` 640x535、縦横比 1.20 |
-| M131 | 1x1（普通） | `assets/enemies/hornet.png` 640x636、縦横比 1.01 |
-| M132 | 1x1（普通） | `assets/enemies/pathogen.png` 640x462、縦横比 1.39 |
-| M133 | 1x1（普通） | `assets/enemies/poison-mushroom.png` 640x466、縦横比 1.37 |
-| M134 | 1x1（普通） | `assets/enemies/nail.png` 640x414、縦横比 1.55 |
-| M135 | 1x1（普通） | `assets/enemies/broken-glass.png` 640x421、縦横比 1.52 |
-| M136 | 1x1（普通） | `assets/enemies/wire-mesh.png` 640x458、縦横比 1.40 |
-| M137 | 1x1（普通） | `assets/enemies/barbed-wire.png` 640x359、縦横比 1.78 |
-| M138 | 1x1（普通） | `assets/enemies/icicle.png` 640x432、縦横比 1.48 |
-| M139 | 1x1（普通） | `assets/enemies/sea-urchin.png` 640x449、縦横比 1.43 |
-| M142 | 1x1（普通） | `assets/enemies/chandelier.png` 640x546、縦横比 1.17 |
-| M143 | 1x1（普通） | `assets/enemies/broken-window.png` 470x640、縦横比 0.73 |
-| M144 | 1x1（普通） | `assets/enemies/torn-shoji.png` 465x640、縦横比 0.73 |
-| M145 | 2x1（横2倍） | `assets/enemies/broken-bottle.png` 640x199、縦横比 3.22 |
-| M146 | 1x1（普通） | `assets/enemies/propeller.png` 640x497、縦横比 1.29 |
-| M147 | 1x1（普通） | `assets/enemies/fan-blades.png` 640x621、縦横比 1.03 |
-| M148 | 2x1（横2倍） | `assets/enemies/frozen-puddle.png` 640x323、縦横比 1.98 |
-| M149 | 1x1（普通） | `assets/enemies/kerosene-heater.png` 640x589、縦横比 1.09 |
-| M150 | 1x1（普通） | `assets/enemies/lighter.png` 410x640、縦横比 0.64 |
-| M151 | 2x1（横2倍） | `assets/enemies/octopus-wiring.png` 640x337、縦横比 1.90 |
+| M101 | 1x1（普通） | `assets/images/enemies/M101.png` 640x393、縦横比 1.63 |
+| M102 | 2x1（横2倍） | `assets/images/enemies/M102.png` 640x271、縦横比 2.36 |
+| M103 | 2x1（横2倍） | `assets/images/enemies/M103.png` 640x197、縦横比 3.25 |
+| M104 | 1x1（普通） | `assets/images/enemies/M104.png` 640x418、縦横比 1.53 |
+| M106 | 2x1（横2倍） | `assets/images/enemies/M106.png` 640x336、縦横比 1.90 |
+| M108 | 1x1（普通） | `assets/images/enemies/M108.png` 640x377、縦横比 1.70 |
+| M109 | 1x1（普通） | `assets/images/enemies/M109.png` 640x468、縦横比 1.37 |
+| M110 | 1x2（縦2倍） | `assets/images/enemies/M110.png` 323x640、縦横比 0.50 |
+| M112 | 1x2（縦2倍） | `assets/images/enemies/M112.png` 192x640、縦横比 0.30 |
+| M113 | 1x1（普通） | `assets/images/enemies/M113.png` 570x640、縦横比 0.89 |
+| M115 | 1x1（普通） | `assets/images/enemies/M115.png` 408x640、縦横比 0.64 |
+| M116 | 1x1（普通） | `assets/images/enemies/M116.png` 430x640、縦横比 0.67 |
+| M118 | 1x1（普通） | `assets/images/enemies/M118.png` 532x640、縦横比 0.83 |
+| M121 | 1x1（普通） | `assets/images/enemies/M121.png` 465x640、縦横比 0.73 |
+| M122 | 1x2（縦2倍） | `assets/images/enemies/M122.png` 296x640、縦横比 0.46 |
+| M123 | 1x1（普通） | `assets/images/enemies/M123.png` 434x640、縦横比 0.68 |
+| M124 | 1x2（縦2倍） | `assets/images/enemies/M124.png` 234x640、縦横比 0.37 |
+| M125 | 2x1（横2倍） | `assets/images/enemies/M125.png` 640x137、縦横比 4.67 |
+| M126 | 2x1（横2倍） | `assets/images/enemies/M126.png` 640x352、縦横比 1.82 |
+| M129 | 1x1（普通） | `assets/images/enemies/M129.png` 640x433、縦横比 1.48 |
+| M130 | 1x1（普通） | `assets/images/enemies/M130.png` 640x535、縦横比 1.20 |
+| M131 | 1x1（普通） | `assets/images/enemies/M131.png` 640x636、縦横比 1.01 |
+| M132 | 1x1（普通） | `assets/images/enemies/M132.png` 640x462、縦横比 1.39 |
+| M133 | 1x1（普通） | `assets/images/enemies/M133.png` 640x466、縦横比 1.37 |
+| M134 | 1x1（普通） | `assets/images/enemies/M134.png` 640x414、縦横比 1.55 |
+| M135 | 1x1（普通） | `assets/images/enemies/M135.png` 640x421、縦横比 1.52 |
+| M136 | 1x1（普通） | `assets/images/enemies/M136.png` 640x458、縦横比 1.40 |
+| M137 | 1x1（普通） | `assets/images/enemies/M137.png` 640x359、縦横比 1.78 |
+| M138 | 1x1（普通） | `assets/images/enemies/M138.png` 640x432、縦横比 1.48 |
+| M139 | 1x1（普通） | `assets/images/enemies/M139.png` 640x449、縦横比 1.43 |
+| M142 | 1x1（普通） | `assets/images/enemies/M142.png` 640x546、縦横比 1.17 |
+| M143 | 1x1（普通） | `assets/images/enemies/M143.png` 470x640、縦横比 0.73 |
+| M144 | 1x1（普通） | `assets/images/enemies/M144.png` 465x640、縦横比 0.73 |
+| M145 | 2x1（横2倍） | `assets/images/enemies/M145.png` 640x199、縦横比 3.22 |
+| M146 | 1x1（普通） | `assets/images/enemies/M146.png` 640x497、縦横比 1.29 |
+| M147 | 1x1（普通） | `assets/images/enemies/M147.png` 640x621、縦横比 1.03 |
+| M148 | 2x1（横2倍） | `assets/images/enemies/M148.png` 640x323、縦横比 1.98 |
+| M149 | 1x1（普通） | `assets/images/enemies/M149.png` 640x589、縦横比 1.09 |
+| M150 | 1x1（普通） | `assets/images/enemies/M150.png` 410x640、縦横比 0.64 |
+| M151 | 2x1（横2倍） | `assets/images/enemies/M151.png` 640x337、縦横比 1.90 |
 
 M001（段ボールのドラゴン）は「中ボスか雑魚かの区分は未定」、M003（匿龍。トクリュウの本物の龍）は役割の記述が無くボス明記の根拠が無いため載せていない。ボスと決まれば大型としてここに追加する。M127（イカ）は「大型ボス的」とあるが役割は未定のため、同様に載せていない。
 

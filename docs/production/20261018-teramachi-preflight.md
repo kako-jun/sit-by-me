@@ -1,0 +1,114 @@
+# 寺町建物群の制作前入力（2026-10-18）
+
+状態: **BLOCKED / 未生成**。runtimeのready判定ではない。#51の16枚全再作成（1920×1080）に先立ち、最初の対象を **共通外観参照1枚** とする。E11最終背景、室内、maskはまだ生成しない。
+
+根拠: [#51](https://github.com/kako-jun/sit-by-me/issues/51)、[#60](https://github.com/kako-jun/sit-by-me/issues/60)。着手前記録は [#51コメント](https://github.com/kako-jun/sit-by-me/issues/51#issuecomment-6243857457)、[#60コメント](https://github.com/kako-jun/sit-by-me/issues/60#issuecomment-6243857707)。
+
+## Issue #60原文（要約ではなく入力へ添付）
+
+```text
+ヒロインの住居、幼稚園、本堂は外へ出ずに屋内廊下でつながる。本堂を中央に置き、幼稚園と住居を直接接続しない。
+
+E11 境内（外部）
+  └─ door-main → F01 本堂
+                    ├─ door-east / 渡り廊下 → E12 住居
+                    └─ door-west / 廊下 → F02 幼稚園・遊戯室
+
+- `E12.door-playroom ↔ F02.door-west` の住居↔幼稚園直結を廃止する。
+- F01が住居と幼稚園の双方へ向かう屋内の中心・分岐になる。
+- E11から住居・幼稚園へ屋外を経由する新規doorは作らない。
+```
+
+## 原文行束
+
+以下は記載元の原文行。概要からの再構成をしない。更新時には5ファイルとの逐語一致を再検査する。map-topologyの入ってくる接続E04→E11も含む。
+
+```text
+SOURCE docs/map-asset-registry.md
+| E01 | `assets/images/fields/legacy/E01.png` | 寺町 | retired-replacement-required |
+| E11 | `assets/images/fields/legacy/E11.png` | 寺町 | retired-replacement-required |
+| E12 | `assets/images/fields/legacy/E12.png` | 寺町 | retired-replacement-required |
+| F01 | `teramachi-main-hall-interior` | 寺町 | ドア接続・時期・室内通路 |
+| F02 | `teramachi-kindergarten-hall` | 寺町 | ドア接続・舞台と通路 |
+SOURCE docs/map-specifications.md
+| E01 kindergarten | 幼稚園前半〜終幕 | 本堂の裏で雪遊びをする私立幼稚園の園庭（屋外） | 段丘上。right→E02左端、北の通用門→E11 | F02は同じ幼稚園の屋内。E01↔F02の直結doorは未契約のため描かない |
+| E11 temple-grounds | 全時期 | 親鸞像のある浄土真宗の境内（屋外） | bottom→E04、door-main→F01、door-kindergarten→E01 | #60。本堂中心・東住居・西幼稚園の同じ建物群。住居／遊戯室への屋外doorなし |
+| E12 residence | 全時期 | 庫裏の台所と幼馴染の部屋（屋内） | door-hall→中央F01のdoor-east。F02直結なし | #60。本堂の東。台所は火事イベントの場所 |
+| F01 | 全時期 | 仏具の鈍い金と畳が対照になる本堂（屋内） | door-south→E11、door-east→E12.door-hall、door-west→F02.door-west。参拝域は端へ出ない | #60。中央の屋内分岐。住居・幼稚園へ外に出ず移動 |
+| F02 | 幼稚園期・火事後 | 舞台幕と小さな椅子が残る遊戯室（屋内） | door-west→F01.door-west。到着方位・扉位置はTBD。舞台袖は画面内終端。E12直結なし | #60。本堂の西。劇の自動イベント用。E01と同じ幼稚園で、園庭直結は未契約 |
+SOURCE docs/map-topology.md
+| E01.right | E02.left | edge | 幼稚園正門から東へ出る生活路。E02内で北行きへ曲がる。 |
+| E01.door-north | E11.door-kindergarten | door | 本堂脇の通用門 |
+| E04.top | E11.bottom | edge | 山門から境内へ |
+| E11.door-main | F01.door-south | door | 本堂内部 |
+| F01.door-east | E12.door-hall | door | 本堂から庫裏への渡り廊下 |
+| F01.door-west | F02.door-west | door | 本堂から西の幼稚園への屋内廊下。F02側の既存IDのwestは改名せず、実際の到着方位はTBD |
+| `E01.door-north` | `E11.door-kindergarten` | 幼稚園の北側通用門。本堂脇の同じ門へ入る。園庭主路とは分離する。 |
+| `E11.door-main` | `F01.door-south` | 境内から本堂へ。段差を主路にせず、扉前に回転余地を残す。 |
+| `F01.door-east` | `E12.door-hall` | 本堂から庫裏へ渡る廊下。畳廊下の方位と扉位置を一致させる。 |
+| `F01.door-west` | `F02.door-west` | 中央の本堂から西の幼稚園へ屋内廊下で移動。F02側IDの実方位・扉位置はTBD。舞台袖は画面内終端。 |
+SOURCE docs/map-contract-checklist.md
+| E01 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E01.png`; mask未記録 | 園庭の既存画像におけるE02/E11の実端、幼稚園期のtraversalを採寸する |
+| E11 | recreate-required-1920x1080 | R006,R011,R024 | 旧境内画像は参照専用。新背景・mask未作成 | #60の屋外境内。E04端、E01通用門、F01正面扉、池・墓地のblocked域を記録。E12/F02屋外doorなし。共通外観参照未通過 |
+| E12 | recreate-required-1920x1080 | R006,R011,R021,R024 | 旧庫裏画像は参照専用。新背景・mask未作成 | #60の東の屋内住居。F01.door-east↔door-hallのみ。内部廊下の扉位置、幅・段差・回転域、火事時遮断範囲がTBD。F02直結なし |
+| F01 | recreate-required-1920x1080 | R021,R024 | 旧本堂画像は参照専用。新背景・mask未作成 | #60の中央屋内本堂。E11南、E12東、F02西の扉位置、畳・仏具と主路、段差・幅・回転域を記録する |
+| F02 | recreate-required-1920x1080 | R021,R024 | 旧遊戯室画像は参照専用。新背景・mask未作成 | #60の西の屋内幼稚園。F01↔F02.door-westの到着方位と扉位置、舞台袖・椅子・主路の分離、段差・幅・回転域を記録する。E12直結なし |
+SOURCE docs/teramachi-rebuild-candidates.md
+| E01 | `E01-teramachi-kindergarten-rebuild-candidate.png` | right→E02、door-north→E11 | 屋外園庭。幼稚園北通用門は園庭主路と分離 | recreate-required-1920x1080 |
+| E11 | `E11-temple-grounds-rebuild-v4-candidate.png` | bottom→E04、door-main→F01、door-kindergarten→E01 | 屋外境内。住居・遊戯室への屋外doorなし | recreate-required-1920x1080 |
+| E12 | `E12-temple-residence-rebuild-v3-candidate.png` | door-hall→F01.door-east | 屋内庫裏。本堂の東。F02直結なし | recreate-required-1920x1080 |
+| F01 | `F01-temple-main-hall-rebuild-v2-candidate.png` | door-south→E11、door-east→E12.door-hall、door-west→F02.door-west | 中央の屋内本堂。扉前の段差なし・回転余地 | recreate-required-1920x1080 |
+| F02 | `F02-kindergarten-playroom-rebuild-candidate.png` | door-west→F01.door-west | 本堂の西の屋内遊戯室。到着方位TBD。舞台袖は画面内終端 | recreate-required-1920x1080 |
+```
+
+## 建築不変表
+
+| 原文／正本 | 検査する範囲 |
+|---|---|
+| ヒロインの住居、幼稚園、本堂は外へ出ずに屋内廊下でつながる。本堂を中央に置き、幼稚園と住居を直接接続しない。 | 屋根・外壁を保ち、本堂中央・幼稚園西・住居東。別棟や外部渡り廊下で代替しない |
+| E11 境内（外部） | 屋外境内。屋根を外した室内・家具を見せない |
+| E01の正本行「私立幼稚園の園庭（屋外）」／F02の正本行「遊戯室（屋内）」 | 園庭と遊戯室は同じ幼稚園の外部／内部。E01を室内にしない。未契約の園庭直結doorを足さない |
+| F01.door-east ↔ E12.door-hall | 東の住居まで屋内で連続。具体的廊下形状は未確定 |
+| F01.door-west ↔ F02.door-west | 西の幼稚園まで屋内で連続。既存F02側IDから実方位や位置を推測しない |
+| E11から住居・幼稚園へ屋外を経由する新規doorは作らない。 | 境内の正面入口はF01へ。住居・遊戯室の外部入口を発明しない |
+
+## 参照入力と失敗記録
+
+- 材料の既存見本: `assets/images/fields/legacy/E04.png`。建物配置の正本には使わない。
+- #68で失敗したrebuild画像を削除した。生成時の現存参照は `assets/images/fields/legacy/E01.png`、`E11.png`、`E12.png`（同じディレクトリ）を題材・工作材料の補助として入力し、#60と衝突する配置・旧扉・比率を継承しない。F01/F02に現存する旧完成画像はない。削除画像を必須添付にしない。
+- 削除済み旧 `teramachi-temple-compound-master-plan-v2-connected.png` は屋根の切断・室内露出、分離した量塊／外部通路に見える失敗例。**外観共通参照として不合格**。名前のconnectedを建築成立の証拠にしない。生成入力の配置正本として使わない。削除対象・SHA-256・元commit・失敗理由は [移行manifest](20261018-asset-migration.json) に記録した。失敗画像自体を恒久保持しない。
+- Ref R006/R011/R024: `docs/map-reference-research.md` の地域・土塀・地理資料。特定寺院の平面や室内を保証しない。
+- Ref R021: 後のruntimeの幅・回転域換算用。外観参照の建物寸法を決める根拠には使わない。
+
+## 最初の1枚への具体的入力案（実行前ドラフト）
+
+```text
+対象: 寺町共通外観参照。E11/E12/F01/F02/E01の同じ建物群を確認する1枚。
+納品: 1920×1080 PNG、16:9、非透過。北＝上、鉛直下向き角80°以上85°以下。
+添付: 本文のIssue #60原文、5ファイルの原文行束、建築不変表を省略せず添付する。
+西の幼稚園—中央の本堂—東の住居。移動は同一建物内の屋内廊下だけ。
+外観は屋根と外壁を保持する。室内、家具、断面、屋根の切欠きを見せない。
+別棟、外部渡り廊下、屋外通路、住居と幼稚園の直接接続を追加しない。
+E01は幼稚園の屋外園庭、E11は屋外境内。未契約の出入口や道を追加しない。
+材料: 土台5 mm foamboardと露出したcorrugated cardboard断面。
+壁paper clayを爪楊枝で刻む。屋根corrugated cardboardをカッターで切る。
+雪cotton battingを白いPVA接着剤で固定。柱wooden toothpick。
+固定masking tapeと白いPVA接着剤。matte poster paintと平筆で着色。
+土台断面、段ボール切断面、テープ、PVA接着剤、綿繊維から3種類以上が原寸で判別できること。
+人物・読める文字・空・地平線なし。
+この参照は外観の順序・包含関係だけを検証する。
+廊下の形、建物寸法、扉ピクセル座標、mask幅、runtime linksをこの絵から確定しない。
+```
+
+## 残るTBDと生成可否
+
+| 項目 | 共通外観参照 | 最終MAP／mask |
+|---|---|---|
+| 中央F01・東E12・西F02、屋内限定、直結廃止 | #60で確定。追加の配置決定を求めない | 同じ事実を継承 |
+| 屋根形状・外壁外形・園庭／境内との具体配置 | スキルの外観参照スコープ内で順序・包含関係だけを検証する。候補の造形を新たな建築契約と見なさない。runtime配置の採寸は後工程 | 参照通過後に対象行へ必要な配置を契約 |
+| F02.door-westの到着方位・実扉位置、各廊下幅／曲がり／段差・回転域 | 描かず検証対象外。runtime TBDだけを理由に外観参照全体を止めない | TBD。既存IDを勝手に改名しない |
+| E01/E11の接続端、屋外主路／池／墓地、E12火事遮断域 | 描画で新規確定しない | TBD。個別MAPの原文・参照・mask契約が必要 |
+| 利用する実ツールの1920×1080出力指定・出力検査 | promptに1920×1080を明記して1回だけ直接生成できる。APIにsize引数がなくても不可能とは判定しない。実出力を計測し不一致なら後工程へ進めない。リサイズで通過させない | 同じゲート |
+| 原文束・スキルの独立事前レビュー | 未通過。通過後に共通外観参照1枚へ進む | 外観参照通過までBLOCKED |
+
+現時点は準備成果。#68の素材整理と独立事前レビューが通過してから、共通外観参照を1枚だけ生成・実寸検査・独立画像レビューする。決定済みの建築順序を再質問する必要はない。最終16枚は全て再作成待ちであり、旧pass・旧maskでreadyにしない。

@@ -1,0 +1,490 @@
+{
+  "startScene": "kindergarten",
+  "start": {
+    "x": 400,
+    "y": 900
+  },
+  "speed": 200,
+  "edgeThreshold": 6,
+  "player": {
+    "sprites": {
+      "up": [
+        "http://localhost:8765/assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-up-1.png",
+        "http://localhost:8765/assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-up-2.png",
+        "http://localhost:8765/assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-up-3.png"
+      ],
+      "down": [
+        "http://localhost:8765/assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-down-1.png",
+        "http://localhost:8765/assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-down-2.png",
+        "http://localhost:8765/assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-down-3.png"
+      ],
+      "left": [
+        "http://localhost:8765/assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-left-1.png",
+        "http://localhost:8765/assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-left-2.png",
+        "http://localhost:8765/assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-left-3.png"
+      ],
+      "right": [
+        "http://localhost:8765/assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-right-1.png",
+        "http://localhost:8765/assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-right-2.png",
+        "http://localhost:8765/assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-right-3.png"
+      ]
+    },
+    "height": 90,
+    "frameMs": 140
+  },
+  "scenes": {
+    "kindergarten": {
+      "background": "http://localhost:8765/assets/images/fields/legacy/E01.png",
+      "mask": "http://localhost:8765/assets/images/fields/legacy/masks/E01-mask.png",
+      "links": [
+        {
+          "edge": "bottom",
+          "range": [
+            340,
+            466
+          ],
+          "to": "connector"
+        }
+      ],
+      "encounter": {
+        "rate": 0,
+        "groups": []
+      }
+    },
+    "connector": {
+      "background": "http://localhost:8765/assets/images/fields/legacy/E02-pre-shinshu.png",
+      "mask": "http://localhost:8765/assets/images/fields/legacy/masks/E02-mask.png",
+      "links": [
+        {
+          "edge": "top",
+          "range": [
+            216,
+            300
+          ],
+          "to": "kindergarten"
+        },
+        {
+          "edge": "right",
+          "range": [
+            245,
+            515
+          ],
+          "to": "hinomi-bend"
+        }
+      ],
+      "encounter": {
+        "rate": 8,
+        "groups": [
+          "dragon",
+          "roadroller",
+          "hornet+hornet+hornet",
+          "nail+nail",
+          "sea-urchin+sea-urchin+sea-urchin",
+          "icicle+icicle+icicle+icicle",
+          "broken-bottle+broken-bottle",
+          "broken-glass",
+          "hornet+roadroller",
+          "nail+broken-glass+broken-bottle",
+          "dragon+hornet+hornet",
+          "sea-urchin+icicle",
+          "roadroller+nail+sea-urchin+broken-glass",
+          "dragon+roadroller",
+          "hornet+nail+icicle+broken-bottle+sea-urchin",
+          "broken-glass+icicle+broken-bottle"
+        ]
+      }
+    },
+    "hinomi-bend": {
+      "background": "http://localhost:8765/assets/images/fields/legacy/E03-pre-shinshu.png",
+      "mask": "http://localhost:8765/assets/images/fields/legacy/masks/E03-mask.png",
+      "links": [
+        {
+          "edge": "left",
+          "range": [
+            330,
+            535
+          ],
+          "to": "connector"
+        },
+        {
+          "edge": "right",
+          "range": [
+            390,
+            595
+          ],
+          "to": "wide-road"
+        },
+        {
+          "edge": "bottom",
+          "range": [
+            842,
+            925
+          ],
+          "to": "narrow-lane"
+        }
+      ],
+      "encounter": {
+        "rate": 8,
+        "groups": [
+          "dragon",
+          "roadroller",
+          "hornet+hornet+hornet",
+          "nail+nail",
+          "sea-urchin+sea-urchin+sea-urchin",
+          "icicle+icicle+icicle+icicle",
+          "broken-bottle+broken-bottle",
+          "broken-glass",
+          "hornet+roadroller",
+          "nail+broken-glass+broken-bottle",
+          "dragon+hornet+hornet",
+          "sea-urchin+icicle",
+          "roadroller+nail+sea-urchin+broken-glass",
+          "dragon+roadroller",
+          "hornet+nail+icicle+broken-bottle+sea-urchin",
+          "broken-glass+icicle+broken-bottle"
+        ]
+      }
+    },
+    "narrow-lane": {
+      "background": "http://localhost:8765/assets/images/fields/legacy/E10.png",
+      "mask": "http://localhost:8765/assets/images/fields/legacy/masks/E10-mask.png",
+      "links": [
+        {
+          "edge": "top",
+          "range": [
+            724,
+            822
+          ],
+          "to": "hinomi-bend"
+        }
+      ],
+      "encounter": {
+        "rate": 8,
+        "groups": [
+          "dragon",
+          "roadroller",
+          "hornet+hornet+hornet",
+          "nail+nail",
+          "sea-urchin+sea-urchin+sea-urchin",
+          "icicle+icicle+icicle+icicle",
+          "broken-bottle+broken-bottle",
+          "broken-glass",
+          "hornet+roadroller",
+          "nail+broken-glass+broken-bottle",
+          "dragon+hornet+hornet",
+          "sea-urchin+icicle",
+          "roadroller+nail+sea-urchin+broken-glass",
+          "dragon+roadroller",
+          "hornet+nail+icicle+broken-bottle+sea-urchin",
+          "broken-glass+icicle+broken-bottle"
+        ]
+      }
+    },
+    "wide-road": {
+      "background": "http://localhost:8765/assets/images/fields/legacy/E04.png",
+      "mask": "http://localhost:8765/assets/images/fields/legacy/masks/E04-mask.png",
+      "links": [
+        {
+          "edge": "left",
+          "range": [
+            395,
+            625
+          ],
+          "to": "hinomi-bend"
+        },
+        {
+          "edge": "right",
+          "range": [
+            395,
+            625
+          ],
+          "to": "well-merge"
+        }
+      ],
+      "encounter": {
+        "rate": 8,
+        "groups": [
+          "dragon",
+          "roadroller",
+          "hornet+hornet+hornet",
+          "nail+nail",
+          "sea-urchin+sea-urchin+sea-urchin",
+          "icicle+icicle+icicle+icicle",
+          "broken-bottle+broken-bottle",
+          "broken-glass",
+          "hornet+roadroller",
+          "nail+broken-glass+broken-bottle",
+          "dragon+hornet+hornet",
+          "sea-urchin+icicle",
+          "roadroller+nail+sea-urchin+broken-glass",
+          "dragon+roadroller",
+          "hornet+nail+icicle+broken-bottle+sea-urchin",
+          "broken-glass+icicle+broken-bottle"
+        ]
+      }
+    },
+    "well-merge": {
+      "background": "http://localhost:8765/assets/images/fields/legacy/E05.png",
+      "mask": "http://localhost:8765/assets/images/fields/legacy/masks/E05-mask.png",
+      "links": [
+        {
+          "edge": "left",
+          "range": [
+            390,
+            585
+          ],
+          "to": "wide-road"
+        },
+        {
+          "edge": "right",
+          "range": [
+            630,
+            735
+          ],
+          "to": "sento"
+        }
+      ],
+      "encounter": {
+        "rate": 8,
+        "groups": [
+          "dragon",
+          "roadroller",
+          "hornet+hornet+hornet",
+          "nail+nail",
+          "sea-urchin+sea-urchin+sea-urchin",
+          "icicle+icicle+icicle+icicle",
+          "broken-bottle+broken-bottle",
+          "broken-glass",
+          "hornet+roadroller",
+          "nail+broken-glass+broken-bottle",
+          "dragon+hornet+hornet",
+          "sea-urchin+icicle",
+          "roadroller+nail+sea-urchin+broken-glass",
+          "dragon+roadroller",
+          "hornet+nail+icicle+broken-bottle+sea-urchin",
+          "broken-glass+icicle+broken-bottle"
+        ]
+      }
+    },
+    "sento": {
+      "background": "http://localhost:8765/assets/images/fields/legacy/E06.png",
+      "mask": "http://localhost:8765/assets/images/fields/legacy/masks/E06-mask.png",
+      "links": [
+        {
+          "edge": "left",
+          "range": [
+            510,
+            635
+          ],
+          "to": "well-merge"
+        },
+        {
+          "edge": "bottom",
+          "range": [
+            1100,
+            1450
+          ],
+          "to": "barrier-free-ramp"
+        }
+      ],
+      "encounter": {
+        "rate": 8,
+        "groups": [
+          "dragon",
+          "roadroller",
+          "hornet+hornet+hornet",
+          "nail+nail",
+          "sea-urchin+sea-urchin+sea-urchin",
+          "icicle+icicle+icicle+icicle",
+          "broken-bottle+broken-bottle",
+          "broken-glass",
+          "hornet+roadroller",
+          "nail+broken-glass+broken-bottle",
+          "dragon+hornet+hornet",
+          "sea-urchin+icicle",
+          "roadroller+nail+sea-urchin+broken-glass",
+          "dragon+roadroller",
+          "hornet+nail+icicle+broken-bottle+sea-urchin",
+          "broken-glass+icicle+broken-bottle"
+        ]
+      }
+    },
+    "barrier-free-ramp": {
+      "background": "http://localhost:8765/assets/images/fields/legacy/E07.png",
+      "mask": "http://localhost:8765/assets/images/fields/legacy/masks/E07-mask.png",
+      "links": [
+        {
+          "edge": "top",
+          "range": [
+            1060,
+            1400
+          ],
+          "to": "sento"
+        },
+        {
+          "edge": "bottom",
+          "range": [
+            420,
+            540
+          ],
+          "to": "danchi-court"
+        }
+      ],
+      "encounter": {
+        "rate": 0,
+        "groups": []
+      }
+    },
+    "danchi-court": {
+      "background": "http://localhost:8765/assets/images/fields/legacy/E08.png",
+      "mask": "http://localhost:8765/assets/images/fields/legacy/masks/E08-mask.png",
+      "links": [
+        {
+          "edge": "top",
+          "range": [
+            458,
+            565
+          ],
+          "to": "barrier-free-ramp"
+        }
+      ],
+      "encounter": {
+        "rate": 0,
+        "groups": []
+      }
+    }
+  },
+  "encounter": {
+    "stepDistance": 80,
+    "minSteps": 3
+  },
+  "monsters": {
+    "dragon": {
+      "name": "段ボールのドラゴン",
+      "hp": 40,
+      "atk": 9,
+      "def": 4,
+      "agi": 5,
+      "exp": 20,
+      "gold": 30,
+      "sprite": "http://localhost:8765/assets/images/enemies/M001.png"
+    },
+    "hornet": {
+      "name": "スズメバチ",
+      "hp": 18,
+      "atk": 7,
+      "def": 2,
+      "agi": 8,
+      "exp": 8,
+      "gold": 10,
+      "sprite": "http://localhost:8765/assets/images/enemies/M131.png"
+    },
+    "roadroller": {
+      "name": "ロードローラー",
+      "hp": 30,
+      "atk": 8,
+      "def": 6,
+      "agi": 3,
+      "exp": 15,
+      "gold": 20,
+      "sprite": "http://localhost:8765/assets/images/enemies/M101.png"
+    },
+    "nail": {
+      "name": "釘",
+      "hp": 12,
+      "atk": 6,
+      "def": 3,
+      "agi": 5,
+      "exp": 5,
+      "gold": 6,
+      "sprite": "http://localhost:8765/assets/images/enemies/M134.png"
+    },
+    "broken-glass": {
+      "name": "割れたガラス",
+      "hp": 14,
+      "atk": 6,
+      "def": 2,
+      "agi": 6,
+      "exp": 6,
+      "gold": 8,
+      "sprite": "http://localhost:8765/assets/images/enemies/M135.png"
+    },
+    "sea-urchin": {
+      "name": "ウニ",
+      "hp": 16,
+      "atk": 5,
+      "def": 5,
+      "agi": 3,
+      "exp": 7,
+      "gold": 9,
+      "sprite": "http://localhost:8765/assets/images/enemies/M139.png"
+    },
+    "icicle": {
+      "name": "氷柱",
+      "hp": 15,
+      "atk": 7,
+      "def": 3,
+      "agi": 4,
+      "exp": 7,
+      "gold": 9,
+      "sprite": "http://localhost:8765/assets/images/enemies/M138.png"
+    },
+    "broken-bottle": {
+      "name": "割れたビール瓶",
+      "hp": 13,
+      "atk": 6,
+      "def": 2,
+      "agi": 5,
+      "exp": 6,
+      "gold": 8,
+      "sprite": "http://localhost:8765/assets/images/enemies/M145.png"
+    }
+  },
+  "party": [
+    {
+      "name": "ナム",
+      "hp": 40,
+      "mp": 10,
+      "atk": 10,
+      "def": 5,
+      "agi": 6,
+      "sprite": "http://localhost:8765/assets/images/characters/C002/poses/C002-elementary-wheelchair-ready.png"
+    },
+    {
+      "name": "オトン",
+      "hp": 44,
+      "mp": 6,
+      "atk": 11,
+      "def": 6,
+      "agi": 7,
+      "sprite": "http://localhost:8765/assets/images/characters/C001/poses/C001-elementary-wheelchair-ready.png"
+    },
+    {
+      "name": "シャー",
+      "hp": 46,
+      "mp": 4,
+      "atk": 12,
+      "def": 7,
+      "agi": 5,
+      "sprite": "http://localhost:8765/assets/images/characters/C003/poses/C003-elementary-ready.png",
+      "row": "front"
+    },
+    {
+      "name": "ペー子",
+      "hp": 34,
+      "mp": 14,
+      "atk": 8,
+      "def": 4,
+      "agi": 8,
+      "sprite": "http://localhost:8765/assets/images/characters/C004/poses/C004-elementary-ready.png",
+      "row": "back"
+    }
+  ],
+  "battle": {
+    "layout": "side",
+    "width": 800,
+    "height": 450,
+    "background": "http://localhost:8765/assets/images/battle-backgrounds/BG001.png",
+    "spriteStyle": "acrylic"
+  }
+}

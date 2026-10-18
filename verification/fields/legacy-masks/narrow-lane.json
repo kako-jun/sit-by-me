@@ -1,0 +1,45 @@
+{
+  "image": "../../../assets/images/fields/legacy/E10.png",
+  "size": [
+    1536,
+    1024
+  ],
+  "walkable": [
+    [
+      [
+        720,
+        0
+      ],
+      [
+        825,
+        0
+      ],
+      [
+        825,
+        200
+      ],
+      [
+        845,
+        215
+      ],
+      [
+        850,
+        1023
+      ],
+      [
+        728,
+        1023
+      ],
+      [
+        725,
+        215
+      ],
+      [
+        720,
+        200
+      ]
+    ]
+  ],
+  "blocked": [],
+  "output_prefix": "../../../assets/images/fields/legacy/masks/E10"
+}

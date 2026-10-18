@@ -2,7 +2,7 @@
 
 ## 運用
 
-背景は**1画像1行**で管理する。生成前に各行へ、**一言特徴（この一枚は何の場所か）**、時期・景色（時代／場所／天候／生活の汚れ）・必須接続・禁止辺・通行不能物・車椅子の通行条件・任意枝の有無・**TBD**を埋める。TBD が1件でもあれば状態を `blocked` とし、生成しない。
+背景は**1画像1行**で管理する。生成前に各行へ、**一言特徴（この一枚は何の場所か）**、時期・景色（時代／場所／天候／生活の汚れ）・必須接続・禁止辺・通行不能物・車椅子の通行条件・任意枝の有無・**TBD**を埋める。対象画像が描く内容に関わるTBDがあれば生成を `blocked` とする。生成前の入力契約審査と、画像・mask・links・実機確認後の採用readyを別の段階として記録する。
 
 全画像の共通条件は、現代の K県、冬、手作りジオラマ、真上寄り、人物・文字なし。昭和から残る建物や設備は存在してよいが、時代設定を昭和に戻さない。汚れは雪国の日常（融雪水、砂、泥、塩の白残り、黒ずんだ木、錆）であり、廃墟でない場所を廃墟化しない。
 
@@ -22,11 +22,11 @@
 | 車椅子・任意枝 | `universal` / `assist` / `blocked` を `sit-field-mask` の編集PNGに記録。宝箱枝は必須接続と別で画面内終端 |
 | 景色・汚れ | 現代K県・冬・手作りジオラマを継承。屋外は融雪水、砂、泥、塩、黒ずみ、錆からMAPの地形に合うものだけ選ぶ。廃墟・被災後以外を荒廃させない |
 | 参考・TBD | Ref IDと、未解決なら「どの場所／何の資料／どの判定を得るか」を具体的に書く。`参照待ち`だけは無効 |
-| mask・red-team | traversal/foreground edit・runtime・review各パスと、敵対レビュー記録を追加してから `ready` を検討 |
+| mask・red-team | 生成後にtraversal/foreground edit・runtime・review各パスと敵対レビュー記録を追加し、最終採用 `ready` を検討。未生成であることだけを入力契約審査の妨げにしない |
 
 `legacy` は採用済みを意味しない。実パス・参考・マスク・red-teamが未記録のlegacyは `legacy-needs-review` として扱い、生成根拠にも接続根拠にも使わない。
 
-## 個別契約済み（生成できるのはこの表の `ready` のみ）
+## 個別契約（対象画像の入力契約を独立審査してから生成する）
 
 N1〜N12 の詳細な接続契約は [map-specifications.md](map-specifications.md) と [map-topology.md](map-topology.md) にある。N4 は欠番である。ここでの `blocked` はトポロジー未決を意味しない。画像ごとの現地参照・既存画像端・歩行マスクを照合するまで生成を保留する状態である。
 
@@ -48,39 +48,39 @@ N1〜N12 の詳細な接続契約は [map-specifications.md](map-specifications.
 
 | ID | 画像 | 地区 | 状態 |
 |---|---|---|---|
-| E01 | `teramachi-kindergarten-diorama` | 寺町 | retired-replacement-required |
-| E02 | `teramachi-connector-shinshu-diorama` | 寺町 | retired-replacement-required |
-| E03 | `teramachi-hinomi-bend-shinshu-diorama` | 寺町 | retired-replacement-required |
-| E04 | `teramachi-wide-road-diorama` | 寺町 | retired-replacement-required |
-| E05 | `teramachi-well-merge-diorama` | 寺町 | retired-replacement-required |
-| E06 | `teramachi-sento-diorama` | 寺町 | retired-replacement-required |
-| E07 | `teramachi-barrier-free-ramp-diorama` | 寺町 | retired-replacement-required |
-| E08 | `teramachi-danchi-court-diorama` | 寺町 | retired-replacement-required |
-| E09 | `teramachi-old-slope-foot-diorama` | 寺町 | retired-replacement-required |
-| E10 | `teramachi-narrow-lane-diorama` | 寺町 | retired-replacement-required |
-| E11 | `temple-grounds-shinshu-diorama` | 寺町 | retired-replacement-required |
-| E12 | `temple-residence-interior-diorama` | 寺町 | retired-replacement-required |
-| E13 | `teramachi-slope-top-diorama` | 寺町 | retired-replacement-required |
-| E14 | `korinbo-crossroads-diorama` | 香林坊 | legacy |
-| E15 | `korinbo-daiwa-toy-floor-diorama` | 香林坊 | legacy |
-| E16 | `korinbo-department-restaurant-diorama-v2` | 香林坊 | legacy |
-| E17 | `chaya-lane-diorama` | 茶屋街 | legacy |
-| E18 | `chaya-tearoom-diorama` | 茶屋街 | legacy |
-| E19 | `convenience-store-diorama` | 戻り道 | legacy |
-| E20 | `hospital-exterior-diorama` | 病院 | legacy |
-| E21 | `korimon-station-plaza-v3-diorama` | 金沢駅 | legacy |
-| E22 | `utatsuyama-sunnyland-diorama` | 卯辰山 | legacy |
-| E23 | `utatsuyama-sunnyland-indoor-diorama` | サニーランド | legacy |
-| E24 | `utatsuyama-sunnyland-aquarium-indoor-diorama` | サニーランド | legacy |
-| E25 | `utatsuyama-sunnyland-arcade-indoor-diorama` | サニーランド | legacy |
-| E26 | `uchinada-station-diorama` | 内灘 | legacy |
-| E27 | `uchinada-beach-diorama` | 内灘 | legacy |
-| E28 | `noto-railway-interior-v2-diorama` | 能登（被災前） | legacy |
-| E29 | `noto-takojima-station-diorama` | 能登（被災前） | legacy |
-| E30 | `noto-peko-house-seaside-v2-diorama` | 能登（被災前） | legacy |
-| E31 | `noto-tetrapod-fishing-spot-diorama` | 能登（被災前） | legacy |
-| E32 | `abandoned-school-diorama` | 能登（被災後） | legacy |
-| E33 | `schoolyard-diorama` | 小学校 | legacy |
+| E01 | `assets/images/fields/legacy/E01.png` | 寺町 | retired-replacement-required |
+| E02 | `assets/images/fields/legacy/E02.png` | 寺町 | retired-replacement-required |
+| E03 | `assets/images/fields/legacy/E03.png` | 寺町 | retired-replacement-required |
+| E04 | `assets/images/fields/legacy/E04.png` | 寺町 | retired-replacement-required |
+| E05 | `assets/images/fields/legacy/E05.png` | 寺町 | retired-replacement-required |
+| E06 | `assets/images/fields/legacy/E06.png` | 寺町 | retired-replacement-required |
+| E07 | `assets/images/fields/legacy/E07.png` | 寺町 | retired-replacement-required |
+| E08 | `assets/images/fields/legacy/E08.png` | 寺町 | retired-replacement-required |
+| E09 | `assets/images/fields/legacy/E09.png` | 寺町 | retired-replacement-required |
+| E10 | `assets/images/fields/legacy/E10.png` | 寺町 | retired-replacement-required |
+| E11 | `assets/images/fields/legacy/E11.png` | 寺町 | retired-replacement-required |
+| E12 | `assets/images/fields/legacy/E12.png` | 寺町 | retired-replacement-required |
+| E13 | `assets/images/fields/legacy/E13.png` | 寺町 | retired-replacement-required |
+| E14 | `assets/images/fields/legacy/E14.png` | 香林坊 | legacy |
+| E15 | `assets/images/fields/legacy/E15.png` | 香林坊 | legacy |
+| E16 | `assets/images/fields/legacy/E16.png` | 香林坊 | legacy |
+| E17 | `assets/images/fields/legacy/E17.png` | 茶屋街 | legacy |
+| E18 | `assets/images/fields/legacy/E18.png` | 茶屋街 | legacy |
+| E19 | `assets/images/fields/legacy/E19.png` | 戻り道 | legacy |
+| E20 | `assets/images/fields/legacy/E20.png` | 病院 | legacy |
+| E21 | `assets/images/fields/legacy/E21.png` | 金沢駅 | legacy |
+| E22 | `assets/images/fields/legacy/E22.png` | 卯辰山 | legacy |
+| E23 | `assets/images/fields/legacy/E23.png` | サニーランド | legacy |
+| E24 | `assets/images/fields/legacy/E24.png` | サニーランド | legacy |
+| E25 | `assets/images/fields/legacy/E25.png` | サニーランド | legacy |
+| E26 | `assets/images/fields/legacy/E26.png` | 内灘 | legacy |
+| E27 | `assets/images/fields/legacy/E27.png` | 内灘 | legacy |
+| E28 | `assets/images/fields/legacy/E28.png` | 能登（被災前） | legacy |
+| E29 | `assets/images/fields/legacy/E29.png` | 能登（被災前） | legacy |
+| E30 | `assets/images/fields/legacy/E30.png` | 能登（被災前） | legacy |
+| E31 | `assets/images/fields/legacy/E31.png` | 能登（被災前） | legacy |
+| E32 | `assets/images/fields/legacy/E32.png` | 能登（被災後） | legacy |
+| E33 | `assets/images/fields/legacy/E33.png` | 小学校 | legacy |
 
 旧版・不採用候補（`-v2` 以外の旧版、寺町の地蔵版、蛸島以外の小木駅版、駅前 v1/v2、サニーランド v2）は参照専用であり、マップの契約対象に数えない。
 

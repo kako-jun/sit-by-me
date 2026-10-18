@@ -5,6 +5,8 @@ description: Sit by Me の召喚獣スプライトを、召喚獣台帳のID・�
 
 # Sit by Me 召喚獣スプライト
 
+失敗素材の来歴（完全prompt・参照・実寸/検査結果・hash・判定理由）は保持する。ユーザーが失敗/旧画像の削除を指示した場合、取得元commitと削除理由を残して画像バイナリを削除できる。以下の原本保持指示は、削除指示後の永久保存・重複コピーを要求しない。
+
 召喚獣 `S` の戦闘用マスター画像だけを扱う。生成前に `docs/content-registry.md`、`docs/monsters.md` の対象行、`docs/story.md` の対象行、`docs/art-direction.md`、`docs/assets-policy.md` を原文のまま読む。対象行が `ready` でない、TBDが残る、または敵起源の対応IDが欠ける場合は生成しない。
 
 ## 一意解釈ゲート
@@ -19,4 +21,6 @@ description: Sit by Me の召喚獣スプライトを、召喚獣台帳のID・�
 
 ## 生成・検査
 
-透過背景で1候補だけ生成し、原本を `assets/summons/raw/`、利用PNGを `assets/summons/` に置く。原寸で、台帳原文との一致、45°の頭部・胴体、4種のいずれかの`gridClass`、指定キャンバス、外接矩形92–96%、文字・ロゴ・台座・接地影なしを確認する。採用前に `sit-artifact-redteam` の独立レビューへ渡す。
+生成前に完全prompt・台帳原文・参照画像と用途を `sit-artifact-redteam` のpromptレビューへ渡す。利用可能な `imagegen` スキルと組み込み `image_gen` を使い、透過をツール設定でも要求する。実寸、alpha=0画素の存在、alpha>0の最小外接矩形 `(x,y,width,height)` と幅/高さ比率を測定して保存する。RGBA形式名・prompt指定だけでは透過や寸法を証明できない。頭部・胴体の正面面と右側面を個別に確認する。失敗原本も完全prompt・参照一覧・測定値とともに `failed` として残し、次工程へ渡さない。自動再生成や引伸ばしで通過させない。
+
+透過背景で1候補だけ生成し、原本を `assets/images/summons/raw/Sxxx[-variant].png`、利用PNGを `assets/images/summons/Sxxx.png` に置く。S番号は召喚獣台帳を正本にし、S008など画像が存在しない欠番を補作しない。原寸で、台帳原文との一致、45°の頭部・胴体、4種のいずれかの`gridClass`、指定キャンバス、外接矩形92–96%、文字・ロゴ・台座・接地影なしを確認する。採用前に `sit-artifact-redteam` の独立レビューへ渡す。
