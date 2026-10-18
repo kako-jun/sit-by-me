@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1840" height="1500" viewBox="0 0 1840 1500" role="img" aria-labelledby="title desc">
 <title id="title">改訂ダンジョン接続図</title><desc id="desc">兼六園と金沢城は北上、海外は階層、卯辰山は移動順。線は正本v2の承認された接続のみ。池や堀の正確な形と通行幅は示さない。</desc>
 <style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#20364a}.edge{stroke:#3f6556;stroke-width:4;fill:none}.door{stroke:#a45f30;stroke-width:4;stroke-dasharray:9 6;fill:none}.node{fill:#fff;stroke:#3f6556;stroke-width:3}.id{font-size:19px;font-weight:700;text-anchor:middle}.label{font-size:14px;text-anchor:middle}.note{font-size:15px;fill:#526574}</style>
-<rect width="1840" height="1500" fill="#edf3f1"/><text x="30" y="40" font-size="27" font-weight="700">移動構造の改訂：兼六園・金沢城・海外双塔・卯辰山</text>
+<rect width="1840" height="1500" fill="#edf3f1"/><text x="30" y="40" font-size="27" font-weight="700">移動構造の改訂：兼六園・金沢城・海外三塔・卯辰山</text>
 <text x="30" y="70" class="note">実線＝屋外端接続／茶破線＝実在建物または階層の遷移。ゲーム設計の概念図。未生成・mask未確定・実装完了ではない。</text>
 <g transform="translate(20 95)"><rect width="890" height="670" rx="12" fill="#fbfdfb" stroke="#78948a" stroke-width="2"/><text x="20" y="32" font-size="21" font-weight="700">兼六園：北↑・13辺・独立閉路4本</text>
 <ellipse cx="560" cy="275" rx="95" ry="92" fill="#d5eaf1"/><text x="560" y="270" class="label">霞ヶ池・上段</text><ellipse cx="200" cy="405" rx="65" ry="45" fill="#c6e3ee"/><text x="200" y="410" class="label">瓢池・下段</text><ellipse cx="430" cy="445" rx="50" ry="27" fill="#d5eaf1"/><text x="430" y="450" class="label">長谷池</text>
@@ -57,27 +57,43 @@
 <text x="20" y="635" class="note">三の丸の西＝二の丸／二の丸の南の高所＝本丸／玉泉院丸は低地</text>
 <text x="20" y="657" class="note">攻略目標：F53・F56・F58（任意順）→本丸→架空天守。戦闘・解錠TBD</text>
 </g>
-<g transform="translate(20 785)"><rect width="1130" height="690" rx="12" fill="#fbfdfb" stroke="#78948a" stroke-width="2"/><text x="20" y="32" font-size="21" font-weight="700">海外：左右の多層双塔（高さの概念図・方位図ではない）</text>
-<path class="door" d="M530 545 L240 430" data-from="F30" data-to="F31"/>
-<path class="door" d="M240 430 L240 285" data-from="F31" data-to="F32"/>
-<path class="door" d="M240 285 L240 140" data-from="F32" data-to="F33"/>
-<path class="door" d="M530 545 L830 430" data-from="F30" data-to="F34"/>
-<path class="door" d="M830 430 L830 285" data-from="F34" data-to="F35"/>
-<path class="door" d="M830 285 L830 140" data-from="F35" data-to="F36"/>
-<path class="door" d="M240 140 L530 85" data-from="F33" data-to="F37"/>
-<path class="door" d="M830 140 L530 85" data-from="F36" data-to="F37"/>
-<path class="door" d="M530 85 L530 260" data-from="F37" data-to="F38"/>
-<circle class="node" data-map="F30" cx="530" cy="545" r="27"/><text class="id" x="530" y="552">F30</text><text class="label" x="530" y="593">共通基壇</text>
-<circle class="node" data-map="F31" cx="240" cy="430" r="27"/><text class="id" x="240" y="437">F31</text><text class="label" x="240" y="478">左・下層</text>
-<circle class="node" data-map="F32" cx="240" cy="285" r="27"/><text class="id" x="240" y="292">F32</text><text class="label" x="240" y="333">左・中層</text>
-<circle class="node" data-map="F33" cx="240" cy="140" r="27"/><text class="id" x="240" y="147">F33</text><text class="label" x="240" y="188">左・上層／M015</text>
-<circle class="node" data-map="F34" cx="830" cy="430" r="27"/><text class="id" x="830" y="437">F34</text><text class="label" x="830" y="478">右・下層</text>
-<circle class="node" data-map="F35" cx="830" cy="285" r="27"/><text class="id" x="830" y="292">F35</text><text class="label" x="830" y="333">右・中層</text>
-<circle class="node" data-map="F36" cx="830" cy="140" r="27"/><text class="id" x="830" y="147">F36</text><text class="label" x="830" y="188">右・上層／M016</text>
-<circle class="node" data-map="F37" cx="530" cy="85" r="27"/><text class="id" x="530" y="92">F37</text><text class="label" x="530" y="133">共通上層（救出候補）</text>
-<circle class="node" data-map="F38" cx="530" cy="260" r="27"/><text class="id" x="530" y="267">F38</text><text class="label" x="530" y="308">脱出終点（S005候補）</text>
-<text x="20" y="655" class="note">左M015／右M016：個性TBD。内部は九龍城的なカオス・雑多・無駄道・多数の袋小路</text>
-<text x="20" y="677" class="note">階内平面は未設計。M003救出・4人合流後の制限時間・S005脱出戦との関係TBD</text>
+<g transform="translate(20 785)"><rect width="1130" height="690" rx="12" fill="#fbfdfb" stroke="#78948a" stroke-width="2"/><text x="20" y="32" font-size="21" font-weight="700">海外：左右攻略2塔＋脱出第3塔（すべて5階）</text>
+<path class="door" d="M350 555 L140 465" data-from="F30" data-to="F31"/>
+<path class="door" d="M350 555 L520 465" data-from="F30" data-to="F34"/>
+<path class="door" d="M140 465 L140 375" data-from="F31" data-to="F66"/>
+<path class="door" d="M140 375 L140 285" data-from="F66" data-to="F32"/>
+<path class="door" d="M140 285 L140 195" data-from="F32" data-to="F67"/>
+<path class="door" d="M140 195 L140 105" data-from="F67" data-to="F33"/>
+<path class="door" d="M520 465 L520 375" data-from="F34" data-to="F68"/>
+<path class="door" d="M520 375 L520 285" data-from="F68" data-to="F35"/>
+<path class="door" d="M520 285 L520 195" data-from="F35" data-to="F69"/>
+<path class="door" d="M520 195 L520 105" data-from="F69" data-to="F36"/>
+<path class="door" d="M140 105 L340 65" data-from="F33" data-to="F37"/>
+<path class="door" d="M520 105 L340 65" data-from="F36" data-to="F37"/>
+<path class="door" d="M340 65 L900 105" data-from="F37" data-to="F70"/>
+<path class="door" d="M900 105 L900 215" data-from="F70" data-to="F71"/>
+<path class="door" d="M900 215 L900 325" data-from="F71" data-to="F72"/>
+<path class="door" d="M900 325 L900 435" data-from="F72" data-to="F73"/>
+<path class="door" d="M900 435 L900 545" data-from="F73" data-to="F38"/>
+<circle class="node" data-map="F30" cx="350" cy="555" r="27"/><text class="id" x="350" y="562">F30</text><text class="label" x="350" y="603">共通基壇</text>
+<circle class="node" data-map="F31" cx="140" cy="465" r="27"/><text class="id" x="140" y="472">F31</text><text class="label" x="140" y="513">左1F</text>
+<circle class="node" data-map="F66" cx="140" cy="375" r="27"/><text class="id" x="140" y="382">F66</text><text class="label" x="140" y="423">左2F</text>
+<circle class="node" data-map="F32" cx="140" cy="285" r="27"/><text class="id" x="140" y="292">F32</text><text class="label" x="140" y="333">左3F</text>
+<circle class="node" data-map="F67" cx="140" cy="195" r="27"/><text class="id" x="140" y="202">F67</text><text class="label" x="140" y="243">左4F</text>
+<circle class="node" data-map="F33" cx="140" cy="105" r="27"/><text class="id" x="140" y="112">F33</text><text class="label" x="140" y="153">左5F・魔法のみ</text>
+<circle class="node" data-map="F34" cx="520" cy="465" r="27"/><text class="id" x="520" y="472">F34</text><text class="label" x="520" y="513">右1F</text>
+<circle class="node" data-map="F68" cx="520" cy="375" r="27"/><text class="id" x="520" y="382">F68</text><text class="label" x="520" y="423">右2F</text>
+<circle class="node" data-map="F35" cx="520" cy="285" r="27"/><text class="id" x="520" y="292">F35</text><text class="label" x="520" y="333">右3F</text>
+<circle class="node" data-map="F69" cx="520" cy="195" r="27"/><text class="id" x="520" y="202">F69</text><text class="label" x="520" y="243">右4F</text>
+<circle class="node" data-map="F36" cx="520" cy="105" r="27"/><text class="id" x="520" y="112">F36</text><text class="label" x="520" y="153">右5F・アビリティのみ</text>
+<circle class="node" data-map="F37" cx="340" cy="65" r="27"/><text class="id" x="340" y="72">F37</text><text class="label" x="340" y="113">空中通路・雑魚共闘</text>
+<circle class="node" data-map="F70" cx="900" cy="105" r="27"/><text class="id" x="900" y="112">F70</text><text class="label" x="900" y="153">第3塔5F</text>
+<circle class="node" data-map="F71" cx="900" cy="215" r="27"/><text class="id" x="900" y="222">F71</text><text class="label" x="900" y="263">第3塔4F</text>
+<circle class="node" data-map="F72" cx="900" cy="325" r="27"/><text class="id" x="900" y="332">F72</text><text class="label" x="900" y="373">第3塔3F</text>
+<circle class="node" data-map="F73" cx="900" cy="435" r="27"/><text class="id" x="900" y="442">F73</text><text class="label" x="900" y="483">第3塔2F</text>
+<circle class="node" data-map="F38" cx="900" cy="545" r="27"/><text class="id" x="900" y="552">F38</text><text class="label" x="900" y="593">第3塔1F・S005</text>
+<text x="20" y="655" class="note">左5F＝魔法のみ／右5F＝アビリティのみ。任意順→2体目撃破→空中通路でシャーと雑魚共闘</text>
+<text x="20" y="677" class="note">共闘終了＝タイマー開始・第3塔初解放。全階同程度の広さで宝箱を選び下降→S005戦（時間継続）→実際の脱出で終了</text>
 </g>
 <g transform="translate(1170 785)"><rect width="650" height="690" rx="12" fill="#fbfdfb" stroke="#78948a" stroke-width="2"/><text x="20" y="32" font-size="21" font-weight="700">卯辰山：上・斜め上へ曲がる一本道</text>
 <path class="edge" d="M140 550 L360 445" data-from="N8" data-to="E22"/>
@@ -90,8 +106,8 @@
 <circle class="node" data-map="F05" cx="370" cy="235" r="27"/><text class="id" x="370" y="242">F05</text><text class="label" x="370" y="283">石垣沿いの蛇行坂</text>
 <circle class="node" data-map="F06" cx="180" cy="130" r="27"/><text class="id" x="180" y="137">F06</text><text class="label" x="180" y="178">山頂・S002戦</text>
 <text x="20" y="633" class="note">分岐・宝箱脇道・近道なし。F06北→F07へ</text>
-<text x="20" y="655" class="note">サニーランド：二階建て入口・地下水族館・屋外動物園</text>
-<text x="20" y="677" class="note">下り廊下は約2MAP。詳細接続は口述待ち</text>
+<text x="20" y="655" class="note">サニーランドの双方向円環はsunnyland.svg参照</text>
+<text x="20" y="677" class="note">下り廊下は約2MAP。階段のassist・幅はTBD</text>
 </g>
 <path class="edge" d="M160 168 L25 168 L25 87 L1710 87 L1710 288" data-from="F50" data-to="F51"/><rect x="770" y="76" width="360" height="23" fill="#edf3f1"/><text x="950" y="93" class="label">F50石川橋・M013戦 → 北へF51石川門</text>
 </svg>

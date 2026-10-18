@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1540" height="880" viewBox="0 0 1540 880" role="img" aria-labelledby="title desc">
+<title id="title">サニーランド双方向円環</title><desc id="desc">入口1階から廊下と地下水族館、屋外空間、動物園、創作の階段、宿泊棟、入口2階へ巡る。任意施設は入口出口別。方位や正確な勾配の図ではない。</desc>
+<style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#233a47}.door{fill:none;stroke:#a45f30;stroke-width:4;stroke-dasharray:9 6}.node{fill:white;stroke:#467260;stroke-width:3}.label{font-size:17px;text-anchor:middle}.note{font-size:18px}.id{font-size:22px;font-weight:bold;text-anchor:middle}</style>
+<rect width="1540" height="880" fill="#edf3f1"/><text x="35" y="45" font-size="30" font-weight="bold">サニーランド：最初から両方向に進める円環・12MAP</text>
+<text x="35" y="85" class="note">概念図：紙面の上下＝階高や南北ではない。下り廊下は約2MAP、周囲は雪の森。ゲームセンターの右は下降時の進行基準。</text>
+<text x="35" y="122" class="note">入口棟は八角形。水族館出口付近＝ピラルク巨大水槽／壁際＝サメ・クジラの陰茎標本。</text>
+<path class="door" d="M140 290 L360 290" data-from="F07" data-to="F08" data-from-port="door-corridor" data-to-port="door-entry"/>
+<path class="door" d="M360 290 L590 290" data-from="F08" data-to="F09" data-from-port="door-next" data-to-port="door-prev"/>
+<path class="door" d="M590 290 L820 290" data-from="F09" data-to="E24" data-from-port="door-aquarium" data-to-port="door-corridor"/>
+<path class="door" d="M820 290 L1080 420" data-from="E24" data-to="E23" data-from-port="door-outdoor" data-to-port="door-aquarium"/>
+<path class="door" d="M1080 420 L1080 680" data-from="E23" data-to="F10" data-from-port="door-zoo" data-to-port="door-hub"/>
+<path class="door" d="M1080 680 L820 680" data-from="F10" data-to="F63" data-from-port="door-stairs" data-to-port="door-zoo"/>
+<path class="door" d="M820 680 L590 680" data-from="F63" data-to="F62" data-from-port="door-hotel" data-to-port="door-far-end"/>
+<path class="door" d="M590 680 L140 680" data-from="F62" data-to="F61" data-from-port="door-entry" data-to-port="door-hotel"/>
+<path class="door" d="M140 680 L140 290" data-from="F61" data-to="F07" data-from-port="door-stairs" data-to-port="door-stairs"/>
+<path class="door" d="M360 290 L360 440" data-from="F08" data-to="E25" data-from-port="door-arcade-right" data-to-port="door-corridor"/>
+<path class="door" d="M1080 420 Q1200 262 1320 245" data-from="E23" data-to="F64" data-from-port="door-otter-in" data-to-port="door-entry"/>
+<path class="door" d="M1320 245 Q1200 402 1080 420" data-from="F64" data-to="E23" data-from-port="door-exit" data-to-port="door-otter-out"/>
+<path class="door" d="M1080 420 Q1200 430 1320 580" data-from="E23" data-to="F65" data-from-port="door-cave-in" data-to-port="door-entry"/>
+<path class="door" d="M1320 580 Q1200 570 1080 420" data-from="F65" data-to="E23" data-from-port="door-exit" data-to-port="door-cave-out"/>
+<circle class="node" data-map="F07" cx="140" cy="290" r="31"/><text class="id" x="140" y="298">F07</text><text class="label" x="140" y="350">入口1F・受付</text>
+<circle class="node" data-map="F08" cx="360" cy="290" r="31"/><text class="id" x="360" y="298">F08</text><text class="label" x="360" y="350">下り廊下・前半</text>
+<circle class="node" data-map="F09" cx="590" cy="290" r="31"/><text class="id" x="590" y="298">F09</text><text class="label" x="590" y="350">下り廊下・後半</text>
+<circle class="node" data-map="E24" cx="820" cy="290" r="31"/><text class="id" x="820" y="298">E24</text><text class="label" x="820" y="350">地下水族館</text>
+<circle class="node" data-map="E23" cx="1080" cy="420" r="31"/><text class="id" x="1080" y="428">E23</text><text class="label" x="1080" y="480">小さな屋外・シャチホコ</text>
+<circle class="node" data-map="F10" cx="1080" cy="680" r="31"/><text class="id" x="1080" y="688">F10</text><text class="label" x="1080" y="740">狭い昭和の屋外動物園</text>
+<circle class="node" data-map="F63" cx="820" cy="680" r="31"/><text class="id" x="820" y="688">F63</text><text class="label" x="820" y="740">創作の屋外階段</text>
+<circle class="node" data-map="F62" cx="590" cy="680" r="31"/><text class="id" x="590" y="688">F62</text><text class="label" x="590" y="740">和室の宿泊棟</text>
+<circle class="node" data-map="F61" cx="140" cy="680" r="31"/><text class="id" x="140" y="688">F61</text><text class="label" x="140" y="740">入口2F・全方向の窓</text>
+<circle class="node" data-map="E25" cx="360" cy="440" r="31"/><text class="id" x="360" y="448">E25</text><text class="label" x="360" y="500">途中右のゲームセンター</text>
+<circle class="node" data-map="F64" cx="1320" cy="245" r="31"/><text class="id" x="1320" y="253">F64</text><text class="label" x="1320" y="305">ラッコ館・任意宝箱</text>
+<circle class="node" data-map="F65" cx="1320" cy="580" r="31"/><text class="id" x="1320" y="588">F65</text><text class="label" x="1320" y="640">海底洞窟・任意宝箱</text>
+<text x="35" y="790" class="note">入口1F→水族館側と入口2F→宿泊棟側の2経路。動物園→屋外階段→宿泊棟端はユーザー創作。</text>
+<text x="35" y="825" class="note">ラッコ館・洞窟は入口と出口別、主円環には不要。同じ屋外空間の別扉へ戻すのはゲーム配置の採用。</text>
+<text x="35" y="858" class="note">洞窟＝低予算昭和の海底探検の作り物（ダイオウイカ・難破船・ニンゲン）。画像・mask未生成、階内経路／幅TBD。</text>
+</svg>

@@ -2,10 +2,12 @@
 # frozen_string_literal: true
 
 # MAP生成台帳の構造検査。Markdownを正本のまま読み、生成可能性を
-# "見た目の印象" ではなく 104 行・参照・接続端の不変条件で検査する。
+# "見た目の印象" ではなく 登録された全行・参照・接続端の不変条件で検査する。
 
 ROOT = File.expand_path('..', __dir__)
 require 'rexml/document'
+require 'json'
+require_relative 'verify_overseas_progression'
 
 def read(name)
   File.read(File.join(ROOT, 'docs', name), encoding: 'UTF-8')
@@ -17,9 +19,11 @@ def fail!(message)
 end
 
 def ids
-  (1..33).map { |n| format('E%02d', n) } +
-    [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12].map { |n| "N#{n}" } +
-    (1..60).map { |n| format('F%02d', n) }
+  register = JSON.parse(read('topology/map-ids.json'))
+  result = register.fetch('ranges').flat_map { |prefix, bounds| (bounds[0]..bounds[1]).map { |n| format('%s%02d',prefix,n) } }
+  result += register.fetch('explicit').flat_map { |prefix, numbers| numbers.map { |n| prefix+n.to_s } }
+  fail!('ID登録件数不一致') unless result.length == register.fetch('expected_count') && result.uniq.length == result.length
+  result
 end
 
 expected = ids
@@ -37,8 +41,8 @@ contract_rows = checklist.lines.map do |line|
 end.compact
 
 contract_ids = contract_rows.map(&:first)
-fail!("契約行が104件ではない: #{contract_ids.length}") unless contract_ids.length == 104
-fail!("契約ID重複: #{contract_ids.group_by(&:itself).select { |_, v| v.length > 1 }.keys.join(', ')}") unless contract_ids.uniq.length == 104
+fail!("契約行が登録件数ではない: #{contract_ids.length}") unless contract_ids.length == expected.length
+fail!("契約ID重複: #{contract_ids.group_by(&:itself).select { |_, v| v.length > 1 }.keys.join(', ')}") unless contract_ids.uniq.length == expected.length
 fail!("契約ID不足: #{(expected - contract_ids).join(', ')}") unless (expected - contract_ids).empty?
 fail!("未知の契約ID: #{(contract_ids - expected).join(', ')}") unless (contract_ids - expected).empty?
 
@@ -130,10 +134,21 @@ fail!("同一画像辺の二重使用: #{reused.map { |k, v| "#{k}(#{v.join(',')
 reused_doors = door_ends.select { |_, rows| rows.length > 1 }
 fail!("同一扉端の二重使用: #{reused_doors.keys.join(', ')}") unless reused_doors.empty?
 
-sunny = %w[F07 F08 E24 F09 E25 F10 E23]
-fail!('サニーランドの保留接続は6件必要') unless pending.length == 6
-fail!('サニーランドの保留接続に未知の対象') unless pending.all? { |a, b| sunny.include?(a.split('.').first) && sunny.include?(b.split('.').first) }
-fail!('サニーランドの保留接続が有効化されている') if active.any? { |a, b, _| sunny.include?(a) && sunny.include?(b) }
+fail!('旧サニーランドpendingは廃止') unless pending.empty?
+sunny = %w[F07 F08 F09 E24 E23 F10 F63 F62 F61 E25 F64 F65]
+sunny_ring = %w[F07 F08 F09 E24 E23 F10 F63 F62 F61 F07]
+sunny_ring.each_cons(2) do |a,b|
+  fail!("サニーランド円環がない #{a} -> #{b}") unless active.any? { |x,y,_| [x,y].sort == [a,b].sort }
+end
+%w[F64 F65].each do |id|
+  routes=active.select { |a,b,_| [a,b].sort == ['E23',id].sort }
+  fail!("任意施設の入口出口がない #{id}") unless routes.length==2
+  fail!("任意施設に未承認出口 #{id}") if active.any? { |a,b,_| (a==id || b==id) && ![a,b].include?('E23') }
+end
+fail!('ゲームセンター分岐がない') unless active.any? { |a,b,_| [a,b].sort == %w[E25 F08] }
+sunny_expected=sunny_ring.each_cons(2).map { |a,b| [a,b].sort }+[ %w[E25 F08] ]+%w[F64 F65].flat_map { |id| [['E23',id].sort]*2 }
+sunny_actual=active.select { |a,b,_| sunny.include?(a)&&sunny.include?(b) }.map { |a,b,_| [a,b].sort }
+fail!('サニーランド接続集合不一致') unless sunny_actual.sort==sunny_expected.sort
 
 def graph_check(name, nodes, active, minimum)
   edges = active.select { |a, b, _| nodes.include?(a) && nodes.include?(b) }
@@ -158,11 +173,20 @@ end
 
 garden = (41..50).map { |n| format('F%02d', n) }
 castle = (51..60).map { |n| format('F%02d', n) }
-towers = (30..38).map { |n| format('F%02d', n) }
+towers = (30..38).map { |n| format('F%02d', n) } + (66..73).map { |n| format('F%02d', n) }
 garden_cycles = graph_check('兼六園', garden, active, 4)
 castle_cycles = graph_check('金沢城', castle, active, 3)
 tower_cycles = graph_check('双塔', towers, active, 1)
-[%w[F30 F31 F32 F33 F37], %w[F30 F34 F35 F36 F37]].each do |route|
+third=%w[F70 F71 F72 F73 F38]
+third_pairs=third.each_cons(2).map(&:sort)
+active.each do |a,b,_|
+  if third.include?(a) && third.include?(b)
+    fail!('第3塔の階飛ばし接続') unless third_pairs.include?([a,b].sort)
+  elsif third.include?(a) != third.include?(b)
+    fail!('第3塔の事前進入を許す未承認接続') unless [a,b].sort==%w[F37 F70]
+  end
+end
+[%w[F30 F31 F66 F32 F67 F33 F37], %w[F30 F34 F68 F35 F69 F36 F37], %w[F37 F70 F71 F72 F73 F38]].each do |route|
   route.each_cons(2) do |a, b|
     fail!("双塔: 階層経路がない #{a} -> #{b}") unless active.any? { |x, y, kind| kind == 'door' && [x, y].sort == [a, b].sort }
   end
@@ -177,14 +201,15 @@ active.each do |a, b, _|
   fail!("卯辰山: 分岐禁止 #{a} -> #{b}") unless allowed_entrances.include?([a, b].sort)
 end
 
-diagram_path = File.join(ROOT, 'docs/topology/late-dungeons.svg')
+[['late-dungeons.svg',[garden,castle,towers,mountain]], ['sunnyland.svg',[sunny]]].each do |filename,panels|
+diagram_path = File.join(ROOT, 'docs/topology', filename)
 fail!('接続図がない') unless File.file?(diagram_path)
 begin
   diagram = REXML::Document.new(File.read(diagram_path, encoding: 'UTF-8'))
 rescue REXML::ParseException => e
   fail!("接続図のXML不正: #{e.message}")
 end
-panels = [garden, castle, towers, mountain]
+
 expected_nodes = panels.flatten.sort
 actual_nodes = REXML::XPath.match(diagram, '//*[@data-map]').map { |node| node.attributes['data-map'] }.sort
 fail!('接続図のMAP集合が正本と不一致') unless actual_nodes == expected_nodes
@@ -193,5 +218,12 @@ actual_paths = REXML::XPath.match(diagram, '//*[@data-from or @data-to]').map do
   [*[path.attributes['data-from'], path.attributes['data-to']].sort, path.attributes['class']]
 end.sort
 fail!('接続図の有効辺集合が正本と不一致（欠落・余分・保留の実線化）') unless actual_paths == expected_paths
+
+end
+begin
+  OverseasProgression.verify!(OverseasProgression.load(File.join(ROOT,'docs/topology/overseas-progression.json')))
+rescue StandardError => e
+  fail!("海外状態契約: #{e.message}")
+end
 
 puts "PASS: MAP contracts=#{contract_ids.length}, assets=#{asset_ids.length}, specs=#{spec_ids.length}, refs=#{reference_ids.length}, topology MAPs=#{topology_ids.length}, topology rows=#{topology_rows.length}, pending=#{pending.length}, cycles garden=#{garden_cycles} castle=#{castle_cycles} towers=#{tower_cycles}, diagram verified"

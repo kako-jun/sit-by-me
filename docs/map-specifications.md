@@ -46,7 +46,7 @@
 
 ## 卯辰山・サニーランド
 
-**現行指定**: サニーランドは2階建て入口・地下方向への渡り廊下・地下水族館・屋外動物園。F07–F10/E23–E25の以下の旧割当・相互接続は未承認の仮説として失効し、詳細口述待ち。旧円形ホールやゲーム室だけから全体構造を確定しない。
+**現行指定**: 八角形入口1階・2階、雪の森の長い下り渡り廊下2MAP、地下水族館、シャチホコ屋外空間、昭和の屋外動物園、創作の屋外階段、和室宿泊棟が双方向円環。ラッコ館・洞窟は任意の入口出口付き探索。
 
 山は「東岸へ渡る→北へ上る→西へ折返す→再び北東へ上る」の蛇行を固定し、分岐・宝箱脇道・近道を置かない。全て事故後も同行者が押せる幅の緩勾配を主路として残す。
 
@@ -57,13 +57,13 @@
 | F04 | 小学生前半 | 雪をかぶった展望東屋を回り込む尾根道 | E22の南から入り、東へ緩く振れて北へ戻る。東屋は道沿いの景観で、枝は作らない。 | 山道2枚目。 |
 | F05 | 小学生前半 | 崩れた石垣を避けるヘアピン坂 | F04南→西への折返し→北。崩落側は柵で黒マスク、主坂は幅を保つ。 | 山道3枚目。 |
 | F06 | 小学生前半 | 氷の召喚獣と対峙する風穴のある山頂広場 | F05南から入り、北端からF07へ。展望柵は主路外、枝なし。 | 屋外山ダンジョンの終点。 |
-| F07 | 小学生前半 | 2階建てのサニーランドエントランス | F06からの入口。渡り廊下へ出る階・屋外動物園への出口はTBD | 同行者assistの崩落入口は維持。詳細接続未確定 |
-| F08 | 小学生前半 | 雪の森に囲まれた長い渡り廊下・前半（仮割当） | 渡り廊下全体が約2MAP。降りながら進む途中、進行方向右にゲームセンター。どちらのMAPで分岐するかTBD | 右を東、下りを南に変換しない |
-| F09 | 小学生前半 | 雪の森に囲まれた長い渡り廊下・後半（仮割当） | F08と合計約2MAPの長さ。地下方向へ進む。水族館・屋外動物園への接続階はTBD | 片方だけを短い屋内廊下に戻さない |
-| F10 | 小学生前半 | サニーランド屋外動物園（仮割当） | 屋外動物園の存在は本人記憶。エントランス・水族館との高さと接続はTBD | 旧整備室の割当は失効 |
-| E23 | 小学生前半 | シャチホコ噴水・戦闘域（配置TBD） | 既決のM008戦を保持。入口／地下水族館／屋外動物園との位置関係は口述待ち | 円形ホールを館内全体の構造根拠にしない |
-| E24 | 小学生前半 | 地下の水族館 | 地下であることは確定。渡り廊下・動物園との接続はTBD | 旧平面水槽室から再設計 |
-| E25 | 小学生前半 | 長い下り渡り廊下の途中、右側のゲームセンター | 右は下降時の進行方向基準。MAP内分岐位置・高さはTBD | 独立した旧一本道の一室ではない |
+| F07 | 小学生前半 | 八角形エントランス1階・受付 | door-corridor→F08.door-entry、door-stairs→F61.door-stairs、bottom→F06.top | 八角形ホールの一辺から1階へ。受付横に階段と長い廊下への一辺。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F08 | 小学生前半 | 雪の森に囲まれた下り渡り廊下・前半 | door-entry→F07.door-corridor、door-next→F09.door-prev、door-arcade-right→E25.door-corridor | 全2MAPの下り廊下、雪の森。途中の下降時右へゲームセンター（前半割当はゲーム配置）。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F09 | 小学生前半 | 雪の森に囲まれた下り渡り廊下・後半 | door-prev→F08.door-next、door-aquarium→E24.door-corridor | 長い下り廊下後半から地下水族館へ。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F10 | 小学生前半 | 狭い格子状の昭和の屋外動物園 | door-hub→E23.door-zoo、door-stairs→F63.door-zoo | 格子状の狭い劣悪な昭和の屋外檻。動物種・交点の通行はTBD。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| E23 | 小学生前半 | 小さな屋外空間・巨大シャチホコ | door-aquarium→E24.door-outdoor、door-zoo→F10.door-hub、door-otter-in→F64.door-entry、door-otter-out→F64.door-exit、door-cave-in→F65.door-entry、door-cave-out→F65.door-exit | 水族館出口→屋外動物園。ラッコ館・海底洞窟の入口出口。M008戦は屋外、噴水と断定しない。 pixel/mask/幅TBD |
+| E24 | 小学生前半 | 格子状水槽の地下水族館 | door-corridor→F09.door-aquarium、door-outdoor→E23.door-aquarium | 出口付近にピラルク巨大水槽。壁際にサメ標本・クジラの陰茎標本。展示格子と通行交点は別。 pixel/mask/幅TBD |
+| E25 | 小学生前半 | 下り渡り廊下途中・右側のゲームセンター | door-corridor→F08.door-arcade-right | 右は下降時の進行基準。F08前半への割当はゲーム配置。 pixel/mask/幅TBD |
 
 ## 内灘・浅野川線
 
@@ -131,15 +131,15 @@ K空港だけがワープ到達点。そこから飛行機で海外へ出た後�
 | F27 | 青年後半 | 凍結した滑走路と赤錆の到着ターミナル | 飛行機から西側到着口、東の荒れ地バス停へ。滑走路は通行不能。 | 海外ダンジョン起点。 |
 | F28 | 青年後半 | 遠い都市影へ伸びる霜の一本道 | F27西から入り東へ。道は緩く北へ湾曲し、脇の凍った泉で画面内終端。 | 荒れ地A。 |
 | F29 | 青年後半 | 風食岩と凍った塩原を回る二重カーブ | F28西から入り、左→右へ蛇行して北東の都市外縁へ。凍結穴は主路外。 | 荒れ地B。 |
-| F30 | 青年後半 | 双塔共通の基壇・左右入口 | door-left→F31.door-base、door-right→F34.door-base、bottom→F29.top | 双塔接続案。M003救出／合流・時間制限との関係TBD（#71） |
-| F31 | 青年後半 | 左塔下層 | door-base→F30.door-left、door-up→F32.door-down | 双塔接続案。M003救出／合流・時間制限との関係TBD（#71） |
-| F32 | 青年後半 | 左塔中層 | door-down→F31.door-up、door-up→F33.door-down | 双塔接続案。M003救出／合流・時間制限との関係TBD（#71） |
-| F33 | 青年後半 | 左塔上層・左ボス枠 | door-down→F32.door-up、door-landing→F37.door-left | 双塔接続案。M003救出／合流・時間制限との関係TBD（#71） |
-| F34 | 青年後半 | 右塔下層 | door-base→F30.door-right、door-up→F35.door-down | 双塔接続案。M003救出／合流・時間制限との関係TBD（#71） |
-| F35 | 青年後半 | 右塔中層 | door-down→F34.door-up、door-up→F36.door-down | 双塔接続案。M003救出／合流・時間制限との関係TBD（#71） |
-| F36 | 青年後半 | 右塔上層・右ボス枠 | door-down→F35.door-up、door-landing→F37.door-right | 双塔接続案。M003救出／合流・時間制限との関係TBD（#71） |
-| F37 | 青年後半 | 双塔の共通上層・救出配置候補 | door-left→F33.door-landing、door-right→F36.door-landing、door-escape→F38.door-landing | 双塔接続案。M003救出／合流・時間制限との関係TBD（#71） |
-| F38 | 青年後半 | 脱出終点・S005戦配置候補 | door-landing→F37.door-escape | 双塔接続案。M003救出／合流・時間制限との関係TBD（#71） |
+| F30 | 青年後半 | 攻略双塔の共通基壇 | door-left→F31.door-base、door-right→F34.door-base、bottom→F29.top | 左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F31 | 青年後半 | 左塔1階・雑居入口 | door-base→F30.door-left、door-up→F66.door-down | 左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F32 | 青年後半 | 左塔3階・配管と混在用途 | door-down→F66.door-up、door-up→F67.door-down | 左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F33 | 青年後半 | 左塔5階・M015魔法のみ有効 | door-down→F67.door-up、door-bridge→F37.door-left | 左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F34 | 青年後半 | 右塔1階・雑居入口 | door-base→F30.door-right、door-up→F68.door-down | 左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F35 | 青年後半 | 右塔3階・増改築の交差路 | door-down→F68.door-up、door-up→F69.door-down | 左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F36 | 青年後半 | 右塔5階・M016アビリティのみ有効 | door-down→F69.door-up、door-bridge→F37.door-right | 左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F37 | 青年後半 | 塔間空中通路・シャー判明と雑魚共闘 | door-left→F33.door-bridge、door-right→F36.door-bridge、door-third→F70.door-bridge | 左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F38 | 青年後半 | 脱出第3塔1階・出口直前S005戦 | door-up→F73.door-down | 5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 
 ## 兼六園（最終ダンジョン前半）
 
@@ -174,3 +174,21 @@ K空港だけがワープ到達点。そこから飛行機で海外へ出た後�
 | F58 | 壮年 | 鶴の丸・東の丸側 | top→F52.bottom、left→F59.right | 3攻略目標完了後にF59本丸入口を解錠。高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
 | F59 | 壮年 | 高い本丸 | left→F57.right、right→F58.left、door-tower→F60.door-base | 高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
 | F60 | 壮年 | 本丸内のイマジナリー天守上層 | door-base→F59.door-tower | 高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
+
+## 2026-10-18追加ID（番号は既存MAPを移動しない）
+
+| MAP | 時期 | 一言特徴 | 接続 | 不変条件／TBD |
+|---|---|---|---|---|
+| F61 | 小学生前半 | 八角形エントランス2階・全方向の窓 | door-hotel→F62.door-entry、door-stairs→F07.door-stairs | 2階は全方向の窓。一辺から和室宿泊棟、階段で1階。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F62 | 小学生前半 | 廃墟の和室が並ぶ宿泊棟 | door-far-end→F63.door-hotel、door-entry→F61.door-hotel | 廃墟の和室が並ぶ。入口2階側と屋外階段側の両端。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F63 | 小学生前半 | 動物園から宿泊棟端への屋外階段 | door-zoo→F10.door-stairs、door-hotel→F62.door-far-end | ユーザー創作の動物園→宿泊棟端の屋外階段。assist方法TBD。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F64 | 小学生前半 | ラッコ館・入口と出口のある任意探索 | door-entry→E23.door-otter-in、door-exit→E23.door-otter-out | 入口・出口別。宝箱目当ての任意通り抜け。同じ屋外E23へ戻すのはゲーム配置。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F65 | 小学生前半 | 低予算昭和の海底探検洞窟・任意探索 | door-entry→E23.door-cave-in、door-exit→E23.door-cave-out | 低予算昭和の海底探検の作り物。ダイオウイカ・難破船・ニンゲン。入口出口別、任意宝箱。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F66 | 青年後半 | 左塔2階・迷路状の増築 | door-down→F31.door-up、door-up→F32.door-down | 左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F67 | 青年後半 | 左塔4階・無駄道と袋小路 | door-down→F32.door-up、door-up→F33.door-down | 左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F68 | 青年後半 | 右塔2階・混在用途の迷路 | door-down→F34.door-up、door-up→F35.door-down | 左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F69 | 青年後半 | 右塔4階・無駄道と袋小路 | door-down→F35.door-up、door-up→F36.door-down | 左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F70 | 青年後半 | 脱出第3塔5階・宝箱と下り階段 | door-bridge→F37.door-third、door-down→F71.door-up | 5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F71 | 青年後半 | 脱出第3塔4階・宝箱と下り階段 | door-up→F70.door-down、door-down→F72.door-up | 5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F72 | 青年後半 | 脱出第3塔3階・宝箱と下り階段 | door-up→F71.door-down、door-down→F73.door-up | 5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F73 | 青年後半 | 脱出第3塔2階・宝箱と下り階段 | door-up→F72.door-down、door-down→F38.door-up | 5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |

@@ -10,7 +10,7 @@
 
 `ready` は全項目が記入済みかつ TBD=なし、`legacy` は既存画像で再生成・差し替えを禁止、`blocked` は個別契約またはTBDが残っている状態である。寺町は2026-10-16の方針により、旧legacyを一枚も採用せず、E01–E13/F01–F03の新候補16枚を揃えて監査後に**一括**でruntimeへ差し替える。混在運用はしない。**「ただの道」「つなぎ」だけは一言特徴にならない**。道なら、交差点・橋・用水・寺の裏門・雪囲い・市場の角・坂の眺めなど、そこでしか成立しない主役を必ず持たせる。
 
-## 104行共通の画像契約
+## 117行共通の画像契約
 
 全MAP行は、本文の略表に加えて次の契約を持つ。接続は `map-topology.md` の「MAP相互接続台帳 v2」、主役・時期・主路は `map-specifications.md` の同じID、参考は `map-reference-research.md` の同じIDまたは明示した共通Refを参照する。これらのどれかが無い行は `blocked` とする。
 
@@ -70,9 +70,9 @@ N1〜N12 の詳細な接続契約は [map-specifications.md](map-specifications.
 | E20 | `assets/images/fields/legacy/E20.png` | 病院 | legacy |
 | E21 | `assets/images/fields/legacy/E21.png` | 金沢駅 | legacy |
 | E22 | `assets/images/fields/legacy/E22.png` | 卯辰山 | legacy |
-| E23 | `assets/images/fields/legacy/E23.png` | サニーランド | 2階建てエントランス（入場階未確定）／約2MAP長の下り渡り廊下（雪の森）／途中の進行方向右にゲームセンター／地下水族館／屋外動物園。階差・各接続・シャチホコ戦の位置は口述待ち。旧平面接続は失効、blocked（#14） |
-| E24 | `assets/images/fields/legacy/E24.png` | サニーランド | 2階建てエントランス（入場階未確定）／約2MAP長の下り渡り廊下（雪の森）／途中の進行方向右にゲームセンター／地下水族館／屋外動物園。階差・各接続・シャチホコ戦の位置は口述待ち。旧平面接続は失効、blocked（#14） |
-| E25 | `assets/images/fields/legacy/E25.png` | サニーランド | 2階建てエントランス（入場階未確定）／約2MAP長の下り渡り廊下（雪の森）／途中の進行方向右にゲームセンター／地下水族館／屋外動物園。階差・各接続・シャチホコ戦の位置は口述待ち。旧平面接続は失効、blocked（#14） |
+| E23 | `assets/images/fields/legacy/E23.png` | サニーランド | 小さな屋外空間・巨大シャチホコ。水族館出口→屋外動物園。ラッコ館・海底洞窟の入口出口。M008戦は屋外、噴水と断定しない。 door-aquarium→E24.door-outdoor、door-zoo→F10.door-hub、door-otter-in→F64.door-entry、door-otter-out→F64.door-exit、door-cave-in→F65.door-entry、door-cave-out→F65.door-exit。旧画像は参照専用。pixel/mask/幅TBD |
+| E24 | `assets/images/fields/legacy/E24.png` | サニーランド | 格子状水槽の地下水族館。出口付近にピラルク巨大水槽。壁際にサメ標本・クジラの陰茎標本。展示格子と通行交点は別。 door-corridor→F09.door-aquarium、door-outdoor→E23.door-aquarium。旧画像は参照専用。pixel/mask/幅TBD |
+| E25 | `assets/images/fields/legacy/E25.png` | サニーランド | 下り渡り廊下途中・右側のゲームセンター。右は下降時の進行基準。F08前半への割当はゲーム配置。 door-corridor→F08.door-arcade-right。旧画像は参照専用。pixel/mask/幅TBD |
 | E26 | `assets/images/fields/legacy/E26.png` | 内灘 | legacy |
 | E27 | `assets/images/fields/legacy/E27.png` | 内灘 | legacy |
 | E28 | `assets/images/fields/legacy/E28.png` | 能登（被災前） | legacy |
@@ -96,10 +96,10 @@ N1〜N12 の詳細な接続契約は [map-specifications.md](map-specifications.
 | F04 | `utatsuyama-route-02` | 卯辰山 | 接続辺・中ボスまでの主経路 |
 | F05 | `utatsuyama-route-03` | 卯辰山 | 接続辺・中ボスまでの主経路 |
 | F06 | `utatsuyama-summon-clearing` | 卯辰山 | 接続辺・戦闘場の通行条件 |
-| F07 | `sunnyland-exterior-entry` | サニーランド | 2階建てエントランス（入場階未確定）／約2MAP長の下り渡り廊下（雪の森）／途中の進行方向右にゲームセンター／地下水族館／屋外動物園。階差・各接続・シャチホコ戦の位置は口述待ち。旧平面接続は失効、blocked（#14） |
-| F08 | `sunnyland-hallway-01` | サニーランド | 2階建てエントランス（入場階未確定）／約2MAP長の下り渡り廊下（雪の森）／途中の進行方向右にゲームセンター／地下水族館／屋外動物園。階差・各接続・シャチホコ戦の位置は口述待ち。旧平面接続は失効、blocked（#14） |
-| F09 | `sunnyland-hallway-02` | サニーランド | 2階建てエントランス（入場階未確定）／約2MAP長の下り渡り廊下（雪の森）／途中の進行方向右にゲームセンター／地下水族館／屋外動物園。階差・各接続・シャチホコ戦の位置は口述待ち。旧平面接続は失効、blocked（#14） |
-| F10 | `sunnyland-service-room` | サニーランド | 2階建てエントランス（入場階未確定）／約2MAP長の下り渡り廊下（雪の森）／途中の進行方向右にゲームセンター／地下水族館／屋外動物園。階差・各接続・シャチホコ戦の位置は口述待ち。旧平面接続は失効、blocked（#14） |
+| F07 | `F07` | サニーランド | 八角形エントランス1階・受付。八角形ホールの一辺から1階へ。受付横に階段と長い廊下への一辺。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F08 | `F08` | サニーランド | 雪の森に囲まれた下り渡り廊下・前半。全2MAPの下り廊下、雪の森。途中の下降時右へゲームセンター（前半割当はゲーム配置）。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F09 | `F09` | サニーランド | 雪の森に囲まれた下り渡り廊下・後半。長い下り廊下後半から地下水族館へ。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F10 | `F10` | サニーランド | 狭い格子状の昭和の屋外動物園。格子状の狭い劣悪な昭和の屋外檻。動物種・交点の通行はTBD。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | F11 | `uchinada-dune-summit` | 内灘 | N3・砂浜との接続、車椅子経路 |
 | F12 | `noto-post-station` | 能登（被災後） | 被災前版との同一接続 |
 | F13 | `noto-post-uphill` | 能登（被災後） | N5との同一接続 |
@@ -119,15 +119,15 @@ N1〜N12 の詳細な接続契約は [map-specifications.md](map-specifications.
 | F27 | `overseas-airport` | 海外 | 到着口・荒れ地への接続 |
 | F28 | `overseas-wasteland-a` | 海外 | 空港・荒れ地Bへの接続 |
 | F29 | `overseas-wasteland-b` | 海外 | 荒れ地A・都市への接続 |
-| F30 | `twin-tower-0` | 海外双塔 | 双塔共通の基壇・左右入口・v2接続、幅／高低差／通行条件TBD（blocked） |
-| F31 | `twin-tower-1` | 海外双塔 | 左塔下層・v2接続、幅／高低差／通行条件TBD（blocked） |
-| F32 | `twin-tower-2` | 海外双塔 | 左塔中層・v2接続、幅／高低差／通行条件TBD（blocked） |
-| F33 | `twin-tower-3` | 海外双塔 | 左塔上層・左ボス枠・v2接続、幅／高低差／通行条件TBD（blocked） |
-| F34 | `twin-tower-4` | 海外双塔 | 右塔下層・v2接続、幅／高低差／通行条件TBD（blocked） |
-| F35 | `twin-tower-5` | 海外双塔 | 右塔中層・v2接続、幅／高低差／通行条件TBD（blocked） |
-| F36 | `twin-tower-6` | 海外双塔 | 右塔上層・右ボス枠・v2接続、幅／高低差／通行条件TBD（blocked） |
-| F37 | `twin-tower-7` | 海外双塔 | 双塔の共通上層・救出配置候補・v2接続、幅／高低差／通行条件TBD（blocked） |
-| F38 | `twin-tower-8` | 海外双塔 | 脱出終点・S005戦配置候補・v2接続、幅／高低差／通行条件TBD（blocked） |
+| F30 | `F30` | 海外3塔 | 攻略双塔の共通基壇。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F31 | `F31` | 海外3塔 | 左塔1階・雑居入口。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F32 | `F32` | 海外3塔 | 左塔3階・配管と混在用途。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F33 | `F33` | 海外3塔 | 左塔5階・M015魔法のみ有効。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F34 | `F34` | 海外3塔 | 右塔1階・雑居入口。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F35 | `F35` | 海外3塔 | 右塔3階・増改築の交差路。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F36 | `F36` | 海外3塔 | 右塔5階・M016アビリティのみ有効。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F37 | `F37` | 海外3塔 | 塔間空中通路・シャー判明と雑魚共闘。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F38 | `F38` | 海外3塔 | 脱出第3塔1階・出口直前S005戦。5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | F39 | `k-airport-exterior` | K空港 | 広場・搭乗口への接続 |
 | F40 | `k-airport-interior` | K空港 | ドア接続・搭乗動線 |
 | F41 | `kenrokuen-1` | 兼六園 | 真弓坂側の南西入口・v2接続、幅／高低差／通行条件TBD（blocked） |
@@ -150,3 +150,21 @@ N1〜N12 の詳細な接続契約は [map-specifications.md](map-specifications.
 | F58 | `castle-8` | 金沢城 | 鶴の丸・東の丸側・v2接続、幅／高低差／通行条件TBD（blocked） |
 | F59 | `castle-9` | 金沢城 | 高い本丸・v2接続、幅／高低差／通行条件TBD（blocked） |
 | F60 | `castle-10` | 金沢城 | 本丸内のイマジナリー天守上層・v2接続、幅／高低差／通行条件TBD（blocked） |
+
+## 2026-10-18追加ID（番号は既存MAPを移動しない）
+
+| ID | 管理名 | 地区 | 契約 |
+|---|---|---|---|
+| F61 | `F61` | サニーランド | 八角形エントランス2階・全方向の窓。2階は全方向の窓。一辺から和室宿泊棟、階段で1階。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F62 | `F62` | サニーランド | 廃墟の和室が並ぶ宿泊棟。廃墟の和室が並ぶ。入口2階側と屋外階段側の両端。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F63 | `F63` | サニーランド | 動物園から宿泊棟端への屋外階段。ユーザー創作の動物園→宿泊棟端の屋外階段。assist方法TBD。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F64 | `F64` | サニーランド | ラッコ館・入口と出口のある任意探索。入口・出口別。宝箱目当ての任意通り抜け。同じ屋外E23へ戻すのはゲーム配置。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F65 | `F65` | サニーランド | 低予算昭和の海底探検洞窟・任意探索。低予算昭和の海底探検の作り物。ダイオウイカ・難破船・ニンゲン。入口出口別、任意宝箱。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F66 | `F66` | 海外3塔 | 左塔2階・迷路状の増築。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F67 | `F67` | 海外3塔 | 左塔4階・無駄道と袋小路。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F68 | `F68` | 海外3塔 | 右塔2階・混在用途の迷路。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F69 | `F69` | 海外3塔 | 右塔4階・無駄道と袋小路。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F70 | `F70` | 海外3塔 | 脱出第3塔5階・宝箱と下り階段。5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F71 | `F71` | 海外3塔 | 脱出第3塔4階・宝箱と下り階段。5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F72 | `F72` | 海外3塔 | 脱出第3塔3階・宝箱と下り階段。5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F73 | `F73` | 海外3塔 | 脱出第3塔2階・宝箱と下り階段。5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
