@@ -1,8 +1,8 @@
 # MAP生成契約チェックリスト
 
-2026-10-18: サニーランドF07–F10/E23–E25の旧平面接続は失効。2階建てエントランス（入場階未確定）／地下水族館／屋外動物園の詳細接続を口述待ち。以下の旧TBDは再設計対象で、生成根拠にしない。
+2026-10-18: サニーランドは口述と創作の円環接続へ更新。旧pending6接続は削除済み。
 
-`map-asset-registry.md` の104行を、生成可能にするまで追跡する行単位チェックリスト。接続の正本は `map-topology.md` の「MAP相互接続台帳 v2」、画面主役と主路は `map-specifications.md`、マスク形式は `sit-field-mask` である。全行は `blocked` または `legacy-needs-review` で始める。`TBD` が空でない限り `ready` にしない。台帳整合の独立再監査は [第3周レビュー](reviews/artifact-redteam/20261016-map-ledger-round3.md) を参照。
+`map-asset-registry.md` の117行を、生成可能にするまで追跡する行単位チェックリスト。接続の正本は `map-topology.md` の「MAP相互接続台帳 v2」、画面主役と主路は `map-specifications.md`、マスク形式は `sit-field-mask` である。全行は `blocked` または `legacy-needs-review` で始める。`TBD` が空でない限り `ready` にしない。台帳整合の独立再監査は [第3周レビュー](reviews/artifact-redteam/20261016-map-ledger-round3.md) を参照。
 
 **2026-10-18 / #51**: E01–E13/F01–F03は全て `recreate-required-1920x1080`、生成契約は `blocked`。以下の旧画像パスは参照専用で、旧mask・旧passは新候補の採用根拠にならない。現行再作成状態は [候補台帳](teramachi-rebuild-candidates.md)、建物群の生成前入力は [制作前確認](production/20261018-teramachi-preflight.md) を参照する。
 
@@ -30,9 +30,9 @@
 | E20 | legacy-needs-review | R011 | `assets/images/fields/legacy/E20.png`; mask未記録 | N9端、車寄せのuniversal幅と入口foregroundを記録する |
 | E21 | legacy-needs-review | R011 | `assets/images/fields/legacy/E21.png`; mask未記録 | N11端、能登／内灘乗車door、広場の禁止辺を記録する |
 | E22 | legacy-needs-review | R007,R008 | `assets/images/fields/legacy/E22.png`; mask未記録 | N8/F04端、折返し主路と廃遊具のblocked域を記録する |
-| E23 | legacy-needs-review | R007 | `assets/images/fields/legacy/E23.png`; mask未記録 | 2階建てエントランス（入場階未確定）／約2MAP長の下り渡り廊下（雪の森）／途中の進行方向右にゲームセンター／地下水族館／屋外動物園。階差・各接続・シャチホコ戦の位置は口述待ち。旧平面接続は失効、blocked（#14） |
-| E24 | legacy-needs-review | R007 | `assets/images/fields/legacy/E24.png`; mask未記録 | 2階建てエントランス（入場階未確定）／約2MAP長の下り渡り廊下（雪の森）／途中の進行方向右にゲームセンター／地下水族館／屋外動物園。階差・各接続・シャチホコ戦の位置は口述待ち。旧平面接続は失効、blocked（#14） |
-| E25 | legacy-needs-review | R007 | `assets/images/fields/legacy/E25.png`; mask未記録 | 2階建てエントランス（入場階未確定）／約2MAP長の下り渡り廊下（雪の森）／途中の進行方向右にゲームセンター／地下水族館／屋外動物園。階差・各接続・シャチホコ戦の位置は口述待ち。旧平面接続は失効、blocked（#14） |
+| E23 | legacy-needs-review | R007 | `assets/images/fields/legacy/E23.png`; mask未記録 | 小さな屋外空間・巨大シャチホコ。水族館出口→屋外動物園。ラッコ館・海底洞窟の入口出口。M008戦は屋外、噴水と断定しない。 door-aquarium→E24.door-outdoor、door-zoo→F10.door-hub、door-otter-in→F64.door-entry、door-otter-out→F64.door-exit、door-cave-in→F65.door-entry、door-cave-out→F65.door-exit。旧画像は参照専用。pixel/mask/幅TBD |
+| E24 | legacy-needs-review | R007 | `assets/images/fields/legacy/E24.png`; mask未記録 | 格子状水槽の地下水族館。出口付近にピラルク巨大水槽。壁際にサメ標本・クジラの陰茎標本。展示格子と通行交点は別。 door-corridor→F09.door-aquarium、door-outdoor→E23.door-aquarium。旧画像は参照専用。pixel/mask/幅TBD |
+| E25 | legacy-needs-review | R007 | `assets/images/fields/legacy/E25.png`; mask未記録 | 下り渡り廊下途中・右側のゲームセンター。右は下降時の進行基準。F08前半への割当はゲーム配置。 door-corridor→F08.door-arcade-right。旧画像は参照専用。pixel/mask/幅TBD |
 | E26 | legacy-needs-review | R014,R015 | `assets/images/fields/legacy/E26.png`; mask未記録 | N3端、駅出口と線路端のblocked域を記録する |
 | E27 | legacy-needs-review | R015 | `assets/images/fields/legacy/E27.png`; mask未記録 | F11端、海側blocked帯と締まった砂のuniversal帯を記録する |
 | E28 | legacy-needs-review | R004 | `assets/images/fields/legacy/E28.png`; mask未記録 | E21/E29door、車内通路とドア回転域を記録する |
@@ -58,10 +58,10 @@
 | F04 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | E22/F05端、東屋脇の枝なし蛇行主路の安全幅を決める |
 | F05 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | F04/F06端、崩落石垣を避けるassist主路の幅を決める |
 | F06 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | F05/F07端、山頂戦闘域と展望柵のblocked域を決める |
-| F07 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | 2階建てエントランス（入場階未確定）／約2MAP長の下り渡り廊下（雪の森）／途中の進行方向右にゲームセンター／地下水族館／屋外動物園。階差・各接続・シャチホコ戦の位置は口述待ち。旧平面接続は失効、blocked（#14） |
-| F08 | blocked | R021,R027 | 未生成・mask未作成 | 2階建てエントランス（入場階未確定）／約2MAP長の下り渡り廊下（雪の森）／途中の進行方向右にゲームセンター／地下水族館／屋外動物園。階差・各接続・シャチホコ戦の位置は口述待ち。旧平面接続は失効、blocked（#14） |
-| F09 | blocked | R021,R027 | 未生成・mask未作成 | 2階建てエントランス（入場階未確定）／約2MAP長の下り渡り廊下（雪の森）／途中の進行方向右にゲームセンター／地下水族館／屋外動物園。階差・各接続・シャチホコ戦の位置は口述待ち。旧平面接続は失効、blocked（#14） |
-| F10 | blocked | R021,R027 | 未生成・mask未作成 | 2階建てエントランス（入場階未確定）／約2MAP長の下り渡り廊下（雪の森）／途中の進行方向右にゲームセンター／地下水族館／屋外動物園。階差・各接続・シャチホコ戦の位置は口述待ち。旧平面接続は失効、blocked（#14） |
+| F07 | blocked | R027 | 未生成・mask未作成 | 八角形エントランス1階・受付。door-corridor→F08.door-entry、door-stairs→F61.door-stairs、bottom→F06.top。八角形ホールの一辺から1階へ。受付横に階段と長い廊下への一辺。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F08 | blocked | R027 | 未生成・mask未作成 | 雪の森に囲まれた下り渡り廊下・前半。door-entry→F07.door-corridor、door-next→F09.door-prev、door-arcade-right→E25.door-corridor。全2MAPの下り廊下、雪の森。途中の下降時右へゲームセンター（前半割当はゲーム配置）。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F09 | blocked | R027 | 未生成・mask未作成 | 雪の森に囲まれた下り渡り廊下・後半。door-prev→F08.door-next、door-aquarium→E24.door-corridor。長い下り廊下後半から地下水族館へ。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F10 | blocked | R027 | 未生成・mask未作成 | 狭い格子状の昭和の屋外動物園。door-hub→E23.door-zoo、door-stairs→F63.door-zoo。格子状の狭い劣悪な昭和の屋外檻。動物種・交点の通行はTBD。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | F11 | blocked | R014,R015,R021 | 未生成・mask未作成 | N3/E27端、砂丘頂の柵・深砂・海側のblocked域を決める |
 | F12 | blocked | R016,R028,R029 | 未生成・mask未作成 | F13/F18端、E29と同一地形の被災後差分を決める |
 | F13 | blocked | R016,R028,R029 | 未生成・mask未作成 | F12/F14端、仮設板路のassist可否と地割れblocked域を決める |
@@ -81,15 +81,15 @@
 | F27 | blocked | R019,R033 | 未生成・mask未作成 | 到着口/F28端、凍結滑走路を通行不能にする空港導線を確定する |
 | F28 | blocked | R019,R033 | 未生成・mask未作成 | F27/F29端、凍った泉の画面内終端と乾燥寒冷地資料を確定する |
 | F29 | blocked | R019,R033 | 未生成・mask未作成 | F28/F30端、凍結穴・風食岩のblocked域を確定する |
-| F30 | blocked | R019 | 未生成・mask未作成 | 双塔共通の基壇・左右入口。door-left→F31.door-base、door-right→F34.door-base、bottom→F29.top。階差・主路幅、左右ボスとM003救出／S005脱出／時間制限の関係を確定する（#71） |
-| F31 | blocked | R019 | 未生成・mask未作成 | 左塔下層。door-base→F30.door-left、door-up→F32.door-down。階差・主路幅、左右ボスとM003救出／S005脱出／時間制限の関係を確定する（#71） |
-| F32 | blocked | R019 | 未生成・mask未作成 | 左塔中層。door-down→F31.door-up、door-up→F33.door-down。階差・主路幅、左右ボスとM003救出／S005脱出／時間制限の関係を確定する（#71） |
-| F33 | blocked | R019 | 未生成・mask未作成 | 左塔上層・左ボス枠。door-down→F32.door-up、door-landing→F37.door-left。階差・主路幅、左右ボスとM003救出／S005脱出／時間制限の関係を確定する（#71） |
-| F34 | blocked | R019 | 未生成・mask未作成 | 右塔下層。door-base→F30.door-right、door-up→F35.door-down。階差・主路幅、左右ボスとM003救出／S005脱出／時間制限の関係を確定する（#71） |
-| F35 | blocked | R019 | 未生成・mask未作成 | 右塔中層。door-down→F34.door-up、door-up→F36.door-down。階差・主路幅、左右ボスとM003救出／S005脱出／時間制限の関係を確定する（#71） |
-| F36 | blocked | R019 | 未生成・mask未作成 | 右塔上層・右ボス枠。door-down→F35.door-up、door-landing→F37.door-right。階差・主路幅、左右ボスとM003救出／S005脱出／時間制限の関係を確定する（#71） |
-| F37 | blocked | R019 | 未生成・mask未作成 | 双塔の共通上層・救出配置候補。door-left→F33.door-landing、door-right→F36.door-landing、door-escape→F38.door-landing。階差・主路幅、左右ボスとM003救出／S005脱出／時間制限の関係を確定する（#71） |
-| F38 | blocked | R019 | 未生成・mask未作成 | 脱出終点・S005戦配置候補。door-landing→F37.door-escape。階差・主路幅、左右ボスとM003救出／S005脱出／時間制限の関係を確定する（#71） |
+| F30 | blocked | R019 | 未生成・mask未作成 | 攻略双塔の共通基壇。door-left→F31.door-base、door-right→F34.door-base、bottom→F29.top。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F31 | blocked | R019 | 未生成・mask未作成 | 左塔1階・雑居入口。door-base→F30.door-left、door-up→F66.door-down。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F32 | blocked | R019 | 未生成・mask未作成 | 左塔3階・配管と混在用途。door-down→F66.door-up、door-up→F67.door-down。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F33 | blocked | R019 | 未生成・mask未作成 | 左塔5階・M015魔法のみ有効。door-down→F67.door-up、door-bridge→F37.door-left。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F34 | blocked | R019 | 未生成・mask未作成 | 右塔1階・雑居入口。door-base→F30.door-right、door-up→F68.door-down。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F35 | blocked | R019 | 未生成・mask未作成 | 右塔3階・増改築の交差路。door-down→F68.door-up、door-up→F69.door-down。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F36 | blocked | R019 | 未生成・mask未作成 | 右塔5階・M016アビリティのみ有効。door-down→F69.door-up、door-bridge→F37.door-right。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F37 | blocked | R019 | 未生成・mask未作成 | 塔間空中通路・シャー判明と雑魚共闘。door-left→F33.door-bridge、door-right→F36.door-bridge、door-third→F70.door-bridge。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F38 | blocked | R019 | 未生成・mask未作成 | 脱出第3塔1階・出口直前S005戦。door-up→F73.door-down。5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | F39 | blocked | R020,R021,R022,R032 | 未生成・mask未作成 | ワープ広場/F40door、駐機場blocked域を確定する |
 | F40 | blocked | R020,R021,R022,R032 | 未生成・mask未作成 | F39/F27door、一方通行の保安・搭乗導線を確定する |
 | F41 | blocked | R012,R030,R034,R035 | 未生成・mask未作成 | 真弓坂側の南西入口。top→F43.bottom、right→F42.left、bottom→N9.top。池／堀・高低差、各出口の位置・幅、assistと閉鎖域、城攻略目標と解錠条件を個別確定する（#45） |
@@ -112,3 +112,21 @@
 | F58 | blocked | R017,R031,R034,R035 | 未生成・mask未作成 | 鶴の丸・東の丸側。top→F52.bottom、left→F59.right。3攻略目標完了後にF59本丸入口を解錠。池／堀・高低差、各出口の位置・幅、assistと閉鎖域、城攻略目標と解錠条件を個別確定する（#45） |
 | F59 | blocked | R017,R031,R034,R035 | 未生成・mask未作成 | 高い本丸。left→F57.right、right→F58.left、door-tower→F60.door-base。池／堀・高低差、各出口の位置・幅、assistと閉鎖域、城攻略目標と解錠条件を個別確定する（#45） |
 | F60 | blocked | R017,R031,R034,R035 | 未生成・mask未作成 | 本丸内のイマジナリー天守上層。door-base→F59.door-tower。池／堀・高低差、各出口の位置・幅、assistと閉鎖域、城攻略目標と解錠条件を個別確定する（#45） |
+
+## 2026-10-18追加ID（番号は既存MAPを移動しない）
+
+| ID | 状態 | Ref | mask / 出力 | 具体的TBD |
+|---|---|---|---|---|
+| F61 | blocked | R027 | 未生成・mask未作成 | 八角形エントランス2階・全方向の窓。door-hotel→F62.door-entry、door-stairs→F07.door-stairs。2階は全方向の窓。一辺から和室宿泊棟、階段で1階。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F62 | blocked | R027 | 未生成・mask未作成 | 廃墟の和室が並ぶ宿泊棟。door-far-end→F63.door-hotel、door-entry→F61.door-hotel。廃墟の和室が並ぶ。入口2階側と屋外階段側の両端。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F63 | blocked | R027 | 未生成・mask未作成 | 動物園から宿泊棟端への屋外階段。door-zoo→F10.door-stairs、door-hotel→F62.door-far-end。ユーザー創作の動物園→宿泊棟端の屋外階段。assist方法TBD。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F64 | blocked | R027 | 未生成・mask未作成 | ラッコ館・入口と出口のある任意探索。door-entry→E23.door-otter-in、door-exit→E23.door-otter-out。入口・出口別。宝箱目当ての任意通り抜け。同じ屋外E23へ戻すのはゲーム配置。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F65 | blocked | R027 | 未生成・mask未作成 | 低予算昭和の海底探検洞窟・任意探索。door-entry→E23.door-cave-in、door-exit→E23.door-cave-out。低予算昭和の海底探検の作り物。ダイオウイカ・難破船・ニンゲン。入口出口別、任意宝箱。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F66 | blocked | R019 | 未生成・mask未作成 | 左塔2階・迷路状の増築。door-down→F31.door-up、door-up→F32.door-down。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F67 | blocked | R019 | 未生成・mask未作成 | 左塔4階・無駄道と袋小路。door-down→F32.door-up、door-up→F33.door-down。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F68 | blocked | R019 | 未生成・mask未作成 | 右塔2階・混在用途の迷路。door-down→F34.door-up、door-up→F35.door-down。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F69 | blocked | R019 | 未生成・mask未作成 | 右塔4階・無駄道と袋小路。door-down→F35.door-up、door-up→F36.door-down。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F70 | blocked | R019 | 未生成・mask未作成 | 脱出第3塔5階・宝箱と下り階段。door-bridge→F37.door-third、door-down→F71.door-up。5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F71 | blocked | R019 | 未生成・mask未作成 | 脱出第3塔4階・宝箱と下り階段。door-up→F70.door-down、door-down→F72.door-up。5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F72 | blocked | R019 | 未生成・mask未作成 | 脱出第3塔3階・宝箱と下り階段。door-up→F71.door-down、door-down→F73.door-up。5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| F73 | blocked | R019 | 未生成・mask未作成 | 脱出第3塔2階・宝箱と下り階段。door-up→F72.door-down、door-down→F38.door-up。5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
