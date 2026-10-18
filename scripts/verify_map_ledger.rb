@@ -5,6 +5,7 @@
 # "見た目の印象" ではなく 104 行・参照・接続端の不変条件で検査する。
 
 ROOT = File.expand_path('..', __dir__)
+require 'rexml/document'
 
 def read(name)
   File.read(File.join(ROOT, 'docs', name), encoding: 'UTF-8')
@@ -37,7 +38,7 @@ end.compact
 
 contract_ids = contract_rows.map(&:first)
 fail!("契約行が104件ではない: #{contract_ids.length}") unless contract_ids.length == 104
-fail!("契約ID重複: #{contract_ids.tally.select { |_, v| v > 1 }.keys.join(', ')}") unless contract_ids.uniq.length == 104
+fail!("契約ID重複: #{contract_ids.group_by(&:itself).select { |_, v| v.length > 1 }.keys.join(', ')}") unless contract_ids.uniq.length == 104
 fail!("契約ID不足: #{(expected - contract_ids).join(', ')}") unless (expected - contract_ids).empty?
 fail!("未知の契約ID: #{(contract_ids - expected).join(', ')}") unless (contract_ids - expected).empty?
 
@@ -87,27 +88,109 @@ topology_rows = topology[start...finish].lines.map do |line|
   next unless line.match?(/^\| (?:E\d{2}|N\d+|F\d{2})\./)
 
   cells = line.split('|').map(&:strip)
-  [cells[1], cells[2], cells[3]]
+  [cells[1], cells[2], cells[3], cells[4]]
 end.compact
 fail!('v2接続台帳が空') if topology_rows.empty?
 
 edge_ends = Hash.new { |h, k| h[k] = [] }
+door_ends = Hash.new { |h, k| h[k] = [] }
+active = []
+pending = []
 opposite = { 'top' => 'bottom', 'bottom' => 'top', 'left' => 'right', 'right' => 'left' }
-topology_rows.each_with_index do |(from, to, kind), index|
+topology_rows.each_with_index do |(from, to, kind, reason), index|
+  fail!("v2 row #{index + 1}: 未知・未設定の種別 #{kind.inspect}") unless %w[edge door pending].include?(kind)
   [from, to].each do |endpoint|
     id = endpoint.split('.').first
     fail!("v2 row #{index + 1}: 未知MAP #{id}") unless expected.include?(id)
   end
-  next unless kind == 'edge'
-
   from_side = from.split('.', 2)[1]
   to_side = to.split('.', 2)[1]
-  fail!("v2 row #{index + 1}: 反対辺でない #{from} -> #{to}") unless opposite[from_side] == to_side
-  [from, to].each { |endpoint| edge_ends[endpoint] << index + 1 }
+  if kind == 'pending'
+    fail!("v2 row #{index + 1}: 保留理由がない") if reason.nil? || reason.empty?
+    pending << [from, to]
+    next
+  end
+  fail!("v2 row #{index + 1}: 自己接続 #{from} -> #{to}") if from.split('.').first == to.split('.').first
+  if kind == 'edge'
+    fail!("v2 row #{index + 1}: 不正・反対辺でない #{from} -> #{to}") unless opposite.key?(from_side) && opposite[from_side] == to_side
+    [from, to].each { |endpoint| edge_ends[endpoint] << index + 1 }
+  else
+    [from, to].each do |endpoint|
+      fail!("v2 row #{index + 1}: 扉IDがない #{endpoint}") unless endpoint.match?(/\.door(?:-[A-Za-z0-9_-]+)?\z/)
+      door_ends[endpoint] << index + 1
+    end
+  end
+  active << [from.split('.').first, to.split('.').first, kind]
 end
 topology_ids = topology_rows.flat_map { |from, to, _| [from.split('.').first, to.split('.').first] }.uniq
 fail!("v2接続台帳にないMAP: #{(expected - topology_ids).join(', ')}") unless (expected - topology_ids).empty?
 reused = edge_ends.select { |_, rows| rows.length > 1 }
 fail!("同一画像辺の二重使用: #{reused.map { |k, v| "#{k}(#{v.join(',')})" }.join(', ')}") unless reused.empty?
+reused_doors = door_ends.select { |_, rows| rows.length > 1 }
+fail!("同一扉端の二重使用: #{reused_doors.keys.join(', ')}") unless reused_doors.empty?
 
-puts "PASS: MAP contracts=#{contract_ids.length}, assets=#{asset_ids.length}, specs=#{spec_ids.length}, refs=#{reference_ids.length}, topology MAPs=#{topology_ids.length}, topology rows=#{topology_rows.length}, repeated edge endpoints=0"
+sunny = %w[F07 F08 E24 F09 E25 F10 E23]
+fail!('サニーランドの保留接続は6件必要') unless pending.length == 6
+fail!('サニーランドの保留接続に未知の対象') unless pending.all? { |a, b| sunny.include?(a.split('.').first) && sunny.include?(b.split('.').first) }
+fail!('サニーランドの保留接続が有効化されている') if active.any? { |a, b, _| sunny.include?(a) && sunny.include?(b) }
+
+def graph_check(name, nodes, active, minimum)
+  edges = active.select { |a, b, _| nodes.include?(a) && nodes.include?(b) }
+  pairs = edges.map { |a, b, _| [a, b].sort }
+  fail!("#{name}: MAP間接続が重複") unless pairs.uniq.length == pairs.length
+  visited = []
+  queue = [nodes.first]
+  until queue.empty?
+    node = queue.shift
+    next if visited.include?(node)
+    visited << node
+    edges.each do |a, b, _|
+      queue << b if a == node && !visited.include?(b)
+      queue << a if b == node && !visited.include?(a)
+    end
+  end
+  fail!("#{name}: 到達不能MAP #{(nodes - visited).join(', ')}") unless visited.sort == nodes.sort
+  cycles = edges.length - nodes.length + 1
+  fail!("#{name}: 独立閉路#{cycles}は最低#{minimum}未満") if cycles < minimum
+  cycles
+end
+
+garden = (41..50).map { |n| format('F%02d', n) }
+castle = (51..60).map { |n| format('F%02d', n) }
+towers = (30..38).map { |n| format('F%02d', n) }
+garden_cycles = graph_check('兼六園', garden, active, 4)
+castle_cycles = graph_check('金沢城', castle, active, 3)
+tower_cycles = graph_check('双塔', towers, active, 1)
+[%w[F30 F31 F32 F33 F37], %w[F30 F34 F35 F36 F37]].each do |route|
+  route.each_cons(2) do |a, b|
+    fail!("双塔: 階層経路がない #{a} -> #{b}") unless active.any? { |x, y, kind| kind == 'door' && [x, y].sort == [a, b].sort }
+  end
+end
+mountain = %w[N8 E22 F04 F05 F06]
+mountain_pairs = mountain.each_cons(2).map(&:sort)
+actual_mountain = active.select { |a, b, _| mountain.include?(a) && mountain.include?(b) }.map { |a, b, _| [a, b].sort }
+fail!('卯辰山: 一本道の接続不一致・近道あり') unless actual_mountain.sort == mountain_pairs.sort
+allowed_entrances = [%w[N11 N8].sort, %w[F06 F07].sort]
+active.each do |a, b, _|
+  next unless mountain.include?(a) != mountain.include?(b)
+  fail!("卯辰山: 分岐禁止 #{a} -> #{b}") unless allowed_entrances.include?([a, b].sort)
+end
+
+diagram_path = File.join(ROOT, 'docs/topology/late-dungeons.svg')
+fail!('接続図がない') unless File.file?(diagram_path)
+begin
+  diagram = REXML::Document.new(File.read(diagram_path, encoding: 'UTF-8'))
+rescue REXML::ParseException => e
+  fail!("接続図のXML不正: #{e.message}")
+end
+panels = [garden, castle, towers, mountain]
+expected_nodes = panels.flatten.sort
+actual_nodes = REXML::XPath.match(diagram, '//*[@data-map]').map { |node| node.attributes['data-map'] }.sort
+fail!('接続図のMAP集合が正本と不一致') unless actual_nodes == expected_nodes
+expected_paths = active.select { |a, b, _| expected_nodes.include?(a) && expected_nodes.include?(b) }.map { |a, b, kind| [*[a, b].sort, kind] }.sort
+actual_paths = REXML::XPath.match(diagram, '//*[@data-from or @data-to]').map do |path|
+  [*[path.attributes['data-from'], path.attributes['data-to']].sort, path.attributes['class']]
+end.sort
+fail!('接続図の有効辺集合が正本と不一致（欠落・余分・保留の実線化）') unless actual_paths == expected_paths
+
+puts "PASS: MAP contracts=#{contract_ids.length}, assets=#{asset_ids.length}, specs=#{spec_ids.length}, refs=#{reference_ids.length}, topology MAPs=#{topology_ids.length}, topology rows=#{topology_rows.length}, pending=#{pending.length}, cycles garden=#{garden_cycles} castle=#{castle_cycles} towers=#{tower_cycles}, diagram verified"
