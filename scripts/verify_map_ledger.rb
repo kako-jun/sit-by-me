@@ -85,9 +85,10 @@ start = topology.index('#### MAP相互接続台帳 v2')
 finish = topology.index('#### 寺町の地形不変条件', start)
 fail!('v2接続台帳の範囲を取得できない') unless start && finish
 topology_rows = topology[start...finish].lines.map do |line|
-  next unless line.match?(/^\| (?:E\d{2}|N\d+|F\d{2})\./)
-
+  next unless line.start_with?('|')
   cells = line.split('|').map(&:strip)
+  next if cells[1] == 'From' || cells[1].match?(/\A-+\z/)
+  fail!("v2接続行の欄不足: #{line.strip}") unless cells.length == 6
   [cells[1], cells[2], cells[3], cells[4]]
 end.compact
 fail!('v2接続台帳が空') if topology_rows.empty?

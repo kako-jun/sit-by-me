@@ -105,6 +105,10 @@ class MapTopologyTests(unittest.TestCase):
         self.topology("| E01.right | E02.left | edge |", "| E01. | E02.left | edge |")
         self.reject()
 
+    def test_missing_endpoint_separator_cannot_silently_drop_row(self):
+        self.topology("| E01.right | E02.left | edge |", "| E01 | E02.left | edge |")
+        self.reject()
+
     def test_reused_edge_endpoint_rejected(self):
         self.append_connection("| E01.right | E10.left | edge | 同一端の再利用 |")
         self.reject("E01.right")
@@ -112,6 +116,14 @@ class MapTopologyTests(unittest.TestCase):
     def test_unknown_map_endpoint_rejected(self):
         self.topology("| E01.right | E02.left | edge |", "| E99.right | E02.left | edge |")
         self.reject("E99")
+
+    def test_unknown_source_id_cannot_silently_drop_row(self):
+        self.topology("| E01.right | E02.left | edge |", "| UNKNOWN.right | E02.left | edge |")
+        self.reject("UNKNOWN")
+
+    def test_malformed_row_without_kind_or_reason_rejected(self):
+        self.topology("| E01.right | E02.left | edge |", "| E01.right | E02.left |")
+        self.reject("欄不足")
 
     def test_missing_door_identifier_rejected(self):
         self.topology("| E01.door-north | E11.door-kindergarten | door |",
