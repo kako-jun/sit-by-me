@@ -41,7 +41,7 @@ fail!("契約ID重複: #{contract_ids.tally.select { |_, v| v > 1 }.keys.join(',
 fail!("契約ID不足: #{(expected - contract_ids).join(', ')}") unless (expected - contract_ids).empty?
 fail!("未知の契約ID: #{(contract_ids - expected).join(', ')}") unless (contract_ids - expected).empty?
 
-valid_status = %w[blocked legacy-needs-review ready]
+valid_status = %w[blocked legacy-needs-review ready recreate-required-1920x1080]
 contract_rows.each do |id, status, refs, mask, tbd|
   fail!("#{id}: 不正な状態 #{status}") unless valid_status.include?(status)
   fail!("#{id}: Refがない") if refs.nil? || refs.empty?
@@ -52,7 +52,7 @@ contract_rows.each do |id, status, refs, mask, tbd|
 
   relative_image = mask[/`([^`]+\.png)`/, 1]
   fail!("#{id}: legacy画像パスがない") unless relative_image
-  absolute_image = File.join(ROOT, 'sample', 'field', relative_image)
+  absolute_image = File.join(ROOT, relative_image)
   fail!("#{id}: legacy画像がない #{relative_image}") unless File.file?(absolute_image)
 end
 

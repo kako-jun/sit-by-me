@@ -1,5 +1,7 @@
 # MAP台帳・トポロジー敵対レビュー（第2周）
 
+> 当時のパス・判定を保持した履歴です。現行配置・削除／復元元は [#68素材対応表](../../production/asset-layout.md) を参照。
+
 - 日付: 2026-10-16
 - レビュアー: 独立 red-team reviewer（仕様・台帳の作成者とは別）
 - 対象: `content-registry.md`、`map-asset-registry.md`、`map-specifications.md`、`map-topology.md`、`map-reference-research.md`

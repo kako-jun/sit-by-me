@@ -1,7 +1,6 @@
 ---
 name: sit-character-sprite
 description: Sit by Me の人物スプライト（マスター、衣装、戦闘ポーズ、歩行コマ）を生成・透過・検査する。背景、敵、召喚獣には使わない。
-allowed-tools: Read, Grep, Glob, Bash, Write, Edit, SendUserFile
 ---
 
 Sit by Me の4人（と子供3人、不良など人物）の絵を、生成 → 確認 → 透過・切り出し → 保存 → 記録の順で作る。敵は `sit-enemy-sprite`、召喚獣は `sit-summon-sprite`、フィールド背景は `sit-field-background`、戦闘背景は `sit-battle-background`。ここは人物スプライトだけ。
@@ -16,32 +15,25 @@ Sit by Me の4人（と子供3人、不良など人物）の絵を、生成 → 
 
 先に `docs/art-direction.md`（人物素材・4人の呼称と特徴）と `docs/assets-policy.md`（マスターの一覧・命名）と `docs/decisions.md` を読み、何がすでに決まっているかを確かめる。サンプル用ではなく、設定が正本。
 
-別のゲームのスプライトを作るときは、このスキルをそのまま使わない。ツール（`assets/characters/tools/`）と手順の考え方を流用し、そのゲームの設定を正本にする。
+別のゲームのスプライトを作るときは、このスキルをそのまま使わない。ツール（`verification/characters/tools/`）と手順の考え方を流用し、そのゲームの設定を正本にする。
 
 ## 0. 原則
+
+失敗素材の来歴（完全prompt・参照・実寸/検査結果・hash・判定理由）は保持する。ユーザーが失敗/旧画像の削除を指示した場合、取得元commitと削除理由を残して画像バイナリを削除できる。以下の原本保持指示は、削除指示後の永久保存・重複コピーを要求しない。
 
 - **生成ごとに会話へ貼る**（SendUserFile。URL だけ・まとめ見せ・選別は不可）。縮小した一覧で確認してよいのは自分の検品用だけで、kako-jun には元画像を送る
 - **やることは生成前に Issue に書く**。決定（kako-jun の指示）は docs と Issue に即記録する
 - **作業用の画像はスクラッチに置き、採用したらすぐリポへコミットする**。スクラッチはセッション再開で消える（2026-10-14 実害）。消えたら `~/.codex/generated_images/` から時刻と寸法で回収できる
-- **並列は 8〜12 本まで**。生成の上限（ChatGPT の利用上限）に当たると数時間止まる
+- 生成はまず対象1件ずつ検査する。複数案や並列生成は依頼された範囲に限定する。
 - 創造的な選択（案 a/b、色、意匠）は kako-jun が決める。任されたら推しを理由つきで出して進める
-- 案は決め打たず数案並べる。ただし採用済みの絵を作り直すスパイラルはしない（直すのは指摘点だけ）
+- 複数案が依頼された場合だけ案を並べる。採用済みの絵は指摘点だけを直す。
 - **年齢・制服・地域・設定の社会的な決まりは推測で決めない**。決定は docs/decisions.md にある。ない点は聞く（2026-10-14: 小学校にセーラー服はない、北陸は小学生も制服、など推測の誤りが出た）
 
 ## 1. 生成の呼び出し
 
-```bash
-codex exec -s danger-full-access --skip-git-repo-check -c model_reasoning_effort="high" \
-  "Invoke the \$imagegen skill and use the built-in image_gen tool at the HIGHEST quality (quality: high) ... save the REAL generated PNG (decode the tool result, preserving its alpha channel) into the current workspace at images/<slug>.png. You are STRICTLY FORBIDDEN from fabricating/drawing the image with magick/ImageMagick/PIL/Pillow/numpy/SVG/canvas/any code; only the image_gen tool. If the image_gen tool is genuinely not in your toolset, do NOT fabricate — output exactly: IMAGE_GEN_TOOL_UNAVAILABLE. Report the saved file path.
+利用可能な `imagegen` スキルを読み、組み込み `image_gen` で生成・編集する。参照は実画像で渡し、identity／layout／edit target の用途を明示する。ツールに無いモデル・quality・size引数や古い `codex exec` 呼出しを必須にしない。利用不能ならコードで代作せず原因を記録する。
 
-<英語のプロンプト>" \
-  -i 参照1.png -i 参照2.png < /dev/null > log 2>&1 &
-```
-
-- 先頭で `$imagegen` を明示起動しないと、組み込みツールが付かず、偽の画像を描かれる。プロンプトを先、`-i` を末尾に置く（`-i` は可変長）。`&` で並列にするときは `< /dev/null` が必須（付けないと標準入力待ちで止まる）
-- 参照画像の役割は文で明示する（identity reference／layout reference／edit target）
-- 詳細は freeza の `/image` スキル。このリポで作業していて `/image` が使えないときは、上の形をそのまま使う
-- 生成後は `file` で形式・寸法（透過なら RGBA）を確かめ、**目視する**。画像生成は 1024 指定でも 1254 などで返す
+生成前に完全prompt・設定原文・参照一覧を独立promptレビューへ渡す。まず1候補を生成し、原本・完全prompt・参照・寸法・結果を記録する。`file` 等で実寸を測り、透過素材はalpha=0画素の存在も検査する。RGBA形式名だけで透過と判定しない。原寸で顔・衣装・向き・全コマ・縁を目視し、切り出し後も独立画像レビューを通す。失敗は `failed` と明記し、自動再生成や採用画像の上書きをしない。
 
 ## 2. マスター三面図（同一性の基準）
 
@@ -95,15 +87,15 @@ codex exec -s danger-full-access --skip-git-repo-check -c model_reasoning_effort
 - **クロマキーは代替**（RGBA で返らないとき）。緑 `#00ff00`、緑の服や帽子のキャラ（シャー）はマゼンタ `#ff00ff`。「perfectly flat and uniform, no shadows, no floor」と書き、ツールに `green` / `magenta` を渡す
 - 抜き方の処理は `tools/keying.py` に1つだけ置き、key_grid / key_walk / key_single はそれを使う
 - 幼稚園期の既存素材（2026-10-14 以前）はクロマキーで作った。作り直すかは kako-jun が決める
-- 透過後は暗い背景と写真背景（`sample/field/`）の両方に重ねて、縁のにじみ・欠け・光の色・他のコマからの混入を確認する。アクスタの枠・台座・影は描画側が後がけするので、素材に含めない
+- 透過後は暗い背景と台帳で実在を確認した背景（`assets/images/fields/`）の両方に重ねて、縁のにじみ・欠け・光の色・他のコマからの混入を確認する。アクスタの枠・台座・影は描画側が後がけするので、素材に含めない
 
 ## 9. 保存と命名
 
-- マスター: `assets/characters/masters/{name}-{kindergarten,elementary,teen,adult,midlife}[-uniform|-wheelchair].png`
-- 戦闘ポーズ: `assets/characters/poses/{name}[-{variant}]-{pose}.png`、元グリッドは `poses/raw/`
-- 歩き: `assets/characters/walk/{name}[-{variant}]-walk-{dir}-{1,2,3}.png`、元グリッドは `poses/raw/`
+- 人物IDは C001=オトン（旧otton）、C002=ナム（旧nam）、C003=シャー（旧shah）、C004=ペー子（旧peiko）。保存先は `assets/images/characters/Cxxx/`。旧名前接頭辞を同じ人物IDへ置換し、年齢・衣装・車椅子差分は保持する。マスターは `Cxxx/masters/Cxxx-{age}[-uniform|-wheelchair].png`。
+- 戦闘ポーズは `Cxxx/poses/Cxxx-{variant}-{pose}.png`、元グリッドは `Cxxx/raw/Cxxx-{suffix}.png`。既存suffixの年齢・衣装・ポーズを落とさない。
+- 歩きは `Cxxx/walk/Cxxx-{variant}-walk-{dir}-{1,2,3}.png`、元グリッドは `Cxxx/raw/Cxxx-{suffix}.png`。既存suffixの方向・コマ番号を保持する。
 - 元のグリッド（raw）も必ずコミットする（切り出しを再現できるように）
-- 手順や引数を変えたら `assets/characters/tools/README.md` と `docs/assets-policy.md` を同じコミットで直す
+- 手順や引数を変えたら `verification/characters/tools/README.md` と `docs/assets-policy.md` を同じコミットで直す
 - 採用・決定は Issue #3（人物）・#5（ポーズ）に記録する
 
 ## 10. 完了報告

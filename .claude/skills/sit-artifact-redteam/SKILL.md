@@ -5,6 +5,8 @@ description: Independently red-team Sit by Me planning, prompts, generated image
 
 # Sit by Me Artifact Red Team
 
+失敗素材の来歴（完全prompt・参照・実寸/検査結果・hash・判定理由）は保持する。ユーザーが失敗/旧画像の削除を指示した場合、取得元commitと削除理由を残して画像バイナリを削除できる。以下の原本保持指示は、削除指示後の永久保存・重複コピーを要求しない。
+
 Find evidence that a proposed or generated artifact is wrong before it is adopted. This is an **independent** review: the reviewer must not be the author of the target specification, prompt, image, mask, or prior review, and must receive the raw artifact and canonical records rather than the author's conclusion.
 
 ## 一意解釈監査（このスキルの全行より優先）
@@ -16,6 +18,8 @@ Find evidence that a proposed or generated artifact is wrong before it is adopte
 ミニチュア背景をレビューするとき、「模型に見える」は判定語として使わない。生成入力の材料・工作道具・加工法を原文で読み、原寸画像で各項目を一つずつ確認する。`foamboard`、段ボール断面、`paper clay` の刻み、綿雪、紙・紙やすりの地面、セロファン水、スポンジ木、マスキングテープ、PVA接着剤、ポスターカラーの筆跡のうち、生成入力で指定されたものが三つ未満しか確認できない候補は `major` とする。実景写真・実物素材・CG均一面しか確認できない場合は `blocker` とする。
 
 ## Inputs and canonical sources
+
+Use the #68 migration ledger for actual paths: `assets/images/{enemies,summons,characters,fields,battle-backgrounds}/` and `verification/{fields,battles}/`. Match canonical M/S/C/E/N/F/BG IDs and distinguish raw/variant, candidate, reference and legacy roles. A move into `assets/images/` proves neither adoption nor a passed review. Historical reviews retain old paths; follow the relocation/deletion ledger and source commit rather than treating tombstones as live inputs.
 
 For a MAP review, first read:
 
@@ -32,8 +36,14 @@ For a summon review, substitute `.claude/skills/sit-summon-sprite/SKILL.md` and 
 
 ## Review method
 
+Declare the reviewed stage first: `contract/prompt`, `raw-image`, or `mask/adoption`. A pass is limited to that stage and exact artifact version. Before any paid generation, review the **complete outgoing prompt** and actual reference pixels against the verbatim source bundle, including incoming and outgoing edges and peer records. Missing images/masks do not fail a prompt review; unresolved geometry or architecture does. A raw-image pass permits mask authoring, never adoption. Mask/adoption requires the reviewed new image and its matching outputs. Do not inherit old passes after a new generation or material prompt correction.
+
+For #51, measure each raw file independently: exactly 1920×1080, not a filename or copied review claim. Every old candidate and old mask is reference-only. Record each reference's role and forbidden traits after viewing it: a wrong separate-building, outside-passage, or cutaway image cannot be an architecture reference merely because the prompt says to ignore its geometry. The shared roof/exterior reference must pass before interiors; it has no traversal-mask requirement.
+
+For miniature materials, cite original-size pixel coordinates for at least three specified material/construction cues. A list of materials in the prompt is not image evidence. Check actual paper/cotton/cut edges against the declared processing method; do not call photoreal asphalt, tiles, velvet, or uniform CG a pass because the composition is small.
+
 1. Construct a checklist from the register **before** looking at the author's self-assessment. Check ID coverage, lifecycle/status, era, location, one-line role, inter-record references, and every explicit `TBD`.
-2. Test topology in both directions. For every claimed connection, confirm the reciprocal map, opposite edge, compatible road orientation, and geographic bearing. Flag an edge that conflicts with north-up geography even if two legacy images appear to fit.
+2. Test topology in both directions against the canonical connection table: reciprocal map/door ID, declared edge, era/class, and north-up bearing. Do not invent matching road width, pixel position, or angle across two images as an additional criterion. Flag a geographic contradiction even when legacy images appear to fit.
 3. For a field image, inspect the actual pixels and mask for: all required exits, no path on forbidden edges, no blocked required route, wheelchair width/turning, separate optional dead ends, no accidental people/text, shallow top-down handmade-diorama construction, specified weather/season/period/grime, landmark uniqueness, and reference consistency.
 4. Search for silent omissions: a generic road with no landmark; a shared condition stated only at area level but absent from its MAP contract; a created image without a reference ID, output path, adoption state, or walk-mask result; a `ready` item with a remaining question.
 5. Treat contradictions between documents as failures, not as permission to choose a convenient version. Historic/legacy notes cannot override the current canonical ledger.
@@ -57,6 +67,6 @@ Do not repair the candidate while reviewing it. Hand blockers back to the author
 
 ## Stop conditions
 
-- Any unresolved TBD, missing source, missing reciprocal edge, or missing mask blocks `ready`.
+- Any unresolved TBD, missing source, missing reciprocal edge, or missing mask blocks adoption/`ready`. At earlier stages, require only the artifacts appropriate to that stage; explicitly list later-stage checks as pending rather than claiming they passed.
 - An image may remain a `legacy` record, but it cannot be used as proof that a contradictory topology is correct.
 - Do not generate replacements, delete candidates, or change public/issue state in this skill unless separately directed.

@@ -1,5 +1,7 @@
 # 寺町 E01 v3 / E09 v6 生画像・独立 red-team レビュー
 
+> 当時のパス・判定を保持した履歴です。現行配置・削除／復元元は [#68素材対応表](../../production/asset-layout.md) を参照。
+
 - 日付: 2026-10-17
 - レビュアー: `/root/e01_e09_visual_redteam`（本候補の画像・prompt・mask・先行レビューの作者ではない独立レビュー担当）
 - 対象: `E01 kindergarten` と `E09 old-slope-foot` の**生画像のみ**。候補・mask・台帳状態は変更していない。

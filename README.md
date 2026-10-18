@@ -13,7 +13,8 @@
 - [決定ログ](docs/decisions.md)
 - [モンスター台帳](docs/monsters.md)
 - [ロードマップ](docs/roadmap.md)
+- [素材ID配置・移行記録](docs/production/asset-layout.md)
 
 ## 状態
 
-企画と試作の準備中。
+制作中。画像正本は `assets/images/`、検証設定は `verification/`。現在は寺町16枚の全再作成に先立つ契約・プロンプト整備と素材ID配置を進めている。

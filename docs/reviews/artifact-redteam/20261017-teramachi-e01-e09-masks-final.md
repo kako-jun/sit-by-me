@@ -1,5 +1,7 @@
 # 寺町 E01 v3 / E09 v6 — 背景・歩行マスク独立最終レビュー
 
+> 当時のパス・判定を保持した履歴です。現行配置・削除／復元元は [#68素材対応表](../../production/asset-layout.md) を参照。
+
 - **レビュー日:** 2026-10-17
 - **レビュー担当:** independent red-team（画像・mask・既存rawレビューの作者ではない）
 - **対象:** `E01-teramachi-kindergarten-rebuild-v3-candidate.png` と

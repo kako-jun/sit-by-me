@@ -2,41 +2,43 @@
 
 `map-asset-registry.md` の104行を、生成可能にするまで追跡する行単位チェックリスト。接続の正本は `map-topology.md` の「MAP相互接続台帳 v2」、画面主役と主路は `map-specifications.md`、マスク形式は `sit-field-mask` である。全行は `blocked` または `legacy-needs-review` で始める。`TBD` が空でない限り `ready` にしない。台帳整合の独立再監査は [第3周レビュー](reviews/artifact-redteam/20261016-map-ledger-round3.md) を参照。
 
+**2026-10-18 / #51**: E01–E13/F01–F03は全て `recreate-required-1920x1080`、生成契約は `blocked`。以下の旧画像パスは参照専用で、旧mask・旧passは新候補の採用根拠にならない。現行再作成状態は [候補台帳](teramachi-rebuild-candidates.md)、建物群の生成前入力は [制作前確認](production/20261018-teramachi-preflight.md) を参照する。
+
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
-| E01 | legacy-needs-review | R006,R011 | `diorama-trial/teramachi-kindergarten-diorama.png`; mask未記録 | 園庭の既存画像におけるE02/E11の実端、幼稚園期のtraversalを採寸する |
-| E02 | legacy-needs-review | R006,R011 | `diorama-trial/teramachi-connector-shinshu-diorama.png`; mask未記録 | E01/E03/N2の三端と用水のblocked域を実画像から記録する |
-| E03 | legacy-needs-review | R006,R011 | `diorama-trial/teramachi-hinomi-bend-shinshu-diorama.png`; mask未記録 | E02/E04/E10端、火の見櫓周囲のblocked域を記録する |
-| E04 | legacy-needs-review | R006,R011 | `diorama-trial/teramachi-wide-road-diorama.png`; mask未記録 | E03/E05/E11端と山門のforeground域を記録する |
-| E05 | legacy-needs-review | R006,R011 | `diorama-trial/teramachi-well-merge-diorama.png`; mask未記録 | 用水・井戸のblocked域とE04/E06端を記録する |
-| E06 | legacy-needs-review | R006,R011 | `diorama-trial/teramachi-sento-diorama.png`; mask未記録 | E05/E07端、銭湯煙突・雪山のforeground/blockedを記録する |
-| E07 | legacy-needs-review | R006,R011 | `diorama-trial/teramachi-barrier-free-ramp-diorama.png`; mask未記録 | E06/E08を結ぶuniversalスロープの幅・折返しを記録する |
-| E08 | legacy-needs-review | R006,R011 | `diorama-trial/teramachi-danchi-court-diorama.png`; mask未記録 | E07/E09端、F03ドア、団地棟のforegroundを記録する |
+| E01 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E01.png`; mask未記録 | 園庭の既存画像におけるE02/E11の実端、幼稚園期のtraversalを採寸する |
+| E02 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E02.png`; mask未記録 | E01/E03/N2の三端と用水のblocked域を実画像から記録する |
+| E03 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E03.png`; mask未記録 | E02/E04/E10端、火の見櫓周囲のblocked域を記録する |
+| E04 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E04.png`; mask未記録 | E03/E05/E11端と山門のforeground域を記録する |
+| E05 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E05.png`; mask未記録 | 用水・井戸のblocked域とE04/E06端を記録する |
+| E06 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E06.png`; mask未記録 | E05/E07端、銭湯煙突・雪山のforeground/blockedを記録する |
+| E07 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E07.png`; mask未記録 | E06/E08を結ぶuniversalスロープの幅・折返しを記録する |
+| E08 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E08.png`; mask未記録 | E07/E09端、F03ドア、団地棟のforegroundを記録する |
 | E09 | recreate-required-1920x1080 | R006,R011,R025 | 1254×1254のv6候補・maskは参照専用。新規出力は1920×1080、prompt・参照画像・mask・red-teamを新たに記録する | v6のleft→top石段・assist-only設計を参照し、16:9版を再生成する |
-| E10 | legacy-needs-review | R006,R011 | `diorama-trial/teramachi-narrow-lane-diorama.png`; mask未記録 | E03からの入口以外を禁止辺とし、画面内終端を記録する |
-| E11 | legacy-needs-review | R006,R011 | `diorama-trial/temple-grounds-shinshu-diorama.png`; mask未記録 | E04端、E01/F01/E12ドア、池・墓地のblocked域を記録する |
-| E12 | legacy-needs-review | R006,R011 | `diorama-trial/temple-residence-interior-diorama.png`; mask未記録 | E11/F01/F02の各doorと火事時の遮断範囲を記録する |
-| E13 | legacy-needs-review | R006,R011 | `diorama-trial/teramachi-slope-top-diorama.png`; mask未記録 | E09石段とN10車椅子坂の端・通行クラスを記録する |
-| E14 | legacy-needs-review | R005,R011 | `diorama-trial/korinbo-crossroads-diorama.png`; mask未記録 | N1/N11/N9端、百貨店door、封鎖期のN9遷移を記録する |
-| E15 | legacy-needs-review | R005 | `diorama-trial/korinbo-daiwa-toy-floor-diorama.png`; mask未記録 | E14/E16door、売場通路のuniversal幅を記録する |
-| E16 | legacy-needs-review | R005 | `diorama-trial/korinbo-department-restaurant-diorama-v2.png`; mask未記録 | E15door、再訪時の同一導線を記録する |
-| E17 | legacy-needs-review | R013,R011 | `diorama-trial/chaya-lane-diorama.png`; mask未記録 | E19/N1端、E18door、格子・側溝のblocked域を記録する |
-| E18 | legacy-needs-review | R013 | `diorama-trial/chaya-tearoom-diorama.png`; mask未記録 | E17door、座敷の段差・車椅子可否を決める |
-| E19 | legacy-needs-review | R011,R013 | `diorama-trial/convenience-store-diorama.png`; mask未記録 | N2/E17端、駐車場枝の画面内終端を記録する |
-| E20 | legacy-needs-review | R011 | `diorama-trial/hospital-exterior-diorama.png`; mask未記録 | N9端、車寄せのuniversal幅と入口foregroundを記録する |
-| E21 | legacy-needs-review | R011 | `diorama-trial/korimon-station-plaza-v3-diorama.png`; mask未記録 | N11端、能登／内灘乗車door、広場の禁止辺を記録する |
-| E22 | legacy-needs-review | R007,R008 | `diorama-trial/utatsuyama-sunnyland-diorama.png`; mask未記録 | N8/F04端、折返し主路と廃遊具のblocked域を記録する |
-| E23 | legacy-needs-review | R007 | `diorama-trial/utatsuyama-sunnyland-indoor-diorama.png`; mask未記録 | F10/E25door、噴水外周のuniversal環状路を記録する |
-| E24 | legacy-needs-review | R007 | `diorama-trial/utatsuyama-sunnyland-aquarium-indoor-diorama.png`; mask未記録 | F08/F09door、水槽と破片のblocked域を記録する |
-| E25 | legacy-needs-review | R007 | `diorama-trial/utatsuyama-sunnyland-arcade-indoor-diorama.png`; mask未記録 | F09/F10door、筐体間のuniversal幅を記録する |
-| E26 | legacy-needs-review | R014,R015 | `diorama-trial/uchinada-station-diorama.png`; mask未記録 | N3端、駅出口と線路端のblocked域を記録する |
-| E27 | legacy-needs-review | R015 | `diorama-trial/uchinada-beach-diorama.png`; mask未記録 | F11端、海側blocked帯と締まった砂のuniversal帯を記録する |
-| E28 | legacy-needs-review | R004 | `diorama-trial/noto-railway-interior-v2-diorama.png`; mask未記録 | E21/E29door、車内通路とドア回転域を記録する |
-| E29 | legacy-needs-review | R004 | `diorama-trial/noto-takojima-station-diorama.png`; mask未記録 | N5端、終端線路のblocked域を記録する |
-| E30 | legacy-needs-review | R004 | `diorama-trial/noto-peko-house-seaside-v2-diorama.png`; mask未記録 | N7/E31端、家door、海側blocked域を記録する |
-| E31 | legacy-needs-review | R004 | `diorama-trial/noto-tetrapod-fishing-spot-diorama.png`; mask未記録・採用禁止 | 既存画像は海が上側で、既定の「能登の海は下側」に違反する。回転での救済はしない。E30端・桟橋終端・海/テトラblocked域を満たす再構図版が必要 |
-| E32 | legacy-needs-review | R016 | `diorama-trial/abandoned-school-diorama.png`; mask未記録 | F18door、崩落棟blocked域と避難導線を記録する |
-| E33 | legacy-needs-review | R006,R011 | `diorama-trial/schoolyard-diorama.png`; mask未記録 | N10端、校門と校庭外周柵のblocked域を記録する |
+| E10 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E10.png`; mask未記録 | E03からの入口以外を禁止辺とし、画面内終端を記録する |
+| E11 | recreate-required-1920x1080 | R006,R011,R024 | 旧境内画像は参照専用。新背景・mask未作成 | #60の屋外境内。E04端、E01通用門、F01正面扉、池・墓地のblocked域を記録。E12/F02屋外doorなし。共通外観参照未通過 |
+| E12 | recreate-required-1920x1080 | R006,R011,R021,R024 | 旧庫裏画像は参照専用。新背景・mask未作成 | #60の東の屋内住居。F01.door-east↔door-hallのみ。内部廊下の扉位置、幅・段差・回転域、火事時遮断範囲がTBD。F02直結なし |
+| E13 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E13.png`; mask未記録 | E09石段とN10車椅子坂の端・通行クラスを記録する |
+| E14 | legacy-needs-review | R005,R011 | `assets/images/fields/legacy/E14.png`; mask未記録 | N1/N11/N9端、百貨店door、封鎖期のN9遷移を記録する |
+| E15 | legacy-needs-review | R005 | `assets/images/fields/legacy/E15.png`; mask未記録 | E14/E16door、売場通路のuniversal幅を記録する |
+| E16 | legacy-needs-review | R005 | `assets/images/fields/legacy/E16.png`; mask未記録 | E15door、再訪時の同一導線を記録する |
+| E17 | legacy-needs-review | R013,R011 | `assets/images/fields/legacy/E17.png`; mask未記録 | E19/N1端、E18door、格子・側溝のblocked域を記録する |
+| E18 | legacy-needs-review | R013 | `assets/images/fields/legacy/E18.png`; mask未記録 | E17door、座敷の段差・車椅子可否を決める |
+| E19 | legacy-needs-review | R011,R013 | `assets/images/fields/legacy/E19.png`; mask未記録 | N2/E17端、駐車場枝の画面内終端を記録する |
+| E20 | legacy-needs-review | R011 | `assets/images/fields/legacy/E20.png`; mask未記録 | N9端、車寄せのuniversal幅と入口foregroundを記録する |
+| E21 | legacy-needs-review | R011 | `assets/images/fields/legacy/E21.png`; mask未記録 | N11端、能登／内灘乗車door、広場の禁止辺を記録する |
+| E22 | legacy-needs-review | R007,R008 | `assets/images/fields/legacy/E22.png`; mask未記録 | N8/F04端、折返し主路と廃遊具のblocked域を記録する |
+| E23 | legacy-needs-review | R007 | `assets/images/fields/legacy/E23.png`; mask未記録 | F10/E25door、噴水外周のuniversal環状路を記録する |
+| E24 | legacy-needs-review | R007 | `assets/images/fields/legacy/E24.png`; mask未記録 | F08/F09door、水槽と破片のblocked域を記録する |
+| E25 | legacy-needs-review | R007 | `assets/images/fields/legacy/E25.png`; mask未記録 | F09/F10door、筐体間のuniversal幅を記録する |
+| E26 | legacy-needs-review | R014,R015 | `assets/images/fields/legacy/E26.png`; mask未記録 | N3端、駅出口と線路端のblocked域を記録する |
+| E27 | legacy-needs-review | R015 | `assets/images/fields/legacy/E27.png`; mask未記録 | F11端、海側blocked帯と締まった砂のuniversal帯を記録する |
+| E28 | legacy-needs-review | R004 | `assets/images/fields/legacy/E28.png`; mask未記録 | E21/E29door、車内通路とドア回転域を記録する |
+| E29 | legacy-needs-review | R004 | `assets/images/fields/legacy/E29.png`; mask未記録 | N5端、終端線路のblocked域を記録する |
+| E30 | legacy-needs-review | R004 | `assets/images/fields/legacy/E30.png`; mask未記録 | N7/E31端、家door、海側blocked域を記録する |
+| E31 | legacy-needs-review | R004 | `assets/images/fields/legacy/E31.png`; mask未記録・採用禁止 | 既存画像は海が上側で、既定の「能登の海は下側」に違反する。回転での救済はしない。E30端・桟橋終端・海/テトラblocked域を満たす再構図版が必要 |
+| E32 | legacy-needs-review | R016 | `assets/images/fields/legacy/E32.png`; mask未記録 | F18door、崩落棟blocked域と避難導線を記録する |
+| E33 | legacy-needs-review | R006,R011 | `assets/images/fields/legacy/E33.png`; mask未記録 | N10端、校門と校庭外周柵のblocked域を記録する |
 | N1 | blocked | R001,R002,R011 | 未生成・mask未作成 | E17/E14端、南北橋の型・欄干外blocked域をR001/R002と照合する |
 | N2 | blocked | R006,R011,R021,R024,R025 | 未生成・mask未作成 | E02/E19端、蛇行するuniversal坂と用水のblocked域を実景参照で確定する |
 | N3 | blocked | R003,R014,R015 | 未生成・mask未作成 | E26/F11端、砂丘木道の幅・防砂柵・深砂blocked域を確定する |
@@ -48,9 +50,9 @@
 | N10 | blocked | R006,R011,R021,R023,R024,R025 | 未生成・mask未作成 | E13/E33端、車椅子の連続坂・手すり・除雪帯の寸法根拠を追加する |
 | N11 | blocked | R005,R010,R011,R023,R026 | 未生成・mask未作成 | E14/E21/N8端、交差点の3出口と横断部の段差なし範囲を確定する |
 | N12 | blocked | R009,R021,R022 | 未生成・mask未作成 | E21/E26door、車椅子回転域と半自動扉のゲーム上寸法を確定する |
-| F01 | blocked | R021,R024 | 未生成・mask未作成 | 本堂の畳・仏具・車椅子回転域を、特定寺院を模写しない創作寸法で決める |
-| F02 | blocked | R021,R024 | 未生成・mask未作成 | 遊戯室の舞台袖・椅子・E12doorの安全な室内導線を決める |
-| F03 | blocked | R021,R024 | 未生成・mask未作成 | 県営住宅室内の玄関段差・回転域・E08doorを創作寸法で決める |
+| F01 | recreate-required-1920x1080 | R021,R024 | 旧本堂画像は参照専用。新背景・mask未作成 | #60の中央屋内本堂。E11南、E12東、F02西の扉位置、畳・仏具と主路、段差・幅・回転域を記録する |
+| F02 | recreate-required-1920x1080 | R021,R024 | 旧遊戯室画像は参照専用。新背景・mask未作成 | #60の西の屋内幼稚園。F01↔F02.door-westの到着方位と扉位置、舞台袖・椅子・主路の分離、段差・幅・回転域を記録する。E12直結なし |
+| F03 | recreate-required-1920x1080 | R021,R024 | 未生成・mask未作成 | 県営住宅室内の玄関段差・回転域・E08doorを創作寸法で決める |
 | F04 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | E22/F05端、東屋周囲の迂回坂と展望枝の安全幅を決める |
 | F05 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | F04/F06端、崩落石垣を避けるassist主路の幅を決める |
 | F06 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | F05/F07端、山頂戦闘域と展望柵のblocked域を決める |
