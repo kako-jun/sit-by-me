@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1840" height="1500" viewBox="0 0 1840 1500" role="img" aria-labelledby="title desc">
+<title id="title">改訂ダンジョン接続図</title><desc id="desc">兼六園と金沢城は北上、海外は階層、卯辰山は移動順。線は正本v2の承認された接続のみ。池や堀の正確な形と通行幅は示さない。</desc>
+<style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#20364a}.edge{stroke:#3f6556;stroke-width:4;fill:none}.door{stroke:#a45f30;stroke-width:4;stroke-dasharray:9 6;fill:none}.node{fill:#fff;stroke:#3f6556;stroke-width:3}.id{font-size:19px;font-weight:700;text-anchor:middle}.label{font-size:14px;text-anchor:middle}.note{font-size:15px;fill:#526574}</style>
+<rect width="1840" height="1500" fill="#edf3f1"/><text x="30" y="40" font-size="27" font-weight="700">移動構造の改訂：兼六園・金沢城・海外双塔・卯辰山</text>
+<text x="30" y="70" class="note">実線＝屋外端接続／茶破線＝実在建物または階層の遷移。ゲーム設計の概念図。未生成・mask未確定・実装完了ではない。</text>
+<g transform="translate(20 95)"><rect width="890" height="670" rx="12" fill="#fbfdfb" stroke="#78948a" stroke-width="2"/><text x="20" y="32" font-size="21" font-weight="700">兼六園：北↑・13辺・独立閉路4本</text>
+<ellipse cx="560" cy="275" rx="95" ry="92" fill="#d5eaf1"/><text x="560" y="270" class="label">霞ヶ池・上段</text><ellipse cx="200" cy="405" rx="65" ry="45" fill="#c6e3ee"/><text x="200" y="410" class="label">瓢池・下段</text><ellipse cx="430" cy="445" rx="50" ry="27" fill="#d5eaf1"/><text x="430" y="450" class="label">長谷池</text>
+<path class="edge" d="M120 550 L130 330" data-from="F41" data-to="F43"/>
+<path class="edge" d="M120 550 L340 510" data-from="F41" data-to="F42"/>
+<path class="edge" d="M340 510 L360 320" data-from="F42" data-to="F44"/>
+<path class="edge" d="M340 510 L490 550" data-from="F42" data-to="F49"/>
+<path class="edge" d="M130 330 Q240 275 360 320" data-from="F43" data-to="F44"/>
+<path class="edge" d="M130 330 L140 100" data-from="F43" data-to="F50"/>
+<path class="edge" d="M360 320 Q390 180 470 160" data-from="F44" data-to="F45"/>
+<path class="edge" d="M470 160 Q650 120 710 235" data-from="F45" data-to="F46"/>
+<path class="edge" d="M470 160 L140 100" data-from="F45" data-to="F50"/>
+<path class="edge" d="M710 235 L690 410" data-from="F46" data-to="F47"/>
+<path class="edge" d="M690 410 L700 550" data-from="F47" data-to="F48"/>
+<path class="edge" d="M690 410 L490 550" data-from="F47" data-to="F49"/>
+<path class="edge" d="M700 550 L490 550" data-from="F48" data-to="F49"/>
+<circle class="node" data-map="F41" cx="120" cy="550" r="27"/><text class="id" x="120" y="557">F41</text><text class="label" x="120" y="598">真弓坂側入口</text>
+<circle class="node" data-map="F42" cx="340" cy="510" r="27"/><text class="id" x="340" y="517">F42</text><text class="label" x="340" y="558">時雨亭・長谷池</text>
+<circle class="node" data-map="F43" cx="130" cy="330" r="27"/><text class="id" x="130" y="337">F43</text><text class="label" x="130" y="378">瓢池・翠滝下段</text>
+<circle class="node" data-map="F44" cx="360" cy="320" r="27"/><text class="id" x="360" y="327">F44</text><text class="label" x="360" y="368">栄螺山・霞ヶ池西</text>
+<circle class="node" data-map="F45" cx="470" cy="160" r="27"/><text class="id" x="470" y="167">F45</text><text class="label" x="470" y="208">北岸・ことじ灯籠</text>
+<circle class="node" data-map="F46" cx="710" cy="235" r="27"/><text class="id" x="710" y="242">F46</text><text class="label" x="710" y="283">東岸・唐崎松</text>
+<circle class="node" data-map="F47" cx="690" cy="410" r="27"/><text class="id" x="690" y="417">F47</text><text class="label" x="690" y="458">曲水・根上松</text>
+<circle class="node" data-map="F48" cx="700" cy="550" r="27"/><text class="id" x="700" y="557">F48</text><text class="label" x="700" y="598">山崎山・花見橋側</text>
+<circle class="node" data-map="F49" cx="490" cy="550" r="27"/><text class="id" x="490" y="557">F49</text><text class="label" x="490" y="598">梅林・南周回</text>
+<circle class="node" data-map="F50" cx="140" cy="100" r="27"/><text class="id" x="140" y="107">F50</text><text class="label" x="140" y="148">桂坂口・石川橋</text>
+<text x="20" y="635" class="note">8地区は任意訪問。実在園路をまとめた接続概念図（縮尺・道幅ではない）</text>
+<text x="20" y="657" class="note">霞ヶ池（上段）→翠滝→瓢池（下段）／長谷池は別水面／池内は歩かない</text>
+</g>
+<g transform="translate(930 95)"><rect width="890" height="670" rx="12" fill="#fbfdfb" stroke="#78948a" stroke-width="2"/><text x="20" y="32" font-size="21" font-weight="700">金沢城：北↑・12辺・独立閉路3本</text>
+<path class="edge" d="M780 220 L590 220" data-from="F51" data-to="F52"/>
+<path class="edge" d="M590 220 L350 110" data-from="F52" data-to="F53"/>
+<path class="edge" d="M590 220 L490 340" data-from="F52" data-to="F54"/>
+<path class="edge" d="M590 220 L700 435" data-from="F52" data-to="F58"/>
+<path class="door" d="M350 110 L290 270" data-from="F53" data-to="F55"/>
+<path class="edge" d="M490 340 L290 270" data-from="F54" data-to="F55"/>
+<path class="door" d="M350 110 L490 340" data-from="F53" data-to="F54"/>
+<path class="edge" d="M290 270 L100 425" data-from="F55" data-to="F56"/>
+<path class="edge" d="M290 270 L330 465" data-from="F55" data-to="F57"/>
+<path class="edge" d="M330 465 L510 560" data-from="F57" data-to="F59"/>
+<path class="edge" d="M700 435 L510 560" data-from="F58" data-to="F59"/>
+<path class="door" d="M510 560 L720 570" data-from="F59" data-to="F60"/>
+<circle class="node" data-map="F51" cx="780" cy="220" r="27"/><text class="id" x="780" y="227">F51</text><text class="label" x="780" y="268">石川門</text>
+<circle class="node" data-map="F52" cx="590" cy="220" r="27"/><text class="id" x="590" y="227">F52</text><text class="label" x="590" y="268">三の丸</text>
+<circle class="node" data-map="F53" cx="350" cy="110" r="27"/><text class="id" x="350" y="117">F53</text><text class="label" x="350" y="158">菱櫓・五十間長屋</text>
+<circle class="node" data-map="F54" cx="490" cy="340" r="27"/><text class="id" x="490" y="347">F54</text><text class="label" x="490" y="388">橋爪門・続櫓</text>
+<circle class="node" data-map="F55" cx="290" cy="270" r="27"/><text class="id" x="290" y="277">F55</text><text class="label" x="290" y="318">二の丸</text>
+<circle class="node" data-map="F56" cx="100" cy="425" r="27"/><text class="id" x="100" y="432">F56</text><text class="label" x="100" y="473">玉泉院丸（低地）</text>
+<circle class="node" data-map="F57" cx="330" cy="465" r="27"/><text class="id" x="330" y="472">F57</text><text class="label" x="330" y="513">極楽橋・本丸附段</text>
+<circle class="node" data-map="F58" cx="700" cy="435" r="27"/><text class="id" x="700" y="442">F58</text><text class="label" x="700" y="483">鶴の丸・東の丸</text>
+<circle class="node" data-map="F59" cx="510" cy="560" r="27"/><text class="id" x="510" y="567">F59</text><text class="label" x="510" y="608">本丸（高所）</text>
+<circle class="node" data-map="F60" cx="720" cy="570" r="27"/><text class="id" x="720" y="577">F60</text><text class="label" x="720" y="618">架空天守・上層</text>
+<text x="20" y="635" class="note">三の丸の西＝二の丸／二の丸の南の高所＝本丸／玉泉院丸は低地</text>
+<text x="20" y="657" class="note">攻略目標：F53・F56・F58（任意順）→本丸→架空天守。戦闘・解錠TBD</text>
+</g>
+<g transform="translate(20 785)"><rect width="1130" height="690" rx="12" fill="#fbfdfb" stroke="#78948a" stroke-width="2"/><text x="20" y="32" font-size="21" font-weight="700">海外：左右の多層双塔（高さの概念図・方位図ではない）</text>
+<path class="door" d="M530 545 L240 430" data-from="F30" data-to="F31"/>
+<path class="door" d="M240 430 L240 285" data-from="F31" data-to="F32"/>
+<path class="door" d="M240 285 L240 140" data-from="F32" data-to="F33"/>
+<path class="door" d="M530 545 L830 430" data-from="F30" data-to="F34"/>
+<path class="door" d="M830 430 L830 285" data-from="F34" data-to="F35"/>
+<path class="door" d="M830 285 L830 140" data-from="F35" data-to="F36"/>
+<path class="door" d="M240 140 L530 85" data-from="F33" data-to="F37"/>
+<path class="door" d="M830 140 L530 85" data-from="F36" data-to="F37"/>
+<path class="door" d="M530 85 L530 260" data-from="F37" data-to="F38"/>
+<circle class="node" data-map="F30" cx="530" cy="545" r="27"/><text class="id" x="530" y="552">F30</text><text class="label" x="530" y="593">共通基壇</text>
+<circle class="node" data-map="F31" cx="240" cy="430" r="27"/><text class="id" x="240" y="437">F31</text><text class="label" x="240" y="478">左・下層</text>
+<circle class="node" data-map="F32" cx="240" cy="285" r="27"/><text class="id" x="240" y="292">F32</text><text class="label" x="240" y="333">左・中層</text>
+<circle class="node" data-map="F33" cx="240" cy="140" r="27"/><text class="id" x="240" y="147">F33</text><text class="label" x="240" y="188">左・上層／M015</text>
+<circle class="node" data-map="F34" cx="830" cy="430" r="27"/><text class="id" x="830" y="437">F34</text><text class="label" x="830" y="478">右・下層</text>
+<circle class="node" data-map="F35" cx="830" cy="285" r="27"/><text class="id" x="830" y="292">F35</text><text class="label" x="830" y="333">右・中層</text>
+<circle class="node" data-map="F36" cx="830" cy="140" r="27"/><text class="id" x="830" y="147">F36</text><text class="label" x="830" y="188">右・上層／M016</text>
+<circle class="node" data-map="F37" cx="530" cy="85" r="27"/><text class="id" x="530" y="92">F37</text><text class="label" x="530" y="133">共通上層（救出候補）</text>
+<circle class="node" data-map="F38" cx="530" cy="260" r="27"/><text class="id" x="530" y="267">F38</text><text class="label" x="530" y="308">脱出終点（S005候補）</text>
+<text x="20" y="655" class="note">左M015／右M016：個性TBD。内部は九龍城的なカオス・雑多・無駄道・多数の袋小路</text>
+<text x="20" y="677" class="note">階内平面は未設計。M003救出・4人合流後の制限時間・S005脱出戦との関係TBD</text>
+</g>
+<g transform="translate(1170 785)"><rect width="650" height="690" rx="12" fill="#fbfdfb" stroke="#78948a" stroke-width="2"/><text x="20" y="32" font-size="21" font-weight="700">卯辰山：上・斜め上へ曲がる一本道</text>
+<path class="edge" d="M140 550 L360 445" data-from="N8" data-to="E22"/>
+<path class="edge" d="M360 445 L160 340" data-from="E22" data-to="F04"/>
+<path class="edge" d="M160 340 L370 235" data-from="F04" data-to="F05"/>
+<path class="edge" d="M370 235 L180 130" data-from="F05" data-to="F06"/>
+<circle class="node" data-map="N8" cx="140" cy="550" r="27"/><text class="id" x="140" y="557">N8</text><text class="label" x="140" y="598">浅野川橋・登り口</text>
+<circle class="node" data-map="E22" cx="360" cy="445" r="27"/><text class="id" x="360" y="452">E22</text><text class="label" x="360" y="493">山腹の蛇行路</text>
+<circle class="node" data-map="F04" cx="160" cy="340" r="27"/><text class="id" x="160" y="347">F04</text><text class="label" x="160" y="388">尾根の折返し</text>
+<circle class="node" data-map="F05" cx="370" cy="235" r="27"/><text class="id" x="370" y="242">F05</text><text class="label" x="370" y="283">石垣沿いの蛇行坂</text>
+<circle class="node" data-map="F06" cx="180" cy="130" r="27"/><text class="id" x="180" y="137">F06</text><text class="label" x="180" y="178">山頂・S002戦</text>
+<text x="20" y="633" class="note">分岐・宝箱脇道・近道なし。F06北→F07へ</text>
+<text x="20" y="655" class="note">サニーランド：二階建て入口・地下水族館・屋外動物園</text>
+<text x="20" y="677" class="note">下り廊下は約2MAP。詳細接続は口述待ち</text>
+</g>
+<path class="edge" d="M160 168 L25 168 L25 87 L1710 87 L1710 288" data-from="F50" data-to="F51"/><rect x="770" y="76" width="360" height="23" fill="#edf3f1"/><text x="950" y="93" class="label">F50石川橋・M013戦 → 北へF51石川門</text>
+</svg>

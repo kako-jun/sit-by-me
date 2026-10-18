@@ -7,7 +7,7 @@
   </style>
   <rect width="1600" height="980" fill="#f2f5f7"/>
   <text x="60" y="58" font-size="32" font-weight="700">sit-by-me：全体位置関係（北＝上）</text>
-  <text x="60" y="85" class="note">枠＝エリア／丸＝MAP群／実線＝徒歩主路／緑破線＝鉄道／茶破線＝扉・ワープ・飛行機。詳細な全MAP接続は atlas.svg。</text>
+  <text x="60" y="85" class="note">枠＝エリア／丸＝MAP群。全104件の接続正本はmap-topology.md v2。改訂4地区はlate-dungeons.svg。</text>
 
   <rect class="area" x="55" y="610" width="295" height="225"/><text class="area-title" x="76" y="650">寺町・河岸段丘</text><text class="note" x="76" y="677">県営住宅（犀川側）／学校（反対側）</text><circle class="node" cx="200" cy="750" r="38"/><text class="map" x="200" y="756">E01–E13</text>
   <rect class="area" x="420" y="550" width="300" height="200"/><text class="area-title" x="442" y="590">茶屋街・犀川</text><text class="note" x="442" y="617">寺町と香林坊の間、南岸</text><circle class="node" cx="570" cy="680" r="38"/><text class="map" x="570" y="686">E17–19, N1</text>
