@@ -24,3 +24,7 @@ Ran `uv run python3 -m unittest discover -s tests -v`: **8 tests passed**. These
 Ran `ruby scripts/verify_map_ledger.rb`: **104 contracts/assets/specifications passed**, 104 topology MAPs, 102 topology rows and zero repeated edge endpoints. Rechecked the production bundle's copied SOURCE rows against current canonical files: all match verbatim.
 
 The initial two workflow findings were corrected and independently rechecked in [generation preflight](20261018-generation-preflight.md). This review establishes repository organization, bytes/IDs and fixture loading, not a running name-name gameplay session. New imagery, masks, all-MAP traversal and the sixteen-image runtime cutover remain subsequent work.
+
+## CLI portability follow-up
+
+Independently reviewed the small follow-up against merged `8a5fac2`: `scripts/verify_asset_layout.py` now ignores only files whose basename is exactly `.DS_Store` when checking the retired sample tree. Other hidden files remain failures, and `rglob('*')` also detects extensionless files. The verifier does not delete or modify Finder metadata. Ran all **10 tests**, including nested metadata byte preservation and rejection of `old.PNG`/`.hidden.png`, plus the actual verifier (**712/565/167 passed**). Disposition: **pass; no findings**, limited to this CLI portability fix. This does not change any asset adoption or quality decision.

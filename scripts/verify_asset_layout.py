@@ -75,7 +75,11 @@ def verify(root):
             r'brand/BRAND\d{3}\.png', r'diagrams/DIAG\d{3}\.png',
         )
         assert any(re.fullmatch(p, relative) for p in patterns), f'Non-ID image: {relative}'
-    assert not list((root / 'sample').rglob('*.*')), 'sample still contains files'
+    remaining_sample_files = [
+        path for path in (root / 'sample').rglob('*')
+        if path.is_file() and path.name != '.DS_Store'
+    ]
+    assert not remaining_sample_files, 'sample still contains files'
     for image in (root / 'assets').rglob('*.png'):
         assert image.is_relative_to(image_root), f'Image outside canonical root: {image}'
 
