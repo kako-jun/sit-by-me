@@ -162,6 +162,30 @@ class VerifierFailureTests(unittest.TestCase):
             self.assertIn("Duplicate manifest source", result.stderr)
             self.assertEqual((root / row["new"]).read_bytes(), PNG + b"fixture")
 
+    def test_nested_finder_metadata_is_ignored_without_removal(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            row = self.fixture(root)
+            metadata = root / "sample/field/nested/.DS_Store"
+            metadata.parent.mkdir(parents=True)
+            metadata.write_bytes(b"existing-user-finder-metadata")
+            result = self.run_verifier(root, [row])
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(metadata.read_bytes(), b"existing-user-finder-metadata")
+
+    def test_sample_images_including_hidden_files_still_fail(self):
+        for filename in ["old.PNG", ".hidden.png"]:
+            with self.subTest(filename=filename), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                row = self.fixture(root)
+                asset = root / "sample/field/nested" / filename
+                asset.parent.mkdir(parents=True)
+                asset.write_bytes(PNG + b"old-asset")
+                result = self.run_verifier(root, [row])
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn("sample still contains files", result.stderr)
+                self.assertEqual(asset.read_bytes(), PNG + b"old-asset")
+
     def test_url_forms_and_known_missing_versus_live_dangling(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
