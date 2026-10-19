@@ -102,10 +102,11 @@ class AssetMigrationTests(unittest.TestCase):
                     body = response.read(12)
                     self.assertEqual((body[:4], body[8:12]), (b"RIFF", b"WEBP"), relative)
                 fetched.add(relative)
-            legacy = sorted((ROOT / "assets/images/fields/legacy").glob("E*.png"))
+            legacy = sorted((ROOT / "assets/images/fields/legacy").glob("*.webp"))
             self.assertTrue(legacy)
             with urlopen(urljoin(origin, legacy[0].relative_to(ROOT).as_posix())) as response:
-                self.assertEqual(response.read()[:8], PNG)
+                body = response.read(12)
+                self.assertEqual((body[:4], body[8:12]), (b"RIFF", b"WEBP"))
         finally:
             server.shutdown()
             server.server_close()
@@ -160,21 +161,24 @@ class VerifierFailureTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertEqual(metadata.read_bytes(), b"existing-user-finder-metadata")
 
-    def test_field_reference_png_allowed_only_under_reference_dir(self):
+    def test_field_legacy_requires_map_id_webp(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             row = self.fixture(root)
-            ok = root / "assets/images/fields/reference/teramachi-common-exterior-reference.png"
-            ok.parent.mkdir(parents=True)
-            ok.write_bytes(PNG + b"reference")
+            for ok in ["assets/images/fields/legacy/TRM-01.webp",
+                       "assets/images/fields/legacy/KRB-06-v1.webp",
+                       "assets/images/fields/legacy/masks/TRM-16-bottom__TRM-15-top.webp"]:
+                path = root / ok
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b"RIFFxxxxWEBPok")
             self.assertEqual(self.run_verifier(root, [row]).returncode, 0)
-            for bad in ["assets/images/fields/unknown.png",
-                        "assets/images/fields/reference/nested/x.png",
-                        "assets/images/fields/reference/Bad_Name.png"]:
+            for bad in ["assets/images/fields/legacy/E01.webp",
+                        "assets/images/fields/legacy/TRM-01.png",
+                        "assets/images/fields/legacy/masks/TRM-01-mask.png",
+                        "assets/images/fields/legacy/XXX-01.webp"]:
                 with self.subTest(bad=bad):
                     path = root / bad
-                    path.parent.mkdir(parents=True, exist_ok=True)
-                    path.write_bytes(PNG + b"bad")
+                    path.write_bytes(b"RIFFxxxxWEBPbad")
                     result = self.run_verifier(root, [row])
                     self.assertNotEqual(result.returncode, 0)
                     self.assertIn("Non-ID image", result.stderr)

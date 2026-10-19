@@ -22,9 +22,9 @@
 | 敵 | `assets/images/enemies/Mxxx.webp` | monsters.mdの既存ID。M001も同じroot。既存の採用／採否待ちを継承し、新品質規約を満たすとは判定しない |
 | 召喚獣 | `assets/images/summons/Sxxx.webp` | S002〜S007の6種のみ現存。S001は未生成、S008は同じ存在の設計だが現存画像なし。架空のファイルを作らない |
 | 人物 | `assets/images/characters/Cxxx/{masters,poses,walk}/Cxxx-<suffix>.webp` | 下表のC管理ID。旧人名prefixをIDへ置換し、年齢・衣装・pose・方向・コマを全て保持 |
-| MAP（旧素材・現存のみ） | `assets/images/fields/legacy/Exx[-variant].png` | 33MAP＋12旧差分。新規生成先ではない。寺町再作成候補の代わりに採用するものではない |
-| legacy mask | `assets/images/fields/legacy/masks/Exx-*.png` | 旧接続を変更しない検証専用。JSON・生成補助（make_masks.py）は削除済み |
-| 外観参照 | `assets/images/fields/reference/<kebab-case>.{png,webp}` | 外観参照専用（平置き・小文字英数とハイフンのみ）。mapの「実行時参照」には使わない |
+| MAP（旧素材・現存のみ） | `assets/images/fields/legacy/<MAP ID>[-variant].webp`（MAP IDは区域コード3字＋2桁連番。例 `TRM-01`。[対応表](20261019-map-id-renumber.json)） | 33MAP＋12旧差分。非可逆WebP（品質85）。新規生成先ではない。寺町再作成候補の代わりに採用するものではない。PNGは置かない |
+| legacy mask | `assets/images/fields/legacy/masks/<MAP ID>-*.webp` | 旧接続を変更しない検証専用。**可逆WebP**（元PNGと画素が完全一致）。JSON・生成補助（make_masks.py）は削除済み |
+| 外観参照 | `assets/images/fields/reference/<kebab-case>.webp` | 外観参照専用（平置き・小文字英数とハイフンのみ）。mapの「実行時参照」には使わない |
 | 戦闘背景 | `assets/images/battle-backgrounds/BGxxx.webp`（現存はBG001・BG005のみ。BG002〜004・006〜009は削除済みで、復元は git 履歴 `1bb09d0` から。戦闘背景の新規作成は別件） | 下表 |
 | ブランド | `assets/images/brand/logo.svg`（正本）、`logo.png`（SVG派生、WebP化しない） | 暫定の文字ロゴ（SIT BY ME）。ゲームIDではない。のち差し替え予定 |
 
