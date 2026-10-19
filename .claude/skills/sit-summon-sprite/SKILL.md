@@ -9,7 +9,7 @@ description: Sit by Me の召喚獣スプライトを、召喚獣台帳のID・�
 
 失敗の来歴（完全prompt・参照・実寸/検査結果・判定理由）はIssueまたはレビュー文書に記録し、失敗画像はリバート／削除する（バイナリを別置き場に保存しない）。
 
-召喚獣 `S` の戦闘用マスター画像だけを扱う。生成前に `docs/content-registry.md`、`docs/monsters.md` の対象行、`docs/story.md` の対象行、`docs/art-direction.md`、`docs/assets-policy.md` を原文のまま読む。対象行が `ready` でない、TBDが残る、または敵起源の対応IDが欠ける場合は生成しない。
+召喚獣 `S` の戦闘用マスター画像だけを扱う。生成前に `docs/content-registry.md`、`docs/monsters.md` の対象行、`docs/story.md` の対象行、`docs/art-direction.md`、`docs/assets-policy.md` を原文のまま読む。`ready` は最終採用状態であって生成前条件ではない。対象画像が描く項目に未解決TBDが残る場合は生成しない。召喚獣は敵側にも出る同一の `S` マスター自身が敵起源であり、別の `M` IDは必要としない。
 
 ## 一意解釈ゲート
 
