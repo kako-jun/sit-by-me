@@ -19,7 +19,7 @@
 | 登場人物 | C | [art-direction.md](art-direction.md)、[assets-policy.md](assets-policy.md) | 能力、時期、イベント | マスター／年齢段階は記録済み。横断ID表が必要 |
 | 敵 | M | [monsters.md](monsters.md)、[dungeon-enemies.md](dungeon-enemies.md) | MAP、魔法、ボス | ID・配置・画像台帳あり |
 | 召喚獣 | S | [monsters.md](monsters.md)、[story.md](story.md) | 時期、属性、MAP | ID・属性・取得順あり |
-| 魔法／ラーニング | L | [learning-schedule.md](learning-schedule.md) | M、S、能力、成長 | 取得計画あり。個別発動仕様は要統合 |
+| 魔法／ラーニング | L | [learning-schedule.md](learning-schedule.md) | M、S、能力、成長 | 取得計画あり |
 | 刀／アビリティ | B | [blades.md](blades.md)、[ability-candidates.md](ability-candidates.md) | C、ジョブ、戦利品 | 候補・型はあり。採用状態のID表が必要 |
 | ジョブ | J | [ability-candidates.md](ability-candidates.md)、[systems.md](systems.md) | C、B、戦闘 | 候補段階。個別IDと解放条件は未決 |
 | アイテム／戦利品 | I | [systems.md](systems.md) | M、B、ショップ | 概念決定済み、個別台帳は未作成 |
