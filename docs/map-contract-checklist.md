@@ -4,6 +4,8 @@
 
 `map-asset-registry.md` の130行を、生成可能にするまで追跡する行単位チェックリスト。接続の正本は `map-topology.md` の「MAP相互接続台帳 v2」、画面主役と主路は `map-specifications.md`、マスク形式は `sit-field-mask` である。全行は `blocked` または `legacy-needs-review` で始める。`TBD` が空でない限り `ready` にしない。台帳整合の独立再監査は [第3周レビュー](reviews/artifact-redteam/20261016-map-ledger-round3.md) を参照。
 
+**注記**: ステータス名 `recreate-required-1920x1080` は名前は1920×1080だが1672×941（16:9）も許容する（改名は別件）。
+
 **2026-10-18 / #51**: E01–E13/F01–F03は全て `recreate-required-1920x1080`、生成契約は `blocked`。以下の旧画像パスは参照専用で、旧mask・旧passは新候補の採用根拠にならない。現行再作成状態は [候補台帳](teramachi-rebuild-candidates.md)、建物群の生成前入力は [制作前確認](production/20261018-teramachi-preflight.md) を参照する。
 
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
@@ -16,13 +18,13 @@
 | E06 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E06.png`; mask未記録 | E05/E07端、銭湯煙突・雪山のforeground/blockedを記録する |
 | E07 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E07.png`; mask未記録 | E06/E08を結ぶuniversalスロープの幅・折返しを記録する |
 | E08 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E08.png`; mask未記録 | E07/E09端、F03ドア、団地棟のforegroundを記録する |
-| E09 | recreate-required-1920x1080 | R006,R011,R025 | 1254×1254のv6候補・maskは参照専用。新規出力は1920×1080、prompt・参照画像・mask・red-teamを新たに記録する | v6のleft→top石段・assist-only設計を参照し、16:9版を再生成する |
+| E09 | recreate-required-1920x1080 | R006,R011,R025 | 1254×1254のv6候補・maskは参照専用。新規出力は1920×1080（返せない場合は16:9の1672×941）、prompt・参照画像・mask・red-teamを新たに記録する | v6のleft→top石段・assist-only設計を参照し、16:9版を再生成する |
 | E10 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E10.png`; mask未記録 | E03.top入口とE02.leftへのright出口以外を禁止辺とする（#51ループ化。E12への勝手口の扉はTBD） |
 | E11 | recreate-required-1920x1080 | R006,R011,R024 | 旧境内画像は参照専用。新背景・mask未作成 | #60の屋外境内。E04端、E01.door-west通用門（境内の右＝東側）、F01正面扉、池・墓地のblocked域を記録。E12/F02屋外doorなし。共通外観参照未通過 |
 | E12 | recreate-required-1920x1080 | R006,R011,R021,R024 | 旧庫裏画像は参照専用。新背景・mask未作成 | #60/#51の西（本堂から見て左）の屋内住居。F01.door-west↔door-hallのみ。内部廊下の扉位置、幅・段差・回転域、火事時遮断範囲がTBD。F02直結なし |
 | E13 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E13.png`; mask未記録 | E09石段とN10車椅子坂の端・通行クラスを記録する |
 | E14 | legacy-needs-review | R005,R011 | `assets/images/fields/legacy/E14.png`; mask未記録 | N1/N11/N9端、百貨店door（相手はF83.door-street）、封鎖期のN9遷移を記録する |
-| E15 | legacy-needs-review | R005 | `assets/images/fields/legacy/E15.png`; mask未記録 | 3階（kako-jun 2026-10-19）。door-elevator（階選択遷移。全階から行き先を選ぶ。4階は条件つき）、売場通路のuniversal幅を記録する。TBD: 旧「おもちゃ売場」と2階F85の関係 |
+| E15 | legacy-needs-review | R005 | `assets/images/fields/legacy/E15.png`; mask未記録 | 3階（kako-jun 2026-10-19）。door-elevator（階選択遷移。全階から行き先を選ぶ。4階は条件つき）、売場通路のuniversal幅を記録する。E15（3階・玩具売場）は2階F85と無関係（決定 2026-10-19） |
 | E16 | legacy-needs-review | R005 | `assets/images/fields/legacy/E16.png`; mask未記録 | 5階（kako-jun決定 2026-10-19、#87。実在の大和は8階レストラン街）。door-elevator（階選択遷移。4階は条件つき）、再訪時の同一導線を記録する |
 | E17 | legacy-needs-review | R013,R011 | `assets/images/fields/legacy/E17.png`; mask未記録 | E19/N1端、E18door、格子・側溝のblocked域を記録する |
 | E18 | legacy-needs-review | R013 | `assets/images/fields/legacy/E18.png`; mask未記録 | E17door、座敷の段差・車椅子可否を決める |
@@ -154,7 +156,7 @@
 
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
-| F83 | blocked | R005 | 未生成・mask未作成 | デパート1階（入口階）。時計のある吹き抜け（アトリオ参照。出所 https://github.com/kako-jun/sit-by-me/issues/87#issuecomment-6258778050）。実在店に似せないジオラマ、大和4階の時計サロンとは別。door-street→E14.door、door-elevator（階選択遷移。扉に入るとウィンドウで階を選び、選んだ階の扉前に着く。箱は全階を結びMAPを持たない。決定 2026-10-19）。TBD: 2階の解放条件、売場の中身、1階での出来事。画像生成blocked。 |
-| F85 | blocked | R005 | 未生成・mask未作成 | デパート2階（隠し階。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-elevator（階選択遷移）。TBD: 2階の解放条件（最初から使えるのか別条件か）、2階の売場の中身、隠し階への行き方（ボタン等）、E15旧「おもちゃ売場」との関係。画像生成blocked。 |
-| F86 | blocked | R005 | 未生成・mask未作成 | デパート4階（隠し階・条件つき。ラスボス付近でデパートに立ち寄ると解放し強い何かが手に入る。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-elevator（階選択遷移。選択肢に出る条件はシナリオ側）。TBD: 売場の中身、強い何かの中身、4階の出現条件、行き方（ボタン等）。画像生成blocked。 |
+| F83 | blocked | R005 | 未生成・mask未作成 | デパート1階（入口階）。時計のある吹き抜け（アトリオ参照。出所 https://github.com/kako-jun/sit-by-me/issues/87#issuecomment-6258778050）。実在店に似せないジオラマ、大和4階の時計サロンとは別。door-street→E14.door、door-elevator（階選択遷移。扉に入るとウィンドウで階を選び、選んだ階の扉前に着く。箱は全階を結びMAPを持たない。決定 2026-10-19）。TBD: 売場の中身、1階での出来事。画像生成blocked。 |
+| F85 | blocked | R005 | 未生成・mask未作成 | デパート2階（隠し階。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-elevator（階選択遷移）。四角い吹き抜けの廊下だけ（売場は無い。決定 2026-10-19）。歩行域=廊下の環のみ、吹き抜け部分はblocked（歩行マスク契約）。描画=中央の吹き抜けから下の1階が見える（侵入不可）。見える1階=F83(同じ場所を2階から見下ろす視点で描く)。契約: F83の背景を作るときはF85の吹き抜け越しの絵と整合させる(F83の吹き抜け・時計・床の見た目が共通の参照)。決定: 2階は最初から解放（解放条件なし。2026-10-19）。E15（3階・玩具売場）とF85は無関係（決定）。TBD: 吹き抜け縁の落下しない前提、隠し階への行き方（ボタン等）。画像生成blocked。 |
+| F86 | blocked | R005 | 未生成・mask未作成 | デパート4階（隠し階・条件つき。最終章で兼六園へ向かう途中にデパートに寄り道すると、階選択で4階も選べるようになる(決定 2026-10-19)。兼六園への道のどのMAP・イベントで寄り道できるかは要確認。強い何かが手に入る。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-elevator（階選択遷移。選択肢に出る条件はシナリオ側）。TBD: 売場の中身、強い何かの中身、寄り道できるMAP・イベント、行き方（ボタン等）。画像生成blocked。 |
 | F84 | blocked | R016 | 未生成・mask未作成 | 廃校の校庭（被災前）。left←E29.right（茂みの小径の暫定入口）、right→E32.left。TBD: 入口MAP（E29は暫定）、茂みの見せ方、校庭の見た目、勝手口等の扉、校庭↔E32の辺はright↔leftで選択済み（理由はmap-topology.md）。 |
