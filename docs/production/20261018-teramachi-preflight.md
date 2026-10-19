@@ -4,7 +4,7 @@
 
 根拠: [#51](https://github.com/kako-jun/sit-by-me/issues/51)、[#60](https://github.com/kako-jun/sit-by-me/issues/60)。着手前記録は [#51コメント](https://github.com/kako-jun/sit-by-me/issues/51#issuecomment-6243857457)、[#60コメント](https://github.com/kako-jun/sit-by-me/issues/60#issuecomment-6243857707)。
 
-## Issue #60原文（要約ではなく入力へ添付）
+## Issue #60原文（旧配置の記述を含む。要約ではなく入力へ添付）
 
 ```text
 ヒロインの住居、幼稚園、本堂は外へ出ずに屋内廊下でつながる。本堂を中央に置き、幼稚園と住居を直接接続しない。
@@ -21,7 +21,7 @@ E11 境内（外部）
 
 ## 原文行束
 
-以下は記載元の原文行。概要からの再構成をしない。更新時には5ファイルとの逐語一致を再検査する。map-topologyの入ってくる接続E04→E11も含む。
+以下は記載元の原文行。概要からの再構成をしない。更新時には5ファイルとの逐語一致を再検査する。map-topologyは (1) 接続行（入ってくる接続E04→E11を含む）、(2) 寺町地形不変条件（L565-568）、(3) 屋外・屋内の接続表の行（L575-580）の3ブロックを含む。`SOURCE` で始まる行は出典ラベルであり、原文ではない。それ以外の行が現行ファイルと逐語一致する。
 
 ```text
 SOURCE docs/map-asset-registry.md
@@ -47,6 +47,18 @@ SOURCE docs/map-topology.md
 | `E11.door-main` | `F01.door-south` | 境内から本堂へ。段差を主路にせず、扉前に回転余地を残す。 |
 | `F01.door-west` | `E12.door-hall` | 本堂から西（左）の庫裏へ渡る廊下。畳廊下の方位と扉位置を一致させる。扉位置TBD。 |
 | `F01.door-east` | `F02.door-west` | 中央の本堂から東（右）の幼稚園へ屋内廊下で移動。F02は本堂側（西面）から入る。扉位置・廊下長TBD。舞台袖は画面内終端。 |
+SOURCE docs/map-topology.md 寺町地形不変条件（L565-568）
+- **主路との整合（組み替えの要点）**: 主路 E02→E03→E04→E05→E06 は西→東のまま変えない。E11はE04の真上（境内）、E01はその右（東）隣でE05の真上に置く。E01の正門は南の主路（E01.bottom↔E05.top）。旧E01.right↔E02.leftは廃止し、E02.leftは住居裏の細道E10.rightへ続く（E02→E03→E10→E02のループ）。
+- **境内（`temple-grounds` / E11）**: 山門（南）から本堂（北）へ石畳。境内から見て左（西）に住居側、右（東）に幼稚園側の建物が続く。屋外から住居・幼稚園へのdoorは作らない（屋内でF01経由）。
+- **幼稚園（E01園庭／F02遊戯室）**: 園庭E01は境内E11の右（東）隣で寺の入口のそば。E11↔E01は境内東脇の通用門（door）。F02は本堂F01の東（右）の屋内。E01↔F02の直結は未契約。
+- **庫裏（E12）**: 本堂の西（左）。渡り廊下F01.door-west↔E12.door-hall。幼稚園職員室への廊下は#60で廃止（住居↔幼稚園は直結しない）。
+SOURCE docs/map-topology.md 6.2 屋外・屋内の接続表の行（L575-580。見出し・区切り行は省く）
+| E04.top | E11.bottom | 辺（縦の石畳） | 山門から境内へ |
+| E11.door-main | F01.door-south | ドア（本堂の正面） | 境内から本堂 |
+| F01.door-west | E12.door-hall | ドア（渡り廊下） | 本堂（中央）から西の住居。内部どうし |
+| F01.door-east | F02.door-west | ドア（屋内廊下） | 本堂から東の幼稚園・遊戯室 |
+| E11.door-kindergarten | E01.door-west | ドア（通用門） | 境内の東脇から右隣の園庭へ。扉位置TBD |
+| E01.bottom | E05.top | 辺 | 園庭の正門から主路E05へ |
 SOURCE docs/map-contract-checklist.md
 | E01 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E01.png`; mask未記録 | 園庭の既存画像におけるE05(bottom)/E11(door-west)の実端、幼稚園期のtraversalを採寸する。E02との接続は#51で廃止 |
 | E11 | recreate-required-1920x1080 | R006,R011,R024 | 旧境内画像は参照専用。新背景・mask未作成 | #60の屋外境内。E04端、E01.door-west通用門（境内の右＝東側）、F01正面扉、池・墓地のblocked域を記録。E12/F02屋外doorなし。共通外観参照未通過 |
@@ -85,7 +97,7 @@ SOURCE docs/teramachi-rebuild-candidates.md
 ```text
 対象: 寺町共通外観参照。E11/E12/F01/F02/E01の同じ建物群を確認する1枚。
 納品: 1920×1080 PNG、16:9、非透過。北＝上、鉛直下向き角80°以上85°以下。
-添付: 本文のIssue #60原文、5ファイルの原文行束、建築不変表を省略せず添付する。
+添付: 本文のIssue #60原文、5ファイルの原文行束、建築不変表を省略せず添付する。注意: #60原文のdoor-east/west記述は旧配置（door-east→E12住居、door-west→F02幼稚園）。現行（F01.door-west→E12住居、F01.door-east→F02幼稚園）は原文行束を優先する。
 西の住居—中央の本堂—東の幼稚園（境内から北を見て左から右）。園庭E01は境内E11の右（東）隣。移動は同一建物内の屋内廊下だけ。
 外観は屋根と外壁を保持する。室内、家具、断面、屋根の切欠きを見せない。
 別棟、外部渡り廊下、屋外通路、住居と幼稚園の直接接続を追加しない。
@@ -99,6 +111,13 @@ E01は幼稚園の屋外園庭、E11は屋外境内。未契約の出入口や�
 この参照は外観の順序・包含関係だけを検証する。
 廊下の形、建物寸法、扉ピクセル座標、mask幅、runtime linksをこの絵から確定しない。
 ```
+
+## 外観参照の保存先と検査手順
+
+- 保存先: `.claude/skills/sit-field-background/SKILL.md` 手順4が案内する `assets/images/fields/` 配下の `reference/`（参照専用）を使う。現時点で `assets/images/fields/reference/` は実在しない（`legacy/` と `verification/` のみ）。ディレクトリは生成時に作る。具体的なファイル名は要確認。
+- 実寸計測: 返却原本を保存後、`identify -format '%wx%h\n' <file>`（または `file <file>`）で1920×1080であることを確認する。不一致ならリサイズで通さず不合格として記録する。
+- ハッシュ記録: `sha256sum <file>` を実行し、完全prompt・参照一覧・測定結果とともに記録する。
+- legacy参照3枚（`legacy/E01.png`、`E11.png`、`E12.png`）は1536×1024であり、参照入力としては可だが、1920×1080の合格根拠にはならない。
 
 ## 残るTBDと生成可否
 
