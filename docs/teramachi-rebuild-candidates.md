@@ -11,7 +11,7 @@
 | ID | 旧参照画像 | 現行の必須接続 | 禁止・固有条件 | 現状態 |
 |---|---|---|---|---|
 | E01 | `E01-teramachi-kindergarten-rebuild-candidate.png` | bottom→E05.top、door-west→E11 | 屋外園庭（境内の右＝東隣）。通用門は園庭主路と分離 | recreate-required-1920x1080 |
-| E02 | `E02-teramachi-connector-rebuild-candidate.png` | right→E03、top→N2（leftは閉鎖・TBD） | 用水と寺門、bottomは閉鎖 | recreate-required-1920x1080 |
+| E02 | `E02-teramachi-connector-rebuild-candidate.png` | left←E10.right、right→E03、top→N2 | 用水と寺門、bottomは閉鎖 | recreate-required-1920x1080 |
 | E03 | `E03-teramachi-hinomi-bend-rebuild-candidate.png` | left→E02、right→E04、bottom→E10 | 火の見櫓、topは閉鎖 | recreate-required-1920x1080 |
 | E04 | `E04-teramachi-wide-road-rebuild-v2-candidate.png` | left→E03、right→E05、top→E11 | 消雪パイプと寺の長塀、bottomは閉鎖 | recreate-required-1920x1080 |
 | E05 | `E05-teramachi-well-merge-rebuild-candidate.png` | left→E04、right→E06、top→E01.bottom | 井戸と用水は主路外、bottom閉鎖。topは園庭の正門(#51) | recreate-required-1920x1080 |
@@ -19,7 +19,7 @@
 | E07 | `E07-teramachi-barrier-free-ramp-rebuild-v2-candidate.png` | top→E06、bottom→E08 | 犀川側へ蛇行する車椅子主路。石段なし | recreate-required-1920x1080 |
 | E08 | `E08-teramachi-danchi-court-rebuild-v2-candidate.png` | top→E07、right→E09、door→F03 | 県営住宅中庭。石段は立位期のみ | recreate-required-1920x1080 |
 | E09 | `E09-teramachi-old-slope-foot-rebuild-v6-candidate.png` | left→E08、top→E13 | 石段下、車椅子不可 | recreate-required-1920x1080 |
-| E10 | `E10-teramachi-narrow-lane-rebuild-candidate.png` | top→E03 | 画面内で終わる宝箱枝。他辺閉鎖 | recreate-required-1920x1080 |
+| E10 | `E10-teramachi-narrow-lane-rebuild-candidate.png` | top→E03、right→E02.left | 住居の裏の道。E02→E03→E10→E02のループ。他辺閉鎖。勝手口の扉TBD | recreate-required-1920x1080 |
 | E11 | `E11-temple-grounds-rebuild-v4-candidate.png` | bottom→E04、door-main→F01、door-kindergarten→E01.door-west | 屋外境内。住居・遊戯室への屋外doorなし | recreate-required-1920x1080 |
 | E12 | `E12-temple-residence-rebuild-v3-candidate.png` | door-hall→F01.door-west | 屋内庫裏。本堂の西（左）。F02直結なし | recreate-required-1920x1080 |
 | E13 | `E13-teramachi-slope-top-rebuild-v2-candidate.png` | bottom→E09、right→N10 | 段丘上。学校側車椅子坂と石段を混同しない | recreate-required-1920x1080 |

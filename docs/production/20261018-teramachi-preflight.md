@@ -37,7 +37,7 @@ SOURCE docs/map-specifications.md
 | F01 | 全時期 | 仏具の鈍い金と畳が対照になる本堂（屋内） | door-south→E11、door-west→E12.door-hall、door-east→F02.door-west。参拝域は端へ出ない | #60。中央の屋内分岐。住居・幼稚園へ外に出ず移動 |
 | F02 | 幼稚園期・火事後 | 舞台幕と小さな椅子が残る遊戯室（屋内） | door-west→F01.door-east（本堂側＝西から入る）。扉位置・廊下長はTBD。舞台袖は画面内終端。E12直結なし | #60/#51。本堂の東（右）。劇の自動イベント用。E01と同じ幼稚園で、園庭直結は未契約 |
 SOURCE docs/map-topology.md
-| E01.bottom | E05.top | edge | 幼稚園正門から南の主路（E05）へ出る。#51の決定（園庭は境内の右隣・入口のそば）による。旧E01.right→E02.leftは廃止。E02.leftは閉鎖（西端の見え方はTBD・要確認） |
+| E01.bottom | E05.top | edge | 幼稚園正門から南の主路（E05）へ出る。#51の決定（園庭は境内の右隣・入口のそば）による。旧E01.right→E02.leftは廃止。E02.leftは住居裏の勝手口の細道E10.rightへ続く通路（ループ化で行き止まりなし） |
 | E01.door-west | E11.door-kindergarten | door | 境内（E11）の右（東）隣の園庭へ入る通用門。扉の位置・形はTBD |
 | E04.top | E11.bottom | edge | 山門から境内へ |
 | E11.door-main | F01.door-south | door | 本堂内部 |
