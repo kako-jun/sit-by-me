@@ -12,6 +12,7 @@
 | MAP | `assets/images/fields/legacy/Exx[-variant].png` | 33MAP＋12旧差分。寺町再作成候補の代わりに採用するものではない |
 | legacy mask | `assets/images/fields/legacy/masks/Exx-*.png` | JSON・生成補助は `verification/fields/legacy-masks/`。旧接続を変更しない検証専用 |
 | 汎用フィールド検証 | `assets/images/fields/verification/VFIELDxxx.png`、`masks/VFIELDxxx-*.png` | VFIELD001=overview、002=wide-road、003=narrow-lane、004=connector。MAP対応は推測しない |
+| 外観参照 | `assets/images/fields/reference/<kebab-case>.png` | 外観参照専用（平置き・小文字英数とハイフンのみ）。mapの「実行時参照」には使わない |
 | 戦闘背景 | `assets/images/battle-backgrounds/BGxxx.png`、`candidates/BGxxx.png` | 下表。検証設定は `verification/battles/` |
 | 図解 | `assets/images/diagrams/DIAG001.png`、`DIAG002.png` | 旧topology overview／atlas。MAP背景に使わない |
 | ブランド | `assets/images/brand/BRAND001.{png,svg}`、`BRAND002.{png,svg}` | 旧mouth-a／mouth-b。ゲームIDではない |

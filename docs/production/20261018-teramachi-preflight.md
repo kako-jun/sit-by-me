@@ -114,7 +114,7 @@ E01は幼稚園の屋外園庭、E11は屋外境内。未契約の出入口や�
 
 ## 外観参照の保存先と検査手順
 
-- 保存先: `.claude/skills/sit-field-background/SKILL.md` 手順4が案内する `assets/images/fields/` 配下の `reference/`（参照専用）を使う。現時点で `assets/images/fields/reference/` は実在しない（`legacy/` と `verification/` のみ）。ディレクトリは生成時に作る。具体的なファイル名は要確認。
+- 保存先: `.claude/skills/sit-field-background/SKILL.md` 手順4が案内する `assets/images/fields/` 配下の `reference/`（参照専用）を使う。現時点で `assets/images/fields/reference/` は実在しない（`legacy/` と `verification/` のみ）。ディレクトリは生成時に作る。具体的なファイル名は要確認。 `reference/` は外観参照専用で、mapの「実行時参照」には使わない（`scripts/verify_asset_layout.py` は `fields/reference/<kebab-case>.png` のみ許可）。
 - 実寸計測: 返却原本を保存後、`identify -format '%wx%h\n' <file>`（または `file <file>`）で1920×1080であることを確認する。不一致ならリサイズで通さず不合格として記録する。
 - ハッシュ記録: `sha256sum <file>` を実行し、完全prompt・参照一覧・測定結果とともに記録する。
 - legacy参照3枚（`legacy/E01.png`、`E11.png`、`E12.png`）は1536×1024であり、参照入力としては可だが、1920×1080の合格根拠にはならない。
