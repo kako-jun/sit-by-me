@@ -30,6 +30,7 @@ module MapAtlas
     incident=g.incident(area);h=diagram_bottom+incident.length*42+130
     north=%w[garden castle].include?(area['id']) ? '北↑・接続概念図（縮尺ではない）' : area['id']=='body' ? '架空人体の空間配置・地理的方位ではない' : area['id']=='overseas' ? '階層と移動の概念図・地理的方位ではない' : '接続模式図・地理的方位／縮尺を表さない'
     out=[%(<g data-area="#{area['id']}"><rect x="8" y="8" width="#{w-16}" height="#{h-16}" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">#{esc(area['name'])}・#{area['maps'].length}MAP</text><text x="25" y="78" class="note">#{esc(north)}</text>)]
+    out<<%(<text x="25" y="108" class="note">デパートのエレベーターはMAPを持たない。各階の扉に入ると階選択ウィンドウが開き、選んだ階の扉前に着く（F83/F85/E15/F86/E16間の破線は階選択の代表経路）</text>) if area['id']=='city'
     counts=Hash.new(0)
     g.internal(area).each do |e|
       ax,ay=positions.fetch(e['from']);bx,by=positions.fetch(e['to']);pair=[e['from'],e['to']].sort;ix=counts[pair];counts[pair]+=1

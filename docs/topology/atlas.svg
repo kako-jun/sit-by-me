@@ -96,6 +96,7 @@
 <path class="event" data-reference-edge-id="E01.event-kiss&gt;F19.event-mouth:event" data-kind="event" data-from="E01" data-to="F19" data-from-port="event-kiss" data-to-port="event-mouth" d="M1550 2293 L1665 2293" marker-end="url(#directed-arrow)"/>
 </g></g>
 <g transform="translate(1740 120)"><g data-area="city"><rect x="8" y="8" width="1404" height="2317" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">香林坊・茶屋街・広坂・病院・13MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<text x="25" y="108" class="note">デパートのエレベーターはMAPを持たない。各階の扉に入ると階選択ウィンドウが開き、選んだ階の扉前に着く（F83/F85/E15/F86/E16間の破線は階選択の代表経路）</text>
 <path class="edge" data-edge-id="E19.top&gt;E17.bottom:edge" data-kind="edge" data-from="E19" data-to="E17" data-from-port="top" data-to-port="bottom" d="M440 1280 L440 1060"/>
 <path class="edge" data-edge-id="E17.top&gt;N1.bottom:edge" data-kind="edge" data-from="E17" data-to="N1" data-from-port="top" data-to-port="bottom" d="M440 1060 L440 840"/>
 <path class="edge" data-edge-id="N1.top&gt;E14.bottom:edge" data-kind="edge" data-from="N1" data-to="E14" data-from-port="top" data-to-port="bottom" d="M440 840 L440 620"/>

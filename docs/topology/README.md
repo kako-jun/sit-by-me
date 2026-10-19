@@ -34,4 +34,6 @@
 
 検証：`ruby scripts/verify_map_ledger.rb`。全件数・一意所属・体内入口と方向／枚数・三塔進行・全図の端ID／種別／矢印／可視IDを検査。[ID登録](map-ids.json)は全130件。[海外設計状態契約](overseas-progression.json)はゲームruntimeと別の設計成果物。
 
+香林坊エリア図のデパート5階（F83・F85・E15・F86・E16）の破線は、エレベーター（MAPを持たない）の階選択ウィンドウから行ける代表経路。扉に入るとウィンドウで階を選び、選んだ階の扉前に着く（#87）。
+
 図の座標（`areas.json` の `layout`）は、docs の方向記述（斜め道・上り下り・左右）を模式的に反映する。距離・縮尺は表さない。接続の正本は台帳（[map-topology.md](../map-topology.md) v2）である。

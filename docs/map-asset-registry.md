@@ -192,7 +192,7 @@ N1〜N12 の詳細な接続契約は [map-specifications.md](map-specifications.
 
 | ID | 管理名 | 地区 | 契約 |
 |---|---|---|---|
-| F83 | `F83` | 香林坊 | デパート1階（入口階）。時計のある吹き抜け（アトリオ参照、出所 https://github.com/kako-jun/sit-by-me/issues/87#issuecomment-6258778050）。実在店に似せないジオラマ。door-street→E14.door、door-toys↔E15.door-korinbo、door-restaurant↔E16.door-lobby、door-2f↔F85.door-lower。階移動はエレベーターだけ・エレベーターの箱構成と売場の中身TBD、画像生成blocked。 |
+| F83 | `F83` | 香林坊 | デパート1階（入口階）。時計のある吹き抜け（アトリオ参照、出所 https://github.com/kako-jun/sit-by-me/issues/87#issuecomment-6258778050）。実在店に似せないジオラマ。door-street→E14.door、door-toys↔E15.door-korinbo、door-restaurant↔E16.door-lobby、door-2f↔F85.door-lower。階移動はエレベーターだけ（1つの箱が全階を結び、階選択はUI側。箱は独立MAPにしない）・売場の中身TBD、画像生成blocked。 |
 | F85 | `F85` | 香林坊 | デパート2階（隠し階。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-lower↔F83.door-2f、door-upper↔E15.door-2f（1・3階からの枝）。売場の中身・行き方TBD、画像生成blocked。 |
 | F86 | `F86` | 香林坊 | デパート4階（隠し階・条件つき。ラスボス付近で解放。強い何かが手に入る）。door-lower↔E15.door-4f、door-upper↔E16.door-4f。売場の中身・強い何かの中身・行き方TBD、画像生成blocked。 |
 | F84 | `F84` | 能登（被災前） | 廃校の校庭（被災前）。F18の被災前版。left←E29.right（茂みの小径の暫定入口）、right→E32.left。校庭の見た目・茂みの見せ方・勝手口TBD、画像生成blocked。 |

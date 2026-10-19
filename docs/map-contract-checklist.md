@@ -154,7 +154,7 @@
 
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
-| F83 | blocked | R005 | 未生成・mask未作成 | デパート1階（入口階）。時計のある吹き抜け（アトリオ参照。出所 https://github.com/kako-jun/sit-by-me/issues/87#issuecomment-6258778050）。実在店に似せないジオラマ、大和4階の時計サロンとは別。door-street→E14.door、door-toys↔E15.door-korinbo、door-restaurant↔E16.door-lobby、door-2f↔F85.door-lower。エレベーターは階を選ぶ（決定 2026-10-19）。TBD: 全階を一つの箱で結ぶか階ごとの別扉か、2階の解放条件、売場の中身、1階での出来事。画像生成blocked。 |
+| F83 | blocked | R005 | 未生成・mask未作成 | デパート1階（入口階）。時計のある吹き抜け（アトリオ参照。出所 https://github.com/kako-jun/sit-by-me/issues/87#issuecomment-6258778050）。実在店に似せないジオラマ、大和4階の時計サロンとは別。door-street→E14.door、door-toys↔E15.door-korinbo、door-restaurant↔E16.door-lobby、door-2f↔F85.door-lower。エレベーターは1つの箱が全階を結び、階選択はUI側（箱は独立MAPにしない。決定 2026-10-19）。台帳の扉の組は代表経路。TBD: 2階の解放条件、売場の中身、1階での出来事。画像生成blocked。 |
 | F85 | blocked | R005 | 未生成・mask未作成 | デパート2階（隠し階。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-lower↔F83.door-2f、door-upper↔E15.door-2f（1・3階からの枝）。TBD: 2階の解放条件（最初から使えるのか別条件か）、2階の売場の中身、隠し階への行き方（ボタン等）、E15旧「おもちゃ売場」との関係。画像生成blocked。 |
 | F86 | blocked | R005 | 未生成・mask未作成 | デパート4階（隠し階・条件つき。ラスボス付近でデパートに立ち寄ると解放し強い何かが手に入る。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-lower↔E15.door-4f、door-upper↔E16.door-4f（解放条件はシナリオ側）。TBD: 売場の中身、強い何かの中身、行き方（ボタン等）、未解放の間のE15→E16。画像生成blocked。 |
 | F84 | blocked | R016 | 未生成・mask未作成 | 廃校の校庭（被災前）。left←E29.right（茂みの小径の暫定入口）、right→E32.left。TBD: 入口MAP（E29は暫定）、茂みの見せ方、校庭の見た目、勝手口等の扉、校庭↔E32の辺はright↔leftで選択済み（理由はmap-topology.md）。 |
