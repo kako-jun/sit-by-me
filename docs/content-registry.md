@@ -15,7 +15,7 @@
 | 種別 | ID接頭辞 | 正本 | 相互参照先 | 現在の整備状態 |
 |---|---|---|---|---|
 | エリア | A | [map-topology.md](map-topology.md) | MAP、ストーリー、敵 | 地区・接続は記録済み。各MAP契約は移行中 |
-| フィールド／屋内マップ | MAP | [map-asset-registry.md](map-asset-registry.md)、[map-specifications.md](map-specifications.md)、[map-contract-checklist.md](map-contract-checklist.md) | A、敵、イベント、[参考画像調査](map-reference-research.md) | 128MAPに契約行あり。最終採用readyは未達。生成可否は対象画像が描く項目のTBDと独立入力契約審査で判定し、共通外観参照は別スコープで扱う |
+| フィールド／屋内マップ | MAP | [map-asset-registry.md](map-asset-registry.md)、[map-specifications.md](map-specifications.md)、[map-contract-checklist.md](map-contract-checklist.md) | A、敵、イベント、[参考画像調査](map-reference-research.md) | 130MAPに契約行あり。最終採用readyは未達。生成可否は対象画像が描く項目のTBDと独立入力契約審査で判定し、共通外観参照は別スコープで扱う |
 | 登場人物 | C | [art-direction.md](art-direction.md)、[assets-policy.md](assets-policy.md) | 能力、時期、イベント | マスター／年齢段階は記録済み。横断ID表が必要 |
 | 敵 | M | [monsters.md](monsters.md)、[dungeon-enemies.md](dungeon-enemies.md) | MAP、魔法、ボス | ID・配置・画像台帳あり |
 | 召喚獣 | S | [monsters.md](monsters.md)、[story.md](story.md) | 時期、属性、MAP | ID・属性・取得順あり |
