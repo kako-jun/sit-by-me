@@ -74,3 +74,5 @@ replacing them from the JSON polygons.
 - Missing background, missing reciprocal edge, missing era/assist condition, or a map without an approved connection contract: keep the mask `blocked`.
 - Never use a yellow/coloured outline as editable geometry. It is review-only.
 - Never make stairs, deep snow, water, rubble, or foreground-only cover white merely to connect the route.
+
+共通（#68運用）: 合格済みの正本を上書きする前に、現行がコミット済みか確認する。不合格テイクをコミット済みにしてしまった場合は `git revert <commit>`、または `git checkout <旧commit> -- <path>` で戻す。
