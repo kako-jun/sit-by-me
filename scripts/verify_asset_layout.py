@@ -62,7 +62,7 @@ def verify(root):
             assert actual == row['sha256'], f'Image bytes changed: {row["new"]}'
 
     image_root = root / 'assets/images'
-    for image in image_root.rglob('*.png'):
+    for image in (path for path in image_root.rglob('*') if path.suffix in {'.png', '.webp'}):
         relative = image.relative_to(image_root).as_posix()
         patterns = (
             r'enemies/(?:raw/)?M\d{3}(?:-alpha)?\.png',
@@ -72,7 +72,8 @@ def verify(root):
             r'fields/legacy/masks/E\d{2}[-\w]+\.png',
             # 現存の旧検証画像のみ許可（新規サンプル置き場は作らない。#68 2026-10-19。削除PRで外す）
             r'fields/verification/(?:masks/)?VFIELD00[1-4](?:-[-\w]+)?\.png',
-            r'fields/reference/[a-z0-9]+(?:-[a-z0-9]+)*\.png',
+            # 外観参照のみ非可逆WebP(品質85)も許可。他種別のWebP全面移行は別PR
+            r'fields/reference/[a-z0-9]+(?:-[a-z0-9]+)*\.(?:png|webp)',
             r'battle-backgrounds/BG\d{3}\.png',
             # 現存の旧候補BG007〜BG009のみ許可（新規は正本パスへ直接上書き）
             r'battle-backgrounds/candidates/BG00[789]\.png',

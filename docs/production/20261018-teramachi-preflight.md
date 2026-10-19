@@ -115,7 +115,8 @@ E01は幼稚園の屋外園庭、E11は屋外境内。未契約の出入口や�
 
 ## 外観参照の保存先と検査手順
 
-- 保存先: `.claude/skills/sit-field-background/SKILL.md` 手順4が案内する `assets/images/fields/` 配下の `reference/`（参照専用）を使う。現時点で `assets/images/fields/reference/` は実在しない（`legacy/` と `verification/` のみ）。ディレクトリは生成時に作る。具体的なファイル名は要確認。 `reference/` は外観参照専用で、mapの「実行時参照」には使わない（`scripts/verify_asset_layout.py` は `fields/reference/<kebab-case>.png` のみ許可）。
+- 保存先: `.claude/skills/sit-field-background/SKILL.md` 手順4が案内する `assets/images/fields/reference/`（外観参照専用。mapの「実行時参照」には使わない。`scripts/verify_asset_layout.py` は `fields/reference/<kebab-case>.{png,webp}` のみ許可）。
+- 保存済み共通外観参照: `assets/images/fields/reference/teramachi-common-exterior-reference.webp`。形式は非可逆WebP（品質85）、実寸1672×940、430,536 bytes。sha256は変換後WebP `c596781d351fce35d71b1b31c8db8964e39b2623fde558b44f92cd4723da3175`、元PNG `7082a759e364a4731d18ba20908034a1f89317c4e6599cd96bee1d6703e77663`。用途は**順序・包含関係の確認のみ**で、池・墓地・鐘楼・井戸・像・遊具・築地塀・通用門などの位置・寸法・扉位置・廊下の形を確定させない。独立画像レビュー合格済み（#51コメント参照）。
 - 実寸計測: 返却原本を保存後、`identify -format '%wx%h\n' <file>`（または `file <file>`）で寸法を確認する。共通外観参照は16:9・解像度不問。最終MAPは1920×1080、または画像生成ツールが返せない場合に限り16:9の1672×941。それ以外は不合格で、リサイズで通さず記録する。
 - ハッシュ記録: `sha256sum <file>` を実行し、完全prompt・参照一覧・測定結果とともに記録する。
 - legacy参照3枚（`legacy/E01.png`、`E11.png`、`E12.png`）は1536×1024であり、参照入力としては可だが、最終MAPの寸法ゲートの合格根拠にはならない。

@@ -193,6 +193,27 @@ class VerifierFailureTests(unittest.TestCase):
                     self.assertIn("Non-ID image", result.stderr)
                     path.unlink()
 
+    def test_field_reference_webp_allowed_only_under_reference_dir(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            row = self.fixture(root)
+            ok = root / "assets/images/fields/reference/teramachi-common-exterior-reference.webp"
+            ok.parent.mkdir(parents=True)
+            ok.write_bytes(b"RIFFxxxxWEBPreference")
+            self.assertEqual(self.run_verifier(root, [row]).returncode, 0)
+            for bad in ["assets/images/fields/unknown.webp",
+                        "assets/images/fields/reference/nested/x.webp",
+                        "assets/images/fields/reference/Bad_Name.webp",
+                        "assets/images/enemies/M001.webp"]:
+                with self.subTest(bad=bad):
+                    path = root / bad
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_bytes(b"RIFFxxxxWEBPbad")
+                    result = self.run_verifier(root, [row])
+                    self.assertNotEqual(result.returncode, 0)
+                    self.assertIn("Non-ID image", result.stderr)
+                    path.unlink()
+
     def test_sample_images_including_hidden_files_still_fail(self):
         for filename in ["old.PNG", ".hidden.png"]:
             with self.subTest(filename=filename), tempfile.TemporaryDirectory() as directory:
