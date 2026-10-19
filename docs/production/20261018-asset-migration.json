@@ -2998,35 +2998,39 @@
       "new": "assets/images/brand/README.md",
       "action": "move",
       "reason": "Brand documentation.",
-      "sha256": "340c0f56dd847606cc6d52e34b7f68ee169d1eb486263ec548c6372e43881eee"
+      "sha256": "6100b5a8acb2e16750312a2c789da640c35c4aecf0f5c3f93ebc6e18a7ccc7ee"
     },
     {
       "old": "assets/logo/logo-noto-mouth-a.png",
-      "new": "assets/images/brand/BRAND001.png",
-      "action": "move",
-      "reason": "Existing mouth-a / mouth-b brand variant, not game entity ID.",
-      "sha256": "65e8b1127ca2a289cecd14d73870346bf7c557205d4229dae3ddcb4a51621a7f"
+      "new": null,
+      "action": "delete",
+      "reason": "Rejected by #68 decision (2026-10-19): Noto-mouth logo draft removed; replaced by provisional text logo brand/logo.svg. Restore with: git show f79eb74:<pruned_path>. Earlier: Existing mouth-a / mouth-b brand variant, not game entity ID.",
+      "sha256": "65e8b1127ca2a289cecd14d73870346bf7c557205d4229dae3ddcb4a51621a7f",
+      "pruned_path": "assets/images/brand/BRAND001.png"
     },
     {
       "old": "assets/logo/logo-noto-mouth-a.svg",
-      "new": "assets/images/brand/BRAND001.svg",
-      "action": "move",
-      "reason": "Existing mouth-a / mouth-b brand variant, not game entity ID.",
-      "sha256": "363be761b699dafd36c037da8a1a13ae1a2209ad6dcecfb5213bf3bd13becf68"
+      "new": null,
+      "action": "delete",
+      "reason": "Rejected by #68 decision (2026-10-19): Noto-mouth logo draft removed; replaced by provisional text logo brand/logo.svg. Restore with: git show f79eb74:<pruned_path>. Earlier: Existing mouth-a / mouth-b brand variant, not game entity ID.",
+      "sha256": "363be761b699dafd36c037da8a1a13ae1a2209ad6dcecfb5213bf3bd13becf68",
+      "pruned_path": "assets/images/brand/BRAND001.svg"
     },
     {
       "old": "assets/logo/logo-noto-mouth-b.png",
-      "new": "assets/images/brand/BRAND002.png",
-      "action": "move",
-      "reason": "Existing mouth-a / mouth-b brand variant, not game entity ID.",
-      "sha256": "f48ecd6453476f982eb11e6dc15a75bbcdf5ec1dfa9272450767f38056c0ca6e"
+      "new": null,
+      "action": "delete",
+      "reason": "Rejected by #68 decision (2026-10-19): Noto-mouth logo draft removed; replaced by provisional text logo brand/logo.svg. Restore with: git show f79eb74:<pruned_path>. Earlier: Existing mouth-a / mouth-b brand variant, not game entity ID.",
+      "sha256": "f48ecd6453476f982eb11e6dc15a75bbcdf5ec1dfa9272450767f38056c0ca6e",
+      "pruned_path": "assets/images/brand/BRAND002.png"
     },
     {
       "old": "assets/logo/logo-noto-mouth-b.svg",
-      "new": "assets/images/brand/BRAND002.svg",
-      "action": "move",
-      "reason": "Existing mouth-a / mouth-b brand variant, not game entity ID.",
-      "sha256": "9eccd3eb72be5c7e93867ef69e901ac7bde120b8a55f992e417432f35eb40c55"
+      "new": null,
+      "action": "delete",
+      "reason": "Rejected by #68 decision (2026-10-19): Noto-mouth logo draft removed; replaced by provisional text logo brand/logo.svg. Restore with: git show f79eb74:<pruned_path>. Earlier: Existing mouth-a / mouth-b brand variant, not game entity ID.",
+      "sha256": "9eccd3eb72be5c7e93867ef69e901ac7bde120b8a55f992e417432f35eb40c55",
+      "pruned_path": "assets/images/brand/BRAND002.svg"
     },
     {
       "old": "assets/summons/kanazawa-thunder-dragon.png",

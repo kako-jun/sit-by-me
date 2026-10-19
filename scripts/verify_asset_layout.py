@@ -42,7 +42,7 @@ def verify(root):
             # 外観参照は非可逆WebP(品質85)。fields/legacy・masksはPR-M(MAP改名)までPNGのまま
             r'fields/reference/[a-z0-9]+(?:-[a-z0-9]+)*\.(?:png|webp)',
             r'battle-backgrounds/BG\d{3}\.webp',
-            r'brand/BRAND\d{3}\.png',
+            r'brand/logo\.(?:svg|png)',
         )
         assert any(re.fullmatch(p, relative) for p in patterns), f'Non-ID image: {relative}'
     remaining_sample_files = [

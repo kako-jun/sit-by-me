@@ -26,7 +26,7 @@
 | legacy mask | `assets/images/fields/legacy/masks/Exx-*.png` | 旧接続を変更しない検証専用。JSON・生成補助（make_masks.py）は削除済み |
 | 外観参照 | `assets/images/fields/reference/<kebab-case>.{png,webp}` | 外観参照専用（平置き・小文字英数とハイフンのみ）。mapの「実行時参照」には使わない |
 | 戦闘背景 | `assets/images/battle-backgrounds/BGxxx.webp`（現存はBG001・BG005のみ。BG002〜004・006〜009は削除済みで、復元は git 履歴 `1bb09d0` から。戦闘背景の新規作成は別件） | 下表 |
-| ブランド | `assets/images/brand/BRAND001.{png,svg}`、`BRAND002.{png,svg}` | 旧mouth-a／mouth-b。ゲームIDではない |
+| ブランド | `assets/images/brand/logo.svg`（正本）、`logo.png`（SVG派生、WebP化しない） | 暫定の文字ロゴ（SIT BY ME）。ゲームIDではない。のち差し替え予定 |
 
 | C ID | 元人名prefix | 登場人物 |
 |---|---|---|

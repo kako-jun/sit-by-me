@@ -1,7 +1,10 @@
-# ロゴ下絵（能登の口）
+# ロゴ（暫定の文字ロゴ）
 
-- `BRAND001.svg`／`BRAND002.svg` が正本、同じIDの `.png` は透過(1600px幅)。BRAND001=旧A（口を大きく）、BRAND002=旧B（口＋広め）。
-- 輪郭: 国土数値情報 行政区域 N03-20230101 石川県（国土交通省）を Web メルカトルで描画。能登島のポリゴンのみ除外し、その位置にタイトル文字を置く。
-- 目: ベクター（輪島付近の陸地内）。
-- タイトル `SIT BY ME`: Cinzel Bold（SIL OFL 1.1、https://github.com/NDISCOVER/Cinzel 、`scripts/fonts/` に同梱）をアウトライン化し、1行（改行なし）で字幅を絞った縦長の大文字に変形（字幅比0.5、能登島の外接矩形の96%幅に収める）。SVG はフォント非依存。
-- 再生成: `scripts/noto_logo_geo.py`（`--with shapely --with fonttools`）、PNG は `scripts/svg_to_png.py`。
+- 「SIT BY ME」を縦長の大文字フォントで書いた**仮置き**のロゴ（2行: `SIT BY` / `ME`）。のちに正式なロゴへ差し替える予定（#68）。FF5ロゴそのものの模倣はしない（フォントの雰囲気のみ）。
+- `logo.svg` が正本、`logo.png`（幅1600px、透過）は SVG からの派生。WebP化はしない。
+- フォント: Noto Serif Display ExtraCondensed Black（SIL Open Font License 1.1）。出所: Noto Project Authors、https://github.com/notofonts/latin-greek-cyrillic （ローカルは Arch `noto-fonts`、`/usr/share/fonts/noto/NotoSerifDisplay-ExtraCondensedBlack.ttf`）。文字は輪郭化済みで、SVGはフォント非依存。
+- 配色: 金のグラデーション（#f6ecc8→#d9bd73→#9c7a34）＋暗褐色の縁（#2a1f0c）。ダークテーマの背景で読める。
+- 再生成:
+  1. `uv run --with fonttools python3 -I scripts/make_logo.py /usr/share/fonts/noto/NotoSerifDisplay-ExtraCondensedBlack.ttf assets/images/brand/logo.svg two`（1行版は末尾を `one`）
+  2. `uv run --with resvg-py --with pillow python3 -I scripts/svg_to_png.py assets/images/brand/logo.svg assets/images/brand/logo.png 1600`
+- 旧ロゴ下絵（能登の口、BRAND001・002）は不採用で削除済み。
