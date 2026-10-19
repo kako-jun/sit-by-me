@@ -89,7 +89,7 @@
 | M104 | 乱暴な自転車 | 交通と騒音 | 寺町 hinomi-bend（弧の道）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M104.webp`（採否待ち。右向き（前輪が右）・透過・無人） | #12、art-direction.md |
 | M105 | 乱暴な車 | 交通と騒音 | 香林坊 korinbo-crossroads（十字）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 仕様のみ（運転者は描かない） | 同上 |
 | M106 | 大音量のバイク | 交通と騒音 | 香林坊 convenience-store（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M106.webp`（採否待ち。右向き・透過・無人・ロゴなし） | 同上 |
-| M107 | 大型立体看板のお神輿型 | 都市の巨大物 | 香林坊（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.2） | 未定 | 未定 | 中ボス | 仕様のみ | 同上 |
+| M107 | 大型立体看板のお神輿型 | 都市の巨大物 | 香林坊（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.2） | 未定 | 未定 | 中ボス（案あり: boss-gimmicks.md G019（#120）。決定ではない） | 仕様のみ | 同上 |
 | M108 | 蓋の開いたマンホール | 暗い開口部 | 寺町 well-merge（井戸の合流）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M108.webp`（採用: kako-jun 2026-10-14。右向き・透過・無人） | 同上。技: どろだらけ（土のラーニング元。2026-10-15 kako-jun 決定。敵の専用 `[特技]`。効果・ダメージは未決。属性欄・弱点は変えない） |
 | M109 | 夜の森の葉・枝（悪魔に見える） | 錯視 | 夜の森（章は未定）。卯辰山 N8 登り口・山の続き（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 生成済み: assets/images/enemies/M109.webp（mid-3 を採用: 顔なし・非対称の自然な枝葉で、上端の2本の枝が角、左の塊が肩、右の枝が腕に見える。採用: kako-jun 2026-10-14） | #12 |
 | M110 | 顔に見える壁の染み | 錯視 | 寺町 narrow-lane（縦の路地）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.1） | 未定 | 未定 | 未定 | 生成済み: assets/images/enemies/M110.webp（採用: kako-jun 2026-10-14） | #12 |
