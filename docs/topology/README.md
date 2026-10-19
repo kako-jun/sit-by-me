@@ -32,8 +32,8 @@
 
 再生成：`ruby scripts/render_map_atlas.rb`。詳細図は各`render_body_topology.rb`、`render_late_topology.rb`、`render_sunnyland_topology.rb`で更新。
 
-検証：`ruby scripts/verify_map_ledger.rb`。全件数・一意所属・体内入口と方向／枚数・三塔進行・全図の端ID／種別／矢印／可視IDを検査。[ID登録](map-ids.json)は全130件。[海外設計状態契約](overseas-progression.json)はゲームruntimeと別の設計成果物。
+検証：`ruby scripts/verify_map_ledger.rb`、ID付け替え表は `uv run python3 scripts/verify_map_id_renumber.py`（旧ID→新ID対応は [対応表](../production/20261019-map-id-renumber.json)）。全件数・一意所属・体内入口と方向／枚数・三塔進行・全図の端ID／種別／矢印／可視IDを検査。[ID登録](map-ids.json)は全130件。[海外設計状態契約](overseas-progression.json)はゲームruntimeと別の設計成果物。
 
-デパートのエレベーターはMAPを持たず、接続台帳の外の「階選択遷移」（[map-topology.md](../map-topology.md)）で管理する。各階（F83・F85・E15・F86・E16）の扉に入るとウィンドウで階を選び、選んだ階の扉前に着く。箱は全階を結ぶため、香林坊エリア図には階をつなぐ線を描かず注記で示す（4階F86は条件つき）。
+デパートのエレベーターはMAPを持たず、接続台帳の外の「階選択遷移」（[map-topology.md](../map-topology.md)）で管理する。各階（KRB-02・KRB-03・KRB-04・KRB-05・KRB-06）の扉に入るとウィンドウで階を選び、選んだ階の扉前に着く。箱は全階を結ぶため、香林坊エリア図には階をつなぐ線を描かず注記で示す（4階KRB-05は条件つき）。
 
 図の座標（`areas.json` の `layout`）は、docs の方向記述（斜め道・上り下り・左右）を模式的に反映する。距離・縮尺は表さない。接続の正本は台帳（[map-topology.md](../map-topology.md) v2）である。
