@@ -30,11 +30,15 @@ module MapAtlas
     incident=g.incident(area);h=diagram_bottom+incident.length*42+130
     north=%w[garden castle].include?(area['id']) ? '北↑・接続概念図（縮尺ではない）' : area['id']=='body' ? '架空人体の空間配置・地理的方位ではない' : area['id']=='overseas' ? '階層と移動の概念図・地理的方位ではない' : '接続模式図・地理的方位／縮尺を表さない'
     out=[%(<g data-area="#{area['id']}"><rect x="8" y="8" width="#{w-16}" height="#{h-16}" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">#{esc(area['name'])}・#{area['maps'].length}MAP</text><text x="25" y="78" class="note">#{esc(north)}</text>)]
+    if area['id']=='city'
+      out<<%(<text x="25" y="108" class="note">デパート5階（F83・F85・E15・F86・E16）のエレベーターはMAPを持たず、台帳外の「階選択遷移」。各階の扉に入るとウィンドウで階を選び、選んだ階の扉前に着く。</text>)
+      out<<%(<text x="25" y="134" class="note">箱は全階を結ぶので階をつなぐ線は描かない。4階F86は条件つき。</text>)
+    end
     counts=Hash.new(0)
     g.internal(area).each do |e|
       ax,ay=positions.fetch(e['from']);bx,by=positions.fetch(e['to']);pair=[e['from'],e['to']].sort;ix=counts[pair];counts[pair]+=1
       # Separate the otter/cave entrance and exit, preserving their endpoint identities.
-      d=if %w[F64 F65].any? { |id| pair.include?(id) };"M#{ax} #{ay} Q#{(ax+bx)/2} #{(ay+by)/2+(ix==0 ? -65:65)} #{bx} #{by}";elsif pair==%w[E16 F83];"M#{ax} #{ay} Q#{(ax+bx)/2} #{(ay+by)/2-150} #{bx} #{by}"  # 1階↔5階の直結は同一行のE15を避けて上へ弧を描く
+      d=if %w[F64 F65].any? { |id| pair.include?(id) };"M#{ax} #{ay} Q#{(ax+bx)/2} #{(ay+by)/2+(ix==0 ? -65:65)} #{bx} #{by}";
       else;"M#{ax} #{ay} L#{bx} #{by}";end
       out<<%(<path class="#{e['kind']}" #{attrs(e)} d="#{d}"#{arrow(e)}/>)
     end
