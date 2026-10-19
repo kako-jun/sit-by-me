@@ -113,7 +113,7 @@ class MapAtlasTests(unittest.TestCase):
                 self.assertEqual(sorted(references), sorted(remote))
         self.assertEqual(sorted(all_owned), sorted(topology_tests.EXPECTED_IDS))
 
-    def test_all_126_maps_have_exactly_one_area(self):
+    def test_all_128_maps_have_exactly_one_area(self):
         areas = self.registry()["areas"]
         members = [ident for area in areas for ident in area["maps"]]
         self.assertEqual(set(members), topology_tests.EXPECTED_IDS)
@@ -136,7 +136,7 @@ class MapAtlasTests(unittest.TestCase):
         self.mutate_registry(lambda data: data["areas"][1].update(id=data["areas"][0]["id"]))
         self.reject()
 
-    def test_atlas_has_126_distinct_owned_visible_nodes(self):
+    def test_atlas_has_128_distinct_owned_visible_nodes(self):
         tree = ET.parse(self.diagram())
         owned = [node.get("data-map") for node in tree.iter() if node.get("data-map")]
         self.assertEqual(set(owned), topology_tests.EXPECTED_IDS)

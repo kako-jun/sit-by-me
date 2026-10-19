@@ -37,7 +37,7 @@ class BodyTopologyTests(unittest.TestCase):
         mutate(data)
         path.write_text(json.dumps(data, ensure_ascii=False))
 
-    def test_all_126_maps_have_one_area_membership(self):
+    def test_all_128_maps_have_one_area_membership(self):
         members = [ident for area in self.registry()["areas"] for ident in area["maps"]]
         self.assertEqual(set(members), topology_tests.EXPECTED_IDS)
         self.assertEqual(len(members), len(set(members)))

@@ -2,7 +2,7 @@
 
 2026-10-18: サニーランドは口述と創作の円環接続へ更新。旧pending6接続は削除済み。
 
-`map-asset-registry.md` の126行を、生成可能にするまで追跡する行単位チェックリスト。接続の正本は `map-topology.md` の「MAP相互接続台帳 v2」、画面主役と主路は `map-specifications.md`、マスク形式は `sit-field-mask` である。全行は `blocked` または `legacy-needs-review` で始める。`TBD` が空でない限り `ready` にしない。台帳整合の独立再監査は [第3周レビュー](reviews/artifact-redteam/20261016-map-ledger-round3.md) を参照。
+`map-asset-registry.md` の128行を、生成可能にするまで追跡する行単位チェックリスト。接続の正本は `map-topology.md` の「MAP相互接続台帳 v2」、画面主役と主路は `map-specifications.md`、マスク形式は `sit-field-mask` である。全行は `blocked` または `legacy-needs-review` で始める。`TBD` が空でない限り `ready` にしない。台帳整合の独立再監査は [第3周レビュー](reviews/artifact-redteam/20261016-map-ledger-round3.md) を参照。
 
 **2026-10-18 / #51**: E01–E13/F01–F03は全て `recreate-required-1920x1080`、生成契約は `blocked`。以下の旧画像パスは参照専用で、旧mask・旧passは新候補の採用根拠にならない。現行再作成状態は [候補台帳](teramachi-rebuild-candidates.md)、建物群の生成前入力は [制作前確認](production/20261018-teramachi-preflight.md) を参照する。
 
@@ -21,8 +21,8 @@
 | E11 | recreate-required-1920x1080 | R006,R011,R024 | 旧境内画像は参照専用。新背景・mask未作成 | #60の屋外境内。E04端、E01.door-west通用門（境内の右＝東側）、F01正面扉、池・墓地のblocked域を記録。E12/F02屋外doorなし。共通外観参照未通過 |
 | E12 | recreate-required-1920x1080 | R006,R011,R021,R024 | 旧庫裏画像は参照専用。新背景・mask未作成 | #60/#51の西（本堂から見て左）の屋内住居。F01.door-west↔door-hallのみ。内部廊下の扉位置、幅・段差・回転域、火事時遮断範囲がTBD。F02直結なし |
 | E13 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E13.png`; mask未記録 | E09石段とN10車椅子坂の端・通行クラスを記録する |
-| E14 | legacy-needs-review | R005,R011 | `assets/images/fields/legacy/E14.png`; mask未記録 | N1/N11/N9端、百貨店door、封鎖期のN9遷移を記録する |
-| E15 | legacy-needs-review | R005 | `assets/images/fields/legacy/E15.png`; mask未記録 | door-korinbo→E14.door、door-restaurant→E16.door、売場通路のuniversal幅を記録する |
+| E14 | legacy-needs-review | R005,R011 | `assets/images/fields/legacy/E14.png`; mask未記録 | N1/N11/N9端、百貨店door（相手はF83.door-street）、封鎖期のN9遷移を記録する |
+| E15 | legacy-needs-review | R005 | `assets/images/fields/legacy/E15.png`; mask未記録 | door-korinbo→F83.door-toys、door-restaurant→E16.door、売場通路のuniversal幅を記録する |
 | E16 | legacy-needs-review | R005 | `assets/images/fields/legacy/E16.png`; mask未記録 | E15door、再訪時の同一導線を記録する |
 | E17 | legacy-needs-review | R013,R011 | `assets/images/fields/legacy/E17.png`; mask未記録 | E19/N1端、E18door、格子・側溝のblocked域を記録する |
 | E18 | legacy-needs-review | R013 | `assets/images/fields/legacy/E18.png`; mask未記録 | E17door、座敷の段差・車椅子可否を決める |
@@ -36,10 +36,10 @@
 | E26 | legacy-needs-review | R014,R015 | `assets/images/fields/legacy/E26.png`; mask未記録 | N3端、駅出口と線路端のblocked域を記録する |
 | E27 | legacy-needs-review | R015 | `assets/images/fields/legacy/E27.png`; mask未記録 | F11端、海側blocked帯と締まった砂のuniversal帯を記録する |
 | E28 | legacy-needs-review | R004 | `assets/images/fields/legacy/E28.png`; mask未記録 | E21/E29door、車内通路とドア回転域を記録する |
-| E29 | legacy-needs-review | R004 | `assets/images/fields/legacy/E29.png`; mask未記録 | N5端、終端線路のblocked域を記録する |
+| E29 | legacy-needs-review | R004 | `assets/images/fields/legacy/E29.png`; mask未記録 | N5端、終端線路のblocked域に加え、右辺→F84.left（茂みの小径。道路ではない。暫定入口、入口MAPは要確認）を記録する |
 | E30 | legacy-needs-review | R004 | `assets/images/fields/legacy/E30.png`; mask未記録 | N7/E31端、家door、海側blocked域を記録する |
 | E31 | legacy-needs-review | R004 | `assets/images/fields/legacy/E31.png`; mask未記録・採用禁止 | 既存画像は海が上側で、既定の「能登の海は下側」に違反する。回転での救済はしない。E30端・桟橋終端・海/テトラblocked域を満たす再構図版が必要 |
-| E32 | legacy-needs-review | R016 | `assets/images/fields/legacy/E32.png`; mask未記録 | F18door、崩落棟blocked域と避難導線を記録する |
+| E32 | legacy-needs-review | R016 | `assets/images/fields/legacy/E32.png`; mask未記録 | 被災前の廃校（#89で被災前へ移動）。F84.right→E32.left、崩落棟blocked域を記録する。画像は据え置き |
 | E33 | legacy-needs-review | R006,R011 | `assets/images/fields/legacy/E33.png`; mask未記録 | N10端、校門と校庭外周柵のblocked域を記録する |
 | N1 | blocked | R001,R002,R011 | 未生成・mask未作成 | E17/E14端、南北橋の型・欄干外blocked域をR001/R002と照合する |
 | N2 | blocked | R006,R011,R021,R024,R025 | 未生成・mask未作成 | E02/E19端、蛇行するuniversal坂と用水のblocked域を実景参照で確定する |
@@ -69,7 +69,7 @@
 | F15 | blocked | R016,R028,R029 | 未生成・mask未作成 | F14/F16端、地割れをまたぐ主路の安全表現を決める |
 | F16 | blocked | R016,R028,R029 | 未生成・mask未作成 | F15/F17端、実家door封鎖と生活路の範囲を決める |
 | F17 | blocked | R016,R028,R029 | 未生成・mask未作成 | F16端、釣り場先端を終端にする柵と海のblocked域を決める |
-| F18 | blocked | R016,R028,R029 | 未生成・mask未作成 | F12/E32door、仮設住宅の生活路・集会所doorを決める |
+| F18 | blocked | R016,R028,R029 | 未生成・mask未作成 | F12.right端、廃校の校庭に建つ仮設住宅の生活路・集会所doorを決める。E32への接続は廃止（被災後の廃校は潰れて入れない）。入口は被災前E29.right→F84.leftの被災後版（F12.right） |
 | F19 | blocked | R018 | 未生成・mask未作成 | 口・体内入口。door-passage-torso→F74.door-passage-mouth。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
 | F20 | blocked | R018 | 未生成・mask未作成 | 左手通路2・末端。door-passage-base→F77.door-passage-tip。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
 | F21 | blocked | R018 | 未生成・mask未作成 | 右手通路2・末端。door-passage-base→F78.door-passage-tip。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
@@ -149,3 +149,10 @@
 | F80 | blocked | R018 | 未生成・mask未作成 | 左足通路2・中間。door-passage-base→F79.door-passage-middle、door-passage-tip→F22.door-passage-base。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
 | F81 | blocked | R018 | 未生成・mask未作成 | 右足通路1・付け根側。door-passage-torso→F76.door-passage-right-leg、door-passage-middle→F82.door-passage-base。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
 | F82 | blocked | R018 | 未生成・mask未作成 | 右足通路2・中間。door-passage-base→F81.door-passage-middle、door-passage-tip→F23.door-passage-base。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+
+## #87/#89追加ID（番号は既存MAPを移動しない）
+
+| ID | 状態 | Ref | mask / 出力 | 具体的TBD |
+|---|---|---|---|---|
+| F83 | blocked | R005 | 未生成・mask未作成 | デパート1階（入口階）。時計のある吹き抜け（アトリオ参照。出所 https://github.com/kako-jun/sit-by-me/issues/87#issuecomment-6258778050）。実在店に似せないジオラマ、大和4階の時計サロンとは別。door-street→E14.door、door-toys→E15.door-korinbo。TBD: 階の移動手段（エスカレーター／階段／エレベーター。車椅子の通行に関わる）、E15の階数、E15↔E16の途中階、売場の中身、1階での出来事。画像生成blocked。 |
+| F84 | blocked | R016 | 未生成・mask未作成 | 廃校の校庭（被災前）。left←E29.right（茂みの小径の暫定入口）、right→E32.left。TBD: 入口MAP（E29は暫定）、茂みの見せ方、校庭の見た目、勝手口等の扉、校庭↔E32の辺はright↔leftで選択済み（理由はmap-topology.md）。 |
