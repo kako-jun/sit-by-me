@@ -14,10 +14,10 @@
 | 小学校と通学坂 | [school.svg](areas/school.svg) |
 | 卯辰山 | [mountain.svg](areas/mountain.svg) |
 | サニーランド | [sunnyland.svg](areas/sunnyland.svg) |
-| 内灘・浅野川線 | [uchinada.svg](areas/uchinada.svg) |
-| 能登への鉄道 | [noto_train.svg](areas/noto_train.svg) |
-| 能登・被災前 | [noto_before.svg](areas/noto_before.svg) |
-| 能登・被災後 | [noto_after.svg](areas/noto_after.svg) |
+| 内灘・内灘線 | [uchinada.svg](areas/uchinada.svg) |
+| 奥能登への鉄道 | [noto_train.svg](areas/noto_train.svg) |
+| 奥能登・被災前 | [noto_before.svg](areas/noto_before.svg) |
+| 奥能登・被災後 | [noto_after.svg](areas/noto_after.svg) |
 | 架空の体内 | [body.svg](areas/body.svg) |
 | K空港 | [airport.svg](areas/airport.svg) |
 | 海外・荒野と三塔 | [overseas.svg](areas/overseas.svg) |
@@ -28,7 +28,7 @@
 
 白丸は所有MAP、薄茶色の小丸は別エリアの参照先。同じラッコ館・洞窟への入口と出口は別々の端IDを維持する。線の交差は接続点ではない。庭園・城は北上、ほかは見出しの注記に従う模式図で、距離・階高の縮尺を表さない。
 
-能登の被災前／後は時期差分で相互の徒歩接続を追加していない。K空港はワープ到達だが正本に固定起点がなく、架空の歩行線を足していない。旧DIAG001/002 PNGは削除済み（復元は git 履歴から）。
+奥能登の被災前／後は時期差分で相互の徒歩接続を追加していない。K空港はワープ到達だが正本に固定起点がなく、架空の歩行線を足していない。旧DIAG001/002 PNGは削除済み（復元は git 履歴から）。
 
 再生成：`ruby scripts/render_map_atlas.rb`。詳細図は各`render_body_topology.rb`、`render_late_topology.rb`、`render_sunnyland_topology.rb`で更新。
 

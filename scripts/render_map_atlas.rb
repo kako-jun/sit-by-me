@@ -121,7 +121,7 @@ module MapAtlas
       x,y=pos.fetch(a['id'])
       out<<%(<g data-area="#{a['id']}"><rect x="#{x-145}" y="#{y-44}" width="290" height="88" rx="10" fill="#fff" stroke="#527b69" stroke-width="3"/><text x="#{x}" y="#{y-8}" class="label">#{esc(a['name'])}</text><text x="#{x}" y="#{y+21}" class="label">#{a['maps'].length} MAP（#{a['id']}）</text></g>)
     end
-    out<<'<text x="100" y="1305" class="note">能登被災前／後は時期差分（徒歩接続ではない）。未登録の接続を補って描かない。</text><text x="100" y="1340" class="note">K空港はワープ到達・起点を固定しない。体内は園庭のイベントから、海外へは一方向の旅客機。</text>'
+    out<<'<text x="100" y="1305" class="note">奥能登被災前／後は時期差分（徒歩接続ではない）。未登録の接続を補って描かない。</text><text x="100" y="1340" class="note">K空港はワープ到達・起点を固定しない。体内は園庭のイベントから、海外へは一方向の旅客機。</text>'
     out<<%(<text x="30" y="1765" class="heading">エリアをまたぐ全#{g.cross.length}接続の出入口（線の交差は乗換・接続を意味しない）</text>)
     g.cross.each_with_index do |e,i|
       y=list_y+i*58
