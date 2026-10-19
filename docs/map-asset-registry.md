@@ -10,7 +10,7 @@
 
 `ready` は全項目が記入済みかつ TBD=なし、`legacy` は既存画像で再生成・差し替えを禁止、`blocked` は個別契約またはTBDが残っている状態である。寺町は2026-10-16の方針により、旧legacyを一枚も採用せず、E01–E13/F01–F03の新候補16枚を揃えて監査後に**一括**でruntimeへ差し替える。混在運用はしない。**「ただの道」「つなぎ」だけは一言特徴にならない**。道なら、交差点・橋・用水・寺の裏門・雪囲い・市場の角・坂の眺めなど、そこでしか成立しない主役を必ず持たせる。
 
-## 126行共通の画像契約
+## 128行共通の画像契約
 
 全MAP行は、本文の略表に加えて次の契約を持つ。接続は `map-topology.md` の「MAP相互接続台帳 v2」、主役・時期・主路は `map-specifications.md` の同じID、参考は `map-reference-research.md` の同じIDまたは明示した共通Refを参照する。これらのどれかが無い行は `blocked` とする。
 
@@ -79,7 +79,7 @@ N1〜N12 の詳細な接続契約は [map-specifications.md](map-specifications.
 | E29 | `assets/images/fields/legacy/E29.png` | 能登（被災前） | legacy |
 | E30 | `assets/images/fields/legacy/E30.png` | 能登（被災前） | legacy |
 | E31 | `assets/images/fields/legacy/E31.png` | 能登（被災前） | legacy |
-| E32 | `assets/images/fields/legacy/E32.png` | 能登（被災後） | legacy |
+| E32 | `assets/images/fields/legacy/E32.png` | 能登（被災前） | legacy |
 | E33 | `assets/images/fields/legacy/E33.png` | 小学校 | legacy |
 
 旧版・不採用候補（`-v2` 以外の旧版、寺町の地蔵版、蛸島以外の小木駅版、駅前 v1/v2、サニーランド v2）は参照専用であり、マップの契約対象に数えない。
@@ -107,7 +107,7 @@ N1〜N12 の詳細な接続契約は [map-specifications.md](map-specifications.
 | F15 | `noto-post-downhill` | 能登（被災後） | N7との同一接続 |
 | F16 | `noto-post-house` | 能登（被災後） | 実家版との同一接続 |
 | F17 | `noto-post-fishing-spot` | 能登（被災後） | 釣り場版との同一接続 |
-| F18 | `noto-temporary-housing` | 能登（被災後） | 接続辺・生活動線 |
+| F18 | `noto-temporary-housing` | 能登（被災後） | 接続辺・生活動線（入口はF12.right。被災前E29.right→F84.leftの被災後版。#89） |
 | F19 | `F19` | 抽象体内 | 口・体内入口。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
 | F20 | `F20` | 抽象体内 | 左手通路2・末端。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
 | F21 | `F21` | 抽象体内 | 右手通路2・末端。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
@@ -187,3 +187,10 @@ N1〜N12 の詳細な接続契約は [map-specifications.md](map-specifications.
 | F80 | `F80` | 抽象体内 | 左足通路2・中間。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
 | F81 | `F81` | 抽象体内 | 右足通路1・付け根側。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
 | F82 | `F82` | 抽象体内 | 右足通路2・中間。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+
+## #87/#89追加ID（番号は既存MAPを移動しない）
+
+| ID | 管理名 | 地区 | 契約 |
+|---|---|---|---|
+| F83 | `F83` | 香林坊 | デパート1階（入口階）。時計のある吹き抜け（アトリオ参照、出所 https://github.com/kako-jun/sit-by-me/issues/87#issuecomment-6258778050）。実在店に似せないジオラマ。door-street→E14.door、door-toys→E15.door-korinbo。階移動手段・売場の中身・E15の階数TBD、画像生成blocked。 |
+| F84 | `F84` | 能登（被災前） | 廃校の校庭（被災前）。F18の被災前版。left←E29.right（茂みの小径の暫定入口）、right→E32.left。校庭の見た目・茂みの見せ方・勝手口TBD、画像生成blocked。 |

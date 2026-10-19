@@ -1,9 +1,9 @@
 # 全MAP接続図
 
-全126MAP・136接続・15エリアを、[接続正本v2](../map-topology.md)と[所属・配置台帳](areas.json)から生成する。体内工程Aのコミット・プッシュ後、工程Bの全図も更新済み。画像生成・ゲーム実装やmask完成を意味しない。
+全128MAP・138接続・15エリアを、[接続正本v2](../map-topology.md)と[所属・配置台帳](areas.json)から生成する。体内工程Aのコミット・プッシュ後、工程Bの全図も更新済み。画像生成・ゲーム実装やmask完成を意味しない。
 
 - [全エリア間の全体図](overview.svg)：金沢内の相対地理は北上。体内・海外・所在を固定しないK空港はイベント層へ分離。境界の全出入口を併記。
-- [全126MAPアトラス](atlas.svg)：所有MAPを各1回表示し、全接続口と外部の隣接先を併記。下部にエリア間の全接続一覧。大きい図なので個別図の等倍表示も利用する。
+- [全128MAPアトラス](atlas.svg)：所有MAPを各1回表示し、全接続口と外部の隣接先を併記。下部にエリア間の全接続一覧。大きい図なので個別図の等倍表示も利用する。
 - [体内詳細](body.svg)、[庭園・城・三塔・登山道](late-dungeons.svg)、[サニーランド円環詳細](sunnyland.svg)も保持。
 
 | エリア | 個別接続図 |
@@ -32,6 +32,6 @@
 
 再生成：`ruby scripts/render_map_atlas.rb`。詳細図は各`render_body_topology.rb`、`render_late_topology.rb`、`render_sunnyland_topology.rb`で更新。
 
-検証：`ruby scripts/verify_map_ledger.rb`。全件数・一意所属・体内入口と方向／枚数・三塔進行・全図の端ID／種別／矢印／可視IDを検査。[ID登録](map-ids.json)は全126件。[海外設計状態契約](overseas-progression.json)はゲームruntimeと別の設計成果物。
+検証：`ruby scripts/verify_map_ledger.rb`。全件数・一意所属・体内入口と方向／枚数・三塔進行・全図の端ID／種別／矢印／可視IDを検査。[ID登録](map-ids.json)は全128件。[海外設計状態契約](overseas-progression.json)はゲームruntimeと別の設計成果物。
 
 図の座標（`areas.json` の `layout`）は、docs の方向記述（斜め道・上り下り・左右）を模式的に反映する。距離・縮尺は表さない。接続の正本は台帳（[map-topology.md](../map-topology.md) v2）である。
