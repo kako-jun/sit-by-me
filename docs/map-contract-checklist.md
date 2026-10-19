@@ -24,7 +24,7 @@
 | E12 | recreate-required-1920x1080 | R006,R011,R021,R024 | 旧庫裏画像は参照専用。新背景・mask未作成 | #60/#51の西（本堂から見て左）の屋内住居。F01.door-west↔door-hallのみ。内部廊下の扉位置、幅・段差・回転域、火事時遮断範囲がTBD。F02直結なし |
 | E13 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E13.png`; mask未記録 | E09石段とN10車椅子坂の端・通行クラスを記録する |
 | E14 | legacy-needs-review | R005,R011 | `assets/images/fields/legacy/E14.png`; mask未記録 | N1/N11/N9端、百貨店door（相手はF83.door-street）、封鎖期のN9遷移を記録する |
-| E15 | legacy-needs-review | R005 | `assets/images/fields/legacy/E15.png`; mask未記録 | 3階（kako-jun 2026-10-19）。door-elevator（階選択遷移。全階から行き先を選ぶ。4階は条件つき）、売場通路のuniversal幅を記録する。TBD: 旧「おもちゃ売場」と2階F85の関係 |
+| E15 | legacy-needs-review | R005 | `assets/images/fields/legacy/E15.png`; mask未記録 | 3階（kako-jun 2026-10-19）。door-elevator（階選択遷移。全階から行き先を選ぶ。4階は条件つき）、売場通路のuniversal幅を記録する。E15（3階・玩具売場）は2階F85と無関係（決定 2026-10-19） |
 | E16 | legacy-needs-review | R005 | `assets/images/fields/legacy/E16.png`; mask未記録 | 5階（kako-jun決定 2026-10-19、#87。実在の大和は8階レストラン街）。door-elevator（階選択遷移。4階は条件つき）、再訪時の同一導線を記録する |
 | E17 | legacy-needs-review | R013,R011 | `assets/images/fields/legacy/E17.png`; mask未記録 | E19/N1端、E18door、格子・側溝のblocked域を記録する |
 | E18 | legacy-needs-review | R013 | `assets/images/fields/legacy/E18.png`; mask未記録 | E17door、座敷の段差・車椅子可否を決める |
@@ -157,6 +157,6 @@
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
 | F83 | blocked | R005 | 未生成・mask未作成 | デパート1階（入口階）。時計のある吹き抜け（アトリオ参照。出所 https://github.com/kako-jun/sit-by-me/issues/87#issuecomment-6258778050）。実在店に似せないジオラマ、大和4階の時計サロンとは別。door-street→E14.door、door-elevator（階選択遷移。扉に入るとウィンドウで階を選び、選んだ階の扉前に着く。箱は全階を結びMAPを持たない。決定 2026-10-19）。TBD: 売場の中身、1階での出来事。画像生成blocked。 |
-| F85 | blocked | R005 | 未生成・mask未作成 | デパート2階（隠し階。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-elevator（階選択遷移）。四角い吹き抜けの廊下だけ（売場は無い。決定 2026-10-19）。歩行域=廊下の環のみ、吹き抜け部分はblocked（歩行マスク契約）。描画=中央の吹き抜けから下の1階が見える（侵入不可）。見える1階=F83(同じ場所を2階から見下ろす視点で描く)。契約: F83の背景を作るときはF85の吹き抜け越しの絵と整合させる(F83の吹き抜け・時計・床の見た目が共通の参照)。TBD: 吹き抜け縁の落下しない前提、2階は最初から解放（解放条件なし。決定 2026-10-19）。隠し階への行き方（ボタン等）、E15旧「おもちゃ売場」との関係。画像生成blocked。 |
+| F85 | blocked | R005 | 未生成・mask未作成 | デパート2階（隠し階。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-elevator（階選択遷移）。四角い吹き抜けの廊下だけ（売場は無い。決定 2026-10-19）。歩行域=廊下の環のみ、吹き抜け部分はblocked（歩行マスク契約）。描画=中央の吹き抜けから下の1階が見える（侵入不可）。見える1階=F83(同じ場所を2階から見下ろす視点で描く)。契約: F83の背景を作るときはF85の吹き抜け越しの絵と整合させる(F83の吹き抜け・時計・床の見た目が共通の参照)。決定: 2階は最初から解放（解放条件なし。2026-10-19）。E15（3階・玩具売場）とF85は無関係（決定）。TBD: 吹き抜け縁の落下しない前提、隠し階への行き方（ボタン等）。画像生成blocked。 |
 | F86 | blocked | R005 | 未生成・mask未作成 | デパート4階（隠し階・条件つき。ラスボス付近でデパートに立ち寄ると解放し強い何かが手に入る。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-elevator（階選択遷移。選択肢に出る条件はシナリオ側）。TBD: 売場の中身、強い何かの中身、4階の出現条件、行き方（ボタン等）。画像生成blocked。 |
 | F84 | blocked | R016 | 未生成・mask未作成 | 廃校の校庭（被災前）。left←E29.right（茂みの小径の暫定入口）、right→E32.left。TBD: 入口MAP（E29は暫定）、茂みの見せ方、校庭の見た目、勝手口等の扉、校庭↔E32の辺はright↔leftで選択済み（理由はmap-topology.md）。 |
