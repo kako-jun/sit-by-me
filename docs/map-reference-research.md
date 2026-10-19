@@ -12,7 +12,7 @@
 | R006 | 寺町系 | [金沢公式観光：長町の冬の土塀](https://www.japan47go.travel/ja/detail/e580e80b-53c4-4aea-a01b-72d832f5f089)／公式観光ページ、転載しない | こも掛け、土塀、雪国の湿った白と黒い道 | 寺町既存画像の接続契約を逆算する際に使う |
 | R007 | N8/N11 | [金沢公式観光：卯辰山山麓寺院群](https://www.kanazawa-kankoukyoukai.or.jp/feature/temples/kokoro/index.html)／公式ページ、転載しない | 浅野川に接する卯辰山山麓、坂・階段・迷路状の小路 | 浅野川橋をN8内に描くか独立MAPにするか |
 | R008 | N8/N11 | [金沢公式観光：ひがし茶屋街から卯辰山](https://www.kanazawa-kankoukyoukai.or.jp/modelCourse/detail_13.html)／公式ページ、転載しない | 茶屋街の裏手から傾斜地の寺院群へ上がる導線 | 武蔵ヶ辻からの接続MAPをどう分担するか |
-| R009 | N12 | [北陸鉄道03系の車内](https://ameblo.jp/seventhheaven1992/entry-12694410644.html)／権利未確認、観察のみ | 赤系モケット、金属ポール、吊り革、片側ドアの券売機・冬向け半自動ドア | 車椅子の転回・乗降のゲーム上の仕様 |
+| R009 | N12 | [参考にした実在のローカル線の車内](https://ameblo.jp/seventhheaven1992/entry-12694410644.html)／権利未確認、観察のみ | 赤系モケット、金属ポール、吊り革、片側ドアの券売機・冬向け半自動ドア | 車椅子の転回・乗降のゲーム上の仕様 |
 | R010 | N8/N11 | [浅野川大橋の冬景色](https://www.kanazawa-kankoukyoukai.or.jp/spot/detail_10025.html)／公式ページ、転載しない | 雪の橋、暗い川、河岸の歩道、橋と歴史的街並みの関係 | MAP内の橋の尺度と方角 |
 | R011 | E01〜E20、N1/N2/N9/N10 | [金沢公式の寺町・犀川・広坂を含む市内散策図](https://visitkanazawa.jp/lsc/upfile/pamphlet/0000/0087/87_701_file.pdf)／公式PDF、転載しない | 寺町・西茶屋街・犀川・香林坊・広坂・兼六園の相対位置。北上固定グラフの地理照合 | 個々の道路幅・建物形状は別参照が必要 |
 | R012 | F41〜F50 | [金沢公式：兼六園の雪吊り](https://visitkanazawa.jp/en/spot/detail_50425.html)／公式ページ、転載しない | 湿って重い日本海側の雪、雪吊りの縄・竹・松、冬の庭園の明暗 | 世界地図は遭遇レイヤー。実在地形を他地区へ変形しない |
