@@ -75,11 +75,11 @@ N1〜N12 の詳細な接続契約は [map-specifications.md](map-specifications.
 | E25 | `assets/images/fields/legacy/E25.png` | サニーランド | 下り渡り廊下途中・右側のゲームセンター。右は下降時の進行基準。F08前半への割当はゲーム配置。 door-corridor→F08.door-arcade-right。旧画像は参照専用。pixel/mask/幅TBD |
 | E26 | `assets/images/fields/legacy/E26.png` | 内灘 | legacy |
 | E27 | `assets/images/fields/legacy/E27.png` | 内灘 | legacy |
-| E28 | `assets/images/fields/legacy/E28.png` | 能登（被災前） | legacy |
-| E29 | `assets/images/fields/legacy/E29.png` | 能登（被災前） | legacy |
-| E30 | `assets/images/fields/legacy/E30.png` | 能登（被災前） | legacy |
-| E31 | `assets/images/fields/legacy/E31.png` | 能登（被災前） | legacy |
-| E32 | `assets/images/fields/legacy/E32.png` | 能登（被災前） | legacy |
+| E28 | `assets/images/fields/legacy/E28.png` | 奥能登（被災前） | legacy |
+| E29 | `assets/images/fields/legacy/E29.png` | 奥能登（被災前） | legacy |
+| E30 | `assets/images/fields/legacy/E30.png` | 奥能登（被災前） | legacy |
+| E31 | `assets/images/fields/legacy/E31.png` | 奥能登（被災前） | legacy |
+| E32 | `assets/images/fields/legacy/E32.png` | 奥能登（被災前） | legacy |
 | E33 | `assets/images/fields/legacy/E33.png` | 小学校 | legacy |
 
 旧版・不採用候補（`-v2` 以外の旧版、寺町の地蔵版、蛸島以外の小木駅版、駅前 v1/v2、サニーランド v2）は参照専用であり、マップの契約対象に数えない。
@@ -101,13 +101,13 @@ N1〜N12 の詳細な接続契約は [map-specifications.md](map-specifications.
 | F09 | `F09` | サニーランド | 雪の森に囲まれた下り渡り廊下・後半。長い下り廊下後半から地下水族館へ。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | F10 | `F10` | サニーランド | 狭い格子状の昭和の屋外動物園。格子状の狭い劣悪な昭和の屋外檻。動物種・交点の通行はTBD。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | F11 | `uchinada-dune-summit` | 内灘 | N3・砂浜との接続、車椅子経路 |
-| F12 | `noto-post-station` | 能登（被災後） | 被災前版との同一接続 |
-| F13 | `noto-post-uphill` | 能登（被災後） | N5との同一接続 |
-| F14 | `noto-post-ridge` | 能登（被災後） | N6との同一接続 |
-| F15 | `noto-post-downhill` | 能登（被災後） | N7との同一接続 |
-| F16 | `noto-post-house` | 能登（被災後） | 実家版との同一接続 |
-| F17 | `noto-post-fishing-spot` | 能登（被災後） | 釣り場版との同一接続 |
-| F18 | `noto-temporary-housing` | 能登（被災後） | 接続辺・生活動線（入口はF12.right。被災前E29.right→F84.leftの被災後版。#89） |
+| F12 | `noto-post-station` | 奥能登（被災後） | 被災前版との同一接続 |
+| F13 | `noto-post-uphill` | 奥能登（被災後） | N5との同一接続 |
+| F14 | `noto-post-ridge` | 奥能登（被災後） | N6との同一接続 |
+| F15 | `noto-post-downhill` | 奥能登（被災後） | N7との同一接続 |
+| F16 | `noto-post-house` | 奥能登（被災後） | 実家版との同一接続 |
+| F17 | `noto-post-fishing-spot` | 奥能登（被災後） | 釣り場版との同一接続 |
+| F18 | `noto-temporary-housing` | 奥能登（被災後） | 接続辺・生活動線（入口はF12.right。被災前E29.right→F84.leftの被災後版。#89） |
 | F19 | `F19` | 抽象体内 | 口・体内入口。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
 | F20 | `F20` | 抽象体内 | 左手通路2・末端。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
 | F21 | `F21` | 抽象体内 | 右手通路2・末端。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
@@ -195,4 +195,4 @@ N1〜N12 の詳細な接続契約は [map-specifications.md](map-specifications.
 | F83 | `F83` | 香林坊 | デパート1階（入口階）。時計のある吹き抜け（アトリオ参照、出所 https://github.com/kako-jun/sit-by-me/issues/87#issuecomment-6258778050）。実在店に似せないジオラマ。door-street→E14.door、door-elevator（階選択遷移）。階移動はエレベーターだけ（扉に入るとウィンドウで階を選ぶ。箱は独立MAPにしない）・売場の中身TBD、画像生成blocked。 |
 | F85 | `F85` | 香林坊 | デパート2階（隠し階。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。四角い吹き抜けの廊下だけのフロア（売場は無い）。中央の吹き抜けから下の1階が見える描画（侵入不可）。見える1階=F83(同じ場所を2階から見下ろす視点で描く)。契約: F83の背景を作るときはF85の吹き抜け越しの絵と整合させる(F83の吹き抜け・時計・床の見た目が共通の参照)。歩行域=廊下の環のみ、吹き抜け部分はblocked。実在店に似せないジオラマ。door-elevator（階選択遷移）。TBD: 行き方、画像生成blocked。 |
 | F86 | `F86` | 香林坊 | デパート4階（隠し階・条件つき。最終章で兼六園へ向かう途中にデパートに寄り道すると、階選択で4階も選べるようになる(決定 2026-10-19)。兼六園への道のどのMAP・イベントで寄り道できるかは要確認。強い何かが手に入る）。door-elevator（階選択遷移。条件つき）。売場の中身・強い何かの中身・行き方TBD、画像生成blocked。 |
-| F84 | `F84` | 能登（被災前） | 廃校の校庭（被災前）。F18の被災前版。left←E29.right（茂みの小径の暫定入口）、right→E32.left。校庭の見た目・茂みの見せ方・勝手口TBD、画像生成blocked。 |
+| F84 | `F84` | 奥能登（被災前） | 廃校の校庭（被災前）。F18の被災前版。left←E29.right（茂みの小径の暫定入口）、right→E32.left。校庭の見た目・茂みの見せ方・勝手口TBD、画像生成blocked。 |

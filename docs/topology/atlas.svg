@@ -323,7 +323,7 @@
 <text x="25" y="966" class="small">N3.top ↔ F11.bottom</text>
 <text x="25" y="1008" class="small">F11.top ↔ E27.bottom</text>
 </g></g>
-<g transform="translate(1740 4097)"><g data-area="noto_train"><rect x="8" y="8" width="1084" height="483" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">能登への鉄道・1MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<g transform="translate(1740 4097)"><g data-area="noto_train"><rect x="8" y="8" width="1084" height="483" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">奥能登への鉄道・1MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
 <circle class="node" data-map="E28" cx="140" cy="160" r="30"/><text class="id" x="140" y="167">E28</text>
 <text x="140" y="213" class="label">雪で曇る窓と木製座席のの</text>
 <text x="140" y="234" class="label">と鉄道車内</text>
@@ -335,7 +335,7 @@
 <text x="65" y="362" class="small">E28.door-togishima ↔ E29.door-platform  [外部: noto_before]</text>
 <path class="door" data-reference-edge-id="E28.door-togishima&gt;E29.door-platform:door" data-kind="door" data-from="E28" data-to="E29" data-from-port="door-togishima" data-to-port="door-platform" d="M940 355 L1055 355"/>
 </g></g>
-<g transform="translate(3480 4097)"><g data-area="noto_before"><rect x="8" y="8" width="1084" height="1515" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">能登・被災前・8MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<g transform="translate(3480 4097)"><g data-area="noto_before"><rect x="8" y="8" width="1084" height="1515" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">奥能登・被災前・8MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
 <path class="edge" data-edge-id="E29.top&gt;N5.bottom:edge" data-kind="edge" data-from="E29" data-to="N5" data-from-port="top" data-to-port="bottom" d="M140 680 L140 420"/>
 <path class="edge" data-edge-id="N5.top&gt;N6.bottom:edge" data-kind="edge" data-from="N5" data-to="N6" data-from-port="top" data-to-port="bottom" d="M140 420 L140 160"/>
 <path class="edge" data-edge-id="N6.right&gt;N7.left:edge" data-kind="edge" data-from="N6" data-to="N7" data-from-port="right" data-to-port="left" d="M140 160 L460 160"/>
@@ -379,7 +379,7 @@
 <text x="25" y="1352" class="small">E29.right ↔ F84.left</text>
 <text x="25" y="1394" class="small">F84.right ↔ E32.left</text>
 </g></g>
-<g transform="translate(0 5658)"><g data-area="noto_after"><rect x="8" y="8" width="1084" height="1331" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">能登・被災後・7MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<g transform="translate(0 5658)"><g data-area="noto_after"><rect x="8" y="8" width="1084" height="1331" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">奥能登・被災後・7MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
 <path class="edge" data-edge-id="F12.top&gt;F13.bottom:edge" data-kind="edge" data-from="F12" data-to="F13" data-from-port="top" data-to-port="bottom" d="M140 600 L140 380"/>
 <path class="edge" data-edge-id="F13.top&gt;F14.bottom:edge" data-kind="edge" data-from="F13" data-to="F14" data-from-port="top" data-to-port="bottom" d="M140 380 L140 160"/>
 <path class="edge" data-edge-id="F14.right&gt;F15.left:edge" data-kind="edge" data-from="F14" data-to="F15" data-from-port="right" data-to-port="left" d="M140 160 L460 160"/>
