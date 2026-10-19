@@ -1,113 +1,113 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1840" height="1500" viewBox="0 0 1840 1500" role="img" aria-labelledby="title desc">
 <title id="title">改訂ダンジョン接続図</title><desc id="desc">兼六園と金沢城は北上、海外は階層、卯辰山は移動順。線は正本v2の承認された接続のみ。池や堀の正確な形と通行幅は示さない。</desc>
-<style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#20364a}.edge{stroke:#3f6556;stroke-width:4;fill:none}.door{stroke:#a45f30;stroke-width:4;stroke-dasharray:9 6;fill:none}.node{fill:#fff;stroke:#3f6556;stroke-width:3}.id{font-size:19px;font-weight:700;text-anchor:middle}.label{font-size:14px;text-anchor:middle}.note{font-size:15px;fill:#526574}</style>
+<style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#20364a}.edge{stroke:#3f6556;stroke-width:4;fill:none}.door{stroke:#a45f30;stroke-width:4;stroke-dasharray:9 6;fill:none}.node{fill:#fff;stroke:#3f6556;stroke-width:3}.id{font-size:14px;font-weight:700;text-anchor:middle}.label{font-size:14px;text-anchor:middle}.note{font-size:15px;fill:#526574}</style>
 <rect width="1840" height="1500" fill="#edf3f1"/><text x="30" y="40" font-size="27" font-weight="700">移動構造の改訂：兼六園・金沢城・海外三塔・卯辰山</text>
 <text x="30" y="70" class="note">実線＝屋外端接続／茶破線＝実在建物または階層の遷移。ゲーム設計の概念図。未生成・mask未確定・実装完了ではない。</text>
 <g transform="translate(20 95)"><rect width="890" height="670" rx="12" fill="#fbfdfb" stroke="#78948a" stroke-width="2"/><text x="20" y="32" font-size="21" font-weight="700">兼六園：北↑・13辺・独立閉路4本</text>
 <ellipse cx="560" cy="275" rx="95" ry="92" fill="#d5eaf1"/><text x="560" y="270" class="label">霞ヶ池・上段</text><ellipse cx="200" cy="405" rx="65" ry="45" fill="#c6e3ee"/><text x="200" y="410" class="label">瓢池・下段</text><ellipse cx="430" cy="445" rx="50" ry="27" fill="#d5eaf1"/><text x="430" y="450" class="label">長谷池</text>
-<path class="edge" d="M120 550 L130 330" data-from="F41" data-to="F43"/>
-<path class="edge" d="M120 550 L340 510" data-from="F41" data-to="F42"/>
-<path class="edge" d="M340 510 L360 320" data-from="F42" data-to="F44"/>
-<path class="edge" d="M340 510 L490 550" data-from="F42" data-to="F49"/>
-<path class="edge" d="M130 330 Q240 275 360 320" data-from="F43" data-to="F44"/>
-<path class="edge" d="M130 330 L140 100" data-from="F43" data-to="F50"/>
-<path class="edge" d="M360 320 Q390 180 470 160" data-from="F44" data-to="F45"/>
-<path class="edge" d="M470 160 Q650 120 710 235" data-from="F45" data-to="F46"/>
-<path class="edge" d="M470 160 L140 100" data-from="F45" data-to="F50"/>
-<path class="edge" d="M710 235 L690 410" data-from="F46" data-to="F47"/>
-<path class="edge" d="M690 410 L700 550" data-from="F47" data-to="F48"/>
-<path class="edge" d="M690 410 L490 550" data-from="F47" data-to="F49"/>
-<path class="edge" d="M700 550 L490 550" data-from="F48" data-to="F49"/>
-<circle class="node" data-map="F41" cx="120" cy="550" r="27"/><text class="id" x="120" y="557">F41</text><text class="label" x="120" y="598">真弓坂側入口</text>
-<circle class="node" data-map="F42" cx="340" cy="510" r="27"/><text class="id" x="340" y="517">F42</text><text class="label" x="340" y="558">時雨亭・長谷池</text>
-<circle class="node" data-map="F43" cx="130" cy="330" r="27"/><text class="id" x="130" y="337">F43</text><text class="label" x="130" y="378">瓢池・翠滝下段</text>
-<circle class="node" data-map="F44" cx="360" cy="320" r="27"/><text class="id" x="360" y="327">F44</text><text class="label" x="360" y="368">栄螺山・霞ヶ池西</text>
-<circle class="node" data-map="F45" cx="470" cy="160" r="27"/><text class="id" x="470" y="167">F45</text><text class="label" x="470" y="208">北岸・ことじ灯籠</text>
-<circle class="node" data-map="F46" cx="710" cy="235" r="27"/><text class="id" x="710" y="242">F46</text><text class="label" x="710" y="283">東岸・唐崎松</text>
-<circle class="node" data-map="F47" cx="690" cy="410" r="27"/><text class="id" x="690" y="417">F47</text><text class="label" x="690" y="458">曲水・根上松</text>
-<circle class="node" data-map="F48" cx="700" cy="550" r="27"/><text class="id" x="700" y="557">F48</text><text class="label" x="700" y="598">山崎山・花見橋側</text>
-<circle class="node" data-map="F49" cx="490" cy="550" r="27"/><text class="id" x="490" y="557">F49</text><text class="label" x="490" y="598">梅林・南周回</text>
-<circle class="node" data-map="F50" cx="140" cy="100" r="27"/><text class="id" x="140" y="107">F50</text><text class="label" x="140" y="148">桂坂口・石川橋</text>
+<path class="edge" d="M120 550 L130 330" data-from="GRD-01" data-to="GRD-03"/>
+<path class="edge" d="M120 550 L340 510" data-from="GRD-01" data-to="GRD-02"/>
+<path class="edge" d="M340 510 L360 320" data-from="GRD-02" data-to="GRD-04"/>
+<path class="edge" d="M340 510 L490 550" data-from="GRD-02" data-to="GRD-09"/>
+<path class="edge" d="M130 330 Q240 275 360 320" data-from="GRD-03" data-to="GRD-04"/>
+<path class="edge" d="M130 330 L140 100" data-from="GRD-03" data-to="GRD-10"/>
+<path class="edge" d="M360 320 Q390 180 470 160" data-from="GRD-04" data-to="GRD-05"/>
+<path class="edge" d="M470 160 Q650 120 710 235" data-from="GRD-05" data-to="GRD-06"/>
+<path class="edge" d="M470 160 L140 100" data-from="GRD-05" data-to="GRD-10"/>
+<path class="edge" d="M710 235 L690 410" data-from="GRD-06" data-to="GRD-07"/>
+<path class="edge" d="M690 410 L700 550" data-from="GRD-07" data-to="GRD-08"/>
+<path class="edge" d="M690 410 L490 550" data-from="GRD-07" data-to="GRD-09"/>
+<path class="edge" d="M700 550 L490 550" data-from="GRD-08" data-to="GRD-09"/>
+<circle class="node" data-map="GRD-01" cx="120" cy="550" r="32"/><text class="id" x="120" y="555">GRD-01</text><text class="label" x="120" y="603">真弓坂側入口</text>
+<circle class="node" data-map="GRD-02" cx="340" cy="510" r="32"/><text class="id" x="340" y="515">GRD-02</text><text class="label" x="340" y="563">時雨亭・長谷池</text>
+<circle class="node" data-map="GRD-03" cx="130" cy="330" r="32"/><text class="id" x="130" y="335">GRD-03</text><text class="label" x="130" y="383">瓢池・翠滝下段</text>
+<circle class="node" data-map="GRD-04" cx="360" cy="320" r="32"/><text class="id" x="360" y="325">GRD-04</text><text class="label" x="360" y="373">栄螺山・霞ヶ池西</text>
+<circle class="node" data-map="GRD-05" cx="470" cy="160" r="32"/><text class="id" x="470" y="165">GRD-05</text><text class="label" x="470" y="213">北岸・ことじ灯籠</text>
+<circle class="node" data-map="GRD-06" cx="710" cy="235" r="32"/><text class="id" x="710" y="240">GRD-06</text><text class="label" x="710" y="288">東岸・唐崎松</text>
+<circle class="node" data-map="GRD-07" cx="690" cy="410" r="32"/><text class="id" x="690" y="415">GRD-07</text><text class="label" x="690" y="463">曲水・根上松</text>
+<circle class="node" data-map="GRD-08" cx="700" cy="550" r="32"/><text class="id" x="700" y="555">GRD-08</text><text class="label" x="700" y="603">山崎山・花見橋側</text>
+<circle class="node" data-map="GRD-09" cx="490" cy="550" r="32"/><text class="id" x="490" y="555">GRD-09</text><text class="label" x="490" y="603">梅林・南周回</text>
+<circle class="node" data-map="GRD-10" cx="140" cy="100" r="32"/><text class="id" x="140" y="105">GRD-10</text><text class="label" x="140" y="153">桂坂口・石川橋</text>
 <text x="20" y="635" class="note">8地区は任意訪問。実在園路をまとめた接続概念図（縮尺・道幅ではない）</text>
 <text x="20" y="657" class="note">霞ヶ池（上段）→翠滝→瓢池（下段）／長谷池は別水面／池内は歩かない</text>
 </g>
 <g transform="translate(930 95)"><rect width="890" height="670" rx="12" fill="#fbfdfb" stroke="#78948a" stroke-width="2"/><text x="20" y="32" font-size="21" font-weight="700">金沢城：北↑・12辺・独立閉路3本</text>
-<path class="edge" d="M780 220 L590 220" data-from="F51" data-to="F52"/>
-<path class="edge" d="M590 220 L350 110" data-from="F52" data-to="F53"/>
-<path class="edge" d="M590 220 L490 340" data-from="F52" data-to="F54"/>
-<path class="edge" d="M590 220 L700 435" data-from="F52" data-to="F58"/>
-<path class="door" d="M350 110 L290 270" data-from="F53" data-to="F55"/>
-<path class="edge" d="M490 340 L290 270" data-from="F54" data-to="F55"/>
-<path class="door" d="M350 110 L490 340" data-from="F53" data-to="F54"/>
-<path class="edge" d="M290 270 L100 425" data-from="F55" data-to="F56"/>
-<path class="edge" d="M290 270 L330 465" data-from="F55" data-to="F57"/>
-<path class="edge" d="M330 465 L510 560" data-from="F57" data-to="F59"/>
-<path class="edge" d="M700 435 L510 560" data-from="F58" data-to="F59"/>
-<path class="door" d="M510 560 L720 570" data-from="F59" data-to="F60"/>
-<circle class="node" data-map="F51" cx="780" cy="220" r="27"/><text class="id" x="780" y="227">F51</text><text class="label" x="780" y="268">石川門</text>
-<circle class="node" data-map="F52" cx="590" cy="220" r="27"/><text class="id" x="590" y="227">F52</text><text class="label" x="590" y="268">三の丸</text>
-<circle class="node" data-map="F53" cx="350" cy="110" r="27"/><text class="id" x="350" y="117">F53</text><text class="label" x="350" y="158">菱櫓・五十間長屋</text>
-<circle class="node" data-map="F54" cx="490" cy="340" r="27"/><text class="id" x="490" y="347">F54</text><text class="label" x="490" y="388">橋爪門・続櫓</text>
-<circle class="node" data-map="F55" cx="290" cy="270" r="27"/><text class="id" x="290" y="277">F55</text><text class="label" x="290" y="318">二の丸</text>
-<circle class="node" data-map="F56" cx="100" cy="425" r="27"/><text class="id" x="100" y="432">F56</text><text class="label" x="100" y="473">玉泉院丸（低地）</text>
-<circle class="node" data-map="F57" cx="330" cy="465" r="27"/><text class="id" x="330" y="472">F57</text><text class="label" x="330" y="513">極楽橋・本丸附段</text>
-<circle class="node" data-map="F58" cx="700" cy="435" r="27"/><text class="id" x="700" y="442">F58</text><text class="label" x="700" y="483">鶴の丸・東の丸</text>
-<circle class="node" data-map="F59" cx="510" cy="560" r="27"/><text class="id" x="510" y="567">F59</text><text class="label" x="510" y="608">本丸（高所）</text>
-<circle class="node" data-map="F60" cx="720" cy="570" r="27"/><text class="id" x="720" y="577">F60</text><text class="label" x="720" y="618">架空天守・上層</text>
+<path class="edge" d="M780 220 L590 220" data-from="CST-01" data-to="CST-02"/>
+<path class="edge" d="M590 220 L350 110" data-from="CST-02" data-to="CST-03"/>
+<path class="edge" d="M590 220 L490 340" data-from="CST-02" data-to="CST-04"/>
+<path class="edge" d="M590 220 L700 435" data-from="CST-02" data-to="CST-08"/>
+<path class="door" d="M350 110 L290 270" data-from="CST-03" data-to="CST-05"/>
+<path class="edge" d="M490 340 L290 270" data-from="CST-04" data-to="CST-05"/>
+<path class="door" d="M350 110 L490 340" data-from="CST-03" data-to="CST-04"/>
+<path class="edge" d="M290 270 L100 425" data-from="CST-05" data-to="CST-06"/>
+<path class="edge" d="M290 270 L330 465" data-from="CST-05" data-to="CST-07"/>
+<path class="edge" d="M330 465 L510 560" data-from="CST-07" data-to="CST-09"/>
+<path class="edge" d="M700 435 L510 560" data-from="CST-08" data-to="CST-09"/>
+<path class="door" d="M510 560 L720 570" data-from="CST-09" data-to="CST-10"/>
+<circle class="node" data-map="CST-01" cx="780" cy="220" r="32"/><text class="id" x="780" y="225">CST-01</text><text class="label" x="780" y="273">石川門</text>
+<circle class="node" data-map="CST-02" cx="590" cy="220" r="32"/><text class="id" x="590" y="225">CST-02</text><text class="label" x="590" y="273">三の丸</text>
+<circle class="node" data-map="CST-03" cx="350" cy="110" r="32"/><text class="id" x="350" y="115">CST-03</text><text class="label" x="350" y="163">菱櫓・五十間長屋</text>
+<circle class="node" data-map="CST-04" cx="490" cy="340" r="32"/><text class="id" x="490" y="345">CST-04</text><text class="label" x="490" y="393">橋爪門・続櫓</text>
+<circle class="node" data-map="CST-05" cx="290" cy="270" r="32"/><text class="id" x="290" y="275">CST-05</text><text class="label" x="290" y="323">二の丸</text>
+<circle class="node" data-map="CST-06" cx="100" cy="425" r="32"/><text class="id" x="100" y="430">CST-06</text><text class="label" x="100" y="478">玉泉院丸（低地）</text>
+<circle class="node" data-map="CST-07" cx="330" cy="465" r="32"/><text class="id" x="330" y="470">CST-07</text><text class="label" x="330" y="518">極楽橋・本丸附段</text>
+<circle class="node" data-map="CST-08" cx="700" cy="435" r="32"/><text class="id" x="700" y="440">CST-08</text><text class="label" x="700" y="488">鶴の丸・東の丸</text>
+<circle class="node" data-map="CST-09" cx="510" cy="560" r="32"/><text class="id" x="510" y="565">CST-09</text><text class="label" x="510" y="613">本丸（高所）</text>
+<circle class="node" data-map="CST-10" cx="720" cy="570" r="32"/><text class="id" x="720" y="575">CST-10</text><text class="label" x="720" y="623">架空天守・上層</text>
 <text x="20" y="635" class="note">三の丸の西＝二の丸／二の丸の南の高所＝本丸／玉泉院丸は低地</text>
-<text x="20" y="657" class="note">攻略目標：F53・F56・F58（任意順）→本丸→架空天守。戦闘・解錠TBD</text>
+<text x="20" y="657" class="note">攻略目標：CST-03・CST-06・CST-08（任意順）→本丸→架空天守。戦闘・解錠TBD</text>
 </g>
 <g transform="translate(20 785)"><rect width="1130" height="690" rx="12" fill="#fbfdfb" stroke="#78948a" stroke-width="2"/><text x="20" y="32" font-size="21" font-weight="700">海外：左右攻略2塔＋脱出第3塔（すべて5階）</text>
-<path class="door" d="M350 555 L140 465" data-from="F30" data-to="F31"/>
-<path class="door" d="M350 555 L520 465" data-from="F30" data-to="F34"/>
-<path class="door" d="M140 465 L140 375" data-from="F31" data-to="F66"/>
-<path class="door" d="M140 375 L140 285" data-from="F66" data-to="F32"/>
-<path class="door" d="M140 285 L140 195" data-from="F32" data-to="F67"/>
-<path class="door" d="M140 195 L140 105" data-from="F67" data-to="F33"/>
-<path class="door" d="M520 465 L520 375" data-from="F34" data-to="F68"/>
-<path class="door" d="M520 375 L520 285" data-from="F68" data-to="F35"/>
-<path class="door" d="M520 285 L520 195" data-from="F35" data-to="F69"/>
-<path class="door" d="M520 195 L520 105" data-from="F69" data-to="F36"/>
-<path class="door" d="M140 105 L340 65" data-from="F33" data-to="F37"/>
-<path class="door" d="M520 105 L340 65" data-from="F36" data-to="F37"/>
-<path class="door" d="M340 65 L900 105" data-from="F37" data-to="F70"/>
-<path class="door" d="M900 105 L900 215" data-from="F70" data-to="F71"/>
-<path class="door" d="M900 215 L900 325" data-from="F71" data-to="F72"/>
-<path class="door" d="M900 325 L900 435" data-from="F72" data-to="F73"/>
-<path class="door" d="M900 435 L900 545" data-from="F73" data-to="F38"/>
-<circle class="node" data-map="F30" cx="350" cy="555" r="27"/><text class="id" x="350" y="562">F30</text><text class="label" x="350" y="603">共通基壇</text>
-<circle class="node" data-map="F31" cx="140" cy="465" r="27"/><text class="id" x="140" y="472">F31</text><text class="label" x="140" y="513">左1F</text>
-<circle class="node" data-map="F66" cx="140" cy="375" r="27"/><text class="id" x="140" y="382">F66</text><text class="label" x="140" y="423">左2F</text>
-<circle class="node" data-map="F32" cx="140" cy="285" r="27"/><text class="id" x="140" y="292">F32</text><text class="label" x="140" y="333">左3F</text>
-<circle class="node" data-map="F67" cx="140" cy="195" r="27"/><text class="id" x="140" y="202">F67</text><text class="label" x="140" y="243">左4F</text>
-<circle class="node" data-map="F33" cx="140" cy="105" r="27"/><text class="id" x="140" y="112">F33</text><text class="label" x="140" y="153">左5F・魔法のみ</text>
-<circle class="node" data-map="F34" cx="520" cy="465" r="27"/><text class="id" x="520" y="472">F34</text><text class="label" x="520" y="513">右1F</text>
-<circle class="node" data-map="F68" cx="520" cy="375" r="27"/><text class="id" x="520" y="382">F68</text><text class="label" x="520" y="423">右2F</text>
-<circle class="node" data-map="F35" cx="520" cy="285" r="27"/><text class="id" x="520" y="292">F35</text><text class="label" x="520" y="333">右3F</text>
-<circle class="node" data-map="F69" cx="520" cy="195" r="27"/><text class="id" x="520" y="202">F69</text><text class="label" x="520" y="243">右4F</text>
-<circle class="node" data-map="F36" cx="520" cy="105" r="27"/><text class="id" x="520" y="112">F36</text><text class="label" x="520" y="153">右5F・アビリティのみ</text>
-<circle class="node" data-map="F37" cx="340" cy="65" r="27"/><text class="id" x="340" y="72">F37</text><text class="label" x="340" y="113">空中通路・雑魚共闘</text>
-<circle class="node" data-map="F70" cx="900" cy="105" r="27"/><text class="id" x="900" y="112">F70</text><text class="label" x="900" y="153">第3塔5F</text>
-<circle class="node" data-map="F71" cx="900" cy="215" r="27"/><text class="id" x="900" y="222">F71</text><text class="label" x="900" y="263">第3塔4F</text>
-<circle class="node" data-map="F72" cx="900" cy="325" r="27"/><text class="id" x="900" y="332">F72</text><text class="label" x="900" y="373">第3塔3F</text>
-<circle class="node" data-map="F73" cx="900" cy="435" r="27"/><text class="id" x="900" y="442">F73</text><text class="label" x="900" y="483">第3塔2F</text>
-<circle class="node" data-map="F38" cx="900" cy="545" r="27"/><text class="id" x="900" y="552">F38</text><text class="label" x="900" y="593">第3塔1F・S005</text>
+<path class="door" d="M350 555 L140 465" data-from="OVS-04" data-to="OVS-05"/>
+<path class="door" d="M350 555 L520 465" data-from="OVS-04" data-to="OVS-10"/>
+<path class="door" d="M140 465 L140 375" data-from="OVS-05" data-to="OVS-06"/>
+<path class="door" d="M140 375 L140 285" data-from="OVS-06" data-to="OVS-07"/>
+<path class="door" d="M140 285 L140 195" data-from="OVS-07" data-to="OVS-08"/>
+<path class="door" d="M140 195 L140 105" data-from="OVS-08" data-to="OVS-09"/>
+<path class="door" d="M520 465 L520 375" data-from="OVS-10" data-to="OVS-11"/>
+<path class="door" d="M520 375 L520 285" data-from="OVS-11" data-to="OVS-12"/>
+<path class="door" d="M520 285 L520 195" data-from="OVS-12" data-to="OVS-13"/>
+<path class="door" d="M520 195 L520 105" data-from="OVS-13" data-to="OVS-14"/>
+<path class="door" d="M140 105 L340 65" data-from="OVS-09" data-to="OVS-15"/>
+<path class="door" d="M520 105 L340 65" data-from="OVS-14" data-to="OVS-15"/>
+<path class="door" d="M340 65 L900 105" data-from="OVS-15" data-to="OVS-16"/>
+<path class="door" d="M900 105 L900 215" data-from="OVS-16" data-to="OVS-17"/>
+<path class="door" d="M900 215 L900 325" data-from="OVS-17" data-to="OVS-18"/>
+<path class="door" d="M900 325 L900 435" data-from="OVS-18" data-to="OVS-19"/>
+<path class="door" d="M900 435 L900 545" data-from="OVS-19" data-to="OVS-20"/>
+<circle class="node" data-map="OVS-04" cx="350" cy="555" r="32"/><text class="id" x="350" y="560">OVS-04</text><text class="label" x="350" y="608">共通基壇</text>
+<circle class="node" data-map="OVS-05" cx="140" cy="465" r="32"/><text class="id" x="140" y="470">OVS-05</text><text class="label" x="140" y="518">左1F</text>
+<circle class="node" data-map="OVS-06" cx="140" cy="375" r="32"/><text class="id" x="140" y="380">OVS-06</text><text class="label" x="140" y="428">左2F</text>
+<circle class="node" data-map="OVS-07" cx="140" cy="285" r="32"/><text class="id" x="140" y="290">OVS-07</text><text class="label" x="140" y="338">左3F</text>
+<circle class="node" data-map="OVS-08" cx="140" cy="195" r="32"/><text class="id" x="140" y="200">OVS-08</text><text class="label" x="140" y="248">左4F</text>
+<circle class="node" data-map="OVS-09" cx="140" cy="105" r="32"/><text class="id" x="140" y="110">OVS-09</text><text class="label" x="140" y="158">左5F・魔法のみ</text>
+<circle class="node" data-map="OVS-10" cx="520" cy="465" r="32"/><text class="id" x="520" y="470">OVS-10</text><text class="label" x="520" y="518">右1F</text>
+<circle class="node" data-map="OVS-11" cx="520" cy="375" r="32"/><text class="id" x="520" y="380">OVS-11</text><text class="label" x="520" y="428">右2F</text>
+<circle class="node" data-map="OVS-12" cx="520" cy="285" r="32"/><text class="id" x="520" y="290">OVS-12</text><text class="label" x="520" y="338">右3F</text>
+<circle class="node" data-map="OVS-13" cx="520" cy="195" r="32"/><text class="id" x="520" y="200">OVS-13</text><text class="label" x="520" y="248">右4F</text>
+<circle class="node" data-map="OVS-14" cx="520" cy="105" r="32"/><text class="id" x="520" y="110">OVS-14</text><text class="label" x="520" y="158">右5F・アビリティのみ</text>
+<circle class="node" data-map="OVS-15" cx="340" cy="65" r="32"/><text class="id" x="340" y="70">OVS-15</text><text class="label" x="340" y="118">空中通路・雑魚共闘</text>
+<circle class="node" data-map="OVS-16" cx="900" cy="105" r="32"/><text class="id" x="900" y="110">OVS-16</text><text class="label" x="900" y="158">第3塔5F</text>
+<circle class="node" data-map="OVS-17" cx="900" cy="215" r="32"/><text class="id" x="900" y="220">OVS-17</text><text class="label" x="900" y="268">第3塔4F</text>
+<circle class="node" data-map="OVS-18" cx="900" cy="325" r="32"/><text class="id" x="900" y="330">OVS-18</text><text class="label" x="900" y="378">第3塔3F</text>
+<circle class="node" data-map="OVS-19" cx="900" cy="435" r="32"/><text class="id" x="900" y="440">OVS-19</text><text class="label" x="900" y="488">第3塔2F</text>
+<circle class="node" data-map="OVS-20" cx="900" cy="545" r="32"/><text class="id" x="900" y="550">OVS-20</text><text class="label" x="900" y="598">第3塔1F・S005</text>
 <text x="20" y="655" class="note">左5F＝魔法のみ／右5F＝アビリティのみ。任意順→2体目撃破→空中通路でシャーと雑魚共闘</text>
 <text x="20" y="677" class="note">共闘終了＝タイマー開始・第3塔初解放。全階同程度の広さで宝箱を選び下降→S005戦（時間継続）→実際の脱出で終了</text>
 </g>
 <g transform="translate(1170 785)"><rect width="650" height="690" rx="12" fill="#fbfdfb" stroke="#78948a" stroke-width="2"/><text x="20" y="32" font-size="21" font-weight="700">卯辰山：上・斜め上へ曲がる一本道</text>
-<path class="edge" d="M140 550 L360 445" data-from="N8" data-to="E22"/>
-<path class="edge" d="M360 445 L160 340" data-from="E22" data-to="F04"/>
-<path class="edge" d="M160 340 L370 235" data-from="F04" data-to="F05"/>
-<path class="edge" d="M370 235 L180 130" data-from="F05" data-to="F06"/>
-<circle class="node" data-map="N8" cx="140" cy="550" r="27"/><text class="id" x="140" y="557">N8</text><text class="label" x="140" y="598">浅野川橋・登り口</text>
-<circle class="node" data-map="E22" cx="360" cy="445" r="27"/><text class="id" x="360" y="452">E22</text><text class="label" x="360" y="493">山腹の蛇行路</text>
-<circle class="node" data-map="F04" cx="160" cy="340" r="27"/><text class="id" x="160" y="347">F04</text><text class="label" x="160" y="388">尾根の折返し</text>
-<circle class="node" data-map="F05" cx="370" cy="235" r="27"/><text class="id" x="370" y="242">F05</text><text class="label" x="370" y="283">石垣沿いの蛇行坂</text>
-<circle class="node" data-map="F06" cx="180" cy="130" r="27"/><text class="id" x="180" y="137">F06</text><text class="label" x="180" y="178">山頂・S002戦</text>
-<text x="20" y="633" class="note">分岐・宝箱脇道・近道なし。F06北→F07へ</text>
+<path class="edge" d="M140 550 L360 445" data-from="UTS-01" data-to="UTS-02"/>
+<path class="edge" d="M360 445 L160 340" data-from="UTS-02" data-to="UTS-03"/>
+<path class="edge" d="M160 340 L370 235" data-from="UTS-03" data-to="UTS-04"/>
+<path class="edge" d="M370 235 L180 130" data-from="UTS-04" data-to="UTS-05"/>
+<circle class="node" data-map="UTS-01" cx="140" cy="550" r="32"/><text class="id" x="140" y="555">UTS-01</text><text class="label" x="140" y="603">浅野川橋・登り口</text>
+<circle class="node" data-map="UTS-02" cx="360" cy="445" r="32"/><text class="id" x="360" y="450">UTS-02</text><text class="label" x="360" y="498">山腹の蛇行路</text>
+<circle class="node" data-map="UTS-03" cx="160" cy="340" r="32"/><text class="id" x="160" y="345">UTS-03</text><text class="label" x="160" y="393">尾根の折返し</text>
+<circle class="node" data-map="UTS-04" cx="370" cy="235" r="32"/><text class="id" x="370" y="240">UTS-04</text><text class="label" x="370" y="288">石垣沿いの蛇行坂</text>
+<circle class="node" data-map="UTS-05" cx="180" cy="130" r="32"/><text class="id" x="180" y="135">UTS-05</text><text class="label" x="180" y="183">山頂・S002戦</text>
+<text x="20" y="633" class="note">分岐・宝箱脇道・近道なし。UTS-05北→SNL-01へ</text>
 <text x="20" y="655" class="note">サニーランドの双方向円環はsunnyland.svg参照</text>
 <text x="20" y="677" class="note">下り廊下は約2MAP。階段のassist・幅はTBD</text>
 </g>
-<path class="edge" d="M160 168 L25 168 L25 87 L1710 87 L1710 288" data-from="F50" data-to="F51"/><rect x="770" y="76" width="360" height="23" fill="#edf3f1"/><text x="950" y="93" class="label">F50石川橋・M013戦 → 北へF51石川門</text>
+<path class="edge" d="M160 168 L25 168 L25 87 L1710 87 L1710 288" data-from="GRD-10" data-to="CST-01"/><rect x="770" y="76" width="360" height="23" fill="#edf3f1"/><text x="950" y="93" class="label">GRD-10石川橋・M013戦 → 北へCST-01石川門</text>
 </svg>

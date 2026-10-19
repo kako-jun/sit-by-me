@@ -21,7 +21,7 @@ Find evidence that a proposed or generated artifact is wrong before it is adopte
 
 ## Inputs and canonical sources
 
-Use the #68 migration ledger for actual paths: `assets/images/{enemies,summons,characters,fields,battle-backgrounds}/`. Match canonical M/S/C/E/N/F/BG IDs and distinguish reference and legacy roles (pre-processing originals/raw are not kept). There is no candidate folder or version suffix: new generations overwrite the canonical path (committed if kept, reverted via git if not). Adoption is the ledger status, never the file location; a file at a canonical path proves neither adoption nor a passed review. Review the exact committed version (commit hash). Historical reviews retain old paths; follow the relocation/deletion ledger and source commit rather than treating tombstones as live inputs.
+Use the #68 migration ledger for actual paths: `assets/images/{enemies,summons,characters,fields,battle-backgrounds}/`. Match canonical M/S/C/BG IDs and MAP IDs (area code + sequence, e.g. TRM-01) and distinguish reference and legacy roles (pre-processing originals/raw are not kept). There is no candidate folder or version suffix: new generations overwrite the canonical path (committed if kept, reverted via git if not). Adoption is the ledger status, never the file location; a file at a canonical path proves neither adoption nor a passed review. Review the exact committed version (commit hash). Historical reviews retain old paths; follow the relocation/deletion ledger and source commit rather than treating tombstones as live inputs.
 
 For a MAP review, first read:
 

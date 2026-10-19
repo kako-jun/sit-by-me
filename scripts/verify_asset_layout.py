@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 import re
 
+MAP_ID = r'(?:TRM|KRB|STN|NTR|NTB|UTS|SNL|SCH|NTA|UCH|BDY|APT|OVS|GRD|CST)-\d{2}'
+
 def verify(root):
     root = root.resolve()
     manifest = json.loads((root / 'docs/production/20261018-asset-migration.json').read_text())
@@ -37,10 +39,11 @@ def verify(root):
             r'enemies/M\d{3}\.webp',
             r'summons/S\d{3}\.webp',
             r'characters/(C00[1-4])/(?:masters|poses|walk)/\1-[^/]+\.webp',
-            r'fields/legacy/E\d{2}(?:-[\w-]+)?\.png',
-            r'fields/legacy/masks/E\d{2}[-\w]+\.png',
-            # 外観参照は非可逆WebP(品質85)。fields/legacy・masksはPR-M(MAP改名)までPNGのまま
-            r'fields/reference/[a-z0-9]+(?:-[a-z0-9]+)*\.(?:png|webp)',
+            # MAP画像は区域コード+連番(docs/production/20261019-map-id-renumber.json)。背景は非可逆WebP(品質85)、マスクは可逆WebP
+            rf'fields/legacy/{MAP_ID}(?:-[\w-]+)?\.webp',
+            rf'fields/legacy/masks/{MAP_ID}[-\w]+\.webp',
+            # 外観参照は非可逆WebP(品質85)
+            r'fields/reference/[a-z0-9]+(?:-[a-z0-9]+)*\.webp',
             r'battle-backgrounds/BG\d{3}\.webp',
             r'brand/logo\.(?:svg|png)',
         )

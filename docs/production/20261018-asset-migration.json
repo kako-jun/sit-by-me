@@ -3380,108 +3380,108 @@
     },
     {
       "old": "sample/field/diorama-trial/abandoned-school-diorama.png",
-      "new": "assets/images/fields/legacy/E32.png",
+      "new": "assets/images/fields/legacy/NTB-08.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "cb444439a9ccc891e62922a970551c2befa205ca81ef2a89d0f4eeb3dfa0d588"
+      "sha256": "ef0ca8cbacc41a1cd39c727129d78b9c0fcddf0516bbfd2c0f2b2b448e7463c4"
     },
     {
       "old": "sample/field/diorama-trial/chaya-lane-diorama.png",
-      "new": "assets/images/fields/legacy/E17.png",
+      "new": "assets/images/fields/legacy/KRB-08.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "106006728a2c10a67c786d397a3b2a3ab46ee03acc0116037b76fdc5ccf48b48"
+      "sha256": "3f5ccdc302e354499bbfd489aeb0690b45ac2f1110a0784c716149ce41d8e7b6"
     },
     {
       "old": "sample/field/diorama-trial/chaya-lane-v2.png",
-      "new": "assets/images/fields/legacy/E17-v2.png",
+      "new": "assets/images/fields/legacy/KRB-08-v2.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "0d12ccb9751fe6933de7e47b22430e92420e68930f31f70e9199ce06cdbfef68"
+      "sha256": "bbc1b392edd826c51f312e84e0ef7e364825cd21390f77894ad5c3f378084244"
     },
     {
       "old": "sample/field/diorama-trial/chaya-tearoom-diorama.png",
-      "new": "assets/images/fields/legacy/E18.png",
+      "new": "assets/images/fields/legacy/KRB-09.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "13aaad89fa674ec75132bff394bc0814da9e4fab7a593eb9f5d739ec96d0e5b6"
+      "sha256": "003a67d864abd999f68b698daa341d8b05026b2b076ece01266094b41c491a5d"
     },
     {
       "old": "sample/field/diorama-trial/convenience-store-diorama.png",
-      "new": "assets/images/fields/legacy/E19.png",
+      "new": "assets/images/fields/legacy/KRB-10.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "5f8eeedaa3c10fe2266090c509862e9bfd3415bb8de47a4925cf4ababed70534"
+      "sha256": "96b45b5024e43561a2369e2698bda0a46dda12c19719743ace1f9781316fc819"
     },
     {
       "old": "sample/field/diorama-trial/hospital-exterior-diorama.png",
-      "new": "assets/images/fields/legacy/E20.png",
+      "new": "assets/images/fields/legacy/KRB-13.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "c50e9c993ff331d96e64869be39992c800fdb9ee5021c4c1b868b76c4347455b"
+      "sha256": "a729141051aff89bcd515f488ef60e4f8f0eda3d0c0c08e7413d40504e92f24a"
     },
     {
       "old": "sample/field/diorama-trial/korimon-station-plaza-diorama.png",
-      "new": "assets/images/fields/legacy/E21-v1.png",
+      "new": "assets/images/fields/legacy/STN-01-v1.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "995434d141a33e3eb7aa772229e8a241b66c096ea5da04cee0e92fc5f78825cc"
+      "sha256": "1d7ce0787ba7ebd0ca3bf7adb074ccf6bd10e100c2302fb1a025f009559c0c92"
     },
     {
       "old": "sample/field/diorama-trial/korimon-station-plaza-v2.png",
-      "new": "assets/images/fields/legacy/E21-v2.png",
+      "new": "assets/images/fields/legacy/STN-01-v2.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "1da7ed667e52264c1fdbdea4c24b15609ce47d7dd846fe94bbf568810877f1eb"
+      "sha256": "026a9dba37a62566225436f3f04a43ead08a8bf67f459741b9bd98f8becc6081"
     },
     {
       "old": "sample/field/diorama-trial/korimon-station-plaza-v3-diorama.png",
-      "new": "assets/images/fields/legacy/E21.png",
+      "new": "assets/images/fields/legacy/STN-01.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "52661bc37efe41dbdaa0b808fc6a05d6e3a267217ca5f83cd3d21adecf59eb2a"
+      "sha256": "a1bc6dca49838e646854a5fd2f6b0a65ec07dad7995828e4e1a0db3941e4eb16"
     },
     {
       "old": "sample/field/diorama-trial/korinbo-crossroads-diorama.png",
-      "new": "assets/images/fields/legacy/E14.png",
+      "new": "assets/images/fields/legacy/KRB-01.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "8d0c33a45a5f91396a71157280df9c6f6d5f634b833bba505e5d5d79640176f4"
+      "sha256": "0469c43dd7650c9236b9a027bf2620e2608f7d8ad983422a34a17c48fcdd3975"
     },
     {
       "old": "sample/field/diorama-trial/korinbo-daiwa-toy-floor-diorama.png",
-      "new": "assets/images/fields/legacy/E15.png",
+      "new": "assets/images/fields/legacy/KRB-04.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "f981538a434b35d5ace449b99013803d7aa7aea244ed9ae0cf36b660df955b29"
+      "sha256": "47fa7bb2e94ac9fe91804e3972ef388ac880df7c2f125276ad27edcd52c38e4c"
     },
     {
       "old": "sample/field/diorama-trial/korinbo-department-restaurant-diorama-v2.png",
-      "new": "assets/images/fields/legacy/E16.png",
+      "new": "assets/images/fields/legacy/KRB-06.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "225e2314891d7ea0d2c9cf4beeadca4420992fd8da754f97635861d6f2d93443"
+      "sha256": "64d23eca6dccdea69cecc80a755d4838ec2b8956adf1a101098b944d70e1ec63"
     },
     {
       "old": "sample/field/diorama-trial/korinbo-department-restaurant-diorama.png",
-      "new": "assets/images/fields/legacy/E16-v1.png",
+      "new": "assets/images/fields/legacy/KRB-06-v1.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "af9d389a48d4b0719a09c98debf9a02c6cd576c438d2028a7ee38b91125f56ca"
+      "sha256": "9b4fad00e638689633850c3981018572ec0b49a16d1b17938398c84fdf648179"
     },
     {
       "old": "sample/field/diorama-trial/masks/barrier-free-ramp-mask-overlay.png",
-      "new": "assets/images/fields/legacy/masks/E07-mask-overlay.png",
+      "new": "assets/images/fields/legacy/masks/TRM-10-mask-overlay.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "35aeea1e1e27b7215be2fbc54012f3ce20ae1e9682eebabfae4317b53c1a04b6"
+      "sha256": "cd53222649a9d3985967f6b9e19882bc7d50f8d8bedd3769b6f9d0c1b8235436"
     },
     {
       "old": "sample/field/diorama-trial/masks/barrier-free-ramp-mask.png",
-      "new": "assets/images/fields/legacy/masks/E07-mask.png",
+      "new": "assets/images/fields/legacy/masks/TRM-10-mask.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "d255fd1998ec69cc22635363eb105fc3a158c5e0d96bc1dd61a77e954b96e4a1"
+      "sha256": "736d0184cbad23d0d57d7e29bc6b132adee3f95835564bf65fca9c681bf3d4b5"
     },
     {
       "old": "sample/field/diorama-trial/masks/barrier-free-ramp.json",
@@ -3493,17 +3493,17 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/connector-mask-overlay.png",
-      "new": "assets/images/fields/legacy/masks/E02-mask-overlay.png",
+      "new": "assets/images/fields/legacy/masks/TRM-16-mask-overlay.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "cd1312413dffaa2fb5a763aad1573bce82e95412d30394dd69b7da02edd84e65"
+      "sha256": "d2ef5c0f1df8a174c0d58d5f6eda6ff9385651d079bfb5d26066aa8e6988b018"
     },
     {
       "old": "sample/field/diorama-trial/masks/connector-mask.png",
-      "new": "assets/images/fields/legacy/masks/E02-mask.png",
+      "new": "assets/images/fields/legacy/masks/TRM-16-mask.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "5de958c2d401601b79b60da6b1524ba03c0f08ac3fb0ab226b29d39218bb700b"
+      "sha256": "4885b43122f85a60515de0b208b27267823dcc03109af72e0fcf985545495e01"
     },
     {
       "old": "sample/field/diorama-trial/masks/connector.json",
@@ -3515,17 +3515,17 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/danchi-court-mask-overlay.png",
-      "new": "assets/images/fields/legacy/masks/E08-mask-overlay.png",
+      "new": "assets/images/fields/legacy/masks/TRM-11-mask-overlay.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "d15c7736ad6145a5fb10b21dd4aea8ef23f71b1f6aa8fdb12670ba3163e7c65c"
+      "sha256": "ba1d15cc3773d5380b606c92b3769e399b54400b151d22131e9f012767042f57"
     },
     {
       "old": "sample/field/diorama-trial/masks/danchi-court-mask.png",
-      "new": "assets/images/fields/legacy/masks/E08-mask.png",
+      "new": "assets/images/fields/legacy/masks/TRM-11-mask.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "085c3a091cbce188b77b984c7a372bd5239620ffc3b6c4c9a2ca741a0d23adb0"
+      "sha256": "3a960ae046ed564878f81bad89930121dd5ec09bda67a751fad2254045770c69"
     },
     {
       "old": "sample/field/diorama-trial/masks/danchi-court.json",
@@ -3537,17 +3537,17 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/hinomi-bend-mask-overlay.png",
-      "new": "assets/images/fields/legacy/masks/E03-mask-overlay.png",
+      "new": "assets/images/fields/legacy/masks/TRM-15-mask-overlay.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "1358a05e9c9a318da4d43b0dbf7f87c7c5be66654e8b676f5875adff790ae459"
+      "sha256": "693be810f86823b789ab31e10dc904433fecf994fd612f62502c6226fe78e8f2"
     },
     {
       "old": "sample/field/diorama-trial/masks/hinomi-bend-mask.png",
-      "new": "assets/images/fields/legacy/masks/E03-mask.png",
+      "new": "assets/images/fields/legacy/masks/TRM-15-mask.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "6263a5cc35c835e1dcbc2e13e25148859a5f2a07a500bfc81a8a05817ecc0ceb"
+      "sha256": "aba906a15fe19ba5db0df8e26bf092751a0f4efd78eb0d910e6fb92fc20e207f"
     },
     {
       "old": "sample/field/diorama-trial/masks/hinomi-bend.json",
@@ -3559,17 +3559,17 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/kindergarten-mask-overlay.png",
-      "new": "assets/images/fields/legacy/masks/E01-mask-overlay.png",
+      "new": "assets/images/fields/legacy/masks/TRM-01-mask-overlay.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "58a2b2900ddf59e6434555d720ba361af06a5f7f7500b6642628a87005ab53e6"
+      "sha256": "bb6f646204af39f34c9e06d00ba67334a53387165f91466079c6c38a6f849766"
     },
     {
       "old": "sample/field/diorama-trial/masks/kindergarten-mask.png",
-      "new": "assets/images/fields/legacy/masks/E01-mask.png",
+      "new": "assets/images/fields/legacy/masks/TRM-01-mask.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "fcf879e12b0dc9543375e5f30c8f599559636516ec24757682de679478761ba7"
+      "sha256": "307b2640768160c1279f6a847fe60e2322d58ab0de87b4be526d6a5c05cd9e6b"
     },
     {
       "old": "sample/field/diorama-trial/masks/kindergarten.json",
@@ -3581,73 +3581,73 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/link-check/barrier-free-ramp-bottom__danchi-court-top.png",
-      "new": "assets/images/fields/legacy/masks/E07-bottom__E08-top.png",
+      "new": "assets/images/fields/legacy/masks/TRM-10-bottom__TRM-11-top.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "2fd009bc84b32bb0fc927c779ab66846316c3fcc0bd3ad9000468be85e028049"
+      "sha256": "8127ecc30164a999200afed704768bb28ea255dab45504836e5b3f498015efe2"
     },
     {
       "old": "sample/field/diorama-trial/masks/link-check/connector-right__hinomi-bend-left.png",
-      "new": "assets/images/fields/legacy/masks/E02-right__E03-left.png",
+      "new": "assets/images/fields/legacy/masks/TRM-16-right__TRM-15-left.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "dc716ca49cd4e37143f901a81197957329f836779a25febee3480255a204d516"
+      "sha256": "5270e3821460c41c004dcaa807381aa613618acd2289e39edad2031ef0104606"
     },
     {
       "old": "sample/field/diorama-trial/masks/link-check/hinomi-bend-bottom__narrow-lane-top.png",
-      "new": "assets/images/fields/legacy/masks/E03-bottom__E10-top.png",
+      "new": "assets/images/fields/legacy/masks/TRM-15-bottom__TRM-06-top.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "333068161ace84ffdf4967451d750d6cd836af78082064c3f327f0f39f267174"
+      "sha256": "43a6f44f5122c25397ecd985904dca7ec2600fed070472f925ec784aa778e66d"
     },
     {
       "old": "sample/field/diorama-trial/masks/link-check/hinomi-bend-right__wide-road-left.png",
-      "new": "assets/images/fields/legacy/masks/E03-right__E04-left.png",
+      "new": "assets/images/fields/legacy/masks/TRM-15-right__TRM-07-left.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "af7cd0601460f6581ea2b68f9ca7637c29006510140104461e1a1a97cd10a67f"
+      "sha256": "cbd9178e0c62d2501f0b44694e8c8cd49f0b8566fa2b9c24c65e1f1de76105e1"
     },
     {
       "old": "sample/field/diorama-trial/masks/link-check/kindergarten-bottom__connector-top.png",
-      "new": "assets/images/fields/legacy/masks/E01-bottom__E02-top.png",
+      "new": "assets/images/fields/legacy/masks/TRM-01-bottom__TRM-16-top.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "f0312b3987a917d9220a08fb69d1e957de330021d9bc172ea8180e71a124f7fc"
+      "sha256": "ad40b1ffef3bebd12bf907a1a72e1cdcbf5297a5b40e86c9e95ccd30c979692f"
     },
     {
       "old": "sample/field/diorama-trial/masks/link-check/old-slope-foot-bottom__danchi-court-top.png",
-      "new": "assets/images/fields/legacy/masks/E09-bottom__E08-top.png",
+      "new": "assets/images/fields/legacy/masks/TRM-13-bottom__TRM-11-top.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "5ba068040e3f8e771a9bf42cf5231c8379f0ee29e3478c13bafe856102f6da4f"
+      "sha256": "287525024c17135ba8bcc5324b71b36f8893b7711d475a7ae722c8bdcfa96b3c"
     },
     {
       "old": "sample/field/diorama-trial/masks/link-check/sento-bottom__barrier-free-ramp-top.png",
-      "new": "assets/images/fields/legacy/masks/E06-bottom__E07-top.png",
+      "new": "assets/images/fields/legacy/masks/TRM-09-bottom__TRM-10-top.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "267ee82c1cafb052a1a67091ed55a70960dd1f7640b4985a2f7f252bbf0cb2db"
+      "sha256": "ed0f288d2eddbdf4c7bc315a3fdd1b6306774d54b95d05a0de87db0834ed7d57"
     },
     {
       "old": "sample/field/diorama-trial/masks/link-check/slope-top-bottom__old-slope-foot-top.png",
-      "new": "assets/images/fields/legacy/masks/E13-bottom__E09-top.png",
+      "new": "assets/images/fields/legacy/masks/TRM-14-bottom__TRM-13-top.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "704973f413d759a77c0f179c267e1ca50473829baa779551d46f5b9d8b51f4b7"
+      "sha256": "875e1c067f5be6ad83b659b5a29c023e8d0280dd37835a3261b5d8f7c57b503f"
     },
     {
       "old": "sample/field/diorama-trial/masks/link-check/well-merge-right__sento-left.png",
-      "new": "assets/images/fields/legacy/masks/E05-right__E06-left.png",
+      "new": "assets/images/fields/legacy/masks/TRM-08-right__TRM-09-left.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "d8df03279181a730d551ec885191b8655c269fd483e2ff897857fd1a8e3b99b9"
+      "sha256": "58686ccea09d62f19b942da13c0c5f8bb2caa85a7e4dbcf1ab82c8406f0ad708"
     },
     {
       "old": "sample/field/diorama-trial/masks/link-check/wide-road-right__well-merge-left.png",
-      "new": "assets/images/fields/legacy/masks/E04-right__E05-left.png",
+      "new": "assets/images/fields/legacy/masks/TRM-07-right__TRM-08-left.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "7a77f36cc106b3177ef2a30d1ea780e152203d1179f23bfd22aea0ab9e6993e2"
+      "sha256": "7ed56ea16c1a744274fd568c536d990f758557c15f79541ca67fa76533346f7f"
     },
     {
       "old": "sample/field/diorama-trial/masks/make_masks.py",
@@ -3659,17 +3659,17 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/narrow-lane-mask-overlay.png",
-      "new": "assets/images/fields/legacy/masks/E10-mask-overlay.png",
+      "new": "assets/images/fields/legacy/masks/TRM-06-mask-overlay.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "237d2665490ab01bd8f57aa6936c15987f0cbe500172ec7f7f235cb2096e09c6"
+      "sha256": "046f9f34d97b5d78dcf81ba85ed9a92a9c07f477dbd66dbad8282a72774b7f20"
     },
     {
       "old": "sample/field/diorama-trial/masks/narrow-lane-mask.png",
-      "new": "assets/images/fields/legacy/masks/E10-mask.png",
+      "new": "assets/images/fields/legacy/masks/TRM-06-mask.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "762b34d144589fed121d268f98504d1983180d8a6061ae2c60708e92b33da10a"
+      "sha256": "8f7dbd526fd8850cf549b1584dcb77d2bb7c7324cb0f401429069b19b05454ca"
     },
     {
       "old": "sample/field/diorama-trial/masks/narrow-lane.json",
@@ -3681,31 +3681,31 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/old-slope-foot-mask-overlay.png",
-      "new": "assets/images/fields/legacy/masks/E09-mask-overlay.png",
+      "new": "assets/images/fields/legacy/masks/TRM-13-mask-overlay.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "0a68216b24a96df408bd6c3348a602354d0c252ffc1a5ec6dd08080db677ce0d"
+      "sha256": "655aa2af2e06708c5c5bc6763a80a9e358471514851e4b88844d94d05a967279"
     },
     {
       "old": "sample/field/diorama-trial/masks/old-slope-foot-mask.png",
-      "new": "assets/images/fields/legacy/masks/E09-mask.png",
+      "new": "assets/images/fields/legacy/masks/TRM-13-mask.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "7d76e71a63a8171d2fb932d53f8b55591f27b5e14fa0d4daad6762cc279a53be"
+      "sha256": "901b8249dda24fe8fd0501d9492b1195579803a08dc4c90d55910be0b7bb44bb"
     },
     {
       "old": "sample/field/diorama-trial/masks/old-slope-foot-standing-mask-overlay.png",
-      "new": "assets/images/fields/legacy/masks/E09-standing-mask-overlay.png",
+      "new": "assets/images/fields/legacy/masks/TRM-13-standing-mask-overlay.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "c6522172c0d7479afb7a949eded933f8c97c929d581f2df182933decb70c5c8a"
+      "sha256": "9eb688950679a1e2cc6b3cbd39f0a423fe2d77b19b53cd296eff422d7879337f"
     },
     {
       "old": "sample/field/diorama-trial/masks/old-slope-foot-standing-mask.png",
-      "new": "assets/images/fields/legacy/masks/E09-standing-mask.png",
+      "new": "assets/images/fields/legacy/masks/TRM-13-standing-mask.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "ad52c6a411f6e64aae59d4a7dfdfddbf6ffcb325f01ce0248cd1e77a72de72e9"
+      "sha256": "7752178a1725c2a414ea693fcf0bbabfd5c86c8f0000483a586861cbe702a1ec"
     },
     {
       "old": "sample/field/diorama-trial/masks/old-slope-foot.json",
@@ -3717,17 +3717,17 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/sento-mask-overlay.png",
-      "new": "assets/images/fields/legacy/masks/E06-mask-overlay.png",
+      "new": "assets/images/fields/legacy/masks/TRM-09-mask-overlay.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "56ea626a6112254fb2b9d1128e83d6879b833c3720296d6cbdab78e921dfac8b"
+      "sha256": "674a2e6c3f00ab51d4aec010685bb7b923491ac44161d3beb9b5f496b68cfeae"
     },
     {
       "old": "sample/field/diorama-trial/masks/sento-mask.png",
-      "new": "assets/images/fields/legacy/masks/E06-mask.png",
+      "new": "assets/images/fields/legacy/masks/TRM-09-mask.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "1c917dd11895ba4b5a1e6bed3df23f2c3fbd9732da2748b89243fae12cf15026"
+      "sha256": "fca539c819b7f3ddb8fa448be262e4ee96e250a91b3258ec6c42ab4d7cb56927"
     },
     {
       "old": "sample/field/diorama-trial/masks/sento.json",
@@ -3739,31 +3739,31 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/slope-top-mask-overlay.png",
-      "new": "assets/images/fields/legacy/masks/E13-mask-overlay.png",
+      "new": "assets/images/fields/legacy/masks/TRM-14-mask-overlay.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "fdd41fee1e3aa35b91becb3a2f01791bb971a97ac693f2d242c421b172b16f97"
+      "sha256": "28a1a0095d48b5ec76e4f9ed08fad856eb3568b1f21920ca71123ba65233f6cb"
     },
     {
       "old": "sample/field/diorama-trial/masks/slope-top-mask.png",
-      "new": "assets/images/fields/legacy/masks/E13-mask.png",
+      "new": "assets/images/fields/legacy/masks/TRM-14-mask.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "7ba1d94c43ee4857c3116a9db929bdb137f5cc7cb40672da33dc194ce13cdb75"
+      "sha256": "66cb3e35bb77f3c11e8ae39b5013404694b7a45e0e0671b96fef9ce2087a2880"
     },
     {
       "old": "sample/field/diorama-trial/masks/slope-top-standing-mask-overlay.png",
-      "new": "assets/images/fields/legacy/masks/E13-standing-mask-overlay.png",
+      "new": "assets/images/fields/legacy/masks/TRM-14-standing-mask-overlay.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "6a48ba580edb08b8c6dbe92212a466a2ef7b57ef95d16e695889d356eb228a20"
+      "sha256": "f7c534fafba9a021baf80aab9c1d47d4cdb1c1507cabc4fbea9a50be4f1103a3"
     },
     {
       "old": "sample/field/diorama-trial/masks/slope-top-standing-mask.png",
-      "new": "assets/images/fields/legacy/masks/E13-standing-mask.png",
+      "new": "assets/images/fields/legacy/masks/TRM-14-standing-mask.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "d987a1a2fe7c1e52403f425c2d53f828e2bdc627ca8f648640afec89b1c4c7e3"
+      "sha256": "f742c3c415a604a56432e6dd9dcca53e240261902ae18244ad3da5d5a87400b2"
     },
     {
       "old": "sample/field/diorama-trial/masks/slope-top.json",
@@ -3791,17 +3791,17 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/well-merge-mask-overlay.png",
-      "new": "assets/images/fields/legacy/masks/E05-mask-overlay.png",
+      "new": "assets/images/fields/legacy/masks/TRM-08-mask-overlay.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "0ddfcc98899ddf70ae577521951fd00558256ec309b77f64e89edcaaa00ccf8b"
+      "sha256": "8b9fe987828e17661bdcb9189a5598da84a84c5d4e25889d3dd5bccb071e87c0"
     },
     {
       "old": "sample/field/diorama-trial/masks/well-merge-mask.png",
-      "new": "assets/images/fields/legacy/masks/E05-mask.png",
+      "new": "assets/images/fields/legacy/masks/TRM-08-mask.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "8d4f158470c94a9a2e5045b7b68d3883eba0b0b59116c18466058656af38be25"
+      "sha256": "0f4ea9b90796720d03d892b9d5fe19dfd051587c3c1a945b2576fc0c05034010"
     },
     {
       "old": "sample/field/diorama-trial/masks/well-merge.json",
@@ -3813,17 +3813,17 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/wide-road-mask-overlay.png",
-      "new": "assets/images/fields/legacy/masks/E04-mask-overlay.png",
+      "new": "assets/images/fields/legacy/masks/TRM-07-mask-overlay.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "028729a9dd96e6f9cd81e2ad0029ff9835c4291c9fd9d1608d17cef7f568183a"
+      "sha256": "b84b2564a2b433dfa40f0cfdab77b4a2f38f7324b1578a1d0cd9bf0bb4c2adb4"
     },
     {
       "old": "sample/field/diorama-trial/masks/wide-road-mask.png",
-      "new": "assets/images/fields/legacy/masks/E04-mask.png",
+      "new": "assets/images/fields/legacy/masks/TRM-07-mask.webp",
       "action": "move",
       "reason": "Legacy verification mask; geometry unchanged.",
-      "sha256": "794194c943f958550c1a62fe83f6c00c5e120c2022f8fb8987ae6353797dd537"
+      "sha256": "a0ba642466803d3d430dc2c5576991862d1224dd069a39ab72adece5541675a7"
     },
     {
       "old": "sample/field/diorama-trial/masks/wide-road.json",
@@ -3835,227 +3835,227 @@
     },
     {
       "old": "sample/field/diorama-trial/noto-ogi-station-diorama.png",
-      "new": "assets/images/fields/legacy/E29-ogi.png",
+      "new": "assets/images/fields/legacy/NTB-01-ogi.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "fc18828f2c19f6aab0d377b4b6cfbafbf51456be2e70e4265e416a15dce7da20"
+      "sha256": "22db76a1c3ddfeb49256a70bef06d4d81d9f2f984b135bbd5fa332ee73e85b3d"
     },
     {
       "old": "sample/field/diorama-trial/noto-peko-house-seaside-diorama.png",
-      "new": "assets/images/fields/legacy/E30-v1.png",
+      "new": "assets/images/fields/legacy/NTB-05-v1.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "0d1e15eae1d9796b096da329f52b3c0e5fe82f24939d1d347b7491fa7be44d73"
+      "sha256": "e2c421d73d073fca4231d5170cf546925c40529bb8d60ad1eb435479c64a79bd"
     },
     {
       "old": "sample/field/diorama-trial/noto-peko-house-seaside-v2-diorama.png",
-      "new": "assets/images/fields/legacy/E30.png",
+      "new": "assets/images/fields/legacy/NTB-05.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "68a428e7aa34d38709a501ab6d4ec498458f54e621262f4ab33707fcc0fda1d8"
+      "sha256": "3e5ee6c0ad6968b7cc0f5c43a0ca96fbb15b9d155cd4ca084495f52ba225bf96"
     },
     {
       "old": "sample/field/diorama-trial/noto-railway-interior-diorama.png",
-      "new": "assets/images/fields/legacy/E28-v1.png",
+      "new": "assets/images/fields/legacy/NTR-01-v1.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "45a65c07dcc5f7268c0aa2b53baab75acc978ad600333647255fb9fe286aa6ec"
+      "sha256": "31c6fda2296f676757773143f02e56bdf8d0ceccd46c7e255d2ea00546f46bb9"
     },
     {
       "old": "sample/field/diorama-trial/noto-railway-interior-v2-diorama.png",
-      "new": "assets/images/fields/legacy/E28.png",
+      "new": "assets/images/fields/legacy/NTR-01.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "b9a2d62e20ba908508f1a19815ca3a04eda88ebd3082b131a732063da3b3f5bb"
+      "sha256": "c0e022b551ee65c5389ae983580b8e83d1d26b6689007f3f60c53a1eaec592dc"
     },
     {
       "old": "sample/field/diorama-trial/noto-takojima-station-diorama.png",
-      "new": "assets/images/fields/legacy/E29.png",
+      "new": "assets/images/fields/legacy/NTB-01.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "fb8c679db6b29aa8109860d435c5a5bf543cf24d2bd4e6a6cba0043a0e747ca5"
+      "sha256": "348a829b90fc1b2eff60522b6dec9e8f495f6d7bd462ba853c2c77ca55e22666"
     },
     {
       "old": "sample/field/diorama-trial/noto-tetrapod-fishing-spot-diorama.png",
-      "new": "assets/images/fields/legacy/E31.png",
+      "new": "assets/images/fields/legacy/NTB-06.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "6409f8363bd643f9eeb324b7df8a5d92a4095da57cf21e20803f50f9f6960e64"
+      "sha256": "cc96435a01726b26babce0ccd2f31393a58cad6c838debfe8d960db9eaa0ba28"
     },
     {
       "old": "sample/field/diorama-trial/schoolyard-diorama.png",
-      "new": "assets/images/fields/legacy/E33.png",
+      "new": "assets/images/fields/legacy/SCH-02.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "9e2c23e0e1aca69052a7df57f75a74f1962c91ac5fcf353bfead2594e806bddf"
+      "sha256": "429b60cbe1a7e04a2547e0fe4dd122751b20a5e55c794f35a6648e5597419761"
     },
     {
       "old": "sample/field/diorama-trial/temple-grounds-diorama.png",
-      "new": "assets/images/fields/legacy/E11-pre-shinshu.png",
+      "new": "assets/images/fields/legacy/TRM-03-pre-shinshu.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "ee60b3bc2edacb5e649d770acdbd4c1b8c3b3cbafa1a5ece3205541bce20d390"
+      "sha256": "e136c56284a5c761b311d62fd27820df10a675c69a6748a87c90f59e1bc3480b"
     },
     {
       "old": "sample/field/diorama-trial/temple-grounds-shinshu-diorama.png",
-      "new": "assets/images/fields/legacy/E11.png",
+      "new": "assets/images/fields/legacy/TRM-03.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "91343432d78c8c5b4f566196c15f5269ab7a0c62eaf1d13ffc88b2aaf41d03b2"
+      "sha256": "7b5cd7d35cd6e46d0d08bc6aa81c1a8b3e590d033f4c0708080d119624fc9e4b"
     },
     {
       "old": "sample/field/diorama-trial/temple-residence-interior-alt-diorama.png",
-      "new": "assets/images/fields/legacy/E12-alt.png",
+      "new": "assets/images/fields/legacy/TRM-05-alt.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "8fbec8bcca826bb2d884803b6a4eb9536ff5b9b7a6e79f28efed204cb8f2a97d"
+      "sha256": "0afbf041cae1367be5ddc0b3a322de5fbb6c23e0963c57e9a70ebad354a86f87"
     },
     {
       "old": "sample/field/diorama-trial/temple-residence-interior-diorama.png",
-      "new": "assets/images/fields/legacy/E12.png",
+      "new": "assets/images/fields/legacy/TRM-05.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "f2ea1c6d9bb706f237d36f3adcd6e6c9527b21b89d4657e887d0cba4263349c2"
+      "sha256": "8e8c05e3efbbd816473d5281723c060c4832c1cc85064933d85f4c42aa27d36f"
     },
     {
       "old": "sample/field/diorama-trial/teramachi-barrier-free-ramp-diorama.png",
-      "new": "assets/images/fields/legacy/E07.png",
+      "new": "assets/images/fields/legacy/TRM-10.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "53fd867caeb291dd64723229faf0ddfe1b018d64560178ebf5f1027cfc20af2e"
+      "sha256": "76b7a76aceda3978ae830c37df48d6617b4edb991100ff33dcd2cda9b663bbd4"
     },
     {
       "old": "sample/field/diorama-trial/teramachi-connector-diorama.png",
-      "new": "assets/images/fields/legacy/E02-pre-shinshu.png",
+      "new": "assets/images/fields/legacy/TRM-16-pre-shinshu.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "492d87a05287b45403834a29f5e2a3f26589a14ff0447fd663e2aca60d18ad4e"
+      "sha256": "0d608a9066e0ca189c42e05a14fca8fe143a7abb2000d3cd30f1487928935eef"
     },
     {
       "old": "sample/field/diorama-trial/teramachi-connector-shinshu-diorama.png",
-      "new": "assets/images/fields/legacy/E02.png",
+      "new": "assets/images/fields/legacy/TRM-16.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "8994c535af6270c7ff49fd2379742117c18b9930644a18ba8de1327f17b3f72e"
+      "sha256": "4acd26a4b7ba1b6c474127c2d75df01f6f0613055ede476a6bcac67b42fdc355"
     },
     {
       "old": "sample/field/diorama-trial/teramachi-danchi-court-diorama.png",
-      "new": "assets/images/fields/legacy/E08.png",
+      "new": "assets/images/fields/legacy/TRM-11.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "a6245cdda843438e8aefa5cfe7d463aa6b4ab4488c795adc8d327d68bb0b29db"
+      "sha256": "8434d9910ece7dda45c3e4852bf4f6da03d254fee81bc5947b8b412ff765bf97"
     },
     {
       "old": "sample/field/diorama-trial/teramachi-hinomi-bend-diorama.png",
-      "new": "assets/images/fields/legacy/E03-pre-shinshu.png",
+      "new": "assets/images/fields/legacy/TRM-15-pre-shinshu.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "cbd77727c96d224793dd1eff75132f8d9c10f32e3d9dcd6228dbdd96c599314d"
+      "sha256": "9760ac78e2d85199ba3682d6393d811d103fdce1e04626885dd23cff2c82fabc"
     },
     {
       "old": "sample/field/diorama-trial/teramachi-hinomi-bend-shinshu-diorama.png",
-      "new": "assets/images/fields/legacy/E03.png",
+      "new": "assets/images/fields/legacy/TRM-15.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "fee52fa40ec54804e84d11ad7fb73e3ce6cf302fdd40c72207365fa48aa7f2e2"
+      "sha256": "e6603c8c564c8ed5ed267655c78495e3bc3af524017b74027b3bf933820bd69f"
     },
     {
       "old": "sample/field/diorama-trial/teramachi-kindergarten-diorama.png",
-      "new": "assets/images/fields/legacy/E01.png",
+      "new": "assets/images/fields/legacy/TRM-01.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "0ec26f2b7d51a79852379b97155d55065b4a058458f3815bed2308fd3d04373e"
+      "sha256": "f85b1efa6193de9e3e848c2efd9c06c9afade166042536c0a5d71376fc201bdf"
     },
     {
       "old": "sample/field/diorama-trial/teramachi-narrow-lane-diorama.png",
-      "new": "assets/images/fields/legacy/E10.png",
+      "new": "assets/images/fields/legacy/TRM-06.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "bd7a7fae86a97c4057155e4f4b07de0438aba4261184548b8ff8437abe2b9651"
+      "sha256": "20b09570dcf2f36aee307376c25d94ebb526ab247a3eeff4a707d7ae9ba2208d"
     },
     {
       "old": "sample/field/diorama-trial/teramachi-old-slope-foot-diorama.png",
-      "new": "assets/images/fields/legacy/E09.png",
+      "new": "assets/images/fields/legacy/TRM-13.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "c223787c0881007733d68e913f787b83ddea54de82de72bb212029ffab0269cf"
+      "sha256": "9050ce92ca81c3c7770fc8816352453b1fb5f44af6b1d7e1220c67c5f907b2b1"
     },
     {
       "old": "sample/field/diorama-trial/teramachi-sento-diorama.png",
-      "new": "assets/images/fields/legacy/E06.png",
+      "new": "assets/images/fields/legacy/TRM-09.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "d4cd1048e9f1b4a18ce479b4afdd8ea879a88e1346c482cbfa25deb01cb1b887"
+      "sha256": "60916f6824f262f60a7d2b25e5ea8144047804ba003a323b35df9159186e48ef"
     },
     {
       "old": "sample/field/diorama-trial/teramachi-slope-top-diorama.png",
-      "new": "assets/images/fields/legacy/E13.png",
+      "new": "assets/images/fields/legacy/TRM-14.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "000abaf9415989b959f4eb9e5911da7b588b4a86178ba54425c7b02d421b4820"
+      "sha256": "3b010bcae8210474154164394d4128f59b949431a20c7c63864cf6648d99a593"
     },
     {
       "old": "sample/field/diorama-trial/teramachi-well-merge-diorama.png",
-      "new": "assets/images/fields/legacy/E05.png",
+      "new": "assets/images/fields/legacy/TRM-08.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "4337c5afcc71f6579b6417966060eb9df238caaaf94ad4ea6b5670dd48bc5cee"
+      "sha256": "ffe48b360acd8e55a30aac9df1228d9f7e8435f80f475211e4dd1f0d260786aa"
     },
     {
       "old": "sample/field/diorama-trial/teramachi-wide-road-diorama.png",
-      "new": "assets/images/fields/legacy/E04.png",
+      "new": "assets/images/fields/legacy/TRM-07.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "bb43f6a218c66d250b5970667c34a519ddb94ea3d69ff64924d01cf7b812161f"
+      "sha256": "ef620955c6104dd7c8d802d6fe00a0fde1498d5a3b26d0b29a9ff2a33019b067"
     },
     {
       "old": "sample/field/diorama-trial/uchinada-beach-diorama.png",
-      "new": "assets/images/fields/legacy/E27.png",
+      "new": "assets/images/fields/legacy/UCH-05.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "e450ca70a0fd8accfc9696e91829eb30ba557bbe2d4fbf17f7a653ba531e797a"
+      "sha256": "d46aadb9dbf56a786cb03616b00a8226b38c9398776e2747b9019908d5c713bc"
     },
     {
       "old": "sample/field/diorama-trial/uchinada-station-diorama.png",
-      "new": "assets/images/fields/legacy/E26.png",
+      "new": "assets/images/fields/legacy/UCH-02.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "aaef5fdaae31cef43920c48e915bf3220a29119461fba04cd01c7bdef9deb3be"
+      "sha256": "cbd8cb6ba650a9b2e1792f63d85491439b0107d2b384b47df334cb545c683aca"
     },
     {
       "old": "sample/field/diorama-trial/utatsuyama-sunnyland-aquarium-indoor-diorama.png",
-      "new": "assets/images/fields/legacy/E24.png",
+      "new": "assets/images/fields/legacy/SNL-05.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "877ebfccdd8da1953eb720989ae491c679f295a05192c8ad86ce6281ce998cd2"
+      "sha256": "a60102113102cccf59f0a10bf8bd59d557da9a93e1e951c75aec6ca2e18453c4"
     },
     {
       "old": "sample/field/diorama-trial/utatsuyama-sunnyland-arcade-indoor-diorama.png",
-      "new": "assets/images/fields/legacy/E25.png",
+      "new": "assets/images/fields/legacy/SNL-03.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "1f930683e52be64f19239ae0a38c447bc02fc8972d954f5f62c1aba7b37e424d"
+      "sha256": "2aad110ffd499d9f680136369ccdda8b21072a63d9e432e0cb0ed925fdffc525"
     },
     {
       "old": "sample/field/diorama-trial/utatsuyama-sunnyland-diorama.png",
-      "new": "assets/images/fields/legacy/E22.png",
+      "new": "assets/images/fields/legacy/UTS-02.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "328e9589f9f0130b463fca5c369453858444bf195ddda4520ff7523b230af87d"
+      "sha256": "acc5344d31119fbf0b426e57a32279db89b2c53a9d69ddb0dda41736f83e4900"
     },
     {
       "old": "sample/field/diorama-trial/utatsuyama-sunnyland-indoor-diorama.png",
-      "new": "assets/images/fields/legacy/E23.png",
+      "new": "assets/images/fields/legacy/SNL-06.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "0fd19669b9220771e3e81143941f8655d0abcdb39e57b3a13ab69756ab2e9b33"
+      "sha256": "d3129b63a6ecb47afed12c879ef22966983374b0734351dfefde134f106372c1"
     },
     {
       "old": "sample/field/diorama-trial/utatsuyama-sunnyland-v2.png",
-      "new": "assets/images/fields/legacy/E22-v2.png",
+      "new": "assets/images/fields/legacy/UTS-02-v2.webp",
       "action": "move",
       "reason": "Existing MAP registry ID; historical variant where suffixed. Not a new adopted background.",
-      "sha256": "81033ffa45562d9ad4d7f466149bc37db4cd68f57646f75fdaf5503c46f5f568"
+      "sha256": "c4cc0d69f3b394ad836463e3c8a2b2b4cb08977ee53768fa4823caa97668b8df"
     },
     {
       "old": "sample/field/map-topology-atlas.png",

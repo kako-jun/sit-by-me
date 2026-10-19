@@ -16,7 +16,7 @@ def row_for(document, id)
 end
 
 id = ARGV.fetch(0, '').upcase
-abort 'usage: ruby scripts/build_map_prompt.rb MAP_ID' unless id.match?(/\A(?:E\d{2}|N\d+|F\d{2})\z/)
+abort 'usage: ruby scripts/build_map_prompt.rb MAP_ID' unless id.match?(/\A[A-Z]{3}-\d{2}\z/)
 
 checklist = read_doc('map-contract-checklist.md')
 specifications = read_doc('map-specifications.md')

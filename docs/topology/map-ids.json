@@ -1,29 +1,22 @@
 {
-  "schema_version": 1,
-  "ranges": {
-    "E": [
-      1,
-      33
-    ],
-    "F": [
-      1,
-      86
-    ]
-  },
-  "explicit": {
-    "N": [
-      1,
-      2,
-      3,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ]
+  "schema_version": 2,
+  "format": "区域コード(英大文字3字)-2桁連番。旧ID→新IDは production/20261019-map-id-renumber.json",
+  "areas": {
+    "TRM": 17,
+    "KRB": 13,
+    "STN": 1,
+    "NTR": 1,
+    "NTB": 8,
+    "UTS": 5,
+    "SNL": 12,
+    "SCH": 2,
+    "NTA": 7,
+    "UCH": 5,
+    "BDY": 17,
+    "APT": 2,
+    "OVS": 20,
+    "GRD": 10,
+    "CST": 10
   },
   "expected_count": 130
 }

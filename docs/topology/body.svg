@@ -1,60 +1,60 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1180" height="1950" viewBox="0 0 1180 1950" role="img" aria-labelledby="title desc">
 <title id="title">体内17MAP：上半身と下半身・手各2枚・足各3枚</title><desc id="desc">幼稚園児の想像する架空人体。園庭から一方向のイベント移動。頭は上、手は左右斜め上、足は左右斜め下の一本道。</desc>
 <defs><marker id="event-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#a44362"/></marker></defs>
-<style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#503c39}.door{stroke:#98725c;stroke-width:5;fill:none}.event{stroke:#a44362;stroke-width:4;fill:none;stroke-dasharray:10 7}.node{fill:#fff8ef;stroke:#9b735f;stroke-width:3}.label{font-size:19px;text-anchor:middle}.id{font-size:23px;font-weight:bold;text-anchor:middle}.note{font-size:18px}</style>
+<style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#503c39}.door{stroke:#98725c;stroke-width:5;fill:none}.event{stroke:#a44362;stroke-width:4;fill:none;stroke-dasharray:10 7}.node{fill:#fff8ef;stroke:#9b735f;stroke-width:3}.label{font-size:19px;text-anchor:middle}.id{font-size:15px;font-weight:bold;text-anchor:middle}.note{font-size:18px}</style>
 <rect width="1180" height="1950" fill="#f8e9dd"/><text x="30" y="40" font-size="29" font-weight="bold">架空の体内：胴体2MAP・手は各2MAP・足は各3MAP</text>
 <text x="30" y="78" class="note">現実離れした幼稚園児の想像。肌色寄りの抽象概念。解剖図・写実的な臓器ではない。</text>
-<rect x="940" y="105" width="210" height="64" rx="8" fill="#fff8ef" stroke="#a44362" data-reference="E01"/><text x="1045" y="143" class="label">E01 幼稚園の園庭</text>
-<path class="event" data-kind="event" data-edge-id="E01.event-kiss&gt;F19.event-mouth:event" data-from="E01" data-to="F19" data-from-port="event-kiss" data-to-port="event-mouth" d="M1030 140 L790 410" marker-end="url(#event-arrow)"/>
-<path class="door" data-kind="door" data-edge-id="F19.door-passage-torso&gt;F74.door-passage-mouth:door" data-from="F19" data-to="F74" data-from-port="door-passage-torso" data-to-port="door-passage-mouth" d="M790 410 L600 600"/>
-<path class="door" data-kind="door" data-edge-id="F74.door-passage-lower&gt;F76.door-passage-upper:door" data-from="F74" data-to="F76" data-from-port="door-passage-lower" data-to-port="door-passage-upper" d="M600 600 L600 850"/>
-<path class="door" data-kind="door" data-edge-id="F74.door-passage-head&gt;F24.door-passage-torso:door" data-from="F74" data-to="F24" data-from-port="door-passage-head" data-to-port="door-passage-torso" d="M600 600 L600 200"/>
-<path class="door" data-kind="door" data-edge-id="F74.door-passage-left-arm&gt;F77.door-passage-torso:door" data-from="F74" data-to="F77" data-from-port="door-passage-left-arm" data-to-port="door-passage-torso" d="M600 600 L330 460"/>
-<path class="door" data-kind="door" data-edge-id="F77.door-passage-tip&gt;F20.door-passage-base:door" data-from="F77" data-to="F20" data-from-port="door-passage-tip" data-to-port="door-passage-base" d="M330 460 L200 290"/>
-<path class="door" data-kind="door" data-edge-id="F74.door-passage-right-arm&gt;F78.door-passage-torso:door" data-from="F74" data-to="F78" data-from-port="door-passage-right-arm" data-to-port="door-passage-torso" d="M600 600 L870 460"/>
-<path class="door" data-kind="door" data-edge-id="F78.door-passage-tip&gt;F21.door-passage-base:door" data-from="F78" data-to="F21" data-from-port="door-passage-tip" data-to-port="door-passage-base" d="M870 460 L1000 290"/>
-<path class="door" data-kind="door" data-edge-id="F76.door-passage-left-leg&gt;F79.door-passage-torso:door" data-from="F76" data-to="F79" data-from-port="door-passage-left-leg" data-to-port="door-passage-torso" d="M600 850 L330 990"/>
-<path class="door" data-kind="door" data-edge-id="F79.door-passage-middle&gt;F80.door-passage-base:door" data-from="F79" data-to="F80" data-from-port="door-passage-middle" data-to-port="door-passage-base" d="M330 990 L260 1170"/>
-<path class="door" data-kind="door" data-edge-id="F80.door-passage-tip&gt;F22.door-passage-base:door" data-from="F80" data-to="F22" data-from-port="door-passage-tip" data-to-port="door-passage-base" d="M260 1170 L200 1350"/>
-<path class="door" data-kind="door" data-edge-id="F76.door-passage-right-leg&gt;F81.door-passage-torso:door" data-from="F76" data-to="F81" data-from-port="door-passage-right-leg" data-to-port="door-passage-torso" d="M600 850 L870 990"/>
-<path class="door" data-kind="door" data-edge-id="F81.door-passage-middle&gt;F82.door-passage-base:door" data-from="F81" data-to="F82" data-from-port="door-passage-middle" data-to-port="door-passage-base" d="M870 990 L940 1170"/>
-<path class="door" data-kind="door" data-edge-id="F82.door-passage-tip&gt;F23.door-passage-base:door" data-from="F82" data-to="F23" data-from-port="door-passage-tip" data-to-port="door-passage-base" d="M940 1170 L1000 1350"/>
-<path class="door" data-kind="door" data-edge-id="F76.door-passage-stomach&gt;F25.door-passage-torso:door" data-from="F76" data-to="F25" data-from-port="door-passage-stomach" data-to-port="door-passage-torso" d="M600 850 L780 850"/>
-<path class="door" data-kind="door" data-edge-id="F74.door-passage-heart&gt;F26.door-passage-torso:door" data-from="F74" data-to="F26" data-from-port="door-passage-heart" data-to-port="door-passage-torso" d="M600 600 L500 720"/>
-<path class="door" data-kind="door" data-edge-id="F74.door-passage-lung&gt;F75.door-passage-torso:door" data-from="F74" data-to="F75" data-from-port="door-passage-lung" data-to-port="door-passage-torso" d="M600 600 L780 690"/>
-<circle class="node" data-map="F19" cx="790" cy="410" r="31"/><text class="id" x="790" y="418">F19</text><text class="label" x="790" y="362">口・イベント入口</text>
-<circle class="node" data-map="F74" cx="600" cy="600" r="31"/><text class="id" x="600" y="608">F74</text><text class="label" x="600" y="658">上半身</text>
-<circle class="node" data-map="F76" cx="600" cy="850" r="31"/><text class="id" x="600" y="858">F76</text><text class="label" x="600" y="908">下半身</text>
-<circle class="node" data-map="F24" cx="600" cy="200" r="31"/><text class="id" x="600" y="208">F24</text><text class="label" x="600" y="258">脳・迷路通路</text>
-<circle class="node" data-map="F77" cx="330" cy="460" r="31"/><text class="id" x="330" y="468">F77</text><text class="label" x="330" y="518">左手1</text>
-<circle class="node" data-map="F20" cx="200" cy="290" r="31"/><text class="id" x="200" y="298">F20</text><text class="label" x="200" y="348">左手2・末端</text>
-<circle class="node" data-map="F78" cx="870" cy="460" r="31"/><text class="id" x="870" y="468">F78</text><text class="label" x="870" y="518">右手1</text>
-<circle class="node" data-map="F21" cx="1000" cy="290" r="31"/><text class="id" x="1000" y="298">F21</text><text class="label" x="1000" y="348">右手2・末端</text>
-<circle class="node" data-map="F79" cx="330" cy="990" r="31"/><text class="id" x="330" y="998">F79</text><text class="label" x="330" y="1048">左足1</text>
-<circle class="node" data-map="F80" cx="260" cy="1170" r="31"/><text class="id" x="260" y="1178">F80</text><text class="label" x="260" y="1228">左足2</text>
-<circle class="node" data-map="F22" cx="200" cy="1350" r="31"/><text class="id" x="200" y="1358">F22</text><text class="label" x="200" y="1408">左足3・末端</text>
-<circle class="node" data-map="F81" cx="870" cy="990" r="31"/><text class="id" x="870" y="998">F81</text><text class="label" x="870" y="1048">右足1</text>
-<circle class="node" data-map="F82" cx="940" cy="1170" r="31"/><text class="id" x="940" y="1178">F82</text><text class="label" x="940" y="1228">右足2</text>
-<circle class="node" data-map="F23" cx="1000" cy="1350" r="31"/><text class="id" x="1000" y="1358">F23</text><text class="label" x="1000" y="1408">右足3・末端</text>
-<circle class="node" data-map="F25" cx="780" cy="850" r="31"/><text class="id" x="780" y="858">F25</text><text class="label" x="780" y="908">胃・分岐室</text>
-<circle class="node" data-map="F26" cx="500" cy="720" r="31"/><text class="id" x="500" y="728">F26</text><text class="label" x="500" y="778">心臓・分岐室</text>
-<circle class="node" data-map="F75" cx="780" cy="690" r="31"/><text class="id" x="780" y="698">F75</text><text class="label" x="780" y="748">肺・分岐室</text>
+<rect x="940" y="105" width="210" height="64" rx="8" fill="#fff8ef" stroke="#a44362" data-reference="TRM-01"/><text x="1045" y="143" class="label">TRM-01 幼稚園の園庭</text>
+<path class="event" data-kind="event" data-edge-id="TRM-01.event-kiss&gt;BDY-01.event-mouth:event" data-from="TRM-01" data-to="BDY-01" data-from-port="event-kiss" data-to-port="event-mouth" d="M1030 140 L790 410" marker-end="url(#event-arrow)"/>
+<path class="door" data-kind="door" data-edge-id="BDY-01.door-passage-torso&gt;BDY-02.door-passage-mouth:door" data-from="BDY-01" data-to="BDY-02" data-from-port="door-passage-torso" data-to-port="door-passage-mouth" d="M790 410 L600 600"/>
+<path class="door" data-kind="door" data-edge-id="BDY-02.door-passage-lower&gt;BDY-03.door-passage-upper:door" data-from="BDY-02" data-to="BDY-03" data-from-port="door-passage-lower" data-to-port="door-passage-upper" d="M600 600 L600 850"/>
+<path class="door" data-kind="door" data-edge-id="BDY-02.door-passage-head&gt;BDY-04.door-passage-torso:door" data-from="BDY-02" data-to="BDY-04" data-from-port="door-passage-head" data-to-port="door-passage-torso" d="M600 600 L600 200"/>
+<path class="door" data-kind="door" data-edge-id="BDY-02.door-passage-left-arm&gt;BDY-05.door-passage-torso:door" data-from="BDY-02" data-to="BDY-05" data-from-port="door-passage-left-arm" data-to-port="door-passage-torso" d="M600 600 L330 460"/>
+<path class="door" data-kind="door" data-edge-id="BDY-05.door-passage-tip&gt;BDY-06.door-passage-base:door" data-from="BDY-05" data-to="BDY-06" data-from-port="door-passage-tip" data-to-port="door-passage-base" d="M330 460 L200 290"/>
+<path class="door" data-kind="door" data-edge-id="BDY-02.door-passage-right-arm&gt;BDY-07.door-passage-torso:door" data-from="BDY-02" data-to="BDY-07" data-from-port="door-passage-right-arm" data-to-port="door-passage-torso" d="M600 600 L870 460"/>
+<path class="door" data-kind="door" data-edge-id="BDY-07.door-passage-tip&gt;BDY-08.door-passage-base:door" data-from="BDY-07" data-to="BDY-08" data-from-port="door-passage-tip" data-to-port="door-passage-base" d="M870 460 L1000 290"/>
+<path class="door" data-kind="door" data-edge-id="BDY-03.door-passage-left-leg&gt;BDY-09.door-passage-torso:door" data-from="BDY-03" data-to="BDY-09" data-from-port="door-passage-left-leg" data-to-port="door-passage-torso" d="M600 850 L330 990"/>
+<path class="door" data-kind="door" data-edge-id="BDY-09.door-passage-middle&gt;BDY-10.door-passage-base:door" data-from="BDY-09" data-to="BDY-10" data-from-port="door-passage-middle" data-to-port="door-passage-base" d="M330 990 L260 1170"/>
+<path class="door" data-kind="door" data-edge-id="BDY-10.door-passage-tip&gt;BDY-11.door-passage-base:door" data-from="BDY-10" data-to="BDY-11" data-from-port="door-passage-tip" data-to-port="door-passage-base" d="M260 1170 L200 1350"/>
+<path class="door" data-kind="door" data-edge-id="BDY-03.door-passage-right-leg&gt;BDY-12.door-passage-torso:door" data-from="BDY-03" data-to="BDY-12" data-from-port="door-passage-right-leg" data-to-port="door-passage-torso" d="M600 850 L870 990"/>
+<path class="door" data-kind="door" data-edge-id="BDY-12.door-passage-middle&gt;BDY-13.door-passage-base:door" data-from="BDY-12" data-to="BDY-13" data-from-port="door-passage-middle" data-to-port="door-passage-base" d="M870 990 L940 1170"/>
+<path class="door" data-kind="door" data-edge-id="BDY-13.door-passage-tip&gt;BDY-14.door-passage-base:door" data-from="BDY-13" data-to="BDY-14" data-from-port="door-passage-tip" data-to-port="door-passage-base" d="M940 1170 L1000 1350"/>
+<path class="door" data-kind="door" data-edge-id="BDY-03.door-passage-stomach&gt;BDY-15.door-passage-torso:door" data-from="BDY-03" data-to="BDY-15" data-from-port="door-passage-stomach" data-to-port="door-passage-torso" d="M600 850 L780 850"/>
+<path class="door" data-kind="door" data-edge-id="BDY-02.door-passage-heart&gt;BDY-16.door-passage-torso:door" data-from="BDY-02" data-to="BDY-16" data-from-port="door-passage-heart" data-to-port="door-passage-torso" d="M600 600 L500 720"/>
+<path class="door" data-kind="door" data-edge-id="BDY-02.door-passage-lung&gt;BDY-17.door-passage-torso:door" data-from="BDY-02" data-to="BDY-17" data-from-port="door-passage-lung" data-to-port="door-passage-torso" d="M600 600 L780 690"/>
+<circle class="node" data-map="BDY-01" cx="790" cy="410" r="34"/><text class="id" x="790" y="415">BDY-01</text><text class="label" x="790" y="362">口・イベント入口</text>
+<circle class="node" data-map="BDY-02" cx="600" cy="600" r="34"/><text class="id" x="600" y="605">BDY-02</text><text class="label" x="600" y="658">上半身</text>
+<circle class="node" data-map="BDY-03" cx="600" cy="850" r="34"/><text class="id" x="600" y="855">BDY-03</text><text class="label" x="600" y="908">下半身</text>
+<circle class="node" data-map="BDY-04" cx="600" cy="200" r="34"/><text class="id" x="600" y="205">BDY-04</text><text class="label" x="600" y="258">脳・迷路通路</text>
+<circle class="node" data-map="BDY-05" cx="330" cy="460" r="34"/><text class="id" x="330" y="465">BDY-05</text><text class="label" x="330" y="518">左手1</text>
+<circle class="node" data-map="BDY-06" cx="200" cy="290" r="34"/><text class="id" x="200" y="295">BDY-06</text><text class="label" x="200" y="348">左手2・末端</text>
+<circle class="node" data-map="BDY-07" cx="870" cy="460" r="34"/><text class="id" x="870" y="465">BDY-07</text><text class="label" x="870" y="518">右手1</text>
+<circle class="node" data-map="BDY-08" cx="1000" cy="290" r="34"/><text class="id" x="1000" y="295">BDY-08</text><text class="label" x="1000" y="348">右手2・末端</text>
+<circle class="node" data-map="BDY-09" cx="330" cy="990" r="34"/><text class="id" x="330" y="995">BDY-09</text><text class="label" x="330" y="1048">左足1</text>
+<circle class="node" data-map="BDY-10" cx="260" cy="1170" r="34"/><text class="id" x="260" y="1175">BDY-10</text><text class="label" x="260" y="1228">左足2</text>
+<circle class="node" data-map="BDY-11" cx="200" cy="1350" r="34"/><text class="id" x="200" y="1355">BDY-11</text><text class="label" x="200" y="1408">左足3・末端</text>
+<circle class="node" data-map="BDY-12" cx="870" cy="990" r="34"/><text class="id" x="870" y="995">BDY-12</text><text class="label" x="870" y="1048">右足1</text>
+<circle class="node" data-map="BDY-13" cx="940" cy="1170" r="34"/><text class="id" x="940" y="1175">BDY-13</text><text class="label" x="940" y="1228">右足2</text>
+<circle class="node" data-map="BDY-14" cx="1000" cy="1350" r="34"/><text class="id" x="1000" y="1355">BDY-14</text><text class="label" x="1000" y="1408">右足3・末端</text>
+<circle class="node" data-map="BDY-15" cx="780" cy="850" r="34"/><text class="id" x="780" y="855">BDY-15</text><text class="label" x="780" y="908">胃・分岐室</text>
+<circle class="node" data-map="BDY-16" cx="500" cy="720" r="34"/><text class="id" x="500" y="725">BDY-16</text><text class="label" x="500" y="778">心臓・分岐室</text>
+<circle class="node" data-map="BDY-17" cx="780" cy="690" r="34"/><text class="id" x="780" y="695">BDY-17</text><text class="label" x="780" y="748">肺・分岐室</text>
 <text x="30" y="1455" class="note">抽象通路の接続（door-passageは物理的な扉ではない）</text>
-<text x="30" y="1490" font-size="15">E01.event-kiss → F19.event-mouth</text>
-<text x="30" y="1514" font-size="15">F19.door-passage-torso ↔ F74.door-passage-mouth</text>
-<text x="30" y="1538" font-size="15">F74.door-passage-lower ↔ F76.door-passage-upper</text>
-<text x="30" y="1562" font-size="15">F74.door-passage-head ↔ F24.door-passage-torso</text>
-<text x="30" y="1586" font-size="15">F74.door-passage-left-arm ↔ F77.door-passage-torso</text>
-<text x="30" y="1610" font-size="15">F77.door-passage-tip ↔ F20.door-passage-base</text>
-<text x="30" y="1634" font-size="15">F74.door-passage-right-arm ↔ F78.door-passage-torso</text>
-<text x="30" y="1658" font-size="15">F78.door-passage-tip ↔ F21.door-passage-base</text>
-<text x="30" y="1682" font-size="15">F76.door-passage-left-leg ↔ F79.door-passage-torso</text>
-<text x="30" y="1706" font-size="15">F79.door-passage-middle ↔ F80.door-passage-base</text>
-<text x="30" y="1730" font-size="15">F80.door-passage-tip ↔ F22.door-passage-base</text>
-<text x="30" y="1754" font-size="15">F76.door-passage-right-leg ↔ F81.door-passage-torso</text>
-<text x="30" y="1778" font-size="15">F81.door-passage-middle ↔ F82.door-passage-base</text>
-<text x="30" y="1802" font-size="15">F82.door-passage-tip ↔ F23.door-passage-base</text>
-<text x="30" y="1826" font-size="15">F76.door-passage-stomach ↔ F25.door-passage-torso</text>
-<text x="30" y="1850" font-size="15">F74.door-passage-heart ↔ F26.door-passage-torso</text>
-<text x="30" y="1874" font-size="15">F74.door-passage-lung ↔ F75.door-passage-torso</text>
+<text x="30" y="1490" font-size="15">TRM-01.event-kiss → BDY-01.event-mouth</text>
+<text x="30" y="1514" font-size="15">BDY-01.door-passage-torso ↔ BDY-02.door-passage-mouth</text>
+<text x="30" y="1538" font-size="15">BDY-02.door-passage-lower ↔ BDY-03.door-passage-upper</text>
+<text x="30" y="1562" font-size="15">BDY-02.door-passage-head ↔ BDY-04.door-passage-torso</text>
+<text x="30" y="1586" font-size="15">BDY-02.door-passage-left-arm ↔ BDY-05.door-passage-torso</text>
+<text x="30" y="1610" font-size="15">BDY-05.door-passage-tip ↔ BDY-06.door-passage-base</text>
+<text x="30" y="1634" font-size="15">BDY-02.door-passage-right-arm ↔ BDY-07.door-passage-torso</text>
+<text x="30" y="1658" font-size="15">BDY-07.door-passage-tip ↔ BDY-08.door-passage-base</text>
+<text x="30" y="1682" font-size="15">BDY-03.door-passage-left-leg ↔ BDY-09.door-passage-torso</text>
+<text x="30" y="1706" font-size="15">BDY-09.door-passage-middle ↔ BDY-10.door-passage-base</text>
+<text x="30" y="1730" font-size="15">BDY-10.door-passage-tip ↔ BDY-11.door-passage-base</text>
+<text x="30" y="1754" font-size="15">BDY-03.door-passage-right-leg ↔ BDY-12.door-passage-torso</text>
+<text x="30" y="1778" font-size="15">BDY-12.door-passage-middle ↔ BDY-13.door-passage-base</text>
+<text x="30" y="1802" font-size="15">BDY-13.door-passage-tip ↔ BDY-14.door-passage-base</text>
+<text x="30" y="1826" font-size="15">BDY-03.door-passage-stomach ↔ BDY-15.door-passage-torso</text>
+<text x="30" y="1850" font-size="15">BDY-02.door-passage-heart ↔ BDY-16.door-passage-torso</text>
+<text x="30" y="1874" font-size="15">BDY-02.door-passage-lung ↔ BDY-17.door-passage-torso</text>
 <text x="30" y="1920" class="note">胃・心臓の既存イベントを保持。脳内迷路・幅・maskと物語発火の実装は未確定。</text></svg>

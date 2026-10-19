@@ -1,52 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1421" viewBox="0 0 1100 1421" role="img"><title>金沢城</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:21px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1100" height="1421" fill="#edf3f1"/><g data-area="castle"><rect x="8" y="8" width="1084" height="1405" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">金沢城・10MAP</text><text x="25" y="78" class="note">北↑・接続概念図（縮尺ではない）</text>
-<path class="edge" data-edge-id="F51.left&gt;F52.right:edge" data-kind="edge" data-from="F51" data-to="F52" data-from-port="left" data-to-port="right" d="M820 270 L630 270"/>
-<path class="edge" data-edge-id="F52.top&gt;F53.bottom:edge" data-kind="edge" data-from="F52" data-to="F53" data-from-port="top" data-to-port="bottom" d="M630 270 L390 160"/>
-<path class="edge" data-edge-id="F52.left&gt;F54.right:edge" data-kind="edge" data-from="F52" data-to="F54" data-from-port="left" data-to-port="right" d="M630 270 L530 390"/>
-<path class="edge" data-edge-id="F52.bottom&gt;F58.top:edge" data-kind="edge" data-from="F52" data-to="F58" data-from-port="bottom" data-to-port="top" d="M630 270 L740 485"/>
-<path class="door" data-edge-id="F53.door-west&gt;F55.door-hishi:door" data-kind="door" data-from="F53" data-to="F55" data-from-port="door-west" data-to-port="door-hishi" d="M390 160 L330 320"/>
-<path class="edge" data-edge-id="F54.left&gt;F55.right:edge" data-kind="edge" data-from="F54" data-to="F55" data-from-port="left" data-to-port="right" d="M530 390 L330 320"/>
-<path class="door" data-edge-id="F53.door-south&gt;F54.door-north:door" data-kind="door" data-from="F53" data-to="F54" data-from-port="door-south" data-to-port="door-north" d="M390 160 L530 390"/>
-<path class="edge" data-edge-id="F55.left&gt;F56.right:edge" data-kind="edge" data-from="F55" data-to="F56" data-from-port="left" data-to-port="right" d="M330 320 L140 475"/>
-<path class="edge" data-edge-id="F55.bottom&gt;F57.top:edge" data-kind="edge" data-from="F55" data-to="F57" data-from-port="bottom" data-to-port="top" d="M330 320 L370 515"/>
-<path class="edge" data-edge-id="F57.right&gt;F59.left:edge" data-kind="edge" data-from="F57" data-to="F59" data-from-port="right" data-to-port="left" d="M370 515 L550 610"/>
-<path class="edge" data-edge-id="F58.left&gt;F59.right:edge" data-kind="edge" data-from="F58" data-to="F59" data-from-port="left" data-to-port="right" d="M740 485 L550 610"/>
-<path class="door" data-edge-id="F59.door-tower&gt;F60.door-base:door" data-kind="door" data-from="F59" data-to="F60" data-from-port="door-tower" data-to-port="door-base" d="M550 610 L760 620"/>
-<circle class="node" data-map="F51" cx="820" cy="270" r="30"/><text class="id" x="820" y="277">F51</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1421" viewBox="0 0 1100 1421" role="img"><title>金沢城</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:15px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1100" height="1421" fill="#edf3f1"/><g data-area="castle"><rect x="8" y="8" width="1084" height="1405" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">金沢城・10MAP</text><text x="25" y="78" class="note">北↑・接続概念図（縮尺ではない）</text>
+<path class="edge" data-edge-id="CST-01.left&gt;CST-02.right:edge" data-kind="edge" data-from="CST-01" data-to="CST-02" data-from-port="left" data-to-port="right" d="M820 270 L630 270"/>
+<path class="edge" data-edge-id="CST-02.top&gt;CST-03.bottom:edge" data-kind="edge" data-from="CST-02" data-to="CST-03" data-from-port="top" data-to-port="bottom" d="M630 270 L390 160"/>
+<path class="edge" data-edge-id="CST-02.left&gt;CST-04.right:edge" data-kind="edge" data-from="CST-02" data-to="CST-04" data-from-port="left" data-to-port="right" d="M630 270 L530 390"/>
+<path class="edge" data-edge-id="CST-02.bottom&gt;CST-08.top:edge" data-kind="edge" data-from="CST-02" data-to="CST-08" data-from-port="bottom" data-to-port="top" d="M630 270 L740 485"/>
+<path class="door" data-edge-id="CST-03.door-west&gt;CST-05.door-hishi:door" data-kind="door" data-from="CST-03" data-to="CST-05" data-from-port="door-west" data-to-port="door-hishi" d="M390 160 L330 320"/>
+<path class="edge" data-edge-id="CST-04.left&gt;CST-05.right:edge" data-kind="edge" data-from="CST-04" data-to="CST-05" data-from-port="left" data-to-port="right" d="M530 390 L330 320"/>
+<path class="door" data-edge-id="CST-03.door-south&gt;CST-04.door-north:door" data-kind="door" data-from="CST-03" data-to="CST-04" data-from-port="door-south" data-to-port="door-north" d="M390 160 L530 390"/>
+<path class="edge" data-edge-id="CST-05.left&gt;CST-06.right:edge" data-kind="edge" data-from="CST-05" data-to="CST-06" data-from-port="left" data-to-port="right" d="M330 320 L140 475"/>
+<path class="edge" data-edge-id="CST-05.bottom&gt;CST-07.top:edge" data-kind="edge" data-from="CST-05" data-to="CST-07" data-from-port="bottom" data-to-port="top" d="M330 320 L370 515"/>
+<path class="edge" data-edge-id="CST-07.right&gt;CST-09.left:edge" data-kind="edge" data-from="CST-07" data-to="CST-09" data-from-port="right" data-to-port="left" d="M370 515 L550 610"/>
+<path class="edge" data-edge-id="CST-08.left&gt;CST-09.right:edge" data-kind="edge" data-from="CST-08" data-to="CST-09" data-from-port="left" data-to-port="right" d="M740 485 L550 610"/>
+<path class="door" data-edge-id="CST-09.door-tower&gt;CST-10.door-base:door" data-kind="door" data-from="CST-09" data-to="CST-10" data-from-port="door-tower" data-to-port="door-base" d="M550 610 L760 620"/>
+<circle class="node" data-map="CST-01" cx="820" cy="270" r="34"/><text class="id" x="820" y="275">CST-01</text>
 <text x="820" y="323" class="label">石川門の枡形</text>
-<circle class="node" data-map="F52" cx="630" cy="270" r="30"/><text class="id" x="630" y="277">F52</text>
+<circle class="node" data-map="CST-02" cx="630" cy="270" r="34"/><text class="id" x="630" y="275">CST-02</text>
 <text x="630" y="323" class="label">三の丸</text>
-<circle class="node" data-map="F53" cx="390" cy="160" r="30"/><text class="id" x="390" y="167">F53</text>
+<circle class="node" data-map="CST-03" cx="390" cy="160" r="34"/><text class="id" x="390" y="165">CST-03</text>
 <text x="390" y="213" class="label">菱櫓・五十間長屋</text>
-<circle class="node" data-map="F54" cx="530" cy="390" r="30"/><text class="id" x="530" y="397">F54</text>
+<circle class="node" data-map="CST-04" cx="530" cy="390" r="34"/><text class="id" x="530" y="395">CST-04</text>
 <text x="530" y="443" class="label">橋爪門・橋爪門続櫓</text>
-<circle class="node" data-map="F55" cx="330" cy="320" r="30"/><text class="id" x="330" y="327">F55</text>
+<circle class="node" data-map="CST-05" cx="330" cy="320" r="34"/><text class="id" x="330" y="325">CST-05</text>
 <text x="330" y="373" class="label">二の丸</text>
-<circle class="node" data-map="F56" cx="140" cy="475" r="30"/><text class="id" x="140" y="482">F56</text>
+<circle class="node" data-map="CST-06" cx="140" cy="475" r="34"/><text class="id" x="140" y="480">CST-06</text>
 <text x="140" y="528" class="label">低地の玉泉院丸庭園</text>
-<circle class="node" data-map="F57" cx="370" cy="515" r="30"/><text class="id" x="370" y="522">F57</text>
+<circle class="node" data-map="CST-07" cx="370" cy="515" r="34"/><text class="id" x="370" y="520">CST-07</text>
 <text x="370" y="568" class="label">極楽橋・本丸附段・三十間</text>
 <text x="370" y="589" class="label">長屋側</text>
-<circle class="node" data-map="F58" cx="740" cy="485" r="30"/><text class="id" x="740" y="492">F58</text>
+<circle class="node" data-map="CST-08" cx="740" cy="485" r="34"/><text class="id" x="740" y="490">CST-08</text>
 <text x="740" y="538" class="label">鶴の丸・東の丸側</text>
-<circle class="node" data-map="F59" cx="550" cy="610" r="30"/><text class="id" x="550" y="617">F59</text>
+<circle class="node" data-map="CST-09" cx="550" cy="610" r="34"/><text class="id" x="550" y="615">CST-09</text>
 <text x="550" y="663" class="label">高い本丸</text>
-<circle class="node" data-map="F60" cx="760" cy="620" r="30"/><text class="id" x="760" y="627">F60</text>
+<circle class="node" data-map="CST-10" cx="760" cy="620" r="34"/><text class="id" x="760" y="625">CST-10</text>
 <text x="760" y="673" class="label">本丸内のイマジナリー天守</text>
 <text x="760" y="694" class="label">上層</text>
 <text x="25" y="745" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
-<circle class="ref" data-reference-map="F50" data-reference="F50" cx="40" cy="775" r="13"/>
-<text x="65" y="780" class="small">F50.top ↔ F51.bottom  [外部: garden]</text>
-<path class="edge" data-edge-id="F50.top&gt;F51.bottom:edge" data-kind="edge" data-from="F50" data-to="F51" data-from-port="top" data-to-port="bottom" d="M940 773 L1055 773"/>
-<text x="25" y="822" class="small">F51.left ↔ F52.right</text>
-<text x="25" y="864" class="small">F52.top ↔ F53.bottom</text>
-<text x="25" y="906" class="small">F52.left ↔ F54.right</text>
-<text x="25" y="948" class="small">F52.bottom ↔ F58.top</text>
-<text x="25" y="990" class="small">F53.door-west ↔ F55.door-hishi</text>
-<text x="25" y="1032" class="small">F54.left ↔ F55.right</text>
-<text x="25" y="1074" class="small">F53.door-south ↔ F54.door-north</text>
-<text x="25" y="1116" class="small">F55.left ↔ F56.right</text>
-<text x="25" y="1158" class="small">F55.bottom ↔ F57.top</text>
-<text x="25" y="1200" class="small">F57.right ↔ F59.left</text>
-<text x="25" y="1242" class="small">F58.left ↔ F59.right</text>
-<text x="25" y="1284" class="small">F59.door-tower ↔ F60.door-base</text>
+<circle class="ref" data-reference-map="GRD-10" data-reference="GRD-10" cx="40" cy="775" r="13"/>
+<text x="65" y="780" class="small">GRD-10.top ↔ CST-01.bottom  [外部: garden]</text>
+<path class="edge" data-edge-id="GRD-10.top&gt;CST-01.bottom:edge" data-kind="edge" data-from="GRD-10" data-to="CST-01" data-from-port="top" data-to-port="bottom" d="M940 773 L1055 773"/>
+<text x="25" y="822" class="small">CST-01.left ↔ CST-02.right</text>
+<text x="25" y="864" class="small">CST-02.top ↔ CST-03.bottom</text>
+<text x="25" y="906" class="small">CST-02.left ↔ CST-04.right</text>
+<text x="25" y="948" class="small">CST-02.bottom ↔ CST-08.top</text>
+<text x="25" y="990" class="small">CST-03.door-west ↔ CST-05.door-hishi</text>
+<text x="25" y="1032" class="small">CST-04.left ↔ CST-05.right</text>
+<text x="25" y="1074" class="small">CST-03.door-south ↔ CST-04.door-north</text>
+<text x="25" y="1116" class="small">CST-05.left ↔ CST-06.right</text>
+<text x="25" y="1158" class="small">CST-05.bottom ↔ CST-07.top</text>
+<text x="25" y="1200" class="small">CST-07.right ↔ CST-09.left</text>
+<text x="25" y="1242" class="small">CST-08.left ↔ CST-09.right</text>
+<text x="25" y="1284" class="small">CST-09.door-tower ↔ CST-10.door-base</text>
 </g></svg>

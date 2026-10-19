@@ -1,71 +1,71 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1420" height="2039" viewBox="0 0 1420 2039" role="img"><title>香林坊・茶屋街・広坂・病院</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:21px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1420" height="2039" fill="#edf3f1"/><g data-area="city"><rect x="8" y="8" width="1404" height="2023" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">香林坊・茶屋街・広坂・病院・13MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
-<text x="25" y="108" class="note">デパート5階（F83・F85・E15・F86・E16）のエレベーターはMAPを持たず、台帳外の「階選択遷移」。各階の扉に入るとウィンドウで階を選び、選んだ階の扉前に着く。</text>
-<text x="25" y="134" class="note">箱は全階を結ぶので階をつなぐ線は描かない。4階F86は条件つき。</text>
-<path class="edge" data-edge-id="E19.top&gt;E17.bottom:edge" data-kind="edge" data-from="E19" data-to="E17" data-from-port="top" data-to-port="bottom" d="M440 1280 L440 1060"/>
-<path class="edge" data-edge-id="E17.top&gt;N1.bottom:edge" data-kind="edge" data-from="E17" data-to="N1" data-from-port="top" data-to-port="bottom" d="M440 1060 L440 840"/>
-<path class="edge" data-edge-id="N1.top&gt;E14.bottom:edge" data-kind="edge" data-from="N1" data-to="E14" data-from-port="top" data-to-port="bottom" d="M440 840 L440 620"/>
-<path class="edge" data-edge-id="E14.top&gt;N11.bottom:edge" data-kind="edge" data-from="E14" data-to="N11" data-from-port="top" data-to-port="bottom" d="M440 620 L440 380"/>
-<path class="edge" data-edge-id="E14.right&gt;N9.left:edge" data-kind="edge" data-from="E14" data-to="N9" data-from-port="right" data-to-port="left" d="M440 620 L770 620"/>
-<path class="door" data-edge-id="E14.door&gt;F83.door-street:door" data-kind="door" data-from="E14" data-to="F83" data-from-port="door" data-to-port="door-street" d="M440 620 L720 380"/>
-<path class="door" data-edge-id="E17.door&gt;E18.door:door" data-kind="door" data-from="E17" data-to="E18" data-from-port="door" data-to-port="door" d="M440 1060 L140 1060"/>
-<path class="edge" data-edge-id="N9.right&gt;E20.left:edge" data-kind="edge" data-from="N9" data-to="E20" data-from-port="right" data-to-port="left" d="M770 620 L1080 780"/>
-<circle class="node" data-map="E14" cx="440" cy="620" r="30"/><text class="id" x="440" y="627">E14</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1420" height="2039" viewBox="0 0 1420 2039" role="img"><title>香林坊・茶屋街・広坂・病院</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:15px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1420" height="2039" fill="#edf3f1"/><g data-area="city"><rect x="8" y="8" width="1404" height="2023" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">香林坊・茶屋街・広坂・病院・13MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<text x="25" y="108" class="note">デパート5階（KRB-02・KRB-03・KRB-04・KRB-05・KRB-06）のエレベーターはMAPを持たず、台帳外の「階選択遷移」。各階の扉に入るとウィンドウで階を選び、選んだ階の扉前に着く。</text>
+<text x="25" y="134" class="note">箱は全階を結ぶので階をつなぐ線は描かない。4階KRB-05は条件つき。</text>
+<path class="edge" data-edge-id="KRB-10.top&gt;KRB-08.bottom:edge" data-kind="edge" data-from="KRB-10" data-to="KRB-08" data-from-port="top" data-to-port="bottom" d="M440 1280 L440 1060"/>
+<path class="edge" data-edge-id="KRB-08.top&gt;KRB-07.bottom:edge" data-kind="edge" data-from="KRB-08" data-to="KRB-07" data-from-port="top" data-to-port="bottom" d="M440 1060 L440 840"/>
+<path class="edge" data-edge-id="KRB-07.top&gt;KRB-01.bottom:edge" data-kind="edge" data-from="KRB-07" data-to="KRB-01" data-from-port="top" data-to-port="bottom" d="M440 840 L440 620"/>
+<path class="edge" data-edge-id="KRB-01.top&gt;KRB-11.bottom:edge" data-kind="edge" data-from="KRB-01" data-to="KRB-11" data-from-port="top" data-to-port="bottom" d="M440 620 L440 380"/>
+<path class="edge" data-edge-id="KRB-01.right&gt;KRB-12.left:edge" data-kind="edge" data-from="KRB-01" data-to="KRB-12" data-from-port="right" data-to-port="left" d="M440 620 L770 620"/>
+<path class="door" data-edge-id="KRB-01.door&gt;KRB-02.door-street:door" data-kind="door" data-from="KRB-01" data-to="KRB-02" data-from-port="door" data-to-port="door-street" d="M440 620 L720 380"/>
+<path class="door" data-edge-id="KRB-08.door&gt;KRB-09.door:door" data-kind="door" data-from="KRB-08" data-to="KRB-09" data-from-port="door" data-to-port="door" d="M440 1060 L140 1060"/>
+<path class="edge" data-edge-id="KRB-12.right&gt;KRB-13.left:edge" data-kind="edge" data-from="KRB-12" data-to="KRB-13" data-from-port="right" data-to-port="left" d="M770 620 L1080 780"/>
+<circle class="node" data-map="KRB-01" cx="440" cy="620" r="34"/><text class="id" x="440" y="625">KRB-01</text>
 <text x="440" y="673" class="label">地下入口のある繁華街交差</text>
 <text x="440" y="694" class="label">点</text>
-<circle class="node" data-map="F83" cx="720" cy="380" r="30"/><text class="id" x="720" y="387">F83</text>
+<circle class="node" data-map="KRB-02" cx="720" cy="380" r="34"/><text class="id" x="720" y="385">KRB-02</text>
 <text x="720" y="433" class="label">デパート1階（入口階）。</text>
 <text x="720" y="454" class="label">時計のある吹き抜け（アト</text>
 <text x="720" y="475" class="label">リオ参照）</text>
-<circle class="node" data-map="E15" cx="1000" cy="380" r="30"/><text class="id" x="1000" y="387">E15</text>
+<circle class="node" data-map="KRB-03" cx="860" cy="160" r="34"/><text class="id" x="860" y="165">KRB-03</text>
+<text x="860" y="213" class="label">デパート2階（隠し階）</text>
+<circle class="node" data-map="KRB-04" cx="1000" cy="380" r="34"/><text class="id" x="1000" y="385">KRB-04</text>
 <text x="1000" y="433" class="label">ブラウン管デモ台のあるお</text>
 <text x="1000" y="454" class="label">もちゃ売場（3階）</text>
-<circle class="node" data-map="E16" cx="1280" cy="380" r="30"/><text class="id" x="1280" y="387">E16</text>
+<circle class="node" data-map="KRB-05" cx="1140" cy="160" r="34"/><text class="id" x="1140" y="165">KRB-05</text>
+<text x="1140" y="213" class="label">デパート4階（隠し階・条</text>
+<text x="1140" y="234" class="label">件つき）</text>
+<circle class="node" data-map="KRB-06" cx="1280" cy="380" r="34"/><text class="id" x="1280" y="385">KRB-06</text>
 <text x="1280" y="433" class="label">高層階のお子様ランチのレ</text>
 <text x="1280" y="454" class="label">ストラン（5階。実在の大</text>
 <text x="1280" y="475" class="label">和は8階レストラン街）</text>
-<circle class="node" data-map="F85" cx="860" cy="160" r="30"/><text class="id" x="860" y="167">F85</text>
-<text x="860" y="213" class="label">デパート2階（隠し階）</text>
-<circle class="node" data-map="F86" cx="1140" cy="160" r="30"/><text class="id" x="1140" y="167">F86</text>
-<text x="1140" y="213" class="label">デパート4階（隠し階・条</text>
-<text x="1140" y="234" class="label">件つき）</text>
-<circle class="node" data-map="E17" cx="440" cy="1060" r="30"/><text class="id" x="440" y="1067">E17</text>
+<circle class="node" data-map="KRB-07" cx="440" cy="840" r="34"/><text class="id" x="440" y="845">KRB-07</text>
+<text x="440" y="893" class="label">融雪水の犀川鉄橋</text>
+<circle class="node" data-map="KRB-08" cx="440" cy="1060" r="34"/><text class="id" x="440" y="1065">KRB-08</text>
 <text x="440" y="1113" class="label">犀川手前の暗い格子の茶屋</text>
 <text x="440" y="1134" class="label">道</text>
-<circle class="node" data-map="E18" cx="140" cy="1060" r="30"/><text class="id" x="140" y="1067">E18</text>
+<circle class="node" data-map="KRB-09" cx="140" cy="1060" r="34"/><text class="id" x="140" y="1065">KRB-09</text>
 <text x="140" y="1113" class="label">雪明かりの弁柄色の茶室</text>
-<circle class="node" data-map="E19" cx="440" cy="1280" r="30"/><text class="id" x="440" y="1287">E19</text>
+<circle class="node" data-map="KRB-10" cx="440" cy="1280" r="34"/><text class="id" x="440" y="1285">KRB-10</text>
 <text x="440" y="1333" class="label">除雪雪山のある無名コンビ</text>
 <text x="440" y="1354" class="label">ニ</text>
-<circle class="node" data-map="E20" cx="1080" cy="780" r="30"/><text class="id" x="1080" y="787">E20</text>
-<text x="1080" y="833" class="label">スロープと車寄せのある私</text>
-<text x="1080" y="854" class="label">立病院</text>
-<circle class="node" data-map="N1" cx="440" cy="840" r="30"/><text class="id" x="440" y="847">N1</text>
-<text x="440" y="893" class="label">融雪水の犀川鉄橋</text>
-<circle class="node" data-map="N9" cx="770" cy="620" r="30"/><text class="id" x="770" y="627">N9</text>
-<text x="770" y="673" class="label">松と石垣で二手に分かれる</text>
-<text x="770" y="694" class="label">広坂</text>
-<circle class="node" data-map="N11" cx="440" cy="380" r="30"/><text class="id" x="440" y="387">N11</text>
+<circle class="node" data-map="KRB-11" cx="440" cy="380" r="34"/><text class="id" x="440" y="385">KRB-11</text>
 <text x="440" y="433" class="label">バス屋根と市場アーケード</text>
 <text x="440" y="454" class="label">の十字</text>
+<circle class="node" data-map="KRB-12" cx="770" cy="620" r="34"/><text class="id" x="770" y="625">KRB-12</text>
+<text x="770" y="673" class="label">松と石垣で二手に分かれる</text>
+<text x="770" y="694" class="label">広坂</text>
+<circle class="node" data-map="KRB-13" cx="1080" cy="780" r="34"/><text class="id" x="1080" y="785">KRB-13</text>
+<text x="1080" y="833" class="label">スロープと車寄せのある私</text>
+<text x="1080" y="854" class="label">立病院</text>
 <text x="25" y="1405" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
-<circle class="ref" data-reference-map="N2" data-reference="N2" cx="40" cy="1435" r="13"/>
-<text x="65" y="1440" class="small">N2.top ↔ E19.bottom  [外部: teramachi]</text>
-<path class="edge" data-edge-id="N2.top&gt;E19.bottom:edge" data-kind="edge" data-from="N2" data-to="E19" data-from-port="top" data-to-port="bottom" d="M1260 1433 L1375 1433"/>
-<text x="25" y="1482" class="small">E19.top ↔ E17.bottom</text>
-<text x="25" y="1524" class="small">E17.top ↔ N1.bottom</text>
-<text x="25" y="1566" class="small">N1.top ↔ E14.bottom</text>
-<text x="25" y="1608" class="small">E14.top ↔ N11.bottom</text>
-<text x="25" y="1650" class="small">E14.right ↔ N9.left</text>
-<text x="25" y="1692" class="small">E14.door ↔ F83.door-street</text>
-<text x="25" y="1734" class="small">E17.door ↔ E18.door</text>
-<circle class="ref" data-reference-map="E21" data-reference="E21" cx="40" cy="1771" r="13"/>
-<text x="65" y="1776" class="small">N11.top ↔ E21.bottom  [外部: station]</text>
-<path class="edge" data-edge-id="N11.top&gt;E21.bottom:edge" data-kind="edge" data-from="N11" data-to="E21" data-from-port="top" data-to-port="bottom" d="M1260 1769 L1375 1769"/>
-<circle class="ref" data-reference-map="N8" data-reference="N8" cx="40" cy="1813" r="13"/>
-<text x="65" y="1818" class="small">N11.right ↔ N8.left  [外部: mountain]</text>
-<path class="edge" data-edge-id="N11.right&gt;N8.left:edge" data-kind="edge" data-from="N11" data-to="N8" data-from-port="right" data-to-port="left" d="M1260 1811 L1375 1811"/>
-<circle class="ref" data-reference-map="F41" data-reference="F41" cx="40" cy="1855" r="13"/>
-<text x="65" y="1860" class="small">N9.top ↔ F41.bottom  [外部: garden]</text>
-<path class="edge" data-edge-id="N9.top&gt;F41.bottom:edge" data-kind="edge" data-from="N9" data-to="F41" data-from-port="top" data-to-port="bottom" d="M1260 1853 L1375 1853"/>
-<text x="25" y="1902" class="small">N9.right ↔ E20.left</text>
+<circle class="ref" data-reference-map="TRM-17" data-reference="TRM-17" cx="40" cy="1435" r="13"/>
+<text x="65" y="1440" class="small">TRM-17.top ↔ KRB-10.bottom  [外部: teramachi]</text>
+<path class="edge" data-edge-id="TRM-17.top&gt;KRB-10.bottom:edge" data-kind="edge" data-from="TRM-17" data-to="KRB-10" data-from-port="top" data-to-port="bottom" d="M1260 1433 L1375 1433"/>
+<text x="25" y="1482" class="small">KRB-10.top ↔ KRB-08.bottom</text>
+<text x="25" y="1524" class="small">KRB-08.top ↔ KRB-07.bottom</text>
+<text x="25" y="1566" class="small">KRB-07.top ↔ KRB-01.bottom</text>
+<text x="25" y="1608" class="small">KRB-01.top ↔ KRB-11.bottom</text>
+<text x="25" y="1650" class="small">KRB-01.right ↔ KRB-12.left</text>
+<text x="25" y="1692" class="small">KRB-01.door ↔ KRB-02.door-street</text>
+<text x="25" y="1734" class="small">KRB-08.door ↔ KRB-09.door</text>
+<circle class="ref" data-reference-map="STN-01" data-reference="STN-01" cx="40" cy="1771" r="13"/>
+<text x="65" y="1776" class="small">KRB-11.top ↔ STN-01.bottom  [外部: station]</text>
+<path class="edge" data-edge-id="KRB-11.top&gt;STN-01.bottom:edge" data-kind="edge" data-from="KRB-11" data-to="STN-01" data-from-port="top" data-to-port="bottom" d="M1260 1769 L1375 1769"/>
+<circle class="ref" data-reference-map="UTS-01" data-reference="UTS-01" cx="40" cy="1813" r="13"/>
+<text x="65" y="1818" class="small">KRB-11.right ↔ UTS-01.left  [外部: mountain]</text>
+<path class="edge" data-edge-id="KRB-11.right&gt;UTS-01.left:edge" data-kind="edge" data-from="KRB-11" data-to="UTS-01" data-from-port="right" data-to-port="left" d="M1260 1811 L1375 1811"/>
+<circle class="ref" data-reference-map="GRD-01" data-reference="GRD-01" cx="40" cy="1855" r="13"/>
+<text x="65" y="1860" class="small">KRB-12.top ↔ GRD-01.bottom  [外部: garden]</text>
+<path class="edge" data-edge-id="KRB-12.top&gt;GRD-01.bottom:edge" data-kind="edge" data-from="KRB-12" data-to="GRD-01" data-from-port="top" data-to-port="bottom" d="M1260 1853 L1375 1853"/>
+<text x="25" y="1902" class="small">KRB-12.right ↔ KRB-13.left</text>
 </g></svg>

@@ -1,0 +1,1071 @@
+{
+ "schema_version": 1,
+ "issue": 68,
+ "note": "MAP旧ID→新ID(区域コード-2桁連番)。N4は欠番。旧IDのN03表記はN3の別名。",
+ "aliases": {
+  "N03": "N3"
+ },
+ "retired_gaps": [
+  "N4"
+ ],
+ "area_order": [
+  "TRM",
+  "KRB",
+  "STN",
+  "NTR",
+  "NTB",
+  "UTS",
+  "SNL",
+  "SCH",
+  "NTA",
+  "UCH",
+  "BDY",
+  "APT",
+  "OVS",
+  "GRD",
+  "CST"
+ ],
+ "maps": [
+  {
+   "old_id": "E01",
+   "new_id": "TRM-01",
+   "area_code": "TRM",
+   "area_id": "teramachi",
+   "area_name": "寺町・寺院と住居",
+   "old_slug": null
+  },
+  {
+   "old_id": "F02",
+   "new_id": "TRM-02",
+   "area_code": "TRM",
+   "area_id": "teramachi",
+   "area_name": "寺町・寺院と住居",
+   "old_slug": "teramachi-kindergarten-hall"
+  },
+  {
+   "old_id": "E11",
+   "new_id": "TRM-03",
+   "area_code": "TRM",
+   "area_id": "teramachi",
+   "area_name": "寺町・寺院と住居",
+   "old_slug": null
+  },
+  {
+   "old_id": "F01",
+   "new_id": "TRM-04",
+   "area_code": "TRM",
+   "area_id": "teramachi",
+   "area_name": "寺町・寺院と住居",
+   "old_slug": "teramachi-main-hall-interior"
+  },
+  {
+   "old_id": "E12",
+   "new_id": "TRM-05",
+   "area_code": "TRM",
+   "area_id": "teramachi",
+   "area_name": "寺町・寺院と住居",
+   "old_slug": null
+  },
+  {
+   "old_id": "E10",
+   "new_id": "TRM-06",
+   "area_code": "TRM",
+   "area_id": "teramachi",
+   "area_name": "寺町・寺院と住居",
+   "old_slug": null
+  },
+  {
+   "old_id": "E04",
+   "new_id": "TRM-07",
+   "area_code": "TRM",
+   "area_id": "teramachi",
+   "area_name": "寺町・寺院と住居",
+   "old_slug": null
+  },
+  {
+   "old_id": "E05",
+   "new_id": "TRM-08",
+   "area_code": "TRM",
+   "area_id": "teramachi",
+   "area_name": "寺町・寺院と住居",
+   "old_slug": null
+  },
+  {
+   "old_id": "E06",
+   "new_id": "TRM-09",
+   "area_code": "TRM",
+   "area_id": "teramachi",
+   "area_name": "寺町・寺院と住居",
+   "old_slug": null
+  },
+  {
+   "old_id": "E07",
+   "new_id": "TRM-10",
+   "area_code": "TRM",
+   "area_id": "teramachi",
+   "area_name": "寺町・寺院と住居",
+   "old_slug": null
+  },
+  {
+   "old_id": "E08",
+   "new_id": "TRM-11",
+   "area_code": "TRM",
+   "area_id": "teramachi",
+   "area_name": "寺町・寺院と住居",
+   "old_slug": null
+  },
+  {
+   "old_id": "F03",
+   "new_id": "TRM-12",
+   "area_code": "TRM",
+   "area_id": "teramachi",
+   "area_name": "寺町・寺院と住居",
+   "old_slug": "teramachi-danchi-interior"
+  },
+  {
+   "old_id": "E09",
+   "new_id": "TRM-13",
+   "area_code": "TRM",
+   "area_id": "teramachi",
+   "area_name": "寺町・寺院と住居",
+   "old_slug": null
+  },
+  {
+   "old_id": "E13",
+   "new_id": "TRM-14",
+   "area_code": "TRM",
+   "area_id": "teramachi",
+   "area_name": "寺町・寺院と住居",
+   "old_slug": null
+  },
+  {
+   "old_id": "E03",
+   "new_id": "TRM-15",
+   "area_code": "TRM",
+   "area_id": "teramachi",
+   "area_name": "寺町・寺院と住居",
+   "old_slug": null
+  },
+  {
+   "old_id": "E02",
+   "new_id": "TRM-16",
+   "area_code": "TRM",
+   "area_id": "teramachi",
+   "area_name": "寺町・寺院と住居",
+   "old_slug": null
+  },
+  {
+   "old_id": "N2",
+   "new_id": "TRM-17",
+   "area_code": "TRM",
+   "area_id": "teramachi",
+   "area_name": "寺町・寺院と住居",
+   "old_slug": "teramachi-entry-slope"
+  },
+  {
+   "old_id": "E14",
+   "new_id": "KRB-01",
+   "area_code": "KRB",
+   "area_id": "city",
+   "area_name": "香林坊・茶屋街・広坂・病院",
+   "old_slug": null
+  },
+  {
+   "old_id": "F83",
+   "new_id": "KRB-02",
+   "area_code": "KRB",
+   "area_id": "city",
+   "area_name": "香林坊・茶屋街・広坂・病院",
+   "old_slug": null
+  },
+  {
+   "old_id": "F85",
+   "new_id": "KRB-03",
+   "area_code": "KRB",
+   "area_id": "city",
+   "area_name": "香林坊・茶屋街・広坂・病院",
+   "old_slug": null
+  },
+  {
+   "old_id": "E15",
+   "new_id": "KRB-04",
+   "area_code": "KRB",
+   "area_id": "city",
+   "area_name": "香林坊・茶屋街・広坂・病院",
+   "old_slug": null
+  },
+  {
+   "old_id": "F86",
+   "new_id": "KRB-05",
+   "area_code": "KRB",
+   "area_id": "city",
+   "area_name": "香林坊・茶屋街・広坂・病院",
+   "old_slug": null
+  },
+  {
+   "old_id": "E16",
+   "new_id": "KRB-06",
+   "area_code": "KRB",
+   "area_id": "city",
+   "area_name": "香林坊・茶屋街・広坂・病院",
+   "old_slug": null
+  },
+  {
+   "old_id": "N1",
+   "new_id": "KRB-07",
+   "area_code": "KRB",
+   "area_id": "city",
+   "area_name": "香林坊・茶屋街・広坂・病院",
+   "old_slug": "kanazawa-saigawa-bridge"
+  },
+  {
+   "old_id": "E17",
+   "new_id": "KRB-08",
+   "area_code": "KRB",
+   "area_id": "city",
+   "area_name": "香林坊・茶屋街・広坂・病院",
+   "old_slug": null
+  },
+  {
+   "old_id": "E18",
+   "new_id": "KRB-09",
+   "area_code": "KRB",
+   "area_id": "city",
+   "area_name": "香林坊・茶屋街・広坂・病院",
+   "old_slug": null
+  },
+  {
+   "old_id": "E19",
+   "new_id": "KRB-10",
+   "area_code": "KRB",
+   "area_id": "city",
+   "area_name": "香林坊・茶屋街・広坂・病院",
+   "old_slug": null
+  },
+  {
+   "old_id": "N11",
+   "new_id": "KRB-11",
+   "area_code": "KRB",
+   "area_id": "city",
+   "area_name": "香林坊・茶屋街・広坂・病院",
+   "old_slug": "musashigatsuji-crossing"
+  },
+  {
+   "old_id": "N9",
+   "new_id": "KRB-12",
+   "area_code": "KRB",
+   "area_id": "city",
+   "area_name": "香林坊・茶屋街・広坂・病院",
+   "old_slug": "hirosaka-slope"
+  },
+  {
+   "old_id": "E20",
+   "new_id": "KRB-13",
+   "area_code": "KRB",
+   "area_id": "city",
+   "area_name": "香林坊・茶屋街・広坂・病院",
+   "old_slug": null
+  },
+  {
+   "old_id": "E21",
+   "new_id": "STN-01",
+   "area_code": "STN",
+   "area_id": "station",
+   "area_name": "金沢駅",
+   "old_slug": null
+  },
+  {
+   "old_id": "E28",
+   "new_id": "NTR-01",
+   "area_code": "NTR",
+   "area_id": "noto_train",
+   "area_name": "奥能登への鉄道",
+   "old_slug": null
+  },
+  {
+   "old_id": "E29",
+   "new_id": "NTB-01",
+   "area_code": "NTB",
+   "area_id": "noto_before",
+   "area_name": "奥能登・被災前",
+   "old_slug": null
+  },
+  {
+   "old_id": "N5",
+   "new_id": "NTB-02",
+   "area_code": "NTB",
+   "area_id": "noto_before",
+   "area_name": "奥能登・被災前",
+   "old_slug": "noto-uphill"
+  },
+  {
+   "old_id": "N6",
+   "new_id": "NTB-03",
+   "area_code": "NTB",
+   "area_id": "noto_before",
+   "area_name": "奥能登・被災前",
+   "old_slug": "noto-ridge"
+  },
+  {
+   "old_id": "N7",
+   "new_id": "NTB-04",
+   "area_code": "NTB",
+   "area_id": "noto_before",
+   "area_name": "奥能登・被災前",
+   "old_slug": "noto-downhill"
+  },
+  {
+   "old_id": "E30",
+   "new_id": "NTB-05",
+   "area_code": "NTB",
+   "area_id": "noto_before",
+   "area_name": "奥能登・被災前",
+   "old_slug": null
+  },
+  {
+   "old_id": "E31",
+   "new_id": "NTB-06",
+   "area_code": "NTB",
+   "area_id": "noto_before",
+   "area_name": "奥能登・被災前",
+   "old_slug": null
+  },
+  {
+   "old_id": "F84",
+   "new_id": "NTB-07",
+   "area_code": "NTB",
+   "area_id": "noto_before",
+   "area_name": "奥能登・被災前",
+   "old_slug": null
+  },
+  {
+   "old_id": "E32",
+   "new_id": "NTB-08",
+   "area_code": "NTB",
+   "area_id": "noto_before",
+   "area_name": "奥能登・被災前",
+   "old_slug": null
+  },
+  {
+   "old_id": "N8",
+   "new_id": "UTS-01",
+   "area_code": "UTS",
+   "area_id": "mountain",
+   "area_name": "卯辰山の一本道",
+   "old_slug": "utatsuyama-trailhead-slope"
+  },
+  {
+   "old_id": "E22",
+   "new_id": "UTS-02",
+   "area_code": "UTS",
+   "area_id": "mountain",
+   "area_name": "卯辰山の一本道",
+   "old_slug": null
+  },
+  {
+   "old_id": "F04",
+   "new_id": "UTS-03",
+   "area_code": "UTS",
+   "area_id": "mountain",
+   "area_name": "卯辰山の一本道",
+   "old_slug": "utatsuyama-route-02"
+  },
+  {
+   "old_id": "F05",
+   "new_id": "UTS-04",
+   "area_code": "UTS",
+   "area_id": "mountain",
+   "area_name": "卯辰山の一本道",
+   "old_slug": "utatsuyama-route-03"
+  },
+  {
+   "old_id": "F06",
+   "new_id": "UTS-05",
+   "area_code": "UTS",
+   "area_id": "mountain",
+   "area_name": "卯辰山の一本道",
+   "old_slug": "utatsuyama-summon-clearing"
+  },
+  {
+   "old_id": "F07",
+   "new_id": "SNL-01",
+   "area_code": "SNL",
+   "area_id": "sunnyland",
+   "area_name": "サニーランド",
+   "old_slug": null
+  },
+  {
+   "old_id": "F08",
+   "new_id": "SNL-02",
+   "area_code": "SNL",
+   "area_id": "sunnyland",
+   "area_name": "サニーランド",
+   "old_slug": null
+  },
+  {
+   "old_id": "E25",
+   "new_id": "SNL-03",
+   "area_code": "SNL",
+   "area_id": "sunnyland",
+   "area_name": "サニーランド",
+   "old_slug": null
+  },
+  {
+   "old_id": "F09",
+   "new_id": "SNL-04",
+   "area_code": "SNL",
+   "area_id": "sunnyland",
+   "area_name": "サニーランド",
+   "old_slug": null
+  },
+  {
+   "old_id": "E24",
+   "new_id": "SNL-05",
+   "area_code": "SNL",
+   "area_id": "sunnyland",
+   "area_name": "サニーランド",
+   "old_slug": null
+  },
+  {
+   "old_id": "E23",
+   "new_id": "SNL-06",
+   "area_code": "SNL",
+   "area_id": "sunnyland",
+   "area_name": "サニーランド",
+   "old_slug": null
+  },
+  {
+   "old_id": "F64",
+   "new_id": "SNL-07",
+   "area_code": "SNL",
+   "area_id": "sunnyland",
+   "area_name": "サニーランド",
+   "old_slug": null
+  },
+  {
+   "old_id": "F65",
+   "new_id": "SNL-08",
+   "area_code": "SNL",
+   "area_id": "sunnyland",
+   "area_name": "サニーランド",
+   "old_slug": null
+  },
+  {
+   "old_id": "F10",
+   "new_id": "SNL-09",
+   "area_code": "SNL",
+   "area_id": "sunnyland",
+   "area_name": "サニーランド",
+   "old_slug": null
+  },
+  {
+   "old_id": "F63",
+   "new_id": "SNL-10",
+   "area_code": "SNL",
+   "area_id": "sunnyland",
+   "area_name": "サニーランド",
+   "old_slug": null
+  },
+  {
+   "old_id": "F62",
+   "new_id": "SNL-11",
+   "area_code": "SNL",
+   "area_id": "sunnyland",
+   "area_name": "サニーランド",
+   "old_slug": null
+  },
+  {
+   "old_id": "F61",
+   "new_id": "SNL-12",
+   "area_code": "SNL",
+   "area_id": "sunnyland",
+   "area_name": "サニーランド",
+   "old_slug": null
+  },
+  {
+   "old_id": "N10",
+   "new_id": "SCH-01",
+   "area_code": "SCH",
+   "area_id": "school",
+   "area_name": "小学校と通学坂",
+   "old_slug": "teramachi-school-slope"
+  },
+  {
+   "old_id": "E33",
+   "new_id": "SCH-02",
+   "area_code": "SCH",
+   "area_id": "school",
+   "area_name": "小学校と通学坂",
+   "old_slug": null
+  },
+  {
+   "old_id": "F12",
+   "new_id": "NTA-01",
+   "area_code": "NTA",
+   "area_id": "noto_after",
+   "area_name": "奥能登・被災後",
+   "old_slug": "noto-post-station"
+  },
+  {
+   "old_id": "F13",
+   "new_id": "NTA-02",
+   "area_code": "NTA",
+   "area_id": "noto_after",
+   "area_name": "奥能登・被災後",
+   "old_slug": "noto-post-uphill"
+  },
+  {
+   "old_id": "F14",
+   "new_id": "NTA-03",
+   "area_code": "NTA",
+   "area_id": "noto_after",
+   "area_name": "奥能登・被災後",
+   "old_slug": "noto-post-ridge"
+  },
+  {
+   "old_id": "F15",
+   "new_id": "NTA-04",
+   "area_code": "NTA",
+   "area_id": "noto_after",
+   "area_name": "奥能登・被災後",
+   "old_slug": "noto-post-downhill"
+  },
+  {
+   "old_id": "F16",
+   "new_id": "NTA-05",
+   "area_code": "NTA",
+   "area_id": "noto_after",
+   "area_name": "奥能登・被災後",
+   "old_slug": "noto-post-house"
+  },
+  {
+   "old_id": "F17",
+   "new_id": "NTA-06",
+   "area_code": "NTA",
+   "area_id": "noto_after",
+   "area_name": "奥能登・被災後",
+   "old_slug": "noto-post-fishing-spot"
+  },
+  {
+   "old_id": "F18",
+   "new_id": "NTA-07",
+   "area_code": "NTA",
+   "area_id": "noto_after",
+   "area_name": "奥能登・被災後",
+   "old_slug": "noto-temporary-housing"
+  },
+  {
+   "old_id": "N12",
+   "new_id": "UCH-01",
+   "area_code": "UCH",
+   "area_id": "uchinada",
+   "area_name": "内灘・内灘線",
+   "old_slug": "asanogawa-line-interior",
+   "new_slug": "uchinada-line-interior"
+  },
+  {
+   "old_id": "E26",
+   "new_id": "UCH-02",
+   "area_code": "UCH",
+   "area_id": "uchinada",
+   "area_name": "内灘・内灘線",
+   "old_slug": null
+  },
+  {
+   "old_id": "N3",
+   "new_id": "UCH-03",
+   "area_code": "UCH",
+   "area_id": "uchinada",
+   "area_name": "内灘・内灘線",
+   "old_slug": "uchinada-pine-dune-path"
+  },
+  {
+   "old_id": "F11",
+   "new_id": "UCH-04",
+   "area_code": "UCH",
+   "area_id": "uchinada",
+   "area_name": "内灘・内灘線",
+   "old_slug": "uchinada-dune-summit"
+  },
+  {
+   "old_id": "E27",
+   "new_id": "UCH-05",
+   "area_code": "UCH",
+   "area_id": "uchinada",
+   "area_name": "内灘・内灘線",
+   "old_slug": null
+  },
+  {
+   "old_id": "F19",
+   "new_id": "BDY-01",
+   "area_code": "BDY",
+   "area_id": "body",
+   "area_name": "幼稚園児の想像する抽象体内",
+   "old_slug": null
+  },
+  {
+   "old_id": "F74",
+   "new_id": "BDY-02",
+   "area_code": "BDY",
+   "area_id": "body",
+   "area_name": "幼稚園児の想像する抽象体内",
+   "old_slug": null
+  },
+  {
+   "old_id": "F76",
+   "new_id": "BDY-03",
+   "area_code": "BDY",
+   "area_id": "body",
+   "area_name": "幼稚園児の想像する抽象体内",
+   "old_slug": null
+  },
+  {
+   "old_id": "F24",
+   "new_id": "BDY-04",
+   "area_code": "BDY",
+   "area_id": "body",
+   "area_name": "幼稚園児の想像する抽象体内",
+   "old_slug": null
+  },
+  {
+   "old_id": "F77",
+   "new_id": "BDY-05",
+   "area_code": "BDY",
+   "area_id": "body",
+   "area_name": "幼稚園児の想像する抽象体内",
+   "old_slug": null
+  },
+  {
+   "old_id": "F20",
+   "new_id": "BDY-06",
+   "area_code": "BDY",
+   "area_id": "body",
+   "area_name": "幼稚園児の想像する抽象体内",
+   "old_slug": null
+  },
+  {
+   "old_id": "F78",
+   "new_id": "BDY-07",
+   "area_code": "BDY",
+   "area_id": "body",
+   "area_name": "幼稚園児の想像する抽象体内",
+   "old_slug": null
+  },
+  {
+   "old_id": "F21",
+   "new_id": "BDY-08",
+   "area_code": "BDY",
+   "area_id": "body",
+   "area_name": "幼稚園児の想像する抽象体内",
+   "old_slug": null
+  },
+  {
+   "old_id": "F79",
+   "new_id": "BDY-09",
+   "area_code": "BDY",
+   "area_id": "body",
+   "area_name": "幼稚園児の想像する抽象体内",
+   "old_slug": null
+  },
+  {
+   "old_id": "F80",
+   "new_id": "BDY-10",
+   "area_code": "BDY",
+   "area_id": "body",
+   "area_name": "幼稚園児の想像する抽象体内",
+   "old_slug": null
+  },
+  {
+   "old_id": "F22",
+   "new_id": "BDY-11",
+   "area_code": "BDY",
+   "area_id": "body",
+   "area_name": "幼稚園児の想像する抽象体内",
+   "old_slug": null
+  },
+  {
+   "old_id": "F81",
+   "new_id": "BDY-12",
+   "area_code": "BDY",
+   "area_id": "body",
+   "area_name": "幼稚園児の想像する抽象体内",
+   "old_slug": null
+  },
+  {
+   "old_id": "F82",
+   "new_id": "BDY-13",
+   "area_code": "BDY",
+   "area_id": "body",
+   "area_name": "幼稚園児の想像する抽象体内",
+   "old_slug": null
+  },
+  {
+   "old_id": "F23",
+   "new_id": "BDY-14",
+   "area_code": "BDY",
+   "area_id": "body",
+   "area_name": "幼稚園児の想像する抽象体内",
+   "old_slug": null
+  },
+  {
+   "old_id": "F25",
+   "new_id": "BDY-15",
+   "area_code": "BDY",
+   "area_id": "body",
+   "area_name": "幼稚園児の想像する抽象体内",
+   "old_slug": null
+  },
+  {
+   "old_id": "F26",
+   "new_id": "BDY-16",
+   "area_code": "BDY",
+   "area_id": "body",
+   "area_name": "幼稚園児の想像する抽象体内",
+   "old_slug": null
+  },
+  {
+   "old_id": "F75",
+   "new_id": "BDY-17",
+   "area_code": "BDY",
+   "area_id": "body",
+   "area_name": "幼稚園児の想像する抽象体内",
+   "old_slug": null
+  },
+  {
+   "old_id": "F39",
+   "new_id": "APT-01",
+   "area_code": "APT",
+   "area_id": "airport",
+   "area_name": "K空港",
+   "old_slug": "k-airport-exterior"
+  },
+  {
+   "old_id": "F40",
+   "new_id": "APT-02",
+   "area_code": "APT",
+   "area_id": "airport",
+   "area_name": "K空港",
+   "old_slug": "k-airport-interior"
+  },
+  {
+   "old_id": "F27",
+   "new_id": "OVS-01",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": "overseas-airport"
+  },
+  {
+   "old_id": "F28",
+   "new_id": "OVS-02",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": "overseas-wasteland-a"
+  },
+  {
+   "old_id": "F29",
+   "new_id": "OVS-03",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": "overseas-wasteland-b"
+  },
+  {
+   "old_id": "F30",
+   "new_id": "OVS-04",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": null
+  },
+  {
+   "old_id": "F31",
+   "new_id": "OVS-05",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": null
+  },
+  {
+   "old_id": "F66",
+   "new_id": "OVS-06",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": null
+  },
+  {
+   "old_id": "F32",
+   "new_id": "OVS-07",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": null
+  },
+  {
+   "old_id": "F67",
+   "new_id": "OVS-08",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": null
+  },
+  {
+   "old_id": "F33",
+   "new_id": "OVS-09",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": null
+  },
+  {
+   "old_id": "F34",
+   "new_id": "OVS-10",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": null
+  },
+  {
+   "old_id": "F68",
+   "new_id": "OVS-11",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": null
+  },
+  {
+   "old_id": "F35",
+   "new_id": "OVS-12",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": null
+  },
+  {
+   "old_id": "F69",
+   "new_id": "OVS-13",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": null
+  },
+  {
+   "old_id": "F36",
+   "new_id": "OVS-14",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": null
+  },
+  {
+   "old_id": "F37",
+   "new_id": "OVS-15",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": null
+  },
+  {
+   "old_id": "F70",
+   "new_id": "OVS-16",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": null
+  },
+  {
+   "old_id": "F71",
+   "new_id": "OVS-17",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": null
+  },
+  {
+   "old_id": "F72",
+   "new_id": "OVS-18",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": null
+  },
+  {
+   "old_id": "F73",
+   "new_id": "OVS-19",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": null
+  },
+  {
+   "old_id": "F38",
+   "new_id": "OVS-20",
+   "area_code": "OVS",
+   "area_id": "overseas",
+   "area_name": "海外・凍結荒野と三塔",
+   "old_slug": null
+  },
+  {
+   "old_id": "F41",
+   "new_id": "GRD-01",
+   "area_code": "GRD",
+   "area_id": "garden",
+   "area_name": "兼六園",
+   "old_slug": "kenrokuen-1"
+  },
+  {
+   "old_id": "F42",
+   "new_id": "GRD-02",
+   "area_code": "GRD",
+   "area_id": "garden",
+   "area_name": "兼六園",
+   "old_slug": "kenrokuen-2"
+  },
+  {
+   "old_id": "F43",
+   "new_id": "GRD-03",
+   "area_code": "GRD",
+   "area_id": "garden",
+   "area_name": "兼六園",
+   "old_slug": "kenrokuen-3"
+  },
+  {
+   "old_id": "F44",
+   "new_id": "GRD-04",
+   "area_code": "GRD",
+   "area_id": "garden",
+   "area_name": "兼六園",
+   "old_slug": "kenrokuen-4"
+  },
+  {
+   "old_id": "F45",
+   "new_id": "GRD-05",
+   "area_code": "GRD",
+   "area_id": "garden",
+   "area_name": "兼六園",
+   "old_slug": "kenrokuen-5"
+  },
+  {
+   "old_id": "F46",
+   "new_id": "GRD-06",
+   "area_code": "GRD",
+   "area_id": "garden",
+   "area_name": "兼六園",
+   "old_slug": "kenrokuen-6"
+  },
+  {
+   "old_id": "F47",
+   "new_id": "GRD-07",
+   "area_code": "GRD",
+   "area_id": "garden",
+   "area_name": "兼六園",
+   "old_slug": "kenrokuen-7"
+  },
+  {
+   "old_id": "F48",
+   "new_id": "GRD-08",
+   "area_code": "GRD",
+   "area_id": "garden",
+   "area_name": "兼六園",
+   "old_slug": "kenrokuen-8"
+  },
+  {
+   "old_id": "F49",
+   "new_id": "GRD-09",
+   "area_code": "GRD",
+   "area_id": "garden",
+   "area_name": "兼六園",
+   "old_slug": "kenrokuen-9"
+  },
+  {
+   "old_id": "F50",
+   "new_id": "GRD-10",
+   "area_code": "GRD",
+   "area_id": "garden",
+   "area_name": "兼六園",
+   "old_slug": "kenrokuen-10"
+  },
+  {
+   "old_id": "F51",
+   "new_id": "CST-01",
+   "area_code": "CST",
+   "area_id": "castle",
+   "area_name": "金沢城",
+   "old_slug": "castle-1"
+  },
+  {
+   "old_id": "F52",
+   "new_id": "CST-02",
+   "area_code": "CST",
+   "area_id": "castle",
+   "area_name": "金沢城",
+   "old_slug": "castle-2"
+  },
+  {
+   "old_id": "F53",
+   "new_id": "CST-03",
+   "area_code": "CST",
+   "area_id": "castle",
+   "area_name": "金沢城",
+   "old_slug": "castle-3"
+  },
+  {
+   "old_id": "F54",
+   "new_id": "CST-04",
+   "area_code": "CST",
+   "area_id": "castle",
+   "area_name": "金沢城",
+   "old_slug": "castle-4"
+  },
+  {
+   "old_id": "F55",
+   "new_id": "CST-05",
+   "area_code": "CST",
+   "area_id": "castle",
+   "area_name": "金沢城",
+   "old_slug": "castle-5"
+  },
+  {
+   "old_id": "F56",
+   "new_id": "CST-06",
+   "area_code": "CST",
+   "area_id": "castle",
+   "area_name": "金沢城",
+   "old_slug": "castle-6"
+  },
+  {
+   "old_id": "F57",
+   "new_id": "CST-07",
+   "area_code": "CST",
+   "area_id": "castle",
+   "area_name": "金沢城",
+   "old_slug": "castle-7"
+  },
+  {
+   "old_id": "F58",
+   "new_id": "CST-08",
+   "area_code": "CST",
+   "area_id": "castle",
+   "area_name": "金沢城",
+   "old_slug": "castle-8"
+  },
+  {
+   "old_id": "F59",
+   "new_id": "CST-09",
+   "area_code": "CST",
+   "area_id": "castle",
+   "area_name": "金沢城",
+   "old_slug": "castle-9"
+  },
+  {
+   "old_id": "F60",
+   "new_id": "CST-10",
+   "area_code": "CST",
+   "area_id": "castle",
+   "area_name": "金沢城",
+   "old_slug": "castle-10"
+  }
+ ]
+}
