@@ -112,52 +112,52 @@ class MapTopologyTests(unittest.TestCase):
         self.reject("F60")
 
     def test_edge_must_use_opposite_sides(self):
-        self.topology("| E01.right | E02.left | edge |", "| E01.right | E02.right | edge |")
+        self.topology("| E02.right | E03.left | edge |", "| E02.right | E03.right | edge |")
         self.reject("反対辺")
 
     def test_unknown_edge_side_rejected(self):
-        self.topology("| E01.right | E02.left | edge |", "| E01.up | E02.down | edge |")
+        self.topology("| E02.right | E03.left | edge |", "| E02.up | E03.down | edge |")
         self.reject()
 
     def test_missing_edge_side_rejected(self):
-        self.topology("| E01.right | E02.left | edge |", "| E01. | E02.left | edge |")
+        self.topology("| E02.right | E03.left | edge |", "| E02. | E03.left | edge |")
         self.reject()
 
     def test_missing_endpoint_separator_cannot_silently_drop_row(self):
-        self.topology("| E01.right | E02.left | edge |", "| E01 | E02.left | edge |")
+        self.topology("| E02.right | E03.left | edge |", "| E02 | E03.left | edge |")
         self.reject()
 
     def test_reused_edge_endpoint_rejected(self):
-        self.append_connection("| E01.right | E10.left | edge | 同一端の再利用 |")
-        self.reject("E01.right")
+        self.append_connection("| E02.right | E10.left | edge | 同一端の再利用 |")
+        self.reject("E02.right")
 
     def test_unknown_map_endpoint_rejected(self):
-        self.topology("| E01.right | E02.left | edge |", "| E99.right | E02.left | edge |")
+        self.topology("| E02.right | E03.left | edge |", "| E99.right | E03.left | edge |")
         self.reject("E99")
 
     def test_unknown_source_id_cannot_silently_drop_row(self):
-        self.topology("| E01.right | E02.left | edge |", "| UNKNOWN.right | E02.left | edge |")
+        self.topology("| E02.right | E03.left | edge |", "| UNKNOWN.right | E03.left | edge |")
         self.reject("UNKNOWN")
 
     def test_malformed_row_without_kind_or_reason_rejected(self):
-        self.topology("| E01.right | E02.left | edge |", "| E01.right | E02.left |")
+        self.topology("| E02.right | E03.left | edge |", "| E02.right | E03.left |")
         self.reject("欄不足")
 
     def test_missing_door_identifier_rejected(self):
-        self.topology("| E01.door-north | E11.door-kindergarten | door |",
+        self.topology("| E01.door-west | E11.door-kindergarten | door |",
                       "| E01. | E11.door-kindergarten | door |")
         self.reject()
 
     def test_reused_door_endpoint_rejected(self):
-        self.append_connection("| E01.door-north | E10.door-extra | door | 扉端の再利用 |")
-        self.reject("E01.door-north")
+        self.append_connection("| E01.door-west | E10.door-extra | door | 扉端の再利用 |")
+        self.reject("E01.door-west")
 
     def test_unknown_connection_kind_rejected(self):
-        self.topology("| E01.right | E02.left | edge |", "| E01.right | E02.left | teleport |")
+        self.topology("| E02.right | E03.left | edge |", "| E02.right | E03.left | teleport |")
         self.reject()
 
     def test_blank_connection_kind_rejected(self):
-        self.topology("| E01.right | E02.left | edge |", "| E01.right | E02.left |  |")
+        self.topology("| E02.right | E03.left | edge |", "| E02.right | E03.left |  |")
         self.reject()
 
     def test_mountain_shortcut_rejected(self):

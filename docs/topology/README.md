@@ -33,3 +33,5 @@
 再生成：`ruby scripts/render_map_atlas.rb`。詳細図は各`render_body_topology.rb`、`render_late_topology.rb`、`render_sunnyland_topology.rb`で更新。
 
 検証：`ruby scripts/verify_map_ledger.rb`。全件数・一意所属・体内入口と方向／枚数・三塔進行・全図の端ID／種別／矢印／可視IDを検査。[ID登録](map-ids.json)は全126件。[海外設計状態契約](overseas-progression.json)はゲームruntimeと別の設計成果物。
+
+図の座標（`areas.json` の `layout`）は、docs の方向記述（斜め道・上り下り・左右）を模式的に反映する。距離・縮尺は表さない。接続の正本は台帳（[map-topology.md](../map-topology.md) v2）である。

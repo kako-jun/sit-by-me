@@ -10,21 +10,21 @@
 
 | ID | 旧参照画像 | 現行の必須接続 | 禁止・固有条件 | 現状態 |
 |---|---|---|---|---|
-| E01 | `E01-teramachi-kindergarten-rebuild-candidate.png` | right→E02、door-north→E11 | 屋外園庭。幼稚園北通用門は園庭主路と分離 | recreate-required-1920x1080 |
-| E02 | `E02-teramachi-connector-rebuild-candidate.png` | left→E01、right→E03、top→N2 | 用水と寺門、bottomは閉鎖 | recreate-required-1920x1080 |
+| E01 | `E01-teramachi-kindergarten-rebuild-candidate.png` | bottom→E05.top、door-west→E11 | 屋外園庭（境内の右＝東隣）。通用門は園庭主路と分離 | recreate-required-1920x1080 |
+| E02 | `E02-teramachi-connector-rebuild-candidate.png` | right→E03、top→N2（leftは閉鎖・TBD） | 用水と寺門、bottomは閉鎖 | recreate-required-1920x1080 |
 | E03 | `E03-teramachi-hinomi-bend-rebuild-candidate.png` | left→E02、right→E04、bottom→E10 | 火の見櫓、topは閉鎖 | recreate-required-1920x1080 |
 | E04 | `E04-teramachi-wide-road-rebuild-v2-candidate.png` | left→E03、right→E05、top→E11 | 消雪パイプと寺の長塀、bottomは閉鎖 | recreate-required-1920x1080 |
-| E05 | `E05-teramachi-well-merge-rebuild-candidate.png` | left→E04、right→E06 | 井戸と用水は主路外、top/bottom閉鎖 | recreate-required-1920x1080 |
+| E05 | `E05-teramachi-well-merge-rebuild-candidate.png` | left→E04、right→E06、top→E01.bottom | 井戸と用水は主路外、bottom閉鎖。topは園庭の正門(#51) | recreate-required-1920x1080 |
 | E06 | `E06-teramachi-sento-rebuild-v2-candidate.png` | left→E05、bottom→E07 | 銭湯煙突、top/right閉鎖 | recreate-required-1920x1080 |
 | E07 | `E07-teramachi-barrier-free-ramp-rebuild-v2-candidate.png` | top→E06、bottom→E08 | 犀川側へ蛇行する車椅子主路。石段なし | recreate-required-1920x1080 |
 | E08 | `E08-teramachi-danchi-court-rebuild-v2-candidate.png` | top→E07、right→E09、door→F03 | 県営住宅中庭。石段は立位期のみ | recreate-required-1920x1080 |
 | E09 | `E09-teramachi-old-slope-foot-rebuild-v6-candidate.png` | left→E08、top→E13 | 石段下、車椅子不可 | recreate-required-1920x1080 |
 | E10 | `E10-teramachi-narrow-lane-rebuild-candidate.png` | top→E03 | 画面内で終わる宝箱枝。他辺閉鎖 | recreate-required-1920x1080 |
-| E11 | `E11-temple-grounds-rebuild-v4-candidate.png` | bottom→E04、door-main→F01、door-kindergarten→E01 | 屋外境内。住居・遊戯室への屋外doorなし | recreate-required-1920x1080 |
-| E12 | `E12-temple-residence-rebuild-v3-candidate.png` | door-hall→F01.door-east | 屋内庫裏。本堂の東。F02直結なし | recreate-required-1920x1080 |
+| E11 | `E11-temple-grounds-rebuild-v4-candidate.png` | bottom→E04、door-main→F01、door-kindergarten→E01.door-west | 屋外境内。住居・遊戯室への屋外doorなし | recreate-required-1920x1080 |
+| E12 | `E12-temple-residence-rebuild-v3-candidate.png` | door-hall→F01.door-west | 屋内庫裏。本堂の西（左）。F02直結なし | recreate-required-1920x1080 |
 | E13 | `E13-teramachi-slope-top-rebuild-v2-candidate.png` | bottom→E09、right→N10 | 段丘上。学校側車椅子坂と石段を混同しない | recreate-required-1920x1080 |
-| F01 | `F01-temple-main-hall-rebuild-v2-candidate.png` | door-south→E11、door-east→E12.door-hall、door-west→F02.door-west | 中央の屋内本堂。扉前の段差なし・回転余地 | recreate-required-1920x1080 |
-| F02 | `F02-kindergarten-playroom-rebuild-candidate.png` | door-west→F01.door-west | 本堂の西の屋内遊戯室。到着方位TBD。舞台袖は画面内終端 | recreate-required-1920x1080 |
+| F01 | `F01-temple-main-hall-rebuild-v2-candidate.png` | door-south→E11、door-west→E12.door-hall、door-east→F02.door-west | 中央の屋内本堂。扉前の段差なし・回転余地 | recreate-required-1920x1080 |
+| F02 | `F02-kindergarten-playroom-rebuild-candidate.png` | door-west→F01.door-east | 本堂の東（右）の屋内遊戯室。扉位置TBD。舞台袖は画面内終端 | recreate-required-1920x1080 |
 | F03 | `F03-danchi-apartment-rebuild-v2-candidate.png` | door→E08 | 団地室。玄関から居間まで段差なし・回転余地 | recreate-required-1920x1080 |
 
 ## 次の採用ゲート

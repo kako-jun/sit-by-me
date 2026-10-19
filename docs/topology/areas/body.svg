@@ -12,7 +12,7 @@
 <path class="door" data-edge-id="F76.door-passage-right-leg&gt;F81.door-passage-torso:door" data-kind="door" data-from="F76" data-to="F81" data-from-port="door-passage-right-leg" data-to-port="door-passage-torso" d="M540 810 L810 950"/>
 <path class="door" data-edge-id="F81.door-passage-middle&gt;F82.door-passage-base:door" data-kind="door" data-from="F81" data-to="F82" data-from-port="door-passage-middle" data-to-port="door-passage-base" d="M810 950 L880 1130"/>
 <path class="door" data-edge-id="F82.door-passage-tip&gt;F23.door-passage-base:door" data-kind="door" data-from="F82" data-to="F23" data-from-port="door-passage-tip" data-to-port="door-passage-base" d="M880 1130 L940 1310"/>
-<path class="door" data-edge-id="F76.door-passage-stomach&gt;F25.door-passage-torso:door" data-kind="door" data-from="F76" data-to="F25" data-from-port="door-passage-stomach" data-to-port="door-passage-torso" d="M540 810 L440 970"/>
+<path class="door" data-edge-id="F76.door-passage-stomach&gt;F25.door-passage-torso:door" data-kind="door" data-from="F76" data-to="F25" data-from-port="door-passage-stomach" data-to-port="door-passage-torso" d="M540 810 L720 810"/>
 <path class="door" data-edge-id="F74.door-passage-heart&gt;F26.door-passage-torso:door" data-kind="door" data-from="F74" data-to="F26" data-from-port="door-passage-heart" data-to-port="door-passage-torso" d="M540 560 L440 680"/>
 <path class="door" data-edge-id="F74.door-passage-lung&gt;F75.door-passage-torso:door" data-kind="door" data-from="F74" data-to="F75" data-from-port="door-passage-lung" data-to-port="door-passage-torso" d="M540 560 L720 650"/>
 <circle class="node" data-map="F19" cx="730" cy="370" r="30"/><text class="id" x="730" y="377">F19</text>
@@ -43,8 +43,8 @@
 <text x="805" y="1183" class="label">右足通路2・中間</text>
 <circle class="node" data-map="F23" cx="940" cy="1310" r="30"/><text class="id" x="940" y="1317">F23</text>
 <text x="940" y="1363" class="label">右足通路3・末端</text>
-<circle class="node" data-map="F25" cx="440" cy="970" r="30"/><text class="id" x="440" y="977">F25</text>
-<text x="440" y="1023" class="label">胃・分岐室</text>
+<circle class="node" data-map="F25" cx="720" cy="810" r="30"/><text class="id" x="720" y="817">F25</text>
+<text x="720" y="863" class="label">胃・分岐室</text>
 <circle class="node" data-map="F26" cx="440" cy="680" r="30"/><text class="id" x="440" y="687">F26</text>
 <text x="440" y="733" class="label">心臓・分岐室</text>
 <circle class="node" data-map="F75" cx="720" cy="650" r="30"/><text class="id" x="720" y="657">F75</text>
