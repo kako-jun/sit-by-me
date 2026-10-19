@@ -104,7 +104,7 @@
 <path class="door" data-edge-id="E14.door&gt;F83.door-street:door" data-kind="door" data-from="E14" data-to="F83" data-from-port="door" data-to-port="door-street" d="M440 620 L720 380"/>
 <path class="door" data-edge-id="F83.door-toys&gt;E15.door-korinbo:door" data-kind="door" data-from="F83" data-to="E15" data-from-port="door-toys" data-to-port="door-korinbo" d="M720 380 L1000 380"/>
 <path class="door" data-edge-id="E15.door-restaurant&gt;E16.door:door" data-kind="door" data-from="E15" data-to="E16" data-from-port="door-restaurant" data-to-port="door" d="M1000 380 L1280 380"/>
-<path class="door" data-edge-id="F83.door-restaurant&gt;E16.door-lobby:door" data-kind="door" data-from="F83" data-to="E16" data-from-port="door-restaurant" data-to-port="door-lobby" d="M720 380 L1280 380"/>
+<path class="door" data-edge-id="F83.door-restaurant&gt;E16.door-lobby:door" data-kind="door" data-from="F83" data-to="E16" data-from-port="door-restaurant" data-to-port="door-lobby" d="M720 380 Q1000 230 1280 380"/>
 <path class="door" data-edge-id="F83.door-2f&gt;F85.door-lower:door" data-kind="door" data-from="F83" data-to="F85" data-from-port="door-2f" data-to-port="door-lower" d="M720 380 L860 160"/>
 <path class="door" data-edge-id="E15.door-2f&gt;F85.door-upper:door" data-kind="door" data-from="E15" data-to="F85" data-from-port="door-2f" data-to-port="door-upper" d="M1000 380 L860 160"/>
 <path class="door" data-edge-id="E15.door-4f&gt;F86.door-lower:door" data-kind="door" data-from="E15" data-to="F86" data-from-port="door-4f" data-to-port="door-lower" d="M1000 380 L1140 160"/>

@@ -34,7 +34,8 @@ module MapAtlas
     g.internal(area).each do |e|
       ax,ay=positions.fetch(e['from']);bx,by=positions.fetch(e['to']);pair=[e['from'],e['to']].sort;ix=counts[pair];counts[pair]+=1
       # Separate the otter/cave entrance and exit, preserving their endpoint identities.
-      d=if %w[F64 F65].any? { |id| pair.include?(id) };"M#{ax} #{ay} Q#{(ax+bx)/2} #{(ay+by)/2+(ix==0 ? -65:65)} #{bx} #{by}";else;"M#{ax} #{ay} L#{bx} #{by}";end
+      d=if %w[F64 F65].any? { |id| pair.include?(id) };"M#{ax} #{ay} Q#{(ax+bx)/2} #{(ay+by)/2+(ix==0 ? -65:65)} #{bx} #{by}";elsif pair==%w[E16 F83];"M#{ax} #{ay} Q#{(ax+bx)/2} #{(ay+by)/2-150} #{bx} #{by}"  # 1階↔5階の直結は同一行のE15を避けて上へ弧を描く
+      else;"M#{ax} #{ay} L#{bx} #{by}";end
       out<<%(<path class="#{e['kind']}" #{attrs(e)} d="#{d}"#{arrow(e)}/>)
     end
     area['maps'].each do |id|
