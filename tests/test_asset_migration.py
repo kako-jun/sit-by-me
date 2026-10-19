@@ -173,6 +173,26 @@ class VerifierFailureTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertEqual(metadata.read_bytes(), b"existing-user-finder-metadata")
 
+    def test_field_reference_png_allowed_only_under_reference_dir(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            row = self.fixture(root)
+            ok = root / "assets/images/fields/reference/teramachi-common-exterior-reference.png"
+            ok.parent.mkdir(parents=True)
+            ok.write_bytes(PNG + b"reference")
+            self.assertEqual(self.run_verifier(root, [row]).returncode, 0)
+            for bad in ["assets/images/fields/unknown.png",
+                        "assets/images/fields/reference/nested/x.png",
+                        "assets/images/fields/reference/Bad_Name.png"]:
+                with self.subTest(bad=bad):
+                    path = root / bad
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_bytes(PNG + b"bad")
+                    result = self.run_verifier(root, [row])
+                    self.assertNotEqual(result.returncode, 0)
+                    self.assertIn("Non-ID image", result.stderr)
+                    path.unlink()
+
     def test_sample_images_including_hidden_files_still_fail(self):
         for filename in ["old.PNG", ".hidden.png"]:
             with self.subTest(filename=filename), tempfile.TemporaryDirectory() as directory:

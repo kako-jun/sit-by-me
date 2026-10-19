@@ -71,6 +71,7 @@ def verify(root):
             r'fields/legacy/E\d{2}(?:-[\w-]+)?\.png',
             r'fields/legacy/masks/E\d{2}[-\w]+\.png',
             r'fields/verification/(?:masks/)?VFIELD\d{3}(?:-[-\w]+)?\.png',
+            r'fields/reference/[a-z0-9]+(?:-[a-z0-9]+)*\.png',
             r'battle-backgrounds/(?:candidates/)?BG\d{3}\.png',
             r'brand/BRAND\d{3}\.png', r'diagrams/DIAG\d{3}\.png',
         )
