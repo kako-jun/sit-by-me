@@ -95,21 +95,15 @@
 <text x="65" y="2300" class="small">E01.event-kiss → F19.event-mouth  [外部: body]</text>
 <path class="event" data-reference-edge-id="E01.event-kiss&gt;F19.event-mouth:event" data-kind="event" data-from="E01" data-to="F19" data-from-port="event-kiss" data-to-port="event-mouth" d="M1550 2293 L1665 2293" marker-end="url(#directed-arrow)"/>
 </g></g>
-<g transform="translate(1740 120)"><g data-area="city"><rect x="8" y="8" width="1404" height="2317" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">香林坊・茶屋街・広坂・病院・13MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
-<text x="25" y="108" class="note">デパートのエレベーターはMAPを持たない。各階の扉に入ると階選択ウィンドウが開き、選んだ階の扉前に着く（F83/F85/E15/F86/E16間の破線は階選択の代表経路）</text>
+<g transform="translate(1740 120)"><g data-area="city"><rect x="8" y="8" width="1404" height="2023" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">香林坊・茶屋街・広坂・病院・13MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<text x="25" y="108" class="note">デパート5階（F83・F85・E15・F86・E16）のエレベーターはMAPを持たず、台帳外の「階選択遷移」。各階の扉に入るとウィンドウで階を選び、選んだ階の扉前に着く。</text>
+<text x="25" y="134" class="note">箱は全階を結ぶので階をつなぐ線は描かない。4階F86は条件つき。</text>
 <path class="edge" data-edge-id="E19.top&gt;E17.bottom:edge" data-kind="edge" data-from="E19" data-to="E17" data-from-port="top" data-to-port="bottom" d="M440 1280 L440 1060"/>
 <path class="edge" data-edge-id="E17.top&gt;N1.bottom:edge" data-kind="edge" data-from="E17" data-to="N1" data-from-port="top" data-to-port="bottom" d="M440 1060 L440 840"/>
 <path class="edge" data-edge-id="N1.top&gt;E14.bottom:edge" data-kind="edge" data-from="N1" data-to="E14" data-from-port="top" data-to-port="bottom" d="M440 840 L440 620"/>
 <path class="edge" data-edge-id="E14.top&gt;N11.bottom:edge" data-kind="edge" data-from="E14" data-to="N11" data-from-port="top" data-to-port="bottom" d="M440 620 L440 380"/>
 <path class="edge" data-edge-id="E14.right&gt;N9.left:edge" data-kind="edge" data-from="E14" data-to="N9" data-from-port="right" data-to-port="left" d="M440 620 L770 620"/>
 <path class="door" data-edge-id="E14.door&gt;F83.door-street:door" data-kind="door" data-from="E14" data-to="F83" data-from-port="door" data-to-port="door-street" d="M440 620 L720 380"/>
-<path class="door" data-edge-id="F83.door-toys&gt;E15.door-korinbo:door" data-kind="door" data-from="F83" data-to="E15" data-from-port="door-toys" data-to-port="door-korinbo" d="M720 380 L1000 380"/>
-<path class="door" data-edge-id="E15.door-restaurant&gt;E16.door:door" data-kind="door" data-from="E15" data-to="E16" data-from-port="door-restaurant" data-to-port="door" d="M1000 380 L1280 380"/>
-<path class="door" data-edge-id="F83.door-restaurant&gt;E16.door-lobby:door" data-kind="door" data-from="F83" data-to="E16" data-from-port="door-restaurant" data-to-port="door-lobby" d="M720 380 Q1000 230 1280 380"/>
-<path class="door" data-edge-id="F83.door-2f&gt;F85.door-lower:door" data-kind="door" data-from="F83" data-to="F85" data-from-port="door-2f" data-to-port="door-lower" d="M720 380 L860 160"/>
-<path class="door" data-edge-id="E15.door-2f&gt;F85.door-upper:door" data-kind="door" data-from="E15" data-to="F85" data-from-port="door-2f" data-to-port="door-upper" d="M1000 380 L860 160"/>
-<path class="door" data-edge-id="E15.door-4f&gt;F86.door-lower:door" data-kind="door" data-from="E15" data-to="F86" data-from-port="door-4f" data-to-port="door-lower" d="M1000 380 L1140 160"/>
-<path class="door" data-edge-id="E16.door-4f&gt;F86.door-upper:door" data-kind="door" data-from="E16" data-to="F86" data-from-port="door-4f" data-to-port="door-upper" d="M1280 380 L1140 160"/>
 <path class="door" data-edge-id="E17.door&gt;E18.door:door" data-kind="door" data-from="E17" data-to="E18" data-from-port="door" data-to-port="door" d="M440 1060 L140 1060"/>
 <path class="edge" data-edge-id="N9.right&gt;E20.left:edge" data-kind="edge" data-from="N9" data-to="E20" data-from-port="right" data-to-port="left" d="M770 620 L1080 780"/>
 <circle class="node" data-map="E14" cx="440" cy="620" r="30"/><text class="id" x="440" y="627">E14</text>
@@ -160,24 +154,17 @@
 <text x="25" y="1608" class="small">E14.top ↔ N11.bottom</text>
 <text x="25" y="1650" class="small">E14.right ↔ N9.left</text>
 <text x="25" y="1692" class="small">E14.door ↔ F83.door-street</text>
-<text x="25" y="1734" class="small">F83.door-toys ↔ E15.door-korinbo</text>
-<text x="25" y="1776" class="small">E15.door-restaurant ↔ E16.door</text>
-<text x="25" y="1818" class="small">F83.door-restaurant ↔ E16.door-lobby</text>
-<text x="25" y="1860" class="small">F83.door-2f ↔ F85.door-lower</text>
-<text x="25" y="1902" class="small">E15.door-2f ↔ F85.door-upper</text>
-<text x="25" y="1944" class="small">E15.door-4f ↔ F86.door-lower</text>
-<text x="25" y="1986" class="small">E16.door-4f ↔ F86.door-upper</text>
-<text x="25" y="2028" class="small">E17.door ↔ E18.door</text>
-<circle class="ref" data-reference-map="E21" data-reference="E21" cx="40" cy="2065" r="13"/>
-<text x="65" y="2070" class="small">N11.top ↔ E21.bottom  [外部: station]</text>
-<path class="edge" data-reference-edge-id="N11.top&gt;E21.bottom:edge" data-kind="edge" data-from="N11" data-to="E21" data-from-port="top" data-to-port="bottom" d="M1260 2063 L1375 2063"/>
-<circle class="ref" data-reference-map="N8" data-reference="N8" cx="40" cy="2107" r="13"/>
-<text x="65" y="2112" class="small">N11.right ↔ N8.left  [外部: mountain]</text>
-<path class="edge" data-reference-edge-id="N11.right&gt;N8.left:edge" data-kind="edge" data-from="N11" data-to="N8" data-from-port="right" data-to-port="left" d="M1260 2105 L1375 2105"/>
-<circle class="ref" data-reference-map="F41" data-reference="F41" cx="40" cy="2149" r="13"/>
-<text x="65" y="2154" class="small">N9.top ↔ F41.bottom  [外部: garden]</text>
-<path class="edge" data-reference-edge-id="N9.top&gt;F41.bottom:edge" data-kind="edge" data-from="N9" data-to="F41" data-from-port="top" data-to-port="bottom" d="M1260 2147 L1375 2147"/>
-<text x="25" y="2196" class="small">N9.right ↔ E20.left</text>
+<text x="25" y="1734" class="small">E17.door ↔ E18.door</text>
+<circle class="ref" data-reference-map="E21" data-reference="E21" cx="40" cy="1771" r="13"/>
+<text x="65" y="1776" class="small">N11.top ↔ E21.bottom  [外部: station]</text>
+<path class="edge" data-reference-edge-id="N11.top&gt;E21.bottom:edge" data-kind="edge" data-from="N11" data-to="E21" data-from-port="top" data-to-port="bottom" d="M1260 1769 L1375 1769"/>
+<circle class="ref" data-reference-map="N8" data-reference="N8" cx="40" cy="1813" r="13"/>
+<text x="65" y="1818" class="small">N11.right ↔ N8.left  [外部: mountain]</text>
+<path class="edge" data-reference-edge-id="N11.right&gt;N8.left:edge" data-kind="edge" data-from="N11" data-to="N8" data-from-port="right" data-to-port="left" d="M1260 1811 L1375 1811"/>
+<circle class="ref" data-reference-map="F41" data-reference="F41" cx="40" cy="1855" r="13"/>
+<text x="65" y="1860" class="small">N9.top ↔ F41.bottom  [外部: garden]</text>
+<path class="edge" data-reference-edge-id="N9.top&gt;F41.bottom:edge" data-kind="edge" data-from="N9" data-to="F41" data-from-port="top" data-to-port="bottom" d="M1260 1853 L1375 1853"/>
+<text x="25" y="1902" class="small">N9.right ↔ E20.left</text>
 </g></g>
 <g transform="translate(3480 120)"><g data-area="station"><rect x="8" y="8" width="1084" height="525" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">金沢駅・1MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
 <circle class="node" data-map="E21" cx="140" cy="160" r="30"/><text class="id" x="140" y="167">E21</text>

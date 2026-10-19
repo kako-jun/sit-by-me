@@ -22,8 +22,8 @@
 | E12 | recreate-required-1920x1080 | R006,R011,R021,R024 | 旧庫裏画像は参照専用。新背景・mask未作成 | #60/#51の西（本堂から見て左）の屋内住居。F01.door-west↔door-hallのみ。内部廊下の扉位置、幅・段差・回転域、火事時遮断範囲がTBD。F02直結なし |
 | E13 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E13.png`; mask未記録 | E09石段とN10車椅子坂の端・通行クラスを記録する |
 | E14 | legacy-needs-review | R005,R011 | `assets/images/fields/legacy/E14.png`; mask未記録 | N1/N11/N9端、百貨店door（相手はF83.door-street）、封鎖期のN9遷移を記録する |
-| E15 | legacy-needs-review | R005 | `assets/images/fields/legacy/E15.png`; mask未記録 | 3階（kako-jun 2026-10-19）。door-korinbo↔F83.door-toys、door-restaurant↔E16.door、door-2f↔F85.door-upper、door-4f→F86.door-lower（条件つき）、売場通路のuniversal幅を記録する。TBD: 旧「おもちゃ売場」と2階F85の関係 |
-| E16 | legacy-needs-review | R005 | `assets/images/fields/legacy/E16.png`; mask未記録 | 5階（kako-jun決定 2026-10-19、#87。実在の大和は8階レストラン街）。door↔E15.door-restaurant、door-lobby↔F83.door-restaurant、door-4f↔F86.door-upper（条件つき）、再訪時の同一導線を記録する |
+| E15 | legacy-needs-review | R005 | `assets/images/fields/legacy/E15.png`; mask未記録 | 3階（kako-jun 2026-10-19）。door-elevator（階選択遷移。全階から行き先を選ぶ。4階は条件つき）、売場通路のuniversal幅を記録する。TBD: 旧「おもちゃ売場」と2階F85の関係 |
+| E16 | legacy-needs-review | R005 | `assets/images/fields/legacy/E16.png`; mask未記録 | 5階（kako-jun決定 2026-10-19、#87。実在の大和は8階レストラン街）。door-elevator（階選択遷移。4階は条件つき）、再訪時の同一導線を記録する |
 | E17 | legacy-needs-review | R013,R011 | `assets/images/fields/legacy/E17.png`; mask未記録 | E19/N1端、E18door、格子・側溝のblocked域を記録する |
 | E18 | legacy-needs-review | R013 | `assets/images/fields/legacy/E18.png`; mask未記録 | E17door、座敷の段差・車椅子可否を決める |
 | E19 | legacy-needs-review | R011,R013 | `assets/images/fields/legacy/E19.png`; mask未記録 | N2/E17端、駐車場枝の画面内終端を記録する |
@@ -154,7 +154,7 @@
 
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
-| F83 | blocked | R005 | 未生成・mask未作成 | デパート1階（入口階）。時計のある吹き抜け（アトリオ参照。出所 https://github.com/kako-jun/sit-by-me/issues/87#issuecomment-6258778050）。実在店に似せないジオラマ、大和4階の時計サロンとは別。door-street→E14.door、door-toys↔E15.door-korinbo、door-restaurant↔E16.door-lobby、door-2f↔F85.door-lower。エレベーターは1つの箱が全階を結び、階選択はUI側（箱は独立MAPにしない。決定 2026-10-19）。台帳の扉の組は代表経路。TBD: 2階の解放条件、売場の中身、1階での出来事。画像生成blocked。 |
-| F85 | blocked | R005 | 未生成・mask未作成 | デパート2階（隠し階。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-lower↔F83.door-2f、door-upper↔E15.door-2f（1・3階からの枝）。TBD: 2階の解放条件（最初から使えるのか別条件か）、2階の売場の中身、隠し階への行き方（ボタン等）、E15旧「おもちゃ売場」との関係。画像生成blocked。 |
-| F86 | blocked | R005 | 未生成・mask未作成 | デパート4階（隠し階・条件つき。ラスボス付近でデパートに立ち寄ると解放し強い何かが手に入る。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-lower↔E15.door-4f、door-upper↔E16.door-4f（解放条件はシナリオ側）。TBD: 売場の中身、強い何かの中身、行き方（ボタン等）、未解放の間のE15→E16。画像生成blocked。 |
+| F83 | blocked | R005 | 未生成・mask未作成 | デパート1階（入口階）。時計のある吹き抜け（アトリオ参照。出所 https://github.com/kako-jun/sit-by-me/issues/87#issuecomment-6258778050）。実在店に似せないジオラマ、大和4階の時計サロンとは別。door-street→E14.door、door-elevator（階選択遷移。扉に入るとウィンドウで階を選び、選んだ階の扉前に着く。箱は全階を結びMAPを持たない。決定 2026-10-19）。TBD: 2階の解放条件、売場の中身、1階での出来事。画像生成blocked。 |
+| F85 | blocked | R005 | 未生成・mask未作成 | デパート2階（隠し階。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-elevator（階選択遷移）。TBD: 2階の解放条件（最初から使えるのか別条件か）、2階の売場の中身、隠し階への行き方（ボタン等）、E15旧「おもちゃ売場」との関係。画像生成blocked。 |
+| F86 | blocked | R005 | 未生成・mask未作成 | デパート4階（隠し階・条件つき。ラスボス付近でデパートに立ち寄ると解放し強い何かが手に入る。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-elevator（階選択遷移。選択肢に出る条件はシナリオ側）。TBD: 売場の中身、強い何かの中身、4階の出現条件、行き方（ボタン等）。画像生成blocked。 |
 | F84 | blocked | R016 | 未生成・mask未作成 | 廃校の校庭（被災前）。left←E29.right（茂みの小径の暫定入口）、right→E32.left。TBD: 入口MAP（E29は暫定）、茂みの見せ方、校庭の見た目、勝手口等の扉、校庭↔E32の辺はright↔leftで選択済み（理由はmap-topology.md）。 |

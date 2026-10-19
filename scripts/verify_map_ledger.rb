@@ -131,7 +131,22 @@ topology_rows.each_with_index do |(from, to, kind, reason), index|
   active << [from.split('.').first, to.split('.').first, kind]
 end
 topology_ids = topology_rows.flat_map { |from, to, _| [from.split('.').first, to.split('.').first] }.uniq
-fail!("v2接続台帳にないMAP: #{(expected - topology_ids).join(', ')}") unless (expected - topology_ids).empty?
+# デパートのエレベーターは接続台帳の外の別枠表（階選択遷移）。MAPを持たず、各階MAPが door-elevator を1つ持つ。
+elevator_start = topology.index('#### 階選択遷移')
+fail!('階選択遷移の表がない') unless elevator_start && elevator_start < start
+elevator_rows = topology[elevator_start...start].lines.map do |line|
+  next unless line.start_with?('|')
+  cells = line.split('|').map(&:strip)
+  next if cells[1] == '階' || cells[1].match?(/\A-+\z/)
+  fail!("階選択遷移行の欄不足: #{line.strip}") unless cells.length == 7
+  cells[1..5]
+end.compact
+fail!("階選択遷移の階とMAPが不正: #{elevator_rows.map { |r| r[0..1] }}") unless elevator_rows.map { |r| r[0..1] } == [%w[1階 F83], %w[2階 F85], %w[3階 E15], %w[4階 F86], %w[5階 E16]]
+elevator_rows.each { |r| fail!("エレベーター扉IDが不正 #{r[1]}") unless r[2] == "#{r[1]}.door-elevator" }
+elevator_ids = elevator_rows.map { |r| r[1] }
+fail!('階選択遷移の扉が接続台帳にも載っている（二重管理）') if topology_rows.any? { |f, t, _, _| [f, t].any? { |e| e.end_with?('.door-elevator') } }
+fail!('エレベーターのMAPが独立して追加されている') unless elevator_ids.all? { |id| expected.include?(id) }
+fail!("v2接続台帳にないMAP: #{(expected - topology_ids - elevator_ids).join(', ')}") unless (expected - topology_ids - elevator_ids).empty?
 reused = edge_ends.select { |_, rows| rows.length > 1 }
 fail!("同一画像辺の二重使用: #{reused.map { |k, v| "#{k}(#{v.join(',')})" }.join(', ')}") unless reused.empty?
 reused_doors = door_ends.select { |_, rows| rows.length > 1 }

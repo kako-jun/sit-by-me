@@ -332,5 +332,25 @@ class MapTopologyTests(unittest.TestCase):
         self.reject("接続図", "MAP集合")
 
 
+    def test_elevator_floor_select_table_is_separate_from_ledger(self):
+        rows = self.connection_rows()
+        self.assertFalse([r for r in rows if "door-elevator" in r])
+        source = (self.root / "docs/map-topology.md").read_text(encoding="utf-8")
+        for map_id in ("F83", "F85", "E15", "F86", "E16"):
+            self.assertIn(f"| {map_id}.door-elevator |", source)
+
+    def test_elevator_door_in_ledger_rejected(self):
+        self.append_connection("| F83.door-elevator | E15.door-elevator | door | 二重管理 |")
+        self.reject("階選択遷移", "二重管理")
+
+    def test_elevator_table_missing_floor_rejected(self):
+        self.topology("| 4階 | F86 | F86.door-elevator |", "| 4階 | F99 | F99.door-elevator |")
+        self.reject("階選択遷移")
+
+    def test_elevator_door_id_must_match_map(self):
+        self.topology("| E15.door-elevator |", "| E15.door-lift |")
+        self.reject("エレベーター扉ID")
+
+
 if __name__ == "__main__":
     unittest.main()
