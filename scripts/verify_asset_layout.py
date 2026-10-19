@@ -41,8 +41,6 @@ def verify(root):
             r'fields/legacy/masks/E\d{2}[-\w]+\.png',
             r'fields/reference/[a-z0-9]+(?:-[a-z0-9]+)*\.png',
             r'battle-backgrounds/BG\d{3}\.png',
-            # 現存の旧候補BG007〜BG009のみ許可（新規は正本パスへ直接上書き）
-            r'battle-backgrounds/candidates/BG00[789]\.png',
             r'brand/BRAND\d{3}\.png',
         )
         assert any(re.fullmatch(p, relative) for p in patterns), f'Non-ID image: {relative}'

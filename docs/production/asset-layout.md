@@ -10,7 +10,7 @@
 - **加工前原本（`raw/`）は保管しない**。人物・敵・召喚獣とも、切り出し・縮小・トリム前の元絵は残さず、来歴（prompt・測定値・判定）をIssueかレビュー文書に記録する。過去分の復元は git 履歴から（`git show 1bb09d0:<path>`、記録は `20261018-asset-migration.json` の `pruned_path`）。
 - **不採用・失敗画像は残さない**。追跡済みなら `git restore <path>`、未追跡の新規ファイルなら即削除。`candidates/`・`legacy/`・版suffix・サンプル置き場は新運用では作らず、残さない前提とする。
 - 参照用に残す画像（`fields/reference/`、外観参照専用。#105で許可済み）は、**長辺の上限を下げた縮小版**で保存し、役割が分かる名前（kebab-case、例 `teramachi-roof-exterior.png`）にリネームする。上限px・形式（例: 長辺1024px PNG／長辺768px WebP）は**未決（要確認）**。決まるまで参照画像を新規保存しない。原寸の元画像は参照として残さない。
-- `raw/`・`verification/`（検証JSON・VFIELD・prototype/legacy-masks）・BG004/BG006・DIAG は #68 の追従PRで削除済み。復元は git 履歴から。
+- `raw/`・`verification/`（検証JSON・VFIELD・prototype/legacy-masks）・BG002〜004・BG006〜009（candidates/ ごと）・DIAG は #68 の追従PRで削除済み。復元は git 履歴から。
 
 寺町16枚の全再作成と全件通過後の一括切替（#51）は継続する。
 
@@ -24,7 +24,7 @@
 | MAP（旧素材・現存のみ） | `assets/images/fields/legacy/Exx[-variant].png` | 33MAP＋12旧差分。新規生成先ではない。寺町再作成候補の代わりに採用するものではない |
 | legacy mask | `assets/images/fields/legacy/masks/Exx-*.png` | 旧接続を変更しない検証専用。JSON・生成補助（make_masks.py）は削除済み |
 | 外観参照 | `assets/images/fields/reference/<kebab-case>.png` | 外観参照専用（平置き・小文字英数とハイフンのみ）。mapの「実行時参照」には使わない |
-| 戦闘背景 | `assets/images/battle-backgrounds/BGxxx.png`（現存の旧候補BG007〜009のみ `candidates/` に残る） | 下表 |
+| 戦闘背景 | `assets/images/battle-backgrounds/BGxxx.png`（現存はBG001・BG005のみ。BG002〜004・006〜009は削除済みで、復元は git 履歴 `1bb09d0` から。戦闘背景の新規作成は別件） | 下表 |
 | ブランド | `assets/images/brand/BRAND001.{png,svg}`、`BRAND002.{png,svg}` | 旧mouth-a／mouth-b。ゲームIDではない |
 
 | C ID | 元人名prefix | 登場人物 |
@@ -37,12 +37,7 @@
 | BG ID | 元ファイル | 状態 |
 |---|---|---|
 | BG001 | bg-a.png | カメラ参照。旧状態を維持 |
-| BG002 | bg-b.png | 既存検証素材、採用に昇格しない |
-| BG003 | bg-c.png | 既存検証素材、採用に昇格しない |
 | BG005 | stage-b.png | 既存採用舞台 |
-| BG007 | teramachi-outdoor-diorama-1920x1080-candidate.png | 画素審査passのみ。完全prompt・参照・live検証未記録でblocked。参照保持 |
-| BG008 | stage-e-1920x1080-candidate.png | 画素審査passのみ。完全prompt・参照・live検証未記録でblocked。参照保持 |
-| BG009 | stage-f-miniature-1920x1080-candidate.png | 画素審査passのみ。完全prompt・参照・live検証未記録でblocked。参照保持 |
 
 M001の旧640px透過画像は移動で品質再承認しない。今後の再生成は敵スキルの45°・4グリッド契約を使い、既存画像をそのまま新規約passと扱わない。
 

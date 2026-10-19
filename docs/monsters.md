@@ -155,8 +155,6 @@
 | ファイル | 内容 | 使われている所 |
 |---|---|---|
 | `assets/images/battle-backgrounds/BG001.png` | 雪の寺町風の道（土塀・石垣・用水・赤白スノーポール） | 戦闘背景の素材（敵との対応は未定） |
-| `assets/images/battle-backgrounds/BG002.png` | 雪の駐車場（波板塀・除雪の雪山） | 同上 |
-| `assets/images/battle-backgrounds/BG003.png` | 雪の園庭（すべり台・ジャングルジム・ブランコ） | 同上 |
 | `assets/images/battle-backgrounds/BG005.png` | 舞台の床（雪山・城の書き割り） | M001 との戦闘背景（採用中） |
 | `assets/images/fields/` | 寺町のフィールド背景（overview・wide-road・narrow-lane・connector、試作の kindergarten・danchi-court・sento・well-merge など）と歩行マスク | フィールド。敵の配置は未定 |
 
