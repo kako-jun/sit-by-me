@@ -9,7 +9,8 @@
 - **採用状態は置き場でなく台帳のstatusで管理する**（[map-asset-registry](../map-asset-registry.md)・各台帳）。正本パスにファイルがあることは、採用も審査通過も意味しない。
 - **加工前原本（`raw/`）は保管しない**。人物・敵・召喚獣とも、切り出し・縮小・トリム前の元絵は残さず、来歴（prompt・測定値・判定）をIssueかレビュー文書に記録する。過去分の復元は git 履歴から（`git show 1bb09d0:<path>`、記録は `20261018-asset-migration.json` の `pruned_path`）。
 - **不採用・失敗画像は残さない**。追跡済みなら `git restore <path>`、未追跡の新規ファイルなら即削除。`candidates/`・`legacy/`・版suffix・サンプル置き場は新運用では作らず、残さない前提とする。
-- 参照用に残す画像（`fields/reference/`、外観参照専用。#105で許可済み）は、**長辺の上限を下げた縮小版**で保存し、役割が分かる名前（kebab-case、例 `teramachi-roof-exterior.png`）にリネームする。上限px・形式（例: 長辺1024px PNG／長辺768px WebP）は**未決（要確認）**。決まるまで参照画像を新規保存しない。原寸の元画像は参照として残さない。
+- 参照用に残す画像（`fields/reference/`、外観参照専用。#105で許可済み）は、役割が分かる名前（kebab-case）で保存する。形式は **非可逆WebP（品質85）** を許可する（`magick <元PNG> -quality 85 <名>.webp`。実寸は縮小しない）。他の画像種別のWebP全面移行は別PR。原寸の元画像は参照として残さない。
+- 保存済み: `assets/images/fields/reference/teramachi-common-exterior-reference.webp`（非可逆WebP品質85、1672×940、430,536 bytes、sha256 `c596781d351fce35d71b1b31c8db8964e39b2623fde558b44f92cd4723da3175`。元PNG sha256 `7082a759e364a4731d18ba20908034a1f89317c4e6599cd96bee1d6703e77663`）。用途は**順序・包含関係の確認のみ**。池・墓地・鐘楼・井戸・像・遊具・築地塀・通用門などの位置・寸法・扉位置・廊下の形は確定させない。独立画像レビュー合格済み（[#51コメント](https://github.com/kako-jun/sit-by-me/issues/51)参照）。
 - `raw/`・`verification/`（検証JSON・VFIELD・prototype/legacy-masks）・BG002〜004・BG006〜009（candidates/ ごと）・DIAG は #68 の追従PRで削除済み。復元は git 履歴から。
 
 寺町16枚の全再作成と全件通過後の一括切替（#51）は継続する。
@@ -23,7 +24,7 @@
 | 人物 | `assets/images/characters/Cxxx/{masters,poses,walk}/Cxxx-<suffix>.png` | 下表のC管理ID。旧人名prefixをIDへ置換し、年齢・衣装・pose・方向・コマを全て保持 |
 | MAP（旧素材・現存のみ） | `assets/images/fields/legacy/Exx[-variant].png` | 33MAP＋12旧差分。新規生成先ではない。寺町再作成候補の代わりに採用するものではない |
 | legacy mask | `assets/images/fields/legacy/masks/Exx-*.png` | 旧接続を変更しない検証専用。JSON・生成補助（make_masks.py）は削除済み |
-| 外観参照 | `assets/images/fields/reference/<kebab-case>.png` | 外観参照専用（平置き・小文字英数とハイフンのみ）。mapの「実行時参照」には使わない |
+| 外観参照 | `assets/images/fields/reference/<kebab-case>.{png,webp}` | 外観参照専用（平置き・小文字英数とハイフンのみ）。mapの「実行時参照」には使わない |
 | 戦闘背景 | `assets/images/battle-backgrounds/BGxxx.png`（現存はBG001・BG005のみ。BG002〜004・006〜009は削除済みで、復元は git 履歴 `1bb09d0` から。戦闘背景の新規作成は別件） | 下表 |
 | ブランド | `assets/images/brand/BRAND001.{png,svg}`、`BRAND002.{png,svg}` | 旧mouth-a／mouth-b。ゲームIDではない |
 

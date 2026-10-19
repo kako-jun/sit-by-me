@@ -31,7 +31,7 @@ def verify(root):
             assert actual == row['sha256'], f'Image bytes changed: {row["new"]}'
 
     image_root = root / 'assets/images'
-    for image in image_root.rglob('*.png'):
+    for image in (path for path in image_root.rglob('*') if path.suffix in {'.png', '.webp'}):
         relative = image.relative_to(image_root).as_posix()
         patterns = (
             r'enemies/M\d{3}\.png',
@@ -39,7 +39,8 @@ def verify(root):
             r'characters/(C00[1-4])/(?:masters|poses|walk)/\1-[^/]+\.png',
             r'fields/legacy/E\d{2}(?:-[\w-]+)?\.png',
             r'fields/legacy/masks/E\d{2}[-\w]+\.png',
-            r'fields/reference/[a-z0-9]+(?:-[a-z0-9]+)*\.png',
+            # 外観参照のみ非可逆WebP(品質85)も許可。他種別のWebP全面移行は別PR
+            r'fields/reference/[a-z0-9]+(?:-[a-z0-9]+)*\.(?:png|webp)',
             r'battle-backgrounds/BG\d{3}\.png',
             r'brand/BRAND\d{3}\.png',
         )
