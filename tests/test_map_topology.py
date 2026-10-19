@@ -12,7 +12,7 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_IDS = ({f"E{n:02}" for n in range(1, 34)}
                 | {f"N{n}" for n in (1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12)}
-                | {f"F{n:02}" for n in range(1, 85)})
+                | {f"F{n:02}" for n in range(1, 87)})
 
 
 class MapTopologyTests(unittest.TestCase):

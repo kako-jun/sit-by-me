@@ -2,7 +2,7 @@
 
 2026-10-18: サニーランドは口述と創作の円環接続へ更新。旧pending6接続は削除済み。
 
-`map-asset-registry.md` の128行を、生成可能にするまで追跡する行単位チェックリスト。接続の正本は `map-topology.md` の「MAP相互接続台帳 v2」、画面主役と主路は `map-specifications.md`、マスク形式は `sit-field-mask` である。全行は `blocked` または `legacy-needs-review` で始める。`TBD` が空でない限り `ready` にしない。台帳整合の独立再監査は [第3周レビュー](reviews/artifact-redteam/20261016-map-ledger-round3.md) を参照。
+`map-asset-registry.md` の130行を、生成可能にするまで追跡する行単位チェックリスト。接続の正本は `map-topology.md` の「MAP相互接続台帳 v2」、画面主役と主路は `map-specifications.md`、マスク形式は `sit-field-mask` である。全行は `blocked` または `legacy-needs-review` で始める。`TBD` が空でない限り `ready` にしない。台帳整合の独立再監査は [第3周レビュー](reviews/artifact-redteam/20261016-map-ledger-round3.md) を参照。
 
 **2026-10-18 / #51**: E01–E13/F01–F03は全て `recreate-required-1920x1080`、生成契約は `blocked`。以下の旧画像パスは参照専用で、旧mask・旧passは新候補の採用根拠にならない。現行再作成状態は [候補台帳](teramachi-rebuild-candidates.md)、建物群の生成前入力は [制作前確認](production/20261018-teramachi-preflight.md) を参照する。
 
@@ -22,8 +22,8 @@
 | E12 | recreate-required-1920x1080 | R006,R011,R021,R024 | 旧庫裏画像は参照専用。新背景・mask未作成 | #60/#51の西（本堂から見て左）の屋内住居。F01.door-west↔door-hallのみ。内部廊下の扉位置、幅・段差・回転域、火事時遮断範囲がTBD。F02直結なし |
 | E13 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E13.png`; mask未記録 | E09石段とN10車椅子坂の端・通行クラスを記録する |
 | E14 | legacy-needs-review | R005,R011 | `assets/images/fields/legacy/E14.png`; mask未記録 | N1/N11/N9端、百貨店door（相手はF83.door-street）、封鎖期のN9遷移を記録する |
-| E15 | legacy-needs-review | R005 | `assets/images/fields/legacy/E15.png`; mask未記録 | door-korinbo→F83.door-toys、door-restaurant→E16.door、売場通路のuniversal幅を記録する |
-| E16 | legacy-needs-review | R005 | `assets/images/fields/legacy/E16.png`; mask未記録 | E15door、再訪時の同一導線を記録する |
+| E15 | legacy-needs-review | R005 | `assets/images/fields/legacy/E15.png`; mask未記録 | 3階（kako-jun 2026-10-19）。door-korinbo↔F83.door-toys、door-restaurant↔E16.door、door-2f↔F85.door-upper、door-4f→F86.door-lower（条件つき）、売場通路のuniversal幅を記録する。TBD: 旧「おもちゃ売場」と2階F85の関係 |
+| E16 | legacy-needs-review | R005 | `assets/images/fields/legacy/E16.png`; mask未記録 | 5階（kako-jun決定 2026-10-19、#87。実在の大和は8階レストラン街）。door↔E15.door-restaurant、door-lobby↔F83.door-restaurant、door-4f↔F86.door-upper（条件つき）、再訪時の同一導線を記録する |
 | E17 | legacy-needs-review | R013,R011 | `assets/images/fields/legacy/E17.png`; mask未記録 | E19/N1端、E18door、格子・側溝のblocked域を記録する |
 | E18 | legacy-needs-review | R013 | `assets/images/fields/legacy/E18.png`; mask未記録 | E17door、座敷の段差・車椅子可否を決める |
 | E19 | legacy-needs-review | R011,R013 | `assets/images/fields/legacy/E19.png`; mask未記録 | N2/E17端、駐車場枝の画面内終端を記録する |
@@ -154,5 +154,7 @@
 
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
-| F83 | blocked | R005 | 未生成・mask未作成 | デパート1階（入口階）。時計のある吹き抜け（アトリオ参照。出所 https://github.com/kako-jun/sit-by-me/issues/87#issuecomment-6258778050）。実在店に似せないジオラマ、大和4階の時計サロンとは別。door-street→E14.door、door-toys→E15.door-korinbo。TBD: 階の移動手段（エスカレーター／階段／エレベーター。車椅子の通行に関わる）、E15の階数、E15↔E16の途中階、売場の中身、1階での出来事。画像生成blocked。 |
+| F83 | blocked | R005 | 未生成・mask未作成 | デパート1階（入口階）。時計のある吹き抜け（アトリオ参照。出所 https://github.com/kako-jun/sit-by-me/issues/87#issuecomment-6258778050）。実在店に似せないジオラマ、大和4階の時計サロンとは別。door-street→E14.door、door-toys↔E15.door-korinbo、door-restaurant↔E16.door-lobby、door-2f↔F85.door-lower。エレベーターは階を選ぶ（決定 2026-10-19）。TBD: 全階を一つの箱で結ぶか階ごとの別扉か、2階の解放条件、売場の中身、1階での出来事。画像生成blocked。 |
+| F85 | blocked | R005 | 未生成・mask未作成 | デパート2階（隠し階。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-lower↔F83.door-2f、door-upper↔E15.door-2f（1・3階からの枝）。TBD: 2階の解放条件（最初から使えるのか別条件か）、2階の売場の中身、隠し階への行き方（ボタン等）、E15旧「おもちゃ売場」との関係。画像生成blocked。 |
+| F86 | blocked | R005 | 未生成・mask未作成 | デパート4階（隠し階・条件つき。ラスボス付近でデパートに立ち寄ると解放し強い何かが手に入る。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-lower↔E15.door-4f、door-upper↔E16.door-4f（解放条件はシナリオ側）。TBD: 売場の中身、強い何かの中身、行き方（ボタン等）、未解放の間のE15→E16。画像生成blocked。 |
 | F84 | blocked | R016 | 未生成・mask未作成 | 廃校の校庭（被災前）。left←E29.right（茂みの小径の暫定入口）、right→E32.left。TBD: 入口MAP（E29は暫定）、茂みの見せ方、校庭の見た目、勝手口等の扉、校庭↔E32の辺はright↔leftで選択済み（理由はmap-topology.md）。 |

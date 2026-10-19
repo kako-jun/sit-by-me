@@ -56,7 +56,7 @@ module MapAtlasVerification
     g=MapGraph::Graph.new(root)
     all=g.areas.flat_map { |a|a['maps'] }
     ids=g.areas.map { |a|a['id'] }
-    assert(all.length==128 && all.uniq.length==128,'atlas membership must contain all 128 MAPs exactly once')
+    assert(all.length==130 && all.uniq.length==130,'atlas membership must contain all 130 MAPs exactly once')
     assert(ids.length==15 && ids.uniq.length==15,'atlas must cover all 15 areas')
     check(root,'atlas.svg',all,g.edges,ids)
     check(root,'overview.svg',[],g.cross,ids)
@@ -73,7 +73,7 @@ end
 if $PROGRAM_NAME==__FILE__
   begin
     MapAtlasVerification.verify!(File.expand_path('..',__dir__))
-    puts 'PASS: full atlas 128 MAPs / 138 connections, 15 areas, overview cross-area ports and directed events'
+    puts 'PASS: full atlas 130 MAPs / 143 connections, 15 areas, overview cross-area ports and directed events'
   rescue StandardError => e
     warn "FAIL: atlas: #{e.message}"
     exit 1

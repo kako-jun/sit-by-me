@@ -16,7 +16,7 @@
 <path class="event" data-reference-edge-id="E01.event-kiss&gt;F19.event-mouth:event" data-kind="event" data-from="E01" data-to="F19" data-from-port="event-kiss" data-to-port="event-mouth" d="M390 1070 L930 1070 L1560 1170 L1710 1300" marker-end="url(#directed-arrow)"/>
 <text x="850" y="1047" class="label">E01園庭 → F19口（物語イベント）</text>
 <g data-area="teramachi"><rect x="245" y="1026" width="290" height="88" rx="10" fill="#fff" stroke="#527b69" stroke-width="3"/><text x="390" y="1062" class="label">寺町・寺院と住居</text><text x="390" y="1091" class="label">17 MAP（teramachi）</text></g>
-<g data-area="city"><rect x="505" y="696" width="290" height="88" rx="10" fill="#fff" stroke="#527b69" stroke-width="3"/><text x="650" y="732" class="label">香林坊・茶屋街・広坂・病院</text><text x="650" y="761" class="label">11 MAP（city）</text></g>
+<g data-area="city"><rect x="505" y="696" width="290" height="88" rx="10" fill="#fff" stroke="#527b69" stroke-width="3"/><text x="650" y="732" class="label">香林坊・茶屋街・広坂・病院</text><text x="650" y="761" class="label">13 MAP（city）</text></g>
 <g data-area="station"><rect x="285" y="386" width="290" height="88" rx="10" fill="#fff" stroke="#527b69" stroke-width="3"/><text x="430" y="422" class="label">金沢駅</text><text x="430" y="451" class="label">1 MAP（station）</text></g>
 <g data-area="school"><rect x="505" y="1116" width="290" height="88" rx="10" fill="#fff" stroke="#527b69" stroke-width="3"/><text x="650" y="1152" class="label">小学校と通学坂</text><text x="650" y="1181" class="label">2 MAP（school）</text></g>
 <g data-area="mountain"><rect x="1005" y="406" width="290" height="88" rx="10" fill="#fff" stroke="#527b69" stroke-width="3"/><text x="1150" y="442" class="label">卯辰山の一本道</text><text x="1150" y="471" class="label">5 MAP（mountain）</text></g>

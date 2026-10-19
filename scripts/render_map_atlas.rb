@@ -34,7 +34,8 @@ module MapAtlas
     g.internal(area).each do |e|
       ax,ay=positions.fetch(e['from']);bx,by=positions.fetch(e['to']);pair=[e['from'],e['to']].sort;ix=counts[pair];counts[pair]+=1
       # Separate the otter/cave entrance and exit, preserving their endpoint identities.
-      d=if %w[F64 F65].any? { |id| pair.include?(id) };"M#{ax} #{ay} Q#{(ax+bx)/2} #{(ay+by)/2+(ix==0 ? -65:65)} #{bx} #{by}";else;"M#{ax} #{ay} L#{bx} #{by}";end
+      d=if %w[F64 F65].any? { |id| pair.include?(id) };"M#{ax} #{ay} Q#{(ax+bx)/2} #{(ay+by)/2+(ix==0 ? -65:65)} #{bx} #{by}";elsif pair==%w[E16 F83];"M#{ax} #{ay} Q#{(ax+bx)/2} #{(ay+by)/2-150} #{bx} #{by}"  # 1階↔5階の直結は同一行のE15を避けて上へ弧を描く
+      else;"M#{ax} #{ay} L#{bx} #{by}";end
       out<<%(<path class="#{e['kind']}" #{attrs(e)} d="#{d}"#{arrow(e)}/>)
     end
     area['maps'].each do |id|
@@ -86,7 +87,7 @@ module MapAtlas
     col_width=panels.map { |p| p[2] }.max+30
     row_heights=panels.each_slice(3).map { |row| row.map { |p|p[3] }.max+30 }
     atlas_h=150+row_heights.sum+g.cross.length*55+100
-    atlas=[header(col_width*3,atlas_h,'全128MAP・全接続アトラス'),'<text x="30" y="45" class="heading">全128MAP接続アトラス：所有MAPは各1回、外部口と全接続を併記</text>','<text x="30" y="85" class="note">各枠は独立した模式図。庭園・城は北上、ほかは注記に従う。詳細はareas/各エリア.svgを等倍表示。</text>']
+    atlas=[header(col_width*3,atlas_h,'全130MAP・全接続アトラス'),'<text x="30" y="45" class="heading">全130MAP接続アトラス：所有MAPは各1回、外部口と全接続を併記</text>','<text x="30" y="85" class="note">各枠は独立した模式図。庭園・城は北上、ほかは注記に従う。詳細はareas/各エリア.svgを等倍表示。</text>']
     y=120
     panels.each_slice(3).with_index do |row,ri|
       row.each_with_index { |p,ci|atlas<<%(<g transform="translate(#{ci*col_width} #{y})">#{p[1]}</g>) }
