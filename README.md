@@ -17,4 +17,4 @@
 
 ## 状態
 
-制作中。画像正本は `assets/images/`、検証設定は `verification/`。現在は寺町16枚の全再作成に先立つ契約・プロンプト整備と素材ID配置を進めている。
+制作中。画像正本は `assets/images/`（切り出しツールは `verification/characters/tools/`）。現在は寺町16枚の全再作成に先立つ契約・プロンプト整備と素材ID配置を進めている。
