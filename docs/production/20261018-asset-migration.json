@@ -5,906 +5,906 @@
   "entries": [
     {
       "old": "assets/characters/masters/nam-adult-wheelchair.png",
-      "new": "assets/images/characters/C002/masters/C002-adult-wheelchair.png",
+      "new": "assets/images/characters/C002/masters/C002-adult-wheelchair.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "20f71ff3aa0add0abd658e3dbe769579533e8f8d576ea96da54edc8375e14847"
+      "sha256": "36a17f06df4f7f6dd0cac0bbd59c5b8520563ac92d427729f2dc9431e642c3f9"
     },
     {
       "old": "assets/characters/masters/nam-adult.png",
-      "new": "assets/images/characters/C002/masters/C002-adult.png",
+      "new": "assets/images/characters/C002/masters/C002-adult.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "bf1271d10177258d6507fe0c5dfca9546c594518d027033e96d8de883e168d2e"
+      "sha256": "02a9a7b65369871a967e8eaa5f76ca850731bc5048093cfeb31a95559186730b"
     },
     {
       "old": "assets/characters/masters/nam-elementary-wheelchair.png",
-      "new": "assets/images/characters/C002/masters/C002-elementary-wheelchair.png",
+      "new": "assets/images/characters/C002/masters/C002-elementary-wheelchair.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a954091b035b2121b826ef67cbb9b168f220a1a316e6d05452cdd4808dcdee7d"
+      "sha256": "17274058bdb3afebe7e9590388bab5ea6d211d241203251f67289f683f48324f"
     },
     {
       "old": "assets/characters/masters/nam-elementary.png",
-      "new": "assets/images/characters/C002/masters/C002-elementary.png",
+      "new": "assets/images/characters/C002/masters/C002-elementary.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "c1b33bedb04e08e475cc7a549130bf25366043635277431a56802a9ecabb04e2"
+      "sha256": "c3f4e4ac307616db67744439d9b2c8eab7e56582a29b0130fbf8db19c6011ba5"
     },
     {
       "old": "assets/characters/masters/nam-kindergarten-uniform.png",
-      "new": "assets/images/characters/C002/masters/C002-kindergarten-uniform.png",
+      "new": "assets/images/characters/C002/masters/C002-kindergarten-uniform.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "d9b0799da451c8b6dcd478eea10daaaf24819ffe6bb9019313f0111815ebb111"
+      "sha256": "1aa764851069e5c826d19ef7e6aa90e1aa7aa20ff9c5bb74a0259193ea77a490"
     },
     {
       "old": "assets/characters/masters/nam-kindergarten.png",
-      "new": "assets/images/characters/C002/masters/C002-kindergarten.png",
+      "new": "assets/images/characters/C002/masters/C002-kindergarten.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "1ac1e108582c72ee5f99120ba0e87a3a5d565039d5517f6847f793ed662200ae"
+      "sha256": "37d86c025b840746216d68b08fd9c5e509dd72e0644ce1c90af7f76e2678decf"
     },
     {
       "old": "assets/characters/masters/nam-midlife-wheelchair.png",
-      "new": "assets/images/characters/C002/masters/C002-midlife-wheelchair.png",
+      "new": "assets/images/characters/C002/masters/C002-midlife-wheelchair.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "7b5512aa9c0ba6ae18a9205ec208ff19243088870cf6b2a10dfb75af4931e867"
+      "sha256": "8d35c9880fea6c282c2feb4715a41c760a8ddbb69a426d831e816e9e36d6862c"
     },
     {
       "old": "assets/characters/masters/nam-midlife.png",
-      "new": "assets/images/characters/C002/masters/C002-midlife.png",
+      "new": "assets/images/characters/C002/masters/C002-midlife.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "2ad78ed3eeea14ef6403a6eb8b0e9c368fcd995502f9fdf973f2ff485223b9bc"
+      "sha256": "00f2184eb69af01834efb32e37bc12d5ca230c9654a3be08e55b765f7535e488"
     },
     {
       "old": "assets/characters/masters/nam-teen-wheelchair.png",
-      "new": "assets/images/characters/C002/masters/C002-teen-wheelchair.png",
+      "new": "assets/images/characters/C002/masters/C002-teen-wheelchair.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "32a1ec404384fe1d90c084778a351a3ec348c598f4433f9aaa86a636e9cc8cb0"
+      "sha256": "516de6bebb4fd4f4afcde290f535791c2a786d3715a410fd0b851a5c820cfeb2"
     },
     {
       "old": "assets/characters/masters/nam-teen.png",
-      "new": "assets/images/characters/C002/masters/C002-teen.png",
+      "new": "assets/images/characters/C002/masters/C002-teen.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "84053735cfbf728338417785c33072b6a3a4de79082e389dc9ae1d0c2a8c6ac7"
+      "sha256": "9554703193f430b5755248e63203ffd5f029001437b5d2fd2c124bf688e05470"
     },
     {
       "old": "assets/characters/masters/otton-adult-wheelchair.png",
-      "new": "assets/images/characters/C001/masters/C001-adult-wheelchair.png",
+      "new": "assets/images/characters/C001/masters/C001-adult-wheelchair.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "69d0f8613adca3727682c7284f5cb36324ae35a719cb6f64c434f57eb581bdbd"
+      "sha256": "74c5ad93797092286c3972114ac87d275bef5fe5dcb12a99c7aa1f5a5b199134"
     },
     {
       "old": "assets/characters/masters/otton-adult.png",
-      "new": "assets/images/characters/C001/masters/C001-adult.png",
+      "new": "assets/images/characters/C001/masters/C001-adult.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "2a47f9413a910cbbea3c955ffe06f0ec9fa5ce2665ee96f7722cd895e69a4cc3"
+      "sha256": "a95bee71b6d84ecb2ae84ba244a3ab7322fc92eca19f3f46f5180da37b0537cf"
     },
     {
       "old": "assets/characters/masters/otton-elementary-wheelchair.png",
-      "new": "assets/images/characters/C001/masters/C001-elementary-wheelchair.png",
+      "new": "assets/images/characters/C001/masters/C001-elementary-wheelchair.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a94c160b35422ca7a75dcf6843d9d6df254177a0868f751b48aaaad42006eaac"
+      "sha256": "fb46196784f16572271f3861d191a399a712b1644f4605319e7da3aab376e32e"
     },
     {
       "old": "assets/characters/masters/otton-elementary.png",
-      "new": "assets/images/characters/C001/masters/C001-elementary.png",
+      "new": "assets/images/characters/C001/masters/C001-elementary.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "b80d1e4f88823ae45fcdb5fb725ab171e9fb848c8224ae0172090c0914cff417"
+      "sha256": "786288f4770b4ee5ed3e33a32e77a44f634756618c0723e4c56c4eaf360546d2"
     },
     {
       "old": "assets/characters/masters/otton-kindergarten-uniform.png",
-      "new": "assets/images/characters/C001/masters/C001-kindergarten-uniform.png",
+      "new": "assets/images/characters/C001/masters/C001-kindergarten-uniform.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "41983d8dee1c71649758ae97db4cf68dcacb36f29dfcee48d171a659ba8733d7"
+      "sha256": "8417f764cb3bc568b28967d700e6dcf0925be56142ef7961320b5793bad1e34c"
     },
     {
       "old": "assets/characters/masters/otton-kindergarten.png",
-      "new": "assets/images/characters/C001/masters/C001-kindergarten.png",
+      "new": "assets/images/characters/C001/masters/C001-kindergarten.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "25d44f1b0655a2177e94d7f59bba58ef966360c5bc80535866c633b9a58772cc"
+      "sha256": "2fbe16e35830a77af87b0ef5fbed53c45e2de030386500828a478d9c1ba2d661"
     },
     {
       "old": "assets/characters/masters/otton-midlife-wheelchair.png",
-      "new": "assets/images/characters/C001/masters/C001-midlife-wheelchair.png",
+      "new": "assets/images/characters/C001/masters/C001-midlife-wheelchair.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e267f9b72eb1ee469743042ccd671fb1fe3624c3a7895f9d76e7c10c782df380"
+      "sha256": "5eb119f7f3b3ade44e56e9b9cef8e4e76012689a7d493a442fbeab5d0c178349"
     },
     {
       "old": "assets/characters/masters/otton-midlife.png",
-      "new": "assets/images/characters/C001/masters/C001-midlife.png",
+      "new": "assets/images/characters/C001/masters/C001-midlife.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e78c1de47e926e7c9d8a702310690dae5b255db36896d0e3ac94749b2c622577"
+      "sha256": "01720a89fcd06be1ad766b9a451367bf6620e9c3fdc3c310c1558fbec9eef711"
     },
     {
       "old": "assets/characters/masters/otton-teen-wheelchair.png",
-      "new": "assets/images/characters/C001/masters/C001-teen-wheelchair.png",
+      "new": "assets/images/characters/C001/masters/C001-teen-wheelchair.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a1aa719bef779f1f97ac9e3c5e14e45a55c890be55ff18ed12770745e9e6ecfc"
+      "sha256": "8275ddfeafee1bfa7209477d77bb8743d5434bb7170dea749d6266c1f6698750"
     },
     {
       "old": "assets/characters/masters/otton-teen.png",
-      "new": "assets/images/characters/C001/masters/C001-teen.png",
+      "new": "assets/images/characters/C001/masters/C001-teen.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "f5da0c179b021b64906be6c43c8fbd9f08ebe19795d5ca2e84b2ca02a3125a94"
+      "sha256": "94b7ced73c96e1f3ee0808475db8e3b3dcb3cad10755c70fd421c312cb353300"
     },
     {
       "old": "assets/characters/masters/peiko-adult.png",
-      "new": "assets/images/characters/C004/masters/C004-adult.png",
+      "new": "assets/images/characters/C004/masters/C004-adult.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "01bc70bc1a52af7798c5052fede37aeb3971a68aa40212af5f7a8c9a29f3965c"
+      "sha256": "504d9f448b2ef9980494e68fa62d0c0a82bc489f6b30cc4163343cb149dfd319"
     },
     {
       "old": "assets/characters/masters/peiko-elementary.png",
-      "new": "assets/images/characters/C004/masters/C004-elementary.png",
+      "new": "assets/images/characters/C004/masters/C004-elementary.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "cffdc64cf32abf5637d02af06b60cd84d3610182236e81745e92eae2662779f3"
+      "sha256": "8ad72000865ccc15219f96e3083cf1e21176095cca826b7d7d9e5a725844064d"
     },
     {
       "old": "assets/characters/masters/peiko-kindergarten-uniform.png",
-      "new": "assets/images/characters/C004/masters/C004-kindergarten-uniform.png",
+      "new": "assets/images/characters/C004/masters/C004-kindergarten-uniform.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "ffbf38bfe9758031870186c8fb022c89b27c58a53650321688e88f28e3e6c26d"
+      "sha256": "54d37d33e99c65444d3e26b8fb333c7b985aa1d616b4f32f5b0c760d6802a999"
     },
     {
       "old": "assets/characters/masters/peiko-kindergarten.png",
-      "new": "assets/images/characters/C004/masters/C004-kindergarten.png",
+      "new": "assets/images/characters/C004/masters/C004-kindergarten.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e3a8c5961579da92e52a74bbc22c46740f5ae302bebc8f091c7879a58fe72203"
+      "sha256": "502e91b835f4ab684d256b001a02684b58f94d55d9a1d55c74b71618242de241"
     },
     {
       "old": "assets/characters/masters/peiko-teen.png",
-      "new": "assets/images/characters/C004/masters/C004-teen.png",
+      "new": "assets/images/characters/C004/masters/C004-teen.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "fb8a6c9ae48a0961645363e0869c65636604a4ed57dd019331c79e050f5b7054"
+      "sha256": "963058654e1610a452335a8c39e8b05c2932d210b4293d354a146a2a76c75492"
     },
     {
       "old": "assets/characters/masters/shah-adult.png",
-      "new": "assets/images/characters/C003/masters/C003-adult.png",
+      "new": "assets/images/characters/C003/masters/C003-adult.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "2e6370eaa4904e701394e183a6c8228567e7cf9c4ddbc36ee8fe57e6ff93bb0b"
+      "sha256": "762b52789d26cd73aa1fdd802a6c84981820809fda0b66f325d446f364578643"
     },
     {
       "old": "assets/characters/masters/shah-elementary.png",
-      "new": "assets/images/characters/C003/masters/C003-elementary.png",
+      "new": "assets/images/characters/C003/masters/C003-elementary.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "cb2f9e31a5a7ed7df4f74ed9f1c2ead0870c8123a010effcec21f3560c65f4c8"
+      "sha256": "d9fe8c4731adf71970a7f0956340b11618b8a5416d3051d7b82c82afdffb2350"
     },
     {
       "old": "assets/characters/masters/shah-kindergarten-uniform.png",
-      "new": "assets/images/characters/C003/masters/C003-kindergarten-uniform.png",
+      "new": "assets/images/characters/C003/masters/C003-kindergarten-uniform.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "7e1c711542ee8140f30c464a8a4fff1c277b630a12de944a67ced2991bef36f8"
+      "sha256": "8db7245034f05129011d7e3017eee4993a58b0c64675a0e0b67c0c2e890da626"
     },
     {
       "old": "assets/characters/masters/shah-kindergarten.png",
-      "new": "assets/images/characters/C003/masters/C003-kindergarten.png",
+      "new": "assets/images/characters/C003/masters/C003-kindergarten.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "eaac4f5808b7b8dbd466c33b75af68965d6104ddec2544057d1b1a85cc724f0b"
+      "sha256": "3ccca344b5bcb8e21a800a715fe2a1b010edb17b1901af152c7aef61c3986bb1"
     },
     {
       "old": "assets/characters/masters/shah-teen.png",
-      "new": "assets/images/characters/C003/masters/C003-teen.png",
+      "new": "assets/images/characters/C003/masters/C003-teen.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "fc821df24ce57b254f59cfd7770774d0b6f6f6ab2152e926926376e61ddb02a7"
+      "sha256": "ecbb0096dd8f868ce8ca637ac7d024eec6faa7a48d413ee910b737e2382574b3"
     },
     {
       "old": "assets/characters/poses/nam-cast.png",
-      "new": "assets/images/characters/C002/poses/C002-cast.png",
+      "new": "assets/images/characters/C002/poses/C002-cast.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "0f0b9fe2d20876c1b277b92f4fc82c74b2dbf01cd28cf4b025f67878e6fecca8"
+      "sha256": "cac379ba093b465fda4e5549ecb1e197dfae7a8abb7d25e3fbc8191604f8bb9c"
     },
     {
       "old": "assets/characters/poses/nam-down.png",
-      "new": "assets/images/characters/C002/poses/C002-down.png",
+      "new": "assets/images/characters/C002/poses/C002-down.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "8efb15315524544c560684cc8f9a897619f7c8177b03e37927240e7f40bdbba6"
+      "sha256": "2b035d70c54a926c8b8c0c3c7c9e6a318e1766a4e5e5cc4275987979d8acde64"
     },
     {
       "old": "assets/characters/poses/nam-elementary-cast.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-cast.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-cast.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "44f6a64126ac78df168a4555d5fa1ee64472ced12ede09ba320b562b41c5bb38"
+      "sha256": "ec5df46084cfee1c028fe5380fda5ae4e00b9e1cbc44b45fe972076a2cbc60ea"
     },
     {
       "old": "assets/characters/poses/nam-elementary-down.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-down.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-down.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "153e39b6baa98245d19bb6a854da0abc5a78c5b7120f51f646258879f3651bce"
+      "sha256": "0a740d5f6f58d127257e293a0042c4ae7161ce42d193f1215492653cbfc1c822"
     },
     {
       "old": "assets/characters/poses/nam-elementary-hurt.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-hurt.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-hurt.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e58c1d29f467d00cda7728d1918ad44930f3757bc0e5e216ed19fb3ac8bb1fd7"
+      "sha256": "ddda4c6e69e33c8523bf699a591b0acdb76459a00bf36853d3e5076a98443c7c"
     },
     {
       "old": "assets/characters/poses/nam-elementary-idle.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-idle.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-idle.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "284fdd377cfa7c01c062167ea9f93e2ed031726f051b936b18ef031ac451e4ab"
+      "sha256": "d202aab46e9c6097e96cbb8270acecf43d630618c9a40159200569f9165a65d1"
     },
     {
       "old": "assets/characters/poses/nam-elementary-ready.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-ready.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-ready.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "7520dae2231487bcb94e90247a168a2b3fe453c3d70e69b0826cb4b541aaec24"
+      "sha256": "14bbd9c40d6aabe47f261fa166565a94aa0a2083824bb99194bdbf8791f6df5b"
     },
     {
       "old": "assets/characters/poses/nam-elementary-slash.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-slash.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-slash.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a83f8d58e170b0500712981679a7955279156afdada4326814c2ad0e9b36e0ba"
+      "sha256": "8d4c5fb42ac3ba90052d1eb534813c9762b35f9dc616894450c7536708f06ced"
     },
     {
       "old": "assets/characters/poses/nam-elementary-special.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-special.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-special.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "6210d431ed7180bc4dc9c5892093fa205524c20e58f77a42f378b909e6a09ed8"
+      "sha256": "8987ac9a7d3665417e0dbbd23cd19f783c38470766e003734dec70050e259a5d"
     },
     {
       "old": "assets/characters/poses/nam-elementary-step.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-step.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-step.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "025030d7e8dc5b640d518bad415739af5f66cc2732da8a4034ce8194ac720f8b"
+      "sha256": "b599dad1811a981ffd55e92ae4c9b8e12b938ad787df5c03c1d0f9f9f7b6ebde"
     },
     {
       "old": "assets/characters/poses/nam-elementary-victory.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-victory.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-victory.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "f626ac856da52ccfa3d4fc0beac80377e167d6945df35a429a9ac3bd66dddaa8"
+      "sha256": "501c80ddfb4bf4b4ef93fd4e375e01db1d9933c2c0a50b4009128b6ce66bf631"
     },
     {
       "old": "assets/characters/poses/nam-elementary-wheelchair-cast.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-cast.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-cast.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "75fd91a4bb8cc496e1bd11bef58212cefdc93068fa109a94e0a2303b358eb3f9"
+      "sha256": "3584cd76e32b279f4c92ea24d98f61b5fbe565b055427b5817aa749fef66dec3"
     },
     {
       "old": "assets/characters/poses/nam-elementary-wheelchair-down.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-down.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-down.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "62cf5ec24ef457b4b1c46aff8a41cca1a0d1b1a902137235de4e8e11d1c59f9e"
+      "sha256": "5eba704996e37fbd6b87d058750dff3daaacfdb7f7918f4e423e08b9f9e1b11f"
     },
     {
       "old": "assets/characters/poses/nam-elementary-wheelchair-hurt.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-hurt.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-hurt.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "0362e3777a1aa21a60c27c0cdfb5e5572cc6b9def83f68d4d01cf482eecab453"
+      "sha256": "ab88460ee03118195d484bcd23d89725f33e296e7b51781d1709c69004b801e7"
     },
     {
       "old": "assets/characters/poses/nam-elementary-wheelchair-idle.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-idle.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-idle.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "1e3705035bf4c3d741c6bbd5985995c6f694e8163a68263aaf8992f405a82093"
+      "sha256": "e1e61435e5818ece53f6006986189b55ef7e00bec87a890fae17e4a94c9b3aac"
     },
     {
       "old": "assets/characters/poses/nam-elementary-wheelchair-ready.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-ready.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-ready.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "cce54a15dfa2b712352978bbf738fc5cd52b6eba9d0a4cb20eaf97c66bb65d88"
+      "sha256": "e6391cb13399c86a6b1386651a8e17a09fb4300a836c675f809ca30cedc40dc0"
     },
     {
       "old": "assets/characters/poses/nam-elementary-wheelchair-slash.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-slash.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-slash.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "b712233518a76e559205420a6112c1e5cd81dd9dc1fcbe673828f33fdc7528a6"
+      "sha256": "45204b1ed69bcb548d8de1c57e795348db66d587c73fb29bd6aa61e2873fb746"
     },
     {
       "old": "assets/characters/poses/nam-elementary-wheelchair-special.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-special.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-special.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "7ff095a3c11937d356c70d72decfa8e6efa78ca20c6c5105dbff897283c6462d"
+      "sha256": "6e0ed823ad26b532bd071c8e8284f266558e749c02079f5cb8cb9cacab8d814b"
     },
     {
       "old": "assets/characters/poses/nam-elementary-wheelchair-step.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-step.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-step.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "1504c4ad64cdb1e3abc1de3b3fde7c2c212e0a45115e77cad97969a9fd801d8c"
+      "sha256": "26cca552c56bff3fbbd7e867b49dcc19efc5e15d8b3b05112e2e479477332e16"
     },
     {
       "old": "assets/characters/poses/nam-elementary-wheelchair-victory.png",
-      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-victory.png",
+      "new": "assets/images/characters/C002/poses/C002-elementary-wheelchair-victory.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "4dc992e0efe09fd58de734e8e43d0145f1d6e294ca20a0fc54900b5036317f5a"
+      "sha256": "b42250527bd423885c1a194b58534b6c91a4a5ee45ffbcac15d2463a3fffefe5"
     },
     {
       "old": "assets/characters/poses/nam-hurt.png",
-      "new": "assets/images/characters/C002/poses/C002-hurt.png",
+      "new": "assets/images/characters/C002/poses/C002-hurt.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "4484f17b91fe8409731d690d44deac87f399696264034bc81c1a694cfbbeeaa0"
+      "sha256": "f763b89cbbf8aac95dba169d66c6bcccf02379fa2b2d337e1e0c6213ecf4ee6d"
     },
     {
       "old": "assets/characters/poses/nam-idle.png",
-      "new": "assets/images/characters/C002/poses/C002-idle.png",
+      "new": "assets/images/characters/C002/poses/C002-idle.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "12a98cbba895d340959922b7a1167fd5840d1153a1b69247a6e31c2e7dffa137"
+      "sha256": "1b0f7ce1b62ad3dafacbc1854c4db53e5eb147b4714efa60a41b5658e4a2ef1e"
     },
     {
       "old": "assets/characters/poses/nam-ready.png",
-      "new": "assets/images/characters/C002/poses/C002-ready.png",
+      "new": "assets/images/characters/C002/poses/C002-ready.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "03e94674289c95925f7f9dd8f7da0478661e9e0ffee9cfb22c54d01e19f542a4"
+      "sha256": "0085b2d7995c98c26e81222f78f1f7dbe667f0eb21c9cb77d66db686a297340e"
     },
     {
       "old": "assets/characters/poses/nam-slash.png",
-      "new": "assets/images/characters/C002/poses/C002-slash.png",
+      "new": "assets/images/characters/C002/poses/C002-slash.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "737477010d816d812b26901f1001baa0ca9dac2456ed054e567a736f71810455"
+      "sha256": "631113cee0194f93e24c16acc5686605eada2cdf43896d73352d35205664fc05"
     },
     {
       "old": "assets/characters/poses/nam-special.png",
-      "new": "assets/images/characters/C002/poses/C002-special.png",
+      "new": "assets/images/characters/C002/poses/C002-special.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "da226cebad2e4a747275d7f2aeeb81fb3aac078706d2f1f17f687420d8fd7694"
+      "sha256": "38e594a59a75d4112f914933cf15e9ae98c33b5d1cb0b96c2a048b7483efc23f"
     },
     {
       "old": "assets/characters/poses/nam-step.png",
-      "new": "assets/images/characters/C002/poses/C002-step.png",
+      "new": "assets/images/characters/C002/poses/C002-step.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "51c6defb9fec899db7b557b8b962c2782a76593766cb454f2d7dfe0e736be08b"
+      "sha256": "e113cc38eed94cd50afe7e37f3d230e1ad1b0a4cfc9739537e84bc1aef3c82c9"
     },
     {
       "old": "assets/characters/poses/nam-uniform-cast.png",
-      "new": "assets/images/characters/C002/poses/C002-uniform-cast.png",
+      "new": "assets/images/characters/C002/poses/C002-uniform-cast.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "fc3006e9c075fd764f1b347ae11aaf32c1982188a6a087204d75a11f7ecde7bc"
+      "sha256": "e75153f2370df3d7eed14c9d30e687f4d9abf52c45e1c2925bfc7e3627cb487a"
     },
     {
       "old": "assets/characters/poses/nam-uniform-down.png",
-      "new": "assets/images/characters/C002/poses/C002-uniform-down.png",
+      "new": "assets/images/characters/C002/poses/C002-uniform-down.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "8cc018f4e572ad9dea2144cc0d5ee4dfd09c8f91d00e22a7a7c5589850915b19"
+      "sha256": "dad64b4bae9964c0fe097584e0c4bff70e72f014ec01591eeed955c999570f77"
     },
     {
       "old": "assets/characters/poses/nam-uniform-hurt.png",
-      "new": "assets/images/characters/C002/poses/C002-uniform-hurt.png",
+      "new": "assets/images/characters/C002/poses/C002-uniform-hurt.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "45a40bf8a167002286d16eac5d857dc55631ba434ea86ba87172b88f8e7b0651"
+      "sha256": "3e80066c3ec901f2ecb7ac9bdcffa38eaea361898f9be16de73b288d49d827c7"
     },
     {
       "old": "assets/characters/poses/nam-uniform-idle.png",
-      "new": "assets/images/characters/C002/poses/C002-uniform-idle.png",
+      "new": "assets/images/characters/C002/poses/C002-uniform-idle.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "cfb75301883e97539c02e2d8a9e9435a4925509b75a45c462bc3836d3c1bbcf6"
+      "sha256": "f46d9ff32a868458943a1c5cfd0ca1d288999bb8f433efa14a03a5e55044da8a"
     },
     {
       "old": "assets/characters/poses/nam-uniform-ready.png",
-      "new": "assets/images/characters/C002/poses/C002-uniform-ready.png",
+      "new": "assets/images/characters/C002/poses/C002-uniform-ready.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "00171380bad826ea1d8da824e4a2bc2d630fa4b1e22c7d257c66f92c90bceccc"
+      "sha256": "204785f2e6ecab17444376f9903adb4ee659bf0cf2090bea9211cf1bbaf6540a"
     },
     {
       "old": "assets/characters/poses/nam-uniform-slash.png",
-      "new": "assets/images/characters/C002/poses/C002-uniform-slash.png",
+      "new": "assets/images/characters/C002/poses/C002-uniform-slash.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "c28a35bbb12302375af16755dbcb9211870e7634b05fa19d2a1ed0d7805e7823"
+      "sha256": "7d8f63fa209ca6787c5930bafb9908340d6cca3d10286fa0ff416bdc8e5a3373"
     },
     {
       "old": "assets/characters/poses/nam-uniform-special.png",
-      "new": "assets/images/characters/C002/poses/C002-uniform-special.png",
+      "new": "assets/images/characters/C002/poses/C002-uniform-special.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "036a6ca07361ed92d5e5b4cce841ed89bee7247de7553f6a0f5406e7e75f9a30"
+      "sha256": "f8823a09f436527c6e36f7e6fb3bf0ebbf884a11cbfd1d674d0fefdff444fb71"
     },
     {
       "old": "assets/characters/poses/nam-uniform-step.png",
-      "new": "assets/images/characters/C002/poses/C002-uniform-step.png",
+      "new": "assets/images/characters/C002/poses/C002-uniform-step.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "31c5e52a2c80774e348eb682875c4c56baff9b9954049a88971d15dd7e1e79a3"
+      "sha256": "51f118c746eedcb58eac37a570818eef2cc273d38136d98a16f87b1013615070"
     },
     {
       "old": "assets/characters/poses/nam-uniform-victory.png",
-      "new": "assets/images/characters/C002/poses/C002-uniform-victory.png",
+      "new": "assets/images/characters/C002/poses/C002-uniform-victory.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "fcc4414bc37dee92b86c08ef30e80cad89e13413cf51b5eda0a7cea54f9ebd53"
+      "sha256": "a53b1e0d02a84a8cbaf1258eec28456838578ab0447ff77dac07e90bafc7db88"
     },
     {
       "old": "assets/characters/poses/nam-victory.png",
-      "new": "assets/images/characters/C002/poses/C002-victory.png",
+      "new": "assets/images/characters/C002/poses/C002-victory.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "5e17bc892d8d6024adb849f62ff3fd3c1858da38a6d490f785a92350bc20708b"
+      "sha256": "c22fc15ba141cc41bf2779cd68642ef944e88eeca1c9e73a160920bc2b66370a"
     },
     {
       "old": "assets/characters/poses/otton-cast.png",
-      "new": "assets/images/characters/C001/poses/C001-cast.png",
+      "new": "assets/images/characters/C001/poses/C001-cast.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a281a676f4ae5b9168dea57e16442170a1d9aad44de2fdc12865dfb28ef7beed"
+      "sha256": "a47da92d3e4cd8c7dc2ff5cea52357b0295c5c86e5df0251be07540f531686e5"
     },
     {
       "old": "assets/characters/poses/otton-down.png",
-      "new": "assets/images/characters/C001/poses/C001-down.png",
+      "new": "assets/images/characters/C001/poses/C001-down.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "dc96d175045659ba12bb573c67b63c3efbfa94f57ae1b0c86c5e1264f16a91c8"
+      "sha256": "73399aeb72ebf8fe05c0973355cf933069f56ffdc2c039d80808552eee429bdf"
     },
     {
       "old": "assets/characters/poses/otton-elementary-cast.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-cast.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-cast.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "83fd693adb68a93ff686018d83442414cf69c55f685e8ee294ff06b1e5f56672"
+      "sha256": "514db52e0368247b69519eca2a688a9b002c85f0a5e5bc2e1499bf1ff881dee1"
     },
     {
       "old": "assets/characters/poses/otton-elementary-down.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-down.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-down.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "9d70f1fedaae39eecc3886937933d172b10cdb082f560ba1546cceac1f47a190"
+      "sha256": "768448dfe25306d4a1ddd716bbf022edb98333786c4b6ea77fd587b70f8dd320"
     },
     {
       "old": "assets/characters/poses/otton-elementary-hurt.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-hurt.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-hurt.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "87f8ac77f89f79f50da3dc24f4a21ce17d554b791313e3723cfe01cc680865c6"
+      "sha256": "981185c2dd985dba3f92d2b944158ca2fcfe230b1f21a7ae8b7d0501eb3f7192"
     },
     {
       "old": "assets/characters/poses/otton-elementary-idle.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-idle.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-idle.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "42c940c3034244f640b9576864275796db37663a2de70ebcc091659ad9c5bced"
+      "sha256": "f06cb3f462021427c29fdc83bb3cf5d7fac19b12347a6956da5fe9fe144d0fc5"
     },
     {
       "old": "assets/characters/poses/otton-elementary-ready.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-ready.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-ready.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e6c120a8f55b42f4cf6af8c3705969f7540d073fa503922249fcc6759396bbee"
+      "sha256": "c7e7819bbe6f01dd74773231a48e93ca375c2f2dd37a8d25e5fa01cc243ef99e"
     },
     {
       "old": "assets/characters/poses/otton-elementary-slash.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-slash.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-slash.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "530c587024c6846e274bbb39e30978d3bff35f3fad2bf52f31dda60a339adfe6"
+      "sha256": "d3a1a09b4bca52d76073516916c3a50d64d5e4f56d8ec0e4f2086e6ee96fabcb"
     },
     {
       "old": "assets/characters/poses/otton-elementary-special.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-special.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-special.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "0a1cfa5de16e4a0fdd304b38a0d4d888045d80113f66655ba35f4d5cc9ba2fde"
+      "sha256": "5a92f0355e6f5b2458befa4a8d087805cb5e14850964e5dd14536a33adcce357"
     },
     {
       "old": "assets/characters/poses/otton-elementary-step.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-step.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-step.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "4b5ba49efff7248983189b8c691565c99bcae02de44f701566e8649a4bba7f0d"
+      "sha256": "d24872e632253492944117c696c50c526ed01ac7ccdc4255816e909493d85b88"
     },
     {
       "old": "assets/characters/poses/otton-elementary-victory.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-victory.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-victory.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "698ec2c117f9690ca72e92f8728ee16f2012dca982e24909b9f9490e6ea834a3"
+      "sha256": "036b811e598137c01d52f8e79fc007a8973e34d0934559d3a2610679907e3e91"
     },
     {
       "old": "assets/characters/poses/otton-elementary-wheelchair-cast.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-cast.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-cast.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "eaa52f41f5390f0ef1bedb47892703113149c960fdcfeae26a62198096606231"
+      "sha256": "06849ee01ac9b535d7715d34790392bd57cf3a3fe5643fa7a80b9e8b3cd50886"
     },
     {
       "old": "assets/characters/poses/otton-elementary-wheelchair-down.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-down.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-down.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a42403b3535af984363dc2c8d24dbcbc66e9094d287d45127a2c36d898d980b6"
+      "sha256": "9820ce8229a50b89904652ce6ff30a4d0b6c6833e651c54d6548a2d587ec6b48"
     },
     {
       "old": "assets/characters/poses/otton-elementary-wheelchair-hurt.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-hurt.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-hurt.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "f1c1efb4d406af2b35117110a48ef6546bbb11ee8492f0dce8bdda3bad9c6ce4"
+      "sha256": "146111c83fba7abe6bf84aafea5a1259f537487099b18d7dabc41e1cafd73abd"
     },
     {
       "old": "assets/characters/poses/otton-elementary-wheelchair-idle.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-idle.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-idle.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e73ea73a647774b710b4f932480ed3521e99a2cccf0eff4b456d0b7577a45866"
+      "sha256": "f61e64b0e742d290be3b4e17f6f44d8c400b28d9885aaa5ed5e3ac064d58befb"
     },
     {
       "old": "assets/characters/poses/otton-elementary-wheelchair-ready.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-ready.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-ready.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "dbb67b7cacb349e4c984b6c04019d9d2d8c888139be5725aa4f8b7cd97482a5e"
+      "sha256": "a04f2bdc18220a729219f4c918bd445dc69f2fb7f937f18fd52a3d056869db56"
     },
     {
       "old": "assets/characters/poses/otton-elementary-wheelchair-slash.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-slash.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-slash.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "ddfed03be331460a346c265799f62d0601d0431a8080cfd5eff403c68e0e3869"
+      "sha256": "0525e9774d0c80e652fc1085dd2d5ce6104077fe502e4bb7689f5c0355ecec82"
     },
     {
       "old": "assets/characters/poses/otton-elementary-wheelchair-special.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-special.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-special.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "ef42e3f3c4266f66d055423687d1b7c953e9fef1f4389b2af4ee7b98647af34a"
+      "sha256": "ffa853e67f821589c44133d80115845cc1456eacec86ec49e700f39bff5e012e"
     },
     {
       "old": "assets/characters/poses/otton-elementary-wheelchair-step.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-step.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-step.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a8430d59856cd727293f5ca22146c1f289bbcfdde57555cf951431a87b06a0b9"
+      "sha256": "b4418cc2afef3e63e000f4a6357505b43ae4e13024a7a28358ee55744e3b6f09"
     },
     {
       "old": "assets/characters/poses/otton-elementary-wheelchair-victory.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-victory.png",
+      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-victory.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "4dd6d9f8ed7d6d6f09b25d12f036b099dbe0f1a95573d311930c848f2cb190cf"
+      "sha256": "c1d2c3cf0af46cd6aef3d58019e4b32a57db7b1c866a811ea6fc163a80cc2768"
     },
     {
       "old": "assets/characters/poses/otton-hurt.png",
-      "new": "assets/images/characters/C001/poses/C001-hurt.png",
+      "new": "assets/images/characters/C001/poses/C001-hurt.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "9359a01dd2bc64320bb143336b1aa7f6eb47f5329c77a61e7ac4970913a2e136"
+      "sha256": "3714f98343c68904e296ddddf95219de622f608fd773fc4cb64bb8ca62ae4058"
     },
     {
       "old": "assets/characters/poses/otton-idle.png",
-      "new": "assets/images/characters/C001/poses/C001-idle.png",
+      "new": "assets/images/characters/C001/poses/C001-idle.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "705a2a6f2f3950cd4139b3b935bb2477cd76dfcf320b2ebfdee263ba91cdeecb"
+      "sha256": "22e7e73774286dc66f9d51d5798531a1447a7143614cd98dd7ea2fe93bf86b0a"
     },
     {
       "old": "assets/characters/poses/otton-ready.png",
-      "new": "assets/images/characters/C001/poses/C001-ready.png",
+      "new": "assets/images/characters/C001/poses/C001-ready.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "91863da4d5e809359d8b021a2dce72311da9fccb9cc6fa09360720289be54fe0"
+      "sha256": "4e687dbb84451d63263881698dc92a189a57af0a99a9980c726cf88e2d5422e8"
     },
     {
       "old": "assets/characters/poses/otton-slash.png",
-      "new": "assets/images/characters/C001/poses/C001-slash.png",
+      "new": "assets/images/characters/C001/poses/C001-slash.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "77d8c556fd44accd723598107846fabd9bd649300c0a1858d0ca89c6c2257efb"
+      "sha256": "73f222d9a9a3debbddf41d6f41103c75296ec404efe4925204afdaa9d8d80d21"
     },
     {
       "old": "assets/characters/poses/otton-special.png",
-      "new": "assets/images/characters/C001/poses/C001-special.png",
+      "new": "assets/images/characters/C001/poses/C001-special.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "491095da4a9b704002bacacb5b61ec3078388092d6d740f5424cacbc515737cb"
+      "sha256": "a797161973012062bb711130459796924be46cad149e3b7b90da2c89a7e1ddf5"
     },
     {
       "old": "assets/characters/poses/otton-step.png",
-      "new": "assets/images/characters/C001/poses/C001-step.png",
+      "new": "assets/images/characters/C001/poses/C001-step.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "53c52ae8b683d01496dcf7698ac69d6801346166d964e00ca7645c373775e873"
+      "sha256": "32ff87ffa9fec1fc15baeb34058664bd49cfc54eb2ac704a6a611da218154cab"
     },
     {
       "old": "assets/characters/poses/otton-uniform-cast.png",
-      "new": "assets/images/characters/C001/poses/C001-uniform-cast.png",
+      "new": "assets/images/characters/C001/poses/C001-uniform-cast.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "acc2691fa8f164d3e6df138bc6e4ba0c35d160138c351639197b4ac349bc1caa"
+      "sha256": "78463459a26a63c480525c2185daa63fd3afe10c741ff58d0712332fd9ff984f"
     },
     {
       "old": "assets/characters/poses/otton-uniform-down.png",
-      "new": "assets/images/characters/C001/poses/C001-uniform-down.png",
+      "new": "assets/images/characters/C001/poses/C001-uniform-down.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "15f188b29b7590c6405f2db7b692b918df7e3f6ba86d360e46629319138197f0"
+      "sha256": "d476ea8753b36230c60b63374749141de5382a0117e6e99f2175d3cc4a1f13bc"
     },
     {
       "old": "assets/characters/poses/otton-uniform-hurt.png",
-      "new": "assets/images/characters/C001/poses/C001-uniform-hurt.png",
+      "new": "assets/images/characters/C001/poses/C001-uniform-hurt.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "2973270bd33bdf8b30ebd1ecfb1d63e51ae0385b369719bbf9577ce5273852a4"
+      "sha256": "6d5e8394255e17ac589d96e1710b5e0cb2cfc787216af6bd5a23f8161c944b64"
     },
     {
       "old": "assets/characters/poses/otton-uniform-idle.png",
-      "new": "assets/images/characters/C001/poses/C001-uniform-idle.png",
+      "new": "assets/images/characters/C001/poses/C001-uniform-idle.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a0cd8f9fdd72521ba9e02873b14438a84b13ad4eea353645ba03aee44ce2b48a"
+      "sha256": "408dd928de1a3bf7123e44b67bfbc23ca495ab11227b95a3b85eb5ed935911aa"
     },
     {
       "old": "assets/characters/poses/otton-uniform-ready.png",
-      "new": "assets/images/characters/C001/poses/C001-uniform-ready.png",
+      "new": "assets/images/characters/C001/poses/C001-uniform-ready.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "b5c4459cc77759a1bfd1cd360de3378102d5a901312fb0c6ee5f36222ff55a54"
+      "sha256": "73c99cc811a586db761df1c9c26d3d157de73d9bfcb6f272441563fd8e76906a"
     },
     {
       "old": "assets/characters/poses/otton-uniform-slash.png",
-      "new": "assets/images/characters/C001/poses/C001-uniform-slash.png",
+      "new": "assets/images/characters/C001/poses/C001-uniform-slash.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "b39db1e250978834b16df4e5ea162acd7bf3d77c165ee61bbfaecfdae168b1ea"
+      "sha256": "09b984574178d42de877fd37479311d7a8ef4cd84eefb0f4c19da2b34fae6628"
     },
     {
       "old": "assets/characters/poses/otton-uniform-special.png",
-      "new": "assets/images/characters/C001/poses/C001-uniform-special.png",
+      "new": "assets/images/characters/C001/poses/C001-uniform-special.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "5d4635bcb831849a8bb18a98755792d1c99aa713de63ee904909b046a3cd0212"
+      "sha256": "62dd613e1721ea362a05632d6bc1ede10734a6657517d271b099ee1b5c73bbd2"
     },
     {
       "old": "assets/characters/poses/otton-uniform-step.png",
-      "new": "assets/images/characters/C001/poses/C001-uniform-step.png",
+      "new": "assets/images/characters/C001/poses/C001-uniform-step.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "8f5fff979a20e9e362a56e2363620a94997e6344db808c54ba86e6f363add4c9"
+      "sha256": "dc8e4cac659cf7064eab1f1db9686ac7f86cca8c6e298ac54834aa4d2fe8c283"
     },
     {
       "old": "assets/characters/poses/otton-uniform-victory.png",
-      "new": "assets/images/characters/C001/poses/C001-uniform-victory.png",
+      "new": "assets/images/characters/C001/poses/C001-uniform-victory.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "3e75b36c46dbdae86a54642ddb5f7f1b304fc677a0787d5be1e04d1c668d60a2"
+      "sha256": "b37945642dcd7304fd014423210f6325268f1871c223a5033b914b24526d8364"
     },
     {
       "old": "assets/characters/poses/otton-victory.png",
-      "new": "assets/images/characters/C001/poses/C001-victory.png",
+      "new": "assets/images/characters/C001/poses/C001-victory.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "0af2566996f89d9b25f381cf1af8eb407539964e3c122a87310d470f5ce8948c"
+      "sha256": "9244453e3aa39e927659f2fc8347fbe744b91639c1ab075ab534920e9850841e"
     },
     {
       "old": "assets/characters/poses/peiko-cast.png",
-      "new": "assets/images/characters/C004/poses/C004-cast.png",
+      "new": "assets/images/characters/C004/poses/C004-cast.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "59e06634246e9a707b9643100193d8f130e5b3d3457e63173a37e2de482d4c63"
+      "sha256": "1d5339301b72e0abe2bf5aa65039651b8df7b32f27237a7dd4a009c8a39afd08"
     },
     {
       "old": "assets/characters/poses/peiko-down.png",
-      "new": "assets/images/characters/C004/poses/C004-down.png",
+      "new": "assets/images/characters/C004/poses/C004-down.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "bbb4599375b253dccdd515b8901a100d4e2a2e1427a74730a824f61c69860736"
+      "sha256": "a48343f73d9c60552da4eb5295a3a2850d57d39ecc384672582089ebc4590d75"
     },
     {
       "old": "assets/characters/poses/peiko-elementary-cast.png",
-      "new": "assets/images/characters/C004/poses/C004-elementary-cast.png",
+      "new": "assets/images/characters/C004/poses/C004-elementary-cast.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "d0fd18a96ea962272850e8649e5263039176cbb29ac891038787ca9cca471406"
+      "sha256": "308b98fe9b13c7ee91ad68ca1b7a27df0b0c545c2cce58482059801fcca363df"
     },
     {
       "old": "assets/characters/poses/peiko-elementary-down.png",
-      "new": "assets/images/characters/C004/poses/C004-elementary-down.png",
+      "new": "assets/images/characters/C004/poses/C004-elementary-down.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "ac4affc776eb29fcf204e58638369d56d5a58fda121b534619e9a2734f6352ab"
+      "sha256": "c02a4f8c8eeb404e7a947f16444590bd97b657d55987fa5930ba4a1e0dbb6c6b"
     },
     {
       "old": "assets/characters/poses/peiko-elementary-hurt.png",
-      "new": "assets/images/characters/C004/poses/C004-elementary-hurt.png",
+      "new": "assets/images/characters/C004/poses/C004-elementary-hurt.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "fe6db84fc2d41ccb6195dd0d021e829ecc3bafcd9d08742e2c627b30281cdf6f"
+      "sha256": "989a3fc092b92862bde4cf4b041e6a9c8817258378d2c3d52f62efd9759f0448"
     },
     {
       "old": "assets/characters/poses/peiko-elementary-idle.png",
-      "new": "assets/images/characters/C004/poses/C004-elementary-idle.png",
+      "new": "assets/images/characters/C004/poses/C004-elementary-idle.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "ad3b5f7d274a891cf608f2a991f553d6d6a04487e3a75eba67df320ec34904da"
+      "sha256": "5380f426931ba7f995b9b7be0199763244877bea25f39405e81b5ebef016fa54"
     },
     {
       "old": "assets/characters/poses/peiko-elementary-ready.png",
-      "new": "assets/images/characters/C004/poses/C004-elementary-ready.png",
+      "new": "assets/images/characters/C004/poses/C004-elementary-ready.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "1c42c4e13585fc4a4f66ee672c3283836528c54a10dfba15be9d6853f8044e0c"
+      "sha256": "c768348feed8ee6da026466fdab3d3f1be174c17b2da28f630f967da6213a642"
     },
     {
       "old": "assets/characters/poses/peiko-elementary-slash.png",
-      "new": "assets/images/characters/C004/poses/C004-elementary-slash.png",
+      "new": "assets/images/characters/C004/poses/C004-elementary-slash.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "bbd6a6d9cd6436419cc3ef46b6e278ec28ca18e9f5035c2fead6c683d9a57a9d"
+      "sha256": "2c8049c272c5c510951e773b496af47e832ac2930bb1b9d38cabaf3df6d91032"
     },
     {
       "old": "assets/characters/poses/peiko-elementary-special.png",
-      "new": "assets/images/characters/C004/poses/C004-elementary-special.png",
+      "new": "assets/images/characters/C004/poses/C004-elementary-special.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "320ba32b279d52da15e609fa26e24d2b3f3c3445c3d46147721f3ffa82ba9f4e"
+      "sha256": "e21ff89d8b3c486478900b0e46a66b617850f40dcc2a54365b557b078e6269d6"
     },
     {
       "old": "assets/characters/poses/peiko-elementary-step.png",
-      "new": "assets/images/characters/C004/poses/C004-elementary-step.png",
+      "new": "assets/images/characters/C004/poses/C004-elementary-step.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "ab166ff9736ec8f5e1960746d96ab705c8afa8f48c735c78cc2b9c88e3103839"
+      "sha256": "4b9c72cc11f059771baa46bc3611500dbb68b46ee5249391f59535cf583c255c"
     },
     {
       "old": "assets/characters/poses/peiko-elementary-victory.png",
-      "new": "assets/images/characters/C004/poses/C004-elementary-victory.png",
+      "new": "assets/images/characters/C004/poses/C004-elementary-victory.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a6e10139146a105285d3267d3280ce36a3fcb49e6dda340afff7b8d2967a33f3"
+      "sha256": "bd96c901037fd481f958349e323c66a5f4cbad9277489240fa9e41bfb939e9ae"
     },
     {
       "old": "assets/characters/poses/peiko-hurt.png",
-      "new": "assets/images/characters/C004/poses/C004-hurt.png",
+      "new": "assets/images/characters/C004/poses/C004-hurt.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "3736e2f04e88b7449537fdefbb983cd041c52eccf11da931fd5aa5c7d91d1f7d"
+      "sha256": "aa347ab682fd114e19078b07d3fc810b6937fa04d0dc5f6a0661606e16631b21"
     },
     {
       "old": "assets/characters/poses/peiko-idle.png",
-      "new": "assets/images/characters/C004/poses/C004-idle.png",
+      "new": "assets/images/characters/C004/poses/C004-idle.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "808cce665d7958e27ed2c40345abc1ea9b2de5feebd7beadf30ace3a78ca010b"
+      "sha256": "99bc00c4da4a7917a2ed4b88ee137beae5f56803232c45625538ddd21efe8296"
     },
     {
       "old": "assets/characters/poses/peiko-ready.png",
-      "new": "assets/images/characters/C004/poses/C004-ready.png",
+      "new": "assets/images/characters/C004/poses/C004-ready.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "df16eb6e8f8b2eb05c99dc993f6a654382bd94cd465f792c3be447cb539f4bf1"
+      "sha256": "bbddbdc7670c838dc9584a96653aab3671cb9449f00d68ccda06570e1c5d95e8"
     },
     {
       "old": "assets/characters/poses/peiko-slash.png",
-      "new": "assets/images/characters/C004/poses/C004-slash.png",
+      "new": "assets/images/characters/C004/poses/C004-slash.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e7cb840c29fdd16c8423d962a221615c425550f245769266b9c0a66a3e2978b7"
+      "sha256": "29e562b18098659014fde91224e1f4d1795aa80f41c0cfe89c6d88760ca1fc46"
     },
     {
       "old": "assets/characters/poses/peiko-special.png",
-      "new": "assets/images/characters/C004/poses/C004-special.png",
+      "new": "assets/images/characters/C004/poses/C004-special.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "bb046f98d7c91c1f6c9a73375eb66f88cdaab22fd5bc8b5ecb78f9259f2a4ad9"
+      "sha256": "2012b0e2f36f61b82959bd73d15eba5d801ad0794d00a1f80ca35ee38da4fa17"
     },
     {
       "old": "assets/characters/poses/peiko-step.png",
-      "new": "assets/images/characters/C004/poses/C004-step.png",
+      "new": "assets/images/characters/C004/poses/C004-step.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "f49b8babbd46e05fb33430236ade6ed2fb284f691dadf2d23b8a3032b3130789"
+      "sha256": "33ab856ecacd3054c10481d6d4995b35d7b62de8e7840b3dc5a5f723142b1432"
     },
     {
       "old": "assets/characters/poses/peiko-uniform-cast.png",
-      "new": "assets/images/characters/C004/poses/C004-uniform-cast.png",
+      "new": "assets/images/characters/C004/poses/C004-uniform-cast.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "b2696fe1888962bcfa8381a5db5be178c631bf7f5a8ab9171b3930404910b696"
+      "sha256": "8ca440bdd7f684afc38508b821b5b30433b28724975607493abd8f69dea3f0b2"
     },
     {
       "old": "assets/characters/poses/peiko-uniform-down.png",
-      "new": "assets/images/characters/C004/poses/C004-uniform-down.png",
+      "new": "assets/images/characters/C004/poses/C004-uniform-down.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "7deeeddb3c69e2858bb8388d1803d1b1c27dc93b5b917986287b0a87b09b2010"
+      "sha256": "6a14dcd056e7df1abdb4bafe916e8c40099e05dd826f151e877f4a49f8fee4a0"
     },
     {
       "old": "assets/characters/poses/peiko-uniform-hurt.png",
-      "new": "assets/images/characters/C004/poses/C004-uniform-hurt.png",
+      "new": "assets/images/characters/C004/poses/C004-uniform-hurt.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "475c695ae4ae4a5ecc615218129adbc5311d6bfdcec0d6933d0c4acf16d23c55"
+      "sha256": "ea1011bd06430e53ef4d80fa02e6df2b2c3e8304ad4d1caa361cb1f352cc0566"
     },
     {
       "old": "assets/characters/poses/peiko-uniform-idle.png",
-      "new": "assets/images/characters/C004/poses/C004-uniform-idle.png",
+      "new": "assets/images/characters/C004/poses/C004-uniform-idle.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "bac1ee39374e46a745503bb28cd0c3208e75eeb8ddadd7d5178232525ddfbc04"
+      "sha256": "ff5b051bf2819177d6c6431f50f948ec30ffbc65fda8b972ea5506c96d73b426"
     },
     {
       "old": "assets/characters/poses/peiko-uniform-ready.png",
-      "new": "assets/images/characters/C004/poses/C004-uniform-ready.png",
+      "new": "assets/images/characters/C004/poses/C004-uniform-ready.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "b97fbd7792621cc62c2d08ed5304665058855fa635496f7ccf98c39ba980f914"
+      "sha256": "f8e25bb485038db6a2aff05534a7051b7e0fcc925809a5b522212b3f76d2c0fc"
     },
     {
       "old": "assets/characters/poses/peiko-uniform-slash.png",
-      "new": "assets/images/characters/C004/poses/C004-uniform-slash.png",
+      "new": "assets/images/characters/C004/poses/C004-uniform-slash.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a756c5907cfa379e83eafd830b57b2ed810682eda910d272533a2e1ae438b8b2"
+      "sha256": "09955d0a1000d06d28dbbbed7f28308bd4b1e7b93c93b3be726c4addb4ed6630"
     },
     {
       "old": "assets/characters/poses/peiko-uniform-special.png",
-      "new": "assets/images/characters/C004/poses/C004-uniform-special.png",
+      "new": "assets/images/characters/C004/poses/C004-uniform-special.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "3244dc97c53d38b82342b613f68088249d92c2f885473528fac36e9e59f945a8"
+      "sha256": "3499e2b5ed7d020b752903775f8c08e7e8f80631a29fd31248574b4ac2fb2fb4"
     },
     {
       "old": "assets/characters/poses/peiko-uniform-step.png",
-      "new": "assets/images/characters/C004/poses/C004-uniform-step.png",
+      "new": "assets/images/characters/C004/poses/C004-uniform-step.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a58d66ed95af547a49f55bd6eb9e80b512254cc879779512800a29aac74282a3"
+      "sha256": "f28e17cd4647e43608ce632648855a363bfd56ba0d7cfbe3e408077b416caf24"
     },
     {
       "old": "assets/characters/poses/peiko-uniform-victory.png",
-      "new": "assets/images/characters/C004/poses/C004-uniform-victory.png",
+      "new": "assets/images/characters/C004/poses/C004-uniform-victory.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "32bd3d4ee1232a766b5e6763622f070e281c1699709f703c0ac4b2ef0c5c396c"
+      "sha256": "f57c66f49c1b854df207d0474990c14894ca6fb65c95e0252a040a2238b44512"
     },
     {
       "old": "assets/characters/poses/peiko-victory.png",
-      "new": "assets/images/characters/C004/poses/C004-victory.png",
+      "new": "assets/images/characters/C004/poses/C004-victory.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "fa3990abf2b58f2dbe349beb2e06dd2778e1aafc29d083b31b9a37643199748f"
+      "sha256": "d496968d7579d4258433e16a9f21d6e8a52b225a47ce9c18514825d76229d081"
     },
     {
       "old": "assets/characters/poses/raw/nam-elementary-grid.png",
@@ -1148,192 +1148,192 @@
     },
     {
       "old": "assets/characters/poses/shah-cast.png",
-      "new": "assets/images/characters/C003/poses/C003-cast.png",
+      "new": "assets/images/characters/C003/poses/C003-cast.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "5120b0ccc74096d49f3c4f839c61e8d4ef863427f74bbb99fa9c0af6a97f08f3"
+      "sha256": "0f964758fa621db6759e91b7c2a212735c651fbd46608e9d7192fe792a3cad40"
     },
     {
       "old": "assets/characters/poses/shah-down.png",
-      "new": "assets/images/characters/C003/poses/C003-down.png",
+      "new": "assets/images/characters/C003/poses/C003-down.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "8408be816aae0a49cea600855e9fef5f92e597367ca299a7f613db6d7fb9aa2f"
+      "sha256": "7db2926bbfa39303f680af1ad6b92439406ff3836396d1270a8a4d39016b0be7"
     },
     {
       "old": "assets/characters/poses/shah-elementary-cast.png",
-      "new": "assets/images/characters/C003/poses/C003-elementary-cast.png",
+      "new": "assets/images/characters/C003/poses/C003-elementary-cast.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "c9f74dff1d56bfbe766dcaf7248afae4b4314ae30bbdc047bdce0f6a4fe01b9a"
+      "sha256": "74c9dcd177ee9a5903761b0f976462efd1f1071ba382022704935c526ea922a8"
     },
     {
       "old": "assets/characters/poses/shah-elementary-down.png",
-      "new": "assets/images/characters/C003/poses/C003-elementary-down.png",
+      "new": "assets/images/characters/C003/poses/C003-elementary-down.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "f0c5465b1d9e75b630cf06631973e464e12b9ac333bc24d124e922d12a93a6d4"
+      "sha256": "1e0d25a46bd9701907fb572a8531c8d5bc1e4d86fc3b5687dbbf37ed254dd03f"
     },
     {
       "old": "assets/characters/poses/shah-elementary-hurt.png",
-      "new": "assets/images/characters/C003/poses/C003-elementary-hurt.png",
+      "new": "assets/images/characters/C003/poses/C003-elementary-hurt.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "3c6127651e115355101fb780a69bf68fb429205720d7cc77c0c93e7ed4540591"
+      "sha256": "d5a886b253975950f53fb5e7752b8d4c74161735db255d9c1e7445f62fca0812"
     },
     {
       "old": "assets/characters/poses/shah-elementary-idle.png",
-      "new": "assets/images/characters/C003/poses/C003-elementary-idle.png",
+      "new": "assets/images/characters/C003/poses/C003-elementary-idle.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "c827446f8b434ba73c71e8cc0c834a84abb3f9a251f88ac624f66dc6da396887"
+      "sha256": "715ffb43c40382864064c876ed4ffc0eee679ae18afb8b643f03a1fbfb456a80"
     },
     {
       "old": "assets/characters/poses/shah-elementary-ready.png",
-      "new": "assets/images/characters/C003/poses/C003-elementary-ready.png",
+      "new": "assets/images/characters/C003/poses/C003-elementary-ready.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "2afc661d7ccee5ffc0b6c74f6730da7215741266ec7060aacd9044939da40aad"
+      "sha256": "a1493eda66e0e18fd044d43923b686ae5c34d74bedadac4c0fc5f784c180a3a8"
     },
     {
       "old": "assets/characters/poses/shah-elementary-slash.png",
-      "new": "assets/images/characters/C003/poses/C003-elementary-slash.png",
+      "new": "assets/images/characters/C003/poses/C003-elementary-slash.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "f1d74526b3e5af6aeac7986603834fd1ddc959e91125c34660b3f517b6cd770d"
+      "sha256": "259c4d3beacd2312b3710472a83a2b0be041d9d764fb439cae8bfa8bcc29081b"
     },
     {
       "old": "assets/characters/poses/shah-elementary-special.png",
-      "new": "assets/images/characters/C003/poses/C003-elementary-special.png",
+      "new": "assets/images/characters/C003/poses/C003-elementary-special.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "b002f5bde88722f237b728154fc7d547fd1f1116a4b5c7c93b2971a9959c76a0"
+      "sha256": "086015e1cb9cd9712deb8614c0bc7a290d840736b72811a9e6989312d04fb586"
     },
     {
       "old": "assets/characters/poses/shah-elementary-step.png",
-      "new": "assets/images/characters/C003/poses/C003-elementary-step.png",
+      "new": "assets/images/characters/C003/poses/C003-elementary-step.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a883e603388843b152e8390ef78aab031a28c028e30f8778ccf5628f7d9db924"
+      "sha256": "694ba53ebe2b274076dca8ecfdd2e16437e4e6cbe50fc6d6677003206f9f9756"
     },
     {
       "old": "assets/characters/poses/shah-elementary-victory.png",
-      "new": "assets/images/characters/C003/poses/C003-elementary-victory.png",
+      "new": "assets/images/characters/C003/poses/C003-elementary-victory.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "798f042dae2b0f46dfdbc4d22a854283e5ffd8c827e532db12d210a35ed6b08d"
+      "sha256": "524198e9e157545bc68cbfbb787fb207aa25e59270685edad6862c78ac777c30"
     },
     {
       "old": "assets/characters/poses/shah-hurt.png",
-      "new": "assets/images/characters/C003/poses/C003-hurt.png",
+      "new": "assets/images/characters/C003/poses/C003-hurt.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "d7c55aa592021840c10a299e4252904c8d280ff050964a1d15e22b32713a903a"
+      "sha256": "bfac3acad6f66fa99572786b6662fda96587af73563cbd63b7ddf759761609a2"
     },
     {
       "old": "assets/characters/poses/shah-idle.png",
-      "new": "assets/images/characters/C003/poses/C003-idle.png",
+      "new": "assets/images/characters/C003/poses/C003-idle.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "609931bbbea541624c9352335aa2adb48f54cbafe0bc1200443605f4d5f5474e"
+      "sha256": "c1af9b0ef95dcb8eb2819998f2ddbb8b6e9c40614467500353b54b859ed893ca"
     },
     {
       "old": "assets/characters/poses/shah-ready.png",
-      "new": "assets/images/characters/C003/poses/C003-ready.png",
+      "new": "assets/images/characters/C003/poses/C003-ready.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "6346ad855b5e04aaa412fbe770f13ef3fe613088d8ffede7a2a5c48bae411bb7"
+      "sha256": "e805498ef08d628d0e029d445fd9a21eefe2cd0023d1f5cfa753ccf98b753ae6"
     },
     {
       "old": "assets/characters/poses/shah-slash.png",
-      "new": "assets/images/characters/C003/poses/C003-slash.png",
+      "new": "assets/images/characters/C003/poses/C003-slash.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e8453b221ed1b5d9cf99ebf4d48c969b2a8e5a341e4821fd30718daef85d66e0"
+      "sha256": "e14dddad3650c38f88895b29c3f0aa5257d40c376640909d6490afce4db0ad8b"
     },
     {
       "old": "assets/characters/poses/shah-special.png",
-      "new": "assets/images/characters/C003/poses/C003-special.png",
+      "new": "assets/images/characters/C003/poses/C003-special.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "d29b9ea4af6b604d63c2b44d89931590141c202212c382a43493e39e9a6505c4"
+      "sha256": "8c4c4222738c87404e6931830f634770f7dcad7dc3ce4852b71ce1ad7d2d4e8f"
     },
     {
       "old": "assets/characters/poses/shah-step.png",
-      "new": "assets/images/characters/C003/poses/C003-step.png",
+      "new": "assets/images/characters/C003/poses/C003-step.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "1f64b085732112a8601fe2cd73954b39a757f218048329b2112f6cb09ca82c1c"
+      "sha256": "f8a14f1c0dfe40637c9a56705b98946bfba294b16209a71be29dbe332988e29f"
     },
     {
       "old": "assets/characters/poses/shah-uniform-cast.png",
-      "new": "assets/images/characters/C003/poses/C003-uniform-cast.png",
+      "new": "assets/images/characters/C003/poses/C003-uniform-cast.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "403e70982fbbdcfdee4eaba16c5cff18c84d16635e2d9d1adc3896ee1fcafc98"
+      "sha256": "c40026be6ffc66af3f307bb9e0ad3df498d4345dca1873f9fb3764383eaf9019"
     },
     {
       "old": "assets/characters/poses/shah-uniform-down.png",
-      "new": "assets/images/characters/C003/poses/C003-uniform-down.png",
+      "new": "assets/images/characters/C003/poses/C003-uniform-down.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "34340a83dc254f540901566178bad2301b4b41be10a5659bffebdf0474ead2db"
+      "sha256": "3f087b2a665e9e2b26489e94a580a2babe33d675e41d862eac8c1333758e87f0"
     },
     {
       "old": "assets/characters/poses/shah-uniform-hurt.png",
-      "new": "assets/images/characters/C003/poses/C003-uniform-hurt.png",
+      "new": "assets/images/characters/C003/poses/C003-uniform-hurt.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "95ac580ab8afff62f66a7b42b5dedd4976b9f8dc511faf2878e186def2a012e0"
+      "sha256": "403a830e8b328e2bd866e1e3bcc74a8d3abeda6b529182d8f6e30e52ba1afbac"
     },
     {
       "old": "assets/characters/poses/shah-uniform-idle.png",
-      "new": "assets/images/characters/C003/poses/C003-uniform-idle.png",
+      "new": "assets/images/characters/C003/poses/C003-uniform-idle.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "dfd19faa627f2b6afb3d51eb2a2dc280727403fe56a770cf245d5b8ee9d780b6"
+      "sha256": "7a5ba16b92ffa1f1bf76def44771d8ecce27836f03c96f77447fe9f3d29c157f"
     },
     {
       "old": "assets/characters/poses/shah-uniform-ready.png",
-      "new": "assets/images/characters/C003/poses/C003-uniform-ready.png",
+      "new": "assets/images/characters/C003/poses/C003-uniform-ready.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "2ea9e05b151e2d3ccc42405d66bd7c53ee6292b9cba60ee4ebe9a936091ea490"
+      "sha256": "b1405ad435b9008a8799ebe579748129d55cb7b55cc2f529582bbfcc95f43bab"
     },
     {
       "old": "assets/characters/poses/shah-uniform-slash.png",
-      "new": "assets/images/characters/C003/poses/C003-uniform-slash.png",
+      "new": "assets/images/characters/C003/poses/C003-uniform-slash.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "2a8fc1f856fb01dc425436bf58db6cdbaf6e2d4474d58ec105c65d512f240b7c"
+      "sha256": "2026cd1dd73467049ae4b84d253aaa9d787c7b239361b9ef555945b04edbc2c0"
     },
     {
       "old": "assets/characters/poses/shah-uniform-special.png",
-      "new": "assets/images/characters/C003/poses/C003-uniform-special.png",
+      "new": "assets/images/characters/C003/poses/C003-uniform-special.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "16514ec0625d50e3214e96a49b380008c6da432d0aeac2902d974357c4efb518"
+      "sha256": "7c0c7431b1d1b5638b8c53cdd44da1e39fb2d35c3b665f47fd176123084dc187"
     },
     {
       "old": "assets/characters/poses/shah-uniform-step.png",
-      "new": "assets/images/characters/C003/poses/C003-uniform-step.png",
+      "new": "assets/images/characters/C003/poses/C003-uniform-step.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "6d024c23ee1d2e833a39c253219ee4ffe551a2b5f6663f3193d833a58a6b7a15"
+      "sha256": "7a213d23a922c4c0d6aa720ec8b80c58a3bd21f3aa4f81477f3766528da4e33c"
     },
     {
       "old": "assets/characters/poses/shah-uniform-victory.png",
-      "new": "assets/images/characters/C003/poses/C003-uniform-victory.png",
+      "new": "assets/images/characters/C003/poses/C003-uniform-victory.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "fab67e27db3c580344cb7097e4ce437d4b6854943742552e5e73d6e46913eb26"
+      "sha256": "d0ecfeecc28b9804c44ca9a0e6182ce8bd927ae42a26b68d341f7ea7493f67d8"
     },
     {
       "old": "assets/characters/poses/shah-victory.png",
-      "new": "assets/images/characters/C003/poses/C003-victory.png",
+      "new": "assets/images/characters/C003/poses/C003-victory.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "d90e51470e51ac04faa746aca6e4931663c5235b452ec5498c1364817a3ae801"
+      "sha256": "05df9e7ea2b5b6dac32a2e2d5da58764d379f1c3b41adebdf644c50dc8c036b4"
     },
     {
       "old": "assets/characters/tools/.gitignore",
@@ -1379,1235 +1379,1235 @@
     },
     {
       "old": "assets/characters/walk/nam-elementary-walk-down-1.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-walk-down-1.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-walk-down-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "bb548d3c7b2f4d131c2f718eece3fe078416b056bc3db06f011b70318ce41def"
+      "sha256": "9b5f10a06a667c86f35d1b42951194955415e1fdfab4404302b387aa0db17d73"
     },
     {
       "old": "assets/characters/walk/nam-elementary-walk-down-2.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-walk-down-2.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-walk-down-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "74d6331e2a6c6c9324bb44a6494cb190d389bf9c5125ee6f8c98de69ccb3a94c"
+      "sha256": "b2675527e0713778432ce3dc2ae1312e3c0f11831a681533a01536cabcb592ce"
     },
     {
       "old": "assets/characters/walk/nam-elementary-walk-down-3.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-walk-down-3.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-walk-down-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "7e88c6f563e932c165f999de449b822651a4685eea376ab3bd8b725a972022ce"
+      "sha256": "357db97dc96b84a8729c5f10f7ac9b639f5c907e0f15b0c44b22881fbd3599a9"
     },
     {
       "old": "assets/characters/walk/nam-elementary-walk-left-1.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-walk-left-1.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-walk-left-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "719609d2ddb2ce56087b2c524f776bc6d8e7bc1eb9fb0a9354f0fa75fd4a0c0b"
+      "sha256": "afc93451ad3128e39e9ad685d47521be56b4c0292e996d40535ba4fe663aea07"
     },
     {
       "old": "assets/characters/walk/nam-elementary-walk-left-2.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-walk-left-2.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-walk-left-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "9bdc2331a0a0968c523c80a989f7e639dcee2915fb7956efdf1c1ef70b6ee70b"
+      "sha256": "6fa671462748d1768671e33d735b10c781f6a403f1cc83e94eb6f63785a6c82d"
     },
     {
       "old": "assets/characters/walk/nam-elementary-walk-left-3.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-walk-left-3.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-walk-left-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "8b57fbe05d60f6b270fc798bad3f24df86580d7bce32de9c0f15120f4638486e"
+      "sha256": "b330ef7bd14cb25dc6063a100a21b014502b612c5717f61eecb8f668b7b89e62"
     },
     {
       "old": "assets/characters/walk/nam-elementary-walk-right-1.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-walk-right-1.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-walk-right-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a83fe07895684708e998f77a9990417fa56096771c995b5e64ad1a18a01b1331"
+      "sha256": "b8d9c4559dc40794773550a758d04cc6051ceacf202b3d17b824d84e527b2010"
     },
     {
       "old": "assets/characters/walk/nam-elementary-walk-right-2.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-walk-right-2.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-walk-right-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "d4352dbcdde025c2076bbd2cd0edb31944d148ddb909e8e75ae6f50627e61227"
+      "sha256": "a87c2908b810324e8ac9463d36f3dcc34359080c2992875780d16cb684d04200"
     },
     {
       "old": "assets/characters/walk/nam-elementary-walk-right-3.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-walk-right-3.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-walk-right-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "29608741bed9924b3769bc603e75897dba80e8c96a8f0790aeeb0753fda25712"
+      "sha256": "74caa004de4666a1b4b94a0008bf52c11e5a444e7cab2bb5d0ddfb3a16733fbd"
     },
     {
       "old": "assets/characters/walk/nam-elementary-walk-up-1.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-walk-up-1.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-walk-up-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "368b47dcba56d82109beda5624ae116ab998b81629c71eece73ddd20150e68ee"
+      "sha256": "62e1153edd9b77c0497c10479813b27fca4c21bf80c5b8b3f503f8f02a1b38a4"
     },
     {
       "old": "assets/characters/walk/nam-elementary-walk-up-2.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-walk-up-2.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-walk-up-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "7a78b20dad115f2597f2ef3b95f884837278487027d53c8d4d181b2ffe79a7e3"
+      "sha256": "f8fc15c0b905601c69370c0a79e3de04025edb7f06c7c67eaa0f723c4179b784"
     },
     {
       "old": "assets/characters/walk/nam-elementary-walk-up-3.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-walk-up-3.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-walk-up-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "31096a3e32c4d899d93e84e4462572d5c3f81b6faaa98058feeb8a7c7570174c"
+      "sha256": "9928a1b2a3a9867013f31c1ce89ee9eb7dcb6bfd5d9a441cbad10009f73a915b"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-down-1.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-down-1.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-down-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "2d8245f85434a8ba2ea65dee468271eef44b8ba5c033bc75410872fcaa8f256b"
+      "sha256": "c3a5aaa6a9b6de04d5be41697ca1586f38ee43d804021b66532f00bad6223dd8"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-down-2.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-down-2.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-down-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "fb7509cb16689a5cf921a1607da631f21599c8307e435b23cd3fed20abcec664"
+      "sha256": "3ed20f4314899de4e3d9d31e01e179224d42d28e70aee0d3f26eeec2cc26137d"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-down-3.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-down-3.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-down-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "fb4af4d0b22825f0a6dae5464a5a80e01fa350633dcc1c0a85f29852339a88b0"
+      "sha256": "a0612acde90b90bc7c54ac60828be8dfc3a58609efb32dedfd87973a1a74f0e2"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-downleft-1.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-downleft-1.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-downleft-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "ad53f95147b5dd0ae502b6821d4395e438b95c573a679b7b507070e923bf2124"
+      "sha256": "99518ce3ce016ead03cbed42cdd46203ce58d97b573fc8f76dc50dfaf76600da"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-downleft-2.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-downleft-2.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-downleft-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "f49b5738e33be096b7fb9b003824ca98924c12328497c361004edb7b2d06f468"
+      "sha256": "6ece365eeb9d9e099559e8c07f91226dd2f3b2527ff1cd9bb2f16f8a06754319"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-downleft-3.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-downleft-3.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-downleft-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "74f4a8860cb777ec1c59b9cad4f16326800f5f0aef3766e95ee5ccaee2effb27"
+      "sha256": "5e7cb25e13c45aedf5e7cdeb71c265d4dde3dd04ee1c076b0a290f1f5fa0f0e2"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-downright-1.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-downright-1.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-downright-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "7f4843f9f7bcab22ab1058ccefacb4c08f3fcd749769d7ead81cca9dcbaf61f1"
+      "sha256": "1b860c247888ba45f3dfb4cc3a3e1c4027f7c341971b86a819d863a5eb73d026"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-downright-2.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-downright-2.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-downright-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "d04050193ede51496c16dfe1b367674afd19b45d4e4257a584dd4d8b8d3e1c4b"
+      "sha256": "eaf16ae0fe93853ddc89fe6f98c59c777e5d594915982554b223b6e45ec506d4"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-downright-3.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-downright-3.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-downright-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "5500530c692e5e5f40d33a96f33e6a8df17faeb5b6911dda21fe42eb1b274906"
+      "sha256": "6c791eb80a054c0364fe228d45a6b25ff853728318010c751dc2bc69363d6b45"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-left-1.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-left-1.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-left-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "25e69d8a3366f2d95dbcf1761dc87d99ecf548619eb640f949f6cd3b707535fa"
+      "sha256": "faa3576012c31d86e04164a7c15b48b981ff969199a41d184d47befcfdb11dec"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-left-2.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-left-2.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-left-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "85e04ef85f9d6accc17d5a172249b6dcd5f647f0f9fa5689cff2fcacd3bb93b8"
+      "sha256": "d389ea997abcfae0afde86dcfa75ab1d2b3acfb01b9b79e6b636e4ae5415d914"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-left-3.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-left-3.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-left-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "0d6c935da57828899f132a7830330b59d06b586e1c7ac10a06e5f14ace8f7d38"
+      "sha256": "20072f558f3615d990c439418e0772606bff0bf91e26745f43d343b980230d6f"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-right-1.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-right-1.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-right-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "8112e104af231739272ac69033d879258f716378f2e3c68a7573d6de5f825d12"
+      "sha256": "6c091762aabfc202b4fe6bc57108c87a84a5c008979b1034971985ac26a4bbfb"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-right-2.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-right-2.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-right-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a7c689d46336f1b8345c858e503f2c75d846a0879b695440ae77fdbcab11ae86"
+      "sha256": "9f0715f2a5ab7bc8a6b8f9d1e49c817a67150bc926a4de6d4f3e70f2e47fd5cb"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-right-3.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-right-3.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-right-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "8e1f04bfcdce6cd295ee24c873a687859a0104ed70ab54819fbe21e23ddfaf69"
+      "sha256": "9705761baf0e6383ad5b3081f1a545830160ab181c4e68fdac0f038249e1cf15"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-up-1.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-up-1.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-up-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "dd3d648a670639d24200cd8d4c2e4aaae581772917302dfe9ed1595b15ad97a1"
+      "sha256": "19d8d56ba83cf396e891d88137b8af0286cf4ad4e828a73973ff06a4ee025142"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-up-2.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-up-2.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-up-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "0613642eadde6173046477436fe9c25d0d7c214ffde99ff94dbd1bb0f351606d"
+      "sha256": "25f9b233934ac491e372a6e258618ae63a8b9b022df4225b7ccbc8041e82b250"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-up-3.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-up-3.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-up-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "480d20cce9afb74899a791bb041614deb21bf4891e1f4ba33631018d8cddda89"
+      "sha256": "0c00cc1588a6226b8be59c584ed24b646fe7345ce27881e8606ec7d41dacae13"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-upleft-1.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-upleft-1.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-upleft-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "59afcee9e61e120be7551ef232be9914a3d4424ba806e97c2fb13f8a9cdcfc6a"
+      "sha256": "2c4dd0e17958e4d542929a38b7d606d64dc8191baaa351179331bb834579450c"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-upleft-2.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-upleft-2.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-upleft-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "5eb71fa14339c4ab677e31933bb3cd256398e2119059b077e90b1fe09355c388"
+      "sha256": "ab92435d5dbb35b5c3fc6036e2670b0831224652b0c86c2037e0f1e3f85cba36"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-upleft-3.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-upleft-3.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-upleft-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "6d94eae9262abf693a0142607f3a2ef168562f299119f1d5a3e2970c72d5ba52"
+      "sha256": "c6f1ed245b67dbb79415da957db5ac342ec3bba9f938dd6e04d81c5aabfcaaea"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-upright-1.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-upright-1.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-upright-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "dff29a66cda24f7bbea19a9ac020e78c815675599744147e4ba8b38e70f9e7ec"
+      "sha256": "0ee4292abd10998352767f622fb43fa972ea6f652bdcbcba36de7ad82661a2c7"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-upright-2.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-upright-2.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-upright-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "29cde91094bcad6c2647790d505315c44b1abf8ee413bea3a18bf5dbb9d49d3d"
+      "sha256": "9a5085bdfaf5e90d705d8e425cc8a24c08b8366bbf40363d5793703399985c16"
     },
     {
       "old": "assets/characters/walk/nam-elementary-wheelchair-walk-upright-3.png",
-      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-upright-3.png",
+      "new": "assets/images/characters/C002/walk/C002-elementary-wheelchair-walk-upright-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "d4af153b3faeb0895f0a290d61c8e286d4d68f251161bcc9d4ae8ce3fd9aee2b"
+      "sha256": "94a85824e4c9ebef91114177c746cf53ba4198d233aac05076f1721fe5c255a4"
     },
     {
       "old": "assets/characters/walk/nam-walk-down-1.png",
-      "new": "assets/images/characters/C002/walk/C002-walk-down-1.png",
+      "new": "assets/images/characters/C002/walk/C002-walk-down-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "9b95d02a95efbbafd4b32ffd84ad6355d2dd0c2c59389f3c59475eff9b7aa2c2"
+      "sha256": "39c8ddd4b80992f611a16f47932821bc4b9d4fc2e283b96478f8a9aa794afdc3"
     },
     {
       "old": "assets/characters/walk/nam-walk-down-2.png",
-      "new": "assets/images/characters/C002/walk/C002-walk-down-2.png",
+      "new": "assets/images/characters/C002/walk/C002-walk-down-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "22efce58bd428652bc3078a813c577fd99c6627379081850cc0ebe46310bfb08"
+      "sha256": "0bcbae8d3ae6cab6c9df6a70e386d82feb92f8dc2199252a01537f9c13795b60"
     },
     {
       "old": "assets/characters/walk/nam-walk-down-3.png",
-      "new": "assets/images/characters/C002/walk/C002-walk-down-3.png",
+      "new": "assets/images/characters/C002/walk/C002-walk-down-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "43d77ad76cf27b7583482af8dd763057b4e9f0460ee2982e15d9ac51dc3e8640"
+      "sha256": "5f9ccf9064ac163bafe6f56d3500ec6033f67065c9e5601ba5e29a792f47674a"
     },
     {
       "old": "assets/characters/walk/nam-walk-left-1.png",
-      "new": "assets/images/characters/C002/walk/C002-walk-left-1.png",
+      "new": "assets/images/characters/C002/walk/C002-walk-left-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "c88d8ac08d18daf05d1d0304b6f943c4fef4769959c64805a4b049d744fa337b"
+      "sha256": "7009dae9dbb8af29262ff21bb37196ed4bbe1c03666d37acb330a7c49c4dab9f"
     },
     {
       "old": "assets/characters/walk/nam-walk-left-2.png",
-      "new": "assets/images/characters/C002/walk/C002-walk-left-2.png",
+      "new": "assets/images/characters/C002/walk/C002-walk-left-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "83e438b8704bebecc3dd557ce8f77d94623e85d4762ea5693839880dc3fc2a59"
+      "sha256": "1276d0ce36d68147df8a542cc251a9e1b055e27a9653e26dd955579510ac6073"
     },
     {
       "old": "assets/characters/walk/nam-walk-left-3.png",
-      "new": "assets/images/characters/C002/walk/C002-walk-left-3.png",
+      "new": "assets/images/characters/C002/walk/C002-walk-left-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "8902d59d4e80811e5d5db0c9b1d275b44886b33eb0b56e231d6b90befe5bdb9a"
+      "sha256": "625c1153c282cd127d09fc2f527d94c148a508b616b82233379c41c7f51114c7"
     },
     {
       "old": "assets/characters/walk/nam-walk-right-1.png",
-      "new": "assets/images/characters/C002/walk/C002-walk-right-1.png",
+      "new": "assets/images/characters/C002/walk/C002-walk-right-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "0965f739b46724dcd76f4b1f2a0166762c7ecfe9c2c283bc084349d5607e9fda"
+      "sha256": "0330ffd890a09484ec33f6a3d3cc99829fcff164bfcb6860e4d1aaca722cfe1d"
     },
     {
       "old": "assets/characters/walk/nam-walk-right-2.png",
-      "new": "assets/images/characters/C002/walk/C002-walk-right-2.png",
+      "new": "assets/images/characters/C002/walk/C002-walk-right-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "59db946591b3e4018bab28375b0b42ef2f898ff7024f8fc216b00fa8b57aae48"
+      "sha256": "3e987c26ab38f71544f81ff886f76da27e94d519955615d2aac8d9923f667217"
     },
     {
       "old": "assets/characters/walk/nam-walk-right-3.png",
-      "new": "assets/images/characters/C002/walk/C002-walk-right-3.png",
+      "new": "assets/images/characters/C002/walk/C002-walk-right-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "3c9db1d258668f77a773f2962505cb5138f551888b87b986b9502200045f64c7"
+      "sha256": "465dd7068ec24052a2554c5c7c36487c627bf5a97b0e31d6f9c380087d64ce57"
     },
     {
       "old": "assets/characters/walk/nam-walk-up-1.png",
-      "new": "assets/images/characters/C002/walk/C002-walk-up-1.png",
+      "new": "assets/images/characters/C002/walk/C002-walk-up-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "f30cd880b7ecc6f652560481d0bfa6f54d3b6a51f802fc499274c4b63edd5fef"
+      "sha256": "1c3326b4572d451d744915ae75d71eaa388dc0b5b248378c6fd159350b70ff87"
     },
     {
       "old": "assets/characters/walk/nam-walk-up-2.png",
-      "new": "assets/images/characters/C002/walk/C002-walk-up-2.png",
+      "new": "assets/images/characters/C002/walk/C002-walk-up-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a517ec0fefb738e881118b9a10310e6f89e76de2fd412d179141408b977bed9e"
+      "sha256": "6a0c3bff2b6dc458abff1a5af34cd1553db93543dbf288d8f22b10bb6c3e9e2f"
     },
     {
       "old": "assets/characters/walk/nam-walk-up-3.png",
-      "new": "assets/images/characters/C002/walk/C002-walk-up-3.png",
+      "new": "assets/images/characters/C002/walk/C002-walk-up-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "1b938a7785587ed9e4df565d0ea504876487944e45a22068caa5c7d69440497c"
+      "sha256": "7089303f131c2df07e497a1dd2a807fe351eb7587e81e864af24178a9d6ac805"
     },
     {
       "old": "assets/characters/walk/otton-elementary-walk-down-1.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-walk-down-1.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-walk-down-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "27942c2428664decf2f8e860992b9c9d526563b47be0ae63538f7cdfea27c066"
+      "sha256": "618137087eac440f96429ba13bae2b3975493dba50d8a34514de9d3f27776dc7"
     },
     {
       "old": "assets/characters/walk/otton-elementary-walk-down-2.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-walk-down-2.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-walk-down-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "85ea34dbd8fb6bb4593155c1f8f0b1f40b4eaa78013d8baf89cbde5d74926b8d"
+      "sha256": "241db652bc6053183b2d325bcc8494f1741dfddefb878fa05026a641343d9d78"
     },
     {
       "old": "assets/characters/walk/otton-elementary-walk-down-3.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-walk-down-3.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-walk-down-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "2e5639288a715d57a9a85e598facc9cc8c4f0a545ade2f03ca006dd2b7c83a54"
+      "sha256": "e2fbae7d0a03afa6097c274653459c21079d125339eb086f02feeb359513d742"
     },
     {
       "old": "assets/characters/walk/otton-elementary-walk-left-1.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-walk-left-1.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-walk-left-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "0c09992d856d6710019137f9bd124558a90e8dba779fd1614cbb7e93cfbf8ab1"
+      "sha256": "fde033a2f8824661096660d521d5da5a7521375bb5f98ce231a6bfe723ba3491"
     },
     {
       "old": "assets/characters/walk/otton-elementary-walk-left-2.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-walk-left-2.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-walk-left-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "f11533d26ff67f5e955dd4dd8a673a62b2fbb05f467ea95f86232ce246a3d469"
+      "sha256": "2228af962a8549f6fd6598a6fd234470de605ab77fe511e14d31f7cc00313ccd"
     },
     {
       "old": "assets/characters/walk/otton-elementary-walk-left-3.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-walk-left-3.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-walk-left-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "d9e3e9d731e64f4a5e6abcc25c8cb9330b401abb67c0fd47286037c69145ebbe"
+      "sha256": "959030103b8ae7c20680502911bfd93077df54611be3f04cfd931fe4796c4269"
     },
     {
       "old": "assets/characters/walk/otton-elementary-walk-right-1.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-walk-right-1.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-walk-right-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "77a8ff3f2ddae455fc06bc4a18728b9f0106df6b6220306bb63e67f05e5b413f"
+      "sha256": "a7311eba477836f61e81bd13d4f8efa03b5c70a005f39f9f8c596dd204f5099b"
     },
     {
       "old": "assets/characters/walk/otton-elementary-walk-right-2.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-walk-right-2.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-walk-right-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "dd13fb431236ffd5c98ab27d92e23639988364526c7e323f265fa508176a0ec9"
+      "sha256": "738277eef0bf33751c23a3b3d7d12063558bf315a57035ad46cf58d3a9f0ca3f"
     },
     {
       "old": "assets/characters/walk/otton-elementary-walk-right-3.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-walk-right-3.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-walk-right-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "523966fe6d86a6abff6ec4e3df6121cb62bbc5e759ae3f38779af67c2059e5dc"
+      "sha256": "a6fa2f157c4242b1f59fb74fb44bdc702ace4027f3dc523f7957f16089f58739"
     },
     {
       "old": "assets/characters/walk/otton-elementary-walk-up-1.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-walk-up-1.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-walk-up-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "4f6c77e69720997b14bae4c19f192b590e379143a6f0d7a210e3934657a05e80"
+      "sha256": "ffcc4b1e923c3a28cc8a78b71c9087a981b32f93b5cfddf8e6dc198fcec65718"
     },
     {
       "old": "assets/characters/walk/otton-elementary-walk-up-2.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-walk-up-2.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-walk-up-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a744b28c85ca7a1a36c4fc21a241a5b8ba1344a1619ebcb5f29fd48e4267d6d9"
+      "sha256": "efca97be367b72b81323eff21f997ee80746571924dee0ab16bf454a78931357"
     },
     {
       "old": "assets/characters/walk/otton-elementary-walk-up-3.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-walk-up-3.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-walk-up-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "94f3e3f4f65ecc69e42f131f0e9f758b5339acd876f73609b09701676bc0dffe"
+      "sha256": "016d29677aefd649c9cf30cb71a47c3bb2dff61931ee7714e97723a98dd4565b"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-down-1.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-down-1.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-down-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "2a74b33b1cf796b5af2bbe1b85d56073ead3a9011a59c280ee95235d8d3beaf6"
+      "sha256": "de14dd0d8d15735666f96ac274359f7d3a84ef76dfa4b90ce36d023c3ed7c359"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-down-2.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-down-2.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-down-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "2fc6849a8923685d19e4bb0ff445ab9972a3d5bce04897ba82070d6936973e2d"
+      "sha256": "9c9ae8e3f894ac09dc545486466ea8a678a9bde7f839b17e5b0f6eeb3ec7db6c"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-down-3.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-down-3.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-down-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "7a742263b1159177fdcbe19c47f46e6ffc3276711d86f9bc4910add4954d63e9"
+      "sha256": "93919407fd51800e650edad401ac99701971e9f3f8b406f368625690e6753ac6"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-downleft-1.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-downleft-1.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-downleft-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "1d79ad4676afd9a1a5715a1a6805143b6eb883a5490b05b6a151f5dd3c1baa32"
+      "sha256": "9c5e7a95e36e6fc62bd6b3ecdfdf660c661cd672c96a69ddefb88fe1179acd1d"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-downleft-2.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-downleft-2.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-downleft-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "5254b9a22240235de651c41cd4ed1ea29e3548bcec70267b6f20f67900e785f5"
+      "sha256": "bdc639c304978cab4da2fce22577dde2af19d37a8fb6877b9ff13e41db4da4d3"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-downleft-3.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-downleft-3.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-downleft-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "15feffdc6934b67eec67a7a9f9ea1ca27f56ff73793aa1154eae909d998205fb"
+      "sha256": "30759a3d4df5f8c73b136ce0b580b69832c31c78c9d0efcd6eae7caa88f708e9"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-downright-1.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-downright-1.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-downright-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "85aed05512ef869e1fb6b3ef7a5b936ac015584dcd7973ba3ee4b637d170a82b"
+      "sha256": "e4c7dbe104914b252f2bae3b25b0dfacd12cad5e63322a0464a1e8e7e3f35b44"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-downright-2.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-downright-2.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-downright-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "91833b07d19e98d69401497d26397c35d8b0047c1fc8a8416e3f9ebdd75f9eb6"
+      "sha256": "cd30907cf348881478da269c446cb490ba63922e01eff10066b8c3a551f90226"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-downright-3.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-downright-3.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-downright-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "d5a8218953ee9e67a846d88c9442750690b62e2a45940594302ab015ae4d46cb"
+      "sha256": "52e0102a1b563c7ff61acaa2b86d758d385fb7c5d30ac0c979be2f847a54bbad"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-left-1.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-left-1.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-left-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e472f32f267b55f99825e3c6e44a199ea56ecac416437840c09f9a8162165935"
+      "sha256": "61a80f511107e508e2f86324848085db210635c386d3f55cf9614a35ed41fcfa"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-left-2.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-left-2.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-left-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "684d81f63036b9a9cce4e73cea8d1f1137bcc041570260ca0b82630704eb855a"
+      "sha256": "0483eaa83ec195b8854608f41c2ec56c14a4e3d69df1529dd7937fd442a56a0e"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-left-3.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-left-3.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-left-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "2c0c5dda75de6825ecccd79e8e105be4897666e75ece718c1582348167ab414f"
+      "sha256": "126ed1d460fddc0237f0d21506686aae34b11a6b6bf33467cab7d1c44fff173c"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-right-1.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-right-1.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-right-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "b9f61f7e43ae5668d6479208dfed82d692fe2b4e86e544bdbba62f19d2d77727"
+      "sha256": "c8c25991d9787c0842a7f805d1d69b12b8bb966c00968a59ca1dea8d6c2b7486"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-right-2.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-right-2.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-right-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e6652ece1f157970052c93fba19f581dcf76b12fc4ab31bc9adccae57b6032f4"
+      "sha256": "b23af639b751569e1c1ceca940ac7e60ca8bb815770ac9db54722090b9175f80"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-right-3.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-right-3.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-right-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "89007745d6fa1aba7b12d9b5b020d5eab7c1c770c5f8f9ae504bcd4123ab8205"
+      "sha256": "ad08faaca1411e065f170a6ef7f809db543c3a4722fc34da914166a3ead4d856"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-up-1.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-up-1.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-up-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "dda876c365b72738cd271f0282bd30372582ed09a5958b03a100bbbb51877319"
+      "sha256": "fd721fee1decc59ad43f3b6b3a3c7b30f9b4ac20a80b7cd38590bc097e7b02e3"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-up-2.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-up-2.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-up-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "ca6c30906b29fb4f712912ec6a4515e0a6dc4f1faaa76e13f2b4b5a93bb02438"
+      "sha256": "34454cac88dfd9c0e5794bf8bfa21f348cbe24e2ec7ffc85592178596551f128"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-up-3.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-up-3.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-up-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "c3c56425b88ad2f67d7d3d12e5a0d54251451efe46e8e1907b67ce459cc5d7a4"
+      "sha256": "c36b441a691efb3f6bd46b210b095751cd4c5903d46728d4ffad8529ecdfa71d"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-upleft-1.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-upleft-1.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-upleft-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "0aac0021e343eb88ab03ff0d34fdeb193ef3505ebcfc39ef590f7a8d60f53994"
+      "sha256": "dee37ff04b48c38f638b1f12c98d5e91f4197f78a71aed1b39fac25528973f5d"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-upleft-2.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-upleft-2.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-upleft-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "956af145d1b442d3ff81b81f99f866e3bb9e9196c45abe105f7452a38f334ddd"
+      "sha256": "eead2ee578ec2079a67d7ca8ef956c732989ab427d51457525c656cb31c24ba1"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-upleft-3.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-upleft-3.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-upleft-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "4a80c43f1f90e542cd948aadc4fd46e3436eb50d5346343c2628cd2cf15cd881"
+      "sha256": "9c2a44ab1b89ccda4cf525408427749d50e4a636db32bc857d9cf4753c36e650"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-upright-1.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-upright-1.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-upright-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "eda8e06e4b744097fbe1723d4fa6ec9e64bae4c6bded8bcd70d0e3a4fddccb12"
+      "sha256": "21524223adce7d755edb0f4c77b4826c4dfc9967bb2cd93c1715efdb6525006f"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-upright-2.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-upright-2.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-upright-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "890ce8164b149f759ddae28ef9c6dc210013445d1ab4dd4e8a598b1d9d89b337"
+      "sha256": "140775a9216d27958a0611b2bd6d024765637b019e6852b10975df78213dccb6"
     },
     {
       "old": "assets/characters/walk/otton-elementary-wheelchair-walk-upright-3.png",
-      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-upright-3.png",
+      "new": "assets/images/characters/C001/walk/C001-elementary-wheelchair-walk-upright-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "dc3c17c5cc0f374f41524b89fd7c2ea09a29b6594d7037fbb074e89027a88c98"
+      "sha256": "0f0dbd980cd6046e01d77ece810b20b81227849fc817fadf285dc173f659b97d"
     },
     {
       "old": "assets/characters/walk/otton-walk-down-1.png",
-      "new": "assets/images/characters/C001/walk/C001-walk-down-1.png",
+      "new": "assets/images/characters/C001/walk/C001-walk-down-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "ae8eb2f17fb1606bad8f4a9be500ca07844a9f89180da067fd891efb7af63c75"
+      "sha256": "161ae77ceb038353954e94ca65e5cf90757a5ab23c1a35a83a28bf91e744ea83"
     },
     {
       "old": "assets/characters/walk/otton-walk-down-2.png",
-      "new": "assets/images/characters/C001/walk/C001-walk-down-2.png",
+      "new": "assets/images/characters/C001/walk/C001-walk-down-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e118f6329f9b59032da222fa7a145b0dccdb2c3236e7fe1d641a3f77f2259082"
+      "sha256": "e022719a2b309fcd4e0324b96af7ccf9603b79ac6febe1257bdc64603e264e76"
     },
     {
       "old": "assets/characters/walk/otton-walk-down-3.png",
-      "new": "assets/images/characters/C001/walk/C001-walk-down-3.png",
+      "new": "assets/images/characters/C001/walk/C001-walk-down-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e86e38f701a905b0463daf2a730b62eac8a4de2503a5d18e956acbf7fcd03db4"
+      "sha256": "27d4ca9c147a55e35af00b4c04e977bb9d0c7bf273ee576fe8c2a3dc5e799f42"
     },
     {
       "old": "assets/characters/walk/otton-walk-left-1.png",
-      "new": "assets/images/characters/C001/walk/C001-walk-left-1.png",
+      "new": "assets/images/characters/C001/walk/C001-walk-left-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a20510db55a2576c8ef0e0b4a3f10cc0abb2bb32116e36adf03859758b060e51"
+      "sha256": "12f9156570ae7fdfe713ec1fe1ac8e71d3c141389cfa45c78587c9ef8fbf413c"
     },
     {
       "old": "assets/characters/walk/otton-walk-left-2.png",
-      "new": "assets/images/characters/C001/walk/C001-walk-left-2.png",
+      "new": "assets/images/characters/C001/walk/C001-walk-left-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "3d1b5cda4cba9b71574146dda0411e6da3e12e329616d99218d50fdb2ffd3ce1"
+      "sha256": "cca917e1ec0541d145cd2e6cd3accba5eb8281ce92c6a2fb7948d3481858e13b"
     },
     {
       "old": "assets/characters/walk/otton-walk-left-3.png",
-      "new": "assets/images/characters/C001/walk/C001-walk-left-3.png",
+      "new": "assets/images/characters/C001/walk/C001-walk-left-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a755045e31915c9fcb46e7bcaf73e65ed956359b4cc2d23891c5f10523a16f4c"
+      "sha256": "c4a0239ad29a847c9618bc5adc1974509a82fe5c8eb90eba7c07113025c687e1"
     },
     {
       "old": "assets/characters/walk/otton-walk-right-1.png",
-      "new": "assets/images/characters/C001/walk/C001-walk-right-1.png",
+      "new": "assets/images/characters/C001/walk/C001-walk-right-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "1e09ce01a8d52f82e9aa1e791f675861f176b2d740a5a11fbbabae8ea04666d5"
+      "sha256": "7e89f8f7cbf0885aab43577311d44305de6ce01bfeec3508f30a5ec423a8fa40"
     },
     {
       "old": "assets/characters/walk/otton-walk-right-2.png",
-      "new": "assets/images/characters/C001/walk/C001-walk-right-2.png",
+      "new": "assets/images/characters/C001/walk/C001-walk-right-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "00fde341e828decbe4ceb808b34248ff95d343841334c3263ca0db3887e764cb"
+      "sha256": "8f7eeea765b4475da71b44ac10c91df19ecad70db8ecceb8317b3637fe580c54"
     },
     {
       "old": "assets/characters/walk/otton-walk-right-3.png",
-      "new": "assets/images/characters/C001/walk/C001-walk-right-3.png",
+      "new": "assets/images/characters/C001/walk/C001-walk-right-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "8c463d02e73a90d720f3220a1ed35cc18394d60c072a5b3c98b5a8589ca6995d"
+      "sha256": "dc42de89c50ac27c5f2565299ee438da84e9d0a7ebcb8dcca5d0681df541815c"
     },
     {
       "old": "assets/characters/walk/otton-walk-up-1.png",
-      "new": "assets/images/characters/C001/walk/C001-walk-up-1.png",
+      "new": "assets/images/characters/C001/walk/C001-walk-up-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "ce68dd62360ef12c5446d55613b27d8c4214fa938481b5b0f4ad75675d149ddc"
+      "sha256": "634b483dd1df9f04e616fff1cb3b989b3b248976bf79b1c2c19480ca423ae147"
     },
     {
       "old": "assets/characters/walk/otton-walk-up-2.png",
-      "new": "assets/images/characters/C001/walk/C001-walk-up-2.png",
+      "new": "assets/images/characters/C001/walk/C001-walk-up-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "b4b70c48b2b64d33969785c9b2bfcfec432d171e36789f5f0efbe60ddd7156ef"
+      "sha256": "c4934533284a3fcd8e598df6385d75cb6a661f6ce87c4b5167f837cb5468064b"
     },
     {
       "old": "assets/characters/walk/otton-walk-up-3.png",
-      "new": "assets/images/characters/C001/walk/C001-walk-up-3.png",
+      "new": "assets/images/characters/C001/walk/C001-walk-up-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "a766bf9f1a110c5051391fc21d35ad20508055e0fbbcbcac7275e06029b853cd"
+      "sha256": "6414314df79a032f79b91dd0455fe3e7ced65c88a9fb9f34aa9d042ff4c955f1"
     },
     {
       "old": "assets/characters/walk/peiko-elementary-walk-down-1.png",
-      "new": "assets/images/characters/C004/walk/C004-elementary-walk-down-1.png",
+      "new": "assets/images/characters/C004/walk/C004-elementary-walk-down-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e06a59c78c0c0741d11d4ed7f27e2a944a6356c7311fc330511ec730033e559d"
+      "sha256": "984b450ca58385fb6a73c72ca0766adcfb96c78de84604b339876199f9f06751"
     },
     {
       "old": "assets/characters/walk/peiko-elementary-walk-down-2.png",
-      "new": "assets/images/characters/C004/walk/C004-elementary-walk-down-2.png",
+      "new": "assets/images/characters/C004/walk/C004-elementary-walk-down-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "9ec9b67a1221c186000d1262748ba80cbec8fa3eda8df6dc36803f128651b2bf"
+      "sha256": "ff3ebb6805c9c04332821fac56e6ccc85988172a9652c6745cc71a779a60eac0"
     },
     {
       "old": "assets/characters/walk/peiko-elementary-walk-down-3.png",
-      "new": "assets/images/characters/C004/walk/C004-elementary-walk-down-3.png",
+      "new": "assets/images/characters/C004/walk/C004-elementary-walk-down-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "aee64cb7f861dad352738e7f9a723acb33bfd0cfb09c6441cc4f30056cad9f24"
+      "sha256": "58715f7567690f836ccca920e4d641a9aeadd33adf4d4c12bbf4c576578f7057"
     },
     {
       "old": "assets/characters/walk/peiko-elementary-walk-left-1.png",
-      "new": "assets/images/characters/C004/walk/C004-elementary-walk-left-1.png",
+      "new": "assets/images/characters/C004/walk/C004-elementary-walk-left-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "3b3e474784642fa6ae8373bd79f115fe78f17cc58b9240839fff974fdd897fbb"
+      "sha256": "973c436bb246a85c9623e28524c6ad4b8083667afcd64baa6d3eb7a32d9f0f88"
     },
     {
       "old": "assets/characters/walk/peiko-elementary-walk-left-2.png",
-      "new": "assets/images/characters/C004/walk/C004-elementary-walk-left-2.png",
+      "new": "assets/images/characters/C004/walk/C004-elementary-walk-left-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "b79be05fc09c1f6970cbce413c56626124c6fc7de72c71730ab1ad644344625a"
+      "sha256": "b48e1f5cb6bff29bcfa1e9855501e66e969a9be6eb7dc9b0221dbedff8b0ccd2"
     },
     {
       "old": "assets/characters/walk/peiko-elementary-walk-left-3.png",
-      "new": "assets/images/characters/C004/walk/C004-elementary-walk-left-3.png",
+      "new": "assets/images/characters/C004/walk/C004-elementary-walk-left-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e40f31d6b25eb71f2be6dafff29450d08e164f37d326cde2ef6d55603decb0ef"
+      "sha256": "c224539d170774626b8ecdd110cb392a7a48de36e64182e8310167710e035b96"
     },
     {
       "old": "assets/characters/walk/peiko-elementary-walk-right-1.png",
-      "new": "assets/images/characters/C004/walk/C004-elementary-walk-right-1.png",
+      "new": "assets/images/characters/C004/walk/C004-elementary-walk-right-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "9ef7337191c34f22621456887ad3f979cf19f2e0a420e34d3587d6f56a90a514"
+      "sha256": "cfaaddfc418fb099eb7b41584e92060b1167cff1ac14b2cc68b42577b7b6890b"
     },
     {
       "old": "assets/characters/walk/peiko-elementary-walk-right-2.png",
-      "new": "assets/images/characters/C004/walk/C004-elementary-walk-right-2.png",
+      "new": "assets/images/characters/C004/walk/C004-elementary-walk-right-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "943547764d1f66d3aa22abdcf15a41d3cd555103cf1d3e4989bb0369fc736474"
+      "sha256": "4fa9073ee2df55632dff50896e9e488c285592bc027ec7c8aa596dd0548d5388"
     },
     {
       "old": "assets/characters/walk/peiko-elementary-walk-right-3.png",
-      "new": "assets/images/characters/C004/walk/C004-elementary-walk-right-3.png",
+      "new": "assets/images/characters/C004/walk/C004-elementary-walk-right-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "75f05bf2be5561688caf3d4320ca11a90ecf870ef64b0fd0ba46d9e6bf90e94b"
+      "sha256": "9d094fd4871fdf613679a0b3711eccac3aaf222312682d4624e5cd1f2487ba6b"
     },
     {
       "old": "assets/characters/walk/peiko-elementary-walk-up-1.png",
-      "new": "assets/images/characters/C004/walk/C004-elementary-walk-up-1.png",
+      "new": "assets/images/characters/C004/walk/C004-elementary-walk-up-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "5d6a2659d9bd6794432f639341fae79927796aed793d07fe486ffe9215481e3a"
+      "sha256": "eb5f2df598f9d48cb3ab8438bd60fe043a8e306bfde19defbf39243056d87216"
     },
     {
       "old": "assets/characters/walk/peiko-elementary-walk-up-2.png",
-      "new": "assets/images/characters/C004/walk/C004-elementary-walk-up-2.png",
+      "new": "assets/images/characters/C004/walk/C004-elementary-walk-up-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "3a775dc0ea5f0c7b2abd1ab4ee5a3a4817a6873e9d3471f6416cc764f7bac2b0"
+      "sha256": "86dfd4ec8183c2dba55e759484580c759c42edeb088f486771caa719b6f62820"
     },
     {
       "old": "assets/characters/walk/peiko-elementary-walk-up-3.png",
-      "new": "assets/images/characters/C004/walk/C004-elementary-walk-up-3.png",
+      "new": "assets/images/characters/C004/walk/C004-elementary-walk-up-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e1ab12590d2806513d1c2702a60beebcb6ee6c6d1dcae55e24b6f3e553366941"
+      "sha256": "c6f8754ef9851e44af2b947cdf1b0d01b0ec14bcbc00c38b5ac0bc2762b36938"
     },
     {
       "old": "assets/characters/walk/peiko-walk-down-1.png",
-      "new": "assets/images/characters/C004/walk/C004-walk-down-1.png",
+      "new": "assets/images/characters/C004/walk/C004-walk-down-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "24ff1755f4983c20a517b5b6284cad678d242b514eee3e7f83d91c5bf44240a9"
+      "sha256": "93027fd84d0437dcfa6179bc9608edc67e5cf1c77eca8f4b39cd62ca0ed21d15"
     },
     {
       "old": "assets/characters/walk/peiko-walk-down-2.png",
-      "new": "assets/images/characters/C004/walk/C004-walk-down-2.png",
+      "new": "assets/images/characters/C004/walk/C004-walk-down-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "1dd8ba5408c9534beca4061a67e87df0dba258e357f4b1941e69e23bbb1db210"
+      "sha256": "331a702d30f0a9ea135d7860b4321b74341b701b8657ca9702d4701986d2b1c0"
     },
     {
       "old": "assets/characters/walk/peiko-walk-down-3.png",
-      "new": "assets/images/characters/C004/walk/C004-walk-down-3.png",
+      "new": "assets/images/characters/C004/walk/C004-walk-down-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "73ffdb1e1c6c0f8de6e3b396cc6e84910ad55f9bac9e3a1058a49982225fe3e4"
+      "sha256": "1711871de97d60c237c445644a673fc3427c9e24c005820fc0e460de022801ad"
     },
     {
       "old": "assets/characters/walk/peiko-walk-left-1.png",
-      "new": "assets/images/characters/C004/walk/C004-walk-left-1.png",
+      "new": "assets/images/characters/C004/walk/C004-walk-left-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "056cdfffd748f0c11e20dfbcb6c369b1ab715146bda42d156790e31e739b8633"
+      "sha256": "a2ff563342ab7f422fd0c14b6382652bf0f7f0d9f9057d72468160c2c3324fca"
     },
     {
       "old": "assets/characters/walk/peiko-walk-left-2.png",
-      "new": "assets/images/characters/C004/walk/C004-walk-left-2.png",
+      "new": "assets/images/characters/C004/walk/C004-walk-left-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "b598c97d3bbe73d56ea88a095ee47aaaf062ac80661696db96001e913514a917"
+      "sha256": "9ec858c148820881318ff2c5b6ad0c40489f5ddcc15b4ab9de3e200f268548b1"
     },
     {
       "old": "assets/characters/walk/peiko-walk-left-3.png",
-      "new": "assets/images/characters/C004/walk/C004-walk-left-3.png",
+      "new": "assets/images/characters/C004/walk/C004-walk-left-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e07c2fbb39268e20e98e20e73d1aff7ea3573693a2332a0aa70e6e620b8eeeba"
+      "sha256": "ef9dc961c08fb9aaf02417df6b5c65e0a84871edac7ea24f5bbcd8fcce7672ff"
     },
     {
       "old": "assets/characters/walk/peiko-walk-right-1.png",
-      "new": "assets/images/characters/C004/walk/C004-walk-right-1.png",
+      "new": "assets/images/characters/C004/walk/C004-walk-right-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "8329b2e9886c09d106ad376049fd272f6fd3258a55375a54e3b491c6a51c443f"
+      "sha256": "4cc6d4cffc91c0df244de59e91cf7be3b99f99fea58c337dbc35deb562ef246b"
     },
     {
       "old": "assets/characters/walk/peiko-walk-right-2.png",
-      "new": "assets/images/characters/C004/walk/C004-walk-right-2.png",
+      "new": "assets/images/characters/C004/walk/C004-walk-right-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "7d7952d16157a568cd335f7eab54d88d5e405b5c1739acd724de229b5db88e48"
+      "sha256": "8720873e0472eb04ed8629b2205688a368f935951a263599c5a7885447445908"
     },
     {
       "old": "assets/characters/walk/peiko-walk-right-3.png",
-      "new": "assets/images/characters/C004/walk/C004-walk-right-3.png",
+      "new": "assets/images/characters/C004/walk/C004-walk-right-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "73f00fd85f6bbf129a44b4a1c358a3af0ddb7f07d022e679775b2e3f447b1ef6"
+      "sha256": "093c9b10936dee2df22bb45ce84844b213e8b167b7cd622ebc3ea2a1cfb8871f"
     },
     {
       "old": "assets/characters/walk/peiko-walk-up-1.png",
-      "new": "assets/images/characters/C004/walk/C004-walk-up-1.png",
+      "new": "assets/images/characters/C004/walk/C004-walk-up-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "6d62898d4a1bfc925eb73f4c2b3db0dc4c1793004165af18e8bea21131f18e84"
+      "sha256": "7acc6c0cf9774b21fd8231a2c2dc2404997cec96cf647060611a37cb6f511ac0"
     },
     {
       "old": "assets/characters/walk/peiko-walk-up-2.png",
-      "new": "assets/images/characters/C004/walk/C004-walk-up-2.png",
+      "new": "assets/images/characters/C004/walk/C004-walk-up-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "6027e51a2aa4731809a0ece8b5c3117ae1bf1fdd2568a912bb85b49e8dee536a"
+      "sha256": "c71bdd830ae8f2977ad45da077934934dd60cf054aab0e9a11167ea21ecda185"
     },
     {
       "old": "assets/characters/walk/peiko-walk-up-3.png",
-      "new": "assets/images/characters/C004/walk/C004-walk-up-3.png",
+      "new": "assets/images/characters/C004/walk/C004-walk-up-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "73903f8d4111c43d055c84a7bd2ff945a4186b76cfef33cb1c4467907844b8f0"
+      "sha256": "09bcb29ef1ac98cc3bd80e10ea9d06f39954cddac80d6896b58d03a7fafbc95e"
     },
     {
       "old": "assets/characters/walk/shah-elementary-walk-down-1.png",
-      "new": "assets/images/characters/C003/walk/C003-elementary-walk-down-1.png",
+      "new": "assets/images/characters/C003/walk/C003-elementary-walk-down-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "33bdb2a3359edde7c1e6ac8d93c09fcfc7bbba2cfe48c792afdd75854036f9df"
+      "sha256": "4c9316bf8a444632a306967cb68e87fa2513750fbb8ecc1b472cac9502a16239"
     },
     {
       "old": "assets/characters/walk/shah-elementary-walk-down-2.png",
-      "new": "assets/images/characters/C003/walk/C003-elementary-walk-down-2.png",
+      "new": "assets/images/characters/C003/walk/C003-elementary-walk-down-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "d6d65ca88a37ded4629af98722cdf0e2ab4b67de13ce5e75aa0b94b3e0a322e2"
+      "sha256": "c80688c1a31b0833693e69be3bd533f8922aaf198f7df7e3ed9b90d9f1ebd945"
     },
     {
       "old": "assets/characters/walk/shah-elementary-walk-down-3.png",
-      "new": "assets/images/characters/C003/walk/C003-elementary-walk-down-3.png",
+      "new": "assets/images/characters/C003/walk/C003-elementary-walk-down-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "446f0d34bbd11f3969b7195a89b72020db84174da6911e9e470a4a894a9258c4"
+      "sha256": "ad0079cae96dcfb19389aefab4be4cffceaf96694205b7fd9c51605a7ad59aa9"
     },
     {
       "old": "assets/characters/walk/shah-elementary-walk-left-1.png",
-      "new": "assets/images/characters/C003/walk/C003-elementary-walk-left-1.png",
+      "new": "assets/images/characters/C003/walk/C003-elementary-walk-left-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e9b62afaea9fb48aa7cc1580f1f6f77043bef5afe1f4fe9e600f001ab6ffedb0"
+      "sha256": "5f84a502677501477b0cea4906a16241ae8fb52dcb36369cd21a28c3bfeb1ae5"
     },
     {
       "old": "assets/characters/walk/shah-elementary-walk-left-2.png",
-      "new": "assets/images/characters/C003/walk/C003-elementary-walk-left-2.png",
+      "new": "assets/images/characters/C003/walk/C003-elementary-walk-left-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "d904696b9680c1b7c5e5cfc13ec365c2eee44fbace0a177668000e680432a5ce"
+      "sha256": "06cc7d91d7b1ed92505d713c490ce5c6d47b544a76c98b3eb43f76b94ec7a361"
     },
     {
       "old": "assets/characters/walk/shah-elementary-walk-left-3.png",
-      "new": "assets/images/characters/C003/walk/C003-elementary-walk-left-3.png",
+      "new": "assets/images/characters/C003/walk/C003-elementary-walk-left-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "9b2571311a050b2f42d41208bc197657652e0ed5abeedf39a6a163b597cbc95f"
+      "sha256": "ab53664ea6421991d23f91da4fc5d00ac228c3ebd9f87bedfe6019c3d805d35e"
     },
     {
       "old": "assets/characters/walk/shah-elementary-walk-right-1.png",
-      "new": "assets/images/characters/C003/walk/C003-elementary-walk-right-1.png",
+      "new": "assets/images/characters/C003/walk/C003-elementary-walk-right-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "0f3d39d51434bac0d2d4fa49a0e6e2de64e9e0b88621bca9fd26afbbf39cfd44"
+      "sha256": "e9847bd35cb0c526a856dec28d67e9153166e516d355f04db6ca86b151d33475"
     },
     {
       "old": "assets/characters/walk/shah-elementary-walk-right-2.png",
-      "new": "assets/images/characters/C003/walk/C003-elementary-walk-right-2.png",
+      "new": "assets/images/characters/C003/walk/C003-elementary-walk-right-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "2ef808af9ca4e6b3592e4e05c14054d0b207acfcd7a01b0cc0d4084d84cdd237"
+      "sha256": "62294cd2b1cdc66a8c77f727f144687175f54785458d9df4b32effaed163f051"
     },
     {
       "old": "assets/characters/walk/shah-elementary-walk-right-3.png",
-      "new": "assets/images/characters/C003/walk/C003-elementary-walk-right-3.png",
+      "new": "assets/images/characters/C003/walk/C003-elementary-walk-right-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "35c249460098ea5fb7fde45469146dc6e5cb598fe10a46b255f4e6247c97e5b8"
+      "sha256": "b3ffe8dd45bf7437c9dd1c64e1308d65f8b396db0a268bfa6945ed12df29dfea"
     },
     {
       "old": "assets/characters/walk/shah-elementary-walk-up-1.png",
-      "new": "assets/images/characters/C003/walk/C003-elementary-walk-up-1.png",
+      "new": "assets/images/characters/C003/walk/C003-elementary-walk-up-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "c8cef3bdb9797e24702fdbc1529fd68a311d04f0419f29e2d9621b292ee3d44d"
+      "sha256": "5ce2e4bc1f8f260605458c8345bc8a7137d7179ea732bf2b825f120349f36121"
     },
     {
       "old": "assets/characters/walk/shah-elementary-walk-up-2.png",
-      "new": "assets/images/characters/C003/walk/C003-elementary-walk-up-2.png",
+      "new": "assets/images/characters/C003/walk/C003-elementary-walk-up-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "89e9fa48e97da223043cb1686d45f80bdace428045d24b20c4baacdc0551c7b5"
+      "sha256": "c8c524244334958f479be2ac68adcc62b1fb3ec36489398069036bbde522ea6a"
     },
     {
       "old": "assets/characters/walk/shah-elementary-walk-up-3.png",
-      "new": "assets/images/characters/C003/walk/C003-elementary-walk-up-3.png",
+      "new": "assets/images/characters/C003/walk/C003-elementary-walk-up-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "23293c92d09e84990089cb1d8811f7fd1683bbb06a4eca5d4f79c1da06d189c6"
+      "sha256": "2e9021f199629df31918fc39a7e38748947a4da87903d300cd748c2e03f9ed0d"
     },
     {
       "old": "assets/characters/walk/shah-walk-down-1.png",
-      "new": "assets/images/characters/C003/walk/C003-walk-down-1.png",
+      "new": "assets/images/characters/C003/walk/C003-walk-down-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "7c7719a75c24c9cd5871160c0c4b24c69e1200057c50b132e9affb1c0450fa67"
+      "sha256": "281e6452daeac065528af64356416f779923631ff220b7143078e2adfb6c08e6"
     },
     {
       "old": "assets/characters/walk/shah-walk-down-2.png",
-      "new": "assets/images/characters/C003/walk/C003-walk-down-2.png",
+      "new": "assets/images/characters/C003/walk/C003-walk-down-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "8ffd18721d85266dceb566095f9699bb8c96c1e5c967a833e233c395effb2479"
+      "sha256": "4cdfc372c681b524fefb3a543d488e626cad0081caa20522555d60fdee702d18"
     },
     {
       "old": "assets/characters/walk/shah-walk-down-3.png",
-      "new": "assets/images/characters/C003/walk/C003-walk-down-3.png",
+      "new": "assets/images/characters/C003/walk/C003-walk-down-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "21f4351472ede97f5880d38c14819580ff07a35316a534b32b7474e2b6388164"
+      "sha256": "ea64aced0a00d7dc3a17c0d89d24c48634033713319717b30d00247ab8c45637"
     },
     {
       "old": "assets/characters/walk/shah-walk-left-1.png",
-      "new": "assets/images/characters/C003/walk/C003-walk-left-1.png",
+      "new": "assets/images/characters/C003/walk/C003-walk-left-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "1cab481def8571a231f8b69f8ba68373ff9c99b34fc683d1e62b61c87e693358"
+      "sha256": "4a1b2aed6342c87b47afaea96b07215f5d5bc6b6054aeab101d0d01918715f37"
     },
     {
       "old": "assets/characters/walk/shah-walk-left-2.png",
-      "new": "assets/images/characters/C003/walk/C003-walk-left-2.png",
+      "new": "assets/images/characters/C003/walk/C003-walk-left-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "3add2d0868d638cc6d9f0164f1de90e8ae922768fd9398725a2b69e2e795d579"
+      "sha256": "f21d140288c66483106e3bcdf54e644c974a874560f2145d1d90ceef14161a74"
     },
     {
       "old": "assets/characters/walk/shah-walk-left-3.png",
-      "new": "assets/images/characters/C003/walk/C003-walk-left-3.png",
+      "new": "assets/images/characters/C003/walk/C003-walk-left-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "887a416d8b359eb212291cf1e8dd0823a616526ed69e2dc5f06a23fe755b2e76"
+      "sha256": "1aca76b84f34385cd742a206d7df4ebf3917f25a0265a425957014155cd92f6e"
     },
     {
       "old": "assets/characters/walk/shah-walk-right-1.png",
-      "new": "assets/images/characters/C003/walk/C003-walk-right-1.png",
+      "new": "assets/images/characters/C003/walk/C003-walk-right-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "03a6fa088fcfb6dc2a4747d334ef2bcff082959380da4a64f67f1971f5ace25b"
+      "sha256": "e527523c5a47a8bf1099047266fb0cfa6157e9e164447b459126276a607686b8"
     },
     {
       "old": "assets/characters/walk/shah-walk-right-2.png",
-      "new": "assets/images/characters/C003/walk/C003-walk-right-2.png",
+      "new": "assets/images/characters/C003/walk/C003-walk-right-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "c61d84ef51fed8002d95e9d5f2641998fd479acdafbb543e71a9ab922a9969fa"
+      "sha256": "1f2a7a2cd1778f571fec8c8718323fff4b25e7a3a03874d0fea61fa035067b52"
     },
     {
       "old": "assets/characters/walk/shah-walk-right-3.png",
-      "new": "assets/images/characters/C003/walk/C003-walk-right-3.png",
+      "new": "assets/images/characters/C003/walk/C003-walk-right-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "3ce5016aedade433ecd18289da4208bcc2f6532fb5520763f3fe341956f51c1f"
+      "sha256": "d7d06d9248ad0f49d19aef8a769e46387bbb807f437fcaf43da38863c01591fa"
     },
     {
       "old": "assets/characters/walk/shah-walk-up-1.png",
-      "new": "assets/images/characters/C003/walk/C003-walk-up-1.png",
+      "new": "assets/images/characters/C003/walk/C003-walk-up-1.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "ff40c8e882b2c5211e4735f9a88949493bd895bdb7eeda906bd2ef01d1f473e0"
+      "sha256": "9fe59370defc009f8a21adfc646e660e388ba621da015103a27d59178f8df803"
     },
     {
       "old": "assets/characters/walk/shah-walk-up-2.png",
-      "new": "assets/images/characters/C003/walk/C003-walk-up-2.png",
+      "new": "assets/images/characters/C003/walk/C003-walk-up-2.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "d96c864a5478412e47b3be62c6816f08878dd461bba71dc6dbe88e9afa63b1f0"
+      "sha256": "f516c6f2ddcec5613b7b8bd96aea9a2434de01fae7a505266242daeaad3e32c3"
     },
     {
       "old": "assets/characters/walk/shah-walk-up-3.png",
-      "new": "assets/images/characters/C003/walk/C003-walk-up-3.png",
+      "new": "assets/images/characters/C003/walk/C003-walk-up-3.webp",
       "action": "move",
       "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "c168a76424b9bdc49d47f17a297e95e5c45e8829f8db6494bef255fb14136912"
+      "sha256": "92ec86491c39c79e4e9c4f92e45506cc5291a6a00d1b828c292ad52cb804ca5c"
     },
     {
       "old": "assets/enemies/anatomical-model.png",
-      "new": "assets/images/enemies/M122.png",
+      "new": "assets/images/enemies/M122.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "908feaa5f1f0674718f484576bf7d2516ce901a47857ce4a097a72dd732a2c23"
+      "sha256": "03dbaaf2c8def325f0caf04c88bd0a726a2405460ed56155accc7bdcdb71e2b9"
     },
     {
       "old": "assets/enemies/barbed-wire.png",
-      "new": "assets/images/enemies/M137.png",
+      "new": "assets/images/enemies/M137.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "e5d5c7f16af0ec24b4ff7469a1260d8ffba3f9a59c21c9502b12a9e1154e0a69"
+      "sha256": "b628d2e07b6d3e4a29b2d0985b548565a4a54ef3f185e43fdbc78841ddcb216f"
     },
     {
       "old": "assets/enemies/broken-bottle.png",
-      "new": "assets/images/enemies/M145.png",
+      "new": "assets/images/enemies/M145.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "c4c1307dadc5cdd3711af15804c59c3f7609beb42a672735bb6ba21060c6d64e"
+      "sha256": "8235beddffead1cc5f5dbe3cf7a022835299e15d32fca9726639bd1c11cf3448"
     },
     {
       "old": "assets/enemies/broken-glass.png",
-      "new": "assets/images/enemies/M135.png",
+      "new": "assets/images/enemies/M135.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "3a4db5f9090c9ec74e37c2451962a3cf401ea351793e3e47c311e32b639460e0"
+      "sha256": "68c0dd6a5f7ac964dc5c276703269e23436c58c7de4a25d93fe78a03c58dbe57"
     },
     {
       "old": "assets/enemies/broken-window.png",
-      "new": "assets/images/enemies/M143.png",
+      "new": "assets/images/enemies/M143.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "696b69dd0bf11471b364bb12a0b25b752fe5d6ff76e0c8f2b13cd39f17462800"
+      "sha256": "48337052cd2a27fddebc304bd2443eaa39ef2be67a52558f8d87fd92af0e91fa"
     },
     {
       "old": "assets/enemies/chandelier.png",
-      "new": "assets/images/enemies/M142.png",
+      "new": "assets/images/enemies/M142.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "4059a642a29b03b9043f330fb73b217695612e61a30ec47cec5bd79a46cd6c00"
+      "sha256": "473d2a9710c9a3152d452cc76ce4a0f8403237201fbc371b405f1c46f44ce3f4"
     },
     {
       "old": "assets/enemies/dental-drill.png",
-      "new": "assets/images/enemies/M126.png",
+      "new": "assets/images/enemies/M126.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "b19e6f7ae3b2ccb5234f4577ebcf3a1bf8e84101e5f7b39df9f865c1727d18d4"
+      "sha256": "974ae8bcfb71a6867290f04a86e5377bbe93064dbb53b58ff28bec6de552dafe"
     },
     {
       "old": "assets/enemies/doll.png",
-      "new": "assets/images/enemies/M113.png",
+      "new": "assets/images/enemies/M113.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "c490e3d2bc0f1540fa6584aa35debbecb14814db87ea7ded35504625a1cdf2e5"
+      "sha256": "4fde5eb7b37f08013ee31c4a0c0ababc6b7bcc41af6cfa68fb39e321b6a4b3e4"
     },
     {
       "old": "assets/enemies/drill.png",
-      "new": "assets/images/enemies/M102.png",
+      "new": "assets/images/enemies/M102.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "a021ce2f5e8130513172d06c9e89b479fd834df293b0002a121c0cc16aefbc2f"
+      "sha256": "710c7902be52ae82b197aed6c5b1658ff033515f37e6890af851b1a0eb2ba467"
     },
     {
       "old": "assets/enemies/encyclopedia.png",
-      "new": "assets/images/enemies/M121.png",
+      "new": "assets/images/enemies/M121.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "a693435af5b20556671dd1b425f1ded431b605342bfcff83f957d3b4e0797cfa"
+      "sha256": "f83e366ecb25468bcac1b6c71586e611487b47b29808d65ffa6b072885a98ec7"
     },
     {
       "old": "assets/enemies/fan-blades.png",
-      "new": "assets/images/enemies/M147.png",
+      "new": "assets/images/enemies/M147.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "0bcad9a650bc013079d36e05a46e90adc527f1c26489e57f9b27be8797c7423d"
+      "sha256": "20c71a48d343ddf04daae21a10d11f1e55d70ced27606e5f543658c87699e08c"
     },
     {
       "old": "assets/enemies/formalin-jar.png",
-      "new": "assets/images/enemies/M123.png",
+      "new": "assets/images/enemies/M123.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "ea3e254224990bedbb30d032a6e3ce09f100b00e3bb4d1b0ccbdba2e6b88f76d"
+      "sha256": "74ccc8afbc34ff70326d1ff8c3364855c988358f0d82e873d5851bd863a53c63"
     },
     {
       "old": "assets/enemies/frozen-puddle.png",
-      "new": "assets/images/enemies/M148.png",
+      "new": "assets/images/enemies/M148.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "579c82a99d9ad5e94633be46de61dc8834b7d261d992f52db0008848d187c891"
+      "sha256": "4c6d1b1c4bb01647d5d81651fbd9cf96d0b13d5e9f16c9dc8f09699193b37f24"
     },
     {
       "old": "assets/enemies/gonzui.png",
-      "new": "assets/images/enemies/M129.png",
+      "new": "assets/images/enemies/M129.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "5e317b6b80647933b17753875e136cf54d7e31e302f32d4361d53335f899f0e6"
+      "sha256": "8f4259c43b69b46dc937d64037121a344b17070347fd63a0aadef5ff6b6d198f"
     },
     {
       "old": "assets/enemies/gun.png",
-      "new": "assets/images/enemies/M103.png",
+      "new": "assets/images/enemies/M103.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "29ff8ef414d2825f10aeb82d2bd5b319bb9e6213e93a07402b30541713c825b9"
+      "sha256": "ec7762452d71988a8f88c73c43fa4b2dead63c43c4a2b14c3b73be32bf5b3d84"
     },
     {
       "old": "assets/enemies/hornet.png",
-      "new": "assets/images/enemies/M131.png",
+      "new": "assets/images/enemies/M131.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "0abed8b4c7858c15d0a2fdf60ae25d4ab31ed52f8afafea4693a48a695ca0f99"
+      "sha256": "837d8dc7b952e2ed814c978c4c40cdf4d40045fe21b397e141a6c6f4343a58e5"
     },
     {
       "old": "assets/enemies/horror-dvd.png",
-      "new": "assets/images/enemies/M115.png",
+      "new": "assets/images/enemies/M115.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "310331338fc9e75a0af7416abbf83f8ca57aacfe06e7a80f6ce17a9335246827"
+      "sha256": "2aad33b2c697eb53dba3ca8da604c0740ea0b3c41d7480a1de0eb2aa55bf7deb"
     },
     {
       "old": "assets/enemies/icicle.png",
-      "new": "assets/images/enemies/M138.png",
+      "new": "assets/images/enemies/M138.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "df685b3f38a9de8e8b5fb86ea9ef4e132ef655d61031f0bb060df4bace2a5c38"
+      "sha256": "177cc0aa28d4bad180ce82a866a079f947164d5b80aad6b930a5313f2921a78c"
     },
     {
       "old": "assets/enemies/kerosene-heater.png",
-      "new": "assets/images/enemies/M149.png",
+      "new": "assets/images/enemies/M149.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "d4202b520348adb4832fe3e4f13a069eea008ed1a06f5a82efa622a91482810f"
+      "sha256": "cfd74fe5cc963a364e80fe0925f25cebf7c951626aecf7812377a07d2ff0ffb3"
     },
     {
       "old": "assets/enemies/laughing-bag.png",
-      "new": "assets/images/enemies/M118.png",
+      "new": "assets/images/enemies/M118.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "4e89a99a73d440d7cf78b8f4a072f6fd25bd6240bcd0ee3b9e0cbbd534a00e37"
+      "sha256": "fb66b60279fdaca87694401274f122404ac40b922eefc81b42efeabcf9a81d61"
     },
     {
       "old": "assets/enemies/lighter.png",
-      "new": "assets/images/enemies/M150.png",
+      "new": "assets/images/enemies/M150.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "692f53dc919fb09951f0d5e8dc559ed230a24e10030121a73970055c310311f8"
+      "sha256": "0b95066d8861c8965aea427f8ad13759eada253c2e60393f1605152047212de3"
     },
     {
       "old": "assets/enemies/loud-motorbike.png",
-      "new": "assets/images/enemies/M106.png",
+      "new": "assets/images/enemies/M106.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "43bf22b21960edc3ba64525f970b94b9e1e2c3ab86e03fe2d5de354bfa8df735"
+      "sha256": "2a19900b0db1a3a4624f182e8881aad974758ddf4719db1fa64c6570a13d155d"
     },
     {
       "old": "assets/enemies/mannequin.png",
-      "new": "assets/images/enemies/M112.png",
+      "new": "assets/images/enemies/M112.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "8d207199193e4bdfefa3581d21ded34f92d33a1380469b8b528a2bf779fe5a7a"
+      "sha256": "5d3d86a86fc0629edae4c99d1ed3c0e8ea8821da1d9675b04489839db5b28de3"
     },
     {
       "old": "assets/enemies/nail.png",
-      "new": "assets/images/enemies/M134.png",
+      "new": "assets/images/enemies/M134.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "0b468ffc77556caa8b831b65e7bbd483823398b5f8cf7aae20e07b94a303955d"
+      "sha256": "3390e7f676054522db3880d2a81b56067f6eb45845136a9aa9688975c097c96c"
     },
     {
       "old": "assets/enemies/night-branches.png",
-      "new": "assets/images/enemies/M109.png",
+      "new": "assets/images/enemies/M109.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "c6f49d9a9230487939a68d3b721371a66db9568a50df799ce1ddacacbbd83e04"
+      "sha256": "f46f20adcdc97b3fdf373e96e18f4eb8150664cbd637bd0b6e1f03f6301a2fb7"
     },
     {
       "old": "assets/enemies/occult-book.png",
-      "new": "assets/images/enemies/M116.png",
+      "new": "assets/images/enemies/M116.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "0c431b6f7344b8a07f57393963117bb9a8021c30b9285eda62a669408e8a4357"
+      "sha256": "852348c09fff055e49e8df4f7dac15a95b659ab1031856e1daba85b2ce6519bd"
     },
     {
       "old": "assets/enemies/octopus-wiring.png",
-      "new": "assets/images/enemies/M151.png",
+      "new": "assets/images/enemies/M151.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "706cd2557b83686a930bc56c9722fba6c9350d4f8452e6286cd7e9a9c803e568"
+      "sha256": "5fa69e0f8cc42390c7fc1109aa1a6e76d1acb67beaca3a72b2d815b8b22dec02"
     },
     {
       "old": "assets/enemies/open-manhole.png",
-      "new": "assets/images/enemies/M108.png",
+      "new": "assets/images/enemies/M108.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "39bc86d016ac9084060122d7b5cd457d86e221dcba1b0d45f529423c191786bd"
+      "sha256": "d3135166678d0032bc1626402cadf57ff0a2063cec55230ce45e4d52dd758f7c"
     },
     {
       "old": "assets/enemies/pathogen.png",
-      "new": "assets/images/enemies/M132.png",
+      "new": "assets/images/enemies/M132.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "f46723c8481e44dcf413c0bfbe1b4e2a5b0afc70ac674e5a63c067b5eb06649e"
+      "sha256": "a30a0657300026875182bb0470ccf4b8fc377670ab80b19b19055854e1c277cf"
     },
     {
       "old": "assets/enemies/poison-mushroom.png",
-      "new": "assets/images/enemies/M133.png",
+      "new": "assets/images/enemies/M133.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "2b7937e5553fe4dc229b0172a1ebd027ff98ab803120a6f8b9d02379cbd30120"
+      "sha256": "2984bd3d1899eb90999c6579962dacaa7a164aa7f1b2ea0781e78ab7e1be9fbe"
     },
     {
       "old": "assets/enemies/propeller.png",
-      "new": "assets/images/enemies/M146.png",
+      "new": "assets/images/enemies/M146.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "72e842228de8f010a08688449c32df19615e73642e23557264d2dafb6f851b0a"
+      "sha256": "4104b61858deb14b5150344158d3550826392544ed381d5135584736fe59a363"
     },
     {
       "old": "assets/enemies/pufferfish.png",
-      "new": "assets/images/enemies/M130.png",
+      "new": "assets/images/enemies/M130.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "5d3e5560752206f34630c6f626859c4ac0cf32a066ab527c5a61d231f9a30473"
+      "sha256": "cb952178061ec29ee440e31bd150b4ce630e0a8a0f8796405061f24df31ae1e3"
     },
     {
       "old": "assets/enemies/raw/anatomical-model.png",
@@ -2939,59 +2939,59 @@
     },
     {
       "old": "assets/enemies/reckless-bicycle.png",
-      "new": "assets/images/enemies/M104.png",
+      "new": "assets/images/enemies/M104.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "5c06be3e1abeb7ba99f906bdde324f083016170ee3f9b8396f57572cb4d20610"
+      "sha256": "5a18c6801cde0341238beff09b216a60a4c368a2a767c45df03bd82cb8841285"
     },
     {
       "old": "assets/enemies/roadroller.png",
-      "new": "assets/images/enemies/M101.png",
+      "new": "assets/images/enemies/M101.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "f54428e85a6c7076840bfadb1703d3eff1ae0bbf5e6ed8f68b9486ec7ec22236"
+      "sha256": "4ad83ad1fdcf0db8400c332d97fc28964ea69e13dc571b66f3387341273ad6b6"
     },
     {
       "old": "assets/enemies/sea-urchin.png",
-      "new": "assets/images/enemies/M139.png",
+      "new": "assets/images/enemies/M139.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "0049a5df94151f9e5550178d95d1b3d73669bec0729228676e42862d15247d06"
+      "sha256": "c84d54b140c26ac932cb9b1d377f3333c4b7a8ad508439d871365d56f6f26f76"
     },
     {
       "old": "assets/enemies/skeleton-model.png",
-      "new": "assets/images/enemies/M124.png",
+      "new": "assets/images/enemies/M124.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "e911a7d349942091d856ad7edaa391238a10b1b78733d3199e9bc3b0f545c401"
+      "sha256": "170aec7005e6fbbb3c217e15abddd18d2b22754a428268d7e83b690cdc263652"
     },
     {
       "old": "assets/enemies/syringe.png",
-      "new": "assets/images/enemies/M125.png",
+      "new": "assets/images/enemies/M125.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "5c21fa2f6006e2d42ab49f3bdae7c4c771ce20150affb668c517aece1da713e0"
+      "sha256": "305fd3ec11a07dd92848086311d0a0944c45d968886a06702f41dfa26f0a39c5"
     },
     {
       "old": "assets/enemies/torn-shoji.png",
-      "new": "assets/images/enemies/M144.png",
+      "new": "assets/images/enemies/M144.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "c6938b558eec3436c5fe61442a1e5e6ee78d2d747f8480ac43fdb5f19773710f"
+      "sha256": "ed8950aca8b8e5ce270575bbffd5374d811460f310ac8e8d40a25a5c863e63b7"
     },
     {
       "old": "assets/enemies/wall-stain.png",
-      "new": "assets/images/enemies/M110.png",
+      "new": "assets/images/enemies/M110.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "317a8738c40b023f38e29229aedd4fbd946d970eca8d9d17d3843b666ee4014c"
+      "sha256": "83184e0aeac0ac6d083076dd3fb10bf95cc5d972dbdeda85555a02e6b21a401f"
     },
     {
       "old": "assets/enemies/wire-mesh.png",
-      "new": "assets/images/enemies/M136.png",
+      "new": "assets/images/enemies/M136.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "e234697c786a2234fb5118a37a44608da173d98f8552b1dd04a247e5fc352236"
+      "sha256": "b4c4935e728febf3f032632116d1c09025caded3d579037429210fb1564ac199"
     },
     {
       "old": "assets/logo/README.md",
@@ -3030,17 +3030,17 @@
     },
     {
       "old": "assets/summons/kanazawa-thunder-dragon.png",
-      "new": "assets/images/summons/S006.png",
+      "new": "assets/images/summons/S006.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "64c28e50b172142b4c3f09a4bb62d455c530833c64f50f987452fd56de861844"
+      "sha256": "7507d9fabc757da5b195a679803d0578a52eaf0022d855a39608e5a3016b9af2"
     },
     {
       "old": "assets/summons/kotomon-imaginary.png",
-      "new": "assets/images/summons/S007.png",
+      "new": "assets/images/summons/S007.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "ba8b509897c0a6aed33ff5c2bb7556250c57bf683297e04963128d7e5330c375"
+      "sha256": "05926b700d06261ad7fd79424b98cd05e2c567773d66a88041502c0ef1b065c6"
     },
     {
       "old": "assets/summons/raw/kanazawa-thunder-dragon.png",
@@ -3092,31 +3092,31 @@
     },
     {
       "old": "assets/summons/river-mist-fire-cat.png",
-      "new": "assets/images/summons/S004.png",
+      "new": "assets/images/summons/S004.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "b77477cebb8bf6de449328b34bce37d1a12801f18a6d3fe3571acb871af6b507"
+      "sha256": "91779e94e767d505aee6f7c425c926ecbe50b3d5213d1dcae17e5575ac715467"
     },
     {
       "old": "assets/summons/uchinada-wind.png",
-      "new": "assets/images/summons/S003.png",
+      "new": "assets/images/summons/S003.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "6154eedc22cbdc35935d5cea4505f796e61dc382360c4b8b39db3762837a853b"
+      "sha256": "f6a3b44ea48ac96ba89c7d366ef2c958ef58bb42ed5fd1ea66b2995dc1176803"
     },
     {
       "old": "assets/summons/utatsuyama-frozen-forest.png",
-      "new": "assets/images/summons/S002.png",
+      "new": "assets/images/summons/S002.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "465c8eb5921eb4e92d148ec6f586096049e8e3cf5303a9c738302874a3f200b1"
+      "sha256": "e2f8b728b3d944a6510278e8674207b088b452f845cc42f8b21770a92bd7f924"
     },
     {
       "old": "assets/summons/vertical-city-beast.png",
-      "new": "assets/images/summons/S005.png",
+      "new": "assets/images/summons/S005.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "a96216e622eee8a35f6e24c0f48668214ae4d4d260f5a6d664494882572d136d"
+      "sha256": "7b090056267cb06f903da0188a6c512195118520f9b7459b1b180e102c7aced8"
     },
     {
       "old": "sample/archive/pre-sync-local/sample/field/masks/teramachi-e09-rebuild-v6-assist-mask.png",
@@ -3198,10 +3198,10 @@
     },
     {
       "old": "sample/battle/backgrounds/bg-a.png",
-      "new": "assets/images/battle-backgrounds/BG001.png",
+      "new": "assets/images/battle-backgrounds/BG001.webp",
       "action": "move",
       "reason": "Existing verification asset; BG005 adopted stage-b and BG001 camera reference preserved.",
-      "sha256": "0e4010e29b881ae293dd3b25c2dcc4f0bec8e45fc5676a07ed829290b13d9233"
+      "sha256": "372cd6a21f6a9359d705a22f3fe0b6c7782b7317c83d2c72d95c4b3a5ac066d6"
     },
     {
       "old": "sample/battle/backgrounds/bg-b.png",
@@ -3229,10 +3229,10 @@
     },
     {
       "old": "sample/battle/backgrounds/stage-b.png",
-      "new": "assets/images/battle-backgrounds/BG005.png",
+      "new": "assets/images/battle-backgrounds/BG005.webp",
       "action": "move",
       "reason": "Existing verification asset; BG005 adopted stage-b and BG001 camera reference preserved.",
-      "sha256": "b4baae7e10990f799e152a3792f618322ec9c1354379eb548aec1142a945a33f"
+      "sha256": "1aa39413de86a3350182b18f22af369cc43f1fcdde3c0e0923208f5c97afca13"
     },
     {
       "old": "sample/battle/backgrounds/stage-c.png",
@@ -3345,10 +3345,10 @@
     },
     {
       "old": "sample/battle/enemy-dragon.png",
-      "new": "assets/images/enemies/M001.png",
+      "new": "assets/images/enemies/M001.webp",
       "action": "move",
       "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "c7b3c68ad5758fae575d7df9f59419418deb6e4d6ad39da77e33a8bf491c5cf0"
+      "sha256": "24390487c9c5337bb08087ea284d2a1f5d3a4906d0c2991c645026e70d0bb55a"
     },
     {
       "old": "sample/battle/stage-b.json",

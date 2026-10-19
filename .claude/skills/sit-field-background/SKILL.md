@@ -3,6 +3,8 @@ name: sit-field-background
 description: Sit by Me のフィールド背景を、MAP原文と参照画像から手作りミニチュアの一枚絵として生成・検査する。歩行マスクは sit-field-mask、敵・召喚獣・人物・戦闘背景には使わない。
 ---
 
+**画像の保存形式（#68決定、2026-10-19）**: imagegenの出力（PNG）→切り出し→**WebP（非可逆・品質85・アルファ保持）**にして正本パスへ保存する（`magick in.png -quality 85 out.webp`、または `verification/characters/tools/key_*.py` が直接WebPで出す）。PNGは残さない（name-name のTUIは WebP のみデコードできる）。実寸（不変）・アルファ（`magick in.png -alpha extract` と変換後WebPの同コマンドを `compare -metric AE` で比べAE=0）の検査はWebPで行う。寸法ゲートの基準（1920×1080等）は変えない。 マスク・編集マップなど厳密な画素が要るものは**可逆WebP**（`-define webp:lossless=true`）で保存し、PNGは残さない。 MAPの既存PNG（fields/legacy・masks）はMAP改名PR（PR-M）でWebP化するまで現状のまま。
+
 Sit by Me のフィールド背景を、手作りのミニチュアに見える一枚絵として、生成 → 確認 → 保存 → 歩行マスクの順で作る。敵は `sit-enemy-sprite`、召喚獣は `sit-summon-sprite`、人物は `sit-character-sprite`、戦闘背景は `sit-battle-background` を使う。このスキルは、**フィールド背景だけ**。
 
 ## 一意解釈ゲート（このスキルの全行より優先）

@@ -49,7 +49,7 @@ class AssetMigrationTests(unittest.TestCase):
                 if row["action"] == "move":
                     target = ROOT / row["new"]
                     self.assertTrue(target.is_file())
-                    if target.suffix == ".png":
+                    if target.suffix in {".png", ".webp"}:
                         self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), row["sha256"])
                 else:
                     self.assertEqual(row["action"], "delete")
@@ -65,15 +65,15 @@ class AssetMigrationTests(unittest.TestCase):
             name, suffix = old.name.split("-", 1)
             ident = ids[name]
             seen.add(ident)
-            expected = f"assets/images/characters/{ident}/{old.parent.name}/{ident}-{suffix}"
+            expected = f"assets/images/characters/{ident}/{old.parent.name}/{ident}-{suffix.removesuffix('.png')}.webp"
             self.assertEqual(row["new"], expected)
         self.assertEqual(seen, set(ids.values()))
 
     def test_no_fabricated_summon_or_live_sample_assets(self):
         before = [r for r in self.rows if r["old"].startswith("assets/summons/") and r["action"] == "move"]
-        actual = list((ROOT / "assets/images/summons").rglob("*.png"))
+        actual = list((ROOT / "assets/images/summons").rglob("*.webp"))
         self.assertEqual({r["new"] for r in before}, {p.relative_to(ROOT).as_posix() for p in actual})
-        self.assertFalse((ROOT / "assets/images/summons/S008.png").exists())
+        self.assertFalse((ROOT / "assets/images/summons/S008.webp").exists())
         self.assertFalse(any((ROOT / "sample").rglob("*.png")))
 
     def test_pruned_paths_stay_deleted(self):
@@ -95,11 +95,12 @@ class AssetMigrationTests(unittest.TestCase):
         origin = f"http://127.0.0.1:{server.server_port}/"
         try:
             fetched = set()
-            for relative in ["assets/images/enemies/M001.png", "assets/images/battle-backgrounds/BG005.png",
-                             "assets/images/battle-backgrounds/BG001.png"]:
+            for relative in ["assets/images/enemies/M001.webp", "assets/images/battle-backgrounds/BG005.webp",
+                             "assets/images/battle-backgrounds/BG001.webp"]:
                 with urlopen(urljoin(origin, relative)) as response:
                     self.assertEqual(response.status, 200)
-                    self.assertEqual(response.read()[:8], PNG, relative)
+                    body = response.read(12)
+                    self.assertEqual((body[:4], body[8:12]), (b"RIFF", b"WEBP"), relative)
                 fetched.add(relative)
             legacy = sorted((ROOT / "assets/images/fields/legacy").glob("E*.png"))
             self.assertTrue(legacy)
@@ -114,7 +115,7 @@ class AssetMigrationTests(unittest.TestCase):
 class VerifierFailureTests(unittest.TestCase):
     def fixture(self, root):
         (root / "docs/production").mkdir(parents=True)
-        target = "assets/images/enemies/M001.png"
+        target = "assets/images/enemies/M001.webp"
         (root / target).parent.mkdir(parents=True)
         (root / target).write_bytes(PNG + b"fixture")
         return dict(old="assets/enemies/dragon.png", new=target, action="move",
@@ -143,7 +144,7 @@ class VerifierFailureTests(unittest.TestCase):
             result = self.run_verifier(root, [row, dict(row, old="assets/enemies/other.png")])
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("Duplicate manifest destination", result.stderr)
-            result = self.run_verifier(root, [row, dict(row, new="assets/images/enemies/M002.png")])
+            result = self.run_verifier(root, [row, dict(row, new="assets/images/enemies/M002.webp")])
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("Duplicate manifest source", result.stderr)
             self.assertEqual((root / row["new"]).read_bytes(), PNG + b"fixture")
@@ -190,7 +191,7 @@ class VerifierFailureTests(unittest.TestCase):
             for bad in ["assets/images/fields/unknown.webp",
                         "assets/images/fields/reference/nested/x.webp",
                         "assets/images/fields/reference/Bad_Name.webp",
-                        "assets/images/enemies/M001.webp"]:
+                        "assets/images/enemies/Bad.webp"]:
                 with self.subTest(bad=bad):
                     path = root / bad
                     path.parent.mkdir(parents=True, exist_ok=True)

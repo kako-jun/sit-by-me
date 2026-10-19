@@ -1,5 +1,5 @@
 """1体だけの画像を透過にし、タイトに切り抜く（グリッドで作れなかったコマの差し替え用）。
-usage: key_single.py src.png out.png alpha|green|magenta [flip]"""
+usage: key_single.py src.png out.webp alpha|green|magenta [flip]"""
 import sys, os
 import numpy as np
 from PIL import Image
@@ -21,5 +21,5 @@ rgba = np.dstack([out, alpha * 255]).clip(0, 255).astype(np.uint8)
 im = Image.fromarray(rgba[ys.min():ys.max() + 1, xs.min():xs.max() + 1])
 if flip:
     im = im.transpose(Image.FLIP_LEFT_RIGHT)
-im.save(dst)
+im.save(dst, 'WEBP', quality=85)
 print('ok', dst, im.size)
