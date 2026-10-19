@@ -325,8 +325,8 @@
 </g></g>
 <g transform="translate(1740 4097)"><g data-area="noto_train"><rect x="8" y="8" width="1084" height="483" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">奥能登への鉄道・1MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
 <circle class="node" data-map="E28" cx="140" cy="160" r="30"/><text class="id" x="140" y="167">E28</text>
-<text x="140" y="213" class="label">雪で曇る窓と木製座席のの</text>
-<text x="140" y="234" class="label">と鉄道車内</text>
+<text x="140" y="213" class="label">雪で曇る窓と木製座席の奥</text>
+<text x="140" y="234" class="label">能登鉄道車内</text>
 <text x="25" y="285" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
 <circle class="ref" data-reference-map="E21" data-reference="E21" cx="40" cy="315" r="13"/>
 <text x="65" y="320" class="small">E21.door-noto ↔ E28.door-kanazawa  [外部: station]</text>
