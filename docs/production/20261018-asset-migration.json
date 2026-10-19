@@ -908,213 +908,243 @@
     },
     {
       "old": "assets/characters/poses/raw/nam-elementary-grid.png",
-      "new": "assets/images/characters/C002/raw/C002-elementary-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "fef0422615b11e192bef43df53275b6efe1ca07d444059689325ea80c507fefa"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "fef0422615b11e192bef43df53275b6efe1ca07d444059689325ea80c507fefa",
+      "pruned_path": "assets/images/characters/C002/raw/C002-elementary-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/nam-elementary-walk-grid.png",
-      "new": "assets/images/characters/C002/raw/C002-elementary-walk-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "83b0f2a0bc7fca02d79f01c17c44003d3db98626c3b2d5b41e5bb1a999289591"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "83b0f2a0bc7fca02d79f01c17c44003d3db98626c3b2d5b41e5bb1a999289591",
+      "pruned_path": "assets/images/characters/C002/raw/C002-elementary-walk-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/nam-elementary-wheelchair-grid.png",
-      "new": "assets/images/characters/C002/raw/C002-elementary-wheelchair-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "896c5b51864985c71c2c3ec05035e6d4f75c1dafcc5228569aced72373905d10"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "896c5b51864985c71c2c3ec05035e6d4f75c1dafcc5228569aced72373905d10",
+      "pruned_path": "assets/images/characters/C002/raw/C002-elementary-wheelchair-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/nam-elementary-wheelchair-walk-diag.png",
-      "new": "assets/images/characters/C002/raw/C002-elementary-wheelchair-walk-diag.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e9a05d404aec98a37655851398944b94dc35ba39b0a753f0c20f9b185675e65b"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "e9a05d404aec98a37655851398944b94dc35ba39b0a753f0c20f9b185675e65b",
+      "pruned_path": "assets/images/characters/C002/raw/C002-elementary-wheelchair-walk-diag.png"
     },
     {
       "old": "assets/characters/poses/raw/nam-elementary-wheelchair-walk.png",
-      "new": "assets/images/characters/C002/raw/C002-elementary-wheelchair-walk.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "fd7821225ba1c998c9aa8ac2f1527fedb7258f322395f2ef78a2692daaa8d19e"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "fd7821225ba1c998c9aa8ac2f1527fedb7258f322395f2ef78a2692daaa8d19e",
+      "pruned_path": "assets/images/characters/C002/raw/C002-elementary-wheelchair-walk.png"
     },
     {
       "old": "assets/characters/poses/raw/nam-grid.png",
-      "new": "assets/images/characters/C002/raw/C002-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "d23dfa1afa7e0d95f54a7559450556b8e304d7c7478f77be2030e3cff87a946f"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "d23dfa1afa7e0d95f54a7559450556b8e304d7c7478f77be2030e3cff87a946f",
+      "pruned_path": "assets/images/characters/C002/raw/C002-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/nam-uniform-grid.png",
-      "new": "assets/images/characters/C002/raw/C002-uniform-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "bee3650433fe0a7df57d492334638d0f472653a8821e85850c8e4c441c188850"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "bee3650433fe0a7df57d492334638d0f472653a8821e85850c8e4c441c188850",
+      "pruned_path": "assets/images/characters/C002/raw/C002-uniform-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/nam-walk-grid.png",
-      "new": "assets/images/characters/C002/raw/C002-walk-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "47251fde73802b47022f79787566338353ce8b788a365e1d4d5d428bc692ace9"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "47251fde73802b47022f79787566338353ce8b788a365e1d4d5d428bc692ace9",
+      "pruned_path": "assets/images/characters/C002/raw/C002-walk-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/otton-elementary-grid.png",
-      "new": "assets/images/characters/C001/raw/C001-elementary-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "551b2d2c3fe9c5fe3f4171a07f8779baedae9405f967de2848e9aa802c4f7479"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "551b2d2c3fe9c5fe3f4171a07f8779baedae9405f967de2848e9aa802c4f7479",
+      "pruned_path": "assets/images/characters/C001/raw/C001-elementary-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/otton-elementary-walk-grid.png",
-      "new": "assets/images/characters/C001/raw/C001-elementary-walk-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "c3506135d6b86d7dc7f7851472a8256582d6d6bc3472429434a9a14f0bfa239c"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "c3506135d6b86d7dc7f7851472a8256582d6d6bc3472429434a9a14f0bfa239c",
+      "pruned_path": "assets/images/characters/C001/raw/C001-elementary-walk-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/otton-elementary-wheelchair-grid.png",
-      "new": "assets/images/characters/C001/raw/C001-elementary-wheelchair-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e9b09ea4c2051f25758245784d563c93986dd42a6316ee484f4993152b702f36"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "e9b09ea4c2051f25758245784d563c93986dd42a6316ee484f4993152b702f36",
+      "pruned_path": "assets/images/characters/C001/raw/C001-elementary-wheelchair-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/otton-elementary-wheelchair-walk-diag.png",
-      "new": "assets/images/characters/C001/raw/C001-elementary-wheelchair-walk-diag.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "b5e877b969543e6170d0aaae7a442d39fcd21cf49b68443f089a2b8c1a5a2e56"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "b5e877b969543e6170d0aaae7a442d39fcd21cf49b68443f089a2b8c1a5a2e56",
+      "pruned_path": "assets/images/characters/C001/raw/C001-elementary-wheelchair-walk-diag.png"
     },
     {
       "old": "assets/characters/poses/raw/otton-elementary-wheelchair-walk.png",
-      "new": "assets/images/characters/C001/raw/C001-elementary-wheelchair-walk.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "f7104d732e641188be23075b79b941fb2d0ecb75ce390718e68150093e3084df"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "f7104d732e641188be23075b79b941fb2d0ecb75ce390718e68150093e3084df",
+      "pruned_path": "assets/images/characters/C001/raw/C001-elementary-wheelchair-walk.png"
     },
     {
       "old": "assets/characters/poses/raw/otton-grid.png",
-      "new": "assets/images/characters/C001/raw/C001-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "f6596e05a7f26301bd0d45f1a203b6943fbd6046dff1ce61fd5d151033cbe45a"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "f6596e05a7f26301bd0d45f1a203b6943fbd6046dff1ce61fd5d151033cbe45a",
+      "pruned_path": "assets/images/characters/C001/raw/C001-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/otton-uniform-grid.png",
-      "new": "assets/images/characters/C001/raw/C001-uniform-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "1225453dca7f8e1e2b724f47b8be9ab8fddadb9375e43e45cfdd59b4112c6e90"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "1225453dca7f8e1e2b724f47b8be9ab8fddadb9375e43e45cfdd59b4112c6e90",
+      "pruned_path": "assets/images/characters/C001/raw/C001-uniform-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/otton-walk-grid.png",
-      "new": "assets/images/characters/C001/raw/C001-walk-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "23a2b16e17a9170bffa7474003f64a5a9cef0149f2a386cb4f71313d325ff1c9"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "23a2b16e17a9170bffa7474003f64a5a9cef0149f2a386cb4f71313d325ff1c9",
+      "pruned_path": "assets/images/characters/C001/raw/C001-walk-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/peiko-down.png",
-      "new": "assets/images/characters/C004/raw/C004-down.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "10a6fe2c4068626f795b39450f20369db423b5f647cad7e685089cb2a3e65e46"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "10a6fe2c4068626f795b39450f20369db423b5f647cad7e685089cb2a3e65e46",
+      "pruned_path": "assets/images/characters/C004/raw/C004-down.png"
     },
     {
       "old": "assets/characters/poses/raw/peiko-elementary-down.png",
-      "new": "assets/images/characters/C004/raw/C004-elementary-down.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "e5b0b479ec2055bd843ff2e8c1c3be99dc04a039deb5218c1a572454eebe1637"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "e5b0b479ec2055bd843ff2e8c1c3be99dc04a039deb5218c1a572454eebe1637",
+      "pruned_path": "assets/images/characters/C004/raw/C004-elementary-down.png"
     },
     {
       "old": "assets/characters/poses/raw/peiko-elementary-grid.png",
-      "new": "assets/images/characters/C004/raw/C004-elementary-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "61b32006b7ebb50b5929090bef8ea1350c994877ff28c21cc5b796bf269d8630"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "61b32006b7ebb50b5929090bef8ea1350c994877ff28c21cc5b796bf269d8630",
+      "pruned_path": "assets/images/characters/C004/raw/C004-elementary-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/peiko-elementary-walk-grid.png",
-      "new": "assets/images/characters/C004/raw/C004-elementary-walk-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "9839151c45385811b9e3b8c7129a8b15ab9bfd6b4943084419bffb344200710c"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "9839151c45385811b9e3b8c7129a8b15ab9bfd6b4943084419bffb344200710c",
+      "pruned_path": "assets/images/characters/C004/raw/C004-elementary-walk-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/peiko-grid.png",
-      "new": "assets/images/characters/C004/raw/C004-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "33eddb01d3283f0920da892cc76203ee74e29b3d855a42655fbe72bc1a102319"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "33eddb01d3283f0920da892cc76203ee74e29b3d855a42655fbe72bc1a102319",
+      "pruned_path": "assets/images/characters/C004/raw/C004-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/peiko-uniform-down.png",
-      "new": "assets/images/characters/C004/raw/C004-uniform-down.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "3a89a1294a35a1235050aafa11d41f6dd7023310abd6f8a74556576d57dc8d42"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "3a89a1294a35a1235050aafa11d41f6dd7023310abd6f8a74556576d57dc8d42",
+      "pruned_path": "assets/images/characters/C004/raw/C004-uniform-down.png"
     },
     {
       "old": "assets/characters/poses/raw/peiko-uniform-grid.png",
-      "new": "assets/images/characters/C004/raw/C004-uniform-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "13afbe52a4c6e30118aecacc03f08df48191fe7b8926bbdfbabb123ac38c0a22"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "13afbe52a4c6e30118aecacc03f08df48191fe7b8926bbdfbabb123ac38c0a22",
+      "pruned_path": "assets/images/characters/C004/raw/C004-uniform-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/peiko-walk-grid.png",
-      "new": "assets/images/characters/C004/raw/C004-walk-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "b815bdfdc77f9f4fed37604a18f527835486519f4a44d9a598565595a04a4117"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "b815bdfdc77f9f4fed37604a18f527835486519f4a44d9a598565595a04a4117",
+      "pruned_path": "assets/images/characters/C004/raw/C004-walk-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/shah-elementary-grid.png",
-      "new": "assets/images/characters/C003/raw/C003-elementary-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "74ea51c2d7e7aff2ea212efa48a27637b279a32e72d754e70013f9b20044e196"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "74ea51c2d7e7aff2ea212efa48a27637b279a32e72d754e70013f9b20044e196",
+      "pruned_path": "assets/images/characters/C003/raw/C003-elementary-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/shah-elementary-walk-grid.png",
-      "new": "assets/images/characters/C003/raw/C003-elementary-walk-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "b7bda6b192bfe8460d9fb9530bc83893be90913c679a45b61ad2b7b25f582454"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "b7bda6b192bfe8460d9fb9530bc83893be90913c679a45b61ad2b7b25f582454",
+      "pruned_path": "assets/images/characters/C003/raw/C003-elementary-walk-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/shah-grid.png",
-      "new": "assets/images/characters/C003/raw/C003-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "98d769743a074647c3a021322b280a2005f60a19db3a6dfe7d779b5f649460c9"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "98d769743a074647c3a021322b280a2005f60a19db3a6dfe7d779b5f649460c9",
+      "pruned_path": "assets/images/characters/C003/raw/C003-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/shah-ready-v2.png",
-      "new": "assets/images/characters/C003/raw/C003-ready-v2.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "4b17f646c26fd36f72005cfaffd2000c85e81d687d5bb6742c2ed08c4e8d5ac2"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "4b17f646c26fd36f72005cfaffd2000c85e81d687d5bb6742c2ed08c4e8d5ac2",
+      "pruned_path": "assets/images/characters/C003/raw/C003-ready-v2.png"
     },
     {
       "old": "assets/characters/poses/raw/shah-uniform-grid.png",
-      "new": "assets/images/characters/C003/raw/C003-uniform-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "661b94e3d9ed0e5a8f57b9ce6b43e6a4894f5f8bee57ae2c5a08c79210a64c67"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "661b94e3d9ed0e5a8f57b9ce6b43e6a4894f5f8bee57ae2c5a08c79210a64c67",
+      "pruned_path": "assets/images/characters/C003/raw/C003-uniform-grid.png"
     },
     {
       "old": "assets/characters/poses/raw/shah-walk-grid.png",
-      "new": "assets/images/characters/C003/raw/C003-walk-grid.png",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
-      "sha256": "970e7da955870cb4e747f3fc3a17e88d00adce0c4f465278e97d04a0335e2c74"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "sha256": "970e7da955870cb4e747f3fc3a17e88d00adce0c4f465278e97d04a0335e2c74",
+      "pruned_path": "assets/images/characters/C003/raw/C003-walk-grid.png"
     },
     {
       "old": "assets/characters/poses/shah-cast.png",
@@ -2581,290 +2611,331 @@
     },
     {
       "old": "assets/enemies/raw/anatomical-model.png",
-      "new": "assets/images/enemies/raw/M122.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "d7f68dfec432d32f5712763f610435f5c631c16b9000de112886264180d61c42"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "d7f68dfec432d32f5712763f610435f5c631c16b9000de112886264180d61c42",
+      "pruned_path": "assets/images/enemies/raw/M122.png"
     },
     {
       "old": "assets/enemies/raw/barbed-wire.png",
-      "new": "assets/images/enemies/raw/M137.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "0de00071d7bf8781c2d5ccce2b2c417ba3b5d37f1261fe518080bc7d195fc411"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "0de00071d7bf8781c2d5ccce2b2c417ba3b5d37f1261fe518080bc7d195fc411",
+      "pruned_path": "assets/images/enemies/raw/M137.png"
     },
     {
       "old": "assets/enemies/raw/broken-bottle.png",
-      "new": "assets/images/enemies/raw/M145.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "45e3b4047292c7bc44418f77b86e1bf3b58900398036eeedd133bbe371cc4291"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "45e3b4047292c7bc44418f77b86e1bf3b58900398036eeedd133bbe371cc4291",
+      "pruned_path": "assets/images/enemies/raw/M145.png"
     },
     {
       "old": "assets/enemies/raw/broken-glass.png",
-      "new": "assets/images/enemies/raw/M135.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "07ec4b2ae0be35eab52570e4a0d3948624602604312ee72e4f7cc62b2eb2fb36"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "07ec4b2ae0be35eab52570e4a0d3948624602604312ee72e4f7cc62b2eb2fb36",
+      "pruned_path": "assets/images/enemies/raw/M135.png"
     },
     {
       "old": "assets/enemies/raw/broken-window.png",
-      "new": "assets/images/enemies/raw/M143.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "7c2e36ac735e9f6a9f67788ddc13bbeca002c7e4d1a6af377e15317441237fbe"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "7c2e36ac735e9f6a9f67788ddc13bbeca002c7e4d1a6af377e15317441237fbe",
+      "pruned_path": "assets/images/enemies/raw/M143.png"
     },
     {
       "old": "assets/enemies/raw/chandelier.png",
-      "new": "assets/images/enemies/raw/M142.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "16eca7181cf5ccd3cf2de3acc8f2ac56554b6be49f9f176069810863290a7b2d"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "16eca7181cf5ccd3cf2de3acc8f2ac56554b6be49f9f176069810863290a7b2d",
+      "pruned_path": "assets/images/enemies/raw/M142.png"
     },
     {
       "old": "assets/enemies/raw/dental-drill.png",
-      "new": "assets/images/enemies/raw/M126.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "c36d231fcae3d59c05de024659fb8ee2cb72836066be577b2c306c737a0624a3"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "c36d231fcae3d59c05de024659fb8ee2cb72836066be577b2c306c737a0624a3",
+      "pruned_path": "assets/images/enemies/raw/M126.png"
     },
     {
       "old": "assets/enemies/raw/doll.png",
-      "new": "assets/images/enemies/raw/M113.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "caab3d37adf32a4567b991dc09a40a3fe3fd4ed9dddbf01a1210bdca0289471d"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "caab3d37adf32a4567b991dc09a40a3fe3fd4ed9dddbf01a1210bdca0289471d",
+      "pruned_path": "assets/images/enemies/raw/M113.png"
     },
     {
       "old": "assets/enemies/raw/drill.png",
-      "new": "assets/images/enemies/raw/M102.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "c459eb831d9d50c091cb195052f78f56c127de4429503a28cb8ef598ebd83819"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "c459eb831d9d50c091cb195052f78f56c127de4429503a28cb8ef598ebd83819",
+      "pruned_path": "assets/images/enemies/raw/M102.png"
     },
     {
       "old": "assets/enemies/raw/encyclopedia.png",
-      "new": "assets/images/enemies/raw/M121.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "7c9e7196aeaa557e7364d4295a58eeb592ae01688e83023e555884a42b1006d4"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "7c9e7196aeaa557e7364d4295a58eeb592ae01688e83023e555884a42b1006d4",
+      "pruned_path": "assets/images/enemies/raw/M121.png"
     },
     {
       "old": "assets/enemies/raw/fan-blades.png",
-      "new": "assets/images/enemies/raw/M147.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "f94e830aa162ab0e14c40430b91053c1c822af413abf7475ec1650593e1d2d6f"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "f94e830aa162ab0e14c40430b91053c1c822af413abf7475ec1650593e1d2d6f",
+      "pruned_path": "assets/images/enemies/raw/M147.png"
     },
     {
       "old": "assets/enemies/raw/formalin-jar.png",
-      "new": "assets/images/enemies/raw/M123.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "ca98d19836f67702051344862bd6d29bc19a09051b23a5520539616ce44cc620"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "ca98d19836f67702051344862bd6d29bc19a09051b23a5520539616ce44cc620",
+      "pruned_path": "assets/images/enemies/raw/M123.png"
     },
     {
       "old": "assets/enemies/raw/frozen-puddle.png",
-      "new": "assets/images/enemies/raw/M148.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "7942b22e8afe055e624bb67cb95d951d99e543817b0d732786456d25e58b38d1"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "7942b22e8afe055e624bb67cb95d951d99e543817b0d732786456d25e58b38d1",
+      "pruned_path": "assets/images/enemies/raw/M148.png"
     },
     {
       "old": "assets/enemies/raw/gonzui.png",
-      "new": "assets/images/enemies/raw/M129.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "1ada2d220f0c11b2c23d5a35b8c214029166294757ae3ea150813c895c8300bd"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "1ada2d220f0c11b2c23d5a35b8c214029166294757ae3ea150813c895c8300bd",
+      "pruned_path": "assets/images/enemies/raw/M129.png"
     },
     {
       "old": "assets/enemies/raw/gun.png",
-      "new": "assets/images/enemies/raw/M103.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "50803a19f427724fe47272fab0b5a7ab503adc1e1d36d272619fc9d4b8fcd352"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "50803a19f427724fe47272fab0b5a7ab503adc1e1d36d272619fc9d4b8fcd352",
+      "pruned_path": "assets/images/enemies/raw/M103.png"
     },
     {
       "old": "assets/enemies/raw/hornet-alpha.png",
-      "new": "assets/images/enemies/raw/M131-alpha.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "c2d57f55c6651f35816bad10a628cfc8294cb9f1319e622ed9d854010b6d21a3"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "c2d57f55c6651f35816bad10a628cfc8294cb9f1319e622ed9d854010b6d21a3",
+      "pruned_path": "assets/images/enemies/raw/M131-alpha.png"
     },
     {
       "old": "assets/enemies/raw/hornet.png",
-      "new": "assets/images/enemies/raw/M131.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "672f516c52807d36ffd465b9598b5ce54fe240942f0a4ece3639e318560f5471"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "672f516c52807d36ffd465b9598b5ce54fe240942f0a4ece3639e318560f5471",
+      "pruned_path": "assets/images/enemies/raw/M131.png"
     },
     {
       "old": "assets/enemies/raw/horror-dvd.png",
-      "new": "assets/images/enemies/raw/M115.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "0e15871f3655a4c66ddca2782b5ad9a57130340f5032cd35600f82dee32dd645"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "0e15871f3655a4c66ddca2782b5ad9a57130340f5032cd35600f82dee32dd645",
+      "pruned_path": "assets/images/enemies/raw/M115.png"
     },
     {
       "old": "assets/enemies/raw/icicle.png",
-      "new": "assets/images/enemies/raw/M138.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "d4c1d2a20563c322d9b08059882c360777ab64ddc32c5446c595e9aaa9f88c7d"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "d4c1d2a20563c322d9b08059882c360777ab64ddc32c5446c595e9aaa9f88c7d",
+      "pruned_path": "assets/images/enemies/raw/M138.png"
     },
     {
       "old": "assets/enemies/raw/kerosene-heater.png",
-      "new": "assets/images/enemies/raw/M149.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "6e9eb640b83716adb3ff34a442942944cef60bbdc937ae639036dad451ae2173"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "6e9eb640b83716adb3ff34a442942944cef60bbdc937ae639036dad451ae2173",
+      "pruned_path": "assets/images/enemies/raw/M149.png"
     },
     {
       "old": "assets/enemies/raw/laughing-bag.png",
-      "new": "assets/images/enemies/raw/M118.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "af0e433e3ce07069786fa2feec526496b7400a3179b1f7b3771435bdf75a2a83"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "af0e433e3ce07069786fa2feec526496b7400a3179b1f7b3771435bdf75a2a83",
+      "pruned_path": "assets/images/enemies/raw/M118.png"
     },
     {
       "old": "assets/enemies/raw/lighter.png",
-      "new": "assets/images/enemies/raw/M150.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "bfdb0eb9d02fc768e655369cccb07f5d0e21787929e6f66cbbddcbb2afdaa649"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "bfdb0eb9d02fc768e655369cccb07f5d0e21787929e6f66cbbddcbb2afdaa649",
+      "pruned_path": "assets/images/enemies/raw/M150.png"
     },
     {
       "old": "assets/enemies/raw/loud-motorbike.png",
-      "new": "assets/images/enemies/raw/M106.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "1294b272317a1fbd877ffe8e523bdfebdffaa7a100ebfe8277760725b142cd78"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "1294b272317a1fbd877ffe8e523bdfebdffaa7a100ebfe8277760725b142cd78",
+      "pruned_path": "assets/images/enemies/raw/M106.png"
     },
     {
       "old": "assets/enemies/raw/mannequin.png",
-      "new": "assets/images/enemies/raw/M112.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "a96eb613ca59b7e3fd11d49393f64ad7ab8c7c1845eeb185241246e01e58d213"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "a96eb613ca59b7e3fd11d49393f64ad7ab8c7c1845eeb185241246e01e58d213",
+      "pruned_path": "assets/images/enemies/raw/M112.png"
     },
     {
       "old": "assets/enemies/raw/nail.png",
-      "new": "assets/images/enemies/raw/M134.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "0a78cd2f947be0552064611599f88e26d542038b7b07252f3a4568a162a722b7"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "0a78cd2f947be0552064611599f88e26d542038b7b07252f3a4568a162a722b7",
+      "pruned_path": "assets/images/enemies/raw/M134.png"
     },
     {
       "old": "assets/enemies/raw/night-branches.png",
-      "new": "assets/images/enemies/raw/M109.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "46d9ddfe4c0ba20c9747306e19e2bdff5a4bf61998eb4d3ebc59df5c11904229"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "46d9ddfe4c0ba20c9747306e19e2bdff5a4bf61998eb4d3ebc59df5c11904229",
+      "pruned_path": "assets/images/enemies/raw/M109.png"
     },
     {
       "old": "assets/enemies/raw/occult-book.png",
-      "new": "assets/images/enemies/raw/M116.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "db7b1eeb078b7faef0730734195b9c1f423048a478b5abc7ecb83463b0b34ace"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "db7b1eeb078b7faef0730734195b9c1f423048a478b5abc7ecb83463b0b34ace",
+      "pruned_path": "assets/images/enemies/raw/M116.png"
     },
     {
       "old": "assets/enemies/raw/octopus-wiring.png",
-      "new": "assets/images/enemies/raw/M151.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "1a3e0aa941429ed803fad481d97c59f62335f4dc0f47a946367ca0bf3ae262c7"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "1a3e0aa941429ed803fad481d97c59f62335f4dc0f47a946367ca0bf3ae262c7",
+      "pruned_path": "assets/images/enemies/raw/M151.png"
     },
     {
       "old": "assets/enemies/raw/open-manhole.png",
-      "new": "assets/images/enemies/raw/M108.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "4498ddb4b5da120b6f307e1d746104e5721b5ebf3d45cf789e94539c578b992f"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "4498ddb4b5da120b6f307e1d746104e5721b5ebf3d45cf789e94539c578b992f",
+      "pruned_path": "assets/images/enemies/raw/M108.png"
     },
     {
       "old": "assets/enemies/raw/pathogen.png",
-      "new": "assets/images/enemies/raw/M132.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "3e7929276eaacbb0dbd358c8cbfef1bb32a21ca244fc907c0b6094f1b0ce9e23"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "3e7929276eaacbb0dbd358c8cbfef1bb32a21ca244fc907c0b6094f1b0ce9e23",
+      "pruned_path": "assets/images/enemies/raw/M132.png"
     },
     {
       "old": "assets/enemies/raw/poison-mushroom.png",
-      "new": "assets/images/enemies/raw/M133.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "2a8a9479ac5ffd5829786c55713973f2d5b3dadd4c39f208359e396d211bdd3e"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "2a8a9479ac5ffd5829786c55713973f2d5b3dadd4c39f208359e396d211bdd3e",
+      "pruned_path": "assets/images/enemies/raw/M133.png"
     },
     {
       "old": "assets/enemies/raw/propeller.png",
-      "new": "assets/images/enemies/raw/M146.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "c54126037f980c038f4eb3051567f0b7d3d0d9596f733f77f70229f2d919da0c"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "c54126037f980c038f4eb3051567f0b7d3d0d9596f733f77f70229f2d919da0c",
+      "pruned_path": "assets/images/enemies/raw/M146.png"
     },
     {
       "old": "assets/enemies/raw/pufferfish.png",
-      "new": "assets/images/enemies/raw/M130.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "5b579a3bb6680297d2a78822a7395a0beff572fa9fa48458a9562947e0d76f23"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "5b579a3bb6680297d2a78822a7395a0beff572fa9fa48458a9562947e0d76f23",
+      "pruned_path": "assets/images/enemies/raw/M130.png"
     },
     {
       "old": "assets/enemies/raw/reckless-bicycle.png",
-      "new": "assets/images/enemies/raw/M104.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "5aaba5f6146887a4b19057aa3f4269a62eb167ac540454760c4e13cef9fb2891"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "5aaba5f6146887a4b19057aa3f4269a62eb167ac540454760c4e13cef9fb2891",
+      "pruned_path": "assets/images/enemies/raw/M104.png"
     },
     {
       "old": "assets/enemies/raw/roadroller.png",
-      "new": "assets/images/enemies/raw/M101.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "a1a5d1c90dfe5a3895ee7c867ef5c04b4c2640bb7ca469eca0f330dcbbbbf968"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "a1a5d1c90dfe5a3895ee7c867ef5c04b4c2640bb7ca469eca0f330dcbbbbf968",
+      "pruned_path": "assets/images/enemies/raw/M101.png"
     },
     {
       "old": "assets/enemies/raw/sea-urchin.png",
-      "new": "assets/images/enemies/raw/M139.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "5e55169ec9e53ce5a8898b5ebd21fe869d876b90a626bb843b6778e0d655ce7b"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "5e55169ec9e53ce5a8898b5ebd21fe869d876b90a626bb843b6778e0d655ce7b",
+      "pruned_path": "assets/images/enemies/raw/M139.png"
     },
     {
       "old": "assets/enemies/raw/skeleton-model.png",
-      "new": "assets/images/enemies/raw/M124.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "11abd0d97168ae393e3bc30806b6fe0b0449795e337fe3c9a8773cbb93d8dbb9"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "11abd0d97168ae393e3bc30806b6fe0b0449795e337fe3c9a8773cbb93d8dbb9",
+      "pruned_path": "assets/images/enemies/raw/M124.png"
     },
     {
       "old": "assets/enemies/raw/syringe.png",
-      "new": "assets/images/enemies/raw/M125.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "849d371cdf2c7f052f998cfe54b6e8692a53fcc17ec6bb84f2348c28c417d130"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "849d371cdf2c7f052f998cfe54b6e8692a53fcc17ec6bb84f2348c28c417d130",
+      "pruned_path": "assets/images/enemies/raw/M125.png"
     },
     {
       "old": "assets/enemies/raw/torn-shoji.png",
-      "new": "assets/images/enemies/raw/M144.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "3eb04e0cb2ad2a203c0b5331cd3277e4b2ac667940139f5a4c61ff8209059e22"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "3eb04e0cb2ad2a203c0b5331cd3277e4b2ac667940139f5a4c61ff8209059e22",
+      "pruned_path": "assets/images/enemies/raw/M144.png"
     },
     {
       "old": "assets/enemies/raw/wall-stain.png",
-      "new": "assets/images/enemies/raw/M110.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "64930089db225cdb38bdf9a1f3d47932de4cc8467b934a08c10e4999f29bdd9b"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "64930089db225cdb38bdf9a1f3d47932de4cc8467b934a08c10e4999f29bdd9b",
+      "pruned_path": "assets/images/enemies/raw/M110.png"
     },
     {
       "old": "assets/enemies/raw/wire-mesh.png",
-      "new": "assets/images/enemies/raw/M136.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "f7cc46094cffdaebd49e90c08488b7969051617d11b861a09fd2c76839bda49c"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "f7cc46094cffdaebd49e90c08488b7969051617d11b861a09fd2c76839bda49c",
+      "pruned_path": "assets/images/enemies/raw/M136.png"
     },
     {
       "old": "assets/enemies/reckless-bicycle.png",
@@ -2973,45 +3044,51 @@
     },
     {
       "old": "assets/summons/raw/kanazawa-thunder-dragon.png",
-      "new": "assets/images/summons/raw/S006.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "12540736671467ea17ec393998b773a5af7f55df01eca1a1f8fa713befa49aaa"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "12540736671467ea17ec393998b773a5af7f55df01eca1a1f8fa713befa49aaa",
+      "pruned_path": "assets/images/summons/raw/S006.png"
     },
     {
       "old": "assets/summons/raw/kotomon-imaginary.png",
-      "new": "assets/images/summons/raw/S007.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "240469c883d1fd1f919d8c001eed5beda24a7984941e8a008ad5e6df3cfcf386"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "240469c883d1fd1f919d8c001eed5beda24a7984941e8a008ad5e6df3cfcf386",
+      "pruned_path": "assets/images/summons/raw/S007.png"
     },
     {
       "old": "assets/summons/raw/river-mist-fire-cat.png",
-      "new": "assets/images/summons/raw/S004.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "ae1dcf38c7d82f57d0a89ddbc1b8a5aa590def1b93c9429046c37a559252220a"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "ae1dcf38c7d82f57d0a89ddbc1b8a5aa590def1b93c9429046c37a559252220a",
+      "pruned_path": "assets/images/summons/raw/S004.png"
     },
     {
       "old": "assets/summons/raw/uchinada-wind.png",
-      "new": "assets/images/summons/raw/S003.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "8f1e7e7500f4f31ba56846b1bb97df0924a945a83b56a6c09ce7b6175bd7c25a"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "8f1e7e7500f4f31ba56846b1bb97df0924a945a83b56a6c09ce7b6175bd7c25a",
+      "pruned_path": "assets/images/summons/raw/S003.png"
     },
     {
       "old": "assets/summons/raw/utatsuyama-frozen-forest.png",
-      "new": "assets/images/summons/raw/S002.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "c349429230301adf60a9d0afa9d0d4c309caee31ff6ffcbedc49a846376de341"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "c349429230301adf60a9d0afa9d0d4c309caee31ff6ffcbedc49a846376de341",
+      "pruned_path": "assets/images/summons/raw/S002.png"
     },
     {
       "old": "assets/summons/raw/vertical-city-beast.png",
-      "new": "assets/images/summons/raw/S005.png",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "350f574db0a66d313cc5df175624d62084434e71698bccb3935fb44322cf08b4"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "350f574db0a66d313cc5df175624d62084434e71698bccb3935fb44322cf08b4",
+      "pruned_path": "assets/images/summons/raw/S005.png"
     },
     {
       "old": "assets/summons/river-mist-fire-cat.png",
@@ -3113,10 +3190,11 @@
     },
     {
       "old": "sample/battle/README.md",
-      "new": "verification/battles/README.md",
-      "action": "move",
-      "reason": "Battle verification fixture, not production image.",
-      "sha256": "7c0745ce2bf0fe0157fdb5336a168b8fa72e934025530d66df9b490d4738a5ef"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Battle verification fixture, not production image.",
+      "sha256": "7c0745ce2bf0fe0157fdb5336a168b8fa72e934025530d66df9b490d4738a5ef",
+      "pruned_path": "verification/battles/README.md"
     },
     {
       "old": "sample/battle/backgrounds/bg-a.png",
@@ -3141,10 +3219,11 @@
     },
     {
       "old": "sample/battle/backgrounds/stage-a.png",
-      "new": "assets/images/battle-backgrounds/BG004.png",
-      "action": "move",
-      "reason": "Existing verification asset; BG005 adopted stage-b and BG001 camera reference preserved.",
-      "sha256": "ecef48982e7e90959e0ffa38b0712dc9a22e46206cb3370e8b1452469d6bfbf8"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing verification asset; BG005 adopted stage-b and BG001 camera reference preserved.",
+      "sha256": "ecef48982e7e90959e0ffa38b0712dc9a22e46206cb3370e8b1452469d6bfbf8",
+      "pruned_path": "assets/images/battle-backgrounds/BG004.png"
     },
     {
       "old": "sample/battle/backgrounds/stage-b.png",
@@ -3155,10 +3234,11 @@
     },
     {
       "old": "sample/battle/backgrounds/stage-c.png",
-      "new": "assets/images/battle-backgrounds/BG006.png",
-      "action": "move",
-      "reason": "Existing verification asset; BG005 adopted stage-b and BG001 camera reference preserved.",
-      "sha256": "f2aa5877d6ddf7f914f8675bd3aefa18e2566345c7974b286ee4d749cdc065e4"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing verification asset; BG005 adopted stage-b and BG001 camera reference preserved.",
+      "sha256": "f2aa5877d6ddf7f914f8675bd3aefa18e2566345c7974b286ee4d749cdc065e4",
+      "pruned_path": "assets/images/battle-backgrounds/BG006.png"
     },
     {
       "old": "sample/battle/backgrounds/stage-d-candidate.png",
@@ -3267,24 +3347,27 @@
     },
     {
       "old": "sample/battle/stage-b.json",
-      "new": "verification/battles/stage-b.json",
-      "action": "move",
-      "reason": "Battle verification fixture, not production image.",
-      "sha256": "cb454d20501c6049af6c10e42be9b0a1eaf32e09c31cbd8e71680a3838a7e970"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Battle verification fixture, not production image.",
+      "sha256": "cb454d20501c6049af6c10e42be9b0a1eaf32e09c31cbd8e71680a3838a7e970",
+      "pruned_path": "verification/battles/stage-b.json"
     },
     {
       "old": "sample/battle/stage-c.json",
-      "new": "verification/battles/stage-c.json",
-      "action": "move",
-      "reason": "Battle verification fixture, not production image.",
-      "sha256": "d276f3538a5e34ee17d51b0ace17a11db91e05417c6cdc87ca5428a877105a01"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Battle verification fixture, not production image.",
+      "sha256": "d276f3538a5e34ee17d51b0ace17a11db91e05417c6cdc87ca5428a877105a01",
+      "pruned_path": "verification/battles/stage-c.json"
     },
     {
       "old": "sample/field/README.md",
-      "new": "verification/fields/README.md",
-      "action": "move",
-      "reason": "Field verification fixture.",
-      "sha256": "5fd923fe5cd3d5b899f5b446519ce04d2671111edb4a3cff11cbd228b2802d22"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Field verification fixture.",
+      "sha256": "5fd923fe5cd3d5b899f5b446519ce04d2671111edb4a3cff11cbd228b2802d22",
+      "pruned_path": "verification/fields/README.md"
     },
     {
       "old": "sample/field/diorama-trial/abandoned-school-diorama.png",
@@ -3393,10 +3476,11 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/barrier-free-ramp.json",
-      "new": "verification/fields/legacy-masks/barrier-free-ramp.json",
-      "action": "move",
-      "reason": "Existing legacy geometry/config/tool, not #60 runtime topology.",
-      "sha256": "ad14a972a9cf469642adff5f35f801e9ffffd883b2bcad900b3d4cab9210259f"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing legacy geometry/config/tool, not #60 runtime topology.",
+      "sha256": "ad14a972a9cf469642adff5f35f801e9ffffd883b2bcad900b3d4cab9210259f",
+      "pruned_path": "verification/fields/legacy-masks/barrier-free-ramp.json"
     },
     {
       "old": "sample/field/diorama-trial/masks/connector-mask-overlay.png",
@@ -3414,10 +3498,11 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/connector.json",
-      "new": "verification/fields/legacy-masks/connector.json",
-      "action": "move",
-      "reason": "Existing legacy geometry/config/tool, not #60 runtime topology.",
-      "sha256": "d6967c7d8da245bc2b556dcf0a5db9414db02667ce75e8aec04138175bf73c32"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing legacy geometry/config/tool, not #60 runtime topology.",
+      "sha256": "d6967c7d8da245bc2b556dcf0a5db9414db02667ce75e8aec04138175bf73c32",
+      "pruned_path": "verification/fields/legacy-masks/connector.json"
     },
     {
       "old": "sample/field/diorama-trial/masks/danchi-court-mask-overlay.png",
@@ -3435,10 +3520,11 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/danchi-court.json",
-      "new": "verification/fields/legacy-masks/danchi-court.json",
-      "action": "move",
-      "reason": "Existing legacy geometry/config/tool, not #60 runtime topology.",
-      "sha256": "3f9f33b653e56fa7a5747d17b005b73acbe97a65d1ebade8d545bdebcba2e97f"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing legacy geometry/config/tool, not #60 runtime topology.",
+      "sha256": "3f9f33b653e56fa7a5747d17b005b73acbe97a65d1ebade8d545bdebcba2e97f",
+      "pruned_path": "verification/fields/legacy-masks/danchi-court.json"
     },
     {
       "old": "sample/field/diorama-trial/masks/hinomi-bend-mask-overlay.png",
@@ -3456,10 +3542,11 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/hinomi-bend.json",
-      "new": "verification/fields/legacy-masks/hinomi-bend.json",
-      "action": "move",
-      "reason": "Existing legacy geometry/config/tool, not #60 runtime topology.",
-      "sha256": "dc61caf6ddd664ee628d1c282756134374d4a017f16107ca1034e6349e550b01"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing legacy geometry/config/tool, not #60 runtime topology.",
+      "sha256": "dc61caf6ddd664ee628d1c282756134374d4a017f16107ca1034e6349e550b01",
+      "pruned_path": "verification/fields/legacy-masks/hinomi-bend.json"
     },
     {
       "old": "sample/field/diorama-trial/masks/kindergarten-mask-overlay.png",
@@ -3477,10 +3564,11 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/kindergarten.json",
-      "new": "verification/fields/legacy-masks/kindergarten.json",
-      "action": "move",
-      "reason": "Existing legacy geometry/config/tool, not #60 runtime topology.",
-      "sha256": "6f42141d25f721fc52dffcb51576a3cdf0dc3fd76b6e2daff522cee86dafdb02"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing legacy geometry/config/tool, not #60 runtime topology.",
+      "sha256": "6f42141d25f721fc52dffcb51576a3cdf0dc3fd76b6e2daff522cee86dafdb02",
+      "pruned_path": "verification/fields/legacy-masks/kindergarten.json"
     },
     {
       "old": "sample/field/diorama-trial/masks/link-check/barrier-free-ramp-bottom__danchi-court-top.png",
@@ -3554,10 +3642,11 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/make_masks.py",
-      "new": "verification/fields/legacy-masks/make_masks.py",
-      "action": "move",
-      "reason": "Existing legacy geometry/config/tool, not #60 runtime topology.",
-      "sha256": "9570f1d54021cf9036b47d531468ba2e0c0f6207571d0c20ac02f617c4221088"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing legacy geometry/config/tool, not #60 runtime topology.",
+      "sha256": "9570f1d54021cf9036b47d531468ba2e0c0f6207571d0c20ac02f617c4221088",
+      "pruned_path": "verification/fields/legacy-masks/make_masks.py"
     },
     {
       "old": "sample/field/diorama-trial/masks/narrow-lane-mask-overlay.png",
@@ -3575,10 +3664,11 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/narrow-lane.json",
-      "new": "verification/fields/legacy-masks/narrow-lane.json",
-      "action": "move",
-      "reason": "Existing legacy geometry/config/tool, not #60 runtime topology.",
-      "sha256": "22ef72b6e856a037edecb2c6878cddc60632fac17fab1df3d22e590371cd817a"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing legacy geometry/config/tool, not #60 runtime topology.",
+      "sha256": "22ef72b6e856a037edecb2c6878cddc60632fac17fab1df3d22e590371cd817a",
+      "pruned_path": "verification/fields/legacy-masks/narrow-lane.json"
     },
     {
       "old": "sample/field/diorama-trial/masks/old-slope-foot-mask-overlay.png",
@@ -3610,10 +3700,11 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/old-slope-foot.json",
-      "new": "verification/fields/legacy-masks/old-slope-foot.json",
-      "action": "move",
-      "reason": "Existing legacy geometry/config/tool, not #60 runtime topology.",
-      "sha256": "f8ea426f5be55e41e1ad515092d16b77059d91c6b7d2f5b4e5ca5860c339a200"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing legacy geometry/config/tool, not #60 runtime topology.",
+      "sha256": "f8ea426f5be55e41e1ad515092d16b77059d91c6b7d2f5b4e5ca5860c339a200",
+      "pruned_path": "verification/fields/legacy-masks/old-slope-foot.json"
     },
     {
       "old": "sample/field/diorama-trial/masks/sento-mask-overlay.png",
@@ -3631,10 +3722,11 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/sento.json",
-      "new": "verification/fields/legacy-masks/sento.json",
-      "action": "move",
-      "reason": "Existing legacy geometry/config/tool, not #60 runtime topology.",
-      "sha256": "7b0063440bedbd5d47f503bc47aec988c4e16724392d6ed43f01c766efb1ac42"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing legacy geometry/config/tool, not #60 runtime topology.",
+      "sha256": "7b0063440bedbd5d47f503bc47aec988c4e16724392d6ed43f01c766efb1ac42",
+      "pruned_path": "verification/fields/legacy-masks/sento.json"
     },
     {
       "old": "sample/field/diorama-trial/masks/slope-top-mask-overlay.png",
@@ -3666,24 +3758,27 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/slope-top.json",
-      "new": "verification/fields/legacy-masks/slope-top.json",
-      "action": "move",
-      "reason": "Existing legacy geometry/config/tool, not #60 runtime topology.",
-      "sha256": "62bb42ef9aefba106beef601674b6a85f4fe428e1bef5aadd16ffeeaeda4c70c"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing legacy geometry/config/tool, not #60 runtime topology.",
+      "sha256": "62bb42ef9aefba106beef601674b6a85f4fe428e1bef5aadd16ffeeaeda4c70c",
+      "pruned_path": "verification/fields/legacy-masks/slope-top.json"
     },
     {
       "old": "sample/field/diorama-trial/masks/teramachi-map-plan.json",
-      "new": "verification/fields/legacy-masks/teramachi-map-plan.json",
-      "action": "move",
-      "reason": "Existing legacy geometry/config/tool, not #60 runtime topology.",
-      "sha256": "5917a5681c18615bbca0fa90b1c76a189390adadea3a0616095a0be7efe5aa1a"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing legacy geometry/config/tool, not #60 runtime topology.",
+      "sha256": "5917a5681c18615bbca0fa90b1c76a189390adadea3a0616095a0be7efe5aa1a",
+      "pruned_path": "verification/fields/legacy-masks/teramachi-map-plan.json"
     },
     {
       "old": "sample/field/diorama-trial/masks/teramachi-map.json",
-      "new": "verification/fields/legacy-masks/teramachi-map.json",
-      "action": "move",
-      "reason": "Existing legacy geometry/config/tool, not #60 runtime topology.",
-      "sha256": "6d1baa7db27324b19a5c416e4efef931d71b510753dffd2616587e7b58a3c2b3"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing legacy geometry/config/tool, not #60 runtime topology.",
+      "sha256": "6d1baa7db27324b19a5c416e4efef931d71b510753dffd2616587e7b58a3c2b3",
+      "pruned_path": "verification/fields/legacy-masks/teramachi-map.json"
     },
     {
       "old": "sample/field/diorama-trial/masks/well-merge-mask-overlay.png",
@@ -3701,10 +3796,11 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/well-merge.json",
-      "new": "verification/fields/legacy-masks/well-merge.json",
-      "action": "move",
-      "reason": "Existing legacy geometry/config/tool, not #60 runtime topology.",
-      "sha256": "58c34401afd1ee8e8094e109219ca8fca20f49d34463a76f5453aab0cdd955c1"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing legacy geometry/config/tool, not #60 runtime topology.",
+      "sha256": "58c34401afd1ee8e8094e109219ca8fca20f49d34463a76f5453aab0cdd955c1",
+      "pruned_path": "verification/fields/legacy-masks/well-merge.json"
     },
     {
       "old": "sample/field/diorama-trial/masks/wide-road-mask-overlay.png",
@@ -3722,10 +3818,11 @@
     },
     {
       "old": "sample/field/diorama-trial/masks/wide-road.json",
-      "new": "verification/fields/legacy-masks/wide-road.json",
-      "action": "move",
-      "reason": "Existing legacy geometry/config/tool, not #60 runtime topology.",
-      "sha256": "bc4ecfe6dba7f074c3aee2d3b90a2a11cd39e9ca2680dada3bf7502f43db63f7"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing legacy geometry/config/tool, not #60 runtime topology.",
+      "sha256": "bc4ecfe6dba7f074c3aee2d3b90a2a11cd39e9ca2680dada3bf7502f43db63f7",
+      "pruned_path": "verification/fields/legacy-masks/wide-road.json"
     },
     {
       "old": "sample/field/diorama-trial/noto-ogi-station-diorama.png",
@@ -3953,87 +4050,99 @@
     },
     {
       "old": "sample/field/map-topology-atlas.png",
-      "new": "assets/images/diagrams/DIAG002.png",
-      "action": "move",
-      "reason": "Diagram, not MAP background.",
-      "sha256": "3292cbc3c4ef44bb2680f990bc2a6c539915b425b8b40a54e14b3e00b4e38e52"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Diagram, not MAP background.",
+      "sha256": "3292cbc3c4ef44bb2680f990bc2a6c539915b425b8b40a54e14b3e00b4e38e52",
+      "pruned_path": "assets/images/diagrams/DIAG002.png"
     },
     {
       "old": "sample/field/map-topology-overview.png",
-      "new": "assets/images/diagrams/DIAG001.png",
-      "action": "move",
-      "reason": "Diagram, not MAP background.",
-      "sha256": "cd86bd987e290a23b5aac95e8d6c672297e3203b16f1cca3aa3ef9fe980c2662"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Diagram, not MAP background.",
+      "sha256": "cd86bd987e290a23b5aac95e8d6c672297e3203b16f1cca3aa3ef9fe980c2662",
+      "pruned_path": "assets/images/diagrams/DIAG001.png"
     },
     {
       "old": "sample/field/masks/connector-mask-overlay.png",
-      "new": "assets/images/fields/verification/masks/VFIELD004-mask-overlay.png",
-      "action": "move",
-      "reason": "Generic prototype verification ID, not asserted to be a MAP.",
-      "sha256": "77a012dfab7d2c507615ace1ae5c156d539abe93310ba58d7dcfd1d3257be033"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Generic prototype verification ID, not asserted to be a MAP.",
+      "sha256": "77a012dfab7d2c507615ace1ae5c156d539abe93310ba58d7dcfd1d3257be033",
+      "pruned_path": "assets/images/fields/verification/masks/VFIELD004-mask-overlay.png"
     },
     {
       "old": "sample/field/masks/connector-mask.png",
-      "new": "assets/images/fields/verification/masks/VFIELD004-mask.png",
-      "action": "move",
-      "reason": "Generic prototype verification ID, not asserted to be a MAP.",
-      "sha256": "f6be76408b3ea972e6758d048985201f58ab055ad57469202b2e46cb26cfcc7b"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Generic prototype verification ID, not asserted to be a MAP.",
+      "sha256": "f6be76408b3ea972e6758d048985201f58ab055ad57469202b2e46cb26cfcc7b",
+      "pruned_path": "assets/images/fields/verification/masks/VFIELD004-mask.png"
     },
     {
       "old": "sample/field/masks/connector.json",
-      "new": "verification/fields/prototype-masks/connector.json",
-      "action": "move",
-      "reason": "Prototype verification configuration/tool.",
-      "sha256": "6b8a00b9671bbd4e9239ee79a77c711ab6934230c97763daf777ebe52347abfc"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Prototype verification configuration/tool.",
+      "sha256": "6b8a00b9671bbd4e9239ee79a77c711ab6934230c97763daf777ebe52347abfc",
+      "pruned_path": "verification/fields/prototype-masks/connector.json"
     },
     {
       "old": "sample/field/masks/make_masks.py",
-      "new": "verification/fields/prototype-masks/make_masks.py",
-      "action": "move",
-      "reason": "Prototype verification configuration/tool.",
-      "sha256": "d4ce763d4f94b1b376b2e28f809f2633bc3ce568effce08ded07a3999493967c"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Prototype verification configuration/tool.",
+      "sha256": "d4ce763d4f94b1b376b2e28f809f2633bc3ce568effce08ded07a3999493967c",
+      "pruned_path": "verification/fields/prototype-masks/make_masks.py"
     },
     {
       "old": "sample/field/masks/narrow-lane-mask-overlay.png",
-      "new": "assets/images/fields/verification/masks/VFIELD003-mask-overlay.png",
-      "action": "move",
-      "reason": "Generic prototype verification ID, not asserted to be a MAP.",
-      "sha256": "0b990f9f2b6d8fe3520a5f48be9b79f50793aaa70e1ee9702104b190ac27193b"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Generic prototype verification ID, not asserted to be a MAP.",
+      "sha256": "0b990f9f2b6d8fe3520a5f48be9b79f50793aaa70e1ee9702104b190ac27193b",
+      "pruned_path": "assets/images/fields/verification/masks/VFIELD003-mask-overlay.png"
     },
     {
       "old": "sample/field/masks/narrow-lane-mask.png",
-      "new": "assets/images/fields/verification/masks/VFIELD003-mask.png",
-      "action": "move",
-      "reason": "Generic prototype verification ID, not asserted to be a MAP.",
-      "sha256": "459fc6a9a8055a30df69cd642a426c446d8d68994db51aa3f113071a6bddc2f2"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Generic prototype verification ID, not asserted to be a MAP.",
+      "sha256": "459fc6a9a8055a30df69cd642a426c446d8d68994db51aa3f113071a6bddc2f2",
+      "pruned_path": "assets/images/fields/verification/masks/VFIELD003-mask.png"
     },
     {
       "old": "sample/field/masks/narrow-lane.json",
-      "new": "verification/fields/prototype-masks/narrow-lane.json",
-      "action": "move",
-      "reason": "Prototype verification configuration/tool.",
-      "sha256": "5a3bbd58d799011c83e7389905e587cad5fbe30f69af8254e42813e94f80ef5a"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Prototype verification configuration/tool.",
+      "sha256": "5a3bbd58d799011c83e7389905e587cad5fbe30f69af8254e42813e94f80ef5a",
+      "pruned_path": "verification/fields/prototype-masks/narrow-lane.json"
     },
     {
       "old": "sample/field/masks/overview-mask-overlay.png",
-      "new": "assets/images/fields/verification/masks/VFIELD001-mask-overlay.png",
-      "action": "move",
-      "reason": "Generic prototype verification ID, not asserted to be a MAP.",
-      "sha256": "dc35cd448ee034e7d4ce6b761df19baba32add2859651ca9714b2fedf1b3a52f"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Generic prototype verification ID, not asserted to be a MAP.",
+      "sha256": "dc35cd448ee034e7d4ce6b761df19baba32add2859651ca9714b2fedf1b3a52f",
+      "pruned_path": "assets/images/fields/verification/masks/VFIELD001-mask-overlay.png"
     },
     {
       "old": "sample/field/masks/overview-mask.png",
-      "new": "assets/images/fields/verification/masks/VFIELD001-mask.png",
-      "action": "move",
-      "reason": "Generic prototype verification ID, not asserted to be a MAP.",
-      "sha256": "f5ad7cf18b2bd5e1b79291789f41eb568f19165665f6e10fd129e3bdf283b6f4"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Generic prototype verification ID, not asserted to be a MAP.",
+      "sha256": "f5ad7cf18b2bd5e1b79291789f41eb568f19165665f6e10fd129e3bdf283b6f4",
+      "pruned_path": "assets/images/fields/verification/masks/VFIELD001-mask.png"
     },
     {
       "old": "sample/field/masks/overview.json",
-      "new": "verification/fields/prototype-masks/overview.json",
-      "action": "move",
-      "reason": "Prototype verification configuration/tool.",
-      "sha256": "47905706ae094bc4568df9a87cf12ed4b8a614d806aed60778172feacc316462"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Prototype verification configuration/tool.",
+      "sha256": "47905706ae094bc4568df9a87cf12ed4b8a614d806aed60778172feacc316462",
+      "pruned_path": "verification/fields/prototype-masks/overview.json"
     },
     {
       "old": "sample/field/masks/teramachi-e01-rebuild-v3-assist-mask.png",
@@ -4611,24 +4720,27 @@
     },
     {
       "old": "sample/field/masks/wide-road-mask-overlay.png",
-      "new": "assets/images/fields/verification/masks/VFIELD002-mask-overlay.png",
-      "action": "move",
-      "reason": "Generic prototype verification ID, not asserted to be a MAP.",
-      "sha256": "08d7cee8405dd91cfd1c27a4562cbc3a2a8a551fd7bdebdd35174ddaf75b442d"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Generic prototype verification ID, not asserted to be a MAP.",
+      "sha256": "08d7cee8405dd91cfd1c27a4562cbc3a2a8a551fd7bdebdd35174ddaf75b442d",
+      "pruned_path": "assets/images/fields/verification/masks/VFIELD002-mask-overlay.png"
     },
     {
       "old": "sample/field/masks/wide-road-mask.png",
-      "new": "assets/images/fields/verification/masks/VFIELD002-mask.png",
-      "action": "move",
-      "reason": "Generic prototype verification ID, not asserted to be a MAP.",
-      "sha256": "d04ed72e52a7f387624297d52274d881c130d511abd697ea8d022437ed4b79df"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Generic prototype verification ID, not asserted to be a MAP.",
+      "sha256": "d04ed72e52a7f387624297d52274d881c130d511abd697ea8d022437ed4b79df",
+      "pruned_path": "assets/images/fields/verification/masks/VFIELD002-mask.png"
     },
     {
       "old": "sample/field/masks/wide-road.json",
-      "new": "verification/fields/prototype-masks/wide-road.json",
-      "action": "move",
-      "reason": "Prototype verification configuration/tool.",
-      "sha256": "7026075a0597ad0ae86f8491f123efa9dff9297c035fcd29f26e654d468918c1"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Prototype verification configuration/tool.",
+      "sha256": "7026075a0597ad0ae86f8491f123efa9dff9297c035fcd29f26e654d468918c1",
+      "pruned_path": "verification/fields/prototype-masks/wide-road.json"
     },
     {
       "old": "sample/field/rebuild/E01-teramachi-kindergarten-16x9-candidate.png",
@@ -4940,52 +5052,66 @@
     },
     {
       "old": "sample/field/teramachi-connector.png",
-      "new": "assets/images/fields/verification/VFIELD004.png",
-      "action": "move",
-      "reason": "Generic prototype verification ID, not asserted to be a MAP.",
-      "sha256": "97ce3255f3e687d55a1cca33636cd142cd902b435a8b216f437f6dd1618c805b"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Generic prototype verification ID, not asserted to be a MAP.",
+      "sha256": "97ce3255f3e687d55a1cca33636cd142cd902b435a8b216f437f6dd1618c805b",
+      "pruned_path": "assets/images/fields/verification/VFIELD004.png"
     },
     {
       "old": "sample/field/teramachi-diorama-standing-enemygrid.field.json",
-      "new": "verification/fields/teramachi-diorama-standing-enemygrid.field.json",
-      "action": "move",
-      "reason": "Field verification fixture.",
-      "sha256": "5ac556c089214719ea4efa1f24ec8c20663b970c358fc72e9c5313a44c9d9200"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Field verification fixture.",
+      "sha256": "5ac556c089214719ea4efa1f24ec8c20663b970c358fc72e9c5313a44c9d9200",
+      "pruned_path": "verification/fields/teramachi-diorama-standing-enemygrid.field.json"
     },
     {
       "old": "sample/field/teramachi-diorama-standing.field.json",
-      "new": "verification/fields/teramachi-diorama-standing.field.json",
-      "action": "move",
-      "reason": "Field verification fixture.",
-      "sha256": "60559095b353bb5838b8c6d0bb0a0ef80e16d8b3598e6329201901a244264d3b"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Field verification fixture.",
+      "sha256": "60559095b353bb5838b8c6d0bb0a0ef80e16d8b3598e6329201901a244264d3b",
+      "pruned_path": "verification/fields/teramachi-diorama-standing.field.json"
     },
     {
       "old": "sample/field/teramachi-diorama-wheelchair.field.json",
-      "new": "verification/fields/teramachi-diorama-wheelchair.field.json",
-      "action": "move",
-      "reason": "Field verification fixture.",
-      "sha256": "ec9e92f2572e7f2cf0e0e4ae1fbbda51b5350f30a51e8488c2f90e08fc79576d"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Field verification fixture.",
+      "sha256": "ec9e92f2572e7f2cf0e0e4ae1fbbda51b5350f30a51e8488c2f90e08fc79576d",
+      "pruned_path": "verification/fields/teramachi-diorama-wheelchair.field.json"
     },
     {
       "old": "sample/field/teramachi-narrow-lane.png",
-      "new": "assets/images/fields/verification/VFIELD003.png",
-      "action": "move",
-      "reason": "Generic prototype verification ID, not asserted to be a MAP.",
-      "sha256": "c078c413b5e4f9c91decd3b446f78e42eaae3c7058affb34175e08188057b627"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Generic prototype verification ID, not asserted to be a MAP.",
+      "sha256": "c078c413b5e4f9c91decd3b446f78e42eaae3c7058affb34175e08188057b627",
+      "pruned_path": "assets/images/fields/verification/VFIELD003.png"
     },
     {
       "old": "sample/field/teramachi-overview.png",
-      "new": "assets/images/fields/verification/VFIELD001.png",
-      "action": "move",
-      "reason": "Generic prototype verification ID, not asserted to be a MAP.",
-      "sha256": "a805f48c26a3d3f4b085d84926175486ecb83c078dd36ad161cf5f849c1d5b81"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Generic prototype verification ID, not asserted to be a MAP.",
+      "sha256": "a805f48c26a3d3f4b085d84926175486ecb83c078dd36ad161cf5f849c1d5b81",
+      "pruned_path": "assets/images/fields/verification/VFIELD001.png"
     },
     {
       "old": "sample/field/teramachi-wide-road.png",
-      "new": "assets/images/fields/verification/VFIELD002.png",
-      "action": "move",
-      "reason": "Generic prototype verification ID, not asserted to be a MAP.",
-      "sha256": "83f5a8665382a06969762b42625304b77d906c1d8ec66a4daa89682df30512f7"
+      "new": null,
+      "action": "delete",
+      "reason": "Pruned by #68 follow-up (2026-10-19): raw/verification/unadopted image removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Generic prototype verification ID, not asserted to be a MAP.",
+      "sha256": "83f5a8665382a06969762b42625304b77d906c1d8ec66a4daa89682df30512f7",
+      "pruned_path": "assets/images/fields/verification/VFIELD002.png"
     }
-  ]
+  ],
+  "pruned": {
+    "issue": 68,
+    "decision": "raw/・検証JSON(verification)・不採用画像を廃止",
+    "restore_from_commit": "1bb09d01fd6f7019e3ccc99048599c1492ac1d4a",
+    "restore": "git show 1bb09d0:<pruned_path> > <pruned_path>",
+    "count": 119
+  }
 }
