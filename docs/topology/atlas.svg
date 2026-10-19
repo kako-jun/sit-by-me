@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="6030" height="10924" viewBox="0 0 6030 10924" role="img"><title>全130MAP・全接続アトラス</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:21px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="6030" height="10924" fill="#edf3f1"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="5220" height="10924" viewBox="0 0 5220 10924" role="img"><title>全130MAP・全接続アトラス</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:21px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="5220" height="10924" fill="#edf3f1"/>
 <text x="30" y="45" class="heading">全130MAP接続アトラス：所有MAPは各1回、外部口と全接続を併記</text>
 <text x="30" y="85" class="note">各枠は独立した模式図。庭園・城は北上、ほかは注記に従う。詳細はareas/各エリア.svgを等倍表示。</text>
 <g transform="translate(0 120)"><g data-area="teramachi"><rect x="8" y="8" width="1694" height="2421" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">寺町・寺院と住居・17MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
@@ -95,83 +95,90 @@
 <text x="65" y="2300" class="small">E01.event-kiss → F19.event-mouth  [外部: body]</text>
 <path class="event" data-reference-edge-id="E01.event-kiss&gt;F19.event-mouth:event" data-kind="event" data-from="E01" data-to="F19" data-from-port="event-kiss" data-to-port="event-mouth" d="M1550 2293 L1665 2293" marker-end="url(#directed-arrow)"/>
 </g></g>
-<g transform="translate(2010 120)"><g data-area="city"><rect x="8" y="8" width="1964" height="1971" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">香林坊・茶屋街・広坂・病院・13MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
-<path class="edge" data-edge-id="E19.top&gt;E17.bottom:edge" data-kind="edge" data-from="E19" data-to="E17" data-from-port="top" data-to-port="bottom" d="M440 1060 L440 840"/>
-<path class="edge" data-edge-id="E17.top&gt;N1.bottom:edge" data-kind="edge" data-from="E17" data-to="N1" data-from-port="top" data-to-port="bottom" d="M440 840 L440 620"/>
-<path class="edge" data-edge-id="N1.top&gt;E14.bottom:edge" data-kind="edge" data-from="N1" data-to="E14" data-from-port="top" data-to-port="bottom" d="M440 620 L440 400"/>
-<path class="edge" data-edge-id="E14.top&gt;N11.bottom:edge" data-kind="edge" data-from="E14" data-to="N11" data-from-port="top" data-to-port="bottom" d="M440 400 L440 160"/>
-<path class="edge" data-edge-id="E14.right&gt;N9.left:edge" data-kind="edge" data-from="E14" data-to="N9" data-from-port="right" data-to-port="left" d="M440 400 L770 400"/>
-<path class="door" data-edge-id="E14.door&gt;F83.door-street:door" data-kind="door" data-from="E14" data-to="F83" data-from-port="door" data-to-port="door-street" d="M440 400 L720 160"/>
-<path class="door" data-edge-id="F83.door-toys&gt;F85.door-lower:door" data-kind="door" data-from="F83" data-to="F85" data-from-port="door-toys" data-to-port="door-lower" d="M720 160 L1000 160"/>
-<path class="door" data-edge-id="F85.door-upper&gt;E15.door-korinbo:door" data-kind="door" data-from="F85" data-to="E15" data-from-port="door-upper" data-to-port="door-korinbo" d="M1000 160 L1280 160"/>
-<path class="door" data-edge-id="E15.door-restaurant&gt;F86.door-lower:door" data-kind="door" data-from="E15" data-to="F86" data-from-port="door-restaurant" data-to-port="door-lower" d="M1280 160 L1560 160"/>
-<path class="door" data-edge-id="F86.door-upper&gt;E16.door:door" data-kind="door" data-from="F86" data-to="E16" data-from-port="door-upper" data-to-port="door" d="M1560 160 L1840 160"/>
-<path class="door" data-edge-id="E17.door&gt;E18.door:door" data-kind="door" data-from="E17" data-to="E18" data-from-port="door" data-to-port="door" d="M440 840 L140 840"/>
-<path class="edge" data-edge-id="N9.right&gt;E20.left:edge" data-kind="edge" data-from="N9" data-to="E20" data-from-port="right" data-to-port="left" d="M770 400 L1080 560"/>
-<circle class="node" data-map="E14" cx="440" cy="400" r="30"/><text class="id" x="440" y="407">E14</text>
-<text x="440" y="453" class="label">地下入口のある繁華街交差</text>
-<text x="440" y="474" class="label">点</text>
-<circle class="node" data-map="F83" cx="720" cy="160" r="30"/><text class="id" x="720" y="167">F83</text>
-<text x="720" y="213" class="label">デパート1階（入口階）。</text>
-<text x="720" y="234" class="label">時計のある吹き抜け（アト</text>
-<text x="720" y="255" class="label">リオ参照）</text>
-<circle class="node" data-map="F85" cx="1000" cy="160" r="30"/><text class="id" x="1000" y="167">F85</text>
-<text x="1000" y="213" class="label">デパート2階（隠し階）</text>
-<circle class="node" data-map="E15" cx="1280" cy="160" r="30"/><text class="id" x="1280" y="167">E15</text>
-<text x="1280" y="213" class="label">ブラウン管デモ台のあるお</text>
-<text x="1280" y="234" class="label">もちゃ売場（3階）</text>
-<circle class="node" data-map="F86" cx="1560" cy="160" r="30"/><text class="id" x="1560" y="167">F86</text>
-<text x="1560" y="213" class="label">デパート4階（隠し階・条</text>
-<text x="1560" y="234" class="label">件つき）</text>
-<circle class="node" data-map="E16" cx="1840" cy="160" r="30"/><text class="id" x="1840" y="167">E16</text>
-<text x="1840" y="213" class="label">高層階のお子様ランチのレ</text>
-<text x="1840" y="234" class="label">ストラン（5階・暫定）</text>
-<circle class="node" data-map="E17" cx="440" cy="840" r="30"/><text class="id" x="440" y="847">E17</text>
-<text x="440" y="893" class="label">犀川手前の暗い格子の茶屋</text>
-<text x="440" y="914" class="label">道</text>
-<circle class="node" data-map="E18" cx="140" cy="840" r="30"/><text class="id" x="140" y="847">E18</text>
-<text x="140" y="893" class="label">雪明かりの弁柄色の茶室</text>
-<circle class="node" data-map="E19" cx="440" cy="1060" r="30"/><text class="id" x="440" y="1067">E19</text>
-<text x="440" y="1113" class="label">除雪雪山のある無名コンビ</text>
-<text x="440" y="1134" class="label">ニ</text>
-<circle class="node" data-map="E20" cx="1080" cy="560" r="30"/><text class="id" x="1080" y="567">E20</text>
-<text x="1080" y="613" class="label">スロープと車寄せのある私</text>
-<text x="1080" y="634" class="label">立病院</text>
-<circle class="node" data-map="N1" cx="440" cy="620" r="30"/><text class="id" x="440" y="627">N1</text>
-<text x="440" y="673" class="label">融雪水の犀川鉄橋</text>
-<circle class="node" data-map="N9" cx="770" cy="400" r="30"/><text class="id" x="770" y="407">N9</text>
-<text x="770" y="453" class="label">松と石垣で二手に分かれる</text>
-<text x="770" y="474" class="label">広坂</text>
-<circle class="node" data-map="N11" cx="440" cy="160" r="30"/><text class="id" x="440" y="167">N11</text>
-<text x="440" y="213" class="label">バス屋根と市場アーケード</text>
-<text x="440" y="234" class="label">の十字</text>
-<text x="25" y="1185" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
-<circle class="ref" data-reference-map="N2" data-reference="N2" cx="40" cy="1215" r="13"/>
-<text x="65" y="1220" class="small">N2.top ↔ E19.bottom  [外部: teramachi]</text>
-<path class="edge" data-reference-edge-id="N2.top&gt;E19.bottom:edge" data-kind="edge" data-from="N2" data-to="E19" data-from-port="top" data-to-port="bottom" d="M1820 1213 L1935 1213"/>
-<text x="25" y="1262" class="small">E19.top ↔ E17.bottom</text>
-<text x="25" y="1304" class="small">E17.top ↔ N1.bottom</text>
-<text x="25" y="1346" class="small">N1.top ↔ E14.bottom</text>
-<text x="25" y="1388" class="small">E14.top ↔ N11.bottom</text>
-<text x="25" y="1430" class="small">E14.right ↔ N9.left</text>
-<text x="25" y="1472" class="small">E14.door ↔ F83.door-street</text>
-<text x="25" y="1514" class="small">F83.door-toys ↔ F85.door-lower</text>
-<text x="25" y="1556" class="small">F85.door-upper ↔ E15.door-korinbo</text>
-<text x="25" y="1598" class="small">E15.door-restaurant ↔ F86.door-lower</text>
-<text x="25" y="1640" class="small">F86.door-upper ↔ E16.door</text>
-<text x="25" y="1682" class="small">E17.door ↔ E18.door</text>
-<circle class="ref" data-reference-map="E21" data-reference="E21" cx="40" cy="1719" r="13"/>
-<text x="65" y="1724" class="small">N11.top ↔ E21.bottom  [外部: station]</text>
-<path class="edge" data-reference-edge-id="N11.top&gt;E21.bottom:edge" data-kind="edge" data-from="N11" data-to="E21" data-from-port="top" data-to-port="bottom" d="M1820 1717 L1935 1717"/>
-<circle class="ref" data-reference-map="N8" data-reference="N8" cx="40" cy="1761" r="13"/>
-<text x="65" y="1766" class="small">N11.right ↔ N8.left  [外部: mountain]</text>
-<path class="edge" data-reference-edge-id="N11.right&gt;N8.left:edge" data-kind="edge" data-from="N11" data-to="N8" data-from-port="right" data-to-port="left" d="M1820 1759 L1935 1759"/>
-<circle class="ref" data-reference-map="F41" data-reference="F41" cx="40" cy="1803" r="13"/>
-<text x="65" y="1808" class="small">N9.top ↔ F41.bottom  [外部: garden]</text>
-<path class="edge" data-reference-edge-id="N9.top&gt;F41.bottom:edge" data-kind="edge" data-from="N9" data-to="F41" data-from-port="top" data-to-port="bottom" d="M1820 1801 L1935 1801"/>
-<text x="25" y="1850" class="small">N9.right ↔ E20.left</text>
+<g transform="translate(1740 120)"><g data-area="city"><rect x="8" y="8" width="1404" height="2317" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">香林坊・茶屋街・広坂・病院・13MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<path class="edge" data-edge-id="E19.top&gt;E17.bottom:edge" data-kind="edge" data-from="E19" data-to="E17" data-from-port="top" data-to-port="bottom" d="M440 1280 L440 1060"/>
+<path class="edge" data-edge-id="E17.top&gt;N1.bottom:edge" data-kind="edge" data-from="E17" data-to="N1" data-from-port="top" data-to-port="bottom" d="M440 1060 L440 840"/>
+<path class="edge" data-edge-id="N1.top&gt;E14.bottom:edge" data-kind="edge" data-from="N1" data-to="E14" data-from-port="top" data-to-port="bottom" d="M440 840 L440 620"/>
+<path class="edge" data-edge-id="E14.top&gt;N11.bottom:edge" data-kind="edge" data-from="E14" data-to="N11" data-from-port="top" data-to-port="bottom" d="M440 620 L440 380"/>
+<path class="edge" data-edge-id="E14.right&gt;N9.left:edge" data-kind="edge" data-from="E14" data-to="N9" data-from-port="right" data-to-port="left" d="M440 620 L770 620"/>
+<path class="door" data-edge-id="E14.door&gt;F83.door-street:door" data-kind="door" data-from="E14" data-to="F83" data-from-port="door" data-to-port="door-street" d="M440 620 L720 380"/>
+<path class="door" data-edge-id="F83.door-toys&gt;E15.door-korinbo:door" data-kind="door" data-from="F83" data-to="E15" data-from-port="door-toys" data-to-port="door-korinbo" d="M720 380 L1000 380"/>
+<path class="door" data-edge-id="E15.door-restaurant&gt;E16.door:door" data-kind="door" data-from="E15" data-to="E16" data-from-port="door-restaurant" data-to-port="door" d="M1000 380 L1280 380"/>
+<path class="door" data-edge-id="F83.door-restaurant&gt;E16.door-lobby:door" data-kind="door" data-from="F83" data-to="E16" data-from-port="door-restaurant" data-to-port="door-lobby" d="M720 380 L1280 380"/>
+<path class="door" data-edge-id="F83.door-2f&gt;F85.door-lower:door" data-kind="door" data-from="F83" data-to="F85" data-from-port="door-2f" data-to-port="door-lower" d="M720 380 L860 160"/>
+<path class="door" data-edge-id="E15.door-2f&gt;F85.door-upper:door" data-kind="door" data-from="E15" data-to="F85" data-from-port="door-2f" data-to-port="door-upper" d="M1000 380 L860 160"/>
+<path class="door" data-edge-id="E15.door-4f&gt;F86.door-lower:door" data-kind="door" data-from="E15" data-to="F86" data-from-port="door-4f" data-to-port="door-lower" d="M1000 380 L1140 160"/>
+<path class="door" data-edge-id="E16.door-4f&gt;F86.door-upper:door" data-kind="door" data-from="E16" data-to="F86" data-from-port="door-4f" data-to-port="door-upper" d="M1280 380 L1140 160"/>
+<path class="door" data-edge-id="E17.door&gt;E18.door:door" data-kind="door" data-from="E17" data-to="E18" data-from-port="door" data-to-port="door" d="M440 1060 L140 1060"/>
+<path class="edge" data-edge-id="N9.right&gt;E20.left:edge" data-kind="edge" data-from="N9" data-to="E20" data-from-port="right" data-to-port="left" d="M770 620 L1080 780"/>
+<circle class="node" data-map="E14" cx="440" cy="620" r="30"/><text class="id" x="440" y="627">E14</text>
+<text x="440" y="673" class="label">地下入口のある繁華街交差</text>
+<text x="440" y="694" class="label">点</text>
+<circle class="node" data-map="F83" cx="720" cy="380" r="30"/><text class="id" x="720" y="387">F83</text>
+<text x="720" y="433" class="label">デパート1階（入口階）。</text>
+<text x="720" y="454" class="label">時計のある吹き抜け（アト</text>
+<text x="720" y="475" class="label">リオ参照）</text>
+<circle class="node" data-map="E15" cx="1000" cy="380" r="30"/><text class="id" x="1000" y="387">E15</text>
+<text x="1000" y="433" class="label">ブラウン管デモ台のあるお</text>
+<text x="1000" y="454" class="label">もちゃ売場（3階）</text>
+<circle class="node" data-map="E16" cx="1280" cy="380" r="30"/><text class="id" x="1280" y="387">E16</text>
+<text x="1280" y="433" class="label">高層階のお子様ランチのレ</text>
+<text x="1280" y="454" class="label">ストラン（5階。実在の大</text>
+<text x="1280" y="475" class="label">和は8階レストラン街）</text>
+<circle class="node" data-map="F85" cx="860" cy="160" r="30"/><text class="id" x="860" y="167">F85</text>
+<text x="860" y="213" class="label">デパート2階（隠し階）</text>
+<circle class="node" data-map="F86" cx="1140" cy="160" r="30"/><text class="id" x="1140" y="167">F86</text>
+<text x="1140" y="213" class="label">デパート4階（隠し階・条</text>
+<text x="1140" y="234" class="label">件つき）</text>
+<circle class="node" data-map="E17" cx="440" cy="1060" r="30"/><text class="id" x="440" y="1067">E17</text>
+<text x="440" y="1113" class="label">犀川手前の暗い格子の茶屋</text>
+<text x="440" y="1134" class="label">道</text>
+<circle class="node" data-map="E18" cx="140" cy="1060" r="30"/><text class="id" x="140" y="1067">E18</text>
+<text x="140" y="1113" class="label">雪明かりの弁柄色の茶室</text>
+<circle class="node" data-map="E19" cx="440" cy="1280" r="30"/><text class="id" x="440" y="1287">E19</text>
+<text x="440" y="1333" class="label">除雪雪山のある無名コンビ</text>
+<text x="440" y="1354" class="label">ニ</text>
+<circle class="node" data-map="E20" cx="1080" cy="780" r="30"/><text class="id" x="1080" y="787">E20</text>
+<text x="1080" y="833" class="label">スロープと車寄せのある私</text>
+<text x="1080" y="854" class="label">立病院</text>
+<circle class="node" data-map="N1" cx="440" cy="840" r="30"/><text class="id" x="440" y="847">N1</text>
+<text x="440" y="893" class="label">融雪水の犀川鉄橋</text>
+<circle class="node" data-map="N9" cx="770" cy="620" r="30"/><text class="id" x="770" y="627">N9</text>
+<text x="770" y="673" class="label">松と石垣で二手に分かれる</text>
+<text x="770" y="694" class="label">広坂</text>
+<circle class="node" data-map="N11" cx="440" cy="380" r="30"/><text class="id" x="440" y="387">N11</text>
+<text x="440" y="433" class="label">バス屋根と市場アーケード</text>
+<text x="440" y="454" class="label">の十字</text>
+<text x="25" y="1405" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
+<circle class="ref" data-reference-map="N2" data-reference="N2" cx="40" cy="1435" r="13"/>
+<text x="65" y="1440" class="small">N2.top ↔ E19.bottom  [外部: teramachi]</text>
+<path class="edge" data-reference-edge-id="N2.top&gt;E19.bottom:edge" data-kind="edge" data-from="N2" data-to="E19" data-from-port="top" data-to-port="bottom" d="M1260 1433 L1375 1433"/>
+<text x="25" y="1482" class="small">E19.top ↔ E17.bottom</text>
+<text x="25" y="1524" class="small">E17.top ↔ N1.bottom</text>
+<text x="25" y="1566" class="small">N1.top ↔ E14.bottom</text>
+<text x="25" y="1608" class="small">E14.top ↔ N11.bottom</text>
+<text x="25" y="1650" class="small">E14.right ↔ N9.left</text>
+<text x="25" y="1692" class="small">E14.door ↔ F83.door-street</text>
+<text x="25" y="1734" class="small">F83.door-toys ↔ E15.door-korinbo</text>
+<text x="25" y="1776" class="small">E15.door-restaurant ↔ E16.door</text>
+<text x="25" y="1818" class="small">F83.door-restaurant ↔ E16.door-lobby</text>
+<text x="25" y="1860" class="small">F83.door-2f ↔ F85.door-lower</text>
+<text x="25" y="1902" class="small">E15.door-2f ↔ F85.door-upper</text>
+<text x="25" y="1944" class="small">E15.door-4f ↔ F86.door-lower</text>
+<text x="25" y="1986" class="small">E16.door-4f ↔ F86.door-upper</text>
+<text x="25" y="2028" class="small">E17.door ↔ E18.door</text>
+<circle class="ref" data-reference-map="E21" data-reference="E21" cx="40" cy="2065" r="13"/>
+<text x="65" y="2070" class="small">N11.top ↔ E21.bottom  [外部: station]</text>
+<path class="edge" data-reference-edge-id="N11.top&gt;E21.bottom:edge" data-kind="edge" data-from="N11" data-to="E21" data-from-port="top" data-to-port="bottom" d="M1260 2063 L1375 2063"/>
+<circle class="ref" data-reference-map="N8" data-reference="N8" cx="40" cy="2107" r="13"/>
+<text x="65" y="2112" class="small">N11.right ↔ N8.left  [外部: mountain]</text>
+<path class="edge" data-reference-edge-id="N11.right&gt;N8.left:edge" data-kind="edge" data-from="N11" data-to="N8" data-from-port="right" data-to-port="left" d="M1260 2105 L1375 2105"/>
+<circle class="ref" data-reference-map="F41" data-reference="F41" cx="40" cy="2149" r="13"/>
+<text x="65" y="2154" class="small">N9.top ↔ F41.bottom  [外部: garden]</text>
+<path class="edge" data-reference-edge-id="N9.top&gt;F41.bottom:edge" data-kind="edge" data-from="N9" data-to="F41" data-from-port="top" data-to-port="bottom" d="M1260 2147 L1375 2147"/>
+<text x="25" y="2196" class="small">N9.right ↔ E20.left</text>
 </g></g>
-<g transform="translate(4020 120)"><g data-area="station"><rect x="8" y="8" width="1084" height="525" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">金沢駅・1MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<g transform="translate(3480 120)"><g data-area="station"><rect x="8" y="8" width="1084" height="525" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">金沢駅・1MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
 <circle class="node" data-map="E21" cx="140" cy="160" r="30"/><text class="id" x="140" y="167">E21</text>
 <text x="140" y="213" class="label">鼓門の下に雪が弧を描く金</text>
 <text x="140" y="234" class="label">沢駅前</text>
@@ -200,7 +207,7 @@
 <path class="edge" data-reference-edge-id="E13.right&gt;N10.left:edge" data-kind="edge" data-from="E13" data-to="N10" data-from-port="right" data-to-port="left" d="M940 573 L1055 573"/>
 <text x="25" y="622" class="small">N10.bottom ↔ E33.top</text>
 </g></g>
-<g transform="translate(2010 2587)"><g data-area="mountain"><rect x="8" y="8" width="1084" height="1071" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">卯辰山の一本道・5MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<g transform="translate(1740 2587)"><g data-area="mountain"><rect x="8" y="8" width="1084" height="1071" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">卯辰山の一本道・5MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
 <path class="edge" data-edge-id="N8.top&gt;E22.bottom:edge" data-kind="edge" data-from="N8" data-to="E22" data-from-port="top" data-to-port="bottom" d="M140 580 L360 475"/>
 <path class="edge" data-edge-id="E22.top&gt;F04.bottom:edge" data-kind="edge" data-from="E22" data-to="F04" data-from-port="top" data-to-port="bottom" d="M360 475 L160 370"/>
 <path class="edge" data-edge-id="F04.top&gt;F05.bottom:edge" data-kind="edge" data-from="F04" data-to="F05" data-from-port="top" data-to-port="bottom" d="M160 370 L370 265"/>
@@ -232,7 +239,7 @@
 <text x="65" y="950" class="small">F06.top ↔ F07.bottom  [外部: sunnyland]</text>
 <path class="edge" data-reference-edge-id="F06.top&gt;F07.bottom:edge" data-kind="edge" data-from="F06" data-to="F07" data-from-port="top" data-to-port="bottom" d="M940 943 L1055 943"/>
 </g></g>
-<g transform="translate(4020 2587)"><g data-area="sunnyland"><rect x="8" y="8" width="1444" height="1464" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">サニーランド・12MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<g transform="translate(3480 2587)"><g data-area="sunnyland"><rect x="8" y="8" width="1444" height="1464" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">サニーランド・12MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
 <path class="door" data-edge-id="F07.door-corridor&gt;F08.door-entry:door" data-kind="door" data-from="F07" data-to="F08" data-from-port="door-corridor" data-to-port="door-entry" d="M140 205 L360 205"/>
 <path class="door" data-edge-id="F08.door-next&gt;F09.door-prev:door" data-kind="door" data-from="F08" data-to="F09" data-from-port="door-next" data-to-port="door-prev" d="M360 205 L590 205"/>
 <path class="door" data-edge-id="F09.door-aquarium&gt;E24.door-corridor:door" data-kind="door" data-from="F09" data-to="E24" data-from-port="door-aquarium" data-to-port="door-corridor" d="M590 205 L820 205"/>
@@ -328,7 +335,7 @@
 <text x="25" y="966" class="small">N3.top ↔ F11.bottom</text>
 <text x="25" y="1008" class="small">F11.top ↔ E27.bottom</text>
 </g></g>
-<g transform="translate(2010 4097)"><g data-area="noto_train"><rect x="8" y="8" width="1084" height="483" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">能登への鉄道・1MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<g transform="translate(1740 4097)"><g data-area="noto_train"><rect x="8" y="8" width="1084" height="483" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">能登への鉄道・1MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
 <circle class="node" data-map="E28" cx="140" cy="160" r="30"/><text class="id" x="140" y="167">E28</text>
 <text x="140" y="213" class="label">雪で曇る窓と木製座席のの</text>
 <text x="140" y="234" class="label">と鉄道車内</text>
@@ -340,7 +347,7 @@
 <text x="65" y="362" class="small">E28.door-togishima ↔ E29.door-platform  [外部: noto_before]</text>
 <path class="door" data-reference-edge-id="E28.door-togishima&gt;E29.door-platform:door" data-kind="door" data-from="E28" data-to="E29" data-from-port="door-togishima" data-to-port="door-platform" d="M940 355 L1055 355"/>
 </g></g>
-<g transform="translate(4020 4097)"><g data-area="noto_before"><rect x="8" y="8" width="1084" height="1515" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">能登・被災前・8MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<g transform="translate(3480 4097)"><g data-area="noto_before"><rect x="8" y="8" width="1084" height="1515" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">能登・被災前・8MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
 <path class="edge" data-edge-id="E29.top&gt;N5.bottom:edge" data-kind="edge" data-from="E29" data-to="N5" data-from-port="top" data-to-port="bottom" d="M140 680 L140 420"/>
 <path class="edge" data-edge-id="N5.top&gt;N6.bottom:edge" data-kind="edge" data-from="N5" data-to="N6" data-from-port="top" data-to-port="bottom" d="M140 420 L140 160"/>
 <path class="edge" data-edge-id="N6.right&gt;N7.left:edge" data-kind="edge" data-from="N6" data-to="N7" data-from-port="right" data-to-port="left" d="M140 160 L460 160"/>
@@ -421,7 +428,7 @@
 <text x="25" y="1168" class="small">F16.bottom ↔ F17.top</text>
 <text x="25" y="1210" class="small">F12.right ↔ F18.left</text>
 </g></g>
-<g transform="translate(2010 5658)"><g data-area="body"><rect x="8" y="8" width="1084" height="2263" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">幼稚園児の想像する抽象体内・17MAP</text><text x="25" y="78" class="note">架空人体の空間配置・地理的方位ではない</text>
+<g transform="translate(1740 5658)"><g data-area="body"><rect x="8" y="8" width="1084" height="2263" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">幼稚園児の想像する抽象体内・17MAP</text><text x="25" y="78" class="note">架空人体の空間配置・地理的方位ではない</text>
 <path class="door" data-edge-id="F19.door-passage-torso&gt;F74.door-passage-mouth:door" data-kind="door" data-from="F19" data-to="F74" data-from-port="door-passage-torso" data-to-port="door-passage-mouth" d="M730 370 L540 560"/>
 <path class="door" data-edge-id="F74.door-passage-lower&gt;F76.door-passage-upper:door" data-kind="door" data-from="F74" data-to="F76" data-from-port="door-passage-lower" data-to-port="door-passage-upper" d="M540 560 L540 810"/>
 <path class="door" data-edge-id="F74.door-passage-head&gt;F24.door-passage-torso:door" data-kind="door" data-from="F74" data-to="F24" data-from-port="door-passage-head" data-to-port="door-passage-torso" d="M540 560 L540 160"/>
@@ -493,7 +500,7 @@
 <text x="25" y="2100" class="small">F74.door-passage-heart ↔ F26.door-passage-torso</text>
 <text x="25" y="2142" class="small">F74.door-passage-lung ↔ F75.door-passage-torso</text>
 </g></g>
-<g transform="translate(4020 5658)"><g data-area="airport"><rect x="8" y="8" width="1084" height="483" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">K空港・2MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<g transform="translate(3480 5658)"><g data-area="airport"><rect x="8" y="8" width="1084" height="483" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">K空港・2MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
 <path class="door" data-edge-id="F39.door-terminal&gt;F40.door-security:door" data-kind="door" data-from="F39" data-to="F40" data-from-port="door-terminal" data-to-port="door-security" d="M140 160 L380 160"/>
 <circle class="node" data-map="F39" cx="140" cy="160" r="30"/><text class="id" x="140" y="167">F39</text>
 <text x="140" y="213" class="label">雪囲いの送迎車線と低い管</text>
@@ -603,7 +610,7 @@
 <text x="25" y="1958" class="small">F72.door-down ↔ F73.door-up</text>
 <text x="25" y="2000" class="small">F73.door-down ↔ F38.door-up</text>
 </g></g>
-<g transform="translate(2010 7967)"><g data-area="garden"><rect x="8" y="8" width="1084" height="1479" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">兼六園・10MAP</text><text x="25" y="78" class="note">北↑・接続概念図（縮尺ではない）</text>
+<g transform="translate(1740 7967)"><g data-area="garden"><rect x="8" y="8" width="1084" height="1479" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">兼六園・10MAP</text><text x="25" y="78" class="note">北↑・接続概念図（縮尺ではない）</text>
 <path class="edge" data-edge-id="F41.top&gt;F43.bottom:edge" data-kind="edge" data-from="F41" data-to="F43" data-from-port="top" data-to-port="bottom" d="M140 610 L150 390"/>
 <path class="edge" data-edge-id="F41.right&gt;F42.left:edge" data-kind="edge" data-from="F41" data-to="F42" data-from-port="right" data-to-port="left" d="M140 610 L360 570"/>
 <path class="edge" data-edge-id="F42.top&gt;F44.bottom:edge" data-kind="edge" data-from="F42" data-to="F44" data-from-port="top" data-to-port="bottom" d="M360 570 L380 380"/>
@@ -658,7 +665,7 @@
 <text x="65" y="1358" class="small">F50.top ↔ F51.bottom  [外部: castle]</text>
 <path class="edge" data-reference-edge-id="F50.top&gt;F51.bottom:edge" data-kind="edge" data-from="F50" data-to="F51" data-from-port="top" data-to-port="bottom" d="M940 1351 L1055 1351"/>
 </g></g>
-<g transform="translate(4020 7967)"><g data-area="castle"><rect x="8" y="8" width="1084" height="1405" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">金沢城・10MAP</text><text x="25" y="78" class="note">北↑・接続概念図（縮尺ではない）</text>
+<g transform="translate(3480 7967)"><g data-area="castle"><rect x="8" y="8" width="1084" height="1405" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">金沢城・10MAP</text><text x="25" y="78" class="note">北↑・接続概念図（縮尺ではない）</text>
 <path class="edge" data-edge-id="F51.left&gt;F52.right:edge" data-kind="edge" data-from="F51" data-to="F52" data-from-port="left" data-to-port="right" d="M820 270 L630 270"/>
 <path class="edge" data-edge-id="F52.top&gt;F53.bottom:edge" data-kind="edge" data-from="F52" data-to="F53" data-from-port="top" data-to-port="bottom" d="M630 270 L390 160"/>
 <path class="edge" data-edge-id="F52.left&gt;F54.right:edge" data-kind="edge" data-from="F52" data-to="F54" data-from-port="left" data-to-port="right" d="M630 270 L530 390"/>

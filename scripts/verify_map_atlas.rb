@@ -73,7 +73,7 @@ end
 if $PROGRAM_NAME==__FILE__
   begin
     MapAtlasVerification.verify!(File.expand_path('..',__dir__))
-    puts 'PASS: full atlas 130 MAPs / 140 connections, 15 areas, overview cross-area ports and directed events'
+    puts 'PASS: full atlas 130 MAPs / 143 connections, 15 areas, overview cross-area ports and directed events'
   rescue StandardError => e
     warn "FAIL: atlas: #{e.message}"
     exit 1
