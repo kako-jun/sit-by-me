@@ -5,6 +5,8 @@ description: Create, edit, validate, and review Sit by Me field traversal masks 
 
 # Sit by Me Field Masks
 
+**画像の保存形式（#68決定、2026-10-19）**: imagegenの出力（PNG）→切り出し→**WebP（非可逆・品質85・アルファ保持）**にして正本パスへ保存する（`magick in.png -quality 85 out.webp`、または `verification/characters/tools/key_*.py` が直接WebPで出す）。PNGは残さない（name-name のTUIは WebP のみデコードできる）。実寸（不変）・アルファ（`magick in.png -alpha extract` と変換後WebPの同コマンドを `compare -metric AE` で比べAE=0）の検査はWebPで行う。寸法ゲートの基準（1920×1080等）は変えない。 マスク・編集マップなど厳密な画素が要るものは**可逆WebP**（`-define webp:lossless=true`）で保存し、PNGは残さない。 MAPの既存PNG（fields/legacy・masks）はMAP改名PR（PR-M）でWebP化するまで現状のまま。
+
 失敗の来歴（完全prompt・参照・実寸/検査結果・判定理由）はIssueまたはレビュー文書に記録し、失敗画像はリバートする（バイナリを別置き場に保存しない）。
 
 Treat a field mask as a first-class MAP asset. Start only after the specific candidate passes independent raw-image review and its connection/era contract is resolved; final MAP `ready` is the result of masks and adoption review, not a prerequisite. Read the actual background, specification, topology, and era/event conditions. Under #51, old/legacy candidates and masks remain reference-only and cannot satisfy the new-image gate.

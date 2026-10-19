@@ -8,6 +8,8 @@
 
 ポーズや構図をクロマキー背景で決めてから、その画像を編集元に背景だけを透過にしてもよい（小学生のセットはこの2段で作った）。下の幼稚園期の手順はクロマキーで作った当時のもので、結果を再現するにはそのまま `green` / `magenta` を渡す。手順の全体は `.claude/skills/sit-characters`。
 
+出力は全ツール非可逆WebP（品質85・アルファ保持。imagegen出力のPNGが入力、正本パスの .webp が出力。PNGは残さない）。
+
 `key_single.py`: 1体だけの画像を透過にしてタイトに切り抜く（グリッドで作れなかったコマの差し替え用）。`flip` を付けると左右反転する。
 
 ## 戦闘ポーズ
@@ -42,11 +44,11 @@ uv run --with pillow --with numpy --with scipy python3 -I verification/character
   <生成グリッド>/C004-uniform-grid.png assets/images/characters/C004/poses C004-uniform green
 ```
 
-ペー子の `down` は今回もグリッドで倒れなかったので、単独生成した `peiko-down` 画像 を同じく園服に編集した `peiko-uniform-down` 元画像 を `key_single.py ... green` で透過・タイトに切り抜いて `peiko-uniform-down.png` を差し替えた。
+ペー子の `down` は今回もグリッドで倒れなかったので、単独生成した `peiko-down` 画像 を同じく園服に編集した `peiko-uniform-down` 元画像 を `key_single.py ... green` で透過・タイトに切り抜いて `peiko-uniform-down.webp` を差し替えた。
 
 ## フィールドの歩き（幼稚園期・スノーボードウェア）
 
-`key_walk.py`: 4行×3列の歩きグリッド（クロマキー背景）を透過にし、12コマを同じ大きさの枠へ足元そろえで切り出す。絵がセル境界をまたぐので、`key_grid.py` と同じく全体でかたまりを見つけて重心でコマへ振り分ける。生成では2行目と3行目の向きが入れ替わることがあるので、行の向きを引数で指定する（顔を拡大して確かめる）。出力は `walk/{name}-walk-{down,left,right,up}-{1,2,3}.png`。
+`key_walk.py`: 4行×3列の歩きグリッド（クロマキー背景）を透過にし、12コマを同じ大きさの枠へ足元そろえで切り出す。絵がセル境界をまたぐので、`key_grid.py` と同じく全体でかたまりを見つけて重心でコマへ振り分ける。生成では2行目と3行目の向きが入れ替わることがあるので、行の向きを引数で指定する（顔を拡大して確かめる）。出力は `walk/{name}-walk-{down,left,right,up}-{1,2,3}.webp`。
 
 ```
 uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_walk.py \
@@ -71,7 +73,7 @@ $T/key_grid.py <生成グリッド>/C001-elementary-grid.png assets/images/chara
 $T/key_grid.py <生成グリッド>/C002-elementary-grid.png assets/images/characters/C002/poses C002-elementary alpha
 $T/key_grid.py <生成グリッド>/C003-elementary-grid.png assets/images/characters/C003/poses C003-elementary alpha 0,1
 $T/key_grid.py <生成グリッド>/C004-elementary-grid.png assets/images/characters/C004/poses C004-elementary alpha
-$T/key_single.py <生成グリッド>/C004-elementary-down.png assets/images/characters/C004/poses/C004-elementary-down.png alpha
+$T/key_single.py <生成グリッド>/C004-elementary-down.png assets/images/characters/C004/poses/C004-elementary-down.webp alpha
 $T/key_walk.py <生成グリッド>/{C-ID}-elementary-walk-grid.png assets/images/characters/{C-ID}/walk {C-ID}-elementary alpha down,left,right,up
 ```
 
