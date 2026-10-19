@@ -7,7 +7,7 @@
 <path class="door" data-edge-id="E14.door&gt;E15.door-korinbo:door" data-kind="door" data-from="E14" data-to="E15" data-from-port="door" data-to-port="door-korinbo" d="M440 400 L720 160"/>
 <path class="door" data-edge-id="E15.door-restaurant&gt;E16.door:door" data-kind="door" data-from="E15" data-to="E16" data-from-port="door-restaurant" data-to-port="door" d="M720 160 L1000 160"/>
 <path class="door" data-edge-id="E17.door&gt;E18.door:door" data-kind="door" data-from="E17" data-to="E18" data-from-port="door" data-to-port="door" d="M440 840 L140 840"/>
-<path class="edge" data-edge-id="N9.right&gt;E20.left:edge" data-kind="edge" data-from="N9" data-to="E20" data-from-port="right" data-to-port="left" d="M770 400 L1080 400"/>
+<path class="edge" data-edge-id="N9.right&gt;E20.left:edge" data-kind="edge" data-from="N9" data-to="E20" data-from-port="right" data-to-port="left" d="M770 400 L1080 560"/>
 <circle class="node" data-map="E14" cx="440" cy="400" r="30"/><text class="id" x="440" y="407">E14</text>
 <text x="440" y="453" class="label">地下入口のある繁華街交差</text>
 <text x="440" y="474" class="label">点</text>
@@ -25,9 +25,9 @@
 <circle class="node" data-map="E19" cx="440" cy="1060" r="30"/><text class="id" x="440" y="1067">E19</text>
 <text x="440" y="1113" class="label">除雪雪山のある無名コンビ</text>
 <text x="440" y="1134" class="label">ニ</text>
-<circle class="node" data-map="E20" cx="1080" cy="400" r="30"/><text class="id" x="1080" y="407">E20</text>
-<text x="1080" y="453" class="label">スロープと車寄せのある私</text>
-<text x="1080" y="474" class="label">立病院</text>
+<circle class="node" data-map="E20" cx="1080" cy="560" r="30"/><text class="id" x="1080" y="567">E20</text>
+<text x="1080" y="613" class="label">スロープと車寄せのある私</text>
+<text x="1080" y="634" class="label">立病院</text>
 <circle class="node" data-map="N1" cx="440" cy="620" r="30"/><text class="id" x="440" y="627">N1</text>
 <text x="440" y="673" class="label">融雪水の犀川鉄橋</text>
 <circle class="node" data-map="N9" cx="770" cy="400" r="30"/><text class="id" x="770" y="407">N9</text>

@@ -8,18 +8,18 @@
 
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
-| E01 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E01.png`; mask未記録 | 園庭の既存画像におけるE02/E11の実端、幼稚園期のtraversalを採寸する |
+| E01 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E01.png`; mask未記録 | 園庭の既存画像におけるE05(bottom)/E11(door-west)の実端、幼稚園期のtraversalを採寸する。E02との接続は#51で廃止 |
 | E02 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E02.png`; mask未記録 | E01/E03/N2の三端と用水のblocked域を実画像から記録する |
 | E03 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E03.png`; mask未記録 | E02/E04/E10端、火の見櫓周囲のblocked域を記録する |
 | E04 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E04.png`; mask未記録 | E03/E05/E11端と山門のforeground域を記録する |
-| E05 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E05.png`; mask未記録 | 用水・井戸のblocked域とE04/E06端を記録する |
+| E05 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E05.png`; mask未記録 | 用水・井戸のblocked域とE04/E06端、top側のE01正門(#51)を記録する |
 | E06 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E06.png`; mask未記録 | E05/E07端、銭湯煙突・雪山のforeground/blockedを記録する |
 | E07 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E07.png`; mask未記録 | E06/E08を結ぶuniversalスロープの幅・折返しを記録する |
 | E08 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E08.png`; mask未記録 | E07/E09端、F03ドア、団地棟のforegroundを記録する |
 | E09 | recreate-required-1920x1080 | R006,R011,R025 | 1254×1254のv6候補・maskは参照専用。新規出力は1920×1080、prompt・参照画像・mask・red-teamを新たに記録する | v6のleft→top石段・assist-only設計を参照し、16:9版を再生成する |
-| E10 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E10.png`; mask未記録 | E03からの入口以外を禁止辺とし、画面内終端を記録する |
-| E11 | recreate-required-1920x1080 | R006,R011,R024 | 旧境内画像は参照専用。新背景・mask未作成 | #60の屋外境内。E04端、E01通用門、F01正面扉、池・墓地のblocked域を記録。E12/F02屋外doorなし。共通外観参照未通過 |
-| E12 | recreate-required-1920x1080 | R006,R011,R021,R024 | 旧庫裏画像は参照専用。新背景・mask未作成 | #60の東の屋内住居。F01.door-east↔door-hallのみ。内部廊下の扉位置、幅・段差・回転域、火事時遮断範囲がTBD。F02直結なし |
+| E10 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E10.png`; mask未記録 | E03.top入口とE02.leftへのright出口以外を禁止辺とする（#51ループ化。E12への勝手口の扉はTBD） |
+| E11 | recreate-required-1920x1080 | R006,R011,R024 | 旧境内画像は参照専用。新背景・mask未作成 | #60の屋外境内。E04端、E01.door-west通用門（境内の右＝東側）、F01正面扉、池・墓地のblocked域を記録。E12/F02屋外doorなし。共通外観参照未通過 |
+| E12 | recreate-required-1920x1080 | R006,R011,R021,R024 | 旧庫裏画像は参照専用。新背景・mask未作成 | #60/#51の西（本堂から見て左）の屋内住居。F01.door-west↔door-hallのみ。内部廊下の扉位置、幅・段差・回転域、火事時遮断範囲がTBD。F02直結なし |
 | E13 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/E13.png`; mask未記録 | E09石段とN10車椅子坂の端・通行クラスを記録する |
 | E14 | legacy-needs-review | R005,R011 | `assets/images/fields/legacy/E14.png`; mask未記録 | N1/N11/N9端、百貨店door、封鎖期のN9遷移を記録する |
 | E15 | legacy-needs-review | R005 | `assets/images/fields/legacy/E15.png`; mask未記録 | door-korinbo→E14.door、door-restaurant→E16.door、売場通路のuniversal幅を記録する |
@@ -52,8 +52,8 @@
 | N10 | blocked | R006,R011,R021,R023,R024,R025 | 未生成・mask未作成 | E13/E33端、車椅子の連続坂・手すり・除雪帯の寸法根拠を追加する |
 | N11 | blocked | R005,R010,R011,R023,R026 | 未生成・mask未作成 | E14/E21/N8端、交差点の3出口と横断部の段差なし範囲を確定する |
 | N12 | blocked | R009,R021,R022 | 未生成・mask未作成 | E21/E26door、車椅子回転域と半自動扉のゲーム上寸法を確定する |
-| F01 | recreate-required-1920x1080 | R021,R024 | 旧本堂画像は参照専用。新背景・mask未作成 | #60の中央屋内本堂。E11南、E12東、F02西の扉位置、畳・仏具と主路、段差・幅・回転域を記録する |
-| F02 | recreate-required-1920x1080 | R021,R024 | 旧遊戯室画像は参照専用。新背景・mask未作成 | #60の西の屋内幼稚園。F01↔F02.door-westの到着方位と扉位置、舞台袖・椅子・主路の分離、段差・幅・回転域を記録する。E12直結なし |
+| F01 | recreate-required-1920x1080 | R021,R024 | 旧本堂画像は参照専用。新背景・mask未作成 | #60の中央屋内本堂。E11南、E12西、F02東の扉位置、畳・仏具と主路、段差・幅・回転域を記録する |
+| F02 | recreate-required-1920x1080 | R021,R024 | 旧遊戯室画像は参照専用。新背景・mask未作成 | #60/#51の東（右）の屋内幼稚園。F01.door-east↔F02.door-west（本堂側＝西から入る）の扉位置・廊下長、舞台袖・椅子・主路の分離、段差・幅・回転域を記録する。E12直結なし |
 | F03 | recreate-required-1920x1080 | R021,R024 | 未生成・mask未作成 | 県営住宅室内の玄関段差・回転域・E08doorを創作寸法で決める |
 | F04 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | E22/F05端、東屋脇の枝なし蛇行主路の安全幅を決める |
 | F05 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | F04/F06端、崩落石垣を避けるassist主路の幅を決める |
