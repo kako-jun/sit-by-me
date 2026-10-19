@@ -4,6 +4,8 @@
 
 `map-asset-registry.md` の130行を、生成可能にするまで追跡する行単位チェックリスト。接続の正本は `map-topology.md` の「MAP相互接続台帳 v2」、画面主役と主路は `map-specifications.md`、マスク形式は `sit-field-mask` である。全行は `blocked` または `legacy-needs-review` で始める。`TBD` が空でない限り `ready` にしない。台帳整合の独立再監査は [第3周レビュー](reviews/artifact-redteam/20261016-map-ledger-round3.md) を参照。
 
+**注記**: ステータス名 `recreate-required-1920x1080` は名前は1920×1080だが1672×941（16:9）も許容する（改名は別件）。
+
 **2026-10-18 / #51**: E01–E13/F01–F03は全て `recreate-required-1920x1080`、生成契約は `blocked`。以下の旧画像パスは参照専用で、旧mask・旧passは新候補の採用根拠にならない。現行再作成状態は [候補台帳](teramachi-rebuild-candidates.md)、建物群の生成前入力は [制作前確認](production/20261018-teramachi-preflight.md) を参照する。
 
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
