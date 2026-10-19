@@ -46,12 +46,12 @@ For #51, measure the actual background before authoring: target 1920×1080; 16:9
 2. Start edit maps as flat colours at exactly the background resolution. Do not draw outlines into these edit files.
 3. Generate runtime masks and a separate review preview with the repository’s mask tool. The preview may tint classes and draw contours; it is disposable and is never the Photoshop source or runtime mask.
 4. Inspect at 100% and against the background: all mandatory paths reach their correct image edge; prohibited edges do not; black hazards cannot be crossed; orange is limited to assistable terrain; white has wheelchair clearance; cyan occlusion does not hide an exit or create an invisible collision.
-5. Save production edit maps, runtime masks and foreground PNGs as `assets/images/fields/masks/E01-{role}.png` (use the actual MAP ID). Existing legacy masks remain under `assets/images/fields/legacy/masks/`; VFIELD verification masks remain under `assets/images/fields/verification/masks/` (existing files only; do not add new sample masks). Save directly over the canonical path (overwrite), commit when it passes, revert with git when it does not, and commit any take you may use before generating the next one (uncommitted new files are lost on overwrite). Adoption state lives in the ledger status, not in the folder. Keep tools/JSON templates under `verification/fields/legacy-masks/` or `prototype-masks/`. Update the MAP ledger with exact paths and era/assist conditions.
+5. Save production edit maps, runtime masks and foreground PNGs as `assets/images/fields/masks/E01-{role}.png` (use the actual MAP ID). Existing legacy masks remain under `assets/images/fields/legacy/masks/`. Save directly over the canonical path (overwrite), commit when it passes, revert with git when it does not, and commit any take you may use before generating the next one (uncommitted new files are lost on overwrite). Adoption state lives in the ledger status, not in the folder. Update the MAP ledger with exact paths and era/assist conditions.
 6. Send the result to `sit-artifact-redteam` before marking it `ready`.
 
 ## Generator contract
 
-`verification/fields/legacy-masks/make_masks.py` treats the two edit PNGs as canonical; JSON
+The former generator `make_masks.py` (removed in the #68 prune; restore from git history `1bb09d0:verification/fields/legacy-masks/make_masks.py` if needed) treated the two edit PNGs as canonical; JSON
 holds background, size, links, and other metadata. It accepts legacy `walkable`
 as `traversal.universal`, so an existing MAP remains valid without conversion.
 Optional `traversal.universal`, `traversal.assist`, `traversal.blocked`, and

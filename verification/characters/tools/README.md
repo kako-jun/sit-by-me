@@ -1,5 +1,7 @@
 # キャラ素材の加工
 
+> 元グリッド（切り出し前の原本）は保管しない（#68決定、2026-10-19）。以下の `<生成グリッド>/` はスクラッチ等の一時置き場を指す。過去の原本は git 履歴 `1bb09d0` の `assets/images/characters/Cxxx/raw/` から復元できる。
+
 ## 透過の方式（2026-10-14 に統一）
 
 **既定は「透過のまま生成した RGBA」**。各ツールの背景の指定に `alpha` を渡す。クロマキー（`green` / `magenta`）は、RGBA で返らなかったときの代替。同じグリッドで比べた結果、クロマキーは刃・リボンの青い光に緑が混ざって濁り、透過の直接生成は光が自分の色のまま半透明で残った。抜き方は `keying.py` に1つだけ置き、各ツールはそれを使う。
@@ -14,33 +16,33 @@
 
 ```
 uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_grid.py \
-  assets/images/characters/C001/raw/C001-grid.png assets/images/characters/C001/poses C001 green 8
+  <生成グリッド>/C001-grid.png assets/images/characters/C001/poses C001 green 8
 uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_grid.py \
-  assets/images/characters/C002/raw/C002-grid.png assets/images/characters/C002/poses C002 green
+  <生成グリッド>/C002-grid.png assets/images/characters/C002/poses C002 green
 uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_grid.py \
-  assets/images/characters/C003/raw/C003-grid.png assets/images/characters/C003/poses C003 magenta 0,1
+  <生成グリッド>/C003-grid.png assets/images/characters/C003/poses C003 magenta 0,1
 uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_grid.py \
-  assets/images/characters/C004/raw/C004-grid.png assets/images/characters/C004/poses C004 green
+  <生成グリッド>/C004-grid.png assets/images/characters/C004/poses C004 green
 ```
 
-シャーは服が緑なので背景をマゼンタにしている。シャーの ready（1）は、刀は左でも顔が右を向いていたため反転している（反転すると顔が敵を向き、刀を頭の後ろに振りかぶった構えになる）。ペー子の `down` だけはグリッドで倒れなかったため、`raw/peiko-down.png` を単独で生成して差し替えた。
+シャーは服が緑なので背景をマゼンタにしている。シャーの ready（1）は、刀は左でも顔が右を向いていたため反転している（反転すると顔が敵を向き、刀を頭の後ろに振りかぶった構えになる）。ペー子の `down` だけはグリッドで倒れなかったため、単独生成した `peiko-down` 画像 を単独で生成して差し替えた。
 
 ## 園服版（お遊戯会の劇用）
 
-`poses/raw/{name}-uniform-grid.png` は、上の 4 枚のグリッドを編集元に、服だけを `masters/{name}-kindergarten-uniform.png` の園服（鞄なし・上履き）に差し替えて生成したもの。ポーズ・コマ位置・向きは元のグリッドと同じなので、反転の指定も同じにする。
+`{name}-uniform-grid.png` は、上の 4 枚のグリッドを編集元に、服だけを `masters/{name}-kindergarten-uniform.png` の園服（鞄なし・上履き）に差し替えて生成したもの。ポーズ・コマ位置・向きは元のグリッドと同じなので、反転の指定も同じにする。
 
 ```
 uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_grid.py \
-  assets/images/characters/C001/raw/C001-uniform-grid.png assets/images/characters/C001/poses C001-uniform green 8
+  <生成グリッド>/C001-uniform-grid.png assets/images/characters/C001/poses C001-uniform green 8
 uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_grid.py \
-  assets/images/characters/C002/raw/C002-uniform-grid.png assets/images/characters/C002/poses C002-uniform green
+  <生成グリッド>/C002-uniform-grid.png assets/images/characters/C002/poses C002-uniform green
 uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_grid.py \
-  assets/images/characters/C003/raw/C003-uniform-grid.png assets/images/characters/C003/poses C003-uniform magenta 0,1
+  <生成グリッド>/C003-uniform-grid.png assets/images/characters/C003/poses C003-uniform magenta 0,1
 uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_grid.py \
-  assets/images/characters/C004/raw/C004-uniform-grid.png assets/images/characters/C004/poses C004-uniform green
+  <生成グリッド>/C004-uniform-grid.png assets/images/characters/C004/poses C004-uniform green
 ```
 
-ペー子の `down` は今回もグリッドで倒れなかったので、`raw/peiko-down.png` を同じく園服に編集した `raw/peiko-uniform-down.png` を `key_single.py ... green` で透過・タイトに切り抜いて `peiko-uniform-down.png` を差し替えた。
+ペー子の `down` は今回もグリッドで倒れなかったので、単独生成した `peiko-down` 画像 を同じく園服に編集した `peiko-uniform-down` 元画像 を `key_single.py ... green` で透過・タイトに切り抜いて `peiko-uniform-down.png` を差し替えた。
 
 ## フィールドの歩き（幼稚園期・スノーボードウェア）
 
@@ -48,29 +50,29 @@ uv run --with pillow --with numpy --with scipy python3 -I verification/character
 
 ```
 uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_walk.py \
-  assets/images/characters/C001/raw/C001-walk-grid.png assets/images/characters/C001/walk C001 green down,right,left,up
+  <生成グリッド>/C001-walk-grid.png assets/images/characters/C001/walk C001 green down,right,left,up
 uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_walk.py \
-  assets/images/characters/C002/raw/C002-walk-grid.png assets/images/characters/C002/walk C002 green down,right,left,up
+  <生成グリッド>/C002-walk-grid.png assets/images/characters/C002/walk C002 green down,right,left,up
 uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_walk.py \
-  assets/images/characters/C003/raw/C003-walk-grid.png assets/images/characters/C003/walk C003 magenta down,left,right,up
+  <生成グリッド>/C003-walk-grid.png assets/images/characters/C003/walk C003 magenta down,left,right,up
 uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_walk.py \
-  assets/images/characters/C004/raw/C004-walk-grid.png assets/images/characters/C004/walk C004 green down,right,left,up
+  <生成グリッド>/C004-walk-grid.png assets/images/characters/C004/walk C004 green down,right,left,up
 ```
 
 コマ数（4方向×3コマ）と枠の大きさは仮。name-name にフィールド移動のモードができたら、その仕様に合わせる。
 
 ## 小学生（少年編前半）
 
-透過のまま生成したグリッドから切り出す（`alpha`）。ポーズの配置は幼稚園のグリッド、人物と服は `masters/{name}-elementary.png` を参照して、まずクロマキー背景で生成し、その画像の背景だけを透過にする編集をかけた（`poses/raw/{name}-elementary-grid.png` / `{name}-elementary-walk-grid.png` は透過後のもの）。反転の指定は幼稚園と同じ。歩きは4人とも上から 下・左・右・上 の順で出た。ペー子の `down` は今回もグリッドで倒れなかったので、単独で生成して透過にした `raw/peiko-elementary-down.png` を使う。
+透過のまま生成したグリッドから切り出す（`alpha`）。ポーズの配置は幼稚園のグリッド、人物と服は `masters/{name}-elementary.png` を参照して、まずクロマキー背景で生成し、その画像の背景だけを透過にする編集をかけた（`{name}-elementary-grid.png` / `{name}-elementary-walk-grid.png` は透過後のもの）。反転の指定は幼稚園と同じ。歩きは4人とも上から 下・左・右・上 の順で出た。ペー子の `down` は今回もグリッドで倒れなかったので、単独で生成して透過にした `raw/peiko-elementary-down.png` を使う。
 
 ```
 T="uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools"
-$T/key_grid.py assets/images/characters/C001/raw/C001-elementary-grid.png assets/images/characters/C001/poses C001-elementary alpha 8
-$T/key_grid.py assets/images/characters/C002/raw/C002-elementary-grid.png assets/images/characters/C002/poses C002-elementary alpha
-$T/key_grid.py assets/images/characters/C003/raw/C003-elementary-grid.png assets/images/characters/C003/poses C003-elementary alpha 0,1
-$T/key_grid.py assets/images/characters/C004/raw/C004-elementary-grid.png assets/images/characters/C004/poses C004-elementary alpha
-$T/key_single.py assets/images/characters/C004/raw/C004-elementary-down.png assets/images/characters/C004/poses/C004-elementary-down.png alpha
-$T/key_walk.py assets/images/characters/{C-ID}/raw/{C-ID}-elementary-walk-grid.png assets/images/characters/{C-ID}/walk {C-ID}-elementary alpha down,left,right,up
+$T/key_grid.py <生成グリッド>/C001-elementary-grid.png assets/images/characters/C001/poses C001-elementary alpha 8
+$T/key_grid.py <生成グリッド>/C002-elementary-grid.png assets/images/characters/C002/poses C002-elementary alpha
+$T/key_grid.py <生成グリッド>/C003-elementary-grid.png assets/images/characters/C003/poses C003-elementary alpha 0,1
+$T/key_grid.py <生成グリッド>/C004-elementary-grid.png assets/images/characters/C004/poses C004-elementary alpha
+$T/key_single.py <生成グリッド>/C004-elementary-down.png assets/images/characters/C004/poses/C004-elementary-down.png alpha
+$T/key_walk.py <生成グリッド>/{C-ID}-elementary-walk-grid.png assets/images/characters/{C-ID}/walk {C-ID}-elementary alpha down,left,right,up
 ```
 
 ## 振り分けの方式（keying.split）
@@ -79,12 +81,12 @@ $T/key_walk.py assets/images/characters/{C-ID}/raw/{C-ID}-elementary-walk-grid.p
 
 ## 車椅子の主人公（小学生）
 
-`poses/raw/{otton,nam}-elementary-wheelchair-grid.png`（戦闘 3x3）と `-walk.png`（移動 4x3、ハンドリムをこぐ）は、`masters/{name}-elementary-wheelchair.png` と立ちポーズのグリッドを参照して、透過のまま生成した。車椅子は斜めから見た形で出るので、向きは**椅子の向き（前輪のキャスターが敵側＝左）**で判定する。戦闘グリッドはオトンの 3・7・9 番、ナムの 5 番が右向きだったので反転した。移動はオトンの 2 行目・3 行目がどちらも右向きだったため、3 行目を反転して左向きにしている。
+`{otton,nam}-elementary-wheelchair-grid.png`（戦闘 3x3）と `-walk.png`（移動 4x3、ハンドリムをこぐ）は、`masters/{name}-elementary-wheelchair.png` と立ちポーズのグリッドを参照して、透過のまま生成した。車椅子は斜めから見た形で出るので、向きは**椅子の向き（前輪のキャスターが敵側＝左）**で判定する。戦闘グリッドはオトンの 3・7・9 番、ナムの 5 番が右向きだったので反転した。移動はオトンの 2 行目・3 行目がどちらも右向きだったため、3 行目を反転して左向きにしている。
 
 ```
 T="uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools"
-$T/key_grid.py assets/images/characters/C001/raw/C001-elementary-wheelchair-grid.png assets/images/characters/C001/poses C001-elementary-wheelchair alpha 2,6,8
-$T/key_grid.py assets/images/characters/C002/raw/C002-elementary-wheelchair-grid.png assets/images/characters/C002/poses C002-elementary-wheelchair alpha 4
-$T/key_walk.py assets/images/characters/C001/raw/C001-elementary-wheelchair-walk.png assets/images/characters/C001/walk C001-elementary-wheelchair alpha down,right,left,up 2
-$T/key_walk.py assets/images/characters/C002/raw/C002-elementary-wheelchair-walk.png assets/images/characters/C002/walk C002-elementary-wheelchair alpha down,right,left,up
+$T/key_grid.py <生成グリッド>/C001-elementary-wheelchair-grid.png assets/images/characters/C001/poses C001-elementary-wheelchair alpha 2,6,8
+$T/key_grid.py <生成グリッド>/C002-elementary-wheelchair-grid.png assets/images/characters/C002/poses C002-elementary-wheelchair alpha 4
+$T/key_walk.py <生成グリッド>/C001-elementary-wheelchair-walk.png assets/images/characters/C001/walk C001-elementary-wheelchair alpha down,right,left,up 2
+$T/key_walk.py <生成グリッド>/C002-elementary-wheelchair-walk.png assets/images/characters/C002/walk C002-elementary-wheelchair alpha down,right,left,up
 ```

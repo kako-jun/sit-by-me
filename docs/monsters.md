@@ -113,7 +113,7 @@
 | M128 | タコ | 水辺の生物 | 水辺（章は未定）。能登 実家 v2（被災前。水のラーニング元なので被災後の能登の海辺でも出て再戦できる）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 通常敵（吸い付き・からみつき・多腕のトリッキーな戦い） | 仕様のみ | #12 |
 | M129 | ゴンズイ | 水辺の生物 | 水辺（章は未定）。内灘 uchinada-beach（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定（群れと毒棘） | 生成済み: `assets/images/enemies/M129.png`（採否待ち。5匹の群れ・右向き・透過） | #12 |
 | M130 | フグ | 水辺の生物 | 水辺（章は未定）。サニーランド sunnyland-aquarium-indoor（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定（膨らみと毒） | 生成済み: `assets/images/enemies/M130.png`（採否待ち。膨らんだ姿・右向き・透過） | #12 |
-| M131 | スズメバチ | 生物 | 卯辰山 N8 登り口（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | `assets/images/enemies/M131.png`（imagegen 透過直生成を採用。長辺640。`raw/hornet-alpha.png` が元、`raw/hornet.png` は不採用の緑背景版） | #12、#17 |
+| M131 | スズメバチ | 生物 | 卯辰山 N8 登り口（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | `assets/images/enemies/M131.png`（imagegen 透過直生成を採用。長辺640。加工前の原本は残さない） | #12、#17 |
 | M132 | 病原体（今どきのウイルスなど。実在の病原体名を使う。体内の敵は種類を増やす＝各種ウイルス・免疫細胞も出てよい。マクロファージは雑魚でなく部位の中ボスの1つ＝M012（体内では主人公が「異物」なので、免疫は主人公を異物と見て攻撃する）。kako-jun 2026-10-15。台帳へは後で起こす） | 毒と尖り | 体内ダンジョン（異性の友達の病院が舞台。中盤のトクリュウ対決より前）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M132.png`（採用: kako-jun 2026-10-14。透過） | #12、story.md、assets-policy.md |
 | M133 | 毒キノコ | 毒と尖り | 湿った林・古い木壁・山の遊園地跡。卯辰山 utatsuyama-sunnyland（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定（胞子で視界や判断を乱す） | 生成済み: `assets/images/enemies/M133.png`（採否待ち。透過・胞子つき） | #12 |
 | M134 | 釘 | 毒と尖り（尖ったもの） | 能登 N5 上り坂（被災後）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | `assets/images/enemies/M134.png`（透過・長辺640。採用: kako-jun 2026-10-14） | #12 |
@@ -155,11 +155,7 @@
 | ファイル | 内容 | 使われている所 |
 |---|---|---|
 | `assets/images/battle-backgrounds/BG001.png` | 雪の寺町風の道（土塀・石垣・用水・赤白スノーポール） | 戦闘背景の素材（敵との対応は未定） |
-| `assets/images/battle-backgrounds/BG002.png` | 雪の駐車場（波板塀・除雪の雪山） | 同上 |
-| `assets/images/battle-backgrounds/BG003.png` | 雪の園庭（すべり台・ジャングルジム・ブランコ） | 同上 |
-| `assets/images/battle-backgrounds/BG004.png` | お遊戯会の舞台の床（赤い緞帳） | 同上 |
-| `assets/images/battle-backgrounds/BG005.png` | 舞台の床（雪山・城の書き割り） | `stage-b.json`（M001 との戦闘サンプル） |
-| `assets/images/battle-backgrounds/BG006.png` | 舞台の床（紙飾り・段ボールの城） | `stage-c.json`（M001 との戦闘サンプル） |
+| `assets/images/battle-backgrounds/BG005.png` | 舞台の床（雪山・城の書き割り） | M001 との戦闘背景（採用中） |
 | `assets/images/fields/` | 寺町のフィールド背景（overview・wide-road・narrow-lane・connector、試作の kindergarten・danchi-court・sento・well-merge など）と歩行マスク | フィールド。敵の配置は未定 |
 
 ### 3-6. 戦利品（ドロップ・ぬすむ）

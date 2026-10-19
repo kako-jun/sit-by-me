@@ -9,24 +9,13 @@ import sys
 import tempfile
 import threading
 import unittest
-from urllib.parse import urljoin, urlsplit
+from urllib.parse import urljoin
 from urllib.request import urlopen
 
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "docs/production/20261018-asset-migration.json"
 PNG = b"\x89PNG\r\n\x1a\n"
-
-
-def strings(value):
-    if isinstance(value, str):
-        yield value
-    elif isinstance(value, dict):
-        for item in value.values():
-            yield from strings(item)
-    elif isinstance(value, list):
-        for item in value:
-            yield from strings(item)
 
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
@@ -71,7 +60,7 @@ class AssetMigrationTests(unittest.TestCase):
         seen = set()
         for row in self.rows:
             old = Path(row["old"])
-            if not row["old"].startswith("assets/characters/") or old.suffix != ".png":
+            if not row["old"].startswith("assets/characters/") or old.suffix != ".png" or row["action"] != "move":
                 continue
             name, suffix = old.name.split("-", 1)
             ident = ids[name]
@@ -86,12 +75,19 @@ class AssetMigrationTests(unittest.TestCase):
         self.assertEqual({r["new"] for r in before}, {p.relative_to(ROOT).as_posix() for p in actual})
         self.assertFalse((ROOT / "assets/images/summons/S008.png").exists())
         self.assertFalse(any((ROOT / "sample").rglob("*.png")))
-        for config in (ROOT / "verification").rglob("*.json"):
-            for value in strings(json.loads(config.read_text())):
-                if urlsplit(value).path.endswith(".png"):
-                    self.assertNotIn("sample/", value, str(config))
 
-    def test_actual_http_configs_and_image_resolution(self):
+    def test_pruned_paths_stay_deleted(self):
+        pruned = [r for r in self.rows if r.get("pruned_path")]
+        self.assertTrue(pruned)
+        for row in pruned:
+            self.assertEqual(row["action"], "delete")
+            self.assertFalse((ROOT / row["pruned_path"]).exists(), row["pruned_path"])
+        for relative in ["assets/images/enemies/raw", "assets/images/summons/raw", "verification/battles",
+                         "verification/fields", "assets/images/fields/verification"]:
+            self.assertFalse((ROOT / relative).exists(), relative)
+        self.assertEqual(list((ROOT / "assets/images/characters").glob("*/raw")), [])
+
+    def test_actual_http_image_resolution(self):
         handler = functools.partial(QuietHandler, directory=str(ROOT))
         server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
         worker = threading.Thread(target=server.serve_forever, daemon=True)
@@ -99,26 +95,16 @@ class AssetMigrationTests(unittest.TestCase):
         origin = f"http://127.0.0.1:{server.server_port}/"
         try:
             fetched = set()
-            for relative in ["verification/battles/stage-b.json", "verification/fields/teramachi-diorama-wheelchair.field.json"]:
-                config_url = urljoin(origin, relative)
-                with urlopen(config_url) as response:
+            for relative in ["assets/images/enemies/M001.png", "assets/images/battle-backgrounds/BG005.png",
+                             "assets/images/battle-backgrounds/BG001.png"]:
+                with urlopen(urljoin(origin, relative)) as response:
                     self.assertEqual(response.status, 200)
-                    config = json.load(response)
-                for value in strings(config):
-                    parsed = urlsplit(value)
-                    if not parsed.path.endswith(".png"):
-                        continue
-                    # A localhost URL retains its root path, not its stale port.
-                    url = urljoin(origin, parsed.path.lstrip("/")) if parsed.hostname in {"localhost", "127.0.0.1"} else urljoin(config_url, value)
-                    self.assertEqual(urlsplit(url).netloc, urlsplit(origin).netloc)
-                    with urlopen(url) as response:
-                        self.assertEqual(response.status, 200)
-                        self.assertEqual(response.read()[:8], PNG, url)
-                    fetched.add(urlsplit(url).path)
-            self.assertIn("/assets/images/enemies/M001.png", fetched)
-            self.assertIn("/assets/images/battle-backgrounds/BG005.png", fetched)
-            self.assertTrue(any("/masks/" in path for path in fetched))
-            self.assertTrue(any("/fields/legacy/" in path for path in fetched))
+                    self.assertEqual(response.read()[:8], PNG, relative)
+                fetched.add(relative)
+            legacy = sorted((ROOT / "assets/images/fields/legacy").glob("E*.png"))
+            self.assertTrue(legacy)
+            with urlopen(urljoin(origin, legacy[0].relative_to(ROOT).as_posix())) as response:
+                self.assertEqual(response.read()[:8], PNG)
         finally:
             server.shutdown()
             server.server_close()
@@ -226,25 +212,6 @@ class VerifierFailureTests(unittest.TestCase):
                 self.assertNotEqual(result.returncode, 0)
                 self.assertIn("sample still contains files", result.stderr)
                 self.assertEqual(asset.read_bytes(), PNG + b"old-asset")
-
-    def test_url_forms_and_known_missing_versus_live_dangling(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            row = self.fixture(root)
-            config = root / "verification/battles/test.json"
-            config.parent.mkdir(parents=True)
-            paths = ["../../assets/images/enemies/M001.png",
-                     "/assets/images/enemies/M001.png",
-                     "http://localhost:8765/assets/images/enemies/M001.png"]
-            config.write_text(json.dumps(dict(sprite=paths)))
-            (root / "docs/reviews").mkdir()
-            (root / "docs/reviews/history.md").write_text("Deleted sample/failed.png; S008 image never existed.")
-            self.assertEqual(self.run_verifier(root, [row]).returncode, 0)
-            config.write_text(json.dumps(dict(sprite="../../assets/images/summons/S008.png")))
-            result = self.run_verifier(root, [row])
-            self.assertNotEqual(result.returncode, 0)
-            self.assertIn("Dangling reference", result.stderr)
-            self.assertFalse((root / "assets/images/summons/S008.png").exists())
 
 
 if __name__ == "__main__":
