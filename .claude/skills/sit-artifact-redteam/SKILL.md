@@ -5,7 +5,7 @@ description: Independently red-team Sit by Me planning, prompts, generated image
 
 # Sit by Me Artifact Red Team
 
-失敗素材の来歴（完全prompt・参照・実寸/検査結果・hash・判定理由）は保持する。ユーザーが失敗/旧画像の削除を指示した場合、取得元commitと削除理由を残して画像バイナリを削除できる。以下の原本保持指示は、削除指示後の永久保存・重複コピーを要求しない。
+失敗の来歴（完全prompt・参照・実寸/検査結果・判定理由）はIssueまたはレビュー文書に記録し、失敗画像はリバート／削除する（バイナリを別置き場に保存しない）。
 
 Find evidence that a proposed or generated artifact is wrong before it is adopted. This is an **independent** review: the reviewer must not be the author of the target specification, prompt, image, mask, or prior review, and must receive the raw artifact and canonical records rather than the author's conclusion.
 
@@ -19,7 +19,7 @@ Find evidence that a proposed or generated artifact is wrong before it is adopte
 
 ## Inputs and canonical sources
 
-Use the #68 migration ledger for actual paths: `assets/images/{enemies,summons,characters,fields,battle-backgrounds}/` and `verification/{fields,battles}/`. Match canonical M/S/C/E/N/F/BG IDs and distinguish raw/variant, candidate, reference and legacy roles. A move into `assets/images/` proves neither adoption nor a passed review. Historical reviews retain old paths; follow the relocation/deletion ledger and source commit rather than treating tombstones as live inputs.
+Use the #68 migration ledger for actual paths: `assets/images/{enemies,summons,characters,fields,battle-backgrounds}/` and `verification/{fields,battles}/`. Match canonical M/S/C/E/N/F/BG IDs and distinguish raw (pre-processing original), reference and legacy roles. There is no candidate folder or version suffix: new generations overwrite the canonical path (committed if kept, reverted via git if not). Adoption is the ledger status, never the file location; a file at a canonical path proves neither adoption nor a passed review. Review the exact committed version (commit hash). Historical reviews retain old paths; follow the relocation/deletion ledger and source commit rather than treating tombstones as live inputs.
 
 For a MAP review, first read:
 
@@ -59,7 +59,7 @@ Classify each finding with evidence and an exact corrective destination:
 | `minor` | Clarity, naming, or traceability problem that cannot alter the artifact | Record it; do not silently rewrite canonical facts. |
 | `pass` | Every required condition has direct evidence | Eligible for author-side resolution; never auto-adopt an image. |
 
-Write a dated review under `docs/reviews/artifact-redteam/` and link it from the relevant registry row. A review must name the reviewer, target ID, canonical sources inspected, raw artifact paths, each check and evidence, findings, and final disposition. If no issue is found, explicitly list the checks performed; a bare “looks good” is invalid.
+Write a dated review under `docs/reviews/artifact-redteam/` and link it from the relevant registry row. A review must name the reviewer, target ID, canonical sources inspected, reviewed artifact paths with commit hash (failed images are reverted, so record prompt/measurements/verdict instead of keeping binaries), each check and evidence, findings, and final disposition. If no issue is found, explicitly list the checks performed; a bare “looks good” is invalid.
 
 ## Independence gate
 
@@ -69,4 +69,6 @@ Do not repair the candidate while reviewing it. Hand blockers back to the author
 
 - Any unresolved TBD, missing source, missing reciprocal edge, or missing mask blocks adoption/`ready`. At earlier stages, require only the artifacts appropriate to that stage; explicitly list later-stage checks as pending rather than claiming they passed.
 - An image may remain a `legacy` record, but it cannot be used as proof that a contradictory topology is correct.
-- Do not generate replacements, delete candidates, or change public/issue state in this skill unless separately directed.
+- Do not generate replacements, revert or delete images, or change public/issue state in this skill unless separately directed.
+
+共通（#68運用）: 合格済みの正本を上書きする前に、現行がコミット済みか確認する。不合格テイクをコミット済みにしてしまった場合は `git revert <commit>`、または `git checkout <旧commit> -- <path>` で戻す。

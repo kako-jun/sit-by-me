@@ -70,9 +70,12 @@ def verify(root):
             r'characters/(C00[1-4])/(?:masters|poses|walk|raw)/\1-[^/]+\.png',
             r'fields/legacy/E\d{2}(?:-[\w-]+)?\.png',
             r'fields/legacy/masks/E\d{2}[-\w]+\.png',
-            r'fields/verification/(?:masks/)?VFIELD\d{3}(?:-[-\w]+)?\.png',
+            # 現存の旧検証画像のみ許可（新規サンプル置き場は作らない。#68 2026-10-19。削除PRで外す）
+            r'fields/verification/(?:masks/)?VFIELD00[1-4](?:-[-\w]+)?\.png',
             r'fields/reference/[a-z0-9]+(?:-[a-z0-9]+)*\.png',
-            r'battle-backgrounds/(?:candidates/)?BG\d{3}\.png',
+            r'battle-backgrounds/BG\d{3}\.png',
+            # 現存の旧候補BG007〜BG009のみ許可（新規は正本パスへ直接上書き）
+            r'battle-backgrounds/candidates/BG00[789]\.png',
             r'brand/BRAND\d{3}\.png', r'diagrams/DIAG\d{3}\.png',
         )
         assert any(re.fullmatch(p, relative) for p in patterns), f'Non-ID image: {relative}'

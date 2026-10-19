@@ -5,7 +5,7 @@ description: Create, edit, validate, and review Sit by Me field traversal masks 
 
 # Sit by Me Field Masks
 
-失敗素材の来歴（完全prompt・参照・実寸/検査結果・hash・判定理由）は保持する。ユーザーが失敗/旧画像の削除を指示した場合、取得元commitと削除理由を残して画像バイナリを削除できる。以下の原本保持指示は、削除指示後の永久保存・重複コピーを要求しない。
+失敗の来歴（完全prompt・参照・実寸/検査結果・判定理由）はIssueまたはレビュー文書に記録し、失敗画像はリバートする（バイナリを別置き場に保存しない）。
 
 Treat a field mask as a first-class MAP asset. Start only after the specific candidate passes independent raw-image review and its connection/era contract is resolved; final MAP `ready` is the result of masks and adoption review, not a prerequisite. Read the actual background, specification, topology, and era/event conditions. Under #51, old/legacy candidates and masks remain reference-only and cannot satisfy the new-image gate.
 
@@ -45,7 +45,7 @@ For #51, measure the actual background as 1920×1080 before authoring. Every edi
 2. Start edit maps as flat colours at exactly the background resolution. Do not draw outlines into these edit files.
 3. Generate runtime masks and a separate review preview with the repository’s mask tool. The preview may tint classes and draw contours; it is disposable and is never the Photoshop source or runtime mask.
 4. Inspect at 100% and against the background: all mandatory paths reach their correct image edge; prohibited edges do not; black hazards cannot be crossed; orange is limited to assistable terrain; white has wheelchair clearance; cyan occlusion does not hide an exit or create an invisible collision.
-5. Save production edit maps, runtime masks and foreground PNGs as `assets/images/fields/masks/E01-{role}.png` (use the actual MAP ID). Existing legacy masks remain under `assets/images/fields/legacy/masks/`; VFIELD verification masks remain under `assets/images/fields/verification/masks/`. Keep verification JSON/templates/tools under `verification/fields/legacy-masks/` or `prototype-masks/`, never present them as adopted production assets. Update the MAP ledger with exact paths and era/assist conditions.
+5. Save production edit maps, runtime masks and foreground PNGs as `assets/images/fields/masks/E01-{role}.png` (use the actual MAP ID). Existing legacy masks remain under `assets/images/fields/legacy/masks/`; VFIELD verification masks remain under `assets/images/fields/verification/masks/` (existing files only; do not add new sample masks). Save directly over the canonical path (overwrite), commit when it passes, revert with git when it does not, and commit any take you may use before generating the next one (uncommitted new files are lost on overwrite). Adoption state lives in the ledger status, not in the folder. Keep tools/JSON templates under `verification/fields/legacy-masks/` or `prototype-masks/`. Update the MAP ledger with exact paths and era/assist conditions.
 6. Send the result to `sit-artifact-redteam` before marking it `ready`.
 
 ## Generator contract
@@ -74,3 +74,5 @@ replacing them from the JSON polygons.
 - Missing background, missing reciprocal edge, missing era/assist condition, or a map without an approved connection contract: keep the mask `blocked`.
 - Never use a yellow/coloured outline as editable geometry. It is review-only.
 - Never make stairs, deep snow, water, rubble, or foreground-only cover white merely to connect the route.
+
+共通（#68運用）: 合格済みの正本を上書きする前に、現行がコミット済みか確認する。不合格テイクをコミット済みにしてしまった場合は `git revert <commit>`、または `git checkout <旧commit> -- <path>` で戻す。
