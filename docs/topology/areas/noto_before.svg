@@ -1,44 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1531" viewBox="0 0 1100 1531" role="img"><title>奥能登・被災前</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:21px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1100" height="1531" fill="#edf3f1"/><g data-area="noto_before"><rect x="8" y="8" width="1084" height="1515" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">奥能登・被災前・8MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
-<path class="edge" data-edge-id="E29.top&gt;N5.bottom:edge" data-kind="edge" data-from="E29" data-to="N5" data-from-port="top" data-to-port="bottom" d="M140 680 L140 420"/>
-<path class="edge" data-edge-id="N5.top&gt;N6.bottom:edge" data-kind="edge" data-from="N5" data-to="N6" data-from-port="top" data-to-port="bottom" d="M140 420 L140 160"/>
-<path class="edge" data-edge-id="N6.right&gt;N7.left:edge" data-kind="edge" data-from="N6" data-to="N7" data-from-port="right" data-to-port="left" d="M140 160 L460 160"/>
-<path class="edge" data-edge-id="N7.bottom&gt;E30.top:edge" data-kind="edge" data-from="N7" data-to="E30" data-from-port="bottom" data-to-port="top" d="M460 160 L460 420"/>
-<path class="edge" data-edge-id="E30.bottom&gt;E31.top:edge" data-kind="edge" data-from="E30" data-to="E31" data-from-port="bottom" data-to-port="top" d="M460 420 L460 680"/>
-<path class="edge" data-edge-id="E29.right&gt;F84.left:edge" data-kind="edge" data-from="E29" data-to="F84" data-from-port="right" data-to-port="left" d="M140 680 L460 940"/>
-<path class="edge" data-edge-id="F84.right&gt;E32.left:edge" data-kind="edge" data-from="F84" data-to="E32" data-from-port="right" data-to-port="left" d="M460 940 L780 940"/>
-<circle class="node" data-map="E29" cx="140" cy="680" r="30"/><text class="id" x="140" y="687">E29</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1531" viewBox="0 0 1100 1531" role="img"><title>奥能登・被災前</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:15px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1100" height="1531" fill="#edf3f1"/><g data-area="noto_before"><rect x="8" y="8" width="1084" height="1515" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">奥能登・被災前・8MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<path class="edge" data-edge-id="NTB-01.top&gt;NTB-02.bottom:edge" data-kind="edge" data-from="NTB-01" data-to="NTB-02" data-from-port="top" data-to-port="bottom" d="M140 680 L140 420"/>
+<path class="edge" data-edge-id="NTB-02.top&gt;NTB-03.bottom:edge" data-kind="edge" data-from="NTB-02" data-to="NTB-03" data-from-port="top" data-to-port="bottom" d="M140 420 L140 160"/>
+<path class="edge" data-edge-id="NTB-03.right&gt;NTB-04.left:edge" data-kind="edge" data-from="NTB-03" data-to="NTB-04" data-from-port="right" data-to-port="left" d="M140 160 L460 160"/>
+<path class="edge" data-edge-id="NTB-04.bottom&gt;NTB-05.top:edge" data-kind="edge" data-from="NTB-04" data-to="NTB-05" data-from-port="bottom" data-to-port="top" d="M460 160 L460 420"/>
+<path class="edge" data-edge-id="NTB-05.bottom&gt;NTB-06.top:edge" data-kind="edge" data-from="NTB-05" data-to="NTB-06" data-from-port="bottom" data-to-port="top" d="M460 420 L460 680"/>
+<path class="edge" data-edge-id="NTB-01.right&gt;NTB-07.left:edge" data-kind="edge" data-from="NTB-01" data-to="NTB-07" data-from-port="right" data-to-port="left" d="M140 680 L460 940"/>
+<path class="edge" data-edge-id="NTB-07.right&gt;NTB-08.left:edge" data-kind="edge" data-from="NTB-07" data-to="NTB-08" data-from-port="right" data-to-port="left" d="M460 940 L780 940"/>
+<circle class="node" data-map="NTB-01" cx="140" cy="680" r="34"/><text class="id" x="140" y="685">NTB-01</text>
 <text x="140" y="733" class="label">車止めの先で線路が終わる</text>
 <text x="140" y="754" class="label">蛸島駅</text>
-<circle class="node" data-map="N5" cx="140" cy="420" r="30"/><text class="id" x="140" y="427">N5</text>
+<circle class="node" data-map="NTB-02" cx="140" cy="420" r="34"/><text class="id" x="140" y="425">NTB-02</text>
 <text x="140" y="473" class="label">海を背に蛇行して上がる漁</text>
 <text x="140" y="494" class="label">村坂</text>
-<circle class="node" data-map="N6" cx="140" cy="160" r="30"/><text class="id" x="140" y="167">N6</text>
+<circle class="node" data-map="NTB-03" cx="140" cy="160" r="34"/><text class="id" x="140" y="165">NTB-03</text>
 <text x="140" y="213" class="label">小祠と畑を抱える尾根の横</text>
 <text x="140" y="234" class="label">道</text>
-<circle class="node" data-map="N7" cx="460" cy="160" r="30"/><text class="id" x="460" y="167">N7</text>
+<circle class="node" data-map="NTB-04" cx="460" cy="160" r="34"/><text class="id" x="460" y="165">NTB-04</text>
 <text x="460" y="213" class="label">船揚げ場の屋根へ蛇行して</text>
 <text x="460" y="234" class="label">降りる急坂</text>
-<circle class="node" data-map="E30" cx="460" cy="420" r="30"/><text class="id" x="460" y="427">E30</text>
+<circle class="node" data-map="NTB-05" cx="460" cy="420" r="34"/><text class="id" x="460" y="425">NTB-05</text>
 <text x="460" y="473" class="label">黒瓦の実家と海岸道のT字</text>
-<circle class="node" data-map="E31" cx="460" cy="680" r="30"/><text class="id" x="460" y="687">E31</text>
+<circle class="node" data-map="NTB-06" cx="460" cy="680" r="34"/><text class="id" x="460" y="685">NTB-06</text>
 <text x="460" y="733" class="label">テトラポッド脇へ伸びる短</text>
 <text x="460" y="754" class="label">い桟橋</text>
-<circle class="node" data-map="F84" cx="460" cy="940" r="30"/><text class="id" x="460" y="947">F84</text>
-<text x="460" y="993" class="label">廃校の校庭（被災前）。F</text>
-<text x="460" y="1014" class="label">18の被災前版（仮設住宅</text>
-<text x="460" y="1035" class="label">が建つ前）</text>
-<circle class="node" data-map="E32" cx="780" cy="940" r="30"/><text class="id" x="780" y="947">E32</text>
+<circle class="node" data-map="NTB-07" cx="460" cy="940" r="34"/><text class="id" x="460" y="945">NTB-07</text>
+<text x="460" y="993" class="label">廃校の校庭（被災前）。N</text>
+<text x="460" y="1014" class="label">TA-07の被災前版（仮</text>
+<text x="460" y="1035" class="label">設住宅が建つ前）</text>
+<circle class="node" data-map="NTB-08" cx="780" cy="940" r="34"/><text class="id" x="780" y="945">NTB-08</text>
 <text x="780" y="993" class="label">窓が抜けた廃校の雪深い中</text>
 <text x="780" y="1014" class="label">庭（被災前の廃校）</text>
 <text x="25" y="1065" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
-<circle class="ref" data-reference-map="E28" data-reference="E28" cx="40" cy="1095" r="13"/>
-<text x="65" y="1100" class="small">E28.door-togishima ↔ E29.door-platform  [外部: noto_train]</text>
-<path class="door" data-edge-id="E28.door-togishima&gt;E29.door-platform:door" data-kind="door" data-from="E28" data-to="E29" data-from-port="door-togishima" data-to-port="door-platform" d="M940 1093 L1055 1093"/>
-<text x="25" y="1142" class="small">E29.top ↔ N5.bottom</text>
-<text x="25" y="1184" class="small">N5.top ↔ N6.bottom</text>
-<text x="25" y="1226" class="small">N6.right ↔ N7.left</text>
-<text x="25" y="1268" class="small">N7.bottom ↔ E30.top</text>
-<text x="25" y="1310" class="small">E30.bottom ↔ E31.top</text>
-<text x="25" y="1352" class="small">E29.right ↔ F84.left</text>
-<text x="25" y="1394" class="small">F84.right ↔ E32.left</text>
+<circle class="ref" data-reference-map="NTR-01" data-reference="NTR-01" cx="40" cy="1095" r="13"/>
+<text x="65" y="1100" class="small">NTR-01.door-togishima ↔ NTB-01.door-platform  [外部: noto_train]</text>
+<path class="door" data-edge-id="NTR-01.door-togishima&gt;NTB-01.door-platform:door" data-kind="door" data-from="NTR-01" data-to="NTB-01" data-from-port="door-togishima" data-to-port="door-platform" d="M940 1093 L1055 1093"/>
+<text x="25" y="1142" class="small">NTB-01.top ↔ NTB-02.bottom</text>
+<text x="25" y="1184" class="small">NTB-02.top ↔ NTB-03.bottom</text>
+<text x="25" y="1226" class="small">NTB-03.right ↔ NTB-04.left</text>
+<text x="25" y="1268" class="small">NTB-04.bottom ↔ NTB-05.top</text>
+<text x="25" y="1310" class="small">NTB-05.bottom ↔ NTB-06.top</text>
+<text x="25" y="1352" class="small">NTB-01.right ↔ NTB-07.left</text>
+<text x="25" y="1394" class="small">NTB-07.right ↔ NTB-08.left</text>
 </g></svg>

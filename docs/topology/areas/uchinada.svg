@@ -1,28 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1145" viewBox="0 0 1100 1145" role="img"><title>内灘・内灘線</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:21px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1100" height="1145" fill="#edf3f1"/><g data-area="uchinada"><rect x="8" y="8" width="1084" height="1129" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">内灘・内灘線・5MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
-<path class="door" data-edge-id="N12.door-uchinada&gt;E26.door-platform:door" data-kind="door" data-from="N12" data-to="E26" data-from-port="door-uchinada" data-to-port="door-platform" d="M140 680 L400 680"/>
-<path class="edge" data-edge-id="E26.right&gt;N3.left:edge" data-kind="edge" data-from="E26" data-to="N3" data-from-port="right" data-to-port="left" d="M400 680 L660 680"/>
-<path class="edge" data-edge-id="N3.top&gt;F11.bottom:edge" data-kind="edge" data-from="N3" data-to="F11" data-from-port="top" data-to-port="bottom" d="M660 680 L660 420"/>
-<path class="edge" data-edge-id="F11.top&gt;E27.bottom:edge" data-kind="edge" data-from="F11" data-to="E27" data-from-port="top" data-to-port="bottom" d="M660 420 L660 160"/>
-<circle class="node" data-map="N12" cx="140" cy="680" r="30"/><text class="id" x="140" y="687">N12</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1145" viewBox="0 0 1100 1145" role="img"><title>内灘・内灘線</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:15px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1100" height="1145" fill="#edf3f1"/><g data-area="uchinada"><rect x="8" y="8" width="1084" height="1129" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">内灘・内灘線・5MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<path class="door" data-edge-id="UCH-01.door-uchinada&gt;UCH-02.door-platform:door" data-kind="door" data-from="UCH-01" data-to="UCH-02" data-from-port="door-uchinada" data-to-port="door-platform" d="M140 680 L400 680"/>
+<path class="edge" data-edge-id="UCH-02.right&gt;UCH-03.left:edge" data-kind="edge" data-from="UCH-02" data-to="UCH-03" data-from-port="right" data-to-port="left" d="M400 680 L660 680"/>
+<path class="edge" data-edge-id="UCH-03.top&gt;UCH-04.bottom:edge" data-kind="edge" data-from="UCH-03" data-to="UCH-04" data-from-port="top" data-to-port="bottom" d="M660 680 L660 420"/>
+<path class="edge" data-edge-id="UCH-04.top&gt;UCH-05.bottom:edge" data-kind="edge" data-from="UCH-04" data-to="UCH-05" data-from-port="top" data-to-port="bottom" d="M660 420 L660 160"/>
+<circle class="node" data-map="UCH-01" cx="140" cy="680" r="34"/><text class="id" x="140" y="685">UCH-01</text>
 <text x="140" y="733" class="label">内灘線の結露窓と赤い座席</text>
 <text x="140" y="754" class="label">が続く車内</text>
-<circle class="node" data-map="E26" cx="400" cy="680" r="30"/><text class="id" x="400" y="687">E26</text>
+<circle class="node" data-map="UCH-02" cx="400" cy="680" r="34"/><text class="id" x="400" y="685">UCH-02</text>
 <text x="400" y="733" class="label">風を受ける小駅と留置線</text>
-<circle class="node" data-map="N3" cx="660" cy="680" r="30"/><text class="id" x="660" y="687">N3</text>
+<circle class="node" data-map="UCH-03" cx="660" cy="680" r="34"/><text class="id" x="660" y="685">UCH-03</text>
 <text x="660" y="733" class="label">クロマツ防砂林を蛇行して</text>
 <text x="660" y="754" class="label">登る木道</text>
-<circle class="node" data-map="F11" cx="660" cy="420" r="30"/><text class="id" x="660" y="427">F11</text>
+<circle class="node" data-map="UCH-04" cx="660" cy="420" r="34"/><text class="id" x="660" y="425">UCH-04</text>
 <text x="660" y="473" class="label">海を見下ろす砂丘頂の風車</text>
 <text x="660" y="494" class="label">柵</text>
-<circle class="node" data-map="E27" cx="660" cy="160" r="30"/><text class="id" x="660" y="167">E27</text>
+<circle class="node" data-map="UCH-05" cx="660" cy="160" r="34"/><text class="id" x="660" y="165">UCH-05</text>
 <text x="660" y="213" class="label">風紋と波打ち際が上側に広</text>
 <text x="660" y="234" class="label">がる砂浜</text>
 <text x="25" y="805" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
-<circle class="ref" data-reference-map="E21" data-reference="E21" cx="40" cy="835" r="13"/>
-<text x="65" y="840" class="small">E21.door-uchinada ↔ N12.door-kanazawa  [外部: station]</text>
-<path class="door" data-edge-id="E21.door-uchinada&gt;N12.door-kanazawa:door" data-kind="door" data-from="E21" data-to="N12" data-from-port="door-uchinada" data-to-port="door-kanazawa" d="M940 833 L1055 833"/>
-<text x="25" y="882" class="small">N12.door-uchinada ↔ E26.door-platform</text>
-<text x="25" y="924" class="small">E26.right ↔ N3.left</text>
-<text x="25" y="966" class="small">N3.top ↔ F11.bottom</text>
-<text x="25" y="1008" class="small">F11.top ↔ E27.bottom</text>
+<circle class="ref" data-reference-map="STN-01" data-reference="STN-01" cx="40" cy="835" r="13"/>
+<text x="65" y="840" class="small">STN-01.door-uchinada ↔ UCH-01.door-kanazawa  [外部: station]</text>
+<path class="door" data-edge-id="STN-01.door-uchinada&gt;UCH-01.door-kanazawa:door" data-kind="door" data-from="STN-01" data-to="UCH-01" data-from-port="door-uchinada" data-to-port="door-kanazawa" d="M940 833 L1055 833"/>
+<text x="25" y="882" class="small">UCH-01.door-uchinada ↔ UCH-02.door-platform</text>
+<text x="25" y="924" class="small">UCH-02.right ↔ UCH-03.left</text>
+<text x="25" y="966" class="small">UCH-03.top ↔ UCH-04.bottom</text>
+<text x="25" y="1008" class="small">UCH-04.top ↔ UCH-05.bottom</text>
 </g></svg>

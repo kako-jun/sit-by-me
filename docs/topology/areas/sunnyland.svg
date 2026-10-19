@@ -1,68 +1,68 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1460" height="1480" viewBox="0 0 1460 1480" role="img"><title>サニーランド</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:21px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1460" height="1480" fill="#edf3f1"/><g data-area="sunnyland"><rect x="8" y="8" width="1444" height="1464" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">サニーランド・12MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
-<path class="door" data-edge-id="F07.door-corridor&gt;F08.door-entry:door" data-kind="door" data-from="F07" data-to="F08" data-from-port="door-corridor" data-to-port="door-entry" d="M140 205 L360 205"/>
-<path class="door" data-edge-id="F08.door-next&gt;F09.door-prev:door" data-kind="door" data-from="F08" data-to="F09" data-from-port="door-next" data-to-port="door-prev" d="M360 205 L590 205"/>
-<path class="door" data-edge-id="F09.door-aquarium&gt;E24.door-corridor:door" data-kind="door" data-from="F09" data-to="E24" data-from-port="door-aquarium" data-to-port="door-corridor" d="M590 205 L820 205"/>
-<path class="door" data-edge-id="E24.door-outdoor&gt;E23.door-aquarium:door" data-kind="door" data-from="E24" data-to="E23" data-from-port="door-outdoor" data-to-port="door-aquarium" d="M820 205 L1080 335"/>
-<path class="door" data-edge-id="E23.door-zoo&gt;F10.door-hub:door" data-kind="door" data-from="E23" data-to="F10" data-from-port="door-zoo" data-to-port="door-hub" d="M1080 335 L1080 595"/>
-<path class="door" data-edge-id="F10.door-stairs&gt;F63.door-zoo:door" data-kind="door" data-from="F10" data-to="F63" data-from-port="door-stairs" data-to-port="door-zoo" d="M1080 595 L820 595"/>
-<path class="door" data-edge-id="F63.door-hotel&gt;F62.door-far-end:door" data-kind="door" data-from="F63" data-to="F62" data-from-port="door-hotel" data-to-port="door-far-end" d="M820 595 L590 595"/>
-<path class="door" data-edge-id="F62.door-entry&gt;F61.door-hotel:door" data-kind="door" data-from="F62" data-to="F61" data-from-port="door-entry" data-to-port="door-hotel" d="M590 595 L140 595"/>
-<path class="door" data-edge-id="F61.door-stairs&gt;F07.door-stairs:door" data-kind="door" data-from="F61" data-to="F07" data-from-port="door-stairs" data-to-port="door-stairs" d="M140 595 L140 205"/>
-<path class="door" data-edge-id="F08.door-arcade-right&gt;E25.door-corridor:door" data-kind="door" data-from="F08" data-to="E25" data-from-port="door-arcade-right" data-to-port="door-corridor" d="M360 205 L360 355"/>
-<path class="door" data-edge-id="E23.door-otter-in&gt;F64.door-entry:door" data-kind="door" data-from="E23" data-to="F64" data-from-port="door-otter-in" data-to-port="door-entry" d="M1080 335 Q1200 182 1320 160"/>
-<path class="door" data-edge-id="F64.door-exit&gt;E23.door-otter-out:door" data-kind="door" data-from="F64" data-to="E23" data-from-port="door-exit" data-to-port="door-otter-out" d="M1320 160 Q1200 312 1080 335"/>
-<path class="door" data-edge-id="E23.door-cave-in&gt;F65.door-entry:door" data-kind="door" data-from="E23" data-to="F65" data-from-port="door-cave-in" data-to-port="door-entry" d="M1080 335 Q1200 350 1320 495"/>
-<path class="door" data-edge-id="F65.door-exit&gt;E23.door-cave-out:door" data-kind="door" data-from="F65" data-to="E23" data-from-port="door-exit" data-to-port="door-cave-out" d="M1320 495 Q1200 480 1080 335"/>
-<circle class="node" data-map="F07" cx="140" cy="205" r="30"/><text class="id" x="140" y="212">F07</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1460" height="1480" viewBox="0 0 1460 1480" role="img"><title>サニーランド</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:15px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1460" height="1480" fill="#edf3f1"/><g data-area="sunnyland"><rect x="8" y="8" width="1444" height="1464" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">サニーランド・12MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<path class="door" data-edge-id="SNL-01.door-corridor&gt;SNL-02.door-entry:door" data-kind="door" data-from="SNL-01" data-to="SNL-02" data-from-port="door-corridor" data-to-port="door-entry" d="M140 205 L360 205"/>
+<path class="door" data-edge-id="SNL-02.door-next&gt;SNL-04.door-prev:door" data-kind="door" data-from="SNL-02" data-to="SNL-04" data-from-port="door-next" data-to-port="door-prev" d="M360 205 L590 205"/>
+<path class="door" data-edge-id="SNL-04.door-aquarium&gt;SNL-05.door-corridor:door" data-kind="door" data-from="SNL-04" data-to="SNL-05" data-from-port="door-aquarium" data-to-port="door-corridor" d="M590 205 L820 205"/>
+<path class="door" data-edge-id="SNL-05.door-outdoor&gt;SNL-06.door-aquarium:door" data-kind="door" data-from="SNL-05" data-to="SNL-06" data-from-port="door-outdoor" data-to-port="door-aquarium" d="M820 205 L1080 335"/>
+<path class="door" data-edge-id="SNL-06.door-zoo&gt;SNL-09.door-hub:door" data-kind="door" data-from="SNL-06" data-to="SNL-09" data-from-port="door-zoo" data-to-port="door-hub" d="M1080 335 L1080 595"/>
+<path class="door" data-edge-id="SNL-09.door-stairs&gt;SNL-10.door-zoo:door" data-kind="door" data-from="SNL-09" data-to="SNL-10" data-from-port="door-stairs" data-to-port="door-zoo" d="M1080 595 L820 595"/>
+<path class="door" data-edge-id="SNL-10.door-hotel&gt;SNL-11.door-far-end:door" data-kind="door" data-from="SNL-10" data-to="SNL-11" data-from-port="door-hotel" data-to-port="door-far-end" d="M820 595 L590 595"/>
+<path class="door" data-edge-id="SNL-11.door-entry&gt;SNL-12.door-hotel:door" data-kind="door" data-from="SNL-11" data-to="SNL-12" data-from-port="door-entry" data-to-port="door-hotel" d="M590 595 L140 595"/>
+<path class="door" data-edge-id="SNL-12.door-stairs&gt;SNL-01.door-stairs:door" data-kind="door" data-from="SNL-12" data-to="SNL-01" data-from-port="door-stairs" data-to-port="door-stairs" d="M140 595 L140 205"/>
+<path class="door" data-edge-id="SNL-02.door-arcade-right&gt;SNL-03.door-corridor:door" data-kind="door" data-from="SNL-02" data-to="SNL-03" data-from-port="door-arcade-right" data-to-port="door-corridor" d="M360 205 L360 355"/>
+<path class="door" data-edge-id="SNL-06.door-otter-in&gt;SNL-07.door-entry:door" data-kind="door" data-from="SNL-06" data-to="SNL-07" data-from-port="door-otter-in" data-to-port="door-entry" d="M1080 335 Q1200 182 1320 160"/>
+<path class="door" data-edge-id="SNL-07.door-exit&gt;SNL-06.door-otter-out:door" data-kind="door" data-from="SNL-07" data-to="SNL-06" data-from-port="door-exit" data-to-port="door-otter-out" d="M1320 160 Q1200 312 1080 335"/>
+<path class="door" data-edge-id="SNL-06.door-cave-in&gt;SNL-08.door-entry:door" data-kind="door" data-from="SNL-06" data-to="SNL-08" data-from-port="door-cave-in" data-to-port="door-entry" d="M1080 335 Q1200 350 1320 495"/>
+<path class="door" data-edge-id="SNL-08.door-exit&gt;SNL-06.door-cave-out:door" data-kind="door" data-from="SNL-08" data-to="SNL-06" data-from-port="door-exit" data-to-port="door-cave-out" d="M1320 495 Q1200 480 1080 335"/>
+<circle class="node" data-map="SNL-01" cx="140" cy="205" r="34"/><text class="id" x="140" y="210">SNL-01</text>
 <text x="140" y="258" class="label">八角形エントランス1階・</text>
 <text x="140" y="279" class="label">受付</text>
-<circle class="node" data-map="F08" cx="360" cy="205" r="30"/><text class="id" x="360" y="212">F08</text>
+<circle class="node" data-map="SNL-02" cx="360" cy="205" r="34"/><text class="id" x="360" y="210">SNL-02</text>
 <text x="360" y="258" class="label">雪の森に囲まれた下り渡り</text>
 <text x="360" y="279" class="label">廊下・前半</text>
-<circle class="node" data-map="F09" cx="590" cy="205" r="30"/><text class="id" x="590" y="212">F09</text>
-<text x="590" y="258" class="label">雪の森に囲まれた下り渡り</text>
-<text x="590" y="279" class="label">廊下・後半</text>
-<circle class="node" data-map="E24" cx="820" cy="205" r="30"/><text class="id" x="820" y="212">E24</text>
-<text x="820" y="258" class="label">格子状水槽の地下水族館</text>
-<circle class="node" data-map="E23" cx="1080" cy="335" r="30"/><text class="id" x="1080" y="342">E23</text>
-<text x="1080" y="388" class="label">小さな屋外空間・巨大シャ</text>
-<text x="1080" y="409" class="label">チホコ</text>
-<circle class="node" data-map="F10" cx="1080" cy="595" r="30"/><text class="id" x="1080" y="602">F10</text>
-<text x="1080" y="648" class="label">狭い格子状の昭和の屋外動</text>
-<text x="1080" y="669" class="label">物園</text>
-<circle class="node" data-map="F63" cx="820" cy="595" r="30"/><text class="id" x="820" y="602">F63</text>
-<text x="820" y="648" class="label">動物園から宿泊棟端への屋</text>
-<text x="820" y="669" class="label">外階段</text>
-<circle class="node" data-map="F62" cx="590" cy="595" r="30"/><text class="id" x="590" y="602">F62</text>
-<text x="590" y="648" class="label">廃墟の和室が並ぶ宿泊棟</text>
-<circle class="node" data-map="F61" cx="140" cy="595" r="30"/><text class="id" x="140" y="602">F61</text>
-<text x="140" y="648" class="label">八角形エントランス2階・</text>
-<text x="140" y="669" class="label">全方向の窓</text>
-<circle class="node" data-map="E25" cx="360" cy="355" r="30"/><text class="id" x="360" y="362">E25</text>
+<circle class="node" data-map="SNL-03" cx="360" cy="355" r="34"/><text class="id" x="360" y="360">SNL-03</text>
 <text x="360" y="408" class="label">下り渡り廊下途中・右側の</text>
 <text x="360" y="429" class="label">ゲームセンター</text>
-<circle class="node" data-map="F64" cx="1320" cy="160" r="30"/><text class="id" x="1320" y="167">F64</text>
+<circle class="node" data-map="SNL-04" cx="590" cy="205" r="34"/><text class="id" x="590" y="210">SNL-04</text>
+<text x="590" y="258" class="label">雪の森に囲まれた下り渡り</text>
+<text x="590" y="279" class="label">廊下・後半</text>
+<circle class="node" data-map="SNL-05" cx="820" cy="205" r="34"/><text class="id" x="820" y="210">SNL-05</text>
+<text x="820" y="258" class="label">格子状水槽の地下水族館</text>
+<circle class="node" data-map="SNL-06" cx="1080" cy="335" r="34"/><text class="id" x="1080" y="340">SNL-06</text>
+<text x="1080" y="388" class="label">小さな屋外空間・巨大シャ</text>
+<text x="1080" y="409" class="label">チホコ</text>
+<circle class="node" data-map="SNL-07" cx="1320" cy="160" r="34"/><text class="id" x="1320" y="165">SNL-07</text>
 <text x="1320" y="213" class="label">ラッコ館・入口と出口のあ</text>
 <text x="1320" y="234" class="label">る任意探索</text>
-<circle class="node" data-map="F65" cx="1320" cy="495" r="30"/><text class="id" x="1320" y="502">F65</text>
+<circle class="node" data-map="SNL-08" cx="1320" cy="495" r="34"/><text class="id" x="1320" y="500">SNL-08</text>
 <text x="1320" y="548" class="label">低予算昭和の海底探検洞窟</text>
 <text x="1320" y="569" class="label">・任意探索</text>
+<circle class="node" data-map="SNL-09" cx="1080" cy="595" r="34"/><text class="id" x="1080" y="600">SNL-09</text>
+<text x="1080" y="648" class="label">狭い格子状の昭和の屋外動</text>
+<text x="1080" y="669" class="label">物園</text>
+<circle class="node" data-map="SNL-10" cx="820" cy="595" r="34"/><text class="id" x="820" y="600">SNL-10</text>
+<text x="820" y="648" class="label">動物園から宿泊棟端への屋</text>
+<text x="820" y="669" class="label">外階段</text>
+<circle class="node" data-map="SNL-11" cx="590" cy="595" r="34"/><text class="id" x="590" y="600">SNL-11</text>
+<text x="590" y="648" class="label">廃墟の和室が並ぶ宿泊棟</text>
+<circle class="node" data-map="SNL-12" cx="140" cy="595" r="34"/><text class="id" x="140" y="600">SNL-12</text>
+<text x="140" y="648" class="label">八角形エントランス2階・</text>
+<text x="140" y="669" class="label">全方向の窓</text>
 <text x="25" y="720" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
-<circle class="ref" data-reference-map="F06" data-reference="F06" cx="40" cy="750" r="13"/>
-<text x="65" y="755" class="small">F06.top ↔ F07.bottom  [外部: mountain]</text>
-<path class="edge" data-edge-id="F06.top&gt;F07.bottom:edge" data-kind="edge" data-from="F06" data-to="F07" data-from-port="top" data-to-port="bottom" d="M1300 748 L1415 748"/>
-<text x="25" y="797" class="small">F07.door-corridor ↔ F08.door-entry</text>
-<text x="25" y="839" class="small">F08.door-next ↔ F09.door-prev</text>
-<text x="25" y="881" class="small">F09.door-aquarium ↔ E24.door-corridor</text>
-<text x="25" y="923" class="small">E24.door-outdoor ↔ E23.door-aquarium</text>
-<text x="25" y="965" class="small">E23.door-zoo ↔ F10.door-hub</text>
-<text x="25" y="1007" class="small">F10.door-stairs ↔ F63.door-zoo</text>
-<text x="25" y="1049" class="small">F63.door-hotel ↔ F62.door-far-end</text>
-<text x="25" y="1091" class="small">F62.door-entry ↔ F61.door-hotel</text>
-<text x="25" y="1133" class="small">F61.door-stairs ↔ F07.door-stairs</text>
-<text x="25" y="1175" class="small">F08.door-arcade-right ↔ E25.door-corridor</text>
-<text x="25" y="1217" class="small">E23.door-otter-in ↔ F64.door-entry</text>
-<text x="25" y="1259" class="small">F64.door-exit ↔ E23.door-otter-out</text>
-<text x="25" y="1301" class="small">E23.door-cave-in ↔ F65.door-entry</text>
-<text x="25" y="1343" class="small">F65.door-exit ↔ E23.door-cave-out</text>
+<circle class="ref" data-reference-map="UTS-05" data-reference="UTS-05" cx="40" cy="750" r="13"/>
+<text x="65" y="755" class="small">UTS-05.top ↔ SNL-01.bottom  [外部: mountain]</text>
+<path class="edge" data-edge-id="UTS-05.top&gt;SNL-01.bottom:edge" data-kind="edge" data-from="UTS-05" data-to="SNL-01" data-from-port="top" data-to-port="bottom" d="M1300 748 L1415 748"/>
+<text x="25" y="797" class="small">SNL-01.door-corridor ↔ SNL-02.door-entry</text>
+<text x="25" y="839" class="small">SNL-02.door-next ↔ SNL-04.door-prev</text>
+<text x="25" y="881" class="small">SNL-04.door-aquarium ↔ SNL-05.door-corridor</text>
+<text x="25" y="923" class="small">SNL-05.door-outdoor ↔ SNL-06.door-aquarium</text>
+<text x="25" y="965" class="small">SNL-06.door-zoo ↔ SNL-09.door-hub</text>
+<text x="25" y="1007" class="small">SNL-09.door-stairs ↔ SNL-10.door-zoo</text>
+<text x="25" y="1049" class="small">SNL-10.door-hotel ↔ SNL-11.door-far-end</text>
+<text x="25" y="1091" class="small">SNL-11.door-entry ↔ SNL-12.door-hotel</text>
+<text x="25" y="1133" class="small">SNL-12.door-stairs ↔ SNL-01.door-stairs</text>
+<text x="25" y="1175" class="small">SNL-02.door-arcade-right ↔ SNL-03.door-corridor</text>
+<text x="25" y="1217" class="small">SNL-06.door-otter-in ↔ SNL-07.door-entry</text>
+<text x="25" y="1259" class="small">SNL-07.door-exit ↔ SNL-06.door-otter-out</text>
+<text x="25" y="1301" class="small">SNL-06.door-cave-in ↔ SNL-08.door-entry</text>
+<text x="25" y="1343" class="small">SNL-08.door-exit ↔ SNL-06.door-cave-out</text>
 </g></svg>

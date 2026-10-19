@@ -19,11 +19,11 @@ module OverseasProgression
 
   def self.verify!(c)
     raise 'not a design contract' unless c['kind'] == 'design-contract-not-game-runtime'
-    raise 'left magic / right ability required' unless c.dig('bosses','left') == {'id'=>'M015','map'=>'F33','only'=>'magic'} && c.dig('bosses','right') == {'id'=>'M016','map'=>'F36','only'=>'ability'}
+    raise 'left magic / right ability required' unless c.dig('bosses','left') == {'id'=>'M015','map'=>'OVS-09','only'=>'magic'} && c.dig('bosses','right') == {'id'=>'M016','map'=>'OVS-14','only'=>'ability'}
     raise 'third dragon encounter prohibited' unless c['family_id'] == 'M003' && c['bridge_battle'] == 'ordinary_enemies_only'
     raise 'deadline must be authorities, not explosion' unless c['deadline'] == 'authorities_arrive_and_arrest_shah'
     raise 'timer/save/reset policy changed' unless c['save_during_timer'] == false && c['third_tower_preentry'] == false && c['s005_timer_continues'] == true && c['failure'] == 'restore_last_pre_timer_save_and_chests'
-    raise 'five floor paths changed' unless c['tower_paths'] == {'left'=>%w[F31 F66 F32 F67 F33],'right'=>%w[F34 F68 F35 F69 F36],'escape'=>%w[F70 F71 F72 F73 F38]}
+    raise 'five floor paths changed' unless c['tower_paths'] == {'left'=>%w[OVS-05 OVS-06 OVS-07 OVS-08 OVS-09],'right'=>%w[OVS-10 OVS-11 OVS-12 OVS-13 OVS-14],'escape'=>%w[OVS-16 OVS-17 OVS-18 OVS-19 OVS-20]}
     raise 'each of 15 floors must be comparable full-floor area' unless c['floor_area_class'] == c['tower_paths'].values.flatten.map { |id| [id,'comparable_full_floor'] }.to_h
     initial = c.fetch('initial')
     raise 'invalid initial state' unless initial == {'phase'=>'exploring','left_defeated'=>false,'right_defeated'=>false,'timer_running'=>false,'third_unlocked'=>false,'third_entered'=>false,'floor'=>5,'s005_defeated'=>false,'exited'=>false,'four_party'=>false,'timer_starts'=>0,'timer_id'=>'escape'}

@@ -1,37 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1347" viewBox="0 0 1100 1347" role="img"><title>奥能登・被災後</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:21px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1100" height="1347" fill="#edf3f1"/><g data-area="noto_after"><rect x="8" y="8" width="1084" height="1331" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">奥能登・被災後・7MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
-<path class="edge" data-edge-id="F12.top&gt;F13.bottom:edge" data-kind="edge" data-from="F12" data-to="F13" data-from-port="top" data-to-port="bottom" d="M140 600 L140 380"/>
-<path class="edge" data-edge-id="F13.top&gt;F14.bottom:edge" data-kind="edge" data-from="F13" data-to="F14" data-from-port="top" data-to-port="bottom" d="M140 380 L140 160"/>
-<path class="edge" data-edge-id="F14.right&gt;F15.left:edge" data-kind="edge" data-from="F14" data-to="F15" data-from-port="right" data-to-port="left" d="M140 160 L460 160"/>
-<path class="edge" data-edge-id="F15.bottom&gt;F16.top:edge" data-kind="edge" data-from="F15" data-to="F16" data-from-port="bottom" data-to-port="top" d="M460 160 L460 380"/>
-<path class="edge" data-edge-id="F16.bottom&gt;F17.top:edge" data-kind="edge" data-from="F16" data-to="F17" data-from-port="bottom" data-to-port="top" d="M460 380 L460 600"/>
-<path class="edge" data-edge-id="F12.right&gt;F18.left:edge" data-kind="edge" data-from="F12" data-to="F18" data-from-port="right" data-to-port="left" d="M140 600 L460 840"/>
-<circle class="node" data-map="F12" cx="140" cy="600" r="30"/><text class="id" x="140" y="607">F12</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1347" viewBox="0 0 1100 1347" role="img"><title>奥能登・被災後</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:15px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1100" height="1347" fill="#edf3f1"/><g data-area="noto_after"><rect x="8" y="8" width="1084" height="1331" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">奥能登・被災後・7MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<path class="edge" data-edge-id="NTA-01.top&gt;NTA-02.bottom:edge" data-kind="edge" data-from="NTA-01" data-to="NTA-02" data-from-port="top" data-to-port="bottom" d="M140 600 L140 380"/>
+<path class="edge" data-edge-id="NTA-02.top&gt;NTA-03.bottom:edge" data-kind="edge" data-from="NTA-02" data-to="NTA-03" data-from-port="top" data-to-port="bottom" d="M140 380 L140 160"/>
+<path class="edge" data-edge-id="NTA-03.right&gt;NTA-04.left:edge" data-kind="edge" data-from="NTA-03" data-to="NTA-04" data-from-port="right" data-to-port="left" d="M140 160 L460 160"/>
+<path class="edge" data-edge-id="NTA-04.bottom&gt;NTA-05.top:edge" data-kind="edge" data-from="NTA-04" data-to="NTA-05" data-from-port="bottom" data-to-port="top" d="M460 160 L460 380"/>
+<path class="edge" data-edge-id="NTA-05.bottom&gt;NTA-06.top:edge" data-kind="edge" data-from="NTA-05" data-to="NTA-06" data-from-port="bottom" data-to-port="top" d="M460 380 L460 600"/>
+<path class="edge" data-edge-id="NTA-01.right&gt;NTA-07.left:edge" data-kind="edge" data-from="NTA-01" data-to="NTA-07" data-from-port="right" data-to-port="left" d="M140 600 L460 840"/>
+<circle class="node" data-map="NTA-01" cx="140" cy="600" r="34"/><text class="id" x="140" y="605">NTA-01</text>
 <text x="140" y="653" class="label">傾いた標識と土砂が残る被</text>
 <text x="140" y="674" class="label">災後蛸島駅</text>
-<circle class="node" data-map="F13" cx="140" cy="380" r="30"/><text class="id" x="140" y="387">F13</text>
+<circle class="node" data-map="NTA-02" cx="140" cy="380" r="34"/><text class="id" x="140" y="385">NTA-02</text>
 <text x="140" y="433" class="label">崩れた擁壁を迂回する被災</text>
 <text x="140" y="454" class="label">後の上り坂</text>
-<circle class="node" data-map="F14" cx="140" cy="160" r="30"/><text class="id" x="140" y="167">F14</text>
+<circle class="node" data-map="NTA-03" cx="140" cy="160" r="34"/><text class="id" x="140" y="165">NTA-03</text>
 <text x="140" y="213" class="label">青いシートと折れた杉の尾</text>
 <text x="140" y="234" class="label">根</text>
-<circle class="node" data-map="F15" cx="460" cy="160" r="30"/><text class="id" x="460" y="167">F15</text>
+<circle class="node" data-map="NTA-04" cx="460" cy="160" r="34"/><text class="id" x="460" y="165">NTA-04</text>
 <text x="460" y="213" class="label">地割れを跨ぐ仮設板の下り</text>
 <text x="460" y="234" class="label">坂</text>
-<circle class="node" data-map="F16" cx="460" cy="380" r="30"/><text class="id" x="460" y="387">F16</text>
+<circle class="node" data-map="NTA-05" cx="460" cy="380" r="34"/><text class="id" x="460" y="385">NTA-05</text>
 <text x="460" y="433" class="label">壁の欠けた実家と傾いた物</text>
 <text x="460" y="454" class="label">干し</text>
-<circle class="node" data-map="F17" cx="460" cy="600" r="30"/><text class="id" x="460" y="607">F17</text>
+<circle class="node" data-map="NTA-06" cx="460" cy="600" r="34"/><text class="id" x="460" y="605">NTA-06</text>
 <text x="460" y="653" class="label">壊れた防潮柵の先に残る釣</text>
 <text x="460" y="674" class="label">り場</text>
-<circle class="node" data-map="F18" cx="460" cy="840" r="30"/><text class="id" x="460" y="847">F18</text>
+<circle class="node" data-map="NTA-07" cx="460" cy="840" r="34"/><text class="id" x="460" y="845">NTA-07</text>
 <text x="460" y="893" class="label">給水車と小さな集会所の仮</text>
 <text x="460" y="914" class="label">設住宅（廃校の校庭に建つ</text>
 <text x="460" y="935" class="label">）</text>
 <text x="25" y="965" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
-<text x="25" y="1000" class="small">F12.top ↔ F13.bottom</text>
-<text x="25" y="1042" class="small">F13.top ↔ F14.bottom</text>
-<text x="25" y="1084" class="small">F14.right ↔ F15.left</text>
-<text x="25" y="1126" class="small">F15.bottom ↔ F16.top</text>
-<text x="25" y="1168" class="small">F16.bottom ↔ F17.top</text>
-<text x="25" y="1210" class="small">F12.right ↔ F18.left</text>
+<text x="25" y="1000" class="small">NTA-01.top ↔ NTA-02.bottom</text>
+<text x="25" y="1042" class="small">NTA-02.top ↔ NTA-03.bottom</text>
+<text x="25" y="1084" class="small">NTA-03.right ↔ NTA-04.left</text>
+<text x="25" y="1126" class="small">NTA-04.bottom ↔ NTA-05.top</text>
+<text x="25" y="1168" class="small">NTA-05.bottom ↔ NTA-06.top</text>
+<text x="25" y="1210" class="small">NTA-01.right ↔ NTA-07.left</text>
 </g></svg>

@@ -5,7 +5,7 @@ require 'fileutils'
 require_relative 'map_graph'
 module MapAtlas
   ROOT=File.expand_path('..',__dir__)
-  STYLE='text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:21px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}'
+  STYLE='text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:15px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}'
   def self.esc(s); CGI.escapeHTML(s.to_s);end
   def self.header(w,h,title)
     %(<svg xmlns="http://www.w3.org/2000/svg" width="#{w}" height="#{h}" viewBox="0 0 #{w} #{h}" role="img"><title>#{esc(title)}</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>#{STYLE}</style><rect width="#{w}" height="#{h}" fill="#edf3f1"/>)
@@ -31,29 +31,29 @@ module MapAtlas
     north=%w[garden castle].include?(area['id']) ? '北↑・接続概念図（縮尺ではない）' : area['id']=='body' ? '架空人体の空間配置・地理的方位ではない' : area['id']=='overseas' ? '階層と移動の概念図・地理的方位ではない' : '接続模式図・地理的方位／縮尺を表さない'
     out=[%(<g data-area="#{area['id']}"><rect x="8" y="8" width="#{w-16}" height="#{h-16}" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">#{esc(area['name'])}・#{area['maps'].length}MAP</text><text x="25" y="78" class="note">#{esc(north)}</text>)]
     if area['id']=='city'
-      out<<%(<text x="25" y="108" class="note">デパート5階（F83・F85・E15・F86・E16）のエレベーターはMAPを持たず、台帳外の「階選択遷移」。各階の扉に入るとウィンドウで階を選び、選んだ階の扉前に着く。</text>)
-      out<<%(<text x="25" y="134" class="note">箱は全階を結ぶので階をつなぐ線は描かない。4階F86は条件つき。</text>)
+      out<<%(<text x="25" y="108" class="note">デパート5階（KRB-02・KRB-03・KRB-04・KRB-05・KRB-06）のエレベーターはMAPを持たず、台帳外の「階選択遷移」。各階の扉に入るとウィンドウで階を選び、選んだ階の扉前に着く。</text>)
+      out<<%(<text x="25" y="134" class="note">箱は全階を結ぶので階をつなぐ線は描かない。4階KRB-05は条件つき。</text>)
     end
     counts=Hash.new(0)
     g.internal(area).each do |e|
       ax,ay=positions.fetch(e['from']);bx,by=positions.fetch(e['to']);pair=[e['from'],e['to']].sort;ix=counts[pair];counts[pair]+=1
       # Separate the otter/cave entrance and exit, preserving their endpoint identities.
-      d=if %w[F64 F65].any? { |id| pair.include?(id) };"M#{ax} #{ay} Q#{(ax+bx)/2} #{(ay+by)/2+(ix==0 ? -65:65)} #{bx} #{by}";
+      d=if %w[SNL-07 SNL-08].any? { |id| pair.include?(id) };"M#{ax} #{ay} Q#{(ax+bx)/2} #{(ay+by)/2+(ix==0 ? -65:65)} #{bx} #{by}";
       else;"M#{ax} #{ay} L#{bx} #{by}";end
       out<<%(<path class="#{e['kind']}" #{attrs(e)} d="#{d}"#{arrow(e)}/>)
     end
     area['maps'].each do |id|
       x,y=positions.fetch(id)
-      out<<%(<circle class="node" data-map="#{id}" cx="#{x}" cy="#{y}" r="30"/><text class="id" x="#{x}" y="#{y+7}">#{id}</text>)
-      if area['id']=='overseas' && id=='F37'
+      out<<%(<circle class="node" data-map="#{id}" cx="#{x}" cy="#{y}" r="34"/><text class="id" x="#{x}" y="#{y+5}">#{id}</text>)
+      if area['id']=='overseas' && id=='OVS-15'
         out<<%(<text x="#{x}" y="#{y-48}" class="label">空中通路・シャー共闘</text>)
-      elsif area['id']=='overseas' && %w[F27 F28 F29].include?(id)
+      elsif area['id']=='overseas' && %w[OVS-01 OVS-02 OVS-03].include?(id)
         node_label(id,spec).each_with_index { |line,i| out<<%(<text x="#{x}" y="#{y+53+i*21}" class="label">#{esc(line)}</text>) }
       elsif area['id']=='overseas'
         node_label(id,spec).each_with_index { |line,i| out<<%(<text x="#{x+65}" y="#{y-8+i*21}" class="label" style="text-anchor:start">#{esc(line)}</text>) }
       else
-        label_y=id=='F19' ? y-42:y+53
-        label_x=id=='F82' ? x-75:x
+        label_y=id=='BDY-01' ? y-42:y+53
+        label_x=id=='BDY-13' ? x-75:x
         node_label(id,spec).each_with_index { |line,i| out<<%(<text x="#{label_x}" y="#{label_y+i*21}" class="label">#{esc(line)}</text>) }
       end
     end
@@ -79,7 +79,7 @@ module MapAtlas
   def self.run
     g=MapGraph::Graph.new(ROOT)
     spec=File.read(File.join(ROOT,'docs/map-specifications.md')).lines.each_with_object({}) do |line,h|
-      c=line.split('|').map(&:strip);h[c[1].split.first]=c[3] if c[1]&.match?(/\A(?:E\d{2}|F\d{2}|N\d+)(?:\s|\z)/)
+      c=line.split('|').map(&:strip);h[c[1].split.first]=c[3] if c[1]&.match?(/\A[A-Z]{3}-\d{2}(?:\s|\z)/)
     end
     folder=File.join(ROOT,'docs/topology/areas');FileUtils.mkdir_p(folder)
     panels=g.areas.map do |area|
@@ -116,7 +116,7 @@ module MapAtlas
       d=e['kind']=='event' ? 'M390 1070 L930 1070 L1560 1170 L1710 1300':"M#{ax} #{ay} L#{bx} #{by}"
       out<<%(<path class="#{e['kind']}" #{attrs(e,false)} d="#{d}"#{arrow(e)}/>)
     end
-    out<<'<text x="850" y="1047" class="label">E01園庭 → F19口（物語イベント）</text>'
+    out<<'<text x="850" y="1047" class="label">TRM-01園庭 → BDY-01口（物語イベント）</text>'
     g.areas.each do |a|
       x,y=pos.fetch(a['id'])
       out<<%(<g data-area="#{a['id']}"><rect x="#{x-145}" y="#{y-44}" width="290" height="88" rx="10" fill="#fff" stroke="#527b69" stroke-width="3"/><text x="#{x}" y="#{y-8}" class="label">#{esc(a['name'])}</text><text x="#{x}" y="#{y+21}" class="label">#{a['maps'].length} MAP（#{a['id']}）</text></g>)

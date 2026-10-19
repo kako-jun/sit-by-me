@@ -19,10 +19,11 @@ def fail!(message)
   exit 1
 end
 
+MAP_ID_PATTERN = "(?:#{JSON.parse(read('topology/map-ids.json')).fetch('areas').keys.join('|')})-\\d{2}"
+
 def ids
   register = JSON.parse(read('topology/map-ids.json'))
-  result = register.fetch('ranges').flat_map { |prefix, bounds| (bounds[0]..bounds[1]).map { |n| format('%s%02d',prefix,n) } }
-  result += register.fetch('explicit').flat_map { |prefix, numbers| numbers.map { |n| prefix+n.to_s } }
+  result = register.fetch('areas').flat_map { |code, count| (1..count).map { |n| format('%s-%02d', code, n) } }
   fail!('ID登録件数不一致') unless result.length == register.fetch('expected_count') && result.uniq.length == result.length
   result
 end
@@ -35,7 +36,7 @@ topology = read('map-topology.md')
 assets = read('map-asset-registry.md')
 
 contract_rows = checklist.lines.map do |line|
-  next unless line.match?(/^\| (?:E\d{2}|N\d+|F\d{2}) \|/)
+  next unless line.match?(/^\| #{MAP_ID_PATTERN} \|/)
 
   cells = line.split('|').map(&:strip)
   [cells[1], cells[2], cells[3], cells[4], cells[5]]
@@ -56,7 +57,7 @@ contract_rows.each do |id, status, refs, mask, tbd|
   fail!("#{id}: TBDありなのにready") if status == 'ready'
   next unless status == 'legacy-needs-review'
 
-  relative_image = mask[/`([^`]+\.png)`/, 1]
+  relative_image = mask[/`([^`]+\.webp)`/, 1]
   fail!("#{id}: legacy画像パスがない") unless relative_image
   absolute_image = File.join(ROOT, relative_image)
   fail!("#{id}: legacy画像がない #{relative_image}") unless File.file?(absolute_image)
@@ -70,7 +71,7 @@ contract_rows.each do |id, _, refs, _, _|
 end
 
 spec_rows = specifications.lines.map do |line|
-  next unless line.match?(/^\| (?:E\d{2}|N\d+|F\d{2})(?:\s|\|)/)
+  next unless line.match?(/^\| #{MAP_ID_PATTERN}(?:\s|\|)/)
 
   cells = line.split('|').map(&:strip)
   [cells[1].split.first, cells]
@@ -83,7 +84,7 @@ spec_rows.each do |id, cells|
   fail!("#{id}: 接続・通行条件がない") if cells[4].nil? || cells[4].empty?
 end
 
-asset_ids = assets.scan(/^\| ((?:E\d{2}|N\d+|F\d{2})) \|/).flatten.uniq
+asset_ids = assets.scan(/^\| (#{MAP_ID_PATTERN}) \|/).flatten.uniq
 fail!("画像台帳にないID: #{(expected - asset_ids).join(', ')}") unless (expected - asset_ids).empty?
 
 start = topology.index('#### MAP相互接続台帳 v2')
@@ -141,7 +142,7 @@ elevator_rows = topology[elevator_start...start].lines.map do |line|
   fail!("階選択遷移行の欄不足: #{line.strip}") unless cells.length == 7
   cells[1..5]
 end.compact
-fail!("階選択遷移の階とMAPが不正: #{elevator_rows.map { |r| r[0..1] }}") unless elevator_rows.map { |r| r[0..1] } == [%w[1階 F83], %w[2階 F85], %w[3階 E15], %w[4階 F86], %w[5階 E16]]
+fail!("階選択遷移の階とMAPが不正: #{elevator_rows.map { |r| r[0..1] }}") unless elevator_rows.map { |r| r[0..1] } == [%w[1階 KRB-02], %w[2階 KRB-03], %w[3階 KRB-04], %w[4階 KRB-05], %w[5階 KRB-06]]
 elevator_rows.each { |r| fail!("エレベーター扉IDが不正 #{r[1]}") unless r[2] == "#{r[1]}.door-elevator" }
 elevator_ids = elevator_rows.map { |r| r[1] }
 fail!('階選択遷移の扉が接続台帳にも載っている（二重管理）') if topology_rows.any? { |f, t, _, _| [f, t].any? { |e| e.end_with?('.door-elevator') } }
@@ -154,9 +155,9 @@ fail!("同一扉端の二重使用: #{reused_doors.keys.join(', ')}") unless reu
 
 fail!('旧サニーランドpendingは廃止') unless pending.empty?
 entry=topology_rows.select { |_,_,kind,_| kind=='event' }
-fail!('体内イベントは園庭E01から口F19への一方向のみ') unless entry.map { |a,b,k,_| [a,b,k] } == [['E01.event-kiss','F19.event-mouth','event']]
+fail!('体内イベントは園庭TRM-01から口BDY-01への一方向のみ') unless entry.map { |a,b,k,_| [a,b,k] } == [['TRM-01.event-kiss','BDY-01.event-mouth','event']]
 flights=topology_rows.select { |_,_,kind,_| kind=='oneway' }
-fail!('一方向の海外渡航が不正') unless flights.map { |a,b,k,_| [a,b,k] } == [['F40.door-gate','F27.door-arrival','oneway']]
+fail!('一方向の海外渡航が不正') unless flights.map { |a,b,k,_| [a,b,k] } == [['APT-02.door-gate','OVS-01.door-arrival','oneway']]
 membership=JSON.parse(read('topology/areas.json'))
 area_ids=membership.fetch('areas').map { |a| a.fetch('id') }
 fail!('エリアID重複') unless area_ids.uniq==area_ids
@@ -166,36 +167,36 @@ membership.fetch('areas').each do |a|
   fail!("エリア配置のMAP不一致 #{a['id']}") unless a.fetch('layout').keys.sort==a.fetch('maps').sort
   fail!("エリア配置座標が不正 #{a['id']}") unless a['layout'].values.all? { |xy| xy.is_a?(Array) && xy.length==2 && xy.all? { |n| n.is_a?(Numeric) && n.finite? } }
 end
-body_paths=[%w[F19 F74],%w[F74 F76],%w[F74 F24],%w[F74 F77 F20],%w[F74 F78 F21],%w[F76 F79 F80 F22],%w[F76 F81 F82 F23],%w[F76 F25],%w[F74 F26],%w[F74 F75]]
+body_paths=[%w[BDY-01 BDY-02],%w[BDY-02 BDY-03],%w[BDY-02 BDY-04],%w[BDY-02 BDY-05 BDY-06],%w[BDY-02 BDY-07 BDY-08],%w[BDY-03 BDY-09 BDY-10 BDY-11],%w[BDY-03 BDY-12 BDY-13 BDY-14],%w[BDY-03 BDY-15],%w[BDY-02 BDY-16],%w[BDY-02 BDY-17]]
 body=membership['areas'].find { |a| a['id']=='body' }
 fail!('体内17MAPの所属不一致') unless body && body['maps'].sort==body_paths.flatten.uniq.sort
 body_pairs=body_paths.flat_map { |path| path.each_cons(2).map(&:sort) }.sort
 body_active=active.select { |a,b,_| body['maps'].include?(a) && body['maps'].include?(b) }
 fail!('体内の上半身/下半身・手2枚・足3枚の一本道接続が不一致') unless body_active.map { |a,b,_| [a,b].sort }.sort==body_pairs && body_active.all? { |_,_,kind| kind=='door' }
 body_external=active.select { |a,b,_| body['maps'].include?(a) != body['maps'].include?(b) }
-fail!('園庭以外からの体内入口／逆方向出口がある') unless body_external==[['E01','F19','event']]
-coords=body['layout']; ux,uy=coords.fetch('F74');lx,ly=coords.fetch('F76')
+fail!('園庭以外からの体内入口／逆方向出口がある') unless body_external==[['TRM-01','BDY-01','event']]
+coords=body['layout']; ux,uy=coords.fetch('BDY-02');lx,ly=coords.fetch('BDY-03')
 fail!('胴体は上半身と下半身の縦2MAP') unless ux==lx && uy<ly
-fail!('頭は胴体の上') unless coords['F24'][0]==ux && coords['F24'][1]<uy
-[%w[F74 F77 F20],%w[F74 F78 F21],%w[F76 F79 F80 F22],%w[F76 F81 F82 F23]].each_with_index do |path,i|
+fail!('頭は胴体の上') unless coords['BDY-04'][0]==ux && coords['BDY-04'][1]<uy
+[%w[BDY-02 BDY-05 BDY-06],%w[BDY-02 BDY-07 BDY-08],%w[BDY-03 BDY-09 BDY-10 BDY-11],%w[BDY-03 BDY-12 BDY-13 BDY-14]].each_with_index do |path,i|
   base_x,base_y=coords.fetch(path.first)
   direction_x=i.even? ? -1:1; direction_y=i<2 ? -1:1
   fail!('手は左右斜め上・足は左右斜め下の連続通路') unless path.drop(1).all? { |id| (coords[id][0]-base_x)*direction_x>0 } && path.each_cons(2).all? { |a,b| (coords[b][1]-coords[a][1])*direction_y>0 }
 end
-expected_spokes={'upper_torso'=>'F74','lower_torso'=>'F76','head'=>'F24','left_arm'=>%w[F77 F20],'right_arm'=>%w[F78 F21],'left_leg'=>%w[F79 F80 F22],'right_leg'=>%w[F81 F82 F23],'rooms'=>%w[F25 F26 F75]}
+expected_spokes={'upper_torso'=>'BDY-02','lower_torso'=>'BDY-03','head'=>'BDY-04','left_arm'=>%w[BDY-05 BDY-06],'right_arm'=>%w[BDY-07 BDY-08],'left_leg'=>%w[BDY-09 BDY-10 BDY-11],'right_leg'=>%w[BDY-12 BDY-13 BDY-14],'rooms'=>%w[BDY-15 BDY-16 BDY-17]}
 fail!('体内方向・枚数契約不一致') unless membership['body_spokes']==expected_spokes
-sunny = %w[F07 F08 F09 E24 E23 F10 F63 F62 F61 E25 F64 F65]
-sunny_ring = %w[F07 F08 F09 E24 E23 F10 F63 F62 F61 F07]
+sunny = %w[SNL-01 SNL-02 SNL-04 SNL-05 SNL-06 SNL-09 SNL-10 SNL-11 SNL-12 SNL-03 SNL-07 SNL-08]
+sunny_ring = %w[SNL-01 SNL-02 SNL-04 SNL-05 SNL-06 SNL-09 SNL-10 SNL-11 SNL-12 SNL-01]
 sunny_ring.each_cons(2) do |a,b|
   fail!("サニーランド円環がない #{a} -> #{b}") unless active.any? { |x,y,_| [x,y].sort == [a,b].sort }
 end
-%w[F64 F65].each do |id|
-  routes=active.select { |a,b,_| [a,b].sort == ['E23',id].sort }
+%w[SNL-07 SNL-08].each do |id|
+  routes=active.select { |a,b,_| [a,b].sort == ['SNL-06',id].sort }
   fail!("任意施設の入口出口がない #{id}") unless routes.length==2
-  fail!("任意施設に未承認出口 #{id}") if active.any? { |a,b,_| (a==id || b==id) && ![a,b].include?('E23') }
+  fail!("任意施設に未承認出口 #{id}") if active.any? { |a,b,_| (a==id || b==id) && ![a,b].include?('SNL-06') }
 end
-fail!('ゲームセンター分岐がない') unless active.any? { |a,b,_| [a,b].sort == %w[E25 F08] }
-sunny_expected=sunny_ring.each_cons(2).map { |a,b| [a,b].sort }+[ %w[E25 F08] ]+%w[F64 F65].flat_map { |id| [['E23',id].sort]*2 }
+fail!('ゲームセンター分岐がない') unless active.any? { |a,b,_| [a,b].sort == %w[SNL-02 SNL-03] }
+sunny_expected=sunny_ring.each_cons(2).map { |a,b| [a,b].sort }+[ %w[SNL-02 SNL-03] ]+%w[SNL-07 SNL-08].flat_map { |id| [['SNL-06',id].sort]*2 }
 sunny_actual=active.select { |a,b,_| sunny.include?(a)&&sunny.include?(b) }.map { |a,b,_| [a,b].sort }
 fail!('サニーランド接続集合不一致') unless sunny_actual.sort==sunny_expected.sort
 
@@ -220,31 +221,31 @@ def graph_check(name, nodes, active, minimum)
   cycles
 end
 
-garden = (41..50).map { |n| format('F%02d', n) }
-castle = (51..60).map { |n| format('F%02d', n) }
-towers = (30..38).map { |n| format('F%02d', n) } + (66..73).map { |n| format('F%02d', n) }
+garden = (1..10).map { |n| format('GRD-%02d', n) }
+castle = (1..10).map { |n| format('CST-%02d', n) }
+towers = (4..20).map { |n| format('OVS-%02d', n) }
 garden_cycles = graph_check('兼六園', garden, active, 4)
 castle_cycles = graph_check('金沢城', castle, active, 3)
 tower_cycles = graph_check('双塔', towers, active, 1)
-third=%w[F70 F71 F72 F73 F38]
+third=%w[OVS-16 OVS-17 OVS-18 OVS-19 OVS-20]
 third_pairs=third.each_cons(2).map(&:sort)
 active.each do |a,b,_|
   if third.include?(a) && third.include?(b)
     fail!('第3塔の階飛ばし接続') unless third_pairs.include?([a,b].sort)
   elsif third.include?(a) != third.include?(b)
-    fail!('第3塔の事前進入を許す未承認接続') unless [a,b].sort==%w[F37 F70]
+    fail!('第3塔の事前進入を許す未承認接続') unless [a,b].sort==%w[OVS-15 OVS-16]
   end
 end
-[%w[F30 F31 F66 F32 F67 F33 F37], %w[F30 F34 F68 F35 F69 F36 F37], %w[F37 F70 F71 F72 F73 F38]].each do |route|
+[%w[OVS-04 OVS-05 OVS-06 OVS-07 OVS-08 OVS-09 OVS-15], %w[OVS-04 OVS-10 OVS-11 OVS-12 OVS-13 OVS-14 OVS-15], %w[OVS-15 OVS-16 OVS-17 OVS-18 OVS-19 OVS-20]].each do |route|
   route.each_cons(2) do |a, b|
     fail!("双塔: 階層経路がない #{a} -> #{b}") unless active.any? { |x, y, kind| kind == 'door' && [x, y].sort == [a, b].sort }
   end
 end
-mountain = %w[N8 E22 F04 F05 F06]
+mountain = %w[UTS-01 UTS-02 UTS-03 UTS-04 UTS-05]
 mountain_pairs = mountain.each_cons(2).map(&:sort)
 actual_mountain = active.select { |a, b, _| mountain.include?(a) && mountain.include?(b) }.map { |a, b, _| [a, b].sort }
 fail!('卯辰山: 一本道の接続不一致・近道あり') unless actual_mountain.sort == mountain_pairs.sort
-allowed_entrances = [%w[N11 N8].sort, %w[F06 F07].sort]
+allowed_entrances = [%w[KRB-11 UTS-01].sort, %w[UTS-05 SNL-01].sort]
 active.each do |a, b, _|
   next unless mountain.include?(a) != mountain.include?(b)
   fail!("卯辰山: 分岐禁止 #{a} -> #{b}") unless allowed_entrances.include?([a, b].sort)

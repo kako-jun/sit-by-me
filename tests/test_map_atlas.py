@@ -129,7 +129,7 @@ class MapAtlasTests(unittest.TestCase):
         self.reject()
 
     def test_unknown_area_member_rejected(self):
-        self.mutate_registry(lambda data: data["areas"][0]["maps"].append("F99"))
+        self.mutate_registry(lambda data: data["areas"][0]["maps"].append("KRB-99"))
         self.reject()
 
     def test_duplicate_area_identifier_rejected(self):
@@ -147,12 +147,12 @@ class MapAtlasTests(unittest.TestCase):
 
     def test_atlas_missing_node_rejected(self):
         self.mutate_svg("atlas.svg", lambda tree: next(n for n in tree.iter()
-                        if n.get("data-map") == "F74").attrib.pop("data-map"))
+                        if n.get("data-map") == "BDY-02").attrib.pop("data-map"))
         self.reject()
 
     def test_atlas_blank_visible_id_cannot_hide_behind_metadata(self):
         def mutate(tree):
-            node = next(n for n in tree.iter() if n.get("class") == "id" and n.text == "F74")
+            node = next(n for n in tree.iter() if n.get("class") == "id" and n.text == "BDY-02")
             node.text = ""
         self.mutate_svg("atlas.svg", mutate)
         self.reject()
@@ -180,7 +180,7 @@ class MapAtlasTests(unittest.TestCase):
         self.reject()
 
     def test_atlas_duplicate_owned_node_rejected(self):
-        self.mutate_svg("atlas.svg", lambda tree: ET.SubElement(tree.getroot(), "circle", {"data-map": "F74"}))
+        self.mutate_svg("atlas.svg", lambda tree: ET.SubElement(tree.getroot(), "circle", {"data-map": "BDY-02"}))
         self.reject()
 
     def test_atlas_missing_edge_rejected(self):
@@ -201,14 +201,14 @@ class MapAtlasTests(unittest.TestCase):
     def test_parallel_otter_doors_keep_distinct_edge_ids(self):
         tree = ET.parse(self.diagram())
         edges = [node for node in self.edge_elements(tree)
-                 if {node.get("data-from"), node.get("data-to")} == {"E23", "F64"}]
+                 if {node.get("data-from"), node.get("data-to")} == {"SNL-06", "SNL-07"}]
         self.assertEqual(len(edges), 2)
         self.assertEqual(len({node.get("data-edge-id") for node in edges}), 2)
 
     def test_parallel_otter_door_cannot_be_merged(self):
         def mutate(tree):
             node = next(node for node in self.edge_elements(tree)
-                        if {node.get("data-from"), node.get("data-to")} == {"E23", "F64"})
+                        if {node.get("data-from"), node.get("data-to")} == {"SNL-06", "SNL-07"})
             next(parent for parent in tree.iter() if node in list(parent)).remove(node)
         self.mutate_svg("atlas.svg", mutate)
         self.reject()
@@ -222,7 +222,7 @@ class MapAtlasTests(unittest.TestCase):
 
     def test_area_owned_map_cannot_be_dropped(self):
         def mutate(tree):
-            next(n for n in tree.iter() if n.get("data-map") == "F74").attrib.pop("data-map")
+            next(n for n in tree.iter() if n.get("data-map") == "BDY-02").attrib.pop("data-map")
         self.mutate_svg("areas/body.svg", mutate)
         self.reject()
 
@@ -235,30 +235,30 @@ class MapAtlasTests(unittest.TestCase):
 
     def test_area_remote_reference_cannot_point_to_hospital(self):
         def mutate(tree):
-            node = next(n for n in tree.iter() if n.get("data-reference-map") == "E01")
-            node.set("data-reference-map", "E20")
+            node = next(n for n in tree.iter() if n.get("data-reference-map") == "TRM-01")
+            node.set("data-reference-map", "KRB-13")
         self.mutate_svg("areas/body.svg", mutate)
         self.reject()
 
     def test_body_entry_must_start_at_kindergarten_even_after_render(self):
-        self.topology("E01.event-kiss", "E20.event-kiss")
+        self.topology("TRM-01.event-kiss", "KRB-13.event-kiss")
         self.render()
         self.reject()
 
     def test_body_entry_must_not_start_overseas_even_after_render(self):
-        self.topology("E01.event-kiss", "F30.event-kiss")
+        self.topology("TRM-01.event-kiss", "OVS-04.event-kiss")
         self.render()
         self.reject()
 
     def test_body_event_must_not_be_walking_door_even_after_render(self):
-        row = self.pair_row("E01", "F19")
+        row = self.pair_row("TRM-01", "BDY-01")
         self.topology(row, row.replace(".event-kiss", ".door-kiss")
                       .replace(".event-mouth", ".door-mouth").replace("| event |", "| door |"))
         self.render()
         self.reject()
 
     def test_body_event_reversal_rejected_even_after_render(self):
-        row = self.pair_row("E01", "F19")
+        row = self.pair_row("TRM-01", "BDY-01")
         cells = row.split("|")
         cells[1], cells[2] = cells[2], cells[1]
         self.topology(row, "|".join(cells))
@@ -266,33 +266,33 @@ class MapAtlasTests(unittest.TestCase):
         self.reject()
 
     def test_old_hand_to_leg_chain_rejected_even_after_render(self):
-        self.remove_pair("F80", "F22")
-        self.append_connection("| F20.door-passage-leg | F22.door-passage-hand | door | 旧手足の鎖を再導入 |")
+        self.remove_pair("BDY-10", "BDY-11")
+        self.append_connection("| BDY-06.door-passage-leg | BDY-11.door-passage-hand | door | 旧手足の鎖を再導入 |")
         self.render()
         self.reject()
 
     def test_nonterminal_limb_rejected_even_after_render(self):
-        self.append_connection("| F20.door-passage-extra | F25.door-passage-extra | door | 腕から胃へ通り抜け |")
+        self.append_connection("| BDY-06.door-passage-extra | BDY-15.door-passage-extra | door | 腕から胃へ通り抜け |")
         self.render()
         self.reject()
 
     def test_body_missing_lung_rejected_even_after_render(self):
-        self.remove_pair("F74", "F75")
+        self.remove_pair("BDY-02", "BDY-17")
         self.render()
         self.reject()
 
     def test_body_head_below_torso_rejected_even_after_render(self):
         def mutate(data):
-            area = next(a for a in data["areas"] if "F74" in a["maps"])
-            area["layout"]["F24"][1] = area["layout"]["F74"][1] + 100
+            area = next(a for a in data["areas"] if "BDY-02" in a["maps"])
+            area["layout"]["BDY-04"][1] = area["layout"]["BDY-02"][1] + 100
         self.mutate_registry(mutate)
         self.render()
         self.reject()
 
     def test_body_swapped_arm_leg_coordinates_rejected_even_after_render(self):
         def mutate(data):
-            area = next(a for a in data["areas"] if "F74" in a["maps"])
-            area["layout"]["F20"], area["layout"]["F22"] = area["layout"]["F22"], area["layout"]["F20"]
+            area = next(a for a in data["areas"] if "BDY-02" in a["maps"])
+            area["layout"]["BDY-06"], area["layout"]["BDY-11"] = area["layout"]["BDY-11"], area["layout"]["BDY-06"]
         self.mutate_registry(mutate)
         self.render()
         self.reject()

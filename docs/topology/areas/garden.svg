@@ -1,55 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1495" viewBox="0 0 1100 1495" role="img"><title>兼六園</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:21px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1100" height="1495" fill="#edf3f1"/><g data-area="garden"><rect x="8" y="8" width="1084" height="1479" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">兼六園・10MAP</text><text x="25" y="78" class="note">北↑・接続概念図（縮尺ではない）</text>
-<path class="edge" data-edge-id="F41.top&gt;F43.bottom:edge" data-kind="edge" data-from="F41" data-to="F43" data-from-port="top" data-to-port="bottom" d="M140 610 L150 390"/>
-<path class="edge" data-edge-id="F41.right&gt;F42.left:edge" data-kind="edge" data-from="F41" data-to="F42" data-from-port="right" data-to-port="left" d="M140 610 L360 570"/>
-<path class="edge" data-edge-id="F42.top&gt;F44.bottom:edge" data-kind="edge" data-from="F42" data-to="F44" data-from-port="top" data-to-port="bottom" d="M360 570 L380 380"/>
-<path class="edge" data-edge-id="F42.right&gt;F49.left:edge" data-kind="edge" data-from="F42" data-to="F49" data-from-port="right" data-to-port="left" d="M360 570 L510 610"/>
-<path class="edge" data-edge-id="F43.right&gt;F44.left:edge" data-kind="edge" data-from="F43" data-to="F44" data-from-port="right" data-to-port="left" d="M150 390 L380 380"/>
-<path class="edge" data-edge-id="F43.top&gt;F50.bottom:edge" data-kind="edge" data-from="F43" data-to="F50" data-from-port="top" data-to-port="bottom" d="M150 390 L160 160"/>
-<path class="edge" data-edge-id="F44.top&gt;F45.bottom:edge" data-kind="edge" data-from="F44" data-to="F45" data-from-port="top" data-to-port="bottom" d="M380 380 L490 220"/>
-<path class="edge" data-edge-id="F45.right&gt;F46.left:edge" data-kind="edge" data-from="F45" data-to="F46" data-from-port="right" data-to-port="left" d="M490 220 L730 295"/>
-<path class="edge" data-edge-id="F45.left&gt;F50.right:edge" data-kind="edge" data-from="F45" data-to="F50" data-from-port="left" data-to-port="right" d="M490 220 L160 160"/>
-<path class="edge" data-edge-id="F46.bottom&gt;F47.top:edge" data-kind="edge" data-from="F46" data-to="F47" data-from-port="bottom" data-to-port="top" d="M730 295 L710 470"/>
-<path class="edge" data-edge-id="F47.bottom&gt;F48.top:edge" data-kind="edge" data-from="F47" data-to="F48" data-from-port="bottom" data-to-port="top" d="M710 470 L720 610"/>
-<path class="edge" data-edge-id="F47.left&gt;F49.right:edge" data-kind="edge" data-from="F47" data-to="F49" data-from-port="left" data-to-port="right" d="M710 470 L510 610"/>
-<path class="edge" data-edge-id="F48.bottom&gt;F49.top:edge" data-kind="edge" data-from="F48" data-to="F49" data-from-port="bottom" data-to-port="top" d="M720 610 L510 610"/>
-<circle class="node" data-map="F41" cx="140" cy="610" r="30"/><text class="id" x="140" y="617">F41</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1495" viewBox="0 0 1100 1495" role="img"><title>兼六園</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:15px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1100" height="1495" fill="#edf3f1"/><g data-area="garden"><rect x="8" y="8" width="1084" height="1479" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">兼六園・10MAP</text><text x="25" y="78" class="note">北↑・接続概念図（縮尺ではない）</text>
+<path class="edge" data-edge-id="GRD-01.top&gt;GRD-03.bottom:edge" data-kind="edge" data-from="GRD-01" data-to="GRD-03" data-from-port="top" data-to-port="bottom" d="M140 610 L150 390"/>
+<path class="edge" data-edge-id="GRD-01.right&gt;GRD-02.left:edge" data-kind="edge" data-from="GRD-01" data-to="GRD-02" data-from-port="right" data-to-port="left" d="M140 610 L360 570"/>
+<path class="edge" data-edge-id="GRD-02.top&gt;GRD-04.bottom:edge" data-kind="edge" data-from="GRD-02" data-to="GRD-04" data-from-port="top" data-to-port="bottom" d="M360 570 L380 380"/>
+<path class="edge" data-edge-id="GRD-02.right&gt;GRD-09.left:edge" data-kind="edge" data-from="GRD-02" data-to="GRD-09" data-from-port="right" data-to-port="left" d="M360 570 L510 610"/>
+<path class="edge" data-edge-id="GRD-03.right&gt;GRD-04.left:edge" data-kind="edge" data-from="GRD-03" data-to="GRD-04" data-from-port="right" data-to-port="left" d="M150 390 L380 380"/>
+<path class="edge" data-edge-id="GRD-03.top&gt;GRD-10.bottom:edge" data-kind="edge" data-from="GRD-03" data-to="GRD-10" data-from-port="top" data-to-port="bottom" d="M150 390 L160 160"/>
+<path class="edge" data-edge-id="GRD-04.top&gt;GRD-05.bottom:edge" data-kind="edge" data-from="GRD-04" data-to="GRD-05" data-from-port="top" data-to-port="bottom" d="M380 380 L490 220"/>
+<path class="edge" data-edge-id="GRD-05.right&gt;GRD-06.left:edge" data-kind="edge" data-from="GRD-05" data-to="GRD-06" data-from-port="right" data-to-port="left" d="M490 220 L730 295"/>
+<path class="edge" data-edge-id="GRD-05.left&gt;GRD-10.right:edge" data-kind="edge" data-from="GRD-05" data-to="GRD-10" data-from-port="left" data-to-port="right" d="M490 220 L160 160"/>
+<path class="edge" data-edge-id="GRD-06.bottom&gt;GRD-07.top:edge" data-kind="edge" data-from="GRD-06" data-to="GRD-07" data-from-port="bottom" data-to-port="top" d="M730 295 L710 470"/>
+<path class="edge" data-edge-id="GRD-07.bottom&gt;GRD-08.top:edge" data-kind="edge" data-from="GRD-07" data-to="GRD-08" data-from-port="bottom" data-to-port="top" d="M710 470 L720 610"/>
+<path class="edge" data-edge-id="GRD-07.left&gt;GRD-09.right:edge" data-kind="edge" data-from="GRD-07" data-to="GRD-09" data-from-port="left" data-to-port="right" d="M710 470 L510 610"/>
+<path class="edge" data-edge-id="GRD-08.bottom&gt;GRD-09.top:edge" data-kind="edge" data-from="GRD-08" data-to="GRD-09" data-from-port="bottom" data-to-port="top" d="M720 610 L510 610"/>
+<circle class="node" data-map="GRD-01" cx="140" cy="610" r="34"/><text class="id" x="140" y="615">GRD-01</text>
 <text x="140" y="663" class="label">真弓坂側の南西入口</text>
-<circle class="node" data-map="F42" cx="360" cy="570" r="30"/><text class="id" x="360" y="577">F42</text>
+<circle class="node" data-map="GRD-02" cx="360" cy="570" r="34"/><text class="id" x="360" y="575">GRD-02</text>
 <text x="360" y="623" class="label">時雨亭・長谷池</text>
-<circle class="node" data-map="F43" cx="150" cy="390" r="30"/><text class="id" x="150" y="397">F43</text>
+<circle class="node" data-map="GRD-03" cx="150" cy="390" r="34"/><text class="id" x="150" y="395">GRD-03</text>
 <text x="150" y="443" class="label">瓢池・夕顔亭・翠滝下段</text>
-<circle class="node" data-map="F44" cx="380" cy="380" r="30"/><text class="id" x="380" y="387">F44</text>
+<circle class="node" data-map="GRD-04" cx="380" cy="380" r="34"/><text class="id" x="380" y="385">GRD-04</text>
 <text x="380" y="433" class="label">霞ヶ池西岸・栄螺山</text>
-<circle class="node" data-map="F45" cx="490" cy="220" r="30"/><text class="id" x="490" y="227">F45</text>
+<circle class="node" data-map="GRD-05" cx="490" cy="220" r="34"/><text class="id" x="490" y="225">GRD-05</text>
 <text x="490" y="273" class="label">霞ヶ池北岸・ことじ灯籠</text>
-<circle class="node" data-map="F46" cx="730" cy="295" r="30"/><text class="id" x="730" y="302">F46</text>
+<circle class="node" data-map="GRD-06" cx="730" cy="295" r="34"/><text class="id" x="730" y="300">GRD-06</text>
 <text x="730" y="348" class="label">霞ヶ池東岸・唐崎松</text>
-<circle class="node" data-map="F47" cx="710" cy="470" r="30"/><text class="id" x="710" y="477">F47</text>
+<circle class="node" data-map="GRD-07" cx="710" cy="470" r="34"/><text class="id" x="710" y="475">GRD-07</text>
 <text x="710" y="523" class="label">曲水・根上松</text>
-<circle class="node" data-map="F48" cx="720" cy="610" r="30"/><text class="id" x="720" y="617">F48</text>
+<circle class="node" data-map="GRD-08" cx="720" cy="610" r="34"/><text class="id" x="720" y="615">GRD-08</text>
 <text x="720" y="663" class="label">山崎山・花見橋側</text>
-<circle class="node" data-map="F49" cx="510" cy="610" r="30"/><text class="id" x="510" y="617">F49</text>
+<circle class="node" data-map="GRD-09" cx="510" cy="610" r="34"/><text class="id" x="510" y="615">GRD-09</text>
 <text x="510" y="663" class="label">梅林側の南周回路</text>
-<circle class="node" data-map="F50" cx="160" cy="160" r="30"/><text class="id" x="160" y="167">F50</text>
+<circle class="node" data-map="GRD-10" cx="160" cy="160" r="34"/><text class="id" x="160" y="165">GRD-10</text>
 <text x="160" y="213" class="label">桂坂口・石川橋</text>
 <text x="25" y="735" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
-<circle class="ref" data-reference-map="N9" data-reference="N9" cx="40" cy="765" r="13"/>
-<text x="65" y="770" class="small">N9.top ↔ F41.bottom  [外部: city]</text>
-<path class="edge" data-edge-id="N9.top&gt;F41.bottom:edge" data-kind="edge" data-from="N9" data-to="F41" data-from-port="top" data-to-port="bottom" d="M940 763 L1055 763"/>
-<text x="25" y="812" class="small">F41.top ↔ F43.bottom</text>
-<text x="25" y="854" class="small">F41.right ↔ F42.left</text>
-<text x="25" y="896" class="small">F42.top ↔ F44.bottom</text>
-<text x="25" y="938" class="small">F42.right ↔ F49.left</text>
-<text x="25" y="980" class="small">F43.right ↔ F44.left</text>
-<text x="25" y="1022" class="small">F43.top ↔ F50.bottom</text>
-<text x="25" y="1064" class="small">F44.top ↔ F45.bottom</text>
-<text x="25" y="1106" class="small">F45.right ↔ F46.left</text>
-<text x="25" y="1148" class="small">F45.left ↔ F50.right</text>
-<text x="25" y="1190" class="small">F46.bottom ↔ F47.top</text>
-<text x="25" y="1232" class="small">F47.bottom ↔ F48.top</text>
-<text x="25" y="1274" class="small">F47.left ↔ F49.right</text>
-<text x="25" y="1316" class="small">F48.bottom ↔ F49.top</text>
-<circle class="ref" data-reference-map="F51" data-reference="F51" cx="40" cy="1353" r="13"/>
-<text x="65" y="1358" class="small">F50.top ↔ F51.bottom  [外部: castle]</text>
-<path class="edge" data-edge-id="F50.top&gt;F51.bottom:edge" data-kind="edge" data-from="F50" data-to="F51" data-from-port="top" data-to-port="bottom" d="M940 1351 L1055 1351"/>
+<circle class="ref" data-reference-map="KRB-12" data-reference="KRB-12" cx="40" cy="765" r="13"/>
+<text x="65" y="770" class="small">KRB-12.top ↔ GRD-01.bottom  [外部: city]</text>
+<path class="edge" data-edge-id="KRB-12.top&gt;GRD-01.bottom:edge" data-kind="edge" data-from="KRB-12" data-to="GRD-01" data-from-port="top" data-to-port="bottom" d="M940 763 L1055 763"/>
+<text x="25" y="812" class="small">GRD-01.top ↔ GRD-03.bottom</text>
+<text x="25" y="854" class="small">GRD-01.right ↔ GRD-02.left</text>
+<text x="25" y="896" class="small">GRD-02.top ↔ GRD-04.bottom</text>
+<text x="25" y="938" class="small">GRD-02.right ↔ GRD-09.left</text>
+<text x="25" y="980" class="small">GRD-03.right ↔ GRD-04.left</text>
+<text x="25" y="1022" class="small">GRD-03.top ↔ GRD-10.bottom</text>
+<text x="25" y="1064" class="small">GRD-04.top ↔ GRD-05.bottom</text>
+<text x="25" y="1106" class="small">GRD-05.right ↔ GRD-06.left</text>
+<text x="25" y="1148" class="small">GRD-05.left ↔ GRD-10.right</text>
+<text x="25" y="1190" class="small">GRD-06.bottom ↔ GRD-07.top</text>
+<text x="25" y="1232" class="small">GRD-07.bottom ↔ GRD-08.top</text>
+<text x="25" y="1274" class="small">GRD-07.left ↔ GRD-09.right</text>
+<text x="25" y="1316" class="small">GRD-08.bottom ↔ GRD-09.top</text>
+<circle class="ref" data-reference-map="CST-01" data-reference="CST-01" cx="40" cy="1353" r="13"/>
+<text x="65" y="1358" class="small">GRD-10.top ↔ CST-01.bottom  [外部: castle]</text>
+<path class="edge" data-edge-id="GRD-10.top&gt;CST-01.bottom:edge" data-kind="edge" data-from="GRD-10" data-to="CST-01" data-from-port="top" data-to-port="bottom" d="M940 1351 L1055 1351"/>
 </g></svg>

@@ -227,40 +227,40 @@
   "bosses": {
     "left": {
       "id": "M015",
-      "map": "F33",
+      "map": "OVS-09",
       "only": "magic"
     },
     "right": {
       "id": "M016",
-      "map": "F36",
+      "map": "OVS-14",
       "only": "ability"
     }
   },
   "family_id": "M003",
   "tower_paths": {
     "left": [
-      "F31",
-      "F66",
-      "F32",
-      "F67",
-      "F33"
+      "OVS-05",
+      "OVS-06",
+      "OVS-07",
+      "OVS-08",
+      "OVS-09"
     ],
     "right": [
-      "F34",
-      "F68",
-      "F35",
-      "F69",
-      "F36"
+      "OVS-10",
+      "OVS-11",
+      "OVS-12",
+      "OVS-13",
+      "OVS-14"
     ],
     "escape": [
-      "F70",
-      "F71",
-      "F72",
-      "F73",
-      "F38"
+      "OVS-16",
+      "OVS-17",
+      "OVS-18",
+      "OVS-19",
+      "OVS-20"
     ]
   },
-  "bridge_map": "F37",
+  "bridge_map": "OVS-15",
   "deadline": "authorities_arrive_and_arrest_shah",
   "bridge_battle": "ordinary_enemies_only",
   "save_during_timer": false,
@@ -268,20 +268,20 @@
   "third_tower_preentry": false,
   "s005_timer_continues": true,
   "floor_area_class": {
-    "F31": "comparable_full_floor",
-    "F66": "comparable_full_floor",
-    "F32": "comparable_full_floor",
-    "F67": "comparable_full_floor",
-    "F33": "comparable_full_floor",
-    "F34": "comparable_full_floor",
-    "F68": "comparable_full_floor",
-    "F35": "comparable_full_floor",
-    "F69": "comparable_full_floor",
-    "F36": "comparable_full_floor",
-    "F70": "comparable_full_floor",
-    "F71": "comparable_full_floor",
-    "F72": "comparable_full_floor",
-    "F73": "comparable_full_floor",
-    "F38": "comparable_full_floor"
+    "OVS-05": "comparable_full_floor",
+    "OVS-06": "comparable_full_floor",
+    "OVS-07": "comparable_full_floor",
+    "OVS-08": "comparable_full_floor",
+    "OVS-09": "comparable_full_floor",
+    "OVS-10": "comparable_full_floor",
+    "OVS-11": "comparable_full_floor",
+    "OVS-12": "comparable_full_floor",
+    "OVS-13": "comparable_full_floor",
+    "OVS-14": "comparable_full_floor",
+    "OVS-16": "comparable_full_floor",
+    "OVS-17": "comparable_full_floor",
+    "OVS-18": "comparable_full_floor",
+    "OVS-19": "comparable_full_floor",
+    "OVS-20": "comparable_full_floor"
   }
 }

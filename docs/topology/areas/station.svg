@@ -1,15 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="541" viewBox="0 0 1100 541" role="img"><title>金沢駅</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:21px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1100" height="541" fill="#edf3f1"/><g data-area="station"><rect x="8" y="8" width="1084" height="525" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">金沢駅・1MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
-<circle class="node" data-map="E21" cx="140" cy="160" r="30"/><text class="id" x="140" y="167">E21</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="541" viewBox="0 0 1100 541" role="img"><title>金沢駅</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:15px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1100" height="541" fill="#edf3f1"/><g data-area="station"><rect x="8" y="8" width="1084" height="525" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">金沢駅・1MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<circle class="node" data-map="STN-01" cx="140" cy="160" r="34"/><text class="id" x="140" y="165">STN-01</text>
 <text x="140" y="213" class="label">鼓門の下に雪が弧を描く金</text>
 <text x="140" y="234" class="label">沢駅前</text>
 <text x="25" y="285" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
-<circle class="ref" data-reference-map="N11" data-reference="N11" cx="40" cy="315" r="13"/>
-<text x="65" y="320" class="small">N11.top ↔ E21.bottom  [外部: city]</text>
-<path class="edge" data-edge-id="N11.top&gt;E21.bottom:edge" data-kind="edge" data-from="N11" data-to="E21" data-from-port="top" data-to-port="bottom" d="M940 313 L1055 313"/>
-<circle class="ref" data-reference-map="E28" data-reference="E28" cx="40" cy="357" r="13"/>
-<text x="65" y="362" class="small">E21.door-noto ↔ E28.door-kanazawa  [外部: noto_train]</text>
-<path class="door" data-edge-id="E21.door-noto&gt;E28.door-kanazawa:door" data-kind="door" data-from="E21" data-to="E28" data-from-port="door-noto" data-to-port="door-kanazawa" d="M940 355 L1055 355"/>
-<circle class="ref" data-reference-map="N12" data-reference="N12" cx="40" cy="399" r="13"/>
-<text x="65" y="404" class="small">E21.door-uchinada ↔ N12.door-kanazawa  [外部: uchinada]</text>
-<path class="door" data-edge-id="E21.door-uchinada&gt;N12.door-kanazawa:door" data-kind="door" data-from="E21" data-to="N12" data-from-port="door-uchinada" data-to-port="door-kanazawa" d="M940 397 L1055 397"/>
+<circle class="ref" data-reference-map="KRB-11" data-reference="KRB-11" cx="40" cy="315" r="13"/>
+<text x="65" y="320" class="small">KRB-11.top ↔ STN-01.bottom  [外部: city]</text>
+<path class="edge" data-edge-id="KRB-11.top&gt;STN-01.bottom:edge" data-kind="edge" data-from="KRB-11" data-to="STN-01" data-from-port="top" data-to-port="bottom" d="M940 313 L1055 313"/>
+<circle class="ref" data-reference-map="NTR-01" data-reference="NTR-01" cx="40" cy="357" r="13"/>
+<text x="65" y="362" class="small">STN-01.door-noto ↔ NTR-01.door-kanazawa  [外部: noto_train]</text>
+<path class="door" data-edge-id="STN-01.door-noto&gt;NTR-01.door-kanazawa:door" data-kind="door" data-from="STN-01" data-to="NTR-01" data-from-port="door-noto" data-to-port="door-kanazawa" d="M940 355 L1055 355"/>
+<circle class="ref" data-reference-map="UCH-01" data-reference="UCH-01" cx="40" cy="399" r="13"/>
+<text x="65" y="404" class="small">STN-01.door-uchinada ↔ UCH-01.door-kanazawa  [外部: uchinada]</text>
+<path class="door" data-edge-id="STN-01.door-uchinada&gt;UCH-01.door-kanazawa:door" data-kind="door" data-from="STN-01" data-to="UCH-01" data-from-port="door-uchinada" data-to-port="door-kanazawa" d="M940 397 L1055 397"/>
 </g></svg>

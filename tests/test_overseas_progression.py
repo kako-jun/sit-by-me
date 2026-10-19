@@ -261,23 +261,23 @@ puts JSON.generate(traces)
         self.reject(lambda c: c["bosses"]["left"].update(only="physical"))
 
     def test_right_boss_not_on_fifth_floor_rejected(self):
-        self.reject(lambda c: c["bosses"]["right"].update(map="F69"))
+        self.reject(lambda c: c["bosses"]["right"].update(map="OVS-13"))
 
     def test_four_floors_rejected(self):
         self.reject(lambda c: c["tower_paths"]["escape"].pop())
 
     def test_six_floors_rejected(self):
-        self.reject(lambda c: c["tower_paths"]["escape"].append("F30"))
+        self.reject(lambda c: c["tower_paths"]["escape"].append("OVS-04"))
 
     def test_duplicate_floor_rejected(self):
-        self.reject(lambda c: c["tower_paths"]["left"].__setitem__(1, "F31"))
+        self.reject(lambda c: c["tower_paths"]["left"].__setitem__(1, "OVS-05"))
 
     def test_third_tower_cannot_be_reduced_to_narrow_shaft(self):
-        self.reject(lambda c: c["floor_area_class"].update(F72="narrow_stair_shaft"))
+        self.reject(lambda c: c["floor_area_class"].update({"OVS-18": "narrow_stair_shaft"}))
 
     def test_all_fifteen_floors_have_comparable_area_contract(self):
-        expected = {"F31", "F66", "F32", "F67", "F33", "F34", "F68", "F35",
-                    "F69", "F36", "F70", "F71", "F72", "F73", "F38"}
+        expected = {"OVS-05", "OVS-06", "OVS-07", "OVS-08", "OVS-09", "OVS-10", "OVS-11", "OVS-12",
+                    "OVS-13", "OVS-14", "OVS-16", "OVS-17", "OVS-18", "OVS-19", "OVS-20"}
         self.assertEqual(set(self.contract["floor_area_class"]), expected)
         self.assertEqual(set(self.contract["floor_area_class"].values()), {"comparable_full_floor"})
 
