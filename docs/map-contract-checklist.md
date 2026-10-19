@@ -26,8 +26,8 @@
 | KRB-01 | legacy-needs-review | R005,R011 | `assets/images/fields/legacy/KRB-01.webp`; mask未記録 | KRB-07/KRB-11/KRB-12端、百貨店door（相手はKRB-02.door-street）、封鎖期のKRB-12遷移を記録する |
 | KRB-04 | legacy-needs-review | R005 | `assets/images/fields/legacy/KRB-04.webp`; mask未記録 | 3階（kako-jun 2026-10-19）。door-elevator（階選択遷移。全階から行き先を選ぶ。4階は条件つき）、売場通路のuniversal幅を記録する。KRB-04（3階・玩具売場）は2階KRB-03と無関係（決定 2026-10-19） |
 | KRB-06 | legacy-needs-review | R005 | `assets/images/fields/legacy/KRB-06.webp`; mask未記録 | 5階（kako-jun決定 2026-10-19、#87。実在の大和は8階レストラン街）。door-elevator（階選択遷移。4階は条件つき）、再訪時の同一導線を記録する |
-| KRB-08 | legacy-needs-review | R013,R011 | `assets/images/fields/legacy/KRB-08.webp`; mask未記録 | KRB-10/KRB-07端、E18door、格子・側溝のblocked域を記録する |
-| KRB-09 | legacy-needs-review | R013 | `assets/images/fields/legacy/KRB-09.webp`; mask未記録 | E17door、座敷の段差・車椅子可否を決める |
+| KRB-08 | legacy-needs-review | R013,R011 | `assets/images/fields/legacy/KRB-08.webp`; mask未記録 | KRB-10/KRB-07端、KRB-09door、格子・側溝のblocked域を記録する |
+| KRB-09 | legacy-needs-review | R013 | `assets/images/fields/legacy/KRB-09.webp`; mask未記録 | KRB-08door、座敷の段差・車椅子可否を決める |
 | KRB-10 | legacy-needs-review | R011,R013 | `assets/images/fields/legacy/KRB-10.webp`; mask未記録 | TRM-17/KRB-08端、駐車場枝の画面内終端を記録する |
 | KRB-13 | legacy-needs-review | R011 | `assets/images/fields/legacy/KRB-13.webp`; mask未記録 | KRB-12端、車寄せのuniversal幅と入口foregroundを記録する |
 | STN-01 | legacy-needs-review | R011 | `assets/images/fields/legacy/STN-01.webp`; mask未記録 | KRB-11端、能登／内灘乗車door、広場の禁止辺を記録する |
@@ -37,7 +37,7 @@
 | SNL-03 | legacy-needs-review | R007 | `assets/images/fields/legacy/SNL-03.webp`; mask未記録 | 下り渡り廊下途中・右側のゲームセンター。右は下降時の進行基準。SNL-02前半への割当はゲーム配置。 door-corridor→SNL-02.door-arcade-right。旧画像は参照専用。pixel/mask/幅TBD |
 | UCH-02 | legacy-needs-review | R014,R015 | `assets/images/fields/legacy/UCH-02.webp`; mask未記録 | UCH-03端、駅出口と線路端のblocked域を記録する |
 | UCH-05 | legacy-needs-review | R015 | `assets/images/fields/legacy/UCH-05.webp`; mask未記録 | UCH-04端、海側blocked帯と締まった砂のuniversal帯を記録する |
-| NTR-01 | legacy-needs-review | R004 | `assets/images/fields/legacy/NTR-01.webp`; mask未記録 | STN-01/E29door、車内通路とドア回転域を記録する |
+| NTR-01 | legacy-needs-review | R004 | `assets/images/fields/legacy/NTR-01.webp`; mask未記録 | STN-01/NTB-01door、車内通路とドア回転域を記録する |
 | NTB-01 | legacy-needs-review | R004 | `assets/images/fields/legacy/NTB-01.webp`; mask未記録 | NTB-02端、終端線路のblocked域に加え、右辺→NTB-07.left（茂みの小径。道路ではない。暫定入口、入口MAPは要確認）を記録する |
 | NTB-05 | legacy-needs-review | R004 | `assets/images/fields/legacy/NTB-05.webp`; mask未記録 | NTB-04/NTB-06端、家door、海側blocked域を記録する |
 | NTB-06 | legacy-needs-review | R004 | `assets/images/fields/legacy/NTB-06.webp`; mask未記録・採用禁止 | 既存画像は海が上側で、既定の「能登の海は下側」に違反する。回転での救済はしない。NTB-05端・桟橋終端・海/テトラblocked域を満たす再構図版が必要 |
@@ -53,10 +53,10 @@
 | KRB-12 | blocked | R011,R023 | 未生成・mask未作成 | KRB-01/GRD-01/KRB-13端、封鎖柵の開閉差分と松・石垣の資料を追加する |
 | SCH-01 | blocked | R006,R011,R021,R023,R024,R025 | 未生成・mask未作成 | TRM-14/SCH-02端、車椅子の連続坂・手すり・除雪帯の寸法根拠を追加する |
 | KRB-11 | blocked | R005,R010,R011,R023,R026 | 未生成・mask未作成 | KRB-01/STN-01/UTS-01端、交差点の3出口と横断部の段差なし範囲を確定する |
-| UCH-01 | blocked | R009,R021,R022 | 未生成・mask未作成 | STN-01/E26door、車椅子回転域と半自動扉のゲーム上寸法を確定する |
+| UCH-01 | blocked | R009,R021,R022 | 未生成・mask未作成 | STN-01/UCH-02door、車椅子回転域と半自動扉のゲーム上寸法を確定する |
 | TRM-04 | recreate-required-1920x1080 | R021,R024 | 旧本堂画像は参照専用。新背景・mask未作成 | #60の中央屋内本堂。TRM-03南、TRM-05西、TRM-02東の扉位置、畳・仏具と主路、段差・幅・回転域を記録する |
 | TRM-02 | recreate-required-1920x1080 | R021,R024 | 旧遊戯室画像は参照専用。新背景・mask未作成 | #60/#51の東（右）の屋内幼稚園。TRM-04.door-east↔TRM-02.door-west（本堂側＝西から入る）の扉位置・廊下長、舞台袖・椅子・主路の分離、段差・幅・回転域を記録する。TRM-05直結なし |
-| TRM-12 | recreate-required-1920x1080 | R021,R024 | 未生成・mask未作成 | 県営住宅室内の玄関段差・回転域・E08doorを創作寸法で決める |
+| TRM-12 | recreate-required-1920x1080 | R021,R024 | 未生成・mask未作成 | 県営住宅室内の玄関段差・回転域・TRM-11doorを創作寸法で決める |
 | UTS-03 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | UTS-02/UTS-04端、東屋脇の枝なし蛇行主路の安全幅を決める |
 | UTS-04 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | UTS-03/UTS-05端、崩落石垣を避けるassist主路の幅を決める |
 | UTS-05 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | UTS-04/SNL-01端、山頂戦闘域と展望柵のblocked域を決める |
@@ -92,8 +92,8 @@
 | OVS-14 | blocked | R019 | 未生成・mask未作成 | 右塔5階・M016アビリティのみ有効。door-down→OVS-13.door-up、door-bridge→OVS-15.door-right。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | OVS-15 | blocked | R019 | 未生成・mask未作成 | 塔間空中通路・シャー判明と雑魚共闘。door-left→OVS-09.door-bridge、door-right→OVS-14.door-bridge、door-third→OVS-16.door-bridge。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | OVS-20 | blocked | R019 | 未生成・mask未作成 | 脱出第3塔1階・出口直前S005戦。door-up→OVS-19.door-down。5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
-| APT-01 | blocked | R020,R021,R022,R032 | 未生成・mask未作成 | ワープ広場/F40door、駐機場blocked域を確定する |
-| APT-02 | blocked | R020,R021,R022,R032 | 未生成・mask未作成 | APT-01/F27door、一方通行の保安・搭乗導線を確定する |
+| APT-01 | blocked | R020,R021,R022,R032 | 未生成・mask未作成 | ワープ広場/APT-02door、駐機場blocked域を確定する |
+| APT-02 | blocked | R020,R021,R022,R032 | 未生成・mask未作成 | APT-01/OVS-01door、一方通行の保安・搭乗導線を確定する |
 | GRD-01 | blocked | R012,R030,R034,R035 | 未生成・mask未作成 | 真弓坂側の南西入口。top→GRD-03.bottom、right→GRD-02.left、bottom→KRB-12.top。池／堀・高低差、各出口の位置・幅、assistと閉鎖域、城攻略目標と解錠条件を個別確定する（#45） |
 | GRD-02 | blocked | R012,R030,R034,R035 | 未生成・mask未作成 | 時雨亭・長谷池。left→GRD-01.right、top→GRD-04.bottom、right→GRD-09.left。池／堀・高低差、各出口の位置・幅、assistと閉鎖域、城攻略目標と解錠条件を個別確定する（#45） |
 | GRD-03 | blocked | R012,R014,R030,R034,R035 | 未生成・mask未作成 | 瓢池・夕顔亭・翠滝下段。bottom→GRD-01.top、right→GRD-04.left、top→GRD-10.bottom。池／堀・高低差、各出口の位置・幅、assistと閉鎖域、城攻略目標と解錠条件を個別確定する（#45） |

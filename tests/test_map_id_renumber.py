@@ -79,5 +79,41 @@ class MapIdRenumberTests(unittest.TestCase):
         self.reject("old ID E14 remains")
 
 
+    def append(self, name, text):
+        path = self.root / name
+        path.write_text(path.read_text(encoding="utf-8") + text, encoding="utf-8")
+
+    def test_event_id_column_replaced_by_map_id_rejected(self):
+        path = self.root / "docs/scenario-registry.md"
+        source = path.read_text(encoding="utf-8")
+        self.assertIn("| E005 |", source)
+        path.write_text(source.replace("| E005 |", "| TRM-08 |", 1), encoding="utf-8")
+        self.reject("event ID column")
+
+    def test_map_id_right_after_event_word_rejected(self):
+        path = self.root / "docs/map-specifications.md"
+        source = path.read_text(encoding="utf-8")
+        self.assertIn("購入イベントE005", source)
+        path.write_text(source.replace("購入イベントE005", "購入イベントTRM-08", 1), encoding="utf-8")
+        self.reject("event/BGM word")
+
+    def test_map_id_in_bgm_table_rejected(self):
+        self.append("docs/bgm-registry.md", "\n| TRM-01 | 楽しい |\n")
+        self.reject("BGM table")
+
+    def test_leftover_old_id_in_event_registry_rejected(self):
+        self.append("docs/scenario-registry.md", "\nMAP:N8/サニーランド入口\n")
+        self.reject("old ID N8 remains")
+
+    def test_leftover_old_id_followed_by_letters_rejected(self):
+        self.append("docs/map-contract-checklist.md", "\n| 残骸 | E18door |\n")
+        self.reject("old ID E18 remains")
+
+    def test_three_digit_event_ids_are_not_old_ids(self):
+        self.append("docs/scenario-registry.md", "\n| E031 | ERA-09 | 自動 |\n")
+        result = self.run_cli()
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+
 if __name__ == "__main__":
     unittest.main()

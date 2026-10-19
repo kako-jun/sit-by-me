@@ -13,12 +13,17 @@ NEW_ID = re.compile(r'^([A-Z]{3})-(\d{2})$')
 OLD_IDS = ({f'E{n}' for n in range(1, 34)} | {f'F{n}' for n in range(1, 87)}
            | {f'N{n}' for n in (1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12)})
 # Files where every E/F/N+digits token is a MAP ID (other docs share the shape with BGM slots, decision labels, etc.).
+# (旧)MAP専用文書の一覧。現在は全文書を文脈規則つきで検査するため参照用
 MAP_ONLY_FILES = (
     'docs/map-topology.md', 'docs/map-specifications.md', 'docs/map-asset-registry.md',
     'docs/map-contract-checklist.md', 'docs/map-reference-research.md',
     'docs/topology/areas.json', 'docs/topology/overseas-progression.json',
 )
-OLD_TOKEN = re.compile(r'(?<![A-Za-z0-9])([EFN])(0?\d{1,2})(?![A-Za-z0-9])')
+# 直後が英字でも検出する(E18door型)。イベントID(E001, 3桁)は一致しない
+OLD_TOKEN_ANY = re.compile(r'(?<![A-Za-z0-9])([EFN])(0\d|[1-9]\d?)(?![0-9])')
+# E/F/N+数字が別体系(決定ラベルN1・BGMスロット等)で出る文書・行は旧ID検査から除く
+EXEMPT_OLD_ID_FILES = ('docs/ability-candidates.md', 'scripts/verify_map_id_renumber.py')
+EXEMPT_OLD_ID_LINE_WORDS = ('ぬすむ',)
 # tests are not scanned: they use deliberately unregistered IDs (存在しない連番や旧ID名) as negative fixtures
 SCAN_DIRS = ('docs', 'scripts', '.claude')
 SKIP_PREFIXES = ('docs/reviews/', 'docs/production/20261018-asset-migration.json')
@@ -74,6 +79,8 @@ def verify(root):
     valid = set(news)
     codes = '|'.join(table['area_order'])
     new_token = re.compile(rf'(?<![A-Za-z0-9])(?:{codes})-\d{{2}}(?![A-Za-z0-9])')
+    # イベント・遷移・BGMなど別体系の語の直後に新MAP IDが来たら、E005等を誤置換した疑い
+    wrong_context = re.compile(rf'(?:イベント(?:ID)?|遷移|BGM|スロット|ERA)\s*(?:{codes})-\d{{2}}(?![A-Za-z0-9])')
     old_slugs = {m['old_slug'] for m in maps if m.get('new_slug')}
     for directory in SCAN_DIRS:
         for path in sorted((root / directory).rglob('*')):
@@ -82,14 +89,30 @@ def verify(root):
                     '.md', '.json', '.rb', '.py', '.csv', '.yaml'}:
                 continue
             text = path.read_text(encoding='utf-8')
+            is_bgm = relative.startswith('docs/bgm')
             for token in new_token.findall(text):
                 assert token in valid, f'{relative}: unregistered new-style ID {token}'
+            if is_bgm:
+                assert not new_token.search(text), f'{relative}: MAP ID in BGM table (slot/MAP混同)'
+            assert not wrong_context.search(text), f'{relative}: MAP ID right after an event/BGM word (誤置換の疑い)'
+            if relative == 'docs/scenario-registry.md':
+                for line in text.splitlines():
+                    first = line.split('|')[1].strip() if line.startswith('| ') and line.count('|') > 2 else ''
+                    assert not new_token.fullmatch(first), f'{relative}: MAP ID in event ID column: {first}'
+                    if re.fullmatch(r'E\d+', first):
+                        assert re.fullmatch(r'E\d{3}', first), f'{relative}: bad event ID {first}'
             if relative.startswith('docs/production/20261019'):
                 continue
             for slug in old_slugs:
                 assert slug not in text, f'{relative}: old slug {slug} remains'
-            if relative in MAP_ONLY_FILES:
-                for found in OLD_TOKEN.finditer(text):
+            if is_bgm or relative in EXEMPT_OLD_ID_FILES:
+                continue
+            for line in text.splitlines():
+                if any(word in line for word in EXEMPT_OLD_ID_LINE_WORDS):
+                    continue
+                for found in OLD_TOKEN_ANY.finditer(line):
+                    if found[0] == 'N1' and line[found.end():found.end() + 1] == 'b':
+                        continue  # 決定ラベルN1b
                     assert old_key(found[0]) not in OLD_IDS, f'{relative}: old ID {found[0]} remains'
     print(f'PASS: 130 MAPs one-to-one, {len(by_area)} areas, areas.json/map-ids.json match, no unregistered or leftover IDs')
 
