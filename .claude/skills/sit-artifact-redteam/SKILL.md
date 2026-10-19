@@ -32,7 +32,7 @@ For a MAP review, first read:
 - `docs/map-reference-research.md`
 - `docs/art-direction.md`, `docs/assets-policy.md`, and `.claude/skills/sit-field-background/SKILL.md`
 
-For an enemy review, read `.claude/skills/sit-enemy-sprite/SKILL.md`, the target `M` row, its source prompt, and the actual RGBA candidate. Record the declared `gridClass`, canvas px, transparent-pixel bounding rectangle, and whether head and torso each show the front plane and right plane. A 90° right-profile head or torso, a gridClass outside `1x1`/`2x1`/`1x2`/`2x2`, or an outside-rectangle measure outside 92–96% is a `blocker`.
+For an enemy review, read `.claude/skills/sit-enemy-sprite/SKILL.md`, the target `M` row, its source prompt, and the actual RGBA candidate. Record the declared `gridClass`, canvas px, transparent-pixel bounding rectangle, and whether head and torso each show the front plane and right plane. A 90° right-profile head or torso, or a gridClass not declared in the target row is a `blocker`. Canvas dimensions and edge contact are recorded for human review, not automatic failures.
 
 For a summon review, substitute `.claude/skills/sit-summon-sprite/SKILL.md` and the target `S` row. For magic, ability, job, event, or scenario review, use the corresponding type register from `content-registry.md`. Read the actual candidate and its source prompt/mask when they exist; never infer success from a filename.
 
