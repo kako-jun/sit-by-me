@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="759" viewBox="0 0 1100 759" role="img"><title>小学校と通学坂</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:21px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1100" height="759" fill="#edf3f1"/><g data-area="school"><rect x="8" y="8" width="1084" height="743" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">小学校と通学坂・2MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<path class="edge" data-edge-id="N10.bottom&gt;E33.top:edge" data-kind="edge" data-from="N10" data-to="E33" data-from-port="bottom" data-to-port="top" d="M140 160 L140 420"/>
+<circle class="node" data-map="N10" cx="140" cy="160" r="30"/><text class="id" x="140" y="167">N10</text>
+<text x="140" y="213" class="label">雪の手すりに沿って二度曲</text>
+<text x="140" y="234" class="label">がる校門前の長坂</text>
+<circle class="node" data-map="E33" cx="140" cy="420" r="30"/><text class="id" x="140" y="427">E33</text>
+<text x="140" y="473" class="label">楕円トラックと鉄棒が雪に</text>
+<text x="140" y="494" class="label">埋もれる小学校校庭</text>
+<text x="25" y="545" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
+<circle class="ref" data-reference-map="E13" data-reference="E13" cx="40" cy="575" r="13"/>
+<text x="65" y="580" class="small">E13.right ↔ N10.left  [外部: teramachi]</text>
+<path class="edge" data-edge-id="E13.right&gt;N10.left:edge" data-kind="edge" data-from="E13" data-to="N10" data-from-port="right" data-to-port="left" d="M940 573 L1055 573"/>
+<text x="25" y="622" class="small">N10.bottom ↔ E33.top</text>
+</g></svg>

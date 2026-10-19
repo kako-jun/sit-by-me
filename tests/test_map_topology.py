@@ -12,7 +12,7 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_IDS = ({f"E{n:02}" for n in range(1, 34)}
                 | {f"N{n}" for n in (1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12)}
-                | {f"F{n:02}" for n in range(1, 74)})
+                | {f"F{n:02}" for n in range(1, 83)})
 
 
 class MapTopologyTests(unittest.TestCase):
@@ -53,7 +53,7 @@ class MapTopologyTests(unittest.TestCase):
         self.topology("#### 寺町の地形不変条件", line + "\n\n#### 寺町の地形不変条件")
 
     def render(self):
-        for script in ("render_late_topology.rb", "render_sunnyland_topology.rb"):
+        for script in ("render_late_topology.rb", "render_sunnyland_topology.rb", "render_map_atlas.rb"):
             result = subprocess.run(["ruby", "scripts/" + script],
                                     cwd=self.root, capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
