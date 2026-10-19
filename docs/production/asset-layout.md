@@ -1,6 +1,18 @@
 # 素材ID配置（#68、2026-10-18）
 
-本制作の画像正本は `assets/images/`。配置変更は採用判定ではない。寺町16枚の全再作成と全件通過後の一括切替（#51）は継続する。
+本制作の画像正本は `assets/images/`。配置変更は採用判定ではない。
+
+## 保存運用（#68決定、2026-10-19）
+
+- **サンプル・候補の置き場を作らない**。`candidates/`、版suffix、`verification/` 配下の検証画像置き場は新規に使わない。生成画像は、ゲームで使う正本パス（上表のID別パス）へ**直接上書き保存**する。
+- 使うならコミットするだけ、使わないなら git でリバート（`git restore <path>`、未追跡の新規ファイルは削除）。**使う可能性のあるテイクは、次を生成する前にコミットする**（未コミットの新規ファイルは上書きで消える）。`git add` は名指し。
+- **採用状態は置き場でなく台帳のstatusで管理する**（[map-asset-registry](../map-asset-registry.md)・各台帳）。正本パスにファイルがあることは、採用も審査通過も意味しない。
+- 加工前原本の保管は、実際に必要な工程だけ: 人物の `Cxxx/raw/`（切り出しツールの入力。ツール変更時の出し直し比較に要る）。敵・召喚獣の `raw/` は、縮小・トリム等の加工を行う場合に限る（加工しないなら置かない）。それ以外の原本・失敗版は保管せず、来歴（prompt・測定値・判定）をIssueかレビュー文書に記録する。
+- **不採用・失敗画像は残さない**。追跡済みなら `git restore <path>`、未追跡の新規ファイルなら即削除。`candidates/`・`legacy/`・版suffix・サンプル置き場は新運用では作らず、残さない前提とする。
+- 参照用に残す画像（`fields/reference/`、外観参照専用。#105で許可済み）は、**長辺の上限を下げた縮小版**で保存し、役割が分かる名前（kebab-case、例 `teramachi-roof-exterior.png`）にリネームする。上限px・形式（例: 長辺1024px PNG／長辺768px WebP）は**未決（要確認）**。決まるまで参照画像を新規保存しない。原寸の元画像は参照として残さない。
+- 現存する `candidates/`・`legacy/`・`verification/`・`raw/` の画像は、この運用では不要とする方向だが、**このPRでは移動・削除・縮小しない**。棚卸し結果（PR本文）に基づき、kako-junの承認後に別PRで削除／縮小する。検査スクリプトの許可パターンは現存分のみで、削除PRで該当行を外す。
+
+寺町16枚の全再作成と全件通過後の一括切替（#51）は継続する。
 
 全712ファイルの旧→新／削除、SHA-256、理由は [移行manifest](20261018-asset-migration.json)。全行の復元元はmanifestの `base_commit` で、`git show <base_commit>:<old>` が元データを返す。元promptは既存の記録以外から復元・創作しない。過去レビューのパスは当時の記録として残す。
 
@@ -9,11 +21,11 @@
 | 敵 | `assets/images/enemies/Mxxx.png`、`raw/Mxxx[-alpha].png` | monsters.mdの既存ID。M001も同じroot。既存の採用／採否待ちを継承し、新品質規約を満たすとは判定しない |
 | 召喚獣 | `assets/images/summons/Sxxx.png`、`raw/Sxxx.png` | S002〜S007の6種のみ現存。S001は未生成、S008は同じ存在の設計だが現存画像なし。架空のファイルを作らない |
 | 人物 | `assets/images/characters/Cxxx/{masters,poses,walk,raw}/Cxxx-<suffix>.png` | 下表のC管理ID。旧人名prefixをIDへ置換し、年齢・衣装・pose・方向・コマを全て保持 |
-| MAP | `assets/images/fields/legacy/Exx[-variant].png` | 33MAP＋12旧差分。寺町再作成候補の代わりに採用するものではない |
+| MAP（旧素材・現存のみ） | `assets/images/fields/legacy/Exx[-variant].png` | 33MAP＋12旧差分。新規生成先ではない。寺町再作成候補の代わりに採用するものではない |
 | legacy mask | `assets/images/fields/legacy/masks/Exx-*.png` | JSON・生成補助は `verification/fields/legacy-masks/`。旧接続を変更しない検証専用 |
-| 汎用フィールド検証 | `assets/images/fields/verification/VFIELDxxx.png`、`masks/VFIELDxxx-*.png` | VFIELD001=overview、002=wide-road、003=narrow-lane、004=connector。MAP対応は推測しない |
+| 汎用フィールド検証（現存のみ） | `assets/images/fields/verification/VFIELDxxx.png`、`masks/VFIELDxxx-*.png` | 新規作成しない。VFIELD001=overview、002=wide-road、003=narrow-lane、004=connector。MAP対応は推測しない |
 | 外観参照 | `assets/images/fields/reference/<kebab-case>.png` | 外観参照専用（平置き・小文字英数とハイフンのみ）。mapの「実行時参照」には使わない |
-| 戦闘背景 | `assets/images/battle-backgrounds/BGxxx.png`、`candidates/BGxxx.png` | 下表。検証設定は `verification/battles/` |
+| 戦闘背景 | `assets/images/battle-backgrounds/BGxxx.png`（現存の旧候補BG007〜009のみ `candidates/` に残る） | 下表。検証設定は `verification/battles/` |
 | 図解 | `assets/images/diagrams/DIAG001.png`、`DIAG002.png` | 旧topology overview／atlas。MAP背景に使わない |
 | ブランド | `assets/images/brand/BRAND001.{png,svg}`、`BRAND002.{png,svg}` | 旧mouth-a／mouth-b。ゲームIDではない |
 

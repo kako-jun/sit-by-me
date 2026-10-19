@@ -19,7 +19,7 @@ Find evidence that a proposed or generated artifact is wrong before it is adopte
 
 ## Inputs and canonical sources
 
-Use the #68 migration ledger for actual paths: `assets/images/{enemies,summons,characters,fields,battle-backgrounds}/` and `verification/{fields,battles}/`. Match canonical M/S/C/E/N/F/BG IDs and distinguish raw/variant, candidate, reference and legacy roles. A move into `assets/images/` proves neither adoption nor a passed review. Historical reviews retain old paths; follow the relocation/deletion ledger and source commit rather than treating tombstones as live inputs.
+Use the #68 migration ledger for actual paths: `assets/images/{enemies,summons,characters,fields,battle-backgrounds}/` and `verification/{fields,battles}/`. Match canonical M/S/C/E/N/F/BG IDs and distinguish raw (pre-processing original), reference and legacy roles. There is no candidate folder or version suffix: new generations overwrite the canonical path (committed if kept, reverted via git if not). Adoption is the ledger status, never the file location; a file at a canonical path proves neither adoption nor a passed review. Review the exact committed version (commit hash). Historical reviews retain old paths; follow the relocation/deletion ledger and source commit rather than treating tombstones as live inputs.
 
 For a MAP review, first read:
 
@@ -69,4 +69,4 @@ Do not repair the candidate while reviewing it. Hand blockers back to the author
 
 - Any unresolved TBD, missing source, missing reciprocal edge, or missing mask blocks adoption/`ready`. At earlier stages, require only the artifacts appropriate to that stage; explicitly list later-stage checks as pending rather than claiming they passed.
 - An image may remain a `legacy` record, but it cannot be used as proof that a contradictory topology is correct.
-- Do not generate replacements, delete candidates, or change public/issue state in this skill unless separately directed.
+- Do not generate replacements, revert or delete images, or change public/issue state in this skill unless separately directed.

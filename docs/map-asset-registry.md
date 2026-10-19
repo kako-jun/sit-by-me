@@ -24,7 +24,7 @@
 | 参考・TBD | Ref IDと、未解決なら「どの場所／何の資料／どの判定を得るか」を具体的に書く。`参照待ち`だけは無効 |
 | mask・red-team | 生成後にtraversal/foreground edit・runtime・review各パスと敵対レビュー記録を追加し、最終採用 `ready` を検討。未生成であることだけを入力契約審査の妨げにしない |
 
-`legacy` は採用済みを意味しない。実パス・参考・マスク・red-teamが未記録のlegacyは `legacy-needs-review` として扱い、生成根拠にも接続根拠にも使わない。
+`legacy` は採用済みを意味しない。実パス・参考・マスク・red-teamが未記録のlegacyは `legacy-needs-review` として扱い、生成根拠にも接続根拠にも使わない。 採用状態はファイルの置き場でなくこの台帳のstatusで管理する（生成物は正本パスへ直接上書きし、使うならコミット・使わないならgitでリバート。[素材配置台帳](production/asset-layout.md)）。
 
 ## 個別契約（対象画像の入力契約を独立審査してから生成する）
 
