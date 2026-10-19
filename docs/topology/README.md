@@ -14,7 +14,7 @@
 | 小学校と通学坂 | [school.svg](areas/school.svg) |
 | 卯辰山 | [mountain.svg](areas/mountain.svg) |
 | サニーランド | [sunnyland.svg](areas/sunnyland.svg) |
-| 内灘・浅野川線 | [uchinada.svg](areas/uchinada.svg) |
+| 内灘・内灘線 | [uchinada.svg](areas/uchinada.svg) |
 | 奥能登への鉄道 | [noto_train.svg](areas/noto_train.svg) |
 | 奥能登・被災前 | [noto_before.svg](areas/noto_before.svg) |
 | 奥能登・被災後 | [noto_after.svg](areas/noto_after.svg) |

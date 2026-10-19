@@ -295,14 +295,14 @@
 <text x="25" y="1301" class="small">E23.door-cave-in ↔ F65.door-entry</text>
 <text x="25" y="1343" class="small">F65.door-exit ↔ E23.door-cave-out</text>
 </g></g>
-<g transform="translate(0 4097)"><g data-area="uchinada"><rect x="8" y="8" width="1084" height="1129" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">内灘・浅野川線・5MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<g transform="translate(0 4097)"><g data-area="uchinada"><rect x="8" y="8" width="1084" height="1129" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">内灘・内灘線・5MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
 <path class="door" data-edge-id="N12.door-uchinada&gt;E26.door-platform:door" data-kind="door" data-from="N12" data-to="E26" data-from-port="door-uchinada" data-to-port="door-platform" d="M140 680 L400 680"/>
 <path class="edge" data-edge-id="E26.right&gt;N3.left:edge" data-kind="edge" data-from="E26" data-to="N3" data-from-port="right" data-to-port="left" d="M400 680 L660 680"/>
 <path class="edge" data-edge-id="N3.top&gt;F11.bottom:edge" data-kind="edge" data-from="N3" data-to="F11" data-from-port="top" data-to-port="bottom" d="M660 680 L660 420"/>
 <path class="edge" data-edge-id="F11.top&gt;E27.bottom:edge" data-kind="edge" data-from="F11" data-to="E27" data-from-port="top" data-to-port="bottom" d="M660 420 L660 160"/>
 <circle class="node" data-map="N12" cx="140" cy="680" r="30"/><text class="id" x="140" y="687">N12</text>
-<text x="140" y="733" class="label">結露窓と赤い座席が続く浅</text>
-<text x="140" y="754" class="label">野川線車内</text>
+<text x="140" y="733" class="label">内灘線の結露窓と赤い座席</text>
+<text x="140" y="754" class="label">が続く車内</text>
 <circle class="node" data-map="E26" cx="400" cy="680" r="30"/><text class="id" x="400" y="687">E26</text>
 <text x="400" y="733" class="label">風を受ける小駅と留置線</text>
 <circle class="node" data-map="N3" cx="660" cy="680" r="30"/><text class="id" x="660" y="687">N3</text>
@@ -325,8 +325,8 @@
 </g></g>
 <g transform="translate(1740 4097)"><g data-area="noto_train"><rect x="8" y="8" width="1084" height="483" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">奥能登への鉄道・1MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
 <circle class="node" data-map="E28" cx="140" cy="160" r="30"/><text class="id" x="140" y="167">E28</text>
-<text x="140" y="213" class="label">雪で曇る窓と木製座席の奥</text>
-<text x="140" y="234" class="label">能登鉄道車内</text>
+<text x="140" y="213" class="label">奥能登鉄道の雪で曇る窓と</text>
+<text x="140" y="234" class="label">木製座席の車内</text>
 <text x="25" y="285" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
 <circle class="ref" data-reference-map="E21" data-reference="E21" cx="40" cy="315" r="13"/>
 <text x="65" y="320" class="small">E21.door-noto ↔ E28.door-kanazawa  [外部: station]</text>
