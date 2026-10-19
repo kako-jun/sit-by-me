@@ -42,11 +42,14 @@ module MapAtlas
       out<<%(<circle class="node" data-map="#{id}" cx="#{x}" cy="#{y}" r="30"/><text class="id" x="#{x}" y="#{y+7}">#{id}</text>)
       if area['id']=='overseas' && id=='F37'
         out<<%(<text x="#{x}" y="#{y-48}" class="label">空中通路・シャー共闘</text>)
+      elsif area['id']=='overseas' && %w[F27 F28 F29].include?(id)
+        node_label(id,spec).each_with_index { |line,i| out<<%(<text x="#{x}" y="#{y+53+i*21}" class="label">#{esc(line)}</text>) }
       elsif area['id']=='overseas'
         node_label(id,spec).each_with_index { |line,i| out<<%(<text x="#{x+65}" y="#{y-8+i*21}" class="label" style="text-anchor:start">#{esc(line)}</text>) }
       else
-        label_y=id=='F19' ? y-100:y+53
-        node_label(id,spec).each_with_index { |line,i| out<<%(<text x="#{x}" y="#{label_y+i*21}" class="label">#{esc(line)}</text>) }
+        label_y=id=='F19' ? y-42:y+53
+        label_x=id=='F82' ? x-75:x
+        node_label(id,spec).each_with_index { |line,i| out<<%(<text x="#{label_x}" y="#{label_y+i*21}" class="label">#{esc(line)}</text>) }
       end
     end
     out<<%(<text x="25" y="#{diagram_bottom}" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>)

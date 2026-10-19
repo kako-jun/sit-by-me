@@ -415,7 +415,7 @@
 <path class="door" data-edge-id="F74.door-passage-heart&gt;F26.door-passage-torso:door" data-kind="door" data-from="F74" data-to="F26" data-from-port="door-passage-heart" data-to-port="door-passage-torso" d="M540 560 L440 680"/>
 <path class="door" data-edge-id="F74.door-passage-lung&gt;F75.door-passage-torso:door" data-kind="door" data-from="F74" data-to="F75" data-from-port="door-passage-lung" data-to-port="door-passage-torso" d="M540 560 L720 650"/>
 <circle class="node" data-map="F19" cx="730" cy="370" r="30"/><text class="id" x="730" y="377">F19</text>
-<text x="730" y="270" class="label">口・体内入口</text>
+<text x="730" y="328" class="label">口・体内入口</text>
 <circle class="node" data-map="F74" cx="540" cy="560" r="30"/><text class="id" x="540" y="567">F74</text>
 <text x="540" y="613" class="label">上半身・胴体上段</text>
 <circle class="node" data-map="F76" cx="540" cy="810" r="30"/><text class="id" x="540" y="817">F76</text>
@@ -439,7 +439,7 @@
 <circle class="node" data-map="F81" cx="810" cy="950" r="30"/><text class="id" x="810" y="957">F81</text>
 <text x="810" y="1003" class="label">右足通路1・付け根側</text>
 <circle class="node" data-map="F82" cx="880" cy="1130" r="30"/><text class="id" x="880" y="1137">F82</text>
-<text x="880" y="1183" class="label">右足通路2・中間</text>
+<text x="805" y="1183" class="label">右足通路2・中間</text>
 <circle class="node" data-map="F23" cx="940" cy="1310" r="30"/><text class="id" x="940" y="1317">F23</text>
 <text x="940" y="1363" class="label">右足通路3・末端</text>
 <circle class="node" data-map="F25" cx="440" cy="970" r="30"/><text class="id" x="440" y="977">F25</text>
@@ -505,14 +505,14 @@
 <path class="door" data-edge-id="F72.door-down&gt;F73.door-up:door" data-kind="door" data-from="F72" data-to="F73" data-from-port="door-down" data-to-port="door-up" d="M940 565 L940 675"/>
 <path class="door" data-edge-id="F73.door-down&gt;F38.door-up:door" data-kind="door" data-from="F73" data-to="F38" data-from-port="door-down" data-to-port="door-up" d="M940 675 L940 785"/>
 <circle class="node" data-map="F27" cx="140" cy="1000" r="30"/><text class="id" x="140" y="1007">F27</text>
-<text x="205" y="992" class="label" style="text-anchor:start">凍結した滑走路と赤錆の到</text>
-<text x="205" y="1013" class="label" style="text-anchor:start">着ターミナル</text>
+<text x="140" y="1053" class="label">凍結した滑走路と赤錆の到</text>
+<text x="140" y="1074" class="label">着ターミナル</text>
 <circle class="node" data-map="F28" cx="440" cy="1000" r="30"/><text class="id" x="440" y="1007">F28</text>
-<text x="505" y="992" class="label" style="text-anchor:start">遠い都市影へ伸びる霜の一</text>
-<text x="505" y="1013" class="label" style="text-anchor:start">本道</text>
+<text x="440" y="1053" class="label">遠い都市影へ伸びる霜の一</text>
+<text x="440" y="1074" class="label">本道</text>
 <circle class="node" data-map="F29" cx="740" cy="1000" r="30"/><text class="id" x="740" y="1007">F29</text>
-<text x="805" y="992" class="label" style="text-anchor:start">風食岩と凍った塩原を回る</text>
-<text x="805" y="1013" class="label" style="text-anchor:start">二重カーブ</text>
+<text x="740" y="1053" class="label">風食岩と凍った塩原を回る</text>
+<text x="740" y="1074" class="label">二重カーブ</text>
 <circle class="node" data-map="F30" cx="390" cy="795" r="30"/><text class="id" x="390" y="802">F30</text>
 <text x="455" y="787" class="label" style="text-anchor:start">攻略双塔の共通基壇</text>
 <circle class="node" data-map="F31" cx="180" cy="705" r="30"/><text class="id" x="180" y="712">F31</text>
