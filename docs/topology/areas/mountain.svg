@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1087" viewBox="0 0 1100 1087" role="img"><title>卯辰山の一本道</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:21px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1100" height="1087" fill="#edf3f1"/><g data-area="mountain"><rect x="8" y="8" width="1084" height="1071" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">卯辰山の一本道・5MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<path class="edge" data-edge-id="N8.top&gt;E22.bottom:edge" data-kind="edge" data-from="N8" data-to="E22" data-from-port="top" data-to-port="bottom" d="M140 580 L360 475"/>
+<path class="edge" data-edge-id="E22.top&gt;F04.bottom:edge" data-kind="edge" data-from="E22" data-to="F04" data-from-port="top" data-to-port="bottom" d="M360 475 L160 370"/>
+<path class="edge" data-edge-id="F04.top&gt;F05.bottom:edge" data-kind="edge" data-from="F04" data-to="F05" data-from-port="top" data-to-port="bottom" d="M160 370 L370 265"/>
+<path class="edge" data-edge-id="F05.top&gt;F06.bottom:edge" data-kind="edge" data-from="F05" data-to="F06" data-from-port="top" data-to-port="bottom" d="M370 265 L180 160"/>
+<circle class="node" data-map="N8" cx="140" cy="580" r="30"/><text class="id" x="140" y="587">N8</text>
+<text x="140" y="633" class="label">浅野川橋の先で杉林へ折れ</text>
+<text x="140" y="654" class="label">る寺門の登り口</text>
+<circle class="node" data-map="E22" cx="360" cy="475" r="30"/><text class="id" x="360" y="482">E22</text>
+<text x="360" y="528" class="label">廃遊具の脇を二度折り返す</text>
+<text x="360" y="549" class="label">山腹道</text>
+<circle class="node" data-map="F04" cx="160" cy="370" r="30"/><text class="id" x="160" y="377">F04</text>
+<text x="160" y="423" class="label">雪をかぶった展望東屋を回</text>
+<text x="160" y="444" class="label">り込む尾根道</text>
+<circle class="node" data-map="F05" cx="370" cy="265" r="30"/><text class="id" x="370" y="272">F05</text>
+<text x="370" y="318" class="label">崩れた石垣を避けるヘアピ</text>
+<text x="370" y="339" class="label">ン坂</text>
+<circle class="node" data-map="F06" cx="180" cy="160" r="30"/><text class="id" x="180" y="167">F06</text>
+<text x="180" y="213" class="label">氷の召喚獣と対峙する風穴</text>
+<text x="180" y="234" class="label">のある山頂広場</text>
+<text x="25" y="705" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
+<circle class="ref" data-reference-map="N11" data-reference="N11" cx="40" cy="735" r="13"/>
+<text x="65" y="740" class="small">N11.right ↔ N8.left  [外部: city]</text>
+<path class="edge" data-edge-id="N11.right&gt;N8.left:edge" data-kind="edge" data-from="N11" data-to="N8" data-from-port="right" data-to-port="left" d="M940 733 L1055 733"/>
+<text x="25" y="782" class="small">N8.top ↔ E22.bottom</text>
+<text x="25" y="824" class="small">E22.top ↔ F04.bottom</text>
+<text x="25" y="866" class="small">F04.top ↔ F05.bottom</text>
+<text x="25" y="908" class="small">F05.top ↔ F06.bottom</text>
+<circle class="ref" data-reference-map="F07" data-reference="F07" cx="40" cy="945" r="13"/>
+<text x="65" y="950" class="small">F06.top ↔ F07.bottom  [外部: sunnyland]</text>
+<path class="edge" data-edge-id="F06.top&gt;F07.bottom:edge" data-kind="edge" data-from="F06" data-to="F07" data-from-port="top" data-to-port="bottom" d="M940 943 L1055 943"/>
+</g></svg>

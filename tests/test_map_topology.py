@@ -53,7 +53,7 @@ class MapTopologyTests(unittest.TestCase):
         self.topology("#### 寺町の地形不変条件", line + "\n\n#### 寺町の地形不変条件")
 
     def render(self):
-        for script in ("render_late_topology.rb", "render_sunnyland_topology.rb"):
+        for script in ("render_late_topology.rb", "render_sunnyland_topology.rb", "render_map_atlas.rb"):
             result = subprocess.run(["ruby", "scripts/" + script],
                                     cwd=self.root, capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)

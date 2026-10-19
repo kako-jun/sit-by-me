@@ -8,6 +8,7 @@ ROOT = File.expand_path('..', __dir__)
 require 'rexml/document'
 require 'json'
 require_relative 'verify_overseas_progression'
+require_relative 'verify_map_atlas'
 
 def read(name)
   File.read(File.join(ROOT, 'docs', name), encoding: 'UTF-8')
@@ -259,4 +260,10 @@ rescue StandardError => e
   fail!("海外状態契約: #{e.message}")
 end
 
-puts "PASS: MAP contracts=#{contract_ids.length}, assets=#{asset_ids.length}, specs=#{spec_ids.length}, refs=#{reference_ids.length}, topology MAPs=#{topology_ids.length}, topology rows=#{topology_rows.length}, pending=#{pending.length}, cycles garden=#{garden_cycles} castle=#{castle_cycles} towers=#{tower_cycles}, diagram verified"
+begin
+  MapAtlasVerification.verify!(ROOT)
+rescue StandardError => e
+  fail!("全MAP図: #{e.message}")
+end
+
+puts "PASS: MAP contracts=#{contract_ids.length}, assets=#{asset_ids.length}, specs=#{spec_ids.length}, refs=#{reference_ids.length}, topology MAPs=#{topology_ids.length}, topology rows=#{topology_rows.length}, pending=#{pending.length}, cycles garden=#{garden_cycles} castle=#{castle_cycles} towers=#{tower_cycles}, full atlas=#{contract_ids.length} MAPs/#{topology_rows.length} connections/#{membership['areas'].length} areas, overview and all area diagrams verified"

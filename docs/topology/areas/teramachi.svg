@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1840" height="2395" viewBox="0 0 1840 2395" role="img"><title>寺町・寺院と住居</title><defs><marker id="directed-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#8b4c83"/></marker></defs><style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:21px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}</style><rect width="1840" height="2395" fill="#edf3f1"/><g data-area="teramachi"><rect x="8" y="8" width="1824" height="2379" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">寺町・寺院と住居・17MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
+<path class="edge" data-edge-id="E01.right&gt;E02.left:edge" data-kind="edge" data-from="E01" data-to="E02" data-from-port="right" data-to-port="left" d="M140 640 L400 640"/>
+<path class="door" data-edge-id="E01.door-north&gt;E11.door-kindergarten:door" data-kind="door" data-from="E01" data-to="E11" data-from-port="door-north" data-to-port="door-kindergarten" d="M140 640 L920 420"/>
+<path class="edge" data-edge-id="E02.right&gt;E03.left:edge" data-kind="edge" data-from="E02" data-to="E03" data-from-port="right" data-to-port="left" d="M400 640 L660 640"/>
+<path class="edge" data-edge-id="E02.top&gt;N2.bottom:edge" data-kind="edge" data-from="E02" data-to="N2" data-from-port="top" data-to-port="bottom" d="M400 640 L400 420"/>
+<path class="edge" data-edge-id="E03.right&gt;E04.left:edge" data-kind="edge" data-from="E03" data-to="E04" data-from-port="right" data-to-port="left" d="M660 640 L920 640"/>
+<path class="edge" data-edge-id="E03.bottom&gt;E10.top:edge" data-kind="edge" data-from="E03" data-to="E10" data-from-port="bottom" data-to-port="top" d="M660 640 L660 860"/>
+<path class="edge" data-edge-id="E04.right&gt;E05.left:edge" data-kind="edge" data-from="E04" data-to="E05" data-from-port="right" data-to-port="left" d="M920 640 L1180 640"/>
+<path class="edge" data-edge-id="E04.top&gt;E11.bottom:edge" data-kind="edge" data-from="E04" data-to="E11" data-from-port="top" data-to-port="bottom" d="M920 640 L920 420"/>
+<path class="edge" data-edge-id="E05.right&gt;E06.left:edge" data-kind="edge" data-from="E05" data-to="E06" data-from-port="right" data-to-port="left" d="M1180 640 L1440 640"/>
+<path class="edge" data-edge-id="E06.bottom&gt;E07.top:edge" data-kind="edge" data-from="E06" data-to="E07" data-from-port="bottom" data-to-port="top" d="M1440 640 L1440 860"/>
+<path class="edge" data-edge-id="E07.bottom&gt;E08.top:edge" data-kind="edge" data-from="E07" data-to="E08" data-from-port="bottom" data-to-port="top" d="M1440 860 L1440 1080"/>
+<path class="edge" data-edge-id="E08.right&gt;E09.left:edge" data-kind="edge" data-from="E08" data-to="E09" data-from-port="right" data-to-port="left" d="M1440 1080 L1700 1080"/>
+<path class="door" data-edge-id="E08.door&gt;F03.door:door" data-kind="door" data-from="E08" data-to="F03" data-from-port="door" data-to-port="door" d="M1440 1080 L1440 1300"/>
+<path class="edge" data-edge-id="E09.top&gt;E13.bottom:edge" data-kind="edge" data-from="E09" data-to="E13" data-from-port="top" data-to-port="bottom" d="M1700 1080 L1700 860"/>
+<path class="door" data-edge-id="E11.door-main&gt;F01.door-south:door" data-kind="door" data-from="E11" data-to="F01" data-from-port="door-main" data-to-port="door-south" d="M920 420 L920 160"/>
+<path class="door" data-edge-id="F01.door-east&gt;E12.door-hall:door" data-kind="door" data-from="F01" data-to="E12" data-from-port="door-east" data-to-port="door-hall" d="M920 160 L1180 160"/>
+<path class="door" data-edge-id="F01.door-west&gt;F02.door-west:door" data-kind="door" data-from="F01" data-to="F02" data-from-port="door-west" data-to-port="door-west" d="M920 160 L660 160"/>
+<circle class="node" data-map="E01" cx="140" cy="640" r="30"/><text class="id" x="140" y="647">E01</text>
+<text x="140" y="693" class="label">本堂の裏で雪遊びをする私</text>
+<text x="140" y="714" class="label">立幼稚園の園庭（屋外）</text>
+<circle class="node" data-map="E02" cx="400" cy="640" r="30"/><text class="id" x="400" y="647">E02</text>
+<text x="400" y="693" class="label">用水と寺門が交わる斜め道</text>
+<circle class="node" data-map="E03" cx="660" cy="640" r="30"/><text class="id" x="660" y="647">E03</text>
+<text x="660" y="693" class="label">火の見櫓を曲がる見通しの</text>
+<text x="660" y="714" class="label">悪い角</text>
+<circle class="node" data-map="E04" cx="920" cy="640" r="30"/><text class="id" x="920" y="647">E04</text>
+<text x="920" y="693" class="label">消雪パイプと寺の長塀の広</text>
+<text x="920" y="714" class="label">い道</text>
+<circle class="node" data-map="E05" cx="1180" cy="640" r="30"/><text class="id" x="1180" y="647">E05</text>
+<text x="1180" y="693" class="label">井戸と用水が合流するS字</text>
+<circle class="node" data-map="E06" cx="1440" cy="640" r="30"/><text class="id" x="1440" y="647">E06</text>
+<text x="1440" y="693" class="label">湯気の煙突が立つ銭湯前</text>
+<circle class="node" data-map="E07" cx="1440" cy="860" r="30"/><text class="id" x="1440" y="867">E07</text>
+<text x="1440" y="913" class="label">犀川側の団地へ下る雪囲い</text>
+<text x="1440" y="934" class="label">スロープ</text>
+<circle class="node" data-map="E08" cx="1440" cy="1080" r="30"/><text class="id" x="1440" y="1087">E08</text>
+<text x="1440" y="1133" class="label">犀川側の県営住宅の中庭</text>
+<circle class="node" data-map="E09" cx="1700" cy="1080" r="30"/><text class="id" x="1700" y="1087">E09</text>
+<text x="1700" y="1133" class="label">石段の下の古い坂道</text>
+<circle class="node" data-map="E10" cx="660" cy="860" r="30"/><text class="id" x="660" y="867">E10</text>
+<text x="660" y="913" class="label">寺の勝手口へ入る土塀の細</text>
+<text x="660" y="934" class="label">道</text>
+<circle class="node" data-map="E11" cx="920" cy="420" r="30"/><text class="id" x="920" y="427">E11</text>
+<text x="920" y="473" class="label">親鸞像のある浄土真宗の境</text>
+<text x="920" y="494" class="label">内（屋外）</text>
+<circle class="node" data-map="E12" cx="1180" cy="160" r="30"/><text class="id" x="1180" y="167">E12</text>
+<text x="1180" y="213" class="label">庫裏の台所と幼馴染の部屋</text>
+<text x="1180" y="234" class="label">（屋内）</text>
+<circle class="node" data-map="E13" cx="1700" cy="860" r="30"/><text class="id" x="1700" y="867">E13</text>
+<text x="1700" y="913" class="label">段丘上の分岐、学校側へ向</text>
+<text x="1700" y="934" class="label">く眺め</text>
+<circle class="node" data-map="F01" cx="920" cy="160" r="30"/><text class="id" x="920" y="167">F01</text>
+<text x="920" y="213" class="label">仏具の鈍い金と畳が対照に</text>
+<text x="920" y="234" class="label">なる本堂（屋内）</text>
+<circle class="node" data-map="F02" cx="660" cy="160" r="30"/><text class="id" x="660" y="167">F02</text>
+<text x="660" y="213" class="label">舞台幕と小さな椅子が残る</text>
+<text x="660" y="234" class="label">遊戯室（屋内）</text>
+<circle class="node" data-map="F03" cx="1440" cy="1300" r="30"/><text class="id" x="1440" y="1307">F03</text>
+<text x="1440" y="1353" class="label">車椅子の回転余地がある県</text>
+<text x="1440" y="1374" class="label">営住宅の団地室</text>
+<circle class="node" data-map="N2" cx="400" cy="420" r="30"/><text class="id" x="400" y="427">N2</text>
+<text x="400" y="473" class="label">用水と黒瓦を見上げる寺町</text>
+<text x="400" y="494" class="label">坂</text>
+<text x="25" y="1425" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
+<text x="25" y="1460" class="small">E01.right ↔ E02.left</text>
+<text x="25" y="1502" class="small">E01.door-north ↔ E11.door-kindergarten</text>
+<text x="25" y="1544" class="small">E02.right ↔ E03.left</text>
+<text x="25" y="1586" class="small">E02.top ↔ N2.bottom</text>
+<text x="25" y="1628" class="small">E03.right ↔ E04.left</text>
+<text x="25" y="1670" class="small">E03.bottom ↔ E10.top</text>
+<text x="25" y="1712" class="small">E04.right ↔ E05.left</text>
+<text x="25" y="1754" class="small">E04.top ↔ E11.bottom</text>
+<text x="25" y="1796" class="small">E05.right ↔ E06.left</text>
+<text x="25" y="1838" class="small">E06.bottom ↔ E07.top</text>
+<text x="25" y="1880" class="small">E07.bottom ↔ E08.top</text>
+<text x="25" y="1922" class="small">E08.right ↔ E09.left</text>
+<text x="25" y="1964" class="small">E08.door ↔ F03.door</text>
+<text x="25" y="2006" class="small">E09.top ↔ E13.bottom</text>
+<circle class="ref" data-reference-map="N10" data-reference="N10" cx="40" cy="2043" r="13"/>
+<text x="65" y="2048" class="small">E13.right ↔ N10.left  [外部: school]</text>
+<path class="edge" data-edge-id="E13.right&gt;N10.left:edge" data-kind="edge" data-from="E13" data-to="N10" data-from-port="right" data-to-port="left" d="M1680 2041 L1795 2041"/>
+<text x="25" y="2090" class="small">E11.door-main ↔ F01.door-south</text>
+<text x="25" y="2132" class="small">F01.door-east ↔ E12.door-hall</text>
+<text x="25" y="2174" class="small">F01.door-west ↔ F02.door-west</text>
+<circle class="ref" data-reference-map="E19" data-reference="E19" cx="40" cy="2211" r="13"/>
+<text x="65" y="2216" class="small">N2.top ↔ E19.bottom  [外部: city]</text>
+<path class="edge" data-edge-id="N2.top&gt;E19.bottom:edge" data-kind="edge" data-from="N2" data-to="E19" data-from-port="top" data-to-port="bottom" d="M1680 2209 L1795 2209"/>
+<circle class="ref" data-reference-map="F19" data-reference="F19" cx="40" cy="2253" r="13"/>
+<text x="65" y="2258" class="small">E01.event-kiss → F19.event-mouth  [外部: body]</text>
+<path class="event" data-edge-id="E01.event-kiss&gt;F19.event-mouth:event" data-kind="event" data-from="E01" data-to="F19" data-from-port="event-kiss" data-to-port="event-mouth" d="M1680 2251 L1795 2251" marker-end="url(#directed-arrow)"/>
+</g></svg>
