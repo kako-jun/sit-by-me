@@ -35,11 +35,12 @@ Keep foreground display independent of traversal:
 
 - `*-foreground-edit.png` is a full-size, solid-colour RGB edit map: black `#000000` = no cover; cyan `#00FFFF` = render the matching foreground cutout in front of the player.
 - `*-foreground.png` is the transparent RGBA artwork actually drawn in front. It contains only the foreground objects, never a coloured guide or contour.
+- Foreground objects that overlap the viewpoint (including those in oblique-angle backgrounds) are not separated at generation time; they are handled by this mask layer afterwards.
 - A foreground tree, rail, wall edge, or roof may cover the player visually while the ground beneath remains `universal`; it must not silently turn the route into `blocked`.
 
 ## Workflow
 
-For #51, measure the actual background as 1920×1080 before authoring. Every edit PNG, runtime mask, foreground and metadata size must match that exact candidate. Verify outputs with image inspection, not their filenames. Do not rescale a rejected background or reuse its mask to manufacture compliance. Keep the candidate path/version and dimensions with the links and review evidence.
+For #51, measure the actual background before authoring: target 1920×1080; 16:9 1672×941 is accepted when the image tool cannot return 1920×1080; any other size fails and is never rescaled to pass. Every edit PNG, runtime mask, foreground and metadata size must match that exact candidate's measured size. Verify outputs with image inspection, not their filenames. Do not rescale a rejected background or reuse its mask to manufacture compliance. Keep the candidate path/version and dimensions with the links and review evidence.
 
 1. Derive every traversable exit and forbidden edge from the MAP’s connection contract. Record edge ranges and traversal class in its JSON source.
 2. Start edit maps as flat colours at exactly the background resolution. Do not draw outlines into these edit files.
