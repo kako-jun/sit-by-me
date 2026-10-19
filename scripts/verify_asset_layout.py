@@ -26,7 +26,7 @@ def verify(root):
         new = (root / row['new']).resolve()
         new.relative_to(root)
         assert new.is_file(), f'Missing migrated asset: {row["new"]}'
-        if new.suffix in {'.png', '.svg'}:
+        if new.suffix in {'.png', '.webp', '.svg'}:
             actual = hashlib.sha256(new.read_bytes()).hexdigest()
             assert actual == row['sha256'], f'Image bytes changed: {row["new"]}'
 
@@ -34,14 +34,14 @@ def verify(root):
     for image in (path for path in image_root.rglob('*') if path.suffix in {'.png', '.webp'}):
         relative = image.relative_to(image_root).as_posix()
         patterns = (
-            r'enemies/M\d{3}\.png',
-            r'summons/S\d{3}\.png',
-            r'characters/(C00[1-4])/(?:masters|poses|walk)/\1-[^/]+\.png',
+            r'enemies/M\d{3}\.webp',
+            r'summons/S\d{3}\.webp',
+            r'characters/(C00[1-4])/(?:masters|poses|walk)/\1-[^/]+\.webp',
             r'fields/legacy/E\d{2}(?:-[\w-]+)?\.png',
             r'fields/legacy/masks/E\d{2}[-\w]+\.png',
-            # 外観参照のみ非可逆WebP(品質85)も許可。他種別のWebP全面移行は別PR
+            # 外観参照は非可逆WebP(品質85)。fields/legacy・masksはPR-M(MAP改名)までPNGのまま
             r'fields/reference/[a-z0-9]+(?:-[a-z0-9]+)*\.(?:png|webp)',
-            r'battle-backgrounds/BG\d{3}\.png',
+            r'battle-backgrounds/BG\d{3}\.webp',
             r'brand/BRAND\d{3}\.png',
         )
         assert any(re.fullmatch(p, relative) for p in patterns), f'Non-ID image: {relative}'

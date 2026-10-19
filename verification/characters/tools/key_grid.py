@@ -26,5 +26,5 @@ for i, nm in enumerate(NAMES):
     im = Image.fromarray(sub, 'RGBA')
     if i in flips:
         im = im.transpose(Image.FLIP_LEFT_RIGHT)
-    im.save(f'{outdir}/{name}-{nm}.png')
+    im.save(f'{outdir}/{name}-{nm}.webp', 'WEBP', quality=85)
 print('ok', name)
