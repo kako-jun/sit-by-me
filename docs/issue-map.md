@@ -61,6 +61,7 @@
 
 - name-name: #831 戦利品・#806 サブメニュー・#847 フィールドメニュー・#207 装備・#740 ジョブ・#741/#863 脚本制御・#870 状態異常・#871 敵の条件・#872 属性相性・#873 コマンド構成・#750 召喚獣・#862 条件付き通行・#864 ワープ／電車内・#866 前面レイヤー
 - sit-by-me: #11 背景セット・#27 歩行マスク素材・#29 台帳・#30 id 規約・#31 実験・#32 序盤の冒険・#33 成長の出どころ・#34 刀・#35〜#37 脚本設計・#38 素材台帳・#39 整合・#49 3値マスク／前景レイヤー読込
+- 音（SB#66 BGM台帳・SB#67 SE台帳）: BGM は [bgm-registry.md](bgm-registry.md)（26スロット）・[bgm-sources.csv](bgm-sources.csv)・[bgm-phrases.csv](bgm-phrases.csv)・[bgm-sources-research.md](bgm-sources-research.md)・[bgm-suno-trial.md](bgm-suno-trial.md)、方針は systems.md「音」節。SE は電子音寄り（systems.md「音」節。SE台帳の置き場は SB#67 で起こす）
 
 ### 2026-10-18 地形再設計の追跡
 
