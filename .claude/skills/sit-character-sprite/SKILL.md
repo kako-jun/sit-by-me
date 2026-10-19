@@ -3,6 +3,8 @@ name: sit-character-sprite
 description: Sit by Me の人物スプライト（マスター、衣装、戦闘ポーズ、歩行コマ）を生成・透過・検査する。背景、敵、召喚獣には使わない。
 ---
 
+**画像の保存形式（#68決定、2026-10-19）**: imagegenの出力（PNG）→切り出し→**WebP（非可逆・品質85・アルファ保持）**にして正本パスへ保存する（`magick in.png -quality 85 out.webp`、または `verification/characters/tools/key_*.py` が直接WebPで出す）。PNGは残さない（name-name のTUIは WebP のみデコードできる）。実寸（不変）・アルファ（`magick in.png -alpha extract` と変換後WebPの同コマンドを `compare -metric AE` で比べAE=0）の検査はWebPで行う。寸法ゲートの基準（1920×1080等）は変えない。
+
 Sit by Me の4人（と子供3人、不良など人物）の絵を、生成 → 確認 → 透過・切り出し → 保存 → 記録の順で作る。敵は `sit-enemy-sprite`、召喚獣は `sit-summon-sprite`、フィールド背景は `sit-field-background`、戦闘背景は `sit-battle-background`。ここは人物スプライトだけ。
 
 ## 一意解釈ゲート（このスキルの全行より優先）
@@ -91,9 +93,9 @@ Sit by Me の4人（と子供3人、不良など人物）の絵を、生成 → 
 
 ## 9. 保存と命名
 
-- 人物IDは C001=オトン（旧otton）、C002=ナム（旧nam）、C003=シャー（旧shah）、C004=ペー子（旧peiko）。保存先は `assets/images/characters/Cxxx/`。旧名前接頭辞を同じ人物IDへ置換し、年齢・衣装・車椅子差分は保持する。マスターは `Cxxx/masters/Cxxx-{age}[-uniform|-wheelchair].png`。
-- 戦闘ポーズは `Cxxx/poses/Cxxx-{variant}-{pose}.png`。既存suffixの年齢・衣装・ポーズを落とさない。
-- 歩きは `Cxxx/walk/Cxxx-{variant}-walk-{dir}-{1,2,3}.png`。既存suffixの方向・コマ番号を保持する。
+- 人物IDは C001=オトン（旧otton）、C002=ナム（旧nam）、C003=シャー（旧shah）、C004=ペー子（旧peiko）。保存先は `assets/images/characters/Cxxx/`。旧名前接頭辞を同じ人物IDへ置換し、年齢・衣装・車椅子差分は保持する。マスターは `Cxxx/masters/Cxxx-{age}[-uniform|-wheelchair].webp`。
+- 戦闘ポーズは `Cxxx/poses/Cxxx-{variant}-{pose}.webp`。既存suffixの年齢・衣装・ポーズを落とさない。
+- 歩きは `Cxxx/walk/Cxxx-{variant}-walk-{dir}-{1,2,3}.webp`。既存suffixの方向・コマ番号を保持する。
 - 元のグリッド（切り出し前の原本）は保管しない（#68決定、2026-10-19。過去分は git 履歴 `1bb09d0` から復元）。切り出し結果の `poses/`・`walk/`・`masters/` は正本パスへ直接上書きし、`git add` は名指し
 - 手順や引数を変えたら `verification/characters/tools/README.md` と `docs/assets-policy.md` を同じコミットで直す
 - 採用・決定は Issue #3（人物）・#5（ポーズ）に記録する
