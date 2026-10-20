@@ -113,7 +113,7 @@
 | M124 | 骨格模型 | 医療・理科室 | 体内ダンジョン・心臓（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M124.webp`（採用: kako-jun 2026-10-14。ほぼ正面・透過・キャスター付きスタンド付き） | 同上 |
 | M125 | 注射器 | 医療・理科室 | 体内ダンジョン・両手・両足（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M125.webp`（採用: kako-jun 2026-10-14。右向き・透過・無人） | 同上 |
 | M126 | 歯科ドリル | 医療・理科室 | 体内ダンジョン・口（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 生成済み: `assets/images/enemies/M126.webp`（採用: kako-jun 2026-10-14。右向き・透過・無人） | 同上 |
-| M127 | イカ | 水辺の生物 | 水辺（章は未定）。サニーランド sunnyland-aquarium-indoor（補充候補。大型雑魚。2x2 の穴埋め）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 大型ボス的（巨体・長い触腕・墨） | 仕様のみ | #12 |
+| M127 | イカ | 水辺の生物 | 水辺（章は未定）。サニーランド sunnyland-aquarium-indoor（補充候補。大型雑魚。2x2 の穴埋め）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 大型ボス的（巨体・長い触腕・墨） | 採用: `assets/images/enemies/M127.webp`（1536×1024、WebP品質85・透過、kako-jun目視採用 2026-10-20） | #12 |
 | M128 | タコ | 水辺の生物 | 水辺（章は未定）。能登 実家 v2（被災前。水のラーニング元なので被災後の能登の海辺でも出て再戦できる）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 通常敵（吸い付き・からみつき・多腕のトリッキーな戦い） | 仕様のみ | #12 |
 | M129 | ゴンズイ | 水辺の生物 | 水辺（章は未定）。内灘 uchinada-beach（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定（群れと毒棘） | 生成済み: `assets/images/enemies/M129.webp`（採否待ち。5匹の群れ・右向き・透過） | #12 |
 | M130 | フグ | 水辺の生物 | 水辺（章は未定）。サニーランド sunnyland-aquarium-indoor（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定（膨らみと毒） | 生成済み: `assets/images/enemies/M130.webp`（採否待ち。膨らんだ姿・右向き・透過） | #12 |
