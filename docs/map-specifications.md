@@ -24,7 +24,7 @@
 
 | MAP | 時期 | 一言特徴 | 不変条件／接続 | 暫定固定 |
 |---|---|---|---|---|
-| KRB-01 korinbo | 幼稚園・壮年 | 地下入口のある繁華街交差点 | KRB-07南、KRB-11北、KRB-12東への分岐。百貨店door→KRB-02.door-street | 犀川北岸の結節点 |
+| KRB-01 korinbo | 幼稚園・壮年 | 地下入口のある繁華街交差点 | KRB-07南、KRB-11北、KRB-12東への分岐。百貨店door→KRB-02.door-street | 犀川北岸の結節点。アスファルトは灰色の砂、白線は白い砂で表現する。 |
 | KRB-04 toy-floor | 幼稚園 | ブラウン管デモ台のあるおもちゃ売場（3階） | door-elevator（階選択遷移。全階から行き先を選ぶ。4階は条件つき）。玩具売場 | 購入イベントE005。3階はkako-jun決定（2026-10-19）。階移動はエレベーター（扉に入るとウィンドウで階を選ぶ。階選択遷移）。KRB-04は3階・玩具売場で、2階KRB-03とは無関係（決定 2026-10-19） |
 | KRB-02 | 幼稚園・壮年 | デパート1階（入口階）。時計のある吹き抜け（アトリオ参照） | door-street→KRB-01.door、door-elevator（階選択遷移。全階から行き先を選ぶ） | 売場は香林坊アトリオの、からくり時計（アトリオクロック）のある吹き抜けを参考にする（kako-jun 2026-10-19、出所 https://github.com/kako-jun/sit-by-me/issues/87#issuecomment-6258778050）。実在店に似せないジオラマ（art-direction.md の既存方針）。香林坊大和4階の時計サロンとは別でアトリオクロックと無関係、ワープ先レストラン（大和8階）とも別の建物。TBD（要確認）: 1階の売場の中身、階の移動はエレベーターだけ（決定 2026-10-19）。エレベーターは1つの箱が全階を結ぶがMAPを持たない。扉に入るとウィンドウで行き先の階を選び、選んだ階の扉前に着く（#87追加決定 2026-10-19）。台帳外の別枠表「階選択遷移」で管理（map-topology.md）。TBD（要確認）: 1階での出来事の有無。KRB-03の吹き抜けから見える1階=KRB-02(同じ場所を2階から見下ろす視点で描く。決定 2026-10-19)。契約: KRB-02の背景を作るときはKRB-03の吹き抜け越しの絵と整合させる(KRB-02の吹き抜け・時計・床の見た目が共通の参照)。2階は最初から解放（解放条件なし。kako-jun決定 2026-10-19）。画像生成blocked。 |
 | KRB-03 | 幼稚園・壮年 | デパート2階（隠し階）。四角い吹き抜けの廊下だけ | door-elevator（階選択遷移。通らなくても本筋は成立） | 2階は最初から解放されている（解放条件なし。kako-jun決定 2026-10-19）。隠し階（#87の決定 2026-10-19）。階移動はエレベーターだけ（扉に入るとウィンドウで階を選ぶ）。2階は四角い吹き抜けの廊下だけのフロアで売場は無い（kako-jun決定 2026-10-19、#87）。中央の吹き抜けから下の1階が見えるが侵入はできない。歩行域=廊下の環のみ、吹き抜け部分はblocked。見える1階=KRB-02(同じ場所を2階から見下ろす視点で描く。決定 2026-10-19)。契約: KRB-02の背景を作るときはKRB-03の吹き抜け越しの絵と整合させる(KRB-02の吹き抜け・時計・床の見た目が共通の参照)。吹き抜けの縁では落下しない（見えるだけで侵入不可、落下イベントなし。吹き抜けは歩行不可のblockedで、落下の仕組みは無い。kako-jun決定 2026-10-19、#87）。隠し階（2階）への行き方は決定済み: エレベーターの扉に入ると階選択ウィンドウで選ぶ（箱はMAPにしないB案）。KRB-04（3階・玩具売場）とKRB-03は無関係（決定 2026-10-19）。実在店に似せないジオラマ。画像生成blocked。 |
@@ -37,7 +37,7 @@
 | KRB-07 | 幼稚園 | 融雪水の犀川鉄橋 | KRB-08南岸→KRB-01北岸を南北に渡る | 橋上に枝なし |
 | TRM-17 | 幼稚園 | 用水と黒瓦を見上げる寺町坂 | TRM-16南→KRB-10北、北上しつつ蛇行して段丘へ | 車椅子主坂 |
 | KRB-12 | 壮年 | 松と石垣で二手に分かれる広坂 | KRB-01西→GRD-01北、KRB-13東のT字 | 封鎖は切替柵 |
-| KRB-11 | 幼稚園〜再訪 | バス屋根と市場アーケードの十字 | KRB-01南→STN-01北／UTS-01東 | 浅野川橋はUTS-01内 |
+| KRB-11 | 幼稚園〜再訪 | バス屋根と市場アーケードの十字 | KRB-01南→STN-01北／UTS-01東 | 浅野川橋はUTS-01内。アスファルトは灰色の砂、白線は白い砂で表現する。 |
 
 ## 寺町の屋内（追加3枚）
 
@@ -169,16 +169,16 @@ K空港だけがワープ到達点。そこから飛行機で海外へ出た後�
 
 | MAP | 時期 | 一言特徴 | 方位・主路・通行条件 | 暫定固定 |
 |---|---|---|---|---|
-| CST-01 | 壮年 | 石川門の枡形 | left→CST-02.right、bottom→GRD-10.top | 高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
-| CST-02 | 壮年 | 三の丸 | right→CST-01.left、top→CST-03.bottom、left→CST-04.right、bottom→CST-08.top | 高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
-| CST-03 | 壮年 | 菱櫓・五十間長屋 | bottom→CST-02.top、door-west→CST-05.door-hishi、door-south→CST-04.door-north | 高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
-| CST-04 | 壮年 | 橋爪門・橋爪門続櫓 | right→CST-02.left、left→CST-05.right、door-north→CST-03.door-south | 高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
-| CST-05 | 壮年 | 二の丸 | door-hishi→CST-03.door-west、right→CST-04.left、left→CST-06.right、bottom→CST-07.top | 高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
-| CST-06 | 壮年 | 低地の玉泉院丸庭園 | right→CST-05.left | 高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
-| CST-07 | 壮年 | 極楽橋・本丸附段・三十間長屋側 | top→CST-05.bottom、right→CST-09.left | 3攻略目標完了後にCST-09本丸入口を解錠。高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
-| CST-08 | 壮年 | 鶴の丸・東の丸側 | top→CST-02.bottom、left→CST-09.right | 3攻略目標完了後にCST-09本丸入口を解錠。高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
-| CST-09 | 壮年 | 高い本丸 | left→CST-07.right、right→CST-08.left、door-tower→CST-10.door-base | 高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
-| CST-10 | 壮年 | 本丸内のイマジナリー天守上層 | door-base→CST-09.door-tower | 高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
+| CST-01 | 壮年 | 石川門の枡形 | left→CST-02.right、bottom→GRD-10.top | 夜。建物はマッチ棒工作、LEDまたは間接照明で壁・建物を光らせる。高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
+| CST-02 | 壮年 | 三の丸 | right→CST-01.left、top→CST-03.bottom、left→CST-04.right、bottom→CST-08.top | 夜。建物はマッチ棒工作、LEDまたは間接照明で壁・建物を光らせる。高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
+| CST-03 | 壮年 | 菱櫓・五十間長屋 | bottom→CST-02.top、door-west→CST-05.door-hishi、door-south→CST-04.door-north | 夜。建物はマッチ棒工作、LEDまたは間接照明で壁・建物を光らせる。高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
+| CST-04 | 壮年 | 橋爪門・橋爪門続櫓 | right→CST-02.left、left→CST-05.right、door-north→CST-03.door-south | 夜。建物はマッチ棒工作、LEDまたは間接照明で壁・建物を光らせる。高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
+| CST-05 | 壮年 | 二の丸 | door-hishi→CST-03.door-west、right→CST-04.left、left→CST-06.right、bottom→CST-07.top | 夜。建物を描く場合はマッチ棒工作、LEDまたは間接照明で壁・建物を光らせる。高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
+| CST-06 | 壮年 | 低地の玉泉院丸庭園 | right→CST-05.left | 夜。壁や建物を描く場合はLEDまたは間接照明で光を見せる。高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
+| CST-07 | 壮年 | 極楽橋・本丸附段・三十間長屋側 | top→CST-05.bottom、right→CST-09.left | 夜。建物はマッチ棒工作、LEDまたは間接照明で壁・建物を光らせる。3攻略目標完了後にCST-09本丸入口を解錠。高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
+| CST-08 | 壮年 | 鶴の丸・東の丸側 | top→CST-02.bottom、left→CST-09.right | 夜。建物を描く場合はマッチ棒工作、LEDまたは間接照明で壁・建物を光らせる。3攻略目標完了後にCST-09本丸入口を解錠。高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
+| CST-09 | 壮年 | 高い本丸 | left→CST-07.right、right→CST-08.left、door-tower→CST-10.door-base | 夜。建物はマッチ棒工作、LEDまたは間接照明で壁・建物を光らせる。高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
+| CST-10 | 壮年 | 本丸内のイマジナリー天守上層 | door-base→CST-09.door-tower | 夜。天守はマッチ棒工作、LEDまたは間接照明で壁・建物を光らせる。高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
 
 ## 2026-10-18追加ID
 
