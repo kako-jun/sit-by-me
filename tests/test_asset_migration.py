@@ -95,7 +95,7 @@ class AssetMigrationTests(unittest.TestCase):
         origin = f"http://127.0.0.1:{server.server_port}/"
         try:
             fetched = set()
-            for relative in ["assets/images/enemies/M001.webp", "assets/images/battle-backgrounds/BG005.webp",
+            for relative in ["assets/images/enemies/M001.webp",
                              "assets/images/battle-backgrounds/BG001.webp"]:
                 with urlopen(urljoin(origin, relative)) as response:
                     self.assertEqual(response.status, 200)

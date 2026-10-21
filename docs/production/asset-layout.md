@@ -29,7 +29,7 @@
 | MAP（旧素材・現存のみ） | `assets/images/fields/legacy/<MAP ID>[-variant].webp`（MAP IDは区域コード3字＋2桁連番。例 `TRM-01`。[対応表](20261019-map-id-renumber.json)） | 33MAP＋12旧差分。非可逆WebP（品質85）。新規生成先ではない。寺町再作成候補の代わりに採用するものではない。PNGは置かない |
 | legacy mask | `assets/images/fields/legacy/masks/<MAP ID>-*.webp` | 旧接続を変更しない検証専用。**可逆WebP**（元PNGと画素が完全一致）。JSON・生成補助（make_masks.py）は削除済み |
 | 外観参照 | `assets/images/fields/reference/<kebab-case>.webp` | 外観参照専用（平置き・小文字英数とハイフンのみ）。mapの「実行時参照」には使わない |
-| 戦闘背景 | `assets/images/battle-backgrounds/BGxxx.webp`（現存はBG001・BG005のみ。BG002〜004・006〜009は削除済みで、復元は git 履歴 `1bb09d0` から。戦闘背景の新規作成は別件） | 下表 |
+| 戦闘背景 | `assets/images/battle-backgrounds/BGxxx.webp`（現存はBG001のみ。BG005は没（kako-jun 2026-10-21）で削除済み。BG002〜004・006〜009は削除済みで、復元は git 履歴 `1bb09d0` から。戦闘背景の新規作成は別件） | 下表 |
 | ブランド | `assets/images/brand/logo.svg`（正本）、`logo.png`（SVG派生、WebP化しない） | 暫定の文字ロゴ（SIT BY ME）。ゲームIDではない。のち差し替え予定 |
 
 | C ID | 元人名prefix | 登場人物 |
@@ -42,7 +42,7 @@
 | BG ID | 元ファイル | 状態 |
 |---|---|---|
 | BG001 | bg-a.png | カメラ参照。旧状態を維持 |
-| BG005 | stage-b.png | 既存採用舞台 |
+| BG005 | stage-b.png | ~~既存採用舞台~~ 没（kako-jun 2026-10-21。削除済み。劇の背景の正本は未定） |
 
 M001の旧640px透過画像は移動で品質再承認しない。今後の再生成は敵スキルの45°・4グリッド契約を使い、既存画像をそのまま新規約passと扱わない。
 

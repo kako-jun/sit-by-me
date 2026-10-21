@@ -3233,9 +3233,10 @@
     },
     {
       "old": "sample/battle/backgrounds/stage-b.png",
-      "new": "assets/images/battle-backgrounds/BG005.webp",
-      "action": "move",
-      "reason": "Existing verification asset; BG005 adopted stage-b and BG001 camera reference preserved.",
+      "new": null,
+      "pruned_path": "assets/images/battle-backgrounds/BG005.webp",
+      "action": "delete",
+      "reason": "Pruned (rejected by kako-jun, 2026-10-21): BG005 was formerly adopted as stage-b but was rejected; removed so it is not mistaken for the canonical image. Restore with: git show <commit before this removal>:<pruned_path>. The canonical background of the opening play battle is currently undecided.",
       "sha256": "1aa39413de86a3350182b18f22af369cc43f1fcdde3c0e0923208f5c97afca13"
     },
     {
