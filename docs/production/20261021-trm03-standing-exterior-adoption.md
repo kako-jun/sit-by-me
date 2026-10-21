@@ -1,6 +1,6 @@
 # TRM-03 立位期の採用外観（2026-10-21、#51）
 
-状態: **採用外観（立位期のTRM-03）。室内3MAP（TRM-04/05/02）生成の唯一の参照画像**。mask・links・独立red-team未通過のため **runtimeへは切り替えない**（寺町は16枚全件通過後の一括切替。旧legacyは据え置き）。台帳statusは `recreate-required-1920x1080` のまま。
+状態: **採用外観（立位期のTRM-03）= v7（2026-10-21に v5 から差し替え。経緯は「v5 → v7 の差し替え」）。室内3MAP（TRM-04/05/02）生成の唯一の参照画像**。mask・links・独立red-team未通過のため **runtimeへは切り替えない**（寺町は16枚全件通過後の一括切替。旧legacyは据え置き）。台帳statusは `recreate-required-1920x1080` のまま。
 
 ## 決定（kako-jun 2026-10-21、逐語）
 「段差はこれでいいのでは。車椅子生活になるとは思ってなかったのだし、最初からスロープだったら不自然。車椅子の子ができたと分かったあとに、この画像を渡してスロープがついた別マップに差し替えたほうがストーリー的に自然」
@@ -9,7 +9,7 @@
 
 ## 保存物
 - 保存先: `assets/images/fields/reference/teramachi-temple-grounds-exterior-standing.webp`（外観参照の置き場。`scripts/verify_asset_layout.py` の許可パターン内。正本の `fields/TRM-03.webp` へはruntime切替時に移す）
-- 形式: 非可逆WebP（品質85、`magick in.png -quality 85 out.webp`）、実寸 **1672×941 のまま（リサイズなし）**、391,674 bytes、sha256 `3c9d1ce7474610616b60a8a7e2ef83bd963c1d769518a0e44e9c38045ac30566`。
+- 形式: 非可逆WebP（品質85、`magick in.png -quality 85 out.webp`）、実寸 **1672×941 のまま（リサイズなし）**、392,390 bytes、sha256 `1f4a3bb602d7981ece1fc50ac7fd5cba9ba724187cd40af2745b40e8b08526cc`（v7。v5 の WebP は 391,674 bytes、sha256 `3c9d1ce7474610616b60a8a7e2ef83bd963c1d769518a0e44e9c38045ac30566` で、v7 の内容に置換した）。
 - 元PNG（生成原本、リポには置かない）: 1672×941、sha256 `4e27dbd2b085641cc158b33f0688a3e9d10269d4ecb05a65d75f1f3f20a6fb7f`。アルファなし（RGB）。
 
 ## 来歴
@@ -17,6 +17,13 @@
 - 独立生画像レビュー(aab04e2): FAIL理由は本堂前の2段の石段のみ。上の決定で解消（立位期は石段を許容）。
 - 軽微な逸脱（来歴のみ・今回は再生成しない）: 掃き出し窓越しにぬいぐるみが見える／墓石に彫り跡がある／南面の前に木が立つ箇所がある／棟端が鬼瓦風／ブランコ・そりの材質が本物の木に見える。
 - 寸法関係: 外観の廊下棟は短く、幼稚園棟は住居棟より大きく、幼稚園の南面に掃き出し窓（床まで届く引き違いのガラス窓）、住居の南面は腰高窓、住居・幼稚園の南面に玄関の扉各1（決定による新規の玄関。接続は未契約）。室内MAPはこの見え方と一致させる。
+
+## v5 → v7 の差し替え（2026-10-21、kako-jun「採用でいい」）
+- 経緯: v5 を採用（上記）→ 住居の室内（TRM-05）側の決定「住居の下の扉は左にずらして机のある部屋に入れるべきだ」「左に移せ」で、住居棟の玄関扉を左へ移す必要が出た → 範囲限定編集の v6 は扉と窓が重なり消し跡が残り不採用（下記）→ 住居棟の南壁を描き直した v7 を採用。
+- v7: 住居棟の南壁を、扉が建物の左端寄り（建物幅の約1/4）・腰高窓2つの、重ならない3要素に描き直した（元の扉・窓の消し跡なし）。それ以外（屋根、廊下棟、本堂、幼稚園、墓地、園庭、木、雪）は v5 のまま。元PNG: 1672×941、sha256 `4ac7184ed60ae43d33cf016b5233c601e256f8395428c846adfd95762cb670b6`。保存: 上記の WebP（非可逆・品質85・実寸1672×941・リサイズなし、PNG は残さない）。
+- 編集手順: マスク `mask-trm03-exterior-v7.png`（白=住居棟の南壁の範囲のみ、黒=不変）を作り、imagegen の画像編集（マスク付き）を1回だけ実行。出力（生出力 `ref-trm03-standing-v7-raw.png`、sha256 `673f9377509d83377a1badf799c34e0c3e520caa0bc0fe536c65a737ef4ef229`）のマスク領域のみを v5 に貼り戻して v7 とした（マスク外は v5 のまま）。編集指示は「Rebuild the whole south wall of the residence building … exactly three separate elements, evenly spaced and never overlapping each other: … at about one quarter of the building's width from its left end, the wooden entrance door; … to the right of the door, two waist-height windows … No ghost outlines … Change nothing else」。
+- 注記: TRM-04 の室内は旧外観（v5）を参照に作った。変わったのは住居棟の南面の扉位置だけで、TRM-04 に影響しない。
+- 判定: kako-jun「採用でいい」（2026-10-21）。mask・links・red-team 未通過のため runtime 未切替は変わらない。
 
 ## 外観の編集版 v6 は不採用（2026-10-21、kako-jun）
 逐語: 「不自然だ。外観は窓にドアが重なってるし、部屋の仕切りもへんになった」。住居棟の玄関扉を左へ移す範囲限定編集の v6（`ref-trm03-standing-v6`）は、扉と窓が重なり消し跡が残るため不採用。**採用は元の v5 のまま**（上記の保存物）。差し替えは再編集版 v7 の確認後（別途指示）。
