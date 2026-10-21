@@ -6,7 +6,7 @@
 
 > **寸法リセット（2026-10-16）**: 以下の既存16候補は、全て上記の許容寸法（1920×1080、または16:9の1672×941または1672×940）ではないため、個別の旧状態にかかわらず `recreate-required-1920x1080` とする。画像・mask・red-teamの過去記録は、次版を作る際の題材・配置・接続の参照であり、採用根拠には使わない。
 
-> **寺の4MAPの生成条件（kako-jun 2026-10-21、#51）**: 寸法は1672×940も許容。屋内の視点は外観と同じ向きで天井を外した見下ろし。材料語彙に畳・舞台幕を追加。生成順は外観TRM-03が先で、室内TRM-04/05/02は採用した外観画像を参照に渡し「この建物のこの部屋の室内」を描く。扉・像・墓地・鐘楼などの位置は、採用した外観画像で確定し、以後の参照とする。TRM-03は池なし（お金持ちの寺ではない）／像と墓地は必須／鐘楼あり（演出に使える）。墓地は住居側（境内の左＝西側）。園庭側（右＝東）には置かない（kako-jun 2026-10-21、#51）。
+> **寺の4MAPの生成条件（kako-jun 2026-10-21、#51）**: 寸法は1672×940も許容。屋内の視点は外観と同じ向きで天井を外した見下ろし。材料語彙に畳・舞台幕を追加。生成順は外観TRM-03が先で、室内TRM-04/05/02は採用した外観画像を参照に渡し「この建物のこの部屋の室内」を描く。扉・像・墓地・鐘楼などの位置は、採用した外観画像で確定し、以後の参照とする。TRM-03は池なし（お金持ちの寺ではない）／像と墓地は必須／鐘楼あり（演出に使える）。墓地は住居側（境内の左＝西側）。園庭側（右＝東）には置かない（kako-jun 2026-10-21、#51）。像（親鸞。笠と杖の小さな石像。蓮如には変えない）は中心の石畳の通路の脇に置き、通路の方を向く。向き（左右のどちら側か）は指定しない（kako-jun 2026-10-21、#51）。
 
 以下は現行接続に更新した削除済み旧候補一覧。過去のpass・mask作成は歴史欄だけに残す。新規生成の参照入力は現存legacyの同じMAP IDを使い、削除済み候補を必須添付にしない。
 
@@ -22,7 +22,7 @@
 | TRM-11 | `TRM-11-teramachi-danchi-court-rebuild-v2-candidate.png` | top→TRM-10、right→TRM-13、door→TRM-12 | 県営住宅中庭。石段は立位期のみ | recreate-required-1920x1080 |
 | TRM-13 | `TRM-13-teramachi-old-slope-foot-rebuild-v6-candidate.png` | left→TRM-11、top→TRM-14 | 石段下、車椅子不可 | recreate-required-1920x1080 |
 | TRM-06 | `TRM-06-teramachi-narrow-lane-rebuild-candidate.png` | top→TRM-15、right→TRM-16.left | 住居の裏の道。TRM-16→TRM-15→TRM-06→TRM-16のループ。他辺閉鎖。勝手口の扉TBD | recreate-required-1920x1080 |
-| TRM-03 | `TRM-03-temple-grounds-rebuild-v4-candidate.png` | bottom→TRM-07、door-main→TRM-04、door-kindergarten→TRM-01.door-west | 屋外境内。住居・遊戯室への屋外doorなし。池なし（お金持ちの寺ではない）／像と墓地は必須／鐘楼あり（演出に使える）。墓地は住居側（境内の左＝西側）。園庭側（右＝東）には置かない（kako-jun 2026-10-21、#51）（kako-jun 2026-10-21、#51）。位置は採用した外観画像で確定 | recreate-required-1920x1080 |
+| TRM-03 | `TRM-03-temple-grounds-rebuild-v4-candidate.png` | bottom→TRM-07、door-main→TRM-04、door-kindergarten→TRM-01.door-west | 屋外境内。住居・遊戯室への屋外doorなし。池なし（お金持ちの寺ではない）／像と墓地は必須／鐘楼あり（演出に使える）。墓地は住居側（境内の左＝西側）。園庭側（右＝東）には置かない（kako-jun 2026-10-21、#51）。像（親鸞。笠と杖の小さな石像。蓮如には変えない）は中心の石畳の通路の脇に置き、通路の方を向く。向き（左右のどちら側か）は指定しない（kako-jun 2026-10-21、#51）（kako-jun 2026-10-21、#51）。位置は採用した外観画像で確定 | recreate-required-1920x1080 |
 | TRM-05 | `TRM-05-temple-residence-rebuild-v3-candidate.png` | door-hall→TRM-04.door-west | 屋内庫裏。本堂の西（左）。TRM-02直結なし | recreate-required-1920x1080 |
 | TRM-14 | `TRM-14-teramachi-slope-top-rebuild-v2-candidate.png` | bottom→TRM-13、right→SCH-01 | 段丘上。学校側車椅子坂と石段を混同しない | recreate-required-1920x1080 |
 | TRM-04 | `TRM-04-temple-main-hall-rebuild-v2-candidate.png` | door-south→TRM-03、door-west→TRM-05.door-hall、door-east→TRM-02.door-west | 中央の屋内本堂。扉前の段差なし・回転余地 | recreate-required-1920x1080 |
