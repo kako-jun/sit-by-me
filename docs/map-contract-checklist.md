@@ -4,7 +4,7 @@
 
 `map-asset-registry.md` の130行を、生成可能にするまで追跡する行単位チェックリスト。接続の正本は `map-topology.md` の「MAP相互接続台帳 v2」、画面主役と主路は `map-specifications.md`、マスク形式は `sit-field-mask` である。全行は `blocked` または `legacy-needs-review` で始める。`TBD` が空でない限り `ready` にしない。台帳整合の独立再監査は [第3周レビュー](reviews/artifact-redteam/20261016-map-ledger-round3.md) を参照。
 
-**注記**: ステータス名 `recreate-required-1920x1080` は名前は1920×1080だが1672×941（16:9）も許容する（改名は別件）。
+**注記**: ステータス名 `recreate-required-1920x1080` は名前は1920×1080だが1672×941または1672×940（16:9）も許容する（改名は別件）。
 
 **2026-10-18 / #51**: TRM-01〜TRM-16は全て `recreate-required-1920x1080`、生成契約は `blocked`。以下の旧画像パスは参照専用で、旧mask・旧passは新候補の採用根拠にならない。現行再作成状態は [候補台帳](teramachi-rebuild-candidates.md)、建物群の生成前入力は [制作前確認](production/20261018-teramachi-preflight.md) を参照する。
 
@@ -18,9 +18,9 @@
 | TRM-09 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-09.webp`; mask未記録 | TRM-08/TRM-10端、銭湯煙突・雪山のforeground/blockedを記録する |
 | TRM-10 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-10.webp`; mask未記録 | TRM-09/TRM-11を結ぶuniversalスロープの幅・折返しを記録する |
 | TRM-11 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-11.webp`; mask未記録 | TRM-10/TRM-13端、TRM-12ドア、団地棟のforegroundを記録する |
-| TRM-13 | recreate-required-1920x1080 | R006,R011,R025 | 1254×1254のv6候補・maskは参照専用。新規出力は1920×1080（返せない場合は16:9の1672×941）、prompt・参照画像・mask・red-teamを新たに記録する | v6のleft→top石段・assist-only設計を参照し、16:9版を再生成する |
+| TRM-13 | recreate-required-1920x1080 | R006,R011,R025 | 1254×1254のv6候補・maskは参照専用。新規出力は1920×1080（返せない場合は16:9の1672×941または1672×940）、prompt・参照画像・mask・red-teamを新たに記録する | v6のleft→top石段・assist-only設計を参照し、16:9版を再生成する |
 | TRM-06 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-06.webp`; mask未記録 | TRM-15.top入口とTRM-16.leftへのright出口以外を禁止辺とする（#51ループ化。TRM-05への勝手口の扉はTBD） |
-| TRM-03 | recreate-required-1920x1080 | R006,R011,R024 | 旧境内画像は参照専用。新背景・mask未作成 | #60の屋外境内。TRM-07端、TRM-01.door-west通用門（境内の右＝東側）、TRM-04正面扉、池・墓地のblocked域を記録。TRM-05/TRM-02屋外doorなし。共通外観参照未通過 |
+| TRM-03 | recreate-required-1920x1080 | R006,R011,R024 | 旧境内画像は参照専用。新背景・mask未作成 | #60の屋外境内。TRM-07端、TRM-01.door-west通用門（境内の右＝東側）、TRM-04正面扉、墓地のblocked域・像・鐘楼を、採用した外観画像で確定して記録（決定 kako-jun 2026-10-21、#51: 池なし（お金持ちの寺ではない）／像と墓地は必須／鐘楼あり（演出に使える）。池は置かない）。TRM-05/TRM-02屋外doorなし。共通外観参照は通過済み（順序・包含関係の確認用）だがTRM-03最終背景は未生成 |
 | TRM-05 | recreate-required-1920x1080 | R006,R011,R021,R024 | 旧庫裏画像は参照専用。新背景・mask未作成 | #60/#51の西（本堂から見て左）の屋内住居。TRM-04.door-west↔door-hallのみ。内部廊下の扉位置、幅・段差・回転域、火事時遮断範囲がTBD。TRM-02直結なし |
 | TRM-14 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-14.webp`; mask未記録 | TRM-13石段とSCH-01車椅子坂の端・通行クラスを記録する |
 | KRB-01 | legacy-needs-review | R005,R011 | `assets/images/fields/legacy/KRB-01.webp`; mask未記録 | KRB-07/KRB-11/KRB-12端、百貨店door（相手はKRB-02.door-street）、封鎖期のKRB-12遷移を記録する |
