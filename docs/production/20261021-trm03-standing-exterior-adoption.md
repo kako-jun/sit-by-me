@@ -18,6 +18,9 @@
 - 軽微な逸脱（来歴のみ・今回は再生成しない）: 掃き出し窓越しにぬいぐるみが見える／墓石に彫り跡がある／南面の前に木が立つ箇所がある／棟端が鬼瓦風／ブランコ・そりの材質が本物の木に見える。
 - 寸法関係: 外観の廊下棟は短く、幼稚園棟は住居棟より大きく、幼稚園の南面に掃き出し窓（床まで届く引き違いのガラス窓）、住居の南面は腰高窓、住居・幼稚園の南面に玄関の扉各1（決定による新規の玄関。接続は未契約）。室内MAPはこの見え方と一致させる。
 
+## 外観の編集版 v6 は不採用（2026-10-21、kako-jun）
+逐語: 「不自然だ。外観は窓にドアが重なってるし、部屋の仕切りもへんになった」。住居棟の玄関扉を左へ移す範囲限定編集の v6（`ref-trm03-standing-v6`）は、扉と窓が重なり消し跡が残るため不採用。**採用は元の v5 のまま**（上記の保存物）。差し替えは再編集版 v7 の確認後（別途指示）。
+
 ## 前置き指示（wrapper）
 ```text
 Invoke the $imagegen skill and use the built-in image_gen tool at the HIGHEST quality (quality: high), requesting 1920x1080 (16:9), to create the image described in the prompt below. No reference image is attached; use text only. Call image_gen EXACTLY ONCE: no retries, no regeneration, no multiple candidates, even if you think the result is imperfect. Then save the REAL generated PNG (decode the tool result) into the current workspace at out/trm03-v5.png. You are STRICTLY FORBIDDEN from fabricating/drawing the image with magick/ImageMagick/PIL/Pillow/numpy/SVG/canvas/any code; only the image_gen tool. If the image_gen tool is genuinely not in your toolset, do NOT fabricate - output exactly: IMAGE_GEN_TOOL_UNAVAILABLE. Do not resize or crop the result. Do not use any files in ~/.codex/generated_images/ made by other calls; only the image generated in this call. Report the saved file path.
