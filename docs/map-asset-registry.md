@@ -12,6 +12,8 @@
 
 **TRM-03 立位期の採用外観（2026-10-21、#51）**: `assets/images/fields/reference/teramachi-temple-grounds-exterior-standing.webp`（1672×941、sha256 `3c9d1ce7474610616b60a8a7e2ef83bd963c1d769518a0e44e9c38045ac30566`）。室内3MAPの唯一の参照画像。mask・links・独立red-team未通過のためruntime未切替で、statusは変更しない。来歴・prompt・測定値・判定は [採用記録](production/20261021-trm03-standing-exterior-adoption.md)。
 
+**TRM-04 本堂（室内）の採用（2026-10-21、#51、kako-jun「よい」）**: `assets/images/fields/reference/teramachi-main-hall-interior-adopted.webp`（1672×940、sha256 `837d3a108990ee5e1bdd931417eca350c4406b28fbe780c46e39066d5ed96042`。v9 から矢来と名簿だけを範囲限定編集で消した v11）。TRM-05/TRM-02の参照。mask・links・独立red-team未通過のためruntime未切替で、statusは変更しない。許容した逸脱: 東の廊下が外観より長い（kako-jun『よい』）、door-south の外に石段1段、余間の掛軸は観光寺院由来の可能性（要確認）。来歴は [採用記録](production/20261021-trm04-main-hall-adoption.md)。以前の v2 は人の判断で不採用で、別の画像。
+
 **TRM-04 本堂（室内）v2 は不採用（2026-10-21、#51、kako-jun）**: 「畳がすごく不自然だ。苦手なら板張りにしろ。寺の本堂は普通の和室じゃないので、札とかが壁にあったりする。浄土真宗の寺の写真を調べろ」。独立レビュー(a6f3fbd)はPASSだったが人の判断で不採用。本堂の床は畳でなく板張り、本堂は普通の和室ではなく壁に札などがある（具体は調査後に追記）。画像は削除済み。来歴は [記録](production/20261021-trm04-main-hall-adoption.md)。TRM-03 外観の採用は維持。
 
 **屋内MAPの外の景色（kako-jun 2026-10-21、#51）**:「部屋以外の外側の空間には外の景色を書けばいいのではないのか。雪とか草とか木とか。その位置が他の画像と比べて厳密に一致してなくてもプレイヤーは気にしない。白いダンボールで埋めるのは不自然。幼稚園の部屋から外の雪景色が見えていたほうが空間の広がりも感じる」。部屋（建物の外形）の外側の土台の上は外の景色（綿の雪・雪から覗く草・木）で埋める。室内には入れない。過去の「土台の上は雪も綿もない素地」規則は担当の過剰修正で撤回。
