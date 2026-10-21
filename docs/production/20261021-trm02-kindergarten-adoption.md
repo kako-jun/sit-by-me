@@ -1,34 +1,32 @@
-# TRM-02 幼稚園の遊戯室（室内）の採用記録（下書き・採用は保留。v3 の確認後に v3 を採用する）
+# TRM-02 幼稚園の遊戯室（室内）の採用（2026-10-21、#51）
 
-状態: **採用は保留**（v2 は窓のガラスの中に外の雪と木が描かれていたため、画像編集の v3 を確認してから採用する。保存した v2 の WebP は削除済み）。採用後は次の形になる: mask・links・独立red-team未通過のため **runtimeへは切り替えない**（寺町は16枚全件通過後の一括切替。旧legacyは据え置き）。台帳statusは `recreate-required-1920x1080` のまま。時期別の画像は作らない（幼稚園は火事で無傷。TRM-02 は1枚）。
+状態: **採用（TRM-02 幼稚園の遊戯室の室内）= v3**。mask・links・独立red-team未通過のため **runtimeへは切り替えない**（寺町は16枚全件通過後の一括切替。旧legacyは据え置き）。台帳statusは `recreate-required-1920x1080` のまま。時期別の画像は作らない（幼稚園は火事で無傷。TRM-02 は1枚）。
 
 ## 決定
-kako-jun一任によるコーディネーター決定（2026-10-21、後から kako-jun が変えられる）: 独立生画像レビュー(a6f3fbd)が PASS（棟の大きさのみ未達）の2回目（v2）を、大きさを許容して採用。
+kako-jun「よい」（2026-10-21）で v3 を採用。
 
-## 保留の経緯（kako-jun 2026-10-21「かなりいいのに、窓の内側に雪と木がある」）
-記録上の読み（読みを訂正）: 先の決定「幼稚園の部屋から外の雪景色が見えていたほうが空間の広がりも感じる」を、私が「窓のガラスの中に外の雪景色を描く」と読んだのは誤り。見下ろしカメラでは、南の窓越しに見えるのは室内の床。外の雪・草・木は建物の外側の土台の上で広がりを出す。窓のガラスの中に雪や木を描かない。TRM-02 v2 は南面の窓のガラスの中に外の雪と木が描かれていたため、画像編集（v3、別担当）で直す。以下は v2 時点の下書きで、v3 の採用時に v3 の保存物・sha256・編集手順に置き換える。
-
-## 保存物（v2 の下書き。ファイルは削除済み）
+## 保存物
 - 保存先: `assets/images/fields/reference/teramachi-kindergarten-interior-adopted.webp`（外観参照の置き場。`scripts/verify_asset_layout.py` の許可パターン内。正本の `fields/TRM-02.webp` へはruntime切替時に移す）
-- 形式: 非可逆WebP（品質85）、実寸 **1672×941 のまま（リサイズなし）**、325,396 bytes、sha256 `ebc65fd37bbaeee04124e4d1de864223162c1068fd5cac818ad3b72d6184c373`。PNGは残さない。
-- 元PNG（v2）: 1672×941、sha256 `6570f28c632687f1579303546f171e2be203e416e64d63c19444458d4e22b6ec`。
+- 形式: 非可逆WebP（品質85）、実寸 **1672×941 のまま（リサイズなし）**、322,080 bytes、sha256 `5673dc7e998d19396311fe83dd4ac43c556df9d6692e0203e56012e52f944848`。PNGは残さない。
+- 元PNG（v3、編集の貼り戻し後）: 1672×941、sha256 `d2dc6a4c74423e703dedfcd0b11afe3548ab304faca718e23d3fbe6c745f2523`。
 
 ## 来歴
 - 参照3枚（この順）: (1) 採用外観 v7（`teramachi-temple-grounds-exterior-standing`）、(2) 採用 TRM-04（`teramachi-main-hall-interior-adopted`）、(3) 割付図 `layout-trm02`（幼稚園棟のみ、690×480px、画像幅比0.41、本堂南面幅640pxに対し約1.08、奥行きは本堂の0.8。TRM-04/05 と同じ縮尺・南端）。
 - 1回目（trm02.png）: 生画像レビュー(a6f3fbd) FAIL（西壁の開口が壁の中ほどで TRM-04 の東廊下の東端と高さが合わない／質感が TRM-04・05 より弱い／棟が本堂の約1.54倍で大きすぎ）。kako-jun も「幼稚園の内装が簡素すぎる。舞台が演劇の戦闘での背景とも一致してない」「おもちゃ箱とか本棚とか、端に寄せた、机とか」と指摘。
 - prompt の修正: 内装（壁際のおもちゃ箱・本棚・机）、舞台（BG005 を根拠にした記述は BG005 が没のため取り消し、BG009 の構成を方向性として採用: 段ボールの低い台・緑の幕・手描きの雪山と城の書き割り）、大きさ（南壁は画像幅の約2/5）・質感（TRM-04 と同じ荒い紙粘土・爪楊枝とヘラの跡）・西壁の開口の位置（南端）。
-- 2回目（v2、採用）: 独立生画像レビュー(a6f3fbd) PASS（棟の大きさのみ未達: 南面が本堂の約1.56倍、目標1.08倍）。
+- 2回目（v2）: 独立生画像レビュー(a6f3fbd) PASS（棟の大きさのみ未達: 南面が本堂の約1.56倍、目標1.08倍）。元PNG sha256 `6570f28c632687f1579303546f171e2be203e416e64d63c19444458d4e22b6ec`。ただし kako-jun「かなりいいのに、窓の内側に雪と木がある」。**先の決定「幼稚園の部屋から外の雪景色が見えていたほうが空間の広がりも感じる」の私の読みを訂正**: 見下ろしでは南の窓越しに見えるのは室内の床。外の雪・草・木は建物の外側の土台の上で広がりを出す。窓のガラスの中に雪や木を描かない。
+- **v2 → v3（採用）の編集手順**: 南面の窓の帯を範囲限定の画像編集で、窓のガラス越しに室内の床が見えるように直した。マスク `mask-trm02-v2.png`（白=南面の窓の帯の範囲のみ、黒=不変。sha256 `90be80f17144d55c818c616e4d068e677f228c1ab711557336912224c4112654`）、imagegen の画像編集（マスク付き）を1回だけ実行、生出力 `trm02-v3-raw.png`（sha256 `92f3b96287d7672be12bc320ae3aa42fcb020f934408d1475eeddfd0c4145d58`）のマスク領域のみを v2 に貼り戻して v3 とした。マスク外の差分は784画素。編集指示: 「In the four floor-length glass windows of the south wall, replace the snow and the small trees seen inside the glass panes with the room behind the glass: through the clear glass only the dark plank floor of the room is visible … Keep the window frames, the posts, the wall, the entrance door, the snow and the trees outside the building, and everything else exactly as they are」。
 - 許容した逸脱: 棟が本堂の約1.56倍。住居（約1.14倍）より大きい順序は決定どおり。kako-jun一任によるコーディネーター決定で許容（後から変更可）。
-- 舞台: BG009（履歴 1bb09d0 の劇背景の候補。汚いので正本にしない）の構成を方向性として採用（BG005 は没）。実画像の舞台: 緑の幕（手で寄せたひだ・金の縁取り）、手描きの雪山・雲・赤い屋根の城の書き割り（紙の木が両脇）、段ボールの縁の木の台。劇の戦闘背景 BG010 は、この画像を参照に新規生成する。
-- 4マップ（TRM-03 外観 v7・TRM-04 v11・TRM-05 v12・TRM-02 v2）の基準状態が揃った。
+- 舞台: BG009（履歴 1bb09d0 の劇背景の候補。汚いので正本にしない）の構成を方向性として採用（BG005 は没）。劇の戦闘背景 BG010 は、この画像を参照に新規生成する。
+- **4マップ（TRM-03 外観 v7・TRM-04 v11・TRM-05 v12・TRM-02 v3）の基準状態が揃った。**
 
-## 前置き指示（wrapper）
+## 前置き指示（wrapper、2回目）
 ```text
 Invoke the $imagegen skill and use the built-in image_gen tool at the HIGHEST quality (quality: high), requesting 1920x1080 (16:9), to create the image described in the prompt below. Three reference images are attached, in this order: (1) the adopted exterior of the same building; (2) the adopted interior of the main hall of the same building; (3) a layout block diagram (use all three as described in the prompt). Call image_gen EXACTLY ONCE: no retries, no regeneration, no multiple candidates, even if you think the result is imperfect. Then save the REAL generated PNG (decode the tool result) into the current workspace at out/trm02-v2.png. You are STRICTLY FORBIDDEN from fabricating/drawing the image with magick/ImageMagick/PIL/Pillow/numpy/SVG/canvas/any code; only the image_gen tool. If the image_gen tool is genuinely not in your toolset, do NOT fabricate - output exactly: IMAGE_GEN_TOOL_UNAVAILABLE. Do not resize or crop the result. Do not use any files in ~/.codex/generated_images/ made by other calls; only the image generated in this call. Report the saved file path.
 Output a 16:9 landscape image. Target 1920x1080; if not possible, 1672x941. Do NOT use 3:2 or 1536x1024.
 ```
 
-## 送信した完全prompt（2回目の送信text、原文のまま）
+## 送信した完全prompt（2回目の送信text、原文のまま。窓の記述は v3 の編集前の版で、窓越しは室内の床に訂正済み）
 ```text
 Generate ONE image: the final field background for map TRM-02 (kindergarten playroom / 遊戯室, INDOOR, the EAST room of the temple building group). Do not generate any other map.
 
