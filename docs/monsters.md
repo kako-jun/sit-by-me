@@ -52,7 +52,7 @@
 | M006 | 顔の見えない巨人（主人公夫婦の2体同時出現） | 物語の敵 | 二周目の終盤・金沢駅の鼓門前（ホームではない。中ボスなし、ラスボスの M006 のみ。決定 2026-10-15） | 火と水の召喚獣を使い、全属性を駆使する | 雷の使い手の子供が水に特攻。「火に対する弱点を誰が突くか」は未決（#25） | ラスボス（二周目）。全敵で最大のグラフィック。夫婦のどちらが車椅子かで絵が変わる。発車時刻までの制限時間付き | 未生成 | decisions.md、systems.md、#25 |
 | M007 | 一周目のビジョン（お金・戦争・地震など） | 物語の敵 | 二周目ラスボス戦で攻撃として使う。一周目での出現場所は未定 | 未定 | 未定 | M006 戦の攻撃群 | 仕様のみ | systems.md |
 | M008 | シャチホコ | 物語の敵（イマジナリー） | 少年編前半・卯辰山のサニーランド屋外SNL-06シャチホコ（#14追加口述、docs/enemy-allocation.md §1.3） | 未定 | 未定 | サニーランドの中ボス（想像の刃の第一段階の初使用。kako-jun 2026-10-15。呼称は「中ボス」で確定。地面の予兆(AoE)・強制前後衛交代あり＝boss-gimmicks.md G020、#122）。白いコンクリート像で毛など全体の造形がくるくると丸い印象。実物は高さ5m以上（kako-jun 2026-10-20） | 採用: `assets/images/enemies/M008.webp`（1024×1536、WebP品質85・透過、kako-jun目視採用 2026-10-20） | 主人公の不安のイマジナリーが、サニーランドにあった大きな白いコンクリートのシャチホコ像を怖く見せた姿。SaGa2 のオマージュ。decisions.md、story.md、timeline.md、docs/enemy-allocation.md §1.3・§2.3 |
-| M009 | エラー細胞 | 物語の敵（体内） | 体内ダンジョン・胃（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | イベントバトル。逃走し倒せない（逃したことが将来の不治の病になる） | 未生成（仕様のみ） | 1ドットくらいの小さな、FF5 のムーバーのような敵。story.md 302・303行、decisions.md、docs/enemy-allocation.md §1.6 |
+| M009 | エラー細胞 | 物語の敵（体内） | 体内ダンジョン・胃（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | イベントバトル。逃走し倒せない（逃したことが将来の不治の病になる） | 採用: `assets/images/enemies/M009.webp`（元画像 `exec-eeab27c6-666d-4be4-852a-bb5bbd05b70e.png`、1254×1254・1x1。kako-jun 2026-10-21 全部採用）。[生成前契約](reviews/artifact-redteam/20261021-M009-contract-prompt.md)・[画像レビュー](reviews/artifact-redteam/20261021-M009-raw-image-eeab27c6.md)（32×31px、中央・透過・pass）。初回の星状発光版は置換 | 1ドットくらいの小さな、FF5 のムーバーのような敵。story.md 302・303行、decisions.md、docs/enemy-allocation.md §1.6 |
 | M010 | オミクロン株（体内・胃の盾役の中ボス。名前は kako-jun 2026-10-15 に決定。実在の病原体名は固有名として使い、特定の患者・実在の被害・集団を揶揄しない） | 物語の敵（体内） | 体内ダンジョン・胃（M009 と同じ戦闘）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 中ボス（胃でエラー細胞を守る大きな盾役）。体内の「部位ごとの中ボス」の1つ（胃担当）。体内の中ボスは新型コロナの各株名（decisions.md 末尾） | 採用: `assets/images/enemies/M010.webp`（1536×1024、WebP品質85・alpha保持、kako-jun目視採用 2026-10-20） | story.md 303行、docs/enemy-allocation.md §1.6 |
 | M011 | 脳の防御反応（**非遭遇ID。脳のエリアの舞台設定・演出。戦う相手は M012 だけ**（kako-jun 2026-10-19、#125）。決定前の記述: 頭＝脳の中ボス。名前未定。内心を知られたくない防御反応としての脳。脳の中の本心を守る像で、具体の姿・技は決めない。株名との関係は要確認） | 物語の敵（体内） | 体内ダンジョン・頭（脳）（kako-jun 決定 2026-10-15、decisions.md 末尾、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 非遭遇（戦闘の相手ではない。中ボスから外す（kako-jun 2026-10-19、#125））。脳のエリアの舞台設定・演出。決定前の記述: 部位ごとの中ボスの1つ（頭担当）。「脳で幼馴染が主人公をどう思っていたかを知る」見せ場の関門 | 未生成（仕様のみ） | decisions.md 84行付近・末尾 |
 | M012 | マクロファージ（免疫細胞。体内では主人公が「異物」なので攻撃してくる。株名との関係は要確認。案あり: boss-gimmicks.md G021(#125)） | 物語の敵（体内） | 体内ダンジョン・**頭（脳）のエリア**（kako-jun 2026-10-19、#125）（当初 2026-10-15 は部位未定。decisions.md 末尾、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 中ボス（部位ごとの中ボスの1つ。**担当部位は頭（脳）のエリア**（kako-jun 2026-10-19、#125）。顕微鏡写真のような不定形の細胞から粘る長い突起を伸ばし、白血球らしいイマジナリーなパーツを持つ（kako-jun 2026-10-20） | 採用: `assets/images/enemies/M012.webp`（1297×1212、WebP品質85・alpha保持、kako-jun目視採用 2026-10-20） | decisions.md 末尾、story.md 303行 |
@@ -111,13 +111,13 @@ M010の造形（kako-jun採用 2026-10-20）: 胃の盾役を踏まえ、幅広�
 | M111 | 防火シャッター | 展示物・玩具（環境敵） | 香林坊の閉店後の商店街（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.2） | 未定 | 未定 | 環境敵（背景と連動して戦場を狭める画面ギミック） | 仕様のみ（スプライトを持たない） | #12 |
 | M112 | マネキン | 展示物・玩具 | 香林坊のショーウィンドウ（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.2） | 未定 | 未定 | 未定 | 採用: `assets/images/enemies/M112.webp`（1024×1536、WebP品質85・alpha保持。顔なし・無衣装。kako-jun採用 2026-10-21）。採用候補と後続候補の審査記録: [M112候補審査](reviews/artifact-redteam/20261021-M112-candidates.md) | #12 |
 | M113 | 人形 | 展示物・玩具 | 子供部屋・古道具店・祭りの飾り（章・フィールドは未定）。香林坊 chaya-lane（茶屋街）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定（並び替わる・手をつなぐ・合体して大きく見える） | 生成済み: `assets/images/enemies/M113.webp`（採否待ち。右向き・座り姿・透過（陶器の人形・人間ではない）） | #12 |
-| M114 | 大人向けの本（目隠しされた表紙） | 恐怖メディア | 未定（棚の高い位置） | 未定 | 未定 | 未定 | 仕様のみ（露骨な中身は描かない） | #12 |
+| M114 | 大人向けの本（目隠しされた表紙） | 恐怖メディア | 未定（棚の高い位置） | 未定 | 未定 | 未定 | 採用: `assets/images/enemies/M114.webp`（元画像 `exec-e323a5bf-5d5e-4983-9c9d-cbbc1609a330.png`、1024×1536、1x2。kako-jun 2026-10-21 全部採用）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M114-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M114-raw-image-e323a5bf.md)（pass） | #12 |
 | M115 | ホラーDVD | 恐怖メディア | サニーランド sunnyland-arcade-indoor（廃ゲームセンター）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.3） | 未定 | 未定 | 未定 | 採用: `assets/images/enemies/M115.webp`（左右反転版、1254×1254、WebP品質85・alpha保持。kako-jun採用 2026-10-21）。raw review: [左右反転版](reviews/artifact-redteam/20261021-M115-raw-image-flipped.md)（表紙の風景・人物影を指摘、ユーザー採用） | #12 |
 | M116 | 怪奇本 | 恐怖メディア | サニーランド sunnyland-arcade-indoor（補充候補。一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 未定 | 採用: `assets/images/enemies/M116.webp`（左右反転版、887×1774、WebP品質85・alpha保持。kako-jun採用 2026-10-21）。raw review: [左右反転版](reviews/artifact-redteam/20261021-M116-raw-image-flipped.md)（縦横比と端の余白を指摘、ユーザー採用） | #12 |
-| M117 | 怪人・ひとさらい風の絵本キャラ | 恐怖メディア | 未定 | 未定 | 未定 | 未定 | 仕様のみ | #12 |
+| M117 | 怪人・ひとさらい風の絵本キャラ | 恐怖メディア | 未定 | 未定 | 未定 | 未定 | 採用: `assets/images/enemies/M117.webp`（元画像 `exec-bd75402b-15f6-4c78-8366-b32a7659b704.png`、1254×1254、1x1。kako-jun 2026-10-21 全部採用）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M117-contract-prompt.md)（最終編集契約pass）。raw review: [候補](reviews/artifact-redteam/20261021-M117-raw-image-bd75402b.md)（pass。以前の角度・切れ失敗候補は同レビュー群に記録） | #12 |
 | M118 | 笑い袋 | 恐怖メディア | サニーランド sunnyland-arcade-indoor（廃ゲームセンター）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.3） | 未定 | 未定 | 未定 | 採用: `assets/images/enemies/M118.webp`（左右反転版、1254×1254、WebP品質85・alpha保持。kako-jun採用 2026-10-21）。raw review: [左右反転版](reviews/artifact-redteam/20261021-M118-raw-image-flipped.md)（余白と赤い輪郭を指摘、ユーザー採用） | #12 |
-| M119 | 指名手配風ポスター | 恐怖メディア | 未定 | 未定 | 未定 | 未定 | 仕様のみ（架空の図像。実在人物・氏名・事件は使わない） | #12 |
-| M120 | 誘拐を思わせる標識 | 恐怖メディア | 未定 | 未定 | 未定 | 未定 | 仕様のみ（同上） | #12 |
+| M119 | 指名手配風ポスター | 恐怖メディア | 未定 | 未定 | 未定 | 未定 | 採用: `assets/images/enemies/M119.webp`（元画像 `exec-1f47f945-474f-4e37-91da-f8189971cfce.png`、1024×1536、1x2。kako-jun 2026-10-21 全部採用）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M119-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M119-raw-image-1f47f945.md)（pass。架空の非人間図像、文字なし） | #12 |
+| M120 | 誘拐を思わせる標識 | 恐怖メディア | 未定 | 未定 | 未定 | 未定 | 採用: `assets/images/enemies/M120.webp`（元画像 `exec-d3715ea2-84d4-48ac-98b4-621710c0d3ea.png`、887×1774、1x2。kako-jun 2026-10-21 全部採用）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M120-contract-prompt.md)（最終編集契約pass）。raw review: [候補](reviews/artifact-redteam/20261021-M120-raw-image-d3715ea2.md)（pass） | #12 |
 | M121 | 分厚い百科事典・難解な勉強の本 | 知識の恐怖 | 未定 | 未定 | 未定 | 未定（ページがめくれるたびに難問・重みが増す） | 採用: `assets/images/enemies/M121.webp`（1254×1254、WebP品質85・alpha保持。kako-jun採用 2026-10-21）。raw review: [候補](reviews/artifact-redteam/20261021-M121-raw-image-8d613a1f.md)（上下の余白不足を指摘、ユーザー採用） | #12 |
 | M122 | 人体模型 | 医療・理科室 | 体内ダンジョン・頭（脳）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 採用: `assets/images/enemies/M122.webp`（1024×1536、WebP品質85・alpha保持、無衣装。kako-jun採用 2026-10-21）。raw review: [候補](reviews/artifact-redteam/20261021-M122-raw-image-9ad57e16.md)（向き・上端余白を指摘、ユーザー採用） | #12 |
 | M123 | ホルマリン漬けのびん | 医療・理科室 | 体内ダンジョン・頭（脳）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.6） | 未定 | 未定 | 未定 | 採用: `assets/images/enemies/M123.webp`（左右反転版、1254×1254、WebP品質85・alpha保持。kako-jun採用 2026-10-21）。raw review: [左右反転版](reviews/artifact-redteam/20261021-M123-raw-image-flipped.md)（ユーザーの向き指定を反映） | 同上 |
@@ -149,7 +149,7 @@ M010の造形（kako-jun採用 2026-10-20）: 胃の盾役を踏まえ、幅広�
 | M149 | 石油ストーブ | 火事の原因（火） | 寺町 sento（銭湯。中3の火事に向けて慣れさせる）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.1） | 火 | 未定 | 未定 | 採用: `assets/images/enemies/M149.webp`（元画像 `exec-ae79d9f6-ce72-4ef3-9763-03d4c56304c7.png`、1254×1254。旧版を更新、kako-jun 2026-10-21 採用）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M149-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M149-raw-image-ae79d9f6.md)（グリル・タンク・取っ手と内部の発熱光を確認。細かな余白と色フリンジはアクスタ演出を踏まえ採用） | 同上 |
 | M150 | ライター | 火事の原因（火） | 寺町 sento（銭湯。中3の火事に向けて慣れさせる）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.1） | 火 | 未定 | 未定 | 採用: `assets/images/enemies/M150.webp`（元画像 `exec-2a5c44c4-c92c-4ba7-a625-15fbf008f4bf.png`、1024×1536）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M150-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M150-raw-image-2a5c44c4.md)（炎が右上へ伸びる。余白・低alphaの細部はアクスタ演出を踏まえ採用） | 同上 |
 | M151 | 古いたこ足配線 | 火事の原因（火） | 寺町 sento（銭湯。雷のラーニング元を早く取れるよう寺町に置く）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 火 | 未定 | 未定 | 採用: `assets/images/enemies/M151.webp`（元画像 `exec-e2e097f3-8c9c-4001-b99b-194c43da0b80.png`、1536×1024。旧版を更新、kako-jun 2026-10-21 採用）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M151-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M151-raw-image-e2e097f3.md)（焦げた差込口・右へ広がるコード・斜めの見えを確認。端の切れはアクスタ演出を踏まえ採用） | 同上。技: かんでん（雷のラーニング元。2026-10-15 kako-jun 決定。敵の専用 `[特技]`。効果・ダメージは未決。敵自身の属性は火のまま。火事の技と感電の技の両方を持ってよい） |
-| M152 | 砲弾の欠片 | 回転する刃（風）に準ずる風のラーニング元（形の気配に留める） | 内灘 UCH-03 松林道（防砂林・砂丘）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.4） | 風（風のラーニング元「ざくざく」。kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.4） | 未定 | 未定 | 未定（生成していない。仕様のみ） | 形の気配に留め、実在の砲弾・兵器は再現しない（S003 の「砲弾の欠片の気配」と対応）。docs/enemy-allocation.md §1.4、art-direction.md |
+| M152 | 砲弾の欠片 | 回転する刃（風）に準ずる風のラーニング元（形の気配に留める） | 内灘 UCH-03 松林道（防砂林・砂丘）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.4） | 風（風のラーニング元「ざくざく」。kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.4） | 未定 | 未定 | 採用: `assets/images/enemies/M152.webp`（元画像 `exec-ee7ea4c9-1e91-45cd-93d5-ceff362432f1.png`、1254×1254。kako-jun 2026-10-21 全部採用）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M152-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M152-raw-image-ee7ea4c9.md)（金属片と3本の風を確認。色フリンジ・端の低alphaは記録、再生成理由にはしない） | 形の気配に留め、実在の砲弾・兵器は再現しない（S003 の「砲弾の欠片の気配」と対応）。docs/enemy-allocation.md §1.4、art-direction.md |
 
 **属性の穴（解消。kako-jun 2026-10-15 決定。docs/enemy-allocation.md §2.2）**: 土（どろだらけ）＝M101・M102・M108 が技として持つ。雷（かんでん）＝M151 が技として持つ（M151 の敵属性は台帳どおり火。火事の技と感電の技の両方を持ってよい）。属性欄・弱点は決めない。技の効果・ダメージは未決。
 
@@ -157,14 +157,14 @@ M010の造形（kako-jun採用 2026-10-20）: 胃の盾役を踏まえ、幅広�
 
 | ID | 名前 | 分類 | 出る場所 | 属性 | 弱点・耐性 | 役割 | 絵の状態 | 根拠 |
 |---|---|---|---|---|---|---|---|---|
-| M201 | 異国への誤像（キョンシー的な跳び人形、波紋のある刃、包帯の人形、暗い土の塚、異様な編み飾り、仮面） | 物語の敵（誤像） | 中盤〜青年編・トクリュウ救出地点の密集垂直都市（砂漠） | 未定 | 未定 | 未定 | 仕様のみ（実在の国・民族・宗教・工芸・葬送習慣を敵にしない） | art-direction.md、story.md |
-| M202 | 城の護衛敵: 白黒の怖い侍 | 物語の敵 | 金沢城（ラストダンジョン。雑魚。護衛敵は金沢城専用）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 雑魚（ラストダンジョンの護衛敵。M014 とは別物） | 仕様のみ | art-direction.md |
-| M203 | 城の護衛敵: インフレ（値札・数字・生活を圧迫する重み） | 物語の敵 | 金沢城（ラストダンジョン。雑魚。護衛敵は金沢城専用）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 雑魚（ラストダンジョンの護衛敵。M014 とは別物） | 仕様のみ | 同上 |
-| M204 | 城の護衛敵: 外国での戦争（遠いニュース画面・煙・警報） | 物語の敵 | 金沢城（ラストダンジョン。雑魚。護衛敵は金沢城専用）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 雑魚（ラストダンジョンの護衛敵。M014 とは別物） | 仕様のみ（国・軍・市民・実在兵器を敵にしない） | 同上 |
-| M205 | 城の護衛敵: 核兵器（白い閃光・警報・圧力・影） | 物語の敵 | 金沢城（ラストダンジョン。雑魚。護衛敵は金沢城専用）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 雑魚（ラストダンジョンの護衛敵。M014 とは別物） | 仕様のみ（同上） | 同上 |
-| M206 | 城の雑魚: 忍者 | 物語の敵 | 金沢城（ラストダンジョン。専用雑魚。kako-jun 2026-10-21、#140） | 未定 | 未定 | 雑魚（M014とは別物） | 仕様のみ。具体の姿・技・サイズ・MAP配置は未定 | #140 |
-| M207 | 城の雑魚: 姫 | 物語の敵 | 金沢城（ラストダンジョン。専用雑魚。kako-jun 2026-10-21、#140） | 未定 | 未定 | 雑魚（M014とは別物） | 仕様のみ。具体の姿・技・サイズ・MAP配置は未定 | #140 |
-| M208 | 城の雑魚: 怨霊 | 物語の敵 | 金沢城（ラストダンジョン。専用雑魚。kako-jun 2026-10-21、#140） | 未定 | 未定 | 雑魚（M014とは別物） | 仕様のみ。具体の姿・技・サイズ・MAP配置は未定 | #140 |
+| M201 | 異国への誤像（キョンシー的な跳び人形、波紋のある刃、包帯の人形、暗い土の塚、異様な編み飾り、仮面） | 物語の敵（誤像） | 中盤〜青年編・トクリュウ救出地点の密集垂直都市（砂漠） | 未定 | 未定 | 未定 | 採用: `assets/images/enemies/M201.webp`（元画像 `exec-d7a63c76-b157-49c3-9705-83ade5e29da5.png`、1254×1254・2x2。kako-jun 2026-10-21 全部採用）。生成前契約: [審査記録](reviews/artifact-redteam/20261021-M201-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M201-raw-image-d7a63c76.md)（6モチーフ・透過・全体余白・実写風を確認、微小なフリンジ/alpha specksあり） | art-direction.md、story.md |
+| M202 | 城の護衛敵: 白黒の怖い侍 | 物語の敵 | 金沢城（ラストダンジョン。雑魚。護衛敵は金沢城専用）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 雑魚（ラストダンジョンの護衛敵。M014 とは別物） | 採用: `assets/images/enemies/M202.webp`（元画像 `exec-5c2aa26a-fd04-40f6-b78e-846872f39b12.png`、1024×1536・1x2。kako-jun 2026-10-21 全部採用）。[生成前審査](reviews/artifact-redteam/20261021-M202-contract-prompt.md)・[画像レビュー](reviews/artifact-redteam/20261021-M202-raw-image-5c2aa26a.md) | art-direction.md |
+| M203 | 城の護衛敵: インフレ（値札・数字・生活を圧迫する重み） | 物語の敵 | 金沢城（ラストダンジョン。雑魚。護衛敵は金沢城専用）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 雑魚（ラストダンジョンの護衛敵。M014 とは別物） | 採用: `assets/images/enemies/M203.webp`（元画像 `exec-8338ce18-40be-4880-a211-7a9ddce5112c.png`、1536×1024・2x1。kako-jun 2026-10-21 全部採用）。[生成前審査](reviews/artifact-redteam/20261021-M203-contract-prompt.md)・[画像レビュー](reviews/artifact-redteam/20261021-M203-raw-image-8338ce18.md) | 同上 |
+| M204 | 城の護衛敵: 外国での戦争（遠いニュース画面・煙・警報） | 物語の敵 | 金沢城（ラストダンジョン。雑魚。護衛敵は金沢城専用）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 雑魚（ラストダンジョンの護衛敵。M014 とは別物） | 採用: `assets/images/enemies/M204.webp`（元画像 `exec-fcfa091c-e53d-4f26-a068-787303bbf1e6.png`、1774×887・2x1。kako-jun 2026-10-21 全部採用）。[生成前審査](reviews/artifact-redteam/20261021-M204-contract-prompt.md)・[画像レビュー](reviews/artifact-redteam/20261021-M204-raw-image-fcfa091c.md)（pass）。国・軍・市民・実在兵器なし | 同上 |
+| M205 | 城の護衛敵: 核兵器（白い閃光・警報・圧力・影） | 物語の敵 | 金沢城（ラストダンジョン。雑魚。護衛敵は金沢城専用）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 未定 | 未定 | 雑魚（ラストダンジョンの護衛敵。M014 とは別物） | 採用: `assets/images/enemies/M205.webp`（元画像 `exec-9003a49c-9deb-4cbc-bd37-c8fb826f7dee.png`、1254×1254・2x2。kako-jun 2026-10-21 全部採用）。初回画像は爆発表現と端切れで差し替え。prompt: [審査記録](reviews/artifact-redteam/20261021-M205-contract-prompt.md)・raw: [候補](reviews/artifact-redteam/20261021-M205-raw-image-9003a49c.md)（pass） | 同上 |
+| M206 | 城の雑魚: 忍者 | 物語の敵 | 金沢城（ラストダンジョン。専用雑魚。kako-jun 2026-10-21、#140） | 未定 | 未定 | 雑魚（M014とは別物） | 採用: `assets/images/enemies/M206.webp`（元画像 `exec-cf3ba92a-2acf-407f-90e0-8be7a1ab3243.png`、1024×1536・1x2。kako-jun 2026-10-21 全部採用）。[生成前審査](reviews/artifact-redteam/20261021-M206-contract-prompt.md)・[画像レビュー](reviews/artifact-redteam/20261021-M206-raw-image-cf3ba92a.md)（pass、木製人形・透過・右斜め正面） | #140 |
+| M207 | 城の雑魚: 姫 | 物語の敵 | 金沢城（ラストダンジョン。専用雑魚。kako-jun 2026-10-21、#140） | 未定 | 未定 | 雑魚（M014とは別物） | 採用: `assets/images/enemies/M207.webp`（元画像 `exec-b9502417-27dd-43b8-8b87-22f0a8ca1445.png`、887×1774・1x2。kako-jun 2026-10-21 全部採用）。[生成前契約](reviews/artifact-redteam/20261021-M207-final-edit-contract-prompt.md)（角度/canvas pass。極低alphaの端ピクセル指摘あり）・[画像レビュー](reviews/artifact-redteam/20261021-M207-raw-image-b9502417.md)（顔・胴体とも右斜め正面、透過、全身のraw pass） | #140 |
+| M208 | 城の雑魚: 怨霊 | 物語の敵 | 金沢城（ラストダンジョン。専用雑魚。kako-jun 2026-10-21、#140） | 未定 | 未定 | 雑魚（M014とは別物） | 採用: `assets/images/enemies/M208.webp`（元画像 `exec-1be1da1e-7c85-4520-b091-6b537ecb656f.png`、1254×1254・2x2。kako-jun 2026-10-21 全部採用）。[生成前審査](reviews/artifact-redteam/20261021-M208-contract-prompt.md)・[画像レビュー](reviews/artifact-redteam/20261021-M208-raw-image-1be1da1e.md)（pass、非人型の煙状怨霊） | #140 |
 
 ### 3-5. 敵以外の生成済み素材（戦闘背景・フィールド。敵の出現場所の候補を見るための突き合わせ）
 
@@ -243,7 +243,9 @@ M010の造形（kako-jun採用 2026-10-20）: 胃の盾役を踏まえ、幅広�
 | M202 | 1x2 | 白黒の怖い侍 |
 | M203〜M204 | 2x1 | 圧迫する値札群・横長のニュース画面 |
 | M205 | 2x2 | 白い閃光・警報・圧力・影の複合体 |
-| M206〜M208 | 未定 | 金沢城の忍者・姫・怨霊（#140。サイズ未決） |
+| M206 | 1x2 | 直立する忍者のイマジナリー（#140。縦長） |
+| M207 | 1x2 | 直立する姫のイマジナリー（#140。縦長） |
+| M208 | 2x2 | 周囲へ広がる怨霊（#140。大型） |
 | S001〜S004 | **2x2** | 中ボスとして戦う大型の召喚獣。S004は虎と4輪を収める |
 | S005 第1形態 | **4x1（特例）** | 横4マス×縦1マスの街。通常の4種にはない横長の特例（kako-jun 2026-10-20） |
 | S005 第2・第3形態 | **2x2** | 上半身が出た形態・全身で歩く形態（kako-jun 2026-10-20） |
@@ -257,17 +259,20 @@ M010の造形（kako-jun採用 2026-10-20）: 胃の盾役を踏まえ、幅広�
 
 ### 3-8. 通常敵画像の進捗（2026-10-21）
 
-対象は M101〜M152 の52 ID。画像ファイルの存在を `assets/images/enemies/` と照合した。**現行画像あり44/52 ID（うちM107・M127はボスのため通常敵の再作成対象外）。最新作成はM151までだが、未作成IDが途中に残る。**
+対象は M101〜M152 の52 ID。画像ファイルの存在を `assets/images/enemies/` と照合した。**画像ファイルあり49/52 ID（未作成は環境敵のM111・M140・M141のみ）。そのうちM107・M127はボス、M111・M140・M141は環境敵枠のため通常雑魚の作成数から分ける。通常雑魚は47/47体に採用画像あり（M114・M117・M119・M120・M152は kako-jun 2026-10-21 全部採用）。**
 
 | 状態 | ID | 次の扱い |
 |---|---|---|
-| 採用画像あり | M101〜M110（M107はボスとして現状維持）、M112〜M113、M115〜M116、M118、M121〜M139（M127はボスとして現状維持）、M142〜M151 | 再作成済み。M145〜M151の最終候補はkako-junが採用（2026-10-21） |
-| 画像なし | M111 | 環境敵（防火シャッター）。2x2指定済み。画像未作成 |
-| 画像なし | M114、M117、M119、M120 | サイズ指定済み。個別の絵を未作成 |
-| 画像なし | M140、M141 | 環境敵（煙と灰／酒の液面）。サイズ指定済み。画像未作成 |
-| 次に作成 | M152 | 砲弾の欠片の気配に留める通常敵。1x1指定済み。実在の兵器を描かない |
+| 採用画像あり | M101〜M110（M107はボスとして現状維持）、M112〜M139（M111は環境敵。M127はボスとして現状維持）、M142〜M152 | 通常雑魚47体分の正本画像あり。M145〜M151の最終候補、およびM114・M117・M119・M120・M152はkako-junが採用（2026-10-21） |
+| 未作成の通常雑魚 | M002 | 人間を敵にしない原則と「不良に絡まれて戦う」記述が未整理。方針が定まるまで画像・サイズを決めない |
+| 追加分も採用画像あり | M009、M201〜M208 | 14体の内容（M114・M117・M119・M120・M152を含む）。M009: 1x1、中央の極小細胞。M114: 1x2、目隠しされた表紙。M117: 1x1、非人間の絵本の怪人。M119: 1x2、架空の文字なしポスター。M120: 1x2、架空の誘拐想起記号。M152: 1x1、砲弾の欠片の気配に留め実在兵器を描かない。M201: 2x2、架空6モチーフの実写風合成体。M202: 1x2、空の白黒侍鎧。M203: 2x1、値札・数字・圧力の合成体。M204: 2x1、匿名の白黒ニュース画面・煙・警報。M205: 2x2、白い閃光・警報・圧力・影。M206: 1x2、木製の忍者人形。M207: 1x2、和風磁器人形（頭と胴体の向きpass。微小な端ピクセルのレビュー差あり）。M208: 2x2、非人型の煙状怨霊。すべて kako-jun が採用（2026-10-21） |
+| 環境敵（別枠） | M111、M140、M141 | M111は確定済み防火シャッター環境敵。M140・M141は環境敵として検討中。通常雑魚の画像件数に含めず、出現場所や役割をここで補わない |
 
-通常敵として画像があるのは42/50 ID。未作成は上記8 ID（M111、M114、M117、M119、M120、M140、M141、M152）。M107・M127は既存ボス画像を維持する。別枠の雷召喚獣S006は4形態すべて採用済みで、再作成対象外。
+M101〜M152の通常雑魚は採用47/47体（M114・M117・M119・M120・M152を2026-10-21に採用）。M009を含む追加9体（M009、M201〜M208）も同日に採用。M002は人間敵の扱いが未整理のため画像・サイズ未決。M107・M127は既存ボス画像を維持する。M111・M140・M141は環境敵として別管理し、既存の配置記録を変更しない。別枠の雷召喚獣S006は4形態すべて採用済みで、再作成対象外。
+
+**全雑魚の範囲確認（2026-10-21）**: M101〜M152の通常雑魚に加え、M009、海外のM201（6種を1 IDとして扱う）と金沢城専用のM202〜M208も制作対象。M017は抽象的な荒波の触手で、2026-10-19に採用済み、顔や左右向きの解剖学的要素を持たないため再作成対象外。金沢城の未決サイズを名前と記録された造形から決定: M206忍者=1x2、M207姫=1x2、M208怨霊=2x2。M002は人間敵禁止の方針と少年編の戦闘記述が衝突しているため未着手。出現場所は既存のマップ側記録を正本とし、ここでは重ねて管理しない。
+
+**採用（2026-10-21、kako-jun「全部採用」）**: 採否待ちだった14候補（M009、M114、M117、M119、M120、M152、M201〜M208）を `assets/images/enemies/Mxxx.webp`（quality 85・alpha保持・実寸不変）へ変換して正本化した。元の生成PNGは `~/.codex/generated_images/` に残してある。
 
 **敵画像のキャンバス実測（旧画像の区分・変更履歴は参考値。生成・再生成契約は §3-7 の gridClass が正本）**
 
@@ -315,6 +320,20 @@ M010の造形（kako-jun採用 2026-10-20）: 胃の盾役を踏まえ、幅広�
 | M149 | 1x1（普通） | `assets/images/enemies/M149.webp` 1254x1254、採用 2026-10-21 |
 | M150 | 1x2（縦2倍） | `assets/images/enemies/M150.webp` 1024x1536。gridClass は §3-7 の先行指定 |
 | M151 | 2x1（横2倍） | `assets/images/enemies/M151.webp` 1536x1024、採用 2026-10-21 |
+| M009 | 1x1（普通） | `assets/images/enemies/M009.webp` 1254x1254、採用 2026-10-21 |
+| M114 | 1x2（縦2倍） | `assets/images/enemies/M114.webp` 1024x1536、採用 2026-10-21 |
+| M117 | 1x1（普通） | `assets/images/enemies/M117.webp` 1254x1254、採用 2026-10-21 |
+| M119 | 1x2（縦2倍） | `assets/images/enemies/M119.webp` 1024x1536、採用 2026-10-21 |
+| M120 | 1x2（縦2倍） | `assets/images/enemies/M120.webp` 887x1774、採用 2026-10-21 |
+| M152 | 1x1（普通） | `assets/images/enemies/M152.webp` 1254x1254、採用 2026-10-21 |
+| M201 | 2x2 | `assets/images/enemies/M201.webp` 1254x1254、採用 2026-10-21 |
+| M202 | 1x2（縦2倍） | `assets/images/enemies/M202.webp` 1024x1536、採用 2026-10-21 |
+| M203 | 2x1（横2倍） | `assets/images/enemies/M203.webp` 1536x1024、採用 2026-10-21 |
+| M204 | 2x1（横2倍） | `assets/images/enemies/M204.webp` 1774x887、採用 2026-10-21 |
+| M205 | 2x2 | `assets/images/enemies/M205.webp` 1254x1254、採用 2026-10-21 |
+| M206 | 1x2（縦2倍） | `assets/images/enemies/M206.webp` 1024x1536、採用 2026-10-21 |
+| M207 | 1x2（縦2倍） | `assets/images/enemies/M207.webp` 887x1774、採用 2026-10-21 |
+| M208 | 2x2 | `assets/images/enemies/M208.webp` 1254x1254、採用 2026-10-21 |
 
 この表の実寸は既存ファイルの記録であり、gridClass の正本は §3-7 である。再生成では §3-7 の先行指定に合わせる。
 
