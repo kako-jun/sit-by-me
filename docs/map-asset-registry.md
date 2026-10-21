@@ -12,7 +12,7 @@
 
 **TRM-03 立位期の採用外観（2026-10-21、#51）**: `assets/images/fields/reference/teramachi-temple-grounds-exterior-standing.webp`（1672×941、sha256 `3c9d1ce7474610616b60a8a7e2ef83bd963c1d769518a0e44e9c38045ac30566`）。室内3MAPの唯一の参照画像。mask・links・独立red-team未通過のためruntime未切替で、statusは変更しない。来歴・prompt・測定値・判定は [採用記録](production/20261021-trm03-standing-exterior-adoption.md)。
 
-**TRM-04 本堂（室内）の採用（2026-10-21、#51）**: `assets/images/fields/reference/teramachi-main-hall-interior-adopted.webp`（1672×941、sha256 `42f9dbd1773cb52cf69dc996a1641b57a02407d497f9da790a904800c04041ed`）。TRM-05/TRM-02の参照。mask・links・独立red-team未通過のためruntime未切替で、statusは変更しない。来歴（prompt・参照=採用外観1枚・測定値・判定・軽微: 東廊下がやや長い0.48対外観0.39）は [採用記録](production/20261021-trm04-main-hall-adoption.md)。本尊は立像が既定（kako-jun要確認）。
+**TRM-04 本堂（室内）v2 は不採用（2026-10-21、#51、kako-jun）**: 「畳がすごく不自然だ。苦手なら板張りにしろ。寺の本堂は普通の和室じゃないので、札とかが壁にあったりする。浄土真宗の寺の写真を調べろ」。独立レビュー(a6f3fbd)はPASSだったが人の判断で不採用。本堂の床は畳でなく板張り、本堂は普通の和室ではなく壁に札などがある（具体は調査後に追記）。画像は削除済み。来歴は [記録](production/20261021-trm04-main-hall-adoption.md)。TRM-03 外観の採用は維持。
 
 **TRM-05（住居）・TRM-02（幼稚園）の決定（kako-jun 2026-10-21、#51）**:「住居部分は幼馴染の個室もあるだろう。そこに化石が置かれる。燃えるのは台所とその部屋とかだ。幼稚園のトイレは住居と兼用でもいい」。記録上の読み = (1) TRM-05 に幼馴染の個室がある (2) その個室に化石が置かれる（story.md 95行・decisions.md 89行『台所の火が化石に引火』『幼馴染の部屋の化石』と整合、矛盾なし） (3) 火事で燃えるのは台所とその部屋（『とか』は他にも燃える場所があり得る意味。範囲は発明しない。『火事時の遮断範囲TBD』は『台所と幼馴染の個室を含む』まで進んだ。残りはTBD） (4) 幼稚園のトイレは住居と兼用でもよい（許容であり必須ではない。TRM-02にトイレを必須としない。置き場所TBD）。化石の形・大きさは原文に無くTBD（story.md は『2人で川でとった化石・割っていない・中身不明』まで）。接続・MAP数は未変更。
 
