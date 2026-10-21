@@ -42,7 +42,7 @@ Keep foreground display independent of traversal:
 
 ## Workflow
 
-For #51, measure the actual background before authoring: target 1920×1080; 16:9 1672×941 is accepted when the image tool cannot return 1920×1080; any other size fails and is never rescaled to pass. Every edit PNG, runtime mask, foreground and metadata size must match that exact candidate's measured size. Verify outputs with image inspection, not their filenames. Do not rescale a rejected background or reuse its mask to manufacture compliance. Keep the candidate path/version and dimensions with the links and review evidence.
+For #51, measure the actual background before authoring: target 1920×1080; 16:9 1672×941 or 1672×940 is accepted when the image tool cannot return 1920×1080; any other size fails and is never rescaled to pass. Every edit PNG, runtime mask, foreground and metadata size must match that exact candidate's measured size. Verify outputs with image inspection, not their filenames. Do not rescale a rejected background or reuse its mask to manufacture compliance. Keep the candidate path/version and dimensions with the links and review evidence.
 
 1. Derive every traversable exit and forbidden edge from the MAP’s connection contract. Record edge ranges and traversal class in its JSON source.
 2. Start edit maps as flat colours at exactly the background resolution. Do not draw outlines into these edit files.

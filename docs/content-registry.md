@@ -36,6 +36,6 @@
 4. 対象別スキル（フィールド背景は `sit-field-background`、敵スプライトは `sit-enemy-sprite`、召喚獣スプライトは `sit-summon-sprite`、人物スプライトは `sit-character-sprite`、戦闘背景は `sit-battle-background`、歩行マスクは `sit-field-mask`）から、材料・構図・出力・検査項目を取得する。
 5. 以上に無い要素は追加しない。TBDまたは欠けた項目があれば台帳を `blocked` にして、先に決定を記録する。
 
-`ruby scripts/build_map_prompt.rb MAP_ID` は **legacy・非正本** であり、現状の出力を生成許可や完全promptとして使わない。原文の採否ゲート、対象へ入るincoming接続、実ツールの寸法指定・寸法保証条件（目標1920×1080、返せない場合は16:9の1672×941、それ以外は不合格）が欠落するためである。修正・検証されるまでは原文行、双方向接続、未解決TBD、参照画像、寸法条件を手動で束ね、`sit-field-background` の前後検査と独立レビューを通す。寺町の現行束は [20261018-teramachi-preflight.md](production/20261018-teramachi-preflight.md)。同スクリプトが成功しても `blocked` は解除されない。
+`ruby scripts/build_map_prompt.rb MAP_ID` は **legacy・非正本** であり、現状の出力を生成許可や完全promptとして使わない。原文の採否ゲート、対象へ入るincoming接続、実ツールの寸法指定・寸法保証条件（目標1920×1080、返せない場合は16:9の1672×941または1672×940、それ以外は不合格）が欠落するためである。修正・検証されるまでは原文行、双方向接続、未解決TBD、参照画像、寸法条件を手動で束ね、`sit-field-background` の前後検査と独立レビューを通す。寺町の現行束は [20261018-teramachi-preflight.md](production/20261018-teramachi-preflight.md)。同スクリプトが成功しても `blocked` は解除されない。
 
 生成後は、対象IDの行に出力パス・採否・歩行マスクまたは切り抜き・参照したIDを追記する。
