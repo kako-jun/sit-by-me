@@ -137,7 +137,7 @@
 
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
-| BDY-02 | blocked | R018 | 未生成・mask未作成 | 上半身・胴体上段。door-passage-mouth→BDY-01.door-passage-torso、door-passage-lower→BDY-03.door-passage-upper、door-passage-head→BDY-04.door-passage-torso、door-passage-left-arm→BDY-05.door-passage-torso、door-passage-right-arm→BDY-07.door-passage-torso、door-passage-heart→BDY-16.door-passage-torso、door-passage-lung→BDY-17.door-passage-torso。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| BDY-02 | blocked | R018 | 先行previewはユーザー却下（体の外形・洞窟状の穴）。正本未保存・mask未作成。再生成前に配置モックが必要。 | 上半身・胴体上段。接続契約は `map-specifications.md` BDY-02 行と `docs/topology/body.svg` を照合する。口から胴体への首道は1本、頭はその枝。各経路は画像端で隣MAPへ遷移する。体外形・洞窟口・物理扉なし。平面床と低い仕切り。心臓・肺の部屋はBDY-16/17、胃BDY-15はBDY-03から接続。架空人体・非写実・肌色寄り・非グロ、通路幅はキャラクター3人分程度、体内材料は `art-direction.md` 参照。配置モック、生画像レビュー、採否、maskは未完了。 |
 | BDY-17 | blocked | R018 | 未生成・mask未作成 | 肺・分岐室。door-passage-torso→BDY-02.door-passage-lung。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
 
 ## #74追加ボリューム（上半身・下半身／手2／足3）

@@ -21,7 +21,7 @@
 | R015 | UCH-05/UCH-04 | [内灘町公式：内灘海岸](https://www.town.uchinada.lg.jp/soshiki/kikaku/20478.html)／公式ページ、転載しない | 幅広い砂浜、風紋、内灘駅から徒歩圏の海岸という尺度 | 観光・夏の人出は描かない |
 | R016 | NTA-01〜NTA-07 | [中能登町公式：建設型応急仮設住宅](https://www.town.nakanoto.ishikawa.jp/soshiki/dobokukensetsu/1/1_2/9737.html)／公式ページ、転載しない | プレハブ／ムービングハウスを応急的な住まいとして扱う現実的な尺度 | 特定の被災者・実在集落を模写しない |
 | R017 | CST-01〜CST-02 | [石川県公式：金沢城公園・石川門](https://www.pref.ishikawa.jp/siro-niwa/kanazawajou/kanazawa_castle/spot/ishikawamon.html)／公式ページ、転載しない | 枡形門、高麗門、櫓門、石川櫓という門周りの構造 | 実在建築の精密複製をしない |
-| R018 | BDY-01〜BDY-17 | `docs/art-direction.md` と `docs/assets-policy.md`／プロジェクト正本 | 人体の写実・流血・臓器表現を避け、紙粘土・半透明セロファン・抽象的な脈動光で体内を表す | 体内のMAPごとの敵・戦闘域は各契約行で決める |
+| R018 | BDY-01〜BDY-17 | `docs/art-direction.md` と `docs/assets-policy.md`／プロジェクト正本 | 人体の写実・流血・臓器表現を避け、幼稚園児が想像する架空人体を肌色寄りの手作りジオラマで表す。共通背景の工作材（foamboard・段ボール・paper clay・matte poster paint）に、赤い折り紙の切片と毛糸を加える。雪景色の綿は使わない（2026-10-21決定） | 体内のMAPごとの敵・戦闘域は各契約行で決める |
 | R019 | OVS-01〜OVS-20 | `docs/map-topology.md` §3.9／プロジェクト正本 | 海外も冬。黄土色の砂漠・熱帯を避け、乾いた氷、霜、灰褐色、赤錆、長い青い影で表す | 特定国家・実在都市を模写しない。各MAPの構造資料は追加調査 |
 | R020 | APT-01〜APT-02 | `docs/map-topology.md` §3.3・§3.8／プロジェクト正本 | K空港は唯一のワープ専用境界。送迎広場、保安、搭乗口、一方通行を分離する | 特定空港を模写しない。バリアフリー導線資料を追加調査 |
 | R021 | 全MAPの車椅子主路 | [国交省・バリアフリー基本寸法](https://www.mlit.go.jp/sogoseisaku/barrierfree/content/001405605.pdf)／公的資料、転載しない | 90cm通行・135cmすれ違い・180cm離合・150cm回転をゲーム寸法に換算する基準 | 1タイルの実寸と、各主路が採用する基準値を固定する |

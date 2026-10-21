@@ -112,7 +112,7 @@
 
 ## 体内
 
-幼稚園児が想像する現実離れした架空人体の抽象概念。肌色寄りでよく、写実的な臓器・解剖図にしない。口から上半身・下半身へ入り、頭は上、手は左右斜め上各2MAP、足は左右斜め下各3MAPの一本道。脳は迷路、胃・心臓・肺は単純な分岐室。既存の心臓への発火条件を保持し、空間上の枝だけから全枝任意・即座の心臓到達を確定しない。攻略条件・迷路・maskはTBD。
+幼稚園児が想像する現実離れした架空人体の抽象概念。肌色寄りで、写実的な臓器・解剖図・血の表現を避ける。口から上半身・下半身へ入り、頭は上、手は左右斜め上各2MAP、足は左右斜め下各3MAPの一本道。脳は迷路、胃・心臓・肺は単純な分岐室。体内の主路は主人公キャラクター3人が横に並べる幅を基準にする（2026-10-21 kako-jun）。背景共通の手作りジオラマ材は5 mm foamboardの土台と露出するcorrugated cardboard断面、指跡・爪楊枝跡を残すpaper clayの丸い地形、肌色・薄桃・クリーム色のmatte poster paint。赤い折り紙の切片は血痕に見えない工作アクセント、毛糸は通路の縁や造形の継ぎ目に使う。白いPVA接着剤とmasking tapeで固定し、雪用の綿は使わない（材料決定 2026-10-21）。既存の心臓への発火条件を保持し、空間上の枝だけから全枝任意・即座の心臓到達を確定しない。攻略条件・迷路・pixel/maskはTBD。
 
 | MAP | 時期 | 一言特徴 | 方位・主路・通行条件 | 暫定固定 |
 |---|---|---|---|---|
@@ -202,7 +202,7 @@ K空港だけがワープ到達点。そこから飛行機で海外へ出た後�
 
 | MAP | 時期 | 一言特徴 | 接続 | 不変条件／TBD |
 |---|---|---|---|---|
-| BDY-02 | 中3 | 上半身・胴体上段 | door-passage-mouth→BDY-01.door-passage-torso、door-passage-lower→BDY-03.door-passage-upper、door-passage-head→BDY-04.door-passage-torso、door-passage-left-arm→BDY-05.door-passage-torso、door-passage-right-arm→BDY-07.door-passage-torso、door-passage-heart→BDY-16.door-passage-torso、door-passage-lung→BDY-17.door-passage-torso | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| BDY-02 | 中3 | 上半身・胴体上段（最初に契約する体内MAP） | door-passage-mouth→BDY-01.door-passage-torso、door-passage-lower→BDY-03.door-passage-upper、door-passage-head→BDY-04.door-passage-torso、door-passage-left-arm→BDY-05.door-passage-torso、door-passage-right-arm→BDY-07.door-passage-torso、door-passage-heart→BDY-16.door-passage-torso、door-passage-lung→BDY-17.door-passage-torso | 上半身の独立した1MAP。各通路は画像の端まで続き、端で隣のMAPへ遷移する。配置方位は `docs/topology/body.svg` に従う: 口=北東、頭=北、左腕=北西、右腕=北東、下半身=南、心臓=南西、肺=南東。口から胴体へ入る首の通路は1本だけで、頭はそこから分かれる北向きの枝。体の外形は描かず、平面の床と低い仕切りだけで通路を作る。心臓・肺の部屋自体はBDY-16/17にあるため描かず、胃への接続も置かない（胃BDY-15は下半身BDY-03から接続）。7接続のみ。幼稚園児が考える架空人体、肌色寄り・非写実・非グロ。全主路・枝はキャラクター3人分程度の幅。材料は体内共通仕様。 |
 | BDY-17 | 中3 | 肺・分岐室 | door-passage-torso→BDY-02.door-passage-lung | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
 
 ## #74追加ボリューム（上半身・下半身／手2／足3）
