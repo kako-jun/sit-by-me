@@ -141,13 +141,13 @@ M010の造形（kako-jun採用 2026-10-20）: 胃の盾役を踏まえ、幅広�
 | M142 | 落ちてきそうなシャンデリア | 崩壊・落下 | サニーランド屋内（旧円形ホール配置は失効、詳細再配置TBD） | 未定 | 未定 | 未定 | 採用: `assets/images/enemies/M142.webp`（1024×1536、WebP品質85・透過、kako-jun採用 2026-10-21） | #12 |
 | M143 | 割れた窓 | 崩壊・落下 | サニーランド屋内（旧円形ホール配置は失効、詳細再配置TBD） | 未定 | 未定 | 未定 | 採用: `assets/images/enemies/M143.webp`（1024×1536、WebP品質85・透過、kako-jun採用 2026-10-21）。生成前審査: [prompt contract](reviews/artifact-redteam/20261021-M143-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M143-raw-image-ce775a16.md)（端の低alpha・右余白16pxを記録、ユーザー採用） | #12 |
 | M144 | 破れた障子 | 崩壊・落下 | 香林坊 chaya-lane（茶屋街）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.2） | 未定 | 未定 | 未定 | 採用: `assets/images/enemies/M144.webp`（1024×1536、WebP品質85・透過、kako-jun採用 2026-10-21）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M144-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M144-raw-image-84e8b034.md)（余白・枠右側の厚み不足・端の低alphaを記録、ユーザー採用） | #12、#14 |
-| M145 | 割れた酒瓶（割れたビール瓶） | 崩壊・落下 | 寺町 sento（銭湯）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.1） | 未定 | 未定 | 未定 | 現行画像: `assets/images/enemies/M145.webp`（旧版、2026-10-14採用）。新候補（未採用）: `exec-6bee855e-e505-42fe-b69a-a9fc25121eeb.png`（1536×1024）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M145-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M145-raw-image-6bee855e.md)（低alphaが上・左・下端に到達、主要シルエット余白は32px以上） | #12 |
-| M146 | プロペラ | 回転する刃（風） | 内灘 uchinada-station・UCH-03 松林道（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.4） | 風 | 未定 | 未定 | 現行画像: `assets/images/enemies/M146.webp`（旧版）。新候補（未採用）: `exec-6e373f21-7ae8-4fad-acc2-b195e258c19b.png`（1254×1254）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M146-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M146-raw-image-6e373f21.md)（右余白26px・指定解像度不一致・赤橙フリンジを記録） | art-direction.md、#26 |
-| M147 | 扇風機・換気扇の羽根 | 回転する刃（風） | 寺町 sento（銭湯）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 風 | 未定 | 未定 | 現行画像: `assets/images/enemies/M147.webp`（旧版）。新候補（未採用）: `exec-7ed4c16c-cd6f-4569-8576-5db0c0335248.png`（1254×1254）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M147-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M147-raw-image-7ed4c16c.md)（右端の切れ、余白不足、色フリンジを記録） | 同上 |
-| M148 | 凍った水たまり | 凍った足元（氷） | 寺町 connector・well-merge（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 氷 | 未定 | 未定 | 現行画像: `assets/images/enemies/M148.webp`（旧版。盛り上がって見えにくいとして旧画像は不要と判断済み）。新候補（未採用）: `exec-e5198b30-d41f-48ca-8cea-ba16992ec7c5.png`（1536×1024）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M148-contract-prompt.md)（ユーザー修正後pass）。raw review: [候補](reviews/artifact-redteam/20261021-M148-raw-image-e5198b30.md)（地面・丸い輪郭・非突起形状を確認。端に低alpha残り、厳密な仰角は測定困難） | 同上 |
-| M149 | 石油ストーブ | 火事の原因（火） | 寺町 sento（銭湯。中3の火事に向けて慣れさせる）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.1） | 火 | 未定 | 未定 | 現行画像: `assets/images/enemies/M149.webp`（旧版）。新候補（未採用）: `exec-ae79d9f6-ce72-4ef3-9763-03d4c56304c7.png`（1254×1254）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M149-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M149-raw-image-ae79d9f6.md)（指定1024²不一致、上余白28px、赤フリンジ・低alpha残りを記録。発熱光はグリル内） | 同上 |
+| M145 | 割れた酒瓶（割れたビール瓶） | 崩壊・落下 | 寺町 sento（銭湯）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.1） | 未定 | 未定 | 未定 | 採用: `assets/images/enemies/M145.webp`（元画像 `exec-6bee855e-e505-42fe-b69a-a9fc25121eeb.png`、1536×1024。旧版を更新、kako-jun 2026-10-21 採用）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M145-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M145-raw-image-6bee855e.md)（横たわる割れた瓶、斜めの口と奥行きを確認。低alphaの細部はアクスタ演出を踏まえ採用） | #12 |
+| M146 | プロペラ | 回転する刃（風） | 内灘 uchinada-station・UCH-03 松林道（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.4） | 風 | 未定 | 未定 | 採用: `assets/images/enemies/M146.webp`（元画像 `exec-6e373f21-7ae8-4fad-acc2-b195e258c19b.png`、1254×1254。旧版を更新、kako-jun 2026-10-21 採用）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M146-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M146-raw-image-6e373f21.md)（3枚羽根と斜めのハブ面を確認。余白・色フリンジはアクスタ演出を踏まえ採用） | art-direction.md、#26 |
+| M147 | 扇風機・換気扇の羽根 | 回転する刃（風） | 寺町 sento（銭湯）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 風 | 未定 | 未定 | 採用: `assets/images/enemies/M147.webp`（元画像 `exec-7ed4c16c-cd6f-4569-8576-5db0c0335248.png`、1254×1254。旧版を更新、kako-jun 2026-10-21 採用）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M147-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M147-raw-image-7ed4c16c.md)（ガード・ハブ・3枚羽根を確認。端の余白と色フリンジはアクスタ演出を踏まえ採用） | 同上 |
+| M148 | 凍った水たまり | 凍った足元（氷） | 寺町 connector・well-merge（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 氷 | 未定 | 未定 | 採用: `assets/images/enemies/M148.webp`（元画像 `exec-e5198b30-d41f-48ca-8cea-ba16992ec7c5.png`、1536×1024。地面の輪と丸い氷面を採用、kako-jun 2026-10-21）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M148-contract-prompt.md)（修正後pass）。raw review: [候補](reviews/artifact-redteam/20261021-M148-raw-image-e5198b30.md) | 同上 |
+| M149 | 石油ストーブ | 火事の原因（火） | 寺町 sento（銭湯。中3の火事に向けて慣れさせる）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.1） | 火 | 未定 | 未定 | 採用: `assets/images/enemies/M149.webp`（元画像 `exec-ae79d9f6-ce72-4ef3-9763-03d4c56304c7.png`、1254×1254。旧版を更新、kako-jun 2026-10-21 採用）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M149-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M149-raw-image-ae79d9f6.md)（グリル・タンク・取っ手と内部の発熱光を確認。細かな余白と色フリンジはアクスタ演出を踏まえ採用） | 同上 |
 | M150 | ライター | 火事の原因（火） | 寺町 sento（銭湯。中3の火事に向けて慣れさせる）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.1） | 火 | 未定 | 未定 | 採用: `assets/images/enemies/M150.webp`（元画像 `exec-2a5c44c4-c92c-4ba7-a625-15fbf008f4bf.png`、1024×1536）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M150-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M150-raw-image-2a5c44c4.md)（炎が右上へ伸びる。余白・低alphaの細部はアクスタ演出を踏まえ採用） | 同上 |
-| M151 | 古いたこ足配線 | 火事の原因（火） | 寺町 sento（銭湯。雷のラーニング元を早く取れるよう寺町に置く）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 火 | 未定 | 未定 | 生成済み: `assets/images/enemies/M151.webp`（採否待ち。コードが右へ広がる・焦げた差込口・透過） | 同上。技: かんでん（雷のラーニング元。2026-10-15 kako-jun 決定。敵の専用 `[特技]`。効果・ダメージは未決。敵自身の属性は火のまま。火事の技と感電の技の両方を持ってよい） |
+| M151 | 古いたこ足配線 | 火事の原因（火） | 寺町 sento（銭湯。雷のラーニング元を早く取れるよう寺町に置く）（一任による決定 2026-10-15、docs/dungeon-enemies.md が正本） | 火 | 未定 | 未定 | 採用: `assets/images/enemies/M151.webp`（元画像 `exec-e2e097f3-8c9c-4001-b99b-194c43da0b80.png`、1536×1024。旧版を更新、kako-jun 2026-10-21 採用）。prompt contract: [生成前審査](reviews/artifact-redteam/20261021-M151-contract-prompt.md)（pass）。raw review: [候補](reviews/artifact-redteam/20261021-M151-raw-image-e2e097f3.md)（焦げた差込口・右へ広がるコード・斜めの見えを確認。端の切れはアクスタ演出を踏まえ採用） | 同上。技: かんでん（雷のラーニング元。2026-10-15 kako-jun 決定。敵の専用 `[特技]`。効果・ダメージは未決。敵自身の属性は火のまま。火事の技と感電の技の両方を持ってよい） |
 | M152 | 砲弾の欠片 | 回転する刃（風）に準ずる風のラーニング元（形の気配に留める） | 内灘 UCH-03 松林道（防砂林・砂丘）（kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.4） | 風（風のラーニング元「ざくざく」。kako-jun 承認 2026-10-15、docs/enemy-allocation.md §1.4） | 未定 | 未定 | 未定（生成していない。仕様のみ） | 形の気配に留め、実在の砲弾・兵器は再現しない（S003 の「砲弾の欠片の気配」と対応）。docs/enemy-allocation.md §1.4、art-direction.md |
 
 **属性の穴（解消。kako-jun 2026-10-15 決定。docs/enemy-allocation.md §2.2）**: 土（どろだらけ）＝M101・M102・M108 が技として持つ。雷（かんでん）＝M151 が技として持つ（M151 の敵属性は台帳どおり火。火事の技と感電の技の両方を持ってよい）。属性欄・弱点は決めない。技の効果・ダメージは未決。
@@ -254,6 +254,20 @@ M010の造形（kako-jun採用 2026-10-20）: 胃の盾役を踏まえ、幅広�
 
 **割り当て規則**: 既存画像の縦横比は台帳の gridClass を後追いで決める根拠にしない。全IDは上表の値を生成・再生成の契約として使う。通常敵・中ボスは4種、ラスボスは台帳に明記した大型枠を使う。S006は変身段階ごとに2x3・2x4・2x6を使う特例（#141）。
 
+### 3-8. 通常敵画像の進捗（2026-10-21）
+
+対象は M101〜M152 の52 ID。画像ファイルの存在を `assets/images/enemies/` と照合した。**現行画像あり44/52 ID（うちM107・M127はボスのため通常敵の再作成対象外）。最新作成はM151までだが、未作成IDが途中に残る。**
+
+| 状態 | ID | 次の扱い |
+|---|---|---|
+| 採用画像あり | M101〜M110（M107はボスとして現状維持）、M112〜M113、M115〜M116、M118、M121〜M139（M127はボスとして現状維持）、M142〜M151 | 再作成済み。M145〜M151の最終候補はkako-junが採用（2026-10-21） |
+| 画像なし | M111 | 環境敵（防火シャッター）。2x2指定済み。画像未作成 |
+| 画像なし | M114、M117、M119、M120 | サイズ指定済み。個別の絵を未作成 |
+| 画像なし | M140、M141 | 環境敵（煙と灰／酒の液面）。サイズ指定済み。画像未作成 |
+| 次に作成 | M152 | 砲弾の欠片の気配に留める通常敵。1x1指定済み。実在の兵器を描かない |
+
+通常敵として画像があるのは42/50 ID。未作成は上記8 ID（M111、M114、M117、M119、M120、M140、M141、M152）。M107・M127は既存ボス画像を維持する。別枠の雷召喚獣S006は4形態すべて採用済みで、再作成対象外。
+
 **敵画像のキャンバス実測（旧画像の区分・変更履歴は参考値。生成・再生成契約は §3-7 の gridClass が正本）**
 
 | ID | 旧画像の区分・変更履歴（参考） | 現在の画像・寸法・縦横比 |
@@ -293,13 +307,13 @@ M010の造形（kako-jun採用 2026-10-20）: 胃の盾役を踏まえ、幅広�
 | M142 | 1x2（縦2倍） | `assets/images/enemies/M142.webp` 1024x1536、縦横比 0.67（採用 2026-10-21）。gridClass は §3-7 の先行指定 |
 | M143 | 1x2（縦2倍） | `assets/images/enemies/M143.webp` 1024x1536、縦横比 0.67（採用 2026-10-21）。gridClass は §3-7 の先行指定 |
 | M144 | 1x2（縦2倍） | `assets/images/enemies/M144.webp` 1024x1536、縦横比 0.67（採用 2026-10-21）。gridClass は §3-7 の先行指定 |
-| M145 | 2x1（横2倍） | `assets/images/enemies/M145.webp` 640x199、縦横比 3.22 |
-| M146 | 1x1（普通） | `assets/images/enemies/M146.webp` 640x497、縦横比 1.29 |
-| M147 | 1x1（普通） | `assets/images/enemies/M147.webp` 640x621、縦横比 1.03 |
-| M148 | 2x1（横2倍） | `assets/images/enemies/M148.webp` 640x323、縦横比 1.98 |
-| M149 | 1x1（普通） | `assets/images/enemies/M149.webp` 640x589、縦横比 1.09 |
+| M145 | 2x1（横2倍） | `assets/images/enemies/M145.webp` 1536x1024、採用 2026-10-21 |
+| M146 | 1x1（普通） | `assets/images/enemies/M146.webp` 1254x1254、採用 2026-10-21 |
+| M147 | 1x1（普通） | `assets/images/enemies/M147.webp` 1254x1254、採用 2026-10-21 |
+| M148 | 2x1（横2倍） | `assets/images/enemies/M148.webp` 1536x1024、採用 2026-10-21 |
+| M149 | 1x1（普通） | `assets/images/enemies/M149.webp` 1254x1254、採用 2026-10-21 |
 | M150 | 1x2（縦2倍） | `assets/images/enemies/M150.webp` 1024x1536。gridClass は §3-7 の先行指定 |
-| M151 | 2x1（横2倍） | `assets/images/enemies/M151.webp` 640x337、縦横比 1.90 |
+| M151 | 2x1（横2倍） | `assets/images/enemies/M151.webp` 1536x1024、採用 2026-10-21 |
 
 この表の実寸は既存ファイルの記録であり、gridClass の正本は §3-7 である。再生成では §3-7 の先行指定に合わせる。
 
