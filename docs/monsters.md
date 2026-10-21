@@ -169,7 +169,7 @@ M010の造形（kako-jun採用 2026-10-20）: 胃の盾役を踏まえ、幅広�
 | ファイル | 内容 | 使われている所 |
 |---|---|---|
 | `assets/images/battle-backgrounds/BG001.webp` | 雪の寺町風の道（土塀・石垣・用水・赤白スノーポール） | 戦闘背景の素材（敵との対応は未定） |
-| ~~`assets/images/battle-backgrounds/BG005.webp`~~ | ~~舞台の床（雪山・城の書き割り）~~ | **没（kako-jun 2026-10-21。ファイル削除済み）**。M001 との戦闘背景の正本は現時点で未定（kako-jun に要確認）。没の経緯は過去に伝えられたが記録が無かった（記録漏れ） |
+| ~~`assets/images/battle-backgrounds/BG005.webp`~~ | ~~舞台の床（雪山・城の書き割り）~~ | **没（kako-jun 2026-10-21。ファイル削除済み）**。M001 との戦闘背景の正本は現時点で未定（kako-jun に要確認）。【方針 2026-10-21: BG009 は汚いので正本にせず復元しない。舞台の構成の方向性は BG009（緑の幕・手描きの雪山と城の書き割り・段ボールの縁の木の舞台）に従い、TRM-02 採用後に TRM-02 の舞台を参照に新規生成する】。没の経緯は過去に伝えられたが記録が無かった（記録漏れ） |
 | `assets/images/fields/` | 寺町のフィールド背景（overview・wide-road・narrow-lane・connector、試作の kindergarten・danchi-court・sento・well-merge など）と歩行マスク | フィールド。敵の配置は未定 |
 
 ### 3-6. 戦利品（ドロップ・ぬすむ）
