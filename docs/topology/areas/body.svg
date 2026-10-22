@@ -2,53 +2,54 @@
 <path class="door" data-edge-id="BDY-01.door-passage-torso&gt;BDY-02.door-passage-mouth:door" data-kind="door" data-from="BDY-01" data-to="BDY-02" data-from-port="door-passage-torso" data-to-port="door-passage-mouth" d="M730 370 L540 560"/>
 <path class="door" data-edge-id="BDY-02.door-passage-lower&gt;BDY-03.door-passage-upper:door" data-kind="door" data-from="BDY-02" data-to="BDY-03" data-from-port="door-passage-lower" data-to-port="door-passage-upper" d="M540 560 L540 810"/>
 <path class="door" data-edge-id="BDY-02.door-passage-head&gt;BDY-04.door-passage-torso:door" data-kind="door" data-from="BDY-02" data-to="BDY-04" data-from-port="door-passage-head" data-to-port="door-passage-torso" d="M540 560 L540 160"/>
-<path class="door" data-edge-id="BDY-02.door-passage-left-arm&gt;BDY-05.door-passage-torso:door" data-kind="door" data-from="BDY-02" data-to="BDY-05" data-from-port="door-passage-left-arm" data-to-port="door-passage-torso" d="M540 560 L270 420"/>
-<path class="door" data-edge-id="BDY-05.door-passage-tip&gt;BDY-06.door-passage-base:door" data-kind="door" data-from="BDY-05" data-to="BDY-06" data-from-port="door-passage-tip" data-to-port="door-passage-base" d="M270 420 L140 250"/>
-<path class="door" data-edge-id="BDY-02.door-passage-right-arm&gt;BDY-07.door-passage-torso:door" data-kind="door" data-from="BDY-02" data-to="BDY-07" data-from-port="door-passage-right-arm" data-to-port="door-passage-torso" d="M540 560 L810 420"/>
-<path class="door" data-edge-id="BDY-07.door-passage-tip&gt;BDY-08.door-passage-base:door" data-kind="door" data-from="BDY-07" data-to="BDY-08" data-from-port="door-passage-tip" data-to-port="door-passage-base" d="M810 420 L940 250"/>
-<path class="door" data-edge-id="BDY-03.door-passage-left-leg&gt;BDY-09.door-passage-torso:door" data-kind="door" data-from="BDY-03" data-to="BDY-09" data-from-port="door-passage-left-leg" data-to-port="door-passage-torso" d="M540 810 L270 950"/>
-<path class="door" data-edge-id="BDY-09.door-passage-middle&gt;BDY-10.door-passage-base:door" data-kind="door" data-from="BDY-09" data-to="BDY-10" data-from-port="door-passage-middle" data-to-port="door-passage-base" d="M270 950 L200 1130"/>
-<path class="door" data-edge-id="BDY-10.door-passage-tip&gt;BDY-11.door-passage-base:door" data-kind="door" data-from="BDY-10" data-to="BDY-11" data-from-port="door-passage-tip" data-to-port="door-passage-base" d="M200 1130 L140 1310"/>
-<path class="door" data-edge-id="BDY-03.door-passage-right-leg&gt;BDY-12.door-passage-torso:door" data-kind="door" data-from="BDY-03" data-to="BDY-12" data-from-port="door-passage-right-leg" data-to-port="door-passage-torso" d="M540 810 L810 950"/>
-<path class="door" data-edge-id="BDY-12.door-passage-middle&gt;BDY-13.door-passage-base:door" data-kind="door" data-from="BDY-12" data-to="BDY-13" data-from-port="door-passage-middle" data-to-port="door-passage-base" d="M810 950 L880 1130"/>
-<path class="door" data-edge-id="BDY-13.door-passage-tip&gt;BDY-14.door-passage-base:door" data-kind="door" data-from="BDY-13" data-to="BDY-14" data-from-port="door-passage-tip" data-to-port="door-passage-base" d="M880 1130 L940 1310"/>
+<path class="door" data-edge-id="BDY-02.door-passage-left-arm&gt;BDY-05.door-passage-torso:door" data-kind="door" data-from="BDY-02" data-to="BDY-05" data-from-port="door-passage-left-arm" data-to-port="door-passage-torso" d="M540 560 L810 420"/>
+<path class="door" data-edge-id="BDY-05.door-passage-tip&gt;BDY-06.door-passage-base:door" data-kind="door" data-from="BDY-05" data-to="BDY-06" data-from-port="door-passage-tip" data-to-port="door-passage-base" d="M810 420 L940 250"/>
+<path class="door" data-edge-id="BDY-02.door-passage-right-arm&gt;BDY-07.door-passage-torso:door" data-kind="door" data-from="BDY-02" data-to="BDY-07" data-from-port="door-passage-right-arm" data-to-port="door-passage-torso" d="M540 560 L270 420"/>
+<path class="door" data-edge-id="BDY-07.door-passage-tip&gt;BDY-08.door-passage-base:door" data-kind="door" data-from="BDY-07" data-to="BDY-08" data-from-port="door-passage-tip" data-to-port="door-passage-base" d="M270 420 L140 250"/>
+<path class="door" data-edge-id="BDY-03.door-passage-left-leg&gt;BDY-09.door-passage-torso:door" data-kind="door" data-from="BDY-03" data-to="BDY-09" data-from-port="door-passage-left-leg" data-to-port="door-passage-torso" d="M540 810 L810 950"/>
+<path class="door" data-edge-id="BDY-09.door-passage-middle&gt;BDY-10.door-passage-base:door" data-kind="door" data-from="BDY-09" data-to="BDY-10" data-from-port="door-passage-middle" data-to-port="door-passage-base" d="M810 950 L880 1130"/>
+<path class="door" data-edge-id="BDY-10.door-passage-tip&gt;BDY-11.door-passage-base:door" data-kind="door" data-from="BDY-10" data-to="BDY-11" data-from-port="door-passage-tip" data-to-port="door-passage-base" d="M880 1130 L940 1310"/>
+<path class="door" data-edge-id="BDY-03.door-passage-right-leg&gt;BDY-12.door-passage-torso:door" data-kind="door" data-from="BDY-03" data-to="BDY-12" data-from-port="door-passage-right-leg" data-to-port="door-passage-torso" d="M540 810 L270 950"/>
+<path class="door" data-edge-id="BDY-12.door-passage-middle&gt;BDY-13.door-passage-base:door" data-kind="door" data-from="BDY-12" data-to="BDY-13" data-from-port="door-passage-middle" data-to-port="door-passage-base" d="M270 950 L200 1130"/>
+<path class="door" data-edge-id="BDY-13.door-passage-tip&gt;BDY-14.door-passage-base:door" data-kind="door" data-from="BDY-13" data-to="BDY-14" data-from-port="door-passage-tip" data-to-port="door-passage-base" d="M200 1130 L140 1310"/>
 <path class="door" data-edge-id="BDY-03.door-passage-stomach&gt;BDY-15.door-passage-torso:door" data-kind="door" data-from="BDY-03" data-to="BDY-15" data-from-port="door-passage-stomach" data-to-port="door-passage-torso" d="M540 810 L720 810"/>
-<path class="door" data-edge-id="BDY-02.door-passage-heart&gt;BDY-16.door-passage-torso:door" data-kind="door" data-from="BDY-02" data-to="BDY-16" data-from-port="door-passage-heart" data-to-port="door-passage-torso" d="M540 560 L440 680"/>
-<path class="door" data-edge-id="BDY-02.door-passage-lung&gt;BDY-17.door-passage-torso:door" data-kind="door" data-from="BDY-02" data-to="BDY-17" data-from-port="door-passage-lung" data-to-port="door-passage-torso" d="M540 560 L720 650"/>
+<path class="door" data-edge-id="BDY-02.door-passage-heart&gt;BDY-16.door-passage-torso:door" data-kind="door" data-from="BDY-02" data-to="BDY-16" data-from-port="door-passage-heart" data-to-port="door-passage-torso" d="M540 560 L720 680"/>
+<path class="door" data-edge-id="BDY-02.door-passage-lung&gt;BDY-17.door-passage-torso:door" data-kind="door" data-from="BDY-02" data-to="BDY-17" data-from-port="door-passage-lung" data-to-port="door-passage-torso" d="M540 560 L440 650"/>
 <circle class="node" data-map="BDY-01" cx="730" cy="370" r="34"/><text class="id" x="730" y="375">BDY-01</text>
 <text x="730" y="328" class="label">口・体内入口</text>
 <circle class="node" data-map="BDY-02" cx="540" cy="560" r="34"/><text class="id" x="540" y="565">BDY-02</text>
-<text x="540" y="613" class="label">上半身・胴体上段</text>
+<text x="540" y="613" class="label">上半身・胴体上段（最初に</text>
+<text x="540" y="634" class="label">契約する体内MAP）</text>
 <circle class="node" data-map="BDY-03" cx="540" cy="810" r="34"/><text class="id" x="540" y="815">BDY-03</text>
 <text x="540" y="863" class="label">下半身・胴体下段</text>
 <circle class="node" data-map="BDY-04" cx="540" cy="160" r="34"/><text class="id" x="540" y="165">BDY-04</text>
 <text x="540" y="213" class="label">頭・脳の迷路通路</text>
-<circle class="node" data-map="BDY-05" cx="270" cy="420" r="34"/><text class="id" x="270" y="425">BDY-05</text>
-<text x="270" y="473" class="label">左手通路1・付け根側</text>
-<circle class="node" data-map="BDY-06" cx="140" cy="250" r="34"/><text class="id" x="140" y="255">BDY-06</text>
-<text x="140" y="303" class="label">左手通路2・末端</text>
-<circle class="node" data-map="BDY-07" cx="810" cy="420" r="34"/><text class="id" x="810" y="425">BDY-07</text>
-<text x="810" y="473" class="label">右手通路1・付け根側</text>
-<circle class="node" data-map="BDY-08" cx="940" cy="250" r="34"/><text class="id" x="940" y="255">BDY-08</text>
-<text x="940" y="303" class="label">右手通路2・末端</text>
-<circle class="node" data-map="BDY-09" cx="270" cy="950" r="34"/><text class="id" x="270" y="955">BDY-09</text>
-<text x="270" y="1003" class="label">左足通路1・付け根側</text>
-<circle class="node" data-map="BDY-10" cx="200" cy="1130" r="34"/><text class="id" x="200" y="1135">BDY-10</text>
-<text x="200" y="1183" class="label">左足通路2・中間</text>
-<circle class="node" data-map="BDY-11" cx="140" cy="1310" r="34"/><text class="id" x="140" y="1315">BDY-11</text>
-<text x="140" y="1363" class="label">左足通路3・末端</text>
-<circle class="node" data-map="BDY-12" cx="810" cy="950" r="34"/><text class="id" x="810" y="955">BDY-12</text>
-<text x="810" y="1003" class="label">右足通路1・付け根側</text>
-<circle class="node" data-map="BDY-13" cx="880" cy="1130" r="34"/><text class="id" x="880" y="1135">BDY-13</text>
-<text x="805" y="1183" class="label">右足通路2・中間</text>
-<circle class="node" data-map="BDY-14" cx="940" cy="1310" r="34"/><text class="id" x="940" y="1315">BDY-14</text>
-<text x="940" y="1363" class="label">右足通路3・末端</text>
+<circle class="node" data-map="BDY-05" cx="810" cy="420" r="34"/><text class="id" x="810" y="425">BDY-05</text>
+<text x="810" y="473" class="label">左手通路1・付け根側</text>
+<circle class="node" data-map="BDY-06" cx="940" cy="250" r="34"/><text class="id" x="940" y="255">BDY-06</text>
+<text x="940" y="303" class="label">左手通路2・末端</text>
+<circle class="node" data-map="BDY-07" cx="270" cy="420" r="34"/><text class="id" x="270" y="425">BDY-07</text>
+<text x="270" y="473" class="label">右手通路1・付け根側</text>
+<circle class="node" data-map="BDY-08" cx="140" cy="250" r="34"/><text class="id" x="140" y="255">BDY-08</text>
+<text x="140" y="303" class="label">右手通路2・末端</text>
+<circle class="node" data-map="BDY-09" cx="810" cy="950" r="34"/><text class="id" x="810" y="955">BDY-09</text>
+<text x="810" y="1003" class="label">左足通路1・付け根側</text>
+<circle class="node" data-map="BDY-10" cx="880" cy="1130" r="34"/><text class="id" x="880" y="1135">BDY-10</text>
+<text x="880" y="1183" class="label">左足通路2・中間</text>
+<circle class="node" data-map="BDY-11" cx="940" cy="1310" r="34"/><text class="id" x="940" y="1315">BDY-11</text>
+<text x="940" y="1363" class="label">左足通路3・末端</text>
+<circle class="node" data-map="BDY-12" cx="270" cy="950" r="34"/><text class="id" x="270" y="955">BDY-12</text>
+<text x="270" y="1003" class="label">右足通路1・付け根側</text>
+<circle class="node" data-map="BDY-13" cx="200" cy="1130" r="34"/><text class="id" x="200" y="1135">BDY-13</text>
+<text x="275" y="1183" class="label">右足通路2・中間</text>
+<circle class="node" data-map="BDY-14" cx="140" cy="1310" r="34"/><text class="id" x="140" y="1315">BDY-14</text>
+<text x="140" y="1363" class="label">右足通路3・末端</text>
 <circle class="node" data-map="BDY-15" cx="720" cy="810" r="34"/><text class="id" x="720" y="815">BDY-15</text>
 <text x="720" y="863" class="label">胃・分岐室</text>
-<circle class="node" data-map="BDY-16" cx="440" cy="680" r="34"/><text class="id" x="440" y="685">BDY-16</text>
-<text x="440" y="733" class="label">心臓・分岐室</text>
-<circle class="node" data-map="BDY-17" cx="720" cy="650" r="34"/><text class="id" x="720" y="655">BDY-17</text>
-<text x="720" y="703" class="label">肺・分岐室</text>
+<circle class="node" data-map="BDY-16" cx="720" cy="680" r="34"/><text class="id" x="720" y="685">BDY-16</text>
+<text x="720" y="733" class="label">心臓・分岐室</text>
+<circle class="node" data-map="BDY-17" cx="440" cy="650" r="34"/><text class="id" x="440" y="655">BDY-17</text>
+<text x="440" y="703" class="label">肺・分岐室</text>
 <text x="25" y="1435" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
 <circle class="ref" data-reference-map="TRM-01" data-reference="TRM-01" cx="40" cy="1465" r="13"/>
 <text x="65" y="1470" class="small">TRM-01.event-kiss → BDY-01.event-mouth  [外部: teramachi]</text>

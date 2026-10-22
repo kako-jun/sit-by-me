@@ -108,11 +108,11 @@
 | NTA-05 | `noto-post-house` | 奥能登（被災後） | 実家版との同一接続 |
 | NTA-06 | `noto-post-fishing-spot` | 奥能登（被災後） | 釣り場版との同一接続 |
 | NTA-07 | `noto-temporary-housing` | 奥能登（被災後） | 接続辺・生活動線（入口はNTA-01.right。被災前NTB-01.right→NTB-07.leftの被災後版。#89） |
-| BDY-01 | `BDY-01` | 抽象体内 | 口・体内入口。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
-| BDY-06 | `BDY-06` | 抽象体内 | 左手通路2・末端。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
-| BDY-08 | `BDY-08` | 抽象体内 | 右手通路2・末端。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
-| BDY-11 | `BDY-11` | 抽象体内 | 左足通路3・末端。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
-| BDY-14 | `BDY-14` | 抽象体内 | 右足通路3・末端。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| BDY-01 | `BDY-01` | 抽象体内 | 口・体内入口。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 【BDY-01 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-mouth-bdy01-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
+| BDY-06 | `BDY-06` | 抽象体内 | 左手通路2・末端。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 【BDY-06 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-left-arm-2-bdy06-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
+| BDY-08 | `BDY-08` | 抽象体内 | 右手通路2・末端。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 【BDY-08 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-right-arm-2-bdy08-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
+| BDY-11 | `BDY-11` | 抽象体内 | 左足通路3・末端。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 【BDY-11 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-left-leg-3-bdy11-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
+| BDY-14 | `BDY-14` | 抽象体内 | 右足通路3・末端。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 【BDY-14 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-right-leg-3-bdy14-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
 | BDY-04 | `BDY-04` | 抽象体内 | 頭・脳の迷路通路。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
 | BDY-15 | `BDY-15` | 抽象体内 | 胃・分岐室。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
 | BDY-16 | `BDY-16` | 抽象体内 | 心臓・分岐室。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
@@ -173,20 +173,20 @@
 
 | ID | 管理名 | 地区 | 契約 |
 |---|---|---|---|
-| BDY-02 | `BDY-02` | 抽象体内 | 上半身・胴体上段。7経路は画像端で遷移し、方位は `docs/topology/body.svg` に従う（口=北東、頭=北、左腕=北西、右腕=北東、下半身=南、心臓=南西、肺=南東）。口から胴体への首道は1本、頭道はそこから分岐。体外形・洞窟口は描かず、平面床と低い仕切りで道を作る。心臓・肺の部屋と胃は描かない（胃はBDY-03からBDY-15へ接続）。架空人体・非写実・肌色寄り・非グロ、主路幅はキャラクター3人分程度。体内材料は `art-direction.md`／`map-specifications.md` を参照。 |
+| BDY-02 | `BDY-02` | 抽象体内 | 上半身・胴体上段。7経路は模型（ジオラマ）の縁の辺で隣MAPへ遷移し（遷移位置は辺上の範囲指定、範囲値TBD。土台の板と机は見えたまま）、方位は `docs/topology/body.svg` に従う（口=北東、頭=北、左腕=北東（東辺から出る）、右腕=北西（西辺から出る）、下半身=南、心臓=南東、肺=南西。**左右は身体の本人から見る（本人は仰向け、それを正面から見る構図なので、画面左が本人の右手・右足、画面右が本人の左手・左足。kako-jun 2026-10-22、#142）**。左足・左手は画面右、右足・右手は画面左。心臓は画面右（南東）、肺は画面左（南西）。南辺は 肺=左寄り・下半身=中央・心臓=右寄り）。口から胴体への首道は1本、頭道はそこから分岐。体外形・洞窟口は描かず、平面床と低い仕切りで道を作る。心臓・肺の部屋と胃は描かない（胃はBDY-03からBDY-15へ接続）。架空人体・非写実・肌色寄り・非グロ、主路幅はキャラクター3人分程度。体内材料は `art-direction.md`／`map-specifications.md` を参照。 【BDY-02 新版（首1本・左右は本人から見る）の基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-upper-torso-bdy02-adopted.webp`、[採用記録](production/20261022-bdy02-adoption.md)）】 |
 | BDY-17 | `BDY-17` | 抽象体内 | 肺・分岐室。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
 
 ## #74追加ボリューム（上半身・下半身／手2／足3）
 
 | ID | 管理名 | 地区 | 契約 |
 |---|---|---|---|
-| BDY-03 | `BDY-03` | 抽象体内 | 下半身・胴体下段。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
-| BDY-05 | `BDY-05` | 抽象体内 | 左手通路1・付け根側。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
-| BDY-07 | `BDY-07` | 抽象体内 | 右手通路1・付け根側。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
-| BDY-09 | `BDY-09` | 抽象体内 | 左足通路1・付け根側。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
-| BDY-10 | `BDY-10` | 抽象体内 | 左足通路2・中間。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
-| BDY-12 | `BDY-12` | 抽象体内 | 右足通路1・付け根側。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
-| BDY-13 | `BDY-13` | 抽象体内 | 右足通路2・中間。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| BDY-03 | `BDY-03` | 抽象体内 | 下半身・胴体下段。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 【BDY-03 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-lower-torso-bdy03-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
+| BDY-05 | `BDY-05` | 抽象体内 | 左手通路1・付け根側。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 【BDY-05 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-left-arm-1-bdy05-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
+| BDY-07 | `BDY-07` | 抽象体内 | 右手通路1・付け根側。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 【BDY-07 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-right-arm-1-bdy07-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
+| BDY-09 | `BDY-09` | 抽象体内 | 左足通路1・付け根側。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 【BDY-09 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-left-leg-1-bdy09-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
+| BDY-10 | `BDY-10` | 抽象体内 | 左足通路2・中間。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 【BDY-10 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-left-leg-2-bdy10-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
+| BDY-12 | `BDY-12` | 抽象体内 | 右足通路1・付け根側。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 【BDY-12 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-right-leg-1-bdy12-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
+| BDY-13 | `BDY-13` | 抽象体内 | 右足通路2・中間。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 【BDY-13 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-right-leg-2-bdy13-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
 
 ## #87/#89追加ID
 
