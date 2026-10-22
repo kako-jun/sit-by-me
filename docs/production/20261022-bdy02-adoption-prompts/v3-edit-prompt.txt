@@ -1,0 +1,22 @@
+Invoke the $imagegen skill and use the built-in image_gen tool at the HIGHEST quality (quality: high), keeping the editing source's size (1672x941, 16:9), to repaint the image as described in the prompt below. This is an IMAGE EDIT: use the image_gen tool in image-edit mode on the one attached image. One image is attached: the editing source, a finished photo of a hand-made cardboard miniature (map BDY-02). Call image_gen EXACTLY ONCE: no retries, no regeneration, no multiple candidates, even if you think the result is imperfect. Then save the REAL generated PNG (decode the tool result) into the current workspace at out/bdy02-v3.png. You are STRICTLY FORBIDDEN from fabricating/drawing the image with magick/ImageMagick/PIL/Pillow/numpy/SVG/canvas/any code; only the image_gen tool. If the image_gen tool is genuinely not in your toolset, do NOT fabricate - output exactly: IMAGE_GEN_TOOL_UNAVAILABLE. Do not resize, crop, or mirror/flip the result. Do not use any files in ~/.codex/generated_images/ made by other calls; only the image generated in this call. Report the saved file path.
+Output a 16:9 landscape image. Keep the size of the editing source (1672x941); keep its direction.
+
+Edit the attached photo of the miniature: keep it exactly as it is and ADD hand-made craft decoration only. The edit is decoration-only.
+
+KEEP (do not move a single pixel of the geometry of the editing source): the desk, the edge of the base board, the outline of the top surface, the 7 passages with their edges, positions and widths, the centre of the round hall and the circle of its floor, the 3 arcs of the wall, the 6 red origami pieces with their positions and shapes, and the position of every wall. The floor (the cream passages and the cream round hall) stays exactly as it is: flat, clean, empty, with nothing placed on it. Nothing is placed where the characters walk.
+
+ADD, on the brown raised terrain (the surfaces that are not walkable), along the foot of the walls, on the edge of the base board, and on the desk only:
+- Yarn: double-wound yarn running along the foot of the walls, and spirals and coils of yarn lying on the terrain as ornamental swirls and borders. Colours are cream and pale pink as the base, with light and deep tones of skin-coloured yarn also welcome. The yarn works as decorative swirls and edging, wound like a trim.
+- Small lumps and balls of paper clay, with fingerprints and with swirls and dot patterns pressed by a toothpick.
+- Buttons, beads and felt pieces in skin tone, pale pink and cream.
+- Small toothpick stakes standing in the terrain.
+- Drips and dabs of PVA glue.
+- Extra strips of masking tape.
+- Swirls, dots and wave patterns carved into the terrain surface with a toothpick.
+- The desk becomes a wooden desk with visible wood grain (a warm natural wooden tabletop), not a plain grey surface.
+
+DENSITY: each region of terrain (about 6 regions) shows 3 to 5 kinds of small items and patterns, so the picture feels rich and busy with handwork like a kindergarten craft project. The width of the passages and the flatness of the floor are unchanged.
+
+STYLE: real photograph of a hand-made miniature, soft studio light, craft materials only, same camera and framing as the editing source.
+
+DO NOT ADD: organs, vessels, blood, viscera, the outline of a body, or anything that looks like a cave. Yarn does not run like blood vessels; it is only ornamental swirls and edging. The only red objects are the existing 6 origami pieces. No people, no characters, no letters, no numbers, no snow, no cotton wool.
