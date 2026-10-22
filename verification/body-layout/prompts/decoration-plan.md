@@ -8,6 +8,7 @@ BDY-02・BDY-09 も新プールで作り直す（kako-jun 2026-10-22『つくり
 | BDY-01 | 口(閉端) | BONE/SKIN/HAIR | corners | pink | cream | cream masking tape and clear-white PVA | medium honey-coloured oak grain | two short scraps of masking tape and a few thread ends in the lower-left corner of the desk |
 | BDY-02 | 上半身(広間・首・分岐。作り直し) | PULSE/THREAD/SKIN | scatter | brown | deep skin-tone | cream masking tape and white PVA | warm medium-brown grain with fine straight lines | a few thread ends and a small clay crumb along the lower desk margin |
 | BDY-03 | 下半身(合流) | CELL/PLASTER/PULSE | mass | skin | pale pink | ivory masking tape and white PVA | light pale birch grain with fine lines | a loose curl of tape and a toothpick lying along the top desk margin |
+| BDY-04 | 頭(脳の迷路・1人幅) | SKIN/CELL/GERM | spiral | pink | cream | skin-coloured masking tape and white PVA | honey-brown grain with a few wide soft rings | a thread end and two tiny clay balls along the upper desk margin |
 | BDY-05 | 左手1 | BONE/THREAD/GERM | wallband | skin | light skin-tone | kraft-brown paper tape and white PVA | dark walnut-coloured grain, fairly strong | a few thread ends and a small clay crumb in the upper-right corner of the desk |
 | BDY-06 | 左手2(閉端) | SKIN/PULSE/HAIR | diagonal | pink | pale pink | white masking tape and a thin PVA line | medium grain with a visible knot near one side | a torn paper-tape strip and two tape scraps along the right desk margin |
 | BDY-07 | 右手1 | CELL/PLASTER/HAIR | spiral | cream | cream | cream masking tape and white PVA | light honey grain, wide and soft | a small ball of leftover yarn and a toothpick in the lower-right corner of the desk |
@@ -18,6 +19,9 @@ BDY-02・BDY-09 も新プールで作り直す（kako-jun 2026-10-22『つくり
 | BDY-12 | 右足1 | THREAD/SKIN/GERM | spiral | cream | light skin-tone | cream masking tape and a thin PVA line | medium grain with long waves | a coil of yarn and one tape scrap in the upper-right corner of the desk |
 | BDY-13 | 右足2 | CELL/BONE/HAIR | corners | pink | pale pink | kraft-brown paper tape and white PVA | dark grain with a few cracks | a few small clay balls and a thread end at the lower-left of the desk |
 | BDY-14 | 右足3(閉端) | PLASTER/PULSE/GERM | diagonal | cream | cream | white masking tape and a thin PVA line | light pale grain with a soft stripe | paper-tape scraps and a crumb of clay along the right desk margin |
+| BDY-15 | 胃(J字の1袋) | GERM/PLASTER/HAIR | corners | brown | deep skin-tone | kraft-brown paper tape and a thin PVA line | pale oak grain with close fine lines | a torn scrap of tape and a toothpick in the lower-right corner of the desk |
+| BDY-16 | 心臓(2x2の4部屋の環) | PULSE/BONE/CELL | wallband | cream | pale pink | white masking tape and white PVA | dark chestnut grain with long straight lines | a short loop of yarn and one spare bead along the left desk margin |
+| BDY-17 | 肺(外周の環・5部屋) | THREAD/CELL/HAIR | diagonal | skin | light skin-tone | cream masking tape and clear-white PVA | pale ash grain with a soft wavy stripe | two thread tufts and a crumb of clay in the upper-left corner of the desk |
 
 ## 隣接MAPの被り検査（機械検査・違反があれば --all / --plan は停止）
 
@@ -35,6 +39,16 @@ BDY-02・BDY-09 も新プールで作り直す（kako-jun 2026-10-22『つくり
 | BDY-03 - BDY-12 | 0種  (<=1) | mass / spiral (異) | skin / cream (異) |
 | BDY-12 - BDY-13 | 0種  (<=1) | spiral / corners (異) | cream / pink (異) |
 | BDY-13 - BDY-14 | 0種  (<=1) | corners / diagonal (異) | pink / cream (異) |
+| BDY-02 - BDY-04 | 1種 ['SKIN'] (<=1) | scatter / spiral (異) | brown / pink (異) |
+| BDY-03 - BDY-15 | 1種 ['PLASTER'] (<=1) | mass / corners (異) | skin / brown (異) |
+| BDY-02 - BDY-16 | 1種 ['PULSE'] (<=1) | scatter / wallband (異) | brown / cream (異) |
+| BDY-02 - BDY-17 | 1種 ['THREAD'] (<=1) | scatter / diagonal (異) | brown / skin (異) |
+| BDY-04 - BDY-15 | 1種 ['GERM'] (<=1) | spiral / corners (異) | pink / brown (異) |
+| BDY-04 - BDY-16 | 1種 ['CELL'] (<=1) | spiral / wallband (異) | pink / cream (異) |
+| BDY-04 - BDY-17 | 1種 ['CELL'] (<=1) | spiral / diagonal (異) | pink / skin (異) |
+| BDY-15 - BDY-16 | 0種  (<=1) | corners / wallband (異) | brown / cream (異) |
+| BDY-15 - BDY-17 | 1種 ['HAIR'] (<=1) | corners / diagonal (異) | brown / skin (異) |
+| BDY-16 - BDY-17 | 1種 ['CELL'] (<=1) | wallband / diagonal (異) | cream / skin (異) |
 
 ## 左右の対（同じ族を使ってよいが配置は変える）
 
