@@ -1,6 +1,6 @@
 # 体内MAP（BDY-xx）基準状態の採用記録（共通・2026-10-22、#142）
 
-BDY-02 は個別記録 [20261022-bdy02-adoption.md](20261022-bdy02-adoption.md) にある。BDY-02 以外の体内MAPは、この文書の採用表に1行ずつ追記する。いずれも mask・links・独立red-team未通過のため **runtimeへは切り替えず**、台帳statusは `blocked` のまま。
+BDY-02 は個別記録 [20261022-bdy02-adoption.md](20261022-bdy02-adoption.md) にある。BDY-02 以外の体内MAP（16枚）は、この文書の採用表に1行ずつ追記する。いずれも mask・links・独立red-team未通過のため **runtimeへは切り替えず**、台帳statusは `blocked` のまま。
 
 ## 経緯
 - 2段階生成（簡素な背景の段階1 → 装飾の段階2）を試したが、kako-jun 指示（2026-10-22「簡素な背景で一度作ってからやり直すのをやめろよ」）で**廃止**した。手間がかかるため。
@@ -27,6 +27,10 @@ BDY-02 は個別記録 [20261022-bdy02-adoption.md](20261022-bdy02-adoption.md) 
 | BDY-12（右足通路1・付け根側） | `assets/images/fields/reference/body-right-leg-1-bdy12-adopted.webp`（304,990 bytes） | `adc110d58f80dfc131b38568f5e361eeffed62b2e830cd32debb6f4a9ff43ccf` | 1672×941 | 0.842 | 総合FAIL（S辺の縁取り・波形が0px、N/E/W辺の縁取りずれ、赤紙5枚）。E辺の通路WARN（幅-11%）、色域外0.00% | 土台縁の欠け（S辺）、赤紙5枚 | [BDY-12-prompt-send.txt](20261022-body-maps-adoption-prompts/BDY-12-prompt-send.txt)（sha256 `3dbb8cdbf7a6faf3b21a035672800abf740119b2421e0d741fec14ec097d2ef5`） |
 | BDY-13（右足通路2・中間） | `assets/images/fields/reference/body-right-leg-2-bdy13-adopted.webp`（349,056 bytes） | `9293c0284a14edc20b29844a1a304c6003c975d4e2d10b39e83113fd97783d85` | 1672×940（16:9、元PNGも1672×940） | 0.879 | 総合FAIL（赤紙5枚、模型外の赤1個 (1607,903)）。通路WARN（床色が机の上に438pxはみ出す）、四辺の土台縁PASS、色域外0.00% | 模型外の赤、赤紙5枚 | [BDY-13-prompt-send.txt](20261022-body-maps-adoption-prompts/BDY-13-prompt-send.txt)（sha256 `13d246bc56e89e879cf57f6279f6e2bc2e8a0853598b42b3958b8e2df43c691c`） |
 | BDY-14（右足通路3・末端） | `assets/images/fields/reference/body-right-leg-3-bdy14-adopted.webp`（269,066 bytes） | `ef44dfb132af74e73192d5eaefbe4959fd5c0c73abbd4aba40c0e88514ab6911` | 1672×941 | 0.874 | 総合FAIL（S辺の波形が0px、W辺の机・縁取り・波形が0px、赤紙5枚、模型外の赤1個 (12,306)）。通路PASS、色域外0.00% | 土台縁の欠け（W/S辺）、模型外の赤、赤紙5枚 | [BDY-14-prompt-send.txt](20261022-body-maps-adoption-prompts/BDY-14-prompt-send.txt)（sha256 `e5be258c8afadd3b4514ce9cc7816e76404fbe55fe637ca4459d684af41e5f81`） |
+| BDY-04（頭・脳の迷路通路） | `assets/images/fields/reference/body-brain-maze-bdy04-adopted.webp`（245,358 bytes） | `4f441b8cca1106f665c1670decd51008adf8b80e6f5ae485563eff61ae0f3982` | 1672×941 | 0.829 | 総合WARN（S辺の縁取り12px）。迷路検査は全一致（通路77・床セル78・ループ0・行き止まり11・T字10・壁の連続破れ0・入口は南辺1本） | 迷路の内側の壁面の装飾が少ない | [BDY-04-prompt-send.txt](20261022-body-maps-adoption-prompts/BDY-04-prompt-send.txt)（生成時の版＝現行 prompts/ と同一の版。sha256 `4463974f5a1abc5b42eb8a8e025b248bb2cfd9ba6c3311d1d371efe319c91d7f`）
+| BDY-15（胃・分岐室） | `assets/images/fields/reference/body-stomach-bdy15-adopted.webp`（220,986 bytes） | `16ce82a76c721a5638399993d2089ec9ee8bd7a23720c59465c1bea238a1c93a` | 1672×941 | 0.862 | 総合FAIL（机・縁の誤判定。机が薄い木目で縁取りと同色のため、N/W の通路は縁取り帯で床が止まる扱いになった）。赤紙6枚 | 鳥の首のようにも見える形、装飾が疎、机の薄い木目でチェッカーが机/縁取り/床を誤判定（画像側の問題ではない） | [BDY-15-prompt-send.txt](20261022-body-maps-adoption-prompts/BDY-15-prompt-send.txt)（**生成時の旧版**。独立レビュー指摘の反映前。現行 prompts/BDY-15-prompt-send.txt は修正版で別物。sha256 `1db6be46deb1f00259ed45286e5dd75d4f7e8d590de03ebe428abaadd2a17b0e`）
+| BDY-16（心臓・分岐室） | `assets/images/fields/reference/body-heart-bdy16-adopted.webp`（301,770 bytes） | `19b4bc72d609719991036633ebaec98cdcb746da37d9093318344eac593ff2ce` | 1672×941 | 0.866 | 赤紙6枚。床の汚れ判定17.26%（目視では床に欠けなし）。机の薄い木目によるチェッカーの誤判定あり | 部屋の丸みが通路幅に対し小さく骨のような形に見える、模型外（机の上）に毛糸の「8」の字と玉が落ちている | [BDY-16-prompt-send.txt](20261022-body-maps-adoption-prompts/BDY-16-prompt-send.txt)（**生成時の旧版**。現行 prompts/ の同名ファイルは修正版で別物。sha256 `b2ac6688d9cd1ad2757056938d07effbd05604e684b481c10ba5ae2a07cf9017`）
+| BDY-17（肺・分岐室。案A） | `assets/images/fields/reference/body-lungs-bdy17-adopted.webp`（194,058 bytes） | `dc1c67d1c156565ca19ec006d38de13a484a601064aa5cecbbec80e9702633a4` | 1672×941 | 0.830 | 赤紙6枚。床の汚れ判定56.4%・机へのはみ出し（床色推定が机の薄桃に引かれた誤判定。画像側の問題ではない） | 部屋の丸みが通路幅に対し小さく骨のような形に見える、模型外（机の上）に毛糸の束と玉が落ちている | [BDY-17-prompt-send.txt](20261022-body-maps-adoption-prompts/BDY-17-prompt-send.txt)（**生成時の旧版**。現行 prompts/ の同名ファイルは修正版で別物。sha256 `246ec8a20e6f29a6dd75553d6a004b52479adcee1318d7d73ff53284b682f427`）
 
 BDY-09（作り直し版）の元PNG（sha256 `91430ac92c37aec43e7d90ffe3957c5838ff98cb463acfc8e075b15b881d1555`、1672×941）はWebP変換前に照合した。生成は様式参照なし・参照2枚（clean割付図＋材料見本）・新プール prompt で1回のみ。採用日 2026-10-22、決定者 kako-jun（目視）。
 
@@ -42,4 +46,18 @@ BDY-09（作り直し版）の元PNG（sha256 `91430ac92c37aec43e7d90ffe3957c583
 
 既知の逸脱（kako-jun が目視で許容して採用）: 赤い紙片が5枚（05・08・10〜14。06・01は6枚）、BDY-05 の遠近のある斜め上からの構図、BDY-01 の角の毛の房、BDY-11 のちぎり絵風の質感、土台縁の欠け（05・11・12・14など）、模型外の赤（08・13・14）、BDY-07 のチェッカー床色推定の失敗（実画像は帯が期待位置）。
 
-BDY-02・09 は新プールで作り直す予定。BDY-04・15・16・17 はビルダー対応待ち（原文未確定）。
+BDY-02・09 は新プールで作り直す予定。
+
+### 部屋・迷路の4枚（BDY-04・15・16・17）の追記（2026-10-22）
+
+これで**体内17枚（BDY-01〜17）の基準状態が全て揃った**。採用表は BDY-02（個別記録 [20261022-bdy02-adoption.md](20261022-bdy02-adoption.md)）を除く16行で、BDY-02 と合わせて17枚。
+
+元PNG（変換前に照合）の sha256: BDY-04 `ebf4d9846775b659ba0c90a8ab77aebaca7b740ad3d6881dca7bdefc240c1550`、BDY-15 `1ebe8ce0c971257e3294a8320274e68f35c2f02df0e917ad690fcc4f67513870`、BDY-16 `35d8f3b9ae5aa6c0577095459f2d864f6c0d0acd0df8b9e8b78965ca8d99490a`、BDY-17 `0114bc4b354e3045fbdbb24131debb087d47068609a5011063ba878a68483d13`（いずれも1672×941）。生成は各1回（様式参照なし・参照2枚・装飾込み）。採用は kako-jun の目視『よい』（2026-10-22）。
+
+経緯:
+- 部屋・迷路の4MAPは、ビルダー `build_body_prompt.py` を専用の本文（`build_prompt_rooms`）に拡張して対応した。形は kako-jun の決定（脳=迷路、胃=分岐なしJ字の1袋、心臓=2x2の丸い4部屋の環、肺=案A=外周の環・行き止まりなし）とモック承認に基づく。
+- 独立レビューは2回（opus）。迷路は生成1回目で成功し、BDY-04 のみに許可していた再生成（最大2回）は使わなかった。
+- 胃のモックは kako-jun の指摘で、分岐ありの形から**分岐なしのJ字の1袋**へ作り直した（台帳の行もそれに更新）。
+- 送信文の版: BDY-04 は現行 prompts/ と同一。BDY-15・16・17 は**生成時の旧版**（独立レビュー指摘の反映前）を保存した。現行 `verification/body-layout/prompts/BDY-15/16/17-prompt-send.txt` はその後の修正版で、採用画像の生成には使っていない。
+
+既知の逸脱（kako-jun が目視で許容して採用）: 心臓・肺は部屋の丸みが通路幅に対し小さく、骨のような形に見える（承認モックの部屋半径160・通路230pxの結果）。胃は鳥の首のようにも見え、装飾が疎。机の薄い木目でチェッカーが机・縁取り・床を誤判定する（15・16・17。画像側の問題ではない）。模型外（机の上）の落とし物（16=毛糸の「8」の字と玉、17=毛糸の束と玉）。迷路は内側の壁面の装飾が少ない。いずれも mask・links・red-team 未通過で runtime へは切り替えない。
