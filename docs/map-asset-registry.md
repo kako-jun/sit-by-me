@@ -113,9 +113,9 @@
 | BDY-08 | `BDY-08` | 抽象体内 | 右手通路2・末端。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 【BDY-08 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-right-arm-2-bdy08-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
 | BDY-11 | `BDY-11` | 抽象体内 | 左足通路3・末端。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 【BDY-11 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-left-leg-3-bdy11-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
 | BDY-14 | `BDY-14` | 抽象体内 | 右足通路3・末端。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 【BDY-14 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-right-leg-3-bdy14-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
-| BDY-04 | `BDY-04` | 抽象体内 | 頭・脳の迷路通路。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
-| BDY-15 | `BDY-15` | 抽象体内 | 胃・分岐室。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
-| BDY-16 | `BDY-16` | 抽象体内 | 心臓・分岐室。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| BDY-04 | `BDY-04` | 抽象体内 | 頭・脳の迷路通路。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。迷路状の通路。通路幅はキャラクター1人分（約77px。模型の天面比0.047）、入口は南辺中央1本、行き止まりの迷路（出口なし）。形の詳細（座標・格子）は verification/body-layout の割付図が正本。pixel/maskはTBD（mask未作成）。 【BDY-04 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-brain-maze-bdy04-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
+| BDY-15 | `BDY-15` | 抽象体内 | 胃・分岐室。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。分岐なしJ字の1袋（入口は西辺230px→ドーム=胃底→胃体最大460px→幽門130pxで丸く閉じる）。形の詳細（座標・格子）は verification/body-layout の割付図が正本。pixel/maskはTBD（mask未作成）。 【BDY-15 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-stomach-bdy15-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
+| BDY-16 | `BDY-16` | 抽象体内 | 心臓・分岐室。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。丸い4部屋（右心房=画面左上・右心室=左下・左心房=右上・左心室=右下。左右は本人から見る）を四角い環の通路でつなぐ。入口は北辺。形の詳細（座標・格子）は verification/body-layout の割付図が正本。pixel/maskはTBD（mask未作成）。 【BDY-16 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-heart-bdy16-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
 | OVS-01 | `overseas-airport` | 海外 | 到着口・荒れ地への接続 |
 | OVS-02 | `overseas-wasteland-a` | 海外 | 空港・荒れ地Bへの接続 |
 | OVS-03 | `overseas-wasteland-b` | 海外 | 荒れ地A・都市への接続 |
@@ -174,7 +174,7 @@
 | ID | 管理名 | 地区 | 契約 |
 |---|---|---|---|
 | BDY-02 | `BDY-02` | 抽象体内 | 上半身・胴体上段。7経路は模型（ジオラマ）の縁の辺で隣MAPへ遷移し（遷移位置は辺上の範囲指定、範囲値TBD。土台の板と机は見えたまま）、方位は `docs/topology/body.svg` に従う（口=北東、頭=北、左腕=北東（東辺から出る）、右腕=北西（西辺から出る）、下半身=南、心臓=南東、肺=南西。**左右は身体の本人から見る（本人は仰向け、それを正面から見る構図なので、画面左が本人の右手・右足、画面右が本人の左手・左足。kako-jun 2026-10-22、#142）**。左足・左手は画面右、右足・右手は画面左。心臓は画面右（南東）、肺は画面左（南西）。南辺は 肺=左寄り・下半身=中央・心臓=右寄り）。口から胴体への首道は1本、頭道はそこから分岐。体外形・洞窟口は描かず、平面床と低い仕切りで道を作る。心臓・肺の部屋と胃は描かない（胃はBDY-03からBDY-15へ接続）。架空人体・非写実・肌色寄り・非グロ、主路幅はキャラクター3人分程度。体内材料は `art-direction.md`／`map-specifications.md` を参照。 【BDY-02 新版（首1本・左右は本人から見る）の基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-upper-torso-bdy02-adopted.webp`、[採用記録](production/20261022-bdy02-adoption.md)）】 |
-| BDY-17 | `BDY-17` | 抽象体内 | 肺・分岐室。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+| BDY-17 | `BDY-17` | 抽象体内 | 肺・分岐室。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。丸い5部屋（右肺3葉=画面左・左肺2葉=画面右）を外周の環で結ぶ。入口は北辺中央、通路幅はキャラクター1人分、行き止まりなし。形の詳細（座標・格子）は verification/body-layout の割付図が正本。pixel/maskはTBD（mask未作成）。 【BDY-17 基準状態の画像採用済み（reference。mask/links/red-team未通過・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-lungs-bdy17-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
 
 ## #74追加ボリューム（上半身・下半身／手2／足3）
 
