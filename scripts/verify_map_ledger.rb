@@ -23,7 +23,8 @@ MAP_ID_PATTERN = "(?:#{JSON.parse(read('topology/map-ids.json')).fetch('areas').
 
 def ids
   register = JSON.parse(read('topology/map-ids.json'))
-  result = register.fetch('areas').flat_map { |code, count| (1..count).map { |n| format('%s-%02d', code, n) } }
+  retired = register.fetch('retired', {}).keys
+  result = register.fetch('areas').flat_map { |code, count| (1..count).map { |n| format('%s-%02d', code, n) } } - retired
   fail!('ID登録件数不一致') unless result.length == register.fetch('expected_count') && result.uniq.length == result.length
   result
 end
@@ -155,7 +156,7 @@ fail!("同一扉端の二重使用: #{reused_doors.keys.join(', ')}") unless reu
 
 fail!('旧サニーランドpendingは廃止') unless pending.empty?
 entry=topology_rows.select { |_,_,kind,_| kind=='event' }
-fail!('体内イベントは園庭TRM-01から口BDY-01への一方向のみ') unless entry.map { |a,b,k,_| [a,b,k] } == [['TRM-01.event-kiss','BDY-01.event-mouth','event']]
+fail!('体内イベントは園庭（境内TRM-03の右の区画）から口BDY-01への一方向のみ') unless entry.map { |a,b,k,_| [a,b,k] } == [['TRM-03.event-kiss','BDY-01.event-mouth','event']]
 flights=topology_rows.select { |_,_,kind,_| kind=='oneway' }
 fail!('一方向の海外渡航が不正') unless flights.map { |a,b,k,_| [a,b,k] } == [['APT-02.door-gate','OVS-01.door-arrival','oneway']]
 membership=JSON.parse(read('topology/areas.json'))
@@ -174,7 +175,7 @@ body_pairs=body_paths.flat_map { |path| path.each_cons(2).map(&:sort) }.sort
 body_active=active.select { |a,b,_| body['maps'].include?(a) && body['maps'].include?(b) }
 fail!('体内の上半身/下半身・手2枚・足3枚の一本道接続が不一致') unless body_active.map { |a,b,_| [a,b].sort }.sort==body_pairs && body_active.all? { |_,_,kind| kind=='door' }
 body_external=active.select { |a,b,_| body['maps'].include?(a) != body['maps'].include?(b) }
-fail!('園庭以外からの体内入口／逆方向出口がある') unless body_external==[['TRM-01','BDY-01','event']]
+fail!('園庭以外からの体内入口／逆方向出口がある') unless body_external==[['TRM-03','BDY-01','event']]
 coords=body['layout']; ux,uy=coords.fetch('BDY-02');lx,ly=coords.fetch('BDY-03')
 fail!('胴体は上半身と下半身の縦2MAP') unless ux==lx && uy<ly
 fail!('頭は胴体の上') unless coords['BDY-04'][0]==ux && coords['BDY-04'][1]<uy

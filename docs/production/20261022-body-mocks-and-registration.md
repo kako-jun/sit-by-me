@@ -78,7 +78,7 @@ uv run --with pillow --with numpy --with scipy python3 -I .claude/skills/sit-fie
 | `export-report.json` | 同上 | 17枚の一覧と接続16本の辺の反対検査 |
 | `BDY-xx-clean.webp`（可逆）・`-mock.webp`（q85）・`.json`（幾何） | `docs/production/body-mocks/` | `verification/body-layout/` からのコピー（元は残す）。clean の可逆化は画素一致を確認 |
 
-links の内容: 各出口の `id`（接続表 `BDY-02.door-passage-head` 等）・辺・相手・`image_range`（辺に沿う区間の画像px・天面矩形に対する比 0〜1。**区間は最終マスクの縁から内側4pxの帯の white の連続区間**。床が縁に届かない出口〔BDY-05 N/W・07 N・10 N・11 N・14 N など〕だけ内側30pxの帯の区間とし、`range_definition` に明記）・モックの出口を写した範囲・中心のずれ・床と縁の隙間。BDY-01 には `event-mouth`（TRM-01.event-kiss からの一方向イベント）を `range: null`（到着位置は原文に無く TBD）で記録。台帳の status は変更していない。縁（rect）を越えて white が出る出口は `edge_definitions` に **rect の縁と前縁の両方**を記録した（BDY-01 南は rect y=800 と前縁 y=839。遷移範囲の確定時にどちらを辺として採るか決める＝TBD）。links には `forbidden_edge_check` も入る。
+links の内容: 各出口の `id`（接続表 `BDY-02.door-passage-head` 等）・辺・相手・`image_range`（辺に沿う区間の画像px・天面矩形に対する比 0〜1。**区間は最終マスクの縁から内側4pxの帯の white の連続区間**。床が縁に届かない出口〔BDY-05 N/W・07 N・10 N・11 N・14 N など〕だけ内側30pxの帯の区間とし、`range_definition` に明記）・モックの出口を写した範囲・中心のずれ・床と縁の隙間。BDY-01 には `event-mouth`（TRM-03.event-kiss からの一方向イベント）を `range: null`（到着位置は原文に無く TBD）で記録。台帳の status は変更していない。縁（rect）を越えて white が出る出口は `edge_definitions` に **rect の縁と前縁の両方**を記録した（BDY-01 南は rect y=800 と前縁 y=839。遷移範囲の確定時にどちらを辺として採るか決める＝TBD）。links には `forbidden_edge_check` も入る。
 
 ## 6. 17枚の検証結果（既定=T/S）
 

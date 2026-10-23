@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "format": "区域コード(英大文字3字)-2桁連番。旧ID→新IDは production/20261019-map-id-renumber.json",
+  "format": "区域コード(英大文字3字)-2桁連番。areas の数は連番の最大値で、retired の欠番を含む。旧ID→新IDは production/20261019-map-id-renumber.json",
   "areas": {
     "TRM": 17,
     "KRB": 13,
@@ -18,5 +18,8 @@
     "GRD": 10,
     "CST": 10
   },
-  "expected_count": 130
+  "expected_count": 129,
+  "retired": {
+    "TRM-01": "2026-10-23 TRM-03 境内の右の区画（園庭）へ統合して廃止。欠番のまま詰めない（#51）"
+  }
 }

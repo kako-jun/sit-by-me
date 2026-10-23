@@ -14,7 +14,7 @@
 | R008 | UTS-01/KRB-11 | [金沢公式観光：ひがし茶屋街から卯辰山](https://www.kanazawa-kankoukyoukai.or.jp/modelCourse/detail_13.html)／公式ページ、転載しない | 茶屋街の裏手から傾斜地の寺院群へ上がる導線 | 武蔵ヶ辻からの接続MAPをどう分担するか |
 | R009 | UCH-01 | [参考にした実在のローカル線の車内](https://ameblo.jp/seventhheaven1992/entry-12694410644.html)／権利未確認、観察のみ | 赤系モケット、金属ポール、吊り革、片側ドアの券売機・冬向け半自動ドア | 車椅子の転回・乗降のゲーム上の仕様 |
 | R010 | UTS-01/KRB-11 | [浅野川大橋の冬景色](https://www.kanazawa-kankoukyoukai.or.jp/spot/detail_10025.html)／公式ページ、転載しない | 雪の橋、暗い川、河岸の歩道、橋と歴史的街並みの関係 | MAP内の橋の尺度と方角 |
-| R011 | KRB-01・KRB-04・KRB-06・KRB-08〜KRB-10・KRB-13・TRM-01・TRM-03・TRM-05〜TRM-11・TRM-13〜TRM-16、KRB-07/TRM-17/KRB-12/SCH-01 | [金沢公式の寺町・犀川・広坂を含む市内散策図](https://visitkanazawa.jp/lsc/upfile/pamphlet/0000/0087/87_701_file.pdf)／公式PDF、転載しない | 寺町・西茶屋街・犀川・香林坊・広坂・兼六園の相対位置。北上固定グラフの地理照合 | 個々の道路幅・建物形状は別参照が必要 |
+| R011 | KRB-01・KRB-04・KRB-06・KRB-08〜KRB-10・KRB-13・TRM-03・TRM-05〜TRM-11・TRM-13〜TRM-16、KRB-07/TRM-17/KRB-12/SCH-01 | [金沢公式の寺町・犀川・広坂を含む市内散策図](https://visitkanazawa.jp/lsc/upfile/pamphlet/0000/0087/87_701_file.pdf)／公式PDF、転載しない | 寺町・西茶屋街・犀川・香林坊・広坂・兼六園の相対位置。北上固定グラフの地理照合 | 個々の道路幅・建物形状は別参照が必要 |
 | R012 | GRD-01〜GRD-10 | [金沢公式：兼六園の雪吊り](https://visitkanazawa.jp/en/spot/detail_50425.html)／公式ページ、転載しない | 湿って重い日本海側の雪、雪吊りの縄・竹・松、冬の庭園の明暗 | 世界地図は遭遇レイヤー。実在地形を他地区へ変形しない |
 | R013 | KRB-08/KRB-09 | [金沢公式：にし茶屋街](https://visitkanazawa.jp/tw/trip-ideas/detail_76.html)／公式ページ、転載しない | 西茶屋街が寺町寺院群・犀川・片町に近いこと、格子の生活道 | 個別の建物・看板は模写しない |
 | R014 | UCH-02/UCH-05/UCH-03/UCH-04 | [内灘町公式：内灘の位置・地形・気象](https://www.town.uchinada.lg.jp/soshiki/soumu/2353.html)／公式ページ、転載しない | 日本海側へ緩く、河北潟側へ急な砂丘、防風の松・アカシア林、湿潤な冬 | 木道の実寸・手すりは別調査 |

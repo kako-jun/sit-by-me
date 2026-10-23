@@ -91,7 +91,7 @@ module MapAtlas
     col_width=panels.map { |p| p[2] }.max+30
     row_heights=panels.each_slice(3).map { |row| row.map { |p|p[3] }.max+30 }
     atlas_h=150+row_heights.sum+g.cross.length*55+100
-    atlas=[header(col_width*3,atlas_h,'全130MAP・全接続アトラス'),'<text x="30" y="45" class="heading">全130MAP接続アトラス：所有MAPは各1回、外部口と全接続を併記</text>','<text x="30" y="85" class="note">各枠は独立した模式図。庭園・城は北上、ほかは注記に従う。詳細はareas/各エリア.svgを等倍表示。</text>']
+    atlas=[header(col_width*3,atlas_h,"全#{g.areas.sum { |a| a['maps'].length }}MAP・全接続アトラス"),"<text x=\"30\" y=\"45\" class=\"heading\">全#{g.areas.sum { |a| a['maps'].length }}MAP接続アトラス：所有MAPは各1回、外部口と全接続を併記</text>",'<text x="30" y="85" class="note">各枠は独立した模式図。庭園・城は北上、ほかは注記に従う。詳細はareas/各エリア.svgを等倍表示。</text>']
     y=120
     panels.each_slice(3).with_index do |row,ri|
       row.each_with_index { |p,ci|atlas<<%(<g transform="translate(#{ci*col_width} #{y})">#{p[1]}</g>) }
@@ -116,7 +116,7 @@ module MapAtlas
       d=e['kind']=='event' ? 'M390 1070 L930 1070 L1560 1170 L1710 1300':"M#{ax} #{ay} L#{bx} #{by}"
       out<<%(<path class="#{e['kind']}" #{attrs(e,false)} d="#{d}"#{arrow(e)}/>)
     end
-    out<<'<text x="850" y="1047" class="label">TRM-01園庭 → BDY-01口（物語イベント）</text>'
+    out<<'<text x="850" y="1047" class="label">TRM-03園庭（境内の右の区画） → BDY-01口（物語イベント）</text>'
     g.areas.each do |a|
       x,y=pos.fetch(a['id'])
       out<<%(<g data-area="#{a['id']}"><rect x="#{x-145}" y="#{y-44}" width="290" height="88" rx="10" fill="#fff" stroke="#527b69" stroke-width="3"/><text x="#{x}" y="#{y-8}" class="label">#{esc(a['name'])}</text><text x="#{x}" y="#{y+21}" class="label">#{a['maps'].length} MAP（#{a['id']}）</text></g>)

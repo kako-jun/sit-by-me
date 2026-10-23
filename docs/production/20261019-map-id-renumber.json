@@ -1,7 +1,7 @@
 {
  "schema_version": 1,
  "issue": 68,
- "note": "MAP旧ID→新ID(区域コード-2桁連番)。N4は欠番。旧IDのN03表記はN3の別名。",
+ "note": "MAP旧ID→新ID(区域コード-2桁連番)。N4は欠番。旧IDのN03表記はN3の別名。（TRM-01 は 2026-10-23 に廃止して欠番。表の行は旧E01の履歴として残す）",
  "aliases": {
   "N03": "N3"
  },
@@ -32,7 +32,8 @@
    "area_code": "TRM",
    "area_id": "teramachi",
    "area_name": "寺町・寺院と住居",
-   "old_slug": null
+   "old_slug": null,
+   "retired": "2026-10-23 TRM-03 境内の右の区画（園庭）へ統合して廃止（#51）。欠番のまま詰めない"
   },
   {
    "old_id": "F02",

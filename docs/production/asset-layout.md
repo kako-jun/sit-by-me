@@ -30,7 +30,7 @@
 - 保存済み（採用・#142 2026-10-22）: `assets/images/fields/reference/body-lungs-bdy17-adopted.webp`（BDY-17（肺・5部屋の外周の環。案A）の基準状態。様式参照なし・装飾込み1回生成。非可逆WebP品質85、実寸1672×941・リサイズなし、194,058 bytes、sha256 `dc1c67d1c156565ca19ec006d38de13a484a601064aa5cecbbec80e9702633a4`。PNG原本は残さない）。マスク作成済み・第2回red-team済み・blocked維持・runtime未切替。来歴は [体内MAP採用記録](20261022-body-maps-adoption.md)。
 - `raw/`・`verification/`（検証JSON・VFIELD・prototype/legacy-masks）・BG002〜004・BG006〜009（candidates/ ごと）・DIAG は #68 の追従PRで削除済み。復元は git 履歴から。
 
-寺町16枚の全再作成と全件通過後の一括切替（#51）は継続する。
+寺町15枚（TRM-02〜TRM-16。旧TRM-01は統合で廃止）の全再作成と全件通過後の一括切替（#51）は継続する。
 
 全712ファイルの旧→新／削除、SHA-256、理由は [移行manifest](20261018-asset-migration.json)。全行の復元元はmanifestの `base_commit` で、`git show <base_commit>:<old>` が元データを返す。元promptは既存の記録以外から復元・創作しない。過去レビューのパスは当時の記録として残す。
 
@@ -39,7 +39,7 @@
 | 敵 | `assets/images/enemies/Mxxx.webp` | monsters.mdの既存ID。M001も同じroot。既存の採用／採否待ちを継承し、新品質規約を満たすとは判定しない |
 | 召喚獣 | `assets/images/summons/Sxxx.webp` | S002〜S007の6種のみ現存。S001は未生成、S008は同じ存在の設計だが現存画像なし。架空のファイルを作らない |
 | 人物 | `assets/images/characters/Cxxx/{masters,poses,walk}/Cxxx-<suffix>.webp` | 下表のC管理ID。旧人名prefixをIDへ置換し、年齢・衣装・pose・方向・コマを全て保持 |
-| MAP（旧素材・現存のみ） | `assets/images/fields/legacy/<MAP ID>[-variant].webp`（MAP IDは区域コード3字＋2桁連番。例 `TRM-01`。[対応表](20261019-map-id-renumber.json)） | 33MAP＋12旧差分。非可逆WebP（品質85）。新規生成先ではない。寺町再作成候補の代わりに採用するものではない。PNGは置かない |
+| MAP（旧素材・現存のみ） | `assets/images/fields/legacy/<MAP ID>[-variant].webp`（MAP IDは区域コード3字＋2桁連番。例 `TRM-03`。[対応表](20261019-map-id-renumber.json)） | 33MAP＋12旧差分。非可逆WebP（品質85）。新規生成先ではない。寺町再作成候補の代わりに採用するものではない。PNGは置かない |
 | legacy mask | `assets/images/fields/legacy/masks/<MAP ID>-*.webp` | 旧接続を変更しない検証専用。**可逆WebP**（元PNGと画素が完全一致）。JSON・生成補助（make_masks.py）は削除済み |
 | 外観参照 | `assets/images/fields/reference/<kebab-case>.webp` | 外観参照専用（平置き・小文字英数とハイフンのみ）。mapの「実行時参照」には使わない |
 | 体内マスク（runtime切替前） | `assets/images/fields/masks/BDY-NN-{mask,traversal-edit,mask-overlay}.webp`（17箇所×3=51ファイル） | `mask`・`traversal-edit` は**可逆WebP（VP8L）**、`mask-overlay` は確認用の**非可逆WebP**。体内17MAPのマスク（#142）。台帳は blocked 維持で runtime 未切替 |

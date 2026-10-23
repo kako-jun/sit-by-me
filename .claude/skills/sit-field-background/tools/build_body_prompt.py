@@ -338,7 +338,7 @@ def build_bundle(mid, lw):
         h = find_line(L["research"], "## #74 体内の最新根拠")
         for n in [h] + next_nonempty(L["research"], h, 1):
             bd.line("research", n)
-        bd.line("decisions", find_line(L["decisions"], "体内入口はTRM-01園庭→BDY-01口"))
+        bd.line("decisions", find_line(L["decisions"], "体内入口は園庭（TRM-03境内の右の区画。旧TRM-01は2026-10-23に統合して廃止）→BDY-01口"))
         for n, l in enumerate(L["topology"], 1):
             if l.startswith("| 体内 | 中3 |"):
                 bd.line("topology", n)
@@ -840,7 +840,7 @@ def build_prompt(mid, m, bl):
 def warnings_for(mid, m, shape, slv):
     w = []
     if mid == "BDY-01":
-        w.append("TBD: BDY-01 の event-mouth（TRM-01.event-kiss からの一方向イベント）の到着位置・向きは原文に無い。割付図にも印だけで床の形は無い。"
+        w.append("TBD: BDY-01 の event-mouth（TRM-03.event-kiss からの一方向イベント）の到着位置・向きは原文に無い。割付図にも印だけで床の形は無い。"
                  "絵には到着点の造形を足さない（本文に書かない）。")
     for s in "NSWE":
         for e in m["edges"][s]:
@@ -897,7 +897,7 @@ def fragment_table(mid, bundle_text, m, shape, slim=False):
         (must("視点は、真上に近い見下ろし"), "art-direction:30", "P13（鉛直下向き45°より急）"),
     ]
     if not slim:  # BDY-04 の slim な原文束には decisions の『体内入口』行（別MAPの話）を載せない
-        rows.append((must("体内入口はTRM-01園庭→BDY-01口の物語イベント"), "decisions", "（BDY-01 のイベント到着は絵に描かない。警告）" if mid == "BDY-01" else "P4/P5（接続は模型の縁のみ）"))
+        rows.append((must("体内入口は園庭（TRM-03境内の右の区画。旧TRM-01は2026-10-23に統合して廃止）→BDY-01口の物語イベント"), "decisions", "（BDY-01 のイベント到着は絵に描かない。警告）" if mid == "BDY-01" else "P4/P5（接続は模型の縁のみ）"))
     return rows
 
 

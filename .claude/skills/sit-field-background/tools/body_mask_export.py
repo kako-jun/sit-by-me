@@ -300,7 +300,7 @@ def build_links(mid, geom, reg, adopted_path, img_size, cut):
         for pr in reg["topology"]["exits"][sd]["pairs"]:
             if (sd, tuple(pr["image"])) not in known:
                 extra.append(dict(side=sd, image_range_px=pr["image"], note="仕様に無い出口（画像で縁に届く床の区間）"))
-    events = [dict(id=f"{mid}.{ev['id']}", note=ev["note"], range=None, source="TRM-01.event-kiss → BDY-01.event-mouth（一方向の物語イベント）。位置・範囲は原文に無く TBD")
+    events = [dict(id=f"{mid}.{ev['id']}", note=ev["note"], range=None, source="TRM-03.event-kiss → BDY-01.event-mouth（一方向の物語イベント）。位置・範囲は原文に無く TBD")
               for ev in geom.get("events", [])]
     return dict(schema="sit-body-exit-candidates/1", map=mid, status="出口候補の範囲（遷移の範囲値とランタイムの扱いは TBD、kako-jun 2026-10-22。ready ではない）",
                 image=dict(path=str(adopted_path), size=list(img_size)), model_top_rect_image_px=dict(x0=x0, y0=y0, x1=x1, y1=y1, w=W_, h=H_),

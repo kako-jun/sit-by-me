@@ -8,9 +8,9 @@
 
 寺町では、[map-topology.md の「寺町の地形不変条件」](map-topology.md) が最優先である。河岸段丘の犀川側＝県営住宅、そこへは石段（立てる時期のみ）と車椅子用スロープ（生活経路）が別にある。段丘の反対側＝小学校で、長い通学坂は車椅子で通れる。この関係を壊すMAPは `blocked` とする。
 
-`ready` は全項目が記入済みかつ TBD=なし、`legacy` は既存の旧画像で、採用・生成根拠にならない旧素材の記録（新運用では、新しい画像は正本パスへ上書き保存し、不採用は消す。寺町以外の現存legacy画像20件の旧画像は、上書きで置き換えるまで現存画像の記録として残り、置き換えた時点でstatusを更新する。**legacy statusの廃止可否は要確認、kako-jun判断待ち**）、`blocked` は個別契約またはTBDが残っている状態である。寺町は2026-10-16の方針により、旧legacyを一枚も採用せず、TRM-01〜TRM-16の新候補16枚を揃えて監査後に**一括**でruntimeへ差し替える。混在運用はしない。**「ただの道」「つなぎ」だけは一言特徴にならない**。道なら、交差点・橋・用水・寺の裏門・雪囲い・市場の角・坂の眺めなど、そこでしか成立しない主役を必ず持たせる。
+`ready` は全項目が記入済みかつ TBD=なし、`legacy` は既存の旧画像で、採用・生成根拠にならない旧素材の記録（新運用では、新しい画像は正本パスへ上書き保存し、不採用は消す。寺町以外の現存legacy画像20件の旧画像は、上書きで置き換えるまで現存画像の記録として残り、置き換えた時点でstatusを更新する。**legacy statusの廃止可否は要確認、kako-jun判断待ち**）、`blocked` は個別契約またはTBDが残っている状態である。寺町は2026-10-16の方針により、旧legacyを一枚も採用せず、TRM-02〜TRM-16の新候補15枚（旧TRM-01は2026-10-23にTRM-03へ統合して廃止）を揃えて監査後に**一括**でruntimeへ差し替える。混在運用はしない。**「ただの道」「つなぎ」だけは一言特徴にならない**。道なら、交差点・橋・用水・寺の裏門・雪囲い・市場の角・坂の眺めなど、そこでしか成立しない主役を必ず持たせる。
 
-## 130行共通の画像契約
+## 129行共通の画像契約
 
 全MAP行は、本文の略表に加えて次の契約を持つ。接続は `map-topology.md` の「MAP相互接続台帳 v2」、主役・時期・主路は `map-specifications.md` の同じID、参考は `map-reference-research.md` の同じIDまたは明示した共通Refを参照する。これらのどれかが無い行は `blocked` とする。
 
@@ -46,9 +46,10 @@
 
 ## 既存画像（個別契約を逆算して追記する対象）
 
+旧TRM-01（園庭）の legacy 画像（`assets/images/fields/legacy/TRM-01.webp` とそのmask）は、2026-10-23にTRM-03へ統合して廃止したMAPの参照専用の現存素材。台帳の行は持たず、新規作成・採用の根拠にしない（TRM-03の右の区画の絵を作る際の見た目の参考に限る）。
+
 | ID | 画像 | 地区 | 状態 |
 |---|---|---|---|
-| TRM-01 | `assets/images/fields/legacy/TRM-01.webp` | 寺町 | retired-replacement-required |
 | TRM-16 | `assets/images/fields/legacy/TRM-16.webp` | 寺町 | retired-replacement-required |
 | TRM-15 | `assets/images/fields/legacy/TRM-15.webp` | 寺町 | retired-replacement-required |
 | TRM-07 | `assets/images/fields/legacy/TRM-07.webp` | 寺町 | retired-replacement-required |
