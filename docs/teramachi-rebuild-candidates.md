@@ -13,7 +13,7 @@
 | TRM-16 | `TRM-16-teramachi-connector-rebuild-candidate.png` | left←TRM-06.right、right→TRM-15、top→TRM-17 | 用水と寺門、bottomは閉鎖 | recreate-required-1920x1080 |
 | TRM-15 | `TRM-15-teramachi-hinomi-bend-rebuild-candidate.png` | left→TRM-16、right→TRM-07、bottom→TRM-06 | 火の見櫓、topは閉鎖 | recreate-required-1920x1080 |
 | TRM-07 | `TRM-07-teramachi-wide-road-rebuild-v2-candidate.png` | left→TRM-15、right→TRM-08、top→TRM-03 | 消雪パイプと寺の長塀、bottomは閉鎖 | recreate-required-1920x1080 |
-| TRM-08 | `TRM-08-teramachi-well-merge-rebuild-candidate.png` | left→TRM-07、right→TRM-09、top（旧TRM-01正門は廃止。行方は未決・要確認） | 井戸と用水は主路外、bottom閉鎖。topは旧園庭の正門で、扱いは未決(#51) | recreate-required-1920x1080 |
+| TRM-08 | `TRM-08-teramachi-well-merge-rebuild-candidate.png` | left→TRM-07、right→TRM-09、top閉鎖（塀・壁。旧TRM-01正門は廃止、#51 決定） | 井戸と用水は主路外、bottomとtopは閉鎖 | recreate-required-1920x1080 |
 | TRM-09 | `TRM-09-teramachi-sento-rebuild-v2-candidate.png` | left→TRM-08、bottom→TRM-10 | 銭湯煙突、top/right閉鎖 | recreate-required-1920x1080 |
 | TRM-10 | `TRM-10-teramachi-barrier-free-ramp-rebuild-v2-candidate.png` | top→TRM-09、bottom→TRM-11 | 犀川側へ蛇行する車椅子主路。石段なし | recreate-required-1920x1080 |
 | TRM-11 | `TRM-11-teramachi-danchi-court-rebuild-v2-candidate.png` | top→TRM-10、right→TRM-13、door→TRM-12 | 県営住宅中庭。石段は立位期のみ | recreate-required-1920x1080 |
