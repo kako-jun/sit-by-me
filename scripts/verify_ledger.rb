@@ -1,21 +1,21 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# docs/ledger/*.csv（日本語マスター）の整合性検証。外部キー・一意性・必須キー・語彙・別名・決定の整合・生成物の鮮度・自由記述の矛盾警告。
+# docs/ledger/*.yaml（日本語マスター）の整合性検証。外部キー・一意性・必須キー・語彙・別名・決定の整合・生成物の鮮度・自由記述の矛盾警告。
 #   ruby scripts/verify_ledger.rb            # エラーがあれば exit 1（警告は表示だけ）
 require 'json'
 require 'digest'
-require_relative 'ledger_csv'
+require_relative 'ledger_yaml'
 require_relative 'ledger_required_keys'
 
 class LedgerVerifier
   attr_reader :errors, :warnings
 
-  def initialize(root = LedgerCsv::ROOT)
+  def initialize(root = LedgerYaml::ROOT)
     @root = root
     @errors = []
     @warnings = []
-    @t = LedgerCsv.load_all
+    @t = LedgerYaml.load_all
   end
 
   def err(msg) = @errors << msg
@@ -46,7 +46,7 @@ class LedgerVerifier
 
   def check_presence
     %w[エリア MAP 建物 建物部位 建物窓列 建物関係 建物時期差分 端 接続 接続図設定 要素 窓 時期差分 既定値 エリア固定 装飾プール 語彙 決定 採用要素 素材 生成物 必須キー 未決 キー別名].each do |n|
-      err("表 #{n}.csv が無い") unless File.file?(File.join(@root, 'docs/ledger', "#{n}.csv"))
+      err("表 #{n}.yaml が無い") unless File.file?(File.join(@root, 'docs/ledger', "#{n}.yaml"))
     end
   end
 
@@ -210,8 +210,8 @@ class LedgerVerifier
   def check_aliases
     aliases = @t['キー別名'].map { |r| [r['別名'], r['正規名']] }.to_h
     @t['必須キー'].each { |r| err("必須キー表のキー '#{r['キー']}' は別名（正規名: #{aliases[r['キー']]}）") if aliases.key?(r['キー']) }
-    LedgerCsv.tables.each do |tb|
-      LedgerCsv.header(tb).each { |h| warn!("別名の列名 #{tb}.#{h}（正規名 #{aliases[h]} に直す）") if aliases.key?(h) }
+    LedgerYaml.tables.each do |tb|
+      LedgerYaml.header(tb).each { |h| warn!("別名の列名 #{tb}.#{h}（正規名 #{aliases[h]} に直す）") if aliases.key?(h) }
     end
     (@t['エリア固定'] + @t['装飾プール']).each do |r|
       k = r['項目'].to_s.split(/[.\[]/).last
@@ -308,7 +308,7 @@ if $PROGRAM_NAME == __FILE__
   v = LedgerVerifier.new.run
   v.warnings.each { |w| warn "WARN: #{w}" }
   if v.errors.empty?
-    puts "PASS: ledger tables=#{LedgerCsv.tables.size}, decisions=#{v.instance_variable_get(:@t)['決定'].size}, maps=#{v.instance_variable_get(:@t)['MAP'].size}, warnings=#{v.warnings.size}"
+    puts "PASS: ledger tables=#{LedgerYaml.tables.size}, decisions=#{v.instance_variable_get(:@t)['決定'].size}, maps=#{v.instance_variable_get(:@t)['MAP'].size}, warnings=#{v.warnings.size}"
   else
     v.errors.each { |e| warn "FAIL: #{e}" }
     warn "FAIL: #{v.errors.size} errors"

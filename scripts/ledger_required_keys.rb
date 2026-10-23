@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# 必須キー（docs/ledger/必須キー.csv）の強制。空欄=未決として検出、語彙外の値=エラー、『未決(要確認)』は未決表への登録が要る。
+# 必須キー（docs/ledger/必須キー.yaml）の強制。空欄=未決として検出、語彙外の値=エラー、『未決(要確認)』は未決表への登録が要る。
 #   ruby scripts/ledger_required_keys.rb MAP_ID   # そのMAP（とエリア・建物・端）の必須キーが全部埋まっているか。欠落を列挙して exit 1
 # verify_map_ledger.rb からはライブラリとして使う。
-require_relative 'ledger_csv'
+require_relative 'ledger_yaml'
 
 module LedgerRequiredKeys
   UNDECIDED = '未決(要確認)'
@@ -123,7 +123,7 @@ end
 
 if $PROGRAM_NAME == __FILE__
   id = ARGV.fetch(0, '')
-  tables = LedgerCsv.load_all
+  tables = LedgerYaml.load_all
   errors, undecided = LedgerRequiredKeys.for_map(tables, id)
   lines = errors + undecided.reject { |t, i, k| errors.any? { |e| e.include?("#{t} #{i}: 『#{k}』") } }.map { |t, i, k| "#{t} #{i}: 『#{k}』が未決（生成を起動できない）" }
   puts lines

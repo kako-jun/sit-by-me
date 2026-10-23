@@ -1,8 +1,13 @@
-"""台帳（docs/ledger/*.csv）の読み書きと共通の値変換。マスターは日本語ヘッダの CSV（UTF-8・LF・BOM なし）。
+"""台帳（docs/ledger/<表名>.yaml）の読み書きと共通の値変換。マスターは日本語キーの YAML（UTF-8・LF・BOM なし）。
+
+表ごとに 1 ファイル。中身は「行のリスト」で、各行はキー=日本語列名の辞書。
+全スカラーを文字列として扱う（読み込み時に文字列へ正規化、書き出し時に必ず引用。no/yes/null/001/1e3 が型変換されない）。
+空欄は空文字。複数行テキストは block scalar。ファイル先頭の `#` コメントは表の説明（書き出しで再生成される。
+人が行の途中に足したコメントはプログラム経由の write で消える）。
 
 行の順序は意味を持つ（plan の配列順＝描画順）。主キー昇順に並べ替えない。
+YAML の読み込みに PyYAML が要る（リポ直下の pyproject.toml で依存宣言。`uv run python3` で自動的に入る）。
 """
-import csv
 import hashlib
 import json
 import os
@@ -44,8 +49,103 @@ SCHEMA = {
 }
 
 
+# 表の説明（YAML ファイル先頭のコメントになる）
+TABLE_DOC = {
+    "エリア": "エリア（区域）の台帳。1行=1エリア。",
+    "MAP": "MAP（1枚の背景）の台帳。1行=1MAP。",
+    "建物": "建物の台帳。屋内と外観は同じ建物行から導出する。",
+    "建物部位": "建物の部位（壁・屋根・扉など）。",
+    "建物窓列": "建物の壁ごとの窓列。",
+    "建物関係": "建物どうしの関係（渡り廊下で接続など）。",
+    "建物時期差分": "建物の時期ごとの差分。",
+    "端": "MAP の端（戸口・開口・縁）。",
+    "接続": "端と端の接続。",
+    "接続図設定": "接続図の描画設定（図ID×項目）。",
+    "要素": "MAP 内の要素（家具・物・樹木など）。",
+    "窓": "MAP の壁の窓。",
+    "時期差分": "MAP の時期ごとの差分。",
+    "既定値": "仮置きの既定値（要確認）。",
+    "エリア固定": "エリア単位で固定する指定（机の天面・木の種類・台座など）。",
+    "装飾プール": "装飾プールの設定。",
+    "語彙": "許す・禁じる語彙と英語プロンプト断片。",
+    "決定": "kako-jun の決定（逐語・出典つき）。status に関係なくプロンプトへ入る。",
+    "採用要素": "採用画像から次の絵へ継承する要素。",
+    "素材": "素材（画像・マスクなど。没も行で保持）。",
+    "生成物": "派生物（JSON）の登録と鮮度検査用ハッシュ。",
+    "必須キー": "対象テーブルごとの必須キー定義。",
+    "未決": "未決（要確認）の一覧。",
+    "キー別名": "列名・キー名の別名と正規名。",
+}
+
+
 def path(table):
-    return os.path.join(LEDGER, f"{table}.csv")
+    return os.path.join(LEDGER, f"{table}.yaml")
+
+
+def _q(v):
+    """全スカラーを二重引用符つきで書く（JSON の文字列表記は YAML の二重引用符スカラーと互換）。"""
+    return json.dumps(v, ensure_ascii=False)
+
+
+def _block_ok(v):
+    """block scalar（|-）で無損失に書ける文字列か。"""
+    if "\n" not in v or v != v.strip() or "\n\n\n" in v:
+        return False
+    for ch in v:
+        if ch == "\n":
+            continue
+        if ord(ch) < 32 or ord(ch) == 127 or ch in "\u0085\u2028\u2029\ufeff":
+            return False
+    # 空白だけの行・行末の空白は block scalar で壊れやすいので引用に回す
+    return all(ln == ln.rstrip() and (ln.strip() or not ln) for ln in v.split("\n"))
+
+
+def dumps(table, rows):
+    cols = SCHEMA[table]
+    out = [f"# 表: {table} — {TABLE_DOC.get(table, '')}", f"# 列: {' / '.join(cols)}",
+           "# 全スカラーは文字列（引用符つき）。空欄は \"\"。複数行は |- ブロック。"]
+    if not rows:
+        out.append("[]")
+    for r in rows:
+        extra = set(r) - set(cols)
+        if extra:
+            raise KeyError(f"{table}: 未定義の列 {sorted(extra)}")
+        for i, c in enumerate(cols):
+            v = "" if r.get(c) is None else str(r.get(c))
+            lead = "- " if i == 0 else "  "
+            if _block_ok(v):
+                out.append(f"{lead}{_q(c)}: |-")
+                out.extend(("      " + ln) if ln else "" for ln in v.split("\n"))
+            else:
+                out.append(f"{lead}{_q(c)}: {_q(v)}")
+    return "\n".join(out) + "\n"
+
+
+def _str(v):
+    if v is None:
+        return ""
+    if isinstance(v, bool):
+        return "true" if v else "false"
+    return str(v)
+
+
+def parse(table, text):
+    import yaml
+    data = yaml.safe_load(text)
+    if data is None:
+        return []
+    if not isinstance(data, list):
+        raise ValueError(f"{table}: 最上位は行のリストでなければならない")
+    cols = SCHEMA.get(table, [])
+    rows = []
+    for i, r in enumerate(data):
+        if not isinstance(r, dict):
+            raise ValueError(f"{table}: {i + 1}行目が辞書でない")
+        row = {_str(k): _str(v) for k, v in r.items()}
+        for c in cols:
+            row.setdefault(c, "")
+        rows.append(row)
+    return rows
 
 
 def read(table):
@@ -53,20 +153,13 @@ def read(table):
     if not os.path.exists(p):
         return []
     with open(p, encoding="utf-8", newline="") as f:
-        return list(csv.DictReader(f))
+        return parse(table, f.read())
 
 
 def write(table, rows):
-    cols = SCHEMA[table]
     os.makedirs(LEDGER, exist_ok=True)
     with open(path(table), "w", encoding="utf-8", newline="") as f:
-        w = csv.writer(f, lineterminator="\n")
-        w.writerow(cols)
-        for r in rows:
-            extra = set(r) - set(cols)
-            if extra:
-                raise KeyError(f"{table}: 未定義の列 {sorted(extra)}")
-            w.writerow([("" if r.get(c) is None else str(r.get(c))) for c in cols])
+        f.write(dumps(table, rows))
 
 
 def jdump(o):

@@ -1,5 +1,0 @@
-建物ID,時期,部位ID,差分,内容,決定参照,特徴(自由記述)
-BLD-TRM-jukyo,kids,,置換,寝室は父と同じ1つ（仕切りの下半分を取る）。外観は基準と同じ,TRM-05.bedrooms,
-BLD-TRM-jukyo,fire,,焼失,火事の時点: 上半分（北側）だけが燃える。勝手口は焼失。外観は基準,TRM-05.fire;TRM-05-fire.upper-half,
-BLD-TRM-jukyo,burnt,,焼失,火事後: 住居棟だけ全焼（父の寝室が最も軽い）。本堂・幼稚園は無傷。未作成（設計が曖昧なため発明しない）,TRM-05.fire,
-BLD-TRM-honden,wc,BLD-TRM-honden.south-door,追加,車椅子期: 本堂前の石段にスロープを付ける（外観の別画像。同一IDで差し替え。未作成）,TRM-03.standing,
