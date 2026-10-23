@@ -205,12 +205,17 @@ class PromptReflection
     bids = m ? split(m['建物ID']) - %w[該当なし なし] : []
     out = []
     out << ['MAP', m['MAP_ID'], m['特徴(自由記述)']] if m
+    @t['エリア'].select { |a| m && a['エリアID'] == m['エリアID'] }.each { |a| out << ['エリア', a['エリアID'], a['特徴(自由記述)']] }
     @t['建物'].select { |b| bids.include?(b['建物ID']) }.each { |b| out << ['建物', b['建物ID'], b['特徴(自由記述)']] }
     @t['建物部位'].select { |p| bids.include?(p['建物ID']) }.each { |p| out << ['建物部位', p['部位ID'], p['特徴(自由記述)']] }
     @t['建物窓列'].select { |w| bids.include?(w['建物ID']) }.each { |w| out << ['建物窓列', w['窓列ID'], w['特徴(自由記述)']] }
+    @t['建物関係'].select { |r| bids.include?(r['建物A']) || bids.include?(r['建物B']) }.each { |r| out << ['建物関係', r['通番'], r['特徴(自由記述)']] }
+    @t['建物時期差分'].select { |r| bids.include?(r['建物ID']) && r['時期'] == era }.each { |r| out << ['建物時期差分', "#{r['建物ID']}/#{r['時期']}/#{r['部位ID']}", r['特徴(自由記述)']] }
     { '要素' => '要素ID', '窓' => '窓ID', '端' => '端ID' }.each do |tbl, key|
       @t[tbl].select { |r| r['MAP_ID'] == base && ['', era].include?(r['適用時期']) }.each { |r| out << [tbl, r[key], r['特徴(自由記述)']] }
     end
+    @t['接続'].select { |r| r['端A'].split('.').first == base || r['端B'].split('.').first == base }.each { |r| out << ['接続', "#{r['端A']}⇄#{r['端B']}", r['特徴(自由記述)']] }
+    @t['素材'].select { |r| base_of(r['所有者ID']) == base && r['状態'] == '採用' }.each { |r| out << ['素材', r['素材ID'], r['特徴(自由記述)']] }
     @t['採用要素'].select { |a| %w[有効 記録].include?(a['状態'].split('（').first) && targets?(map_id, a['継承先MAP']) }.each { |a| out << ['採用要素', a['採用要素ID'], a['特徴(自由記述)']] }
     out.reject { |_, _, t| t.to_s.empty? }
   end

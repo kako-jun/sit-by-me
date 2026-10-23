@@ -77,12 +77,19 @@ class Ledger:
         return self.row("エリア", "エリアID", m["エリアID"]) if m else None
 
     def free_texts(self, map_id, plan=None):
-        """特徴(自由記述)。MAP → 建物 → 建物部位 → 建物窓列 → 要素 → 窓 → 端 → 採用要素の順。（決定の自由記述は DECISIONS 節の行末に入る）"""
+        """特徴(自由記述)。自由記述欄のある全表（エリア・MAP・建物・建物部位・建物窓列・建物関係・建物時期差分・端・接続・要素・窓・素材・採用要素）のうち
+        このMAPに関わる行を、MAP → エリア → 建物 → 建物部位 → 建物窓列 → 建物関係 → 建物時期差分 → 要素 → 窓 → 端 → 接続 → 素材(採用) → 採用要素 の順で返す。
+        （決定の自由記述は DECISIONS 節の行末に入る。verify_ledger.rb の check_free_text_tables が、自由記述欄のある表の取りこぼしを検出する）"""
         out = []
         m = self.map_row(map_id)
         if m and m[L.FREE]:
             out.append((f"MAP {m['MAP_ID']}", m[L.FREE]))
+        ar = self.area(map_id)
+        if ar and ar[L.FREE]:
+            out.append((f"エリア {ar['エリアID']}", ar[L.FREE]))
+        bids = []
         for b, parts, wins in self.buildings(map_id):
+            bids.append(b["建物ID"])
             if b[L.FREE]:
                 out.append((f"建物 {b['建物ID']}", b[L.FREE]))
             for p in parts:
@@ -93,6 +100,12 @@ class Ledger:
                     out.append((f"建物窓列 {w['窓列ID']}", w[L.FREE]))
         base = base_of(map_id)
         era = map_id[len(base) + 1:] if map_id != base else ""
+        for r in self.T["建物関係"]:
+            if (r["建物A"] in bids or r["建物B"] in bids) and r[L.FREE]:
+                out.append((f"建物関係 {r['通番']}", r[L.FREE]))
+        for r in self.T["建物時期差分"]:
+            if r["建物ID"] in bids and r["時期"] == era and r[L.FREE]:
+                out.append((f"建物時期差分 {r['建物ID']}/{r['時期']}/{r['部位ID']}", r[L.FREE]))
         for r in self.T["要素"]:
             if r["MAP_ID"] == base and r["適用時期"] in ("", era) and r[L.FREE]:
                 out.append((f"要素 {r['要素ID']}", r[L.FREE]))
@@ -102,6 +115,12 @@ class Ledger:
         for r in self.T["端"]:
             if r["MAP_ID"] == base and r["適用時期"] in ("", era) and r[L.FREE]:
                 out.append((f"端 {r['端ID']}", r[L.FREE]))
+        for r in self.T["接続"]:
+            if (r["端A"].split(".")[0] == base or r["端B"].split(".")[0] == base) and r[L.FREE]:
+                out.append((f"接続 {r['端A']}⇄{r['端B']}", r[L.FREE]))
+        for r in self.T["素材"]:
+            if base_of(r["所有者ID"]) == base and r["状態"] == "採用" and r[L.FREE]:
+                out.append((f"素材 {r['素材ID']}", r[L.FREE]))
         for a in self.inherits(map_id):
             if a[L.FREE]:
                 out.append((f"採用要素 {a['採用要素ID']}", a[L.FREE]))

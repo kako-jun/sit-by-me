@@ -951,3 +951,57 @@ class RequiredKeysDefinitionTests(LedgerCopyBase):
     def test_condition_column_typo_is_reported_by_verify_ledger(self):
         self.edit_row("必須キー", "キー", "屋内外", **{"対象テーブル": "MAP", "条件": "描画方法=斜めモック"})
         self.assertFailsWith(self.verify_ledger(), "条件『描画方法=斜めモック』の列『描画方法』が表定義に無い")
+
+
+class FreeTextAllTablesTests(LedgerCopyBase):
+    """特徴(自由記述)の欄がある全表（エリア・建物関係・建物時期差分・接続・素材 を含む）の記述が、プロンプトの FEATURES 節に出て、
+    出なくなったら verify_prompt_reflects_ledger.rb が検出する。"""
+
+    CASES = [
+        # (表, キー列, キー値, 検査するMAP, 目印)
+        ("エリア", "エリアID", "teramachi", "TRM-05", "エリア目印"),
+        ("建物関係", "通番", "2", "TRM-05", "建物関係目印"),
+        ("建物時期差分", "時期", "fire", "TRM-05-fire", "建物時期差分目印"),
+        ("接続", "端A", "TRM-05.door-outside", "TRM-05", "接続目印"),
+        ("素材", "素材ID", "A-001", "TRM-04", "素材目印"),
+    ]
+
+    def query(self, map_id):
+        return self.py("ledger_query.py", map_id).stdout
+
+    def test_each_table_free_text_reaches_the_features_section(self):
+        for table, key, val, map_id, mark in self.CASES:
+            with self.subTest(table=table):
+                self.edit_row(table, key, val, **{"特徴(自由記述)": mark})
+                self.assertIn(mark, self.query(map_id))
+
+    def test_verify_prompt_detects_a_table_whose_free_text_is_dropped(self):
+        tools = self.work / ".claude/skills/sit-field-background/tools/ledger_query.py"
+        for table, key, val, map_id, mark in self.CASES:
+            with self.subTest(table=table):
+                self.edit_row(table, key, val, **{"特徴(自由記述)": mark})
+        text = tools.read_text(encoding="utf-8")
+        i, j = text.index("        for r in self.T[\"建物関係\"]:"), text.index("        for r in self.T[\"要素\"]:")
+        k, l = text.index("        for r in self.T[\"接続\"]:"), text.index("        for a in self.inherits(map_id):\n            if a[L.FREE]")
+        # 建物関係・建物時期差分・接続・素材の導出を壊した状態
+        tools.write_text(text[:i] + text[j:k] + text[l:], encoding="utf-8")
+        r = self.verify_prompt()
+        self.assertFailsWith(r, "建物関係 2", "建物時期差分 BLD-TRM-jukyo/fire", "接続 TRM-05.door-outside", "素材 A-001")
+
+    def test_verify_prompt_detects_a_dropped_area_free_text(self):
+        self.edit_row("エリア", "エリアID", "teramachi", **{"特徴(自由記述)": "エリア目印"})
+        tools = self.work / ".claude/skills/sit-field-background/tools/ledger_query.py"
+        text = tools.read_text(encoding="utf-8")
+        old = "        if ar and ar[L.FREE]:\n"
+        self.assertIn(old, text)
+        tools.write_text(text.replace(old, "        if False:\n"), encoding="utf-8")
+        self.assertFailsWith(self.verify_prompt(), "エリア teramachi")
+
+    def test_new_free_text_table_without_derivation_is_reported(self):
+        # 自由記述の欄を持つ表が増えたのに導出・検査の対象に足されていない状態
+        p = self.work / ".claude/skills/sit-field-background/tools/ledger_io.py"
+        text = p.read_text(encoding="utf-8")
+        old = '"未決": ["未決ID", "対象テーブル", "対象ID", "キー", "内容", "状態", "解決決定ID"]'
+        self.assertIn(old, text)
+        p.write_text(text.replace(old, old[:-1] + ', FREE]'), encoding="utf-8")
+        self.assertFailsWith(self.verify_ledger(), "表 未決 に特徴(自由記述)の欄がある")

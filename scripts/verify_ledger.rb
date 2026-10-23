@@ -36,6 +36,7 @@ class LedgerVerifier
     check_presence
     check_columns
     check_required_definition_columns
+    check_free_text_tables
     check_unique
     check_fks
     check_required
@@ -114,6 +115,18 @@ class LedgerVerifier
         err("表 #{tb}.yaml の#{i + 1}行目（#{row[cols.first]}）に表定義に無い列 #{extra.inspect}（綴り間違い？ 正しい列: #{cols.join(' / ')}）") unless extra.empty?
       end
     end
+  end
+
+  # 特徴(自由記述)の欄がある表は、全て導出（ledger_query.free_texts／決定は DECISIONS 節）と検査（verify_prompt_reflects_ledger.rb の (iii)）の
+  # 対象でなければならない。新しい表に欄を足したのに導出・検査を足し忘れると、自由記述がプロンプトに黙って出なくなる。
+  FREE_TEXT_COVERED = %w[エリア MAP 建物 建物部位 建物窓列 建物関係 建物時期差分 端 接続 要素 窓 素材 採用要素 決定].freeze
+
+  def check_free_text_tables
+    with_free = schema.select { |_, cols| cols.include?('特徴(自由記述)') }.keys
+    (with_free - FREE_TEXT_COVERED).each do |tb|
+      err("表 #{tb} に特徴(自由記述)の欄があるが、プロンプトへの導出（ledger_query.free_texts）と反映検査（verify_prompt_reflects_ledger.rb）の対象になっていない（FREE_TEXT_COVERED に足す前に両方を実装する）")
+    end
+    (FREE_TEXT_COVERED - with_free).each { |tb| err("FREE_TEXT_COVERED の表 #{tb} に特徴(自由記述)の欄が無い（定義が変わった。導出・検査を見直す）") }
   end
 
   # 必須キー表のキー・条件の列名が、対象テーブルの表定義に在る（綴り間違いの条件は『=』だと常に偽になり、検査が黙って外れる）
