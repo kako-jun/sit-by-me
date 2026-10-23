@@ -109,11 +109,21 @@ class Ledger:
 
 
 def missing_keys(map_id):
-    """必須キーの欠落（Ruby の検証器に委譲。空なら起動してよい）。"""
+    """必須キーの欠落（Ruby の検証器に委譲。空なら起動してよい）。
+
+    閉じる側に倒す: 『終了コード1・stderr 空・欠落行あり』だけを欠落とみなす。『終了コード0・出力なし』だけが OK。
+    Ruby の例外（終了コード1・stdout 空・stderr にバックトレース）や、それ以外の組み合わせは RuntimeError で止める
+    （例外を『欠落なし』と読んでゲートを素通しさせない）。
+    """
     script = os.path.join(L.REPO, "scripts", "ledger_required_keys.rb")
     r = subprocess.run(["ruby", script, base_of(map_id)], capture_output=True, text=True, timeout=60)
     lines = [x for x in r.stdout.splitlines() if x.strip()]
-    return lines if r.returncode != 0 else []
+    if r.returncode == 0 and not lines and not r.stderr.strip():
+        return []
+    if r.returncode == 1 and lines and not r.stderr.strip():
+        return lines
+    raise RuntimeError(f"{map_id}: 必須キー検査(ledger_required_keys.rb)が異常終了した（exit {r.returncode}）。ゲートを開けないため停止: "
+                       f"{(r.stderr.strip() or r.stdout.strip())[:300]}")
 
 
 def sections(map_id, depends=None):

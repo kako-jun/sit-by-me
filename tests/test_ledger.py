@@ -755,3 +755,110 @@ class IssueAuditTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class LedgerCopyBase(unittest.TestCase):
+    """実リポの台帳・scripts・tools をコピーした root を作り、壊した台帳で検査が実際に失敗することを見る共通土台。
+    画像生成はしない。コピーは小さい（台帳 約1MB・scripts・tools・派生 JSON）。"""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.tmp = tempfile.TemporaryDirectory()
+        cls.base = Path(cls.tmp.name)
+        for name in ("scripts", ".claude/skills/sit-field-background/tools"):
+            shutil.copytree(ROOT / name, cls.base / name, ignore=shutil.ignore_patterns("__pycache__"))
+        for name in ("docs/ledger", "docs/topology"):
+            shutil.copytree(ROOT / name, cls.base / name, ignore=shutil.ignore_patterns("handoff"))
+        shutil.copy(ROOT / "docs/INDEX.md", cls.base / "docs/INDEX.md")
+        shutil.copytree(ROOT / "docs/ledger-views", cls.base / "docs/ledger-views")
+        oblique = cls.base / "docs/production/oblique-mocks"
+        oblique.mkdir(parents=True)
+        for f in (ROOT / "docs/production/oblique-mocks").glob("*.json"):
+            shutil.copy(f, oblique / f.name)
+        for name in ("pyproject.toml", "uv.lock"):
+            shutil.copy(ROOT / name, cls.base / name)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def setUp(self):
+        self.scratch = tempfile.TemporaryDirectory()
+        self.addCleanup(self.scratch.cleanup)
+        self.work = Path(self.scratch.name) / "r"
+        shutil.copytree(self.base, self.work)
+
+    def env(self, **extra):
+        return {**os.environ, "LEDGER_ROOT": str(self.work), **extra}
+
+    def rows(self, table):
+        return ledger_io.parse(table, (self.work / f"docs/ledger/{table}.yaml").read_text(encoding="utf-8"))
+
+    def save(self, table, rows):
+        (self.work / f"docs/ledger/{table}.yaml").write_text(ledger_io.dumps(table, rows), encoding="utf-8")
+
+    def edit_row(self, table, key, val, **changes):
+        rows = self.rows(table)
+        hit = [r for r in rows if r[key] == val]
+        self.assertTrue(hit, f"{table}.{key}={val} が無い")
+        hit[0].update(changes)
+        self.save(table, rows)
+
+    def delete_rows(self, table, pred):
+        rows = self.rows(table)
+        kept = [r for r in rows if not pred(r)]
+        self.assertLess(len(kept), len(rows), "消す行が無かった")
+        self.save(table, kept)
+
+    def replace_text(self, table, old, new, count=1):
+        p = self.work / f"docs/ledger/{table}.yaml"
+        text = p.read_text(encoding="utf-8")
+        self.assertIn(old, text)
+        p.write_text(text.replace(old, new, count), encoding="utf-8")
+
+    def verify_ledger(self):
+        return subprocess.run([RUBY, str(self.work / "scripts/verify_ledger.rb")], env=self.env(LEDGER_SKIP_REGEN="1"), capture_output=True, text=True, cwd=self.work)
+
+    def probe_cmd(self):
+        probe = shlex.quote(str(self.work / ".claude/skills/sit-field-background/tools/oblique_prompt_probe.py"))
+        try:
+            import cv2, numpy, PIL  # noqa: F401, E401
+            return f"{shlex.quote(sys.executable)} {probe}"
+        except ImportError:
+            return f"uv run --project {shlex.quote(str(self.work))} --with numpy --with opencv-python-headless --with pillow python3 {probe}"
+
+    def verify_prompt(self, *args):
+        return subprocess.run([RUBY, str(self.work / "scripts/verify_prompt_reflects_ledger.rb"), *args], env=self.env(LEDGER_PROBE_CMD=self.probe_cmd()),
+                              capture_output=True, text=True, cwd=self.work)
+
+    def py(self, script, *args):
+        return subprocess.run([sys.executable, str(self.work / ".claude/skills/sit-field-background/tools" / script), *args], env=self.env(),
+                              capture_output=True, text=True, cwd=self.work)
+
+    def assertFailsWith(self, r, *needles):
+        self.assertNotEqual(r.returncode, 0, "壊したのに成功した\n" + r.stdout)
+        for n in needles:
+            self.assertIn(n, r.stderr + r.stdout)
+
+
+class MissingKeysGateTests(LedgerCopyBase):
+    """ledger_query.missing_keys は、Ruby の検査器が例外で落ちたときに『欠落なし』と読んでゲートを開けてはならない（閉じる側）。"""
+
+    def missing(self, map_id):
+        code = "import ledger_query as Q, sys; r = Q.missing_keys(sys.argv[1]); print('MISSING:' + repr(r))"
+        return subprocess.run([sys.executable, "-c", code, map_id], env=self.env(PYTHONPATH=str(self.work / ".claude/skills/sit-field-background/tools")),
+                              capture_output=True, text=True, cwd=self.work)
+
+    def test_gated_map_reports_missing_keys(self):
+        r = self.missing("TRM-06")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("MISSING:[", r.stdout)
+        self.assertNotIn("MISSING:[]", r.stdout)
+
+    def test_ruby_exception_stops_instead_of_opening_the_gate(self):
+        # 決定表の日付を未引用にすると Ruby の YAML 読み込みが例外になる（以前は『欠落なし』としてゲートが開いた）
+        self.replace_text("決定", '"日付": "2026-10-21"', '"日付": 2026-10-21')
+        r = self.missing("TRM-05")
+        self.assertNotEqual(r.returncode, 0, r.stdout)
+        self.assertIn("異常終了", r.stderr)
+        self.assertNotIn("MISSING:[]", r.stdout)
