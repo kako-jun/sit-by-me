@@ -19,7 +19,8 @@
    "label_at": [
     500,
     830
-   ]
+   ],
+   "look": "濃い茶色の木の板張り（ダイニング・台所。横板・継ぎ目・節）。"
   },
   {
    "id": "bed-n",
@@ -31,7 +32,8 @@
    ],
    "color": "#8a6a46",
    "label": "北寝室",
-   "walkable": true
+   "walkable": true,
+   "look": "濃い茶色の木の板張り（寝室）。"
   },
   {
    "id": "bed-s",
@@ -43,7 +45,8 @@
    ],
    "color": "#8a6a46",
    "label": "南寝室",
-   "walkable": true
+   "walkable": true,
+   "look": "濃い茶色の木の板張り（寝室）。出口の床パッチ（ピンク）も同じ板張りで描き、ピンクは残さない。"
   },
   {
    "id": "futon-n",
@@ -56,7 +59,8 @@
    "color": "#6f8fb0",
    "label": "布団",
    "walkable": true,
-   "no_step": true
+   "no_step": true,
+   "look": "い草色（黄緑）の畳の上に、青灰色の掛け布団と白い枕2つ。"
   },
   {
    "id": "futon-s",
@@ -69,7 +73,8 @@
    "color": "#b06f78",
    "label": "布団",
    "walkable": true,
-   "no_step": true
+   "no_step": true,
+   "look": "い草色（黄緑）の畳の上に、赤茶の掛け布団と白い枕2つ。"
   }
  ],
  "walls": [
@@ -83,7 +88,8 @@
    ],
    "h": 150,
    "kind": "wall",
-   "window_count": 1
+   "window_count": 1,
+   "look": "北壁: 台所の背面。流しの壁に白いタイル。クリーム色の漆喰の壁と木の柱・梁。"
   },
   {
    "id": "wall-s",
@@ -95,7 +101,8 @@
    ],
    "h": 150,
    "kind": "wall",
-   "window_count": 2
+   "window_count": 2,
+   "look": "南壁: 外への戸口は焦げ茶の木の板戸（小さな窓つき）。腰高の引き違いのガラス窓（外景は描かない）。クリーム色の漆喰の壁と木の柱。"
   },
   {
    "id": "wall-w",
@@ -132,7 +139,8 @@
    "h": 90,
    "kind": "partition",
    "label": "仕切り",
-   "window_count": 0
+   "window_count": 0,
+   "look": "仕切り: 壁より低いクリーム色の漆喰の仕切り。壁と区別できる別素材。"
   },
   {
    "id": "part-h",
@@ -145,7 +153,8 @@
    "h": 90,
    "kind": "partition",
    "label": "仕切り",
-   "window_count": 0
+   "window_count": 0,
+   "look": "仕切り: 壁より低いクリーム色の漆喰の仕切り。壁と区別できる別素材。"
   }
  ],
  "doors": [
@@ -235,7 +244,8 @@
    "h": 80,
    "color": "#8a8a8a",
    "label": "コンロ",
-   "blocked": true
+   "blocked": true,
+   "look": "二口のガスコンロ。上に白いエナメルの鍋、脇に素朴な食器。台の側面は木。"
   },
   {
    "id": "sink",
@@ -248,7 +258,8 @@
    "h": 85,
    "color": "#b8c4cc",
    "label": "流し",
-   "blocked": true
+   "blocked": true,
+   "look": "ステンレスの流し台。白い木の戸棚、背面の壁に白いタイル、蛇口。"
   },
   {
    "id": "cupboard",
@@ -261,7 +272,8 @@
    "h": 130,
    "color": "#a0693a",
    "label": "食器棚",
-   "blocked": true
+   "blocked": true,
+   "look": "ガラス戸の木の食器棚。皿・茶碗・湯呑が並ぶ。"
   },
   {
    "id": "fridge",
@@ -274,7 +286,8 @@
    "h": 160,
    "color": "#a8c8b0",
    "label": "冷蔵庫",
-   "blocked": true
+   "blocked": true,
+   "look": "小さな淡い緑の古い冷蔵庫（丸みのある角、銀色の取っ手）。"
   },
   {
    "id": "shelf-w",
@@ -287,7 +300,8 @@
    "h": 100,
    "color": "#8a5a30",
    "label": "棚",
-   "blocked": true
+   "blocked": true,
+   "look": "壁際の木の棚（縦長）。上に木の鉢・椀が並ぶ。"
   },
   {
    "id": "table",
@@ -300,7 +314,8 @@
    "h": 55,
    "color": "#a0693a",
    "label": "食卓",
-   "blocked": true
+   "blocked": true,
+   "look": "素朴な木の食卓。上に木の鉢。"
   },
   {
    "id": "bench-l",
@@ -313,7 +328,8 @@
    "h": 35,
    "color": "#8a5a30",
    "label": "",
-   "blocked": true
+   "blocked": true,
+   "look": "小さな木の長椅子。"
   },
   {
    "id": "bench-r",
@@ -326,7 +342,8 @@
    "h": 35,
    "color": "#8a5a30",
    "label": "",
-   "blocked": true
+   "blocked": true,
+   "look": "小さな木の長椅子。"
   },
   {
    "id": "dresser",
@@ -339,7 +356,8 @@
    "h": 100,
    "color": "#7a4a2a",
    "label": "箪笥",
-   "blocked": true
+   "blocked": true,
+   "look": "黒ずんだ木の箪笥（引き出しが並ぶ）。隣に小さな木の小箱。箱の高さ・範囲は変えない。"
   },
   {
    "id": "rock",
@@ -352,7 +370,8 @@
    "h": 40,
    "color": "#8a7a6a",
    "label": "石",
-   "blocked": true
+   "blocked": true,
+   "look": "北東の隅に置かれた、丸みのある茶色の大きな石（表面はざらざら・斑点）。"
   },
   {
    "id": "chest",
@@ -365,7 +384,8 @@
    "h": 60,
    "color": "#7a4a2a",
    "label": "長持",
-   "blocked": true
+   "blocked": true,
+   "look": "木の長持（蓋つきの長い木箱・金具）。"
   }
  ],
  "assumptions": [
@@ -403,7 +423,8 @@
       ],
       "color": "#8a6a46",
       "label": "",
-      "walkable": true
+      "walkable": true,
+      "look": "濃い茶色の木の板張り（寝室）。"
      },
      {
       "id": "futon-n",
@@ -416,7 +437,8 @@
       "color": "#6f8fb0",
       "label": "子の布団",
       "walkable": true,
-      "no_step": true
+      "no_step": true,
+      "look": "い草色（黄緑）の畳の上に、青灰色の掛け布団と白い枕2つ。"
      },
      {
       "id": "futon-s",
@@ -429,7 +451,8 @@
       "color": "#b06f78",
       "label": "父の布団",
       "walkable": true,
-      "no_step": true
+      "no_step": true,
+      "look": "い草色（黄緑）の畳の上に、赤茶の掛け布団と白い枕2つ。"
      }
     ],
     "boxes": []
@@ -460,7 +483,8 @@
       "label_at": [
        1100,
        350
-      ]
+      ],
+      "look": "燃えている範囲。黒く焦げた床・柱・家具の残骸、炭、所々に赤橙の工作の炎（紙・綿）と煙。"
      },
      {
       "id": "burnt-back-door-embers",
@@ -478,7 +502,8 @@
       "label_at": [
        490,
        350
-      ]
+      ],
+      "look": "燃えカス: 黒い炭と灰。"
      },
      {
       "id": "burnt-back-door-flame",
@@ -492,7 +517,8 @@
       "color": "#ff6a1a",
       "label": "火（焼失した勝手口）",
       "blocked": true,
-      "prompt": "同じ位置で火がくすぶる（橙と赤の小さな炎）。戸口は戻らない・通れない。箱の位置・大きさを動かさない"
+      "prompt": "同じ位置で火がくすぶる（橙と赤の小さな炎）。戸口は戻らない・通れない。箱の位置・大きさを動かさない",
+      "look": "焼失した勝手口の火: 赤橙の工作の炎。"
      }
     ],
     "annotations": [
@@ -580,5 +606,6 @@
    "to": "open-dining-bed-s",
    "min_width": 132
   }
- ]
+ ],
+ "decor_pool": "teramachi-winter"
 }
