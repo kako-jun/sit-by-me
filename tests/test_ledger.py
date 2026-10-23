@@ -862,3 +862,17 @@ class MissingKeysGateTests(LedgerCopyBase):
         self.assertNotEqual(r.returncode, 0, r.stdout)
         self.assertIn("異常終了", r.stderr)
         self.assertNotIn("MISSING:[]", r.stdout)
+
+
+class PromptNegationClauseTests(LedgerCopyBase):
+    """禁止語の免除は『同じ節（。、区切り）にある否定』だけ。同じ行の別の節の否定で、禁止語（畳）を見逃してはならない。"""
+
+    def rebuild(self):
+        r = self.py("ledger_build.py", "build")
+        self.assertEqual(r.returncode, 0, r.stderr)
+
+    def test_forbidden_word_beside_a_negation_in_another_clause_is_detected(self):
+        self.edit_row("要素", "要素ID", "bed-n", **{"見た目": "い草色の畳敷き（寝室）。ピンクは残さない、壁は描かない。"})
+        self.rebuild()
+        r = self.verify_prompt()
+        self.assertFailsWith(r, "TRM-05", "畳")

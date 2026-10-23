@@ -26,8 +26,11 @@ require_relative 'ledger_yaml'
 
 class PromptReflection
   VARIANT_RE = /-(kids|fire|burnt|wc)\z/.freeze
-  # 否定・指示の文脈（禁止語がそのまま書いてあっても『描かない』と言っているだけの行）
+  # 否定・指示の文脈（禁止語がそのまま書いてあっても『描かない』と言っているだけの節）。
+  # 否定は禁止語と**同じ節**（。、，,；; 区切り）にあるものだけが免除になる。行単位で除外すると、同じ行の別の文にある禁止語
+  # （『い草色の畳敷き（寝室）。ピンクは残さない、壁は描かない。』の畳）が否定のせいで見逃される。
   NEGATION_RE = /描かない|使わない|置かない|入れない|足さない|でなく|ではなく|にせず|禁止|不可|（決定 /.freeze
+  CLAUSE_SPLIT = /[。、，,；;]/.freeze
   PROBE = '.claude/skills/sit-field-background/tools/oblique_prompt_probe.py'
 
   # 過去に漏れた事例。maps の全MAPで: decisions の [決定ID] と要点が現れ、words が現れ、
@@ -120,7 +123,22 @@ class PromptReflection
   def leak_lines(with_inherited: false)
     excluded = decision_lines + forbidden_section
     excluded += section('INHERITED ELEMENTS（') unless with_inherited
-    @lines.reject { |l| excluded.include?(l) || l.match?(NEGATION_RE) }
+    @lines.reject { |l| excluded.include?(l) }
+  end
+
+  # 行の中で、述語に一致する節（否定を含む節は除く）。無ければ nil。
+  # negation: false（回帰アンカー）は否定表現でも免除しないが、有効な決定の『決定の要点』の一部をそのまま引いた節
+  # （要素の見た目が決定参照で展開された文など）は決定の逐語なので免除する。
+  def leaking_clause(line, negation: true)
+    line.split(CLAUSE_SPLIT).find do |c|
+      next false unless yield(c)
+
+      negation ? !c.match?(NEGATION_RE) : !decision_text.include?(c.strip)
+    end
+  end
+
+  def decision_text
+    @decision_text ||= @t['決定'].select { |d| d['状態'] == '有効' }.map { |d| d['決定の要点'] }.join("\n")
   end
 
   def mentions?(line, word)
@@ -147,7 +165,7 @@ class PromptReflection
         err(map_id, "決定 #{did} の必須語『#{w}』がプロンプト本文に現れない") unless dl.map { |l| strip_annot(l) }.concat(@lines - dl).any? { |l| l.include?(w) }
       end
       split(d['禁止語']).each do |w|
-        hit = leak.find { |l| mentions?(l, w) }
+        hit = leak.map { |l| leaking_clause(l) { |c| mentions?(c, w) } }.compact.first
         err(map_id, "決定 #{did} の禁止語『#{w}』がプロンプトに現れる: 「#{hit.strip[0, 80]}」") if hit
       end
     end
@@ -283,7 +301,8 @@ class PromptReflection
           err(mid, "回帰アンカー #{a[:id]}（#{a[:what]}）: 語『#{w}』がプロンプトに現れない") unless @prompt.include?(w)
         end
         if a[:leak]
-          hit = leak_lines(with_inherited: true).find { |l| l.match?(a[:leak]) }
+          # 回帰アンカーの leak は否定表現でも免除しない（決定・FORBIDDEN 節の外に出たら漏れ）
+          hit = leak_lines(with_inherited: true).map { |l| leaking_clause(l, negation: false) { |c| c.match?(a[:leak]) } }.compact.first
           err(mid, "回帰アンカー #{a[:id]}（#{a[:what]}）: 漏れてはいけない語 #{a[:leak].source} が現れる: 「#{hit.strip[0, 80]}」") if hit
         end
         check_door_wall(mid, a) if a[:door_wall]
