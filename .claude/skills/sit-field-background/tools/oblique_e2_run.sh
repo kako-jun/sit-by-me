@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # E2: クリーンモック編集元の imagegen を N テイク並列生成 → 本物確認 → 測定 → ログ縮約まで1コマンド。
+# テイク数は4で固定（既定 N=4）。自動の順位づけ・上位絞り込みはしない。全テイクを kako-jun が目視で判定する。測定値は参考情報と不具合検出（崩れ・混入・偽造PNG）にのみ使う。
 # 使い方: [STYLE_REF=git:REV:PATH] oblique_e2_run.sh MAP N [ROUND(既定 e2)] [PROMPT_FILE]
 #  例 A案（文章のみ。参照=クリーンモック＋素材見本）:
 #       oblique_e2_run.sh TRM-02 4 e2/round2a
@@ -9,7 +10,7 @@
 # 前提: プロンプト先頭で $imagegen を明示起動（しないと ImageMagick 偽造PNGを掴む）。生成画像は目視しない（数値のみ）。
 # 測定の基準画像: REF_IMAGE（既定は STYLE_REF と同じ）。装飾量・層の測定は基準画像があるときだけ出る。
 set -u
-MAP=${1:?MAP}; N=${2:?N}; ROUND=${3:-e2}
+MAP=${1:?MAP}; N=${2:-4}; ROUND=${3:-e2}
 ROOT=$(git rev-parse --show-toplevel); cd "$ROOT"
 M=docs/production/oblique-mocks/$MAP
 OUT=$M/$ROUND; mkdir -p "$OUT" "$M/e2"
@@ -65,3 +66,5 @@ uv run --with numpy --with opencv-python-headless --with pillow python3 -I \
 for i in $(seq 1 "$N"); do
   [ -f "$OUT/codex-take$i.log" ] && { cut -c1-240 "$OUT/codex-take$i.log" | grep -v '^[A-Za-z0-9+/=]\{200,\}' | head -60 > "$OUT/codex-take$i.log.txt"; rm "$OUT/codex-take$i.log"; }
 done
+echo "== 全テイク（kako-jun が目視で判定する。測定は参考）=="
+for i in $(seq 1 "$N"); do echo "$ROOT/$OUT/take$i.png  (重ね: $ROOT/$OUT/overlay-take$i.png)"; done

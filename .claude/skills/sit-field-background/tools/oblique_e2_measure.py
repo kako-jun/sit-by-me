@@ -15,7 +15,7 @@
   (d) 本物確認: sha256 が codex generated_images の新規ファイルと一致するか・色数・ログ中の偽造ツール使用
   (e) 装飾量と層構造（--ref に元の採用画像を渡したとき。git:REV:PATH 可）: 領域（壁・床・家具・作業机・台座の前縁・建物の外）ごとの
       エッジ密度・色エントロピーの対元画像比、層の平均色（Lab ΔE）と層の分離、建物の外の木（常緑樹・枯木の塊）・草の量と四辺への分布、白いのっぺり面の割合
-合否基準は GATES / DECOR_GATES（先に決めた値）。画像の内容は人が見る項目（HUMAN_ITEMS）として別掲する。
+参考の基準（自動でテイクを落とさない。採用は人が目視）は GATES / DECOR_GATES（先に決めた値）。画像の内容は人が見る項目（HUMAN_ITEMS）として別掲する。
 """
 import argparse, glob, hashlib, itertools, json, os, re, sys
 from pathlib import Path
@@ -492,17 +492,17 @@ def main():
                "human_items": HUMAN_ITEMS, "takes": res, "inter_take": inter}
     (out / "metrics.json").write_text(json.dumps(summary, ensure_ascii=False, indent=1))
     L = [f"# E2 測定 {a.map_id} {a.round}", "", "ゲート: " + json.dumps(GATES, ensure_ascii=False), ""]
-    L += ["| take | PASS | recall6 | margin | chamfer | region_ok | 失敗ゲート | 本物 |", "|---|---|---|---|---|---|---|---|"]
+    L += ["| take | 参考(幾何) | recall6 | margin | chamfer | region_ok | 基準超の項目 | 本物 |", "|---|---|---|---|---|---|---|---|"]
     for r in res:
         bad = [k for k, v in r["gates"].items() if not v]
-        L.append(f"| {r['take']} | {'PASS' if r['pass'] else 'FAIL'} | {r['edge']['recall6_room']} | {r['edge']['margin']} | {r['edge']['chamfer_room_px']} | {r['region_ok_ratio']} | {','.join(bad) or '-'} | {r['provenance'].get('matches_codex_generated_image') not in (None, False)} |")
+        L.append(f"| {r['take']} | {'基準内' if r['pass'] else '基準超'} | {r['edge']['recall6_room']} | {r['edge']['margin']} | {r['edge']['chamfer_room_px']} | {r['region_ok_ratio']} | {','.join(bad) or '-'} | {r['provenance'].get('matches_codex_generated_image') not in (None, False)} |")
     if ref:
         L += ["", "## 装飾量・層構造（元の採用画像=ref との比）", "", "DECOR_GATES: " + json.dumps(DECOR_GATES, ensure_ascii=False), "",
-              "| take | PASS(装飾) | PASS(幾何+装飾) | 失敗ゲート | 層の分離比 | 外: 木の塊/辺 | 常緑/枝/草 (frac) | 平坦白 |", "|---|---|---|---|---|---|---|---|"]
+              "| take | 参考(装飾) | 参考(幾何+装飾) | 基準超の項目 | 層の分離比 | 外: 木の塊/辺 | 常緑/枝/草 (frac) | 平坦白 |", "|---|---|---|---|---|---|---|---|"]
         for r in res:
             bad = [k for k, v in r["decor_gates"].items() if not v]
             o = r["decor"]["outside_objects"]
-            L.append(f"| {r['take']} | {'PASS' if r['pass_decor'] else 'FAIL'} | {'PASS' if r['pass_all'] else 'FAIL'} | {','.join(bad) or '-'} | {r['decor']['layer_sep_ratio_vs_ref']} | {o['tree_blobs']}/{''.join(o['tree_sides'])} | {o['evergreen_frac']}/{o['branch_frac']}/{o['grass_frac']} | {o['flat_white_frac']} |")
+            L.append(f"| {r['take']} | {'基準内' if r['pass_decor'] else '基準超'} | {'基準内' if r['pass_all'] else '基準超'} | {','.join(bad) or '-'} | {r['decor']['layer_sep_ratio_vs_ref']} | {o['tree_blobs']}/{''.join(o['tree_sides'])} | {o['evergreen_frac']}/{o['branch_frac']}/{o['grass_frac']} | {o['flat_white_frac']} |")
         ro = ref["outside_objects"]
         L.append(f"| ref | - | - | - | 1.0 | {ro['tree_blobs']}/{''.join(ro['tree_sides'])} | {ro['evergreen_frac']}/{ro['branch_frac']}/{ro['grass_frac']} | {ro['flat_white_frac']} |")
         L += ["", "領域ごとの エッジ密度比 / 色エントロピー比 / 平均色ΔE（対 ref）", "", "| region | " + " | ".join(f"take{r['take']}" for r in res) + " | ref(エッジ密度,エントロピー) |", "|---|" + "---|" * (len(res) + 1)]
@@ -510,7 +510,7 @@ def main():
             L.append(f"| {k} | " + " | ".join(f"{r['decor']['regions'][k]['edge_ratio_vs_ref']} / {r['decor']['regions'][k]['entropy_ratio_vs_ref']}" + (f" / dE{r['decor']['regions'][k]['dE_vs_ref']}" if 'dE_vs_ref' in r['decor']['regions'][k] else "") for r in res) + f" | {ref['regions'][k]['edge_density']}, {ref['regions'][k]['color_entropy']} |")
     L += ["", "建物の輪郭の指標（参考）: " + "; ".join(f"take{r['take']}: 窓の平均|dy| {r['structure']['window_mean_abs_dy']}・窓±8内 {r['structure']['window_within8']}・戸口±8内 {r['structure']['door_within8']}・全体ずれ中央値 {r['global_shift_median_px']}" for r in res)]
     if desk_inter:
-        L += ["", f"机の天面（エリア固定）: テイク間の最大ペア差 ΔE {desk_inter['max_pair_dE']}（基準 ≤{DECOR_GATES['desk_inter_take_dE_max']}）→ {'OK' if desk_inter['ok'] else 'FAIL（全テイクの合幾何+装飾を不合格扱い）'}"]
+        L += ["", f"机の天面（エリア固定）: テイク間の最大ペア差 ΔE {desk_inter['max_pair_dE']}（基準 ≤{DECOR_GATES['desk_inter_take_dE_max']}）→ {'基準内' if desk_inter['ok'] else '基準超（参考）'}"]
     L += ["", "## 領域ごとの最良ずれ (dx,dy) px", "", "| region | " + " | ".join(f"take{r['take']}" for r in res) + " |", "|---|" + "---|" * len(res)]
     for k in (res[0]["regions"] if res else []):
         L.append(f"| {k}{' (測定不能)' if k in unreliable else ''} | " + " | ".join(f"({r['regions'][k]['shift']['dx']},{r['regions'][k]['shift']['dy']})" if r["regions"][k]["shift"] else "-" for r in res) + " |")
@@ -524,7 +524,7 @@ def main():
                 parts.append(f"{k} pink{v['pink_residual']}")
         L.append(f"- take{r['take']}: " + "; ".join(parts) + f"; 床lum_std {r['floor']['lum_std']}; 全体ピンク残り {r['pink_residual_whole_image']}")
     L += ["", "## テイク間", "", "```", json.dumps(inter, ensure_ascii=False, indent=1)[:3000], "```", "",
-          f"合格テイク（幾何）: {summary['takes_pass']} / 合格（装飾）: {summary['takes_pass_decor']} / 合格（幾何+装飾）: {summary['takes_pass_all']} / 追加ラウンド: {'要' if summary['round2_needed'] else '不要'}", "", "## kako-jun の目視確認項目", ""]
+          f"基準内のテイク（幾何・参考）: {summary['takes_pass']} / 基準内（装飾・参考）: {summary['takes_pass_decor']} / 基準内（幾何+装飾・参考）: {summary['takes_pass_all']} / 追加ラウンドの目安（参考）: {'要' if summary['round2_needed'] else '不要'}", "", "## kako-jun の目視確認項目", ""]
     L += [f"- {h}" for h in HUMAN_ITEMS]
     (out / "metrics.md").write_text("\n".join(L) + "\n")
     print("\n".join(L[:40 + 3 * len(res)]))
