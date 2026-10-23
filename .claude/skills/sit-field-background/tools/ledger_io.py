@@ -144,8 +144,36 @@ def _str(v):
     return str(v)
 
 
+QUOTED_STYLES = ('"', "'", "|", ">")
+
+
+def _check_syntax(table, text):
+    """YAML の構文木で検査する: 全スカラー（キーも値も）は引用符つきか block scalar（未引用だと no/yes/null/2026-10-21 などが
+    型変換される）、同じ行（辞書）に同じキーを2回書かない（yaml.safe_load は後勝ちで黙って上書きする）。"""
+    import yaml
+    node = yaml.compose(text, Loader=yaml.SafeLoader)
+    if node is None:
+        return
+    if not isinstance(node, yaml.SequenceNode):
+        raise ValueError(f"{table}: 最上位は行のリストでなければならない")
+    for i, item in enumerate(node.value):
+        if not isinstance(item, yaml.MappingNode):
+            raise ValueError(f"{table}: {i + 1}行目が辞書でない")
+        seen = {}
+        for k, v in item.value:
+            for n in (k, v):
+                if not isinstance(n, yaml.ScalarNode):
+                    raise ValueError(f"{table}: {n.start_mark.line + 1}行目: スカラー以外（入れ子）は使えない")
+                if n.style not in QUOTED_STYLES:
+                    raise ValueError(f"{table}: {n.start_mark.line + 1}行目: 引用符のないスカラー『{n.value}』（全スカラーは \"…\" か |- ブロックで書く）")
+            if k.value in seen:
+                raise ValueError(f"{table}: {k.start_mark.line + 1}行目: キー『{k.value}』が同じ行（{seen[k.value]}行目に既出）で重複している")
+            seen[k.value] = k.start_mark.line + 1
+
+
 def parse(table, text):
     import yaml
+    _check_syntax(table, text)
     data = yaml.safe_load(text)
     if data is None:
         return []
@@ -157,6 +185,9 @@ def parse(table, text):
         if not isinstance(r, dict):
             raise ValueError(f"{table}: {i + 1}行目が辞書でない")
         row = {_str(k): _str(v) for k, v in r.items()}
+        unknown = [k for k in row if cols and k not in cols]
+        if unknown:
+            raise ValueError(f"{table}: {i + 1}行目に表定義（SCHEMA）に無い列 {unknown}（綴り間違い？ 正しい列: {' / '.join(cols)}）")
         for c in cols:
             row.setdefault(c, "")
         rows.append(row)
@@ -215,3 +246,11 @@ def en(d, v):
 
 def split_list(s):
     return [x for x in (s or "").split(";") if x]
+
+
+if __name__ == "__main__":
+    import sys
+    if sys.argv[1:] == ["schema"]:  # Ruby 側の検査（verify_ledger.rb）が表定義を読む口
+        print(json.dumps(SCHEMA, ensure_ascii=False))
+    else:
+        sys.exit("usage: ledger_io.py schema")

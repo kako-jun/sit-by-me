@@ -816,6 +816,14 @@ class LedgerCopyBase(unittest.TestCase):
         self.assertIn(old, text)
         p.write_text(text.replace(old, new, count), encoding="utf-8")
 
+    def replace_in_row(self, table, anchor, old, new):
+        """anchor（行の先頭キー付近の文字列）より後ろで最初に現れる old を new にする。dumps が拒む壊れた YAML を作るため生テキストで直す。"""
+        p = self.work / f"docs/ledger/{table}.yaml"
+        text = p.read_text(encoding="utf-8")
+        i = text.index(anchor)
+        j = text.index(old, i)
+        p.write_text(text[:j] + new + text[j + len(old):], encoding="utf-8")
+
     def verify_ledger(self):
         return subprocess.run([RUBY, str(self.work / "scripts/verify_ledger.rb")], env=self.env(LEDGER_SKIP_REGEN="1"), capture_output=True, text=True, cwd=self.work)
 
@@ -876,3 +884,34 @@ class PromptNegationClauseTests(LedgerCopyBase):
         self.rebuild()
         r = self.verify_prompt()
         self.assertFailsWith(r, "TRM-05", "畳")
+
+
+class SchemaAndSyntaxTests(LedgerCopyBase):
+    """列名の綴り間違い・未定義列、未引用スカラー、重複キーは、読み手が黙って受け入れず verify_ledger / ledger_build check で失敗する。"""
+
+    ANCHOR = '"端ID": "TRM-05.door-outside"'
+
+    def test_misspelled_column_is_reported_by_verify_ledger(self):
+        self.replace_in_row("端", self.ANCHOR, '"決定参照"', '"決定参考"')
+        r = self.verify_ledger()
+        self.assertFailsWith(r, "表定義に無い列", "決定参考")
+
+    def test_misspelled_column_is_reported_by_ledger_build_check(self):
+        self.replace_in_row("端", self.ANCHOR, '"決定参照"', '"決定参考"')
+        r = self.py("ledger_build.py", "check")
+        self.assertFailsWith(r, "決定参考")
+
+    def test_unquoted_scalar_is_rejected_by_ruby_and_python(self):
+        self.replace_in_row("端", self.ANCHOR, '"中心": "', '"中心": 841 #"')
+        self.assertFailsWith(self.verify_ledger(), "引用符のないスカラー")
+        self.assertFailsWith(self.py("ledger_build.py", "check"), "引用符のないスカラー")
+
+    def test_unquoted_date_is_rejected(self):
+        self.replace_text("決定", '"日付": "2026-10-21"', '"日付": 2026-10-21')
+        self.assertFailsWith(self.verify_ledger(), "引用符のないスカラー")
+        self.assertFailsWith(self.py("ledger_build.py", "check"), "引用符のないスカラー")
+
+    def test_duplicate_key_is_rejected_by_ruby_and_python(self):
+        self.replace_in_row("端", self.ANCHOR, '  "MAP_ID": "TRM-05"\n', '  "MAP_ID": "TRM-05"\n  "MAP_ID": "TRM-02"\n')
+        self.assertFailsWith(self.verify_ledger(), "重複")
+        self.assertFailsWith(self.py("ledger_build.py", "check"), "重複")

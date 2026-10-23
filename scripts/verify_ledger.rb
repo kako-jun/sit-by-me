@@ -6,6 +6,7 @@
 require 'json'
 require 'digest'
 require 'shellwords'
+require 'open3'
 require_relative 'ledger_yaml'
 require_relative 'ledger_required_keys'
 
@@ -33,6 +34,7 @@ class LedgerVerifier
 
   def run
     check_presence
+    check_columns
     check_unique
     check_fks
     check_required
@@ -83,6 +85,33 @@ class LedgerVerifier
   def check_presence
     %w[エリア MAP 建物 建物部位 建物窓列 建物関係 建物時期差分 端 接続 接続図設定 要素 窓 時期差分 既定値 エリア固定 装飾プール 語彙 決定 採用要素 素材 生成物 必須キー 未決 キー別名 ファイル配置 Issue点検 描画定数 プロンプト文面].each do |n|
       err("表 #{n}.yaml が無い") unless File.file?(File.join(@root, 'docs/ledger', "#{n}.yaml"))
+    end
+  end
+
+  # 各行のキーが表定義（ledger_io.py の SCHEMA）に含まれること。綴り間違い（『決定参考』）や未定義列は、読み手が黙って空欄扱いにして
+  # 検査をすり抜けるので、ここで止める。表定義は Python の SCHEMA を JSON で出して読む（定義を二重に持たない）。
+  def schema
+    @schema ||= begin
+      tool = File.expand_path('../.claude/skills/sit-field-background/tools/ledger_io.py', __dir__)
+      project = File.expand_path('..', __dir__)
+      out, err_, st = Open3.capture3('uv', 'run', '--project', project, 'python3', tool, 'schema')
+      raise "表定義(ledger_io.py schema)を読めない: #{err_.lines.first(3).join(' / ')}" unless st.success?
+
+      JSON.parse(out)
+    end
+  end
+
+  def check_columns
+    LedgerYaml.tables.each do |tb|
+      cols = schema[tb]
+      if cols.nil?
+        err("表 #{tb}.yaml は表定義（ledger_io.py の SCHEMA）に無い")
+        next
+      end
+      @t[tb].each_with_index do |row, i|
+        extra = row.keys - cols
+        err("表 #{tb}.yaml の#{i + 1}行目（#{row[cols.first]}）に表定義に無い列 #{extra.inspect}（綴り間違い？ 正しい列: #{cols.join(' / ')}）") unless extra.empty?
+      end
     end
   end
 
@@ -250,13 +279,6 @@ class LedgerVerifier
     errors, undecided = LedgerRequiredKeys.check_rows(@t)
     errors.each { |e| err(e) }
     @undecided = undecided
-    @t['未決'].each do |u|
-      next unless u['状態'] == '未決'
-
-      known = @undecided.any? { |t, i, k| t == u['対象テーブル'] && i == u['対象ID'] && k == u['キー'] }
-      # 未決表の行は、必須キーの『未決(要確認)』に対応するものと、個別の未確定事項の両方を含む（後者は警告にしない）
-      known
-    end
   end
 
   def check_aliases
@@ -304,7 +326,7 @@ class LedgerVerifier
     @t['窓'].each do |w|
       next if w['種別'] == '窓なし'
 
-      err("窓 #{w['窓ID']}: 壁側/種別/状態が空") if w['壁側'].empty? || w['状態'].empty?
+      err("窓 #{w['窓ID']}: 壁側/状態が空") if w['壁側'].empty? || w['状態'].empty?
     end
   end
 
