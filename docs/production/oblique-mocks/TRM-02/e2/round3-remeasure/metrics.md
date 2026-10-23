@@ -2,23 +2,23 @@
 
 ゲート: {"edge_recall_room_min": 0.6, "edge_margin_min": 0.15, "chamfer_room_max_px": 6.0, "region_shift_max_px": 8, "region_ok_ratio_min": 0.7, "door_pink_residual_max": 0.02, "window_white_green_max": 0.05, "aspect_tol": 0.005}
 
-| take | PASS | recall6 | margin | chamfer | region_ok | 失敗ゲート | 本物 |
+| take | 参考(幾何) | recall6 | margin | chamfer | region_ok | 基準超の項目 | 本物 |
 |---|---|---|---|---|---|---|---|
-| 1 | FAIL | 0.808 | 0.241 | 6.61 | 0.583 | chamfer,regions | True |
-| 2 | FAIL | 0.817 | 0.238 | 4.22 | 0.083 | regions | True |
-| 3 | FAIL | 0.875 | 0.303 | 3.12 | 0.417 | regions | True |
-| 4 | FAIL | 0.809 | 0.213 | 4.29 | 0.083 | regions | True |
+| 1 | 基準超 | 0.808 | 0.241 | 6.61 | 0.583 | chamfer,regions | True |
+| 2 | 基準超 | 0.817 | 0.238 | 4.22 | 0.083 | regions | True |
+| 3 | 基準超 | 0.875 | 0.303 | 3.12 | 0.417 | regions | True |
+| 4 | 基準超 | 0.809 | 0.213 | 4.29 | 0.083 | regions | True |
 
 ## 装飾量・層構造（元の採用画像=ref との比）
 
 DECOR_GATES: {"density_ratio_min": 0.6, "layer_color_dE_max": 30.0, "layer_sep_ratio_min": 0.6, "outside_flat_white_max": 0.15, "outside_tree_blobs_min": 6, "outside_tree_sides_min": 3, "desk_dE_area_max": 15.0, "desk_inter_take_dE_max": 8.0, "desk_grain_ratio_min": 0.8, "outside_pine_green_abs_min": 0.003, "outside_evergreen_ratio_min": null, "outside_branch_ratio_min": 0.3, "outside_grass_ratio_min": 0.2}
 
-| take | PASS(装飾) | PASS(幾何+装飾) | 失敗ゲート | 層の分離比 | 外: 木の塊/辺 | 常緑/枝/草 (frac) | 平坦白 |
+| take | 参考(装飾) | 参考(幾何+装飾) | 基準超の項目 | 層の分離比 | 外: 木の塊/辺 | 常緑/枝/草 (frac) | 平坦白 |
 |---|---|---|---|---|---|---|---|
-| 1 | FAIL | FAIL | density:slab_front,density:floor,outside_evergreen | 0.9 | 30/ENSW | 0.0012/0.1625/0.0326 | 0.0085 |
-| 2 | FAIL | FAIL | density:slab_front,outside_evergreen | 0.95 | 22/ENSW | 0.0024/0.1261/0.0346 | 0.0053 |
-| 3 | FAIL | FAIL | density:floor | 0.95 | 21/ENSW | 0.0085/0.1306/0.0473 | 0.0009 |
-| 4 | PASS | FAIL | - | 1.05 | 35/ENSW | 0.0079/0.0755/0.0236 | 0.0086 |
+| 1 | 基準超 | 基準超 | density:slab_front,density:floor,outside_evergreen | 0.9 | 30/ENSW | 0.0012/0.1625/0.0326 | 0.0085 |
+| 2 | 基準超 | 基準超 | density:slab_front,outside_evergreen | 0.95 | 22/ENSW | 0.0024/0.1261/0.0346 | 0.0053 |
+| 3 | 基準超 | 基準超 | density:floor | 0.95 | 21/ENSW | 0.0085/0.1306/0.0473 | 0.0009 |
+| 4 | 基準内 | 基準超 | - | 1.05 | 35/ENSW | 0.0079/0.0755/0.0236 | 0.0086 |
 | ref | - | - | - | 1.0 | 38/ENSW | 0.0468/0.0711/0.0141 | 0.001 |
 
 領域ごとの エッジ密度比 / 色エントロピー比 / 平均色ΔE（対 ref）
@@ -34,7 +34,7 @@ DECOR_GATES: {"density_ratio_min": 0.6, "layer_color_dE_max": 30.0, "layer_sep_r
 
 建物の輪郭の指標（参考）: take1: 窓の平均|dy| 1.0・窓±8内 4/4・戸口±8内 2/2・全体ずれ中央値 [0.0, -2.0]; take2: 窓の平均|dy| 12.5・窓±8内 0/4・戸口±8内 0/2・全体ずれ中央値 [1.0, -13.0]; take3: 窓の平均|dy| 3.5・窓±8内 4/4・戸口±8内 1/2・全体ずれ中央値 [-1.0, -6.0]; take4: 窓の平均|dy| 10.0・窓±8内 0/4・戸口±8内 1/2・全体ずれ中央値 [1.0, -10.0]
 
-机の天面（エリア固定）: テイク間の最大ペア差 ΔE 6.3（基準 ≤8.0）→ OK
+机の天面（エリア固定）: テイク間の最大ペア差 ΔE 6.3（基準 ≤8.0）→ 基準内
 
 ## 領域ごとの最良ずれ (dx,dy) px
 
@@ -161,7 +161,7 @@ DECOR_GATES: {"density_ratio_min": 0.6, "layer_color_dE_max": 30.0, "layer_sep_r
 }
 ```
 
-合格テイク（幾何）: [] / 合格（装飾）: ['4'] / 合格（幾何+装飾）: [] / 追加ラウンド: 要
+基準内のテイク（幾何・参考）: [] / 基準内（装飾・参考）: ['4'] / 基準内（幾何+装飾・参考）: [] / 追加ラウンドの目安（参考）: 要
 
 ## kako-jun の目視確認項目
 

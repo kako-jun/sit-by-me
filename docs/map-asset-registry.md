@@ -90,7 +90,7 @@
 
 | ID | 画像 | 地区 | 未決のため必要な個別契約 |
 |---|---|---|---|
-| TRM-04 | `teramachi-main-hall-interior` | 寺町 | ドア接続・時期・室内通路 |
+| TRM-04 | `teramachi-main-hall-interior` | 寺町 | ドア接続・時期・室内通路。【TRM-04 基準状態の画像採用済み（reference。kako-jun「04は４枚目」2026-10-23。`assets/images/fields/reference/teramachi-main-hall-interior-trm04-adopted.webp`、[採用記録](production/20261023-trm04-adoption.md)。mask・occlusion はモック由来）】 |
 | TRM-02 | `teramachi-kindergarten-hall` | 寺町 | ドア接続・舞台と通路 |
 | TRM-12 | `teramachi-danchi-interior` | 寺町 | ドア接続・車椅子動線 |
 | UTS-03 | `utatsuyama-route-02` | 卯辰山 | 接続辺・中ボスまでの主経路 |

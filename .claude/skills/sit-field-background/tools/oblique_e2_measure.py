@@ -53,6 +53,11 @@ DECOR_GATES = {
     "outside_pine_green_abs_min": 0.003,
     "outside_evergreen_ratio_min": None, "outside_branch_ratio_min": 0.30, "outside_grass_ratio_min": 0.20,
 }
+# 戸口・窓の存在確認／開口の床色／畳らしい色（参考表示。合否にしない。基準は生成前に決定 2026-10-23）
+PRESENCE = {"dE_min": 12.0,          # 戸口・窓の領域の平均色が周囲の壁から Lab ΔE 12 以上離れている
+            "edge_ratio_min": 1.5,   # または領域内のエッジ密度が周囲の壁の 1.5 倍以上（どちらかを満たせば『描かれている』）
+            "thin_px": 10,           # 領域の短辺がこれ未満（斜めに潰れた細い面）は測定不能
+            "tatami_frac_warn": 0.005}  # 室内の床領域で、い草の黄緑〜薄い黄の面積がこれ以上なら『畳らしい色』を警告
 ROUND2_IF_PASS_LT = 2  # 合格テイクがこの数未満なら追加ラウンド
 
 HUMAN_ITEMS = [
@@ -292,6 +297,62 @@ def decor_eval(rgb, ge, masks, hull_box, ref, area=None):
     return d, g
 
 
+def _lab(rgb, m):
+    return cv2.cvtColor(rgb.astype(np.float32) / 255.0, cv2.COLOR_RGB2LAB)[m].mean(0)
+
+
+def presence_check(rgb, ge, m):
+    """戸口・窓の領域 m が壁色のままでなく、扉・ガラスの色や質感になっているか（壁との色差・エッジ密度）。"""
+    ys, xs = np.nonzero(m)
+    if len(ys) == 0:
+        return {"status": "no-region"}
+    if min(ys.max() - ys.min(), xs.max() - xs.min()) < PRESENCE["thin_px"]:
+        return {"status": "unmeasurable-thin"}
+    inner = cv2.erode(m.astype(np.uint8), np.ones((3, 3), np.uint8)) > 0
+    inner = inner if inner.sum() > 20 else m
+    ring = (cv2.dilate(m.astype(np.uint8), np.ones((31, 31), np.uint8)) > 0) & ~(cv2.dilate(m.astype(np.uint8), np.ones((9, 9), np.uint8)) > 0)
+    if ring.sum() < 50:
+        return {"status": "unmeasurable-ring"}
+    dE = float(np.linalg.norm(_lab(rgb, inner) - _lab(rgb, ring)))
+    er = float(ge[inner].mean() / max(float(ge[ring].mean()), 1e-3))
+    ok = dE >= PRESENCE["dE_min"] or er >= PRESENCE["edge_ratio_min"]
+    return {"status": "present" if ok else "MISSING", "dE_vs_wall": round(dE, 1), "edge_ratio": round(er, 2)}
+
+
+def opening_floor_check(rgb, plan, size, floor_mask):
+    """開口の床の部分が壁色でなく床色か。開口の床の矩形の平均色が『隣接する仕切りの壁面』より『室内の床』に近い。"""
+    res = {}
+    for v in om.opening_voids(plan):
+        o = [x for x in plan["openings"] + [d for d in plan["doors"] if d.get("passage")] if x["id"] == v["id"]][0]
+        w = om.wall_by_id(plan, o["wall"]); r = w["rect"]; a, b = om.span(o)
+        zmid = w["h"] * 0.5
+        # 開口の隣の壁面（左右の100単位）を壁の中ほどの高さで取る
+        if om.is_h(w):
+            nbr = [[a - 100, r[1], a, r[3]], [b, r[1], b + 100, r[3]]]
+        else:
+            nbr = [[r[0], a - 100, r[2], a], [r[0], b, r[2], b + 100]]
+        wm = poly_mask([om.rect_poly(n_, zmid) for n_ in nbr], size)
+        gm = poly_mask([v["ground"]], size)
+        gm = cv2.erode(gm.astype(np.uint8), np.ones((3, 3), np.uint8)) > 0
+        if gm.sum() < 20 or wm.sum() < 20 or floor_mask.sum() < 50:
+            res[v["id"]] = {"status": "unmeasurable"}; continue
+        g, wl, fl = _lab(rgb, gm), _lab(rgb, wm), _lab(rgb, floor_mask)
+        dw, df = float(np.linalg.norm(g - wl)), float(np.linalg.norm(g - fl))
+        res[v["id"]] = {"status": "floor-like" if df < dw else "WALL-LIKE", "dE_to_floor": round(df, 1), "dE_to_adjacent_wall": round(dw, 1)}
+    return res
+
+
+def tatami_frac(rgb, floor_mask):
+    """い草らしい黄緑〜薄い黄の面積割合（室内の床領域。参考）。畳は描かない決定（#51）。"""
+    px = rgb[floor_mask].astype(np.int32)
+    if len(px) == 0:
+        return 0.0
+    r, g, b = px[:, 0], px[:, 1], px[:, 2]
+    lum = 0.299 * r + 0.587 * g + 0.114 * b
+    ig = (g >= r - 12) & (g > b + 25) & (lum > 110) & (lum < 220)
+    return round(float(ig.mean()), 4)
+
+
 def provenance(path, out_dir, n):
     r = {"sha256": sha(path), "bytes": os.path.getsize(path)}
     im = Image.open(path)
@@ -408,6 +469,17 @@ def main():
                 ent["pink_residual"] = pink_frac(rgb, m)
             reg[f"{kind}:{rid}"] = ent
         r["regions"] = reg
+        pres = {}
+        for (kind_, rid_), m_ in R.items():
+            if kind_ == "door" and any(d_["id"] == rid_ and d_.get("passage") for d_ in plan["doors"]):
+                continue
+            if kind_ in ("door", "window"):
+                pres[f"{kind_}:{rid_}"] = presence_check(rgb, ge, m_)
+        r["presence"] = pres
+        r["missing_openings_doors_windows"] = [k_ for k_, v_ in pres.items() if v_["status"] == "MISSING"]
+        fl_all = floor & ~np.any([m_ for (k_, _), m_ in R.items() if k_ == "box"], axis=0) if any(k_ == "box" for (k_, _) in R) else floor
+        r["opening_floor"] = opening_floor_check(rgb, plan, size, cv2.erode(fl_all.astype(np.uint8), np.ones((9, 9), np.uint8)) > 0)
+        r["tatami_like_frac"] = tatami_frac(rgb, cv2.erode(floor.astype(np.uint8), np.ones((9, 9), np.uint8)) > 0)
         fl = floor & ~np.any([m for (k, _), m in R.items() if k == "box"], axis=0)
         lum = cv2.cvtColor(rgb, cv2.COLOR_RGB2GRAY).astype(np.float32)
         fm = cv2.erode(fl.astype(np.uint8), np.ones((15, 15), np.uint8)) > 0
@@ -509,6 +581,12 @@ def main():
         for k in ref["regions"]:
             L.append(f"| {k} | " + " | ".join(f"{r['decor']['regions'][k]['edge_ratio_vs_ref']} / {r['decor']['regions'][k]['entropy_ratio_vs_ref']}" + (f" / dE{r['decor']['regions'][k]['dE_vs_ref']}" if 'dE_vs_ref' in r['decor']['regions'][k] else "") for r in res) + f" | {ref['regions'][k]['edge_density']}, {ref['regions'][k]['color_entropy']} |")
     L += ["", "建物の輪郭の指標（参考）: " + "; ".join(f"take{r['take']}: 窓の平均|dy| {r['structure']['window_mean_abs_dy']}・窓±8内 {r['structure']['window_within8']}・戸口±8内 {r['structure']['door_within8']}・全体ずれ中央値 {r['global_shift_median_px']}" for r in res)]
+    L += ["", "## 戸口・窓の存在確認／開口の床色／畳らしい色（参考。人が見る）", ""]
+    for r in res:
+        miss = r["missing_openings_doors_windows"]
+        unm = [k_ for k_, v_ in r["presence"].items() if v_["status"].startswith("unmeasurable")]
+        wl = [k_ for k_, v_ in r["opening_floor"].items() if v_["status"] == "WALL-LIKE"]
+        L.append(f"- take{r['take']}: 戸口・窓の欠落 {('、'.join(miss) if miss else 'なし')}／測定不能 {len(unm)}／開口が壁色に見える {('、'.join(wl) if wl else 'なし')}／畳らしい色の面積 {r['tatami_like_frac']}" + ("（警告）" if r["tatami_like_frac"] >= PRESENCE["tatami_frac_warn"] else ""))
     if desk_inter:
         L += ["", f"机の天面（エリア固定）: テイク間の最大ペア差 ΔE {desk_inter['max_pair_dE']}（基準 ≤{DECOR_GATES['desk_inter_take_dE_max']}）→ {'基準内' if desk_inter['ok'] else '基準超（参考）'}"]
     L += ["", "## 領域ごとの最良ずれ (dx,dy) px", "", "| region | " + " | ".join(f"take{r['take']}" for r in res) + " |", "|---|" + "---|" * len(res)]

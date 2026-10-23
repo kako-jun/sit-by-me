@@ -421,6 +421,16 @@ def validate_plan(p):
         if d.get("status") == "default":
             Wn.append(f"既定（要確認）: {d['id']}")
     validate_decor(p, E, Wn)
+    dep = p.get("depends_on")
+    if dep is not None:
+        base = re.sub(r"-(kids|fire|burnt|wc)$", "", p.get("map_id", ""))
+        if not (isinstance(dep, list) and all(isinstance(x, str) and re.match(r"^[A-Z]{3}-\d{2}(-[a-z]+)?$", x) for x in dep)):
+            E.append("depends_on は MAP ID（例 TRM-04・TRM-05-kids）の配列")
+        else:
+            if p.get("map_id") in dep or base in dep and base == p.get("map_id"):
+                E.append(f"depends_on が自己参照: {p.get('map_id')}")
+            if len(set(dep)) != len(dep):
+                E.append("depends_on に重複がある")
     return E, Wn
 
 
@@ -483,6 +493,23 @@ def coord_section(p, pool):
     return L
 
 
+def door_section(p):
+    """戸口の個数と一覧を冒頭近くに固定する（見落とし防止。細い戸口ほど強調）。"""
+    WN = {"1person": "キャラ1人分の細い扉", "1.5people": "キャラ1.5人分", "2people": "キャラ2人分"}
+    ds = [d for d in p["doors"] if not d.get("passage")]
+    ps = [d for d in p["doors"] if d.get("passage")]
+    L = [f"DOORS（濃いピンクの四角が戸口。**全部で{len(ds)}個。1つも欠かさない・増やさない**。位置・幅・高さはモックのまま、木の板戸または開口として描く。高さはキャラ2人分。ピンクの色は残さない）:"]
+    for d in ds:
+        _, panel, _ = M.door_geom(p, d)
+        w = M.wall_by_id(p, d["wall"])
+        wd = d.get("width_class", "2people")
+        strong = "【細い扉。見落としやすいので必ず描く。壁のままにしない】" if wd == "1person" else ""
+        L.append(f"  - {d['id']}: {d['wall_side']}壁（{w.get('label') or w['id']}）・扉面の外接矩形 {_bbox([panel])}・幅{WN.get(wd, wd)}（{M.door_w(d):.0f}平面単位）{strong}。{d['wall_side']}壁に小さな扉を必ず1つ描く")
+    if ps:
+        L.append(f"  （このほか壁面を抜いた通り抜けの戸口 {len(ps)} 個は OPEN PASSAGES に記す。扉は描かない）")
+    return "\n".join(L)
+
+
 def build_prompt(p, key):
     """imagegen 編集用プロンプト（決定論）。モック=編集元1枚。原文束は台帳（build_map_prompt.rb）に依存するので別セクション。"""
     pool = load_decor(p)
@@ -491,7 +518,7 @@ def build_prompt(p, key):
              "ROLE: 添付のモック画像（色付きの箱で作った間取りの斜め見下ろし図）を編集して、手作りミニチュア（段ボールの台座・綿の雪・紙粘土の木・木目の床の工作）の一枚絵に仕上げる。モックは**位置と大きさを正確にするための型**で、見た目の完成形ではない。",
              f"GEOMETRY（固定。ここだけが『足さない・消さない・ずらさない』）: {pool['geometry_fixed']}",
              f"FILL（装飾。簡素にしない）: {pool['fill_rule']}",
-             "DOORS: 濃いピンクの四角は戸口。その位置・幅・高さのまま、木の板戸または開口として描く（高さはキャラ2人分。幅は戸口ごとに下記）。ピンクの色は残さない。",
+             door_section(p),
              "NO TEXT: 画像に文字・数字・矢印・ラベルを入れない。人物は入れない。", "",
              "LAYERS（外から内へ。層の境界の位置・形はモックのまま。質感と装飾で埋める）:"]
         L = L[:-1] + coord_section(p, pool) + ["", L[-1]]  # LAYERS 見出しの直前に座標節
@@ -527,8 +554,11 @@ def build_prompt(p, key):
     rps = [w for w in p["walls"] if w.get("kind") == "roof-passage"]
     if ops or rps:
         L += ["", "OPEN PASSAGES（左右・横方向に行き来する開口。壁に見せない）:"]
+        vmap = {v["id"]: v for v in M.opening_voids(p)}
         for o in ops:
-            L.append(f"- {o['id']}（{o['wall']}・中心{o['center']}・幅{M.door_w(o) if 'width_class' in o or o in p['doors'] else M.DOOR_W:.0f}）: 開口の上に梁・鴨居・垂れ壁・壁を描かない。奥まで見通せる開放した通路")
+            v = vmap.get(o["id"])
+            co = f"・開口の空間（壁の高さ分）の外接矩形 {_bbox([v['hull']])}・床の部分 {_pts(v['ground'])}" if v else ""
+            L.append(f"- {o['id']}（{o['wall']}・中心{o['center']}・幅{M.door_w(o) if 'width_class' in o or o in p['doors'] else M.DOOR_W:.0f}{co}）: **扉のない通り抜けられる開口。床が連続して隣の部屋とつながる。仕切りの壁が開口の幅だけ途切れた素直な切り口にする。壁・梁・鴨居・垂れ壁・柱・敷居の台座を描かない。緑の印（緑の面・緑の線）は残さない**（#51 2026-10-21）")
         for w in rps:
             L.append(f"- {w['id']}（{w.get('label') or '渡り廊下'}）: 屋根を柱で支えるだけの開放した通路（壁・窓・格子・戸を描かない）。屋根の下を左右へ奥まで見通せる。床は木の板張り（確定・茶色の板）。石の床にしない")
     if p["doors"]:
@@ -652,7 +682,7 @@ def build_one(plan_path, outroot, variant=None, from_stage=None, force=False, lo
     return man, errors
 
 
-def adopt(plan_path, outroot, image, take, variant=None):
+def adopt(plan_path, outroot, image, take, variant=None, canonical=None):
     p = M.load_plan(plan_path, variant)
     key = p["map_id"]
     out = os.path.join(outroot, key)
@@ -668,6 +698,11 @@ def adopt(plan_path, outroot, image, take, variant=None):
     man["adoption"] = {"image": os.path.relpath(image, REPO) if os.path.abspath(image).startswith(REPO) else image, "image_sha256": sha_file(image),
                        "size": list(im.size), "take": take, "prompt_sha256": next(iter(pr["outputs"].values())), "mock_clean_sha256": mk["outputs"].get(f"{key}-clean.png"),
                        "plan_sha256": man["plan_sha256"]}
+    if canonical:  # 正本パス（確定画像。後続MAPの参考画像として自動で渡される）
+        if not os.path.exists(os.path.join(REPO, canonical)):
+            sys.exit(f"正本パスが無い: {canonical}")
+        man["adoption"]["canonical"] = canonical
+        man["adoption"]["canonical_sha256"] = sha_file(os.path.join(REPO, canonical))
     save_manifest(mpath, man)
     print(f"[{key}] adopt 記録: take {take} sha256 {man['adoption']['image_sha256'][:12]}…")
 
@@ -691,6 +726,7 @@ def main():
     ap.add_argument("--status", action="store_true")
     ap.add_argument("--adopt")
     ap.add_argument("--take", type=int, default=1)
+    ap.add_argument("--canonical", help="--adopt 時: 正本パス（リポ相対。WebP 等）。確定の印になり、依存する MAP の参考画像に使われる")
     a = ap.parse_args()
     if a.all or a.status:
         base = os.path.dirname(os.path.abspath(a.target))
@@ -738,7 +774,7 @@ def main():
         sys.exit(1 if bad else 0)
     out = a.out or os.path.dirname(os.path.abspath(a.target))
     if a.adopt:
-        adopt(a.target, out, a.adopt, a.take, a.variant)
+        adopt(a.target, out, a.adopt, a.take, a.variant, a.canonical)
         return
     _, errs = build_one(a.target, out, a.variant, a.from_stage, a.force)
     sys.exit(1 if errs else 0)

@@ -236,6 +236,8 @@ def build_items(p, style):
     for m in p["markers"]:
         items.append((-450, "marker", [(rect_poly(marker_rect(m)), DOOR_COLOR, "marker")], m))
     for w in p["walls"]:
+        if w["id"] in p.get("_hide_walls", ()):
+            continue  # 開口の切り抜き用の再描画: この壁の立体は描かない
         kind = w.get("kind", "wall")
         color = w.get("color") or ("#4a4f57" if kind == "partition" else "#d8c9a6")
         top = w.get("top_color") or ("#262a30" if kind == "partition" else None)
@@ -321,7 +323,20 @@ def dashed(d, p1, p2, fill, width, dash=14):
         d.line([(x0 + (x1 - x0) * a, y0 + (y1 - y0) * a), (x0 + (x1 - x0) * b, y0 + (y1 - y0) * b)], fill=fill, width=width)
 
 
-def render(p, style="color", labels=False, ss=2):
+def opening_voids(p):
+    """開口・passage 戸口ごとの『空いた体積』の画像上の凸包。壁の高さ分の柱状の空間（接地の矩形と上端の矩形の凸包）。
+    ここでは手前の壁の立体が覆って見えないようにする（開口の幅の分、仕切りの壁を上端から下端まで切り抜く。隣室の床がつながって見える）。"""
+    out = []
+    for o in p["openings"] + [d for d in p["doors"] if d.get("passage")]:
+        w = wall_by_id(p, o["wall"]); r = w["rect"]; a, b = span(o)
+        rc = [a, r[1] - 2, b, r[3] + 2] if is_h(w) else [r[0] - 2, a, r[2] + 2, b]
+        pts = np.array(rect_poly(rc, 0.0) + rect_poly(rc, w["h"]), np.float32)
+        hull = cv2.convexHull(pts).reshape(-1, 2)
+        out.append({"id": o["id"], "wall": w["id"], "rc": rc, "h": w["h"], "hull": [(float(x), float(y)) for x, y in hull], "ground": rect_poly(rc, 0.0)})
+    return out
+
+
+def render(p, style="color", labels=False, ss=2, _void_pass=True, _raw=False):
     """style: color | wire。戻り値 (PIL RGB 画像 W x H_IMG, アンカー辞書 {door_id: (x, y)})。"""
     wire = style == "wire"
     img = Image.new("RGB", (W * ss, H_IMG * ss), "#ffffff")
@@ -388,6 +403,34 @@ def render(p, style="color", labels=False, ss=2):
         if wire and tag == "opening":
             pts = polys[0][0]
             dashed(s, pts[0], pts[3], "#000000", 5); dashed(s, pts[1], pts[2], "#000000", 5)
+    voids = opening_voids(p) if (not wire and _void_pass) else []
+    if voids:
+        # 開口の切り抜き: その壁を除いたシーンを再描画し、開口の柱状の空間だけ貼る。緑で塗り、左右の端に枠の線を引く（印。完成画像には残さない）
+        import copy as _copy
+        for wid in sorted({v["wall"] for v in voids}):
+            p2 = _copy.deepcopy(p)
+            p2["_hide_walls"] = [wid]
+            img2, _a = render(p2, style, labels=False, ss=ss, _void_pass=False, _raw=True)
+            mk = Image.new("L", img.size, 0)
+            dm = ImageDraw.Draw(mk)
+            for v in voids:
+                if v["wall"] == wid:
+                    dm.polygon([(x * ss, y * ss) for x, y in v["hull"]], fill=255)
+            img.paste(img2, (0, 0), mk)
+            tint = Image.new("RGB", img.size, OPEN_COLOR)
+            img.paste(tint, (0, 0), mk.point(lambda v_: int(v_ * 0.42)))
+        dd = ImageDraw.Draw(img)
+        for v in voids:
+            w_ = wall_by_id(p, [o_ for o_ in p["openings"] + [d_ for d_ in p["doors"] if d_.get("passage")] if o_["id"] == v["id"]][0]["wall"])
+            r_ = w_["rect"]; rc = v["rc"]
+            dd.polygon([(x * ss, y * ss) for x, y in v["ground"]], outline="#0b6b2e", width=max(2, int(3 * ss / 2)))
+            ends = ((rc[0], rc[1], rc[0], rc[3]), (rc[2], rc[1], rc[2], rc[3])) if not is_h(w_) else ((rc[0], rc[1], rc[0], rc[3]), (rc[2], rc[1], rc[2], rc[3]))
+            for (x0_, y0_, x1_, y1_) in ((rc[0], rc[1], rc[0], rc[3]), (rc[2], rc[1], rc[2], rc[3])) if is_h(w_) else ((rc[0], rc[1], rc[2], rc[1]), (rc[0], rc[3], rc[2], rc[3])):
+                a0 = proj(x0_, y0_, 0.0); a1 = proj(x0_, y0_, v["h"])
+                b0 = proj(x1_, y1_, 0.0); b1 = proj(x1_, y1_, v["h"])
+                dd.line([(a0[0] * ss, a0[1] * ss), (a1[0] * ss, a1[1] * ss)], fill="#0b6b2e", width=max(2, int(3 * ss / 2)))
+                dd.line([(b0[0] * ss, b0[1] * ss), (b1[0] * ss, b1[1] * ss)], fill="#0b6b2e", width=max(2, int(3 * ss / 2)))
+    d = ImageDraw.Draw(img)  # 以後のラベル描画は貼り込み後の画像に
     if not wire:
         # 地面の着色の上に床の線（色モック）
         pass
@@ -443,6 +486,8 @@ def render(p, style="color", labels=False, ss=2):
         for i, (lab, colr, fg) in enumerate((("仕切り=壁（濃い灰）", "#4a4f57", "#ffffff"), ("開口=通れる所（緑）", OPEN_COLOR, "#003311"), ("戸口（ピンク）", DOOR_COLOR, "#ffffff"))):
             text((130 + i * 230, H_IMG - 28), lab, f2, fg, colr)
         text((W / 2, 24), f"{p['map_id']} {p['name']} - {p.get('subtitle','')}   [レビュー用・ラベル付き]", f1, "#000000", "#fff6c8")
+    if _raw:
+        return img, anchors
     return img.resize((W, H_IMG), Image.LANCZOS), anchors
 
 
@@ -537,6 +582,10 @@ def derive_occlusion(p):
         _, panel, _ = door_geom(p, d)
         cv2.fillPoly(occ, [np.round(np.array(panel)).astype(np.int32)], 0)
         cv2.fillPoly(depth, [np.round(np.array(panel)).astype(np.int32)], 0)
+    for v in opening_voids(p):  # 開口の空いた体積では壁のシルエットで隠さない（絵では切り抜いてある）
+        hp = np.round(np.array(v["hull"])).astype(np.int32)
+        cv2.fillPoly(occ, [hp], 0)
+        cv2.fillPoly(depth, [hp], 0)
     return occ, depth, pieces
 
 

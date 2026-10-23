@@ -184,9 +184,13 @@ kako-jun 指示（2026-10-22、逐語）: 『モックを見せずに作るこ�
 
 段階（`tools/oblique_build.py`）: validate（スキーマ・戸口の相手不一致・幅不足・戸口の前の障害物・到達不能をエラー）→ mock（クリーン／ラベル付き）→ wire（個別の白黒ワイヤー図）→ mask（歩行マスク）→ occlusion（手前オクルージョン）→ prompt（imagegen 編集用。台帳 `build_map_prompt.rb` が ready でなければ blocked と記録）→ **承認ゲート** → adopt（`--adopt IMAGE --take N`。寸法・sha256・プロンプト hash・モック hash を記録）→ verify（`--status`。採用後にスペックが変われば「再生成が要る」）。各段の入力 hash・出力 sha256 は `docs/production/oblique-mocks/<MAP>/manifest.json`。入力が変わらない段はスキップ、変わった段以降だけ再実行（`--from STAGE`・`--force`）。接続図・一覧・接続表は `--all` で横断生成（`connection-diagram.png`・`overview.png`・`connections.md`）。
 
+**依存順の直列方式（kako-jun 2026-10-23。並列の4MAP同時生成は誤りだった）: 直列か並列かは依存関係で決める。** 判定基準は『同じ建物・扉・家具・場所を複数枚で描くか』。共有するなら**1つ確定→その採用画像を参考画像として次へ**（確定画像は扉・材質・家具・装飾のデザインの参考のみ。構図・配置・位置・大きさはコピーしない＝位置は常にクリーンモックが正本）。共有しない通路的な独立マップは並列。寺町の依存: 本堂 TRM-04 → 住居 TRM-05 基準 → TRM-05-kids・-fire／本堂 → 幼稚園 TRM-02／内部（04・05・02）が全部確定 → 外観 TRM-03（扉・渡り廊下は内部と一致）→ 屋外の他MAP。依存グラフは `docs/production/oblique-mocks/dependency-graph.json`（plan の `depends_on` と一致。循環・存在しないID・自己参照はエラー）、要確認は `dependency-notes.md`。`oblique_e2_schedule.py list|check|refs|graph|launch` が『今起動できるMAP』を出し、親が未確定のMAPは `oblique_e2_run.sh` が起動を拒否し、確定済みの親の正本画像を参考画像（役割節つき）として自動で付ける。確定＝`oblique_build.py --adopt IMG --take N --canonical PATH`（manifest の adoption.canonical）。
+
 **標準手順（kako-jun 2026-10-23 確定）＝案1: 座標つき幾何固定文＋装飾許可＋エリア固定**。MAP を足すときは (1) 採用済み画像（git 履歴）を1回見て plan の box.look・walls.look・floors.look を書く（`decor_pool` は屋内=`teramachi-winter`・外観=`teramachi-winter-exterior`。エリア固定=机・木・台座は継承）、(2) `oblique_build.py` で edit-prompt v4（COORDINATES＋TREE PLACEMENT）を出す、(3) `oblique_e2_run.sh MAP 4`（`REF_IMAGE=git:REV:PATH` で装飾基準）で4テイク＋測定。MAPごとの生成は互いに独立なので3MAPを同時にバックグラウンドで回してよい。案3（別生成して合成）は不要。測定基準の変更（2026-10-23。家具は接地線／松の緑量は絶対 0.003）は `docs/production/oblique-mocks/TRM-02/e2/e2-report.md` に記録。外観は歩く地面に木を置けないので plan の `tree_zones`（木を置ける矩形）で限定する。e2 の生成画像・重ね画像は git に入れない（`.gitignore`）。
 
 **テイク数は4で固定。自動の順位づけ・上位絞り込みはしない。採用判定は kako-jun が目視で行い、全4テイクを提示する（kako-jun 2026-10-23「４つでいいし人間が判定すればいい」）。測定値（幾何・装飾・エリア固定）は参考情報と不具合検出（崩れ・混入・偽造PNG）にのみ使い、合否で自動的にテイクを落とさない。metrics の表示は「基準内／基準超」（判定ではない）。**
+
+**開口（仕切り・敷居の passage）の描画**: 開口の幅の分、仕切りの壁の立体を上端から下端まで切り抜き（壁を除いた再描画を開口の柱状の空間だけ貼る）、隣室の床がつながって見えるようにし、開口を緑で塗って左右の端に枠線を引く（クリーン版にも。印なので完成画像には残さない）。オクルージョンは開口の空間で壁のシルエットを出さない。edit-prompt は開口ごとに座標つきで『扉のない通り抜けられる開口・床が連続・壁・梁・鴨居・垂れ壁・柱・敷居を描かない』、冒頭に DOORS『全部でN個。1つも欠かさない』（細い戸口ほど強調）を出す。測定は戸口・窓の存在確認（壁との色差・エッジ）・開口が床色か・畳らしい色の面積を**参考表示**する。生成は台帳マスターの整理が済むまで再開しない（kako-jun 2026-10-23）。
 
 ### E2: クリーンモック編集元の生成と幾何保持の測定（TRM-02 で実証、#144）
 

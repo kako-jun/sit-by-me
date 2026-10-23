@@ -1,14 +1,12 @@
 #!/usr/bin/env bash
 # E2: クリーンモック編集元の imagegen を N テイク並列生成 → 本物確認 → 測定 → ログ縮約まで1コマンド。
 # テイク数は4で固定（既定 N=4）。自動の順位づけ・上位絞り込みはしない。全テイクを kako-jun が目視で判定する。測定値は参考情報と不具合検出（崩れ・混入・偽造PNG）にのみ使う。
-# 使い方: [STYLE_REF=git:REV:PATH] oblique_e2_run.sh MAP N [ROUND(既定 e2)] [PROMPT_FILE]
+# 使い方: [REF_IMAGE=git:REV:PATH] [DRY_RUN=1] oblique_e2_run.sh MAP [N=4] [ROUND(既定 e2)] [PROMPT_FILE]  （DRY_RUN=1 は生成せずプロンプトと参考画像だけ確認）
 #  例 A案（文章のみ。参照=クリーンモック＋素材見本）:
 #       oblique_e2_run.sh TRM-02 4 e2/round2a
-#     B案（A案＋元の採用画像を様式・質感の参照のみとして添付）:
-#       STYLE_REF=git:9652459:assets/images/fields/reference/teramachi-kindergarten-interior-adopted.webp oblique_e2_run.sh TRM-02 4 e2/round2b
 # プロンプト既定: <MAP>-edit-prompt.txt（台帳ゲート行より前。見た目と許す/禁じる装飾を含む。oblique_build.py が生成）＋参照・出力の節。
 # 前提: プロンプト先頭で $imagegen を明示起動（しないと ImageMagick 偽造PNGを掴む）。生成画像は目視しない（数値のみ）。
-# 測定の基準画像: REF_IMAGE（既定は STYLE_REF と同じ）。装飾量・層の測定は基準画像があるときだけ出る。
+# 測定の基準画像: REF_IMAGE。装飾量・層の測定は基準画像があるときだけ出る。
 set -u
 MAP=${1:?MAP}; N=${2:-4}; ROUND=${3:-e2}
 ROOT=$(git rev-parse --show-toplevel); cd "$ROOT"
@@ -18,33 +16,36 @@ PROMPT=${4:-$OUT/prompt.txt}
 SW=$M/e2/swatch.png
 GI=$HOME/.codex/generated_images
 [ -f "$SW" ] || cp verification/body-layout/BDY-material-swatch-corrugated-edge.png "$SW"
+SCHED="uv run python3 -I .claude/skills/sit-field-background/tools/oblique_e2_schedule.py"
+# 依存グラフ: 親が全て確定済みでなければ起動しない（直列）。確定済みの親の正本画像を参考画像（扉・材質・家具・装飾のデザインの参考のみ）として自動で付ける
+$SCHED check "$MAP" || exit 1
 REFS=(-i "$M/$MAP-clean.png" -i "$SW")
 NREF=2
-STYLE_TXT=""
-if [ -n "${STYLE_REF:-}" ]; then
-  case "$STYLE_REF" in
-    git:*) SPEC=${STYLE_REF#git:}; uv run --with pillow python3 -I -c "
-import subprocess,sys,io
+PARENT_IDS=()
+while IFS='=' read -r PID PPATH; do
+  [ -z "$PID" ] && continue
+  case "$PPATH" in *.webp) uv run --with pillow python3 -I -c "
 from PIL import Image
-b=subprocess.check_output(['git','show',sys.argv[1]]); Image.open(io.BytesIO(b)).convert('RGB').save(sys.argv[2])" "$SPEC" "$OUT/style-ref.png"; STYLE_FILE=$OUT/style-ref.png;;
-    *) STYLE_FILE=$STYLE_REF;;
-  esac
-  REFS+=(-i "$STYLE_FILE"); NREF=3
-fi
+import sys
+Image.open(sys.argv[1]).convert('RGB').save(sys.argv[2])" "$PPATH" "$OUT/ref-$PID.png"; PPATH="$OUT/ref-$PID.png";; esac
+  REFS+=(-i "$PPATH"); NREF=$((NREF+1)); PARENT_IDS+=("$PID")
+done < <($SCHED refs "$MAP")
 if [ ! -f "$PROMPT" ]; then
   sed '/^# ---- 台帳ゲート/,$d' "$M/$MAP-edit-prompt.txt" > "$PROMPT"
   {
-  echo; echo "REFERENCE IMAGES (exactly $NREF):"
-  echo "1. First image = the EDIT TARGET: the colored-box mock of the room. Positions and sizes of everything listed under GEOMETRY follow this image exactly (canvas, camera, layer boundaries, walls, doors, windows, furniture boxes). Repaint all surfaces with rich handmade-craft detail as described above."
-  echo "2. Second image = a thin MATERIAL SWATCH strip (corrugated cardboard edge, masking tape, torn paper). Use it only for the feel of the cardboard slab edge and paper materials. Do not copy its colors literally."
-  if [ "$NREF" = 3 ]; then
-    echo "3. Third image = a STYLE AND TEXTURE reference only (the level of craft detail: materials, surface texture, props, snow, trees). Do NOT copy its composition, positions, sizes, object arrangement or layout; geometry comes only from image 1."
-  else
-    echo "No other style reference is given; the style is described in the text above."
-  fi
+  echo; echo "REFERENCE IMAGES（参考画像の役割。全部で $NREF 枚）:"
+  echo "1. 1枚目 = 編集元（EDIT TARGET）: 色付きの箱で作った間取りのクリーンモック。位置・大きさ（COORDINATES の座標・層の境界・壁・戸口・窓・家具の箱・開口）は**この画像だけが正本**。表面を工作の細かな装飾で塗り直す。"
+  echo "2. 2枚目 = 素材見本（MATERIAL SWATCH）: 段ボール断面・マスキングテープ・ちぎれた紙の細い帯。台座の前縁の質感の参考のみ。色をそのまま写さない。"
+  N3=3
+  for PID in "${PARENT_IDS[@]:-}"; do
+    [ -z "$PID" ] && continue
+    echo "$N3. $N3 枚目 = 確定済みの $PID の採用画像（参考のみ）: **扉・材質・家具・装飾のデザイン**の参考にする。構図・配置・位置・大きさはコピーしない（位置は1枚目のクリーンモックが正本）。この MAP と接続する扉・渡り廊下・共有する家具は $PID と同じデザインにする。外観の渡り廊下・扉は確定済みの内部と一致させる。"
+    N3=$((N3+1))
+  done
   echo; echo "OUTPUT: one image, 1672x941 landscape (if exactly that size is impossible, the nearest allowed size with the same aspect ratio). Do not crop, rotate, zoom or re-frame the mock."
   } >> "$PROMPT"
 fi
+if [ "${DRY_RUN:-0}" = 1 ]; then echo "DRY_RUN: 生成しない。参考画像 $NREF 枚: ${REFS[*]}"; echo "prompt: $PROMPT"; exit 0; fi
 ls "$GI" > "$OUT/.gi-before.txt"
 date -Iseconds > "$OUT/.started"
 for i in $(seq 1 "$N"); do
@@ -59,7 +60,7 @@ wait
 ls "$GI" > "$OUT/.gi-after.txt"
 date -Iseconds > "$OUT/.finished"
 REFARG=()
-[ -n "${REF_IMAGE:-${STYLE_REF:-}}" ] && REFARG=(--ref "${REF_IMAGE:-$STYLE_REF}")
+[ -n "${REF_IMAGE:-}" ] && REFARG=(--ref "$REF_IMAGE")
 uv run --with numpy --with opencv-python-headless --with pillow python3 -I \
   .claude/skills/sit-field-background/tools/oblique_e2_measure.py "$MAP" --round "$ROUND" --takes "$N" "${REFARG[@]}"
 # 生ログは base64 画像で数MBになる。先頭だけ残して置き換える（測定後。偽造ツール使用の有無は metrics.json に記録済み）

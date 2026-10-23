@@ -370,7 +370,7 @@
     "mode": "RGB",
     "unique_colors": 150805,
     "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a16759-ae3c-7572-821b-b130a164be6e/exec-75bc48b4-7a4e-435e-9297-fc523f3edb32.png",
-    "new_generated_images_in_run": 7,
+    "new_generated_images_in_run": 74,
     "log_mentions_unavailable": false,
     "log_fabrication_tool_calls": 0,
     "log_mentions_image_gen": true
@@ -748,7 +748,7 @@
     "mode": "RGB",
     "unique_colors": 157269,
     "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a16759-ae63-7ee2-bf60-40f99575e1c2/exec-9a062a4d-cf05-466c-b0c7-6643ab3f4191.png",
-    "new_generated_images_in_run": 7,
+    "new_generated_images_in_run": 74,
     "log_mentions_unavailable": false,
     "log_fabrication_tool_calls": 0,
     "log_mentions_image_gen": true
@@ -1126,7 +1126,7 @@
     "mode": "RGB",
     "unique_colors": 190626,
     "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a16759-ae34-7842-af47-76039442bccf/exec-306c0512-e903-43da-8475-92e0995b4e3e.png",
-    "new_generated_images_in_run": 7,
+    "new_generated_images_in_run": 74,
     "log_mentions_unavailable": false,
     "log_fabrication_tool_calls": 0,
     "log_mentions_image_gen": true
@@ -1504,7 +1504,7 @@
     "mode": "RGB",
     "unique_colors": 158942,
     "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a16759-ae2c-7a83-94e2-ef68904980ba/exec-fb13c14b-db4f-4c90-ac0d-b5a7ce547e3a.png",
-    "new_generated_images_in_run": 7,
+    "new_generated_images_in_run": 74,
     "log_mentions_unavailable": false,
     "log_fabrication_tool_calls": 0,
     "log_mentions_image_gen": true

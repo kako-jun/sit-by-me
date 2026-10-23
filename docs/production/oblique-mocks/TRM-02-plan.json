@@ -308,5 +308,8 @@
    "note": "南面の掃き出し窓（床まで届く引き違い・扉ではない）。枚数4は仮（#51）。位置は採用v3の窓の帯に合わせた既定（要確認）。窓から見えるのは室内の床で外の景色ではない"
   }
  ],
- "decor_pool": "teramachi-winter"
+ "decor_pool": "teramachi-winter",
+ "depends_on": [
+  "TRM-04"
+ ]
 }

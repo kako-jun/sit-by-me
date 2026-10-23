@@ -1,4 +1,18 @@
 {
+ "adoption": {
+  "canonical": "assets/images/fields/reference/teramachi-main-hall-interior-trm04-adopted.webp",
+  "canonical_sha256": "46027605e2631821ab653cab27c147b8bb5eb5e3dff002130dbb90e634efa81d",
+  "image": "docs/production/oblique-mocks/TRM-04/e2/take4.png",
+  "image_sha256": "11d406356da181527143609e059e9c82b8eb8968c0c6a0b50282ba4e694779a1",
+  "mock_clean_sha256": "aa3db6ff210b15538c9f026c53b0d00428d82a767783f8c6c18c346e34437822",
+  "plan_sha256": "5ee7ba9b302a0fed3826f1266eea72e5e748541293c346a65f5d53030feed3b7",
+  "prompt_sha256": "509a52512f6e6fdb8663ab5bcaabd78fcc27d0959da119d25366861e34746c1e",
+  "size": [
+   1672,
+   941
+  ],
+  "take": 4
+ },
  "ledger": {
   "checklist": "docs/map-contract-checklist.md",
   "era_suffix": null,
@@ -7,7 +21,7 @@
  },
  "map_id": "TRM-04",
  "plan": "docs/production/oblique-mocks/TRM-04-plan.json",
- "plan_sha256": "5ee7ba9b302a0fed3826f1266eea72e5e748541293c346a65f5d53030feed3b7",
+ "plan_sha256": "bac163b35aed3f09d887fb1ddcb1c9ef8c738d9157800f79c229647ff8c945e3",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -22,7 +36,7 @@
      1
     ]
    },
-   "input_sha": "f359483b4d1237953ca84f3735c13fbb268550f25e39129ab75c33e864f8aeb9",
+   "input_sha": "7280f663e6ed94359a4e9e7422d6f8bbacffe1b0c2544415ead21b8b2592835d",
    "outputs": {
     "TRM-04-exits.png": "2c6e7b3107a32bd0263a6280623284c086646a2baa8f73027006da6804d080a2",
     "TRM-04-mask.json": "95fab560af2e4ea7c6caabfc7772a8acc8e5b34773cfe998e44509cd871ab3c8",
@@ -32,35 +46,35 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "f359483b4d1237953ca84f3735c13fbb268550f25e39129ab75c33e864f8aeb9",
+   "input_sha": "7280f663e6ed94359a4e9e7422d6f8bbacffe1b0c2544415ead21b8b2592835d",
    "outputs": {
-    "TRM-04-clean.png": "aa3db6ff210b15538c9f026c53b0d00428d82a767783f8c6c18c346e34437822",
-    "TRM-04-review.png": "75cbd69b7abf1ad77eb9077200456f3feccd5106de19dffcd89cc8831b36c550"
+    "TRM-04-clean.png": "dac44eeea8b0d28840ee9293ece5dad252121506820d16f42549da7523e3500c",
+    "TRM-04-review.png": "fedc8cf46afc8b42a6e19804e06c201fe0fac6e33aa18c886cf1dd75a65257a5"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "f359483b4d1237953ca84f3735c13fbb268550f25e39129ab75c33e864f8aeb9",
+   "input_sha": "7280f663e6ed94359a4e9e7422d6f8bbacffe1b0c2544415ead21b8b2592835d",
    "outputs": {
-    "TRM-04-occlusion-depth.png": "019f3594f08c2d3c5fef6459eef874284a25738488f15b4c9db6548c89cc28ae",
-    "TRM-04-occlusion-edit.png": "6da11bbfab02f1187d60fc4cd711de8a573aaca3873ab075a5978f4fd32ea152",
-    "TRM-04-occlusion-overlay.png": "ca1a898e950c11d58f2599839e65740b951691d94c1c72e6ca832629e75159f6",
+    "TRM-04-occlusion-depth.png": "914dc7db3efeb84a1a7846ab9e843558ef258622714db896ec2e4bbf659cf406",
+    "TRM-04-occlusion-edit.png": "839176e1362f26bd09ca86570e265be972d9ed3b7c17afe8733c0c263aec1ffa",
+    "TRM-04-occlusion-overlay.png": "13e994605f1cdd60c6d1525be8667e40aba08bf41e8a178dffb73768a9a81414",
     "TRM-04-occlusion.json": "7a970ddb1077534654b17292a2337e1065795b8fd7292153c7154d895f60a712",
-    "TRM-04-occlusion.png": "a7d6d6cd37de8aaab05f5c5881b47b7532ef66c1ae0740b835d612962be6786c"
+    "TRM-04-occlusion.png": "71b1d07d6097665c8d9fe4431fc4e8e7caf89a5688224cdb8ba8691ac5779cd4"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "e87b4046ce689280b736ee39ca0425a2b0ada7ed38329e42abc41037f1c5509d",
+   "input_sha": "64f98a1c670aee812cf3070b0a76efe0fb70a9a2c264ec88a3f7d4bc530c40bd",
    "ledger_ready": false,
    "outputs": {
-    "TRM-04-edit-prompt.txt": "509a52512f6e6fdb8663ab5bcaabd78fcc27d0959da119d25366861e34746c1e"
+    "TRM-04-edit-prompt.txt": "cd2a0c50dc6d468ca6b9ff80d82f6e1501528f3e7742f0a570e1665ae5e62ac1"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "561bff50d0b1cde8cfbef9f733cb3864c6a199761563fad58419257c8d7498c4",
+   "input_sha": "2836d6d6e614eaa7fbbb069b3c3cf2cfe71877ac7a8a614473d0ddf649dcbc60",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -72,7 +86,7 @@
    ]
   },
   "wire": {
-   "input_sha": "f3eccb32267d6d70c0afed6b70cb0d6c3f3f2e6219ac47b9330cf4bb4fbbaddb",
+   "input_sha": "e49b9be6f925f954b1e2e1986679400da745ae6a9276a90760366ac47298623d",
    "outputs": {
     "wire-TRM-04.png": "2843ec00d90e0c6c95179064739bc6108ddab70c5f2b8f926bfe7eec985453bb"
    },
