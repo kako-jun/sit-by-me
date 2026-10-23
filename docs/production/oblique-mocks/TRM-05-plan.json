@@ -15,7 +15,11 @@
    ],
    "color": "#7a5636",
    "label": "ダイニング・台所",
-   "walkable": true
+   "walkable": true,
+   "label_at": [
+    500,
+    830
+   ]
   },
   {
    "id": "bed-n",

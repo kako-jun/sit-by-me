@@ -330,7 +330,7 @@ def wire_single(p, path, plans):
             text_box(d, (cx, cy), meta["label"], f_xs, pad=2, outline=None)
         elif tag == "floor" and meta.get("label") and meta["id"] not in seen:
             seen.add(meta["id"])
-            cx, cy = (sum(q[0] for q in polys[0][0]) / 4, sum(q[1] for q in polys[0][0]) / 4)
+            cx, cy = M.proj(*meta["label_at"]) if meta.get("label_at") else (sum(q[0] for q in polys[0][0]) / 4, sum(q[1] for q in polys[0][0]) / 4)
             d.text((cx - 60, cy - 12), meta["label"], font=f_xs, fill="#666666")
         elif tag == "wall" and meta["id"] not in seen and meta.get("kind") in ("partition", "building"):
             seen.add(meta["id"])

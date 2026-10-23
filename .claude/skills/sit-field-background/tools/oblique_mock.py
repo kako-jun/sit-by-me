@@ -358,7 +358,7 @@ def render(p, style="color", labels=False, ss=2):
                 cx, cy = center_of(polys[2][0])
                 text((cx, cy), meta["label"], f2, "#222222", "#fffbe6")
             elif tag == "floor" and meta.get("label"):
-                cx, cy = center_of(polys[0][0])
+                cx, cy = proj(*meta["label_at"]) if meta.get("label_at") else center_of(polys[0][0])
                 text((cx, cy), meta["label"], f2, "#555555", "#f4f4f4")
             elif tag == "wall" and meta.get("kind") == "partition" and meta.get("label") and meta["id"] not in getattr(render, "_seen", set()):
                 pass

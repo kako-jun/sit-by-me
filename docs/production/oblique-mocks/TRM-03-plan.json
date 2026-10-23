@@ -14,7 +14,7 @@
     1250
    ],
    "color": "#e8eef4",
-   "label": "境内の雪面",
+   "label": "",
    "walkable": true
   },
   {
@@ -27,7 +27,11 @@
    ],
    "color": "#d4d8dc",
    "label": "墓地（墓石多数）",
-   "walkable": true
+   "walkable": true,
+   "label_at": [
+    360,
+    1000
+   ]
   },
   {
    "id": "playground",
@@ -39,7 +43,11 @@
    ],
    "color": "#f0f4f8",
    "label": "園庭（幼稚園の前）",
-   "walkable": true
+   "walkable": true,
+   "label_at": [
+    1230,
+    1120
+   ]
   },
   {
    "id": "path",
@@ -51,7 +59,11 @@
    ],
    "color": "#4a4d52",
    "label": "石畳の参道",
-   "walkable": true
+   "walkable": true,
+   "label_at": [
+    800,
+    1000
+   ]
   }
  ],
  "walls": [
