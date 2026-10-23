@@ -59,7 +59,7 @@
 | TRM-13 | `assets/images/fields/legacy/TRM-13.webp` | 寺町 | retired-replacement-required |
 | TRM-06 | `assets/images/fields/legacy/TRM-06.webp` | 寺町 | retired-replacement-required |
 | TRM-03 | `assets/images/fields/legacy/TRM-03.webp` | 寺町 | retired-replacement-required |
-| TRM-05 | `assets/images/fields/legacy/TRM-05.webp` | 寺町 | retired-replacement-required |
+| TRM-05 | `assets/images/fields/legacy/TRM-05.webp` | 寺町 | retired-replacement-required。kako-jun 指示（2026-10-23）: 幼稚園時代は父と同じ寝室（寝室1つ。画像は別・未作成・接尾辞 -kids。車椅子の区分は3値）、小学生から寝室2つ（採用画像 v12。通れる／通れないの2値、体内と同じ）。時期別は同一ID画像差し替え（-kids/-fire/-burnt/-wc） |
 | TRM-14 | `assets/images/fields/legacy/TRM-14.webp` | 寺町 | retired-replacement-required |
 | KRB-01 | `assets/images/fields/legacy/KRB-01.webp` | 香林坊 | legacy |
 | KRB-04 | `assets/images/fields/legacy/KRB-04.webp` | 香林坊 | legacy |

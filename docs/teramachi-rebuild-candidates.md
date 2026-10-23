@@ -20,11 +20,11 @@
 | TRM-11 | `TRM-11-teramachi-danchi-court-rebuild-v2-candidate.png` | top→TRM-10、right→TRM-13、door→TRM-12 | 県営住宅中庭。石段は立位期のみ | recreate-required-1920x1080 |
 | TRM-13 | `TRM-13-teramachi-old-slope-foot-rebuild-v6-candidate.png` | left→TRM-11、top→TRM-14 | 石段下、車椅子不可 | recreate-required-1920x1080 |
 | TRM-06 | `TRM-06-teramachi-narrow-lane-rebuild-candidate.png` | top→TRM-15、right→TRM-16.left | 住居の裏の道。TRM-16→TRM-15→TRM-06→TRM-16のループ。他辺閉鎖。勝手口の扉TBD | recreate-required-1920x1080 |
-| TRM-03 | `TRM-03-temple-grounds-rebuild-v4-candidate.png` | bottom→TRM-07、door-main→TRM-04、door-kindergarten→TRM-01.door-west | 屋外境内。住居・遊戯室への屋外doorなし | recreate-required-1920x1080 |
-| TRM-05 | `TRM-05-temple-residence-rebuild-v3-candidate.png` | door-hall→TRM-04.door-west | 屋内庫裏。本堂の西（左）。TRM-02直結なし | recreate-required-1920x1080 |
+| TRM-03 | `TRM-03-temple-grounds-rebuild-v4-candidate.png` | bottom→TRM-07、door-main→TRM-04、door-kindergarten→TRM-01.door-west | 屋外境内。住居・遊戯室への屋外door: door-residence→TRM-05.door-outside、door-playroom→TRM-02.door-outside（2026-10-23決定 #144で旧「なし」を置換） | recreate-required-1920x1080 |
+| TRM-05 | `TRM-05-temple-residence-rebuild-v3-candidate.png` | door-hall→TRM-04.door-west（東壁側・上下の中央より下寄り）、door-outside→TRM-03.door-residence（下辺の中央より左寄りのダイニング側） | 屋内庫裏。本堂の西（左）。TRM-02直結なし | recreate-required-1920x1080 |
 | TRM-14 | `TRM-14-teramachi-slope-top-rebuild-v2-candidate.png` | bottom→TRM-13、right→SCH-01 | 段丘上。学校側車椅子坂と石段を混同しない | recreate-required-1920x1080 |
 | TRM-04 | `TRM-04-temple-main-hall-rebuild-v2-candidate.png` | door-south→TRM-03、door-west→TRM-05.door-hall、door-east→TRM-02.door-west | 中央の屋内本堂。扉前の段差なし・回転余地 | recreate-required-1920x1080 |
-| TRM-02 | `TRM-02-kindergarten-playroom-rebuild-candidate.png` | door-west→TRM-04.door-east | 本堂の東（右）の屋内遊戯室。扉位置TBD。舞台袖は画面内終端 | recreate-required-1920x1080 |
+| TRM-02 | `TRM-02-kindergarten-playroom-rebuild-candidate.png` | door-west→TRM-04.door-east（西壁側・上下の中央より下寄り）、door-outside→TRM-03.door-playroom（下辺の右端付近） | 本堂の東（右）の屋内遊戯室。扉の幅・正確な位置TBD。舞台袖は画面内終端 | recreate-required-1920x1080 |
 | TRM-12 | `TRM-12-danchi-apartment-rebuild-v2-candidate.png` | door→TRM-11 | 団地室。玄関から居間まで段差なし・回転余地 | recreate-required-1920x1080 |
 
 ## 次の採用ゲート

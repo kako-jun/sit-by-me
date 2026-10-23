@@ -20,8 +20,8 @@
 | TRM-11 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-11.webp`; mask未記録 | TRM-10/TRM-13端、TRM-12ドア、団地棟のforegroundを記録する |
 | TRM-13 | recreate-required-1920x1080 | R006,R011,R025 | 1254×1254のv6候補・maskは参照専用。新規出力は1920×1080（返せない場合は16:9の1672×941）、prompt・参照画像・mask・red-teamを新たに記録する | v6のleft→top石段・assist-only設計を参照し、16:9版を再生成する |
 | TRM-06 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-06.webp`; mask未記録 | TRM-15.top入口とTRM-16.leftへのright出口以外を禁止辺とする（#51ループ化。TRM-05への勝手口の扉はTBD） |
-| TRM-03 | recreate-required-1920x1080 | R006,R011,R024 | 旧境内画像は参照専用。新背景・mask未作成 | #60の屋外境内。TRM-07端、TRM-01.door-west通用門（境内の右＝東側）、TRM-04正面扉、池・墓地のblocked域を記録。TRM-05/TRM-02屋外doorなし。共通外観参照未通過 |
-| TRM-05 | recreate-required-1920x1080 | R006,R011,R021,R024 | 旧庫裏画像は参照専用。新背景・mask未作成 | #60/#51の西（本堂から見て左）の屋内住居。TRM-04.door-west↔door-hallのみ。内部廊下の扉位置、幅・段差・回転域、火事時遮断範囲がTBD。TRM-02直結なし |
+| TRM-03 | recreate-required-1920x1080 | R006,R011,R024 | 旧境内画像は参照専用。新背景・mask未作成 | #60の屋外境内。TRM-07端、TRM-01.door-west通用門（境内の右＝東側）、TRM-04正面扉、池・墓地のblocked域を記録。TRM-03.door-residence↔TRM-05.door-outside・door-playroom↔TRM-02.door-outside の境内側の位置を記録（2026-10-23 kako-jun決定 #144で旧「屋外doorなし」を置換）。共通外観参照未通過 |
+| TRM-05 | recreate-required-1920x1080 | R006,R011,R021,R024 | 旧庫裏画像は参照専用。新背景・mask未作成 | #60/#51の西（本堂から見て左）の屋内住居。TRM-04.door-west↔door-hall（東壁側・上下の中央より下寄り）と外への door-outside↔TRM-03.door-residence（下辺の中央より左寄りのダイニング側。2026-10-23 #144）。内部廊下の扉位置、幅・段差・回転域、火事時遮断範囲がTBD。kako-jun 指示（2026-10-23）: 幼稚園時代は父と同じ寝室（寝室1つ。画像は別・未作成・接尾辞 -kids。車椅子の区分は3値）、小学生から寝室2つ（採用画像 v12。通れる／通れないの2値、体内と同じ）。時期別は同一ID画像差し替え（-kids/-fire/-burnt/-wc）。TRM-02直結なし |
 | TRM-14 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-14.webp`; mask未記録 | TRM-13石段とSCH-01車椅子坂の端・通行クラスを記録する |
 | KRB-01 | legacy-needs-review | R005,R011 | `assets/images/fields/legacy/KRB-01.webp`; mask未記録 | KRB-07/KRB-11/KRB-12端、百貨店door（相手はKRB-02.door-street）、封鎖期のKRB-12遷移を記録する |
 | KRB-04 | legacy-needs-review | R005 | `assets/images/fields/legacy/KRB-04.webp`; mask未記録 | 3階（kako-jun 2026-10-19）。door-elevator（階選択遷移。全階から行き先を選ぶ。4階は条件つき）、売場通路のuniversal幅を記録する。KRB-04（3階・玩具売場）は2階KRB-03と無関係（決定 2026-10-19） |
@@ -55,7 +55,7 @@
 | KRB-11 | blocked | R005,R010,R011,R023,R026 | 未生成・mask未作成 | KRB-01/STN-01/UTS-01端、交差点の3出口と横断部の段差なし範囲を確定する |
 | UCH-01 | blocked | R009,R021,R022 | 未生成・mask未作成 | STN-01/UCH-02door、車椅子回転域と半自動扉のゲーム上寸法を確定する |
 | TRM-04 | recreate-required-1920x1080 | R021,R024 | 旧本堂画像は参照専用。新背景・mask未作成 | #60の中央屋内本堂。TRM-03南、TRM-05西、TRM-02東の扉位置、畳・仏具と主路、段差・幅・回転域を記録する |
-| TRM-02 | recreate-required-1920x1080 | R021,R024 | 旧遊戯室画像は参照専用。新背景・mask未作成 | #60/#51の東（右）の屋内幼稚園。TRM-04.door-east↔TRM-02.door-west（本堂側＝西から入る）の扉位置・廊下長、舞台袖・椅子・主路の分離、段差・幅・回転域を記録する。TRM-05直結なし |
+| TRM-02 | recreate-required-1920x1080 | R021,R024 | 旧遊戯室画像は参照専用。新背景・mask未作成 | #60/#51の東（右）の屋内幼稚園。TRM-04.door-east↔TRM-02.door-west（本堂側＝西から入る）の扉位置（西壁側・上下の中央より下寄り、幅TBD）・廊下長、外への door-outside↔TRM-03.door-playroom（下辺の右端付近。2026-10-23 #144）、舞台袖・椅子・主路の分離、段差・幅・回転域を記録する。TRM-05直結なし |
 | TRM-12 | recreate-required-1920x1080 | R021,R024 | 未生成・mask未作成 | 県営住宅室内の玄関段差・回転域・TRM-11doorを創作寸法で決める |
 | UTS-03 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | UTS-02/UTS-04端、東屋脇の枝なし蛇行主路の安全幅を決める |
 | UTS-04 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | UTS-03/UTS-05端、崩落石垣を避けるassist主路の幅を決める |

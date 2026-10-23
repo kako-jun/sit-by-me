@@ -2,14 +2,14 @@
  "schema": "sit-oblique-result/1",
  "map_id": "TRM-02",
  "image": {
-  "sha256": "b6a5ab4594b83904be26da9974d56778f59cd54b2cb698e10192f0c0257b34e9",
+  "sha256": "5673dc7e998d19396311fe83dd4ac43c556df9d6692e0203e56012e52f944848",
   "size": [
    1672,
    941
   ]
  },
- "input_sha256": "e56c157e395ca29e4df6bfe7c57ee0f1061d63ac4503f0e0a19322ddb073dfde",
- "register_sha256": "480f0e3429f7d9163c29230f092b39cd3ac478e8ead1bc92d9b6338385b86632",
+ "input_sha256": "c34e0e5cb6d6c75bd86e7051cfb6aa3486bf4aede56a53808ab633c29457d056",
+ "register_sha256": "e9d792496c28d90d7599fe73c54641f39af584ab7e2f878e3df2a14e4e296afc",
  "floor": [
   {
    "room": "hall",
@@ -43,7 +43,7 @@
   {
    "id": "south-wall-wooden-door",
    "room": null,
-   "reason": "南壁右の木の扉。docs/map-topology.md:289「TRM-03から住居・遊戯室への屋外doorを新設しない」。床の外（quad の南）なので床マスクには元々出ないが、blocked として記録",
+   "reason": "南壁右の木の扉。2026-10-23 の決定（#144）で幼稚園の外への出口（TRM-02.door-outside）になった。床の外（quad の南）なので床マスクには元々出ないが、blocked として記録（出口の判定は exits[door-outside]）",
    "leak_white_px": 0,
    "pass": true
   }
@@ -69,6 +69,11 @@
      "file": "docs/map-contract-checklist.md",
      "line": 58,
      "quote": "TRM-04.door-east↔TRM-02.door-west（本堂側＝西から入る）の扉位置・廊下長…を記録する。TRM-05直結なし"
+    },
+    {
+     "file": "Issue #144 コメント（kako-jun 2026-10-23）",
+     "line": 0,
+     "quote": "本堂との接続は上下中央より下寄りだ"
     }
    ],
    "position_status": "TBD",
@@ -76,37 +81,8 @@
    "note": "設計書に位置が無い（TBD）。絵から読まない。候補は candidates",
    "candidates": [
     {
-     "id": "A-nw",
-     "note": "西壁の北寄り（舞台の左側・棚の下）",
-     "polygon": [
-      [
-       390.9,
-       304.2
-      ],
-      [
-       436.1,
-       304.2
-      ],
-      [
-       432.9,
-       335.1
-      ],
-      [
-       387.3,
-       335.1
-      ]
-     ],
-     "range_px": 1488,
-     "white_px": 1291,
-     "floor_edge_px": 57,
-     "touches_floor_edge": true,
-     "edge_adjacent_in_plan": true,
-     "max_depth_into_floor_px": 17.5,
-     "pass": true
-    },
-    {
-     "id": "B-mid",
-     "note": "西壁の中ほど",
+     "id": "D-lower-half",
+     "note": "西壁の下半分すべて（v=0.5〜1.0）。『下寄り』の最も広い読み",
      "polygon": [
       [
        373.1,
@@ -117,25 +93,54 @@
        455.5
       ],
       [
-       415.3,
-       507.3
+       402.3,
+       635.0
       ],
       [
-       367.0,
-       507.3
+       352.0,
+       635.0
       ]
      ],
-     "range_px": 2548,
-     "white_px": 2341,
-     "floor_edge_px": 62,
+     "range_px": 9000,
+     "white_px": 7354,
+     "floor_edge_px": 232,
      "touches_floor_edge": true,
      "edge_adjacent_in_plan": true,
-     "max_depth_into_floor_px": 47.7,
+     "max_depth_into_floor_px": 48.2,
+     "pass": true
+    },
+    {
+     "id": "E-mid-low",
+     "note": "西壁の中央よりやや下（v=0.6〜0.8）。狭い読み",
+     "polygon": [
+      [
+       369.1,
+       489.8
+      ],
+      [
+       417.1,
+       489.8
+      ],
+      [
+       409.9,
+       560.7
+      ],
+      [
+       360.7,
+       560.7
+      ]
+     ],
+     "range_px": 3564,
+     "white_px": 3215,
+     "floor_edge_px": 81,
+     "touches_floor_edge": true,
+     "edge_adjacent_in_plan": true,
+     "max_depth_into_floor_px": 48.1,
      "pass": true
     },
     {
      "id": "C-sw",
-     "note": "西壁の南寄り（E1 が絵から読んだ開口の付近。ただし絵は根拠にしない）",
+     "note": "西壁の南寄り（v=0.78〜0.98）。前担当の C-sw と同じ。絵は根拠にしない",
      "polygon": [
       [
        361.6,
@@ -163,6 +168,53 @@
      "pass": true
     }
    ]
+  },
+  {
+   "id": "door-outside",
+   "room": "hall",
+   "edge": "south",
+   "partner": "TRM-03.door-playroom",
+   "design_source": [
+    {
+     "file": "Issue #144 コメント（kako-jun 2026-10-23）",
+     "line": 0,
+     "quote": "幼稚園の出口は下辺の右端付近だ"
+    },
+    {
+     "file": "docs/map-topology.md",
+     "line": 141,
+     "quote": "TRM-03.door-playroom | TRM-02.door-outside | door | … 幼稚園側は下辺（南壁）の右端付近（E1の絵の南壁右の木の扉）"
+    }
+   ],
+   "position_status": "fixed",
+   "check": {
+    "polygon": [
+     [
+      1192.7,
+      604.9
+     ],
+     [
+      1282.4,
+      604.9
+     ],
+     [
+      1287.6,
+      635.0
+     ],
+     [
+      1197.0,
+      635.0
+     ]
+    ],
+    "range_px": 2821,
+    "white_px": 0,
+    "floor_edge_px": 0,
+    "touches_floor_edge": false,
+    "edge_adjacent_in_plan": true,
+    "max_depth_into_floor_px": 0.0,
+    "pass": false
+   },
+   "candidates": []
   }
  ],
  "npcs": [
@@ -240,7 +292,7 @@
   }
  ],
  "verdict": {
-  "all_pass": true
+  "all_pass": false
  },
  "outputs": {
   "traversal_edit_sha256": "695cfbe2a4841cc4feb87dc4a95b449e7c86ee966a9bc07480b9e9e21781e950",

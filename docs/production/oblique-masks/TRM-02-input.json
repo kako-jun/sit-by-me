@@ -4,58 +4,362 @@
  "slug": "teramachi-kindergarten-hall",
  "image": {
   "source": "採用画像 TRM-02 v3（git 9652459 の teramachi-kindergarten-hall。作業ツリーには無く、履歴から取り出して --image に渡す）",
-  "expected_size": [1672, 941]
+  "expected_size": [
+   1672,
+   941
+  ]
  },
  "rooms": [
   {
    "id": "hall",
-   "quad": [[392, 295], [1292, 295], [1358, 635], [352, 635]],
+   "quad": [
+    [
+     392,
+     295
+    ],
+    [
+     1292,
+     295
+    ],
+    [
+     1358,
+     635
+    ],
+    [
+     352,
+     635
+    ]
+   ],
    "quad_note": "床の4点。左上・右上・右下・左下（壁の足元の線）",
    "plan_width": 1600,
-   "plan_aspect": {"w_over_h": 1.85, "source": "circle:round-table", "note": "E1 で丸テーブル天板から決めた値。台帳・設計書に遊戯室の寸法は無い。よって丸テーブルの真円度は循環検証"},
+   "plan_aspect": {
+    "w_over_h": 1.85,
+    "source": "circle:round-table",
+    "note": "E1 で丸テーブル天板から決めた値。台帳・設計書に遊戯室の寸法は無い。よって丸テーブルの真円度は循環検証"
+   },
    "circles": [
-    {"id": "round-table", "note": "丸テーブルの天板の縁（脚・厚みの帯を除く）を原寸6倍の切り抜きから人が拾った14点",
-     "outline": [[1216.7, 518.7], [1250.0, 523.3], [1268.3, 532.5], [1280.8, 553.3], [1281.7, 565.0], [1273.3, 583.3], [1260.0, 592.5], [1230.0, 596.7], [1203.3, 591.7], [1183.3, 580.0], [1171.7, 566.7], [1168.7, 553.3], [1173.3, 540.0], [1185.0, 527.5], [1200.0, 520.8]]}
+    {
+     "id": "round-table",
+     "note": "丸テーブルの天板の縁（脚・厚みの帯を除く）を原寸6倍の切り抜きから人が拾った14点",
+     "outline": [
+      [
+       1216.7,
+       518.7
+      ],
+      [
+       1250.0,
+       523.3
+      ],
+      [
+       1268.3,
+       532.5
+      ],
+      [
+       1280.8,
+       553.3
+      ],
+      [
+       1281.7,
+       565.0
+      ],
+      [
+       1273.3,
+       583.3
+      ],
+      [
+       1260.0,
+       592.5
+      ],
+      [
+       1230.0,
+       596.7
+      ],
+      [
+       1203.3,
+       591.7
+      ],
+      [
+       1183.3,
+       580.0
+      ],
+      [
+       1171.7,
+       566.7
+      ],
+      [
+       1168.7,
+       553.3
+      ],
+      [
+       1173.3,
+       540.0
+      ],
+      [
+       1185.0,
+       527.5
+      ],
+      [
+       1200.0,
+       520.8
+      ]
+     ]
+    }
    ],
    "lines": [
-    {"id": "stage-front-edge", "kind": "horizontal", "note": "舞台前縁の明るい縁。x=640..1000（30px刻み）の各列で、y=335..370 の平滑化した輝度の最大の行を機械的に拾った点",
-     "points": [[640, 341], [670, 341], [700, 341], [730, 341], [760, 341], [790, 341], [820, 341], [850, 341], [880, 341], [910, 341], [940, 341], [970, 341], [1000, 342]]}
+    {
+     "id": "stage-front-edge",
+     "kind": "horizontal",
+     "note": "舞台前縁の明るい縁。x=640..1000（30px刻み）の各列で、y=335..370 の平滑化した輝度の最大の行を機械的に拾った点",
+     "points": [
+      [
+       640,
+       341
+      ],
+      [
+       670,
+       341
+      ],
+      [
+       700,
+       341
+      ],
+      [
+       730,
+       341
+      ],
+      [
+       760,
+       341
+      ],
+      [
+       790,
+       341
+      ],
+      [
+       820,
+       341
+      ],
+      [
+       850,
+       341
+      ],
+      [
+       880,
+       341
+      ],
+      [
+       910,
+       341
+      ],
+      [
+       940,
+       341
+      ],
+      [
+       970,
+       341
+      ],
+      [
+       1000,
+       342
+      ]
+     ]
+    }
    ],
    "floor_lines_auto": true
   }
  ],
  "floor": {
-  "thr": 5.0, "reg": 2.0, "core_erode": 25, "min_component": 1500, "hole_fill_max": 300,
-  "furniture_close": 15, "furniture_dilate": 7,
-  "core_hsv": {"h": [3, 20], "s_min": 90, "v": [30, 125]}
+  "thr": 5.0,
+  "reg": 2.0,
+  "core_erode": 25,
+  "min_component": 1500,
+  "hole_fill_max": 300,
+  "furniture_close": 15,
+  "furniture_dilate": 7,
+  "core_hsv": {
+   "h": [
+    3,
+    20
+   ],
+   "s_min": 90,
+   "v": [
+    30,
+    125
+   ]
+  }
  },
  "blocked": [
-  {"id": "stage", "room": "hall", "polygon": [[606, 283], [1056, 283], [1056, 360], [606, 360]],
-   "reason": "舞台は登れない（kako-jun 決定 #144）。手書き矩形"},
-  {"id": "south-wall-wooden-door", "polygon": [[1198, 658], [1288, 658], [1288, 748], [1198, 748]],
-   "reason": "南壁右の木の扉。docs/map-topology.md:289「TRM-03から住居・遊戯室への屋外doorを新設しない」。床の外（quad の南）なので床マスクには元々出ないが、blocked として記録"}
+  {
+   "id": "stage",
+   "room": "hall",
+   "polygon": [
+    [
+     606,
+     283
+    ],
+    [
+     1056,
+     283
+    ],
+    [
+     1056,
+     360
+    ],
+    [
+     606,
+     360
+    ]
+   ],
+   "reason": "舞台は登れない（kako-jun 決定 #144）。手書き矩形"
+  },
+  {
+   "id": "south-wall-wooden-door",
+   "polygon": [
+    [
+     1198,
+     658
+    ],
+    [
+     1288,
+     658
+    ],
+    [
+     1288,
+     748
+    ],
+    [
+     1198,
+     748
+    ]
+   ],
+   "reason": "南壁右の木の扉。2026-10-23 の決定（#144）で幼稚園の外への出口（TRM-02.door-outside）になった。床の外（quad の南）なので床マスクには元々出ないが、blocked として記録（出口の判定は exits[door-outside]）"
+  }
  ],
  "assist": [],
  "assist_note": "室内は基本すべて white。assist は通学路など最小限。車椅子になる前にしか取れない宝箱のために、ここに多角形（画像座標）を足せば橙(#FF9D00)になる。既定は0画素",
  "exits": [
   {
-   "id": "door-west", "room": "hall", "edge": "west", "partner": "TRM-04.door-east",
+   "id": "door-west",
+   "room": "hall",
+   "edge": "west",
+   "partner": "TRM-04.door-east",
    "design_source": [
-    {"file": "docs/map-specifications.md", "line": 47, "quote": "door-west→TRM-04.door-east（本堂側＝西から入る）。扉位置・廊下長はTBD。舞台袖は画面内終端。TRM-05直結なし"},
-    {"file": "docs/map-topology.md", "line": 141, "quote": "TRM-04.door-east | TRM-02.door-west | door | 本堂から東（境内から北を見て右）の幼稚園への屋内廊下。TRM-02側は本堂側（西）から入る… 扉の位置・廊下長はTBD"},
-    {"file": "docs/map-contract-checklist.md", "line": 58, "quote": "TRM-04.door-east↔TRM-02.door-west（本堂側＝西から入る）の扉位置・廊下長…を記録する。TRM-05直結なし"}
+    {
+     "file": "docs/map-specifications.md",
+     "line": 47,
+     "quote": "door-west→TRM-04.door-east（本堂側＝西から入る）。扉位置・廊下長はTBD。舞台袖は画面内終端。TRM-05直結なし"
+    },
+    {
+     "file": "docs/map-topology.md",
+     "line": 141,
+     "quote": "TRM-04.door-east | TRM-02.door-west | door | 本堂から東（境内から北を見て右）の幼稚園への屋内廊下。TRM-02側は本堂側（西）から入る… 扉の位置・廊下長はTBD"
+    },
+    {
+     "file": "docs/map-contract-checklist.md",
+     "line": 58,
+     "quote": "TRM-04.door-east↔TRM-02.door-west（本堂側＝西から入る）の扉位置・廊下長…を記録する。TRM-05直結なし"
+    },
+    {
+     "file": "Issue #144 コメント（kako-jun 2026-10-23）",
+     "line": 0,
+     "quote": "本堂との接続は上下中央より下寄りだ"
+    }
    ],
-   "position": {"status": "TBD"},
+   "position": {
+    "status": "TBD",
+    "note": "kako-jun 決定（2026-10-23 #144）: 西壁・上下の中央より下寄り（平面 v>0.5）。幅・正確な位置は未指定で確認待ち。候補は複数案"
+   },
    "candidates": [
-    {"id": "A-nw", "note": "西壁の北寄り（舞台の左側・棚の下）", "plan_box": [0.0, 0.05, 0.03, 0.13]},
-    {"id": "B-mid", "note": "西壁の中ほど", "plan_box": [0.0, 0.05, 0.50, 0.65]},
-    {"id": "C-sw", "note": "西壁の南寄り（E1 が絵から読んだ開口の付近。ただし絵は根拠にしない）", "plan_box": [0.0, 0.05, 0.78, 0.98]}
-   ]
+    {
+     "id": "D-lower-half",
+     "note": "西壁の下半分すべて（v=0.5〜1.0）。『下寄り』の最も広い読み",
+     "plan_box": [
+      0.0,
+      0.05,
+      0.5,
+      1.0
+     ]
+    },
+    {
+     "id": "E-mid-low",
+     "note": "西壁の中央よりやや下（v=0.6〜0.8）。狭い読み",
+     "plan_box": [
+      0.0,
+      0.05,
+      0.6,
+      0.8
+     ]
+    },
+    {
+     "id": "C-sw",
+     "note": "西壁の南寄り（v=0.78〜0.98）。前担当の C-sw と同じ。絵は根拠にしない",
+     "plan_box": [
+      0.0,
+      0.05,
+      0.78,
+      0.98
+     ]
+    }
+   ],
+   "candidates_note": "A-nw（北寄り v<0.5）は決定で却下、B-mid（v=0.50〜0.65）は中ほどなので不適として捨てた"
+  },
+  {
+   "id": "door-outside",
+   "room": "hall",
+   "edge": "south",
+   "partner": "TRM-03.door-playroom",
+   "design_source": [
+    {
+     "file": "Issue #144 コメント（kako-jun 2026-10-23）",
+     "line": 0,
+     "quote": "幼稚園の出口は下辺の右端付近だ"
+    },
+    {
+     "file": "docs/map-topology.md",
+     "line": 141,
+     "quote": "TRM-03.door-playroom | TRM-02.door-outside | door | … 幼稚園側は下辺（南壁）の右端付近（E1の絵の南壁右の木の扉）"
+    }
+   ],
+   "position": {
+    "status": "fixed",
+    "plan_box": [
+     0.84,
+     0.93,
+     0.92,
+     1.0
+    ],
+    "note": "下辺（南壁）の右端付近。E1 の絵の木の扉（x1200〜1285・y660〜745）の足元の床の縁。u=(x-352)/1006 で 0.843〜0.928（南縁は水平）。位置は kako-jun の『右端付近』に従う"
+   }
   }
  ],
  "npcs": [
-  {"id": "stage-front", "room": "hall", "uv": [0.50, 0.27], "note": "舞台の前"},
-  {"id": "shelf-front-left", "room": "hall", "uv": [0.17, 0.22], "note": "棚（西北）の前"},
-  {"id": "table-side", "room": "hall", "uv": [0.80, 0.76], "note": "丸テーブルの横"}
+  {
+   "id": "stage-front",
+   "room": "hall",
+   "uv": [
+    0.5,
+    0.27
+   ],
+   "note": "舞台の前"
+  },
+  {
+   "id": "shelf-front-left",
+   "room": "hall",
+   "uv": [
+    0.17,
+    0.22
+   ],
+   "note": "棚（西北）の前"
+  },
+  {
+   "id": "table-side",
+   "room": "hall",
+   "uv": [
+    0.8,
+    0.76
+   ],
+   "note": "丸テーブルの横"
+  }
  ]
 }

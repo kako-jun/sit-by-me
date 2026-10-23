@@ -13,6 +13,10 @@
   * 床は Lab のマハラノビス距離（床の芯の色から）。RGB は使わない。
   * 家具は「床色でない連結成分」を閉じて穴埋めし膨張して black。凸包は使わない。
   * blocked は入力JSONの多角形で手動追加（舞台など）。assist は入力JSONの assist 多角形だけ。
+  * bridge: 床色でないが歩ける所（石の敷居など）を white にする。carve: 設計優先で、絵では塞がれている所に
+    通路を開ける（blocked を上書き）。どちらも絵と食い違う所として result.json の
+    picture_fix_candidates に面積・位置を出す。優先順位は床の色 < blocked（引く）< bridge（足す。blocked は越えない）
+    < carve（足す。blocked を上書き）< assist（white の中だけ橙）。
   * 出口は設計書が正本。位置が設計書に無い（status=TBD）出口は検査せず TBD と出す。絵から読まない。
     位置が決まったものは範囲が床マスクの縁（white と非white の境）に接することを検査する。
   * NPC は平面座標(u,v)→絵へ射影→床マスク上で縁から12px以上内側の最寄り点へ寄せ、寄せ距離を返す。
@@ -28,7 +32,7 @@ import numpy as np
 from scipy import ndimage as ndi
 from scipy.spatial import cKDTree
 
-from oblique_common import (SCHEMA_RESULT, apply_h, jdump, load_input, poly_mask, read_image,
+from oblique_common import (SCHEMA_RESULT, apply_h, geom_polygon, jdump, load_input, poly_mask, read_image,
                             room_homography, sha256_file, table, uv_to_img)
 
 ORANGE = (255, 157, 0)  # RGB
@@ -170,6 +174,43 @@ def main():
     for m in blk_by_room.values():
         manual_blk |= m
     white &= ~manual_blk
+    # bridge / carve（設計優先。絵と食い違う所を picture_fix_candidates に出す）
+    fixes, bridges_out, carves_out = [], [], []
+    def _bbox_cent(m):
+        ys, xs = np.nonzero(m)
+        if not len(xs):
+            return None, None
+        return [int(xs.min()), int(ys.min()), int(xs.max()), int(ys.max())], [int(xs.mean()), int(ys.mean())]
+    quad_any = np.zeros((H_, W_), bool)
+    for r_ in rooms.values():
+        quad_any |= poly_mask(im.shape, r_["quad"])
+    br_all = np.zeros((H_, W_), bool); ca_all = np.zeros((H_, W_), bool)
+    for b in d.get("bridges", []):
+        pm = poly_mask(im.shape, geom_polygon(rooms, b))
+        in_blk = pm & manual_blk
+        add = pm & ~manual_blk & ~white
+        white |= add; br_all |= add
+        bb, ce = _bbox_cent(add)
+        bridges_out.append({"id": b["id"], "room": b.get("room"), "reason": b.get("reason"), "polygon_px": int(pm.sum()),
+                            "added_white_px": int(add.sum()), "skipped_in_blocked_px": int(in_blk.sum())})
+        fixes.append({"kind": "bridge", "id": b["id"], "room": b.get("room"), "reason": b.get("reason"),
+                      "picture": "床色ではないが歩ける所（絵では床として描かれていない）",
+                      "area_px": int(add.sum()), "image_bbox": bb, "centroid": ce,
+                      "overlaps_blocked_ids": [], "skipped_in_blocked_px": int(in_blk.sum())})
+    for c in d.get("carves", []):
+        pm = poly_mask(im.shape, geom_polygon(rooms, c))
+        ov = [bb_["id"] for bb_ in d.get("blocked", []) if (poly_mask(im.shape, bb_["polygon"]) & pm).any()]
+        was_blk = pm & manual_blk
+        add = pm & ~white
+        white |= add; ca_all |= add
+        manual_blk &= ~pm
+        bb, ce = _bbox_cent(add)
+        carves_out.append({"id": c["id"], "room": c.get("room"), "reason": c.get("reason"), "polygon_px": int(pm.sum()),
+                           "added_white_px": int(add.sum()), "was_blocked_px": int(was_blk.sum())})
+        fixes.append({"kind": "carve", "id": c["id"], "room": c.get("room"), "reason": c.get("reason"),
+                      "picture": "絵では家具・blocked・床色でない物で塞がれている所に通路を開けた",
+                      "area_px": int(add.sum()), "image_bbox": bb, "centroid": ce,
+                      "overlaps_blocked_ids": ov, "was_blocked_px": int(was_blk.sum())})
     orange = asi & white           # assist は指定多角形の中の床だけ。指定が無ければ0画素
     white_only = white & ~orange
     lb, n_cc = ndi.label(white | orange)
@@ -188,17 +229,26 @@ def main():
     res = {"schema": SCHEMA_RESULT, "map_id": mid, "image": {"sha256": sha256_file(a.image), "size": [W_, H_]},
            "input_sha256": sha256_file(a.input), "register_sha256": sha256_file(os.path.join(a.reg, f"{mid}-oblique-register.json")),
            "floor": infos, "counts_px": {"white": int(white_only.sum()), "assist_orange": int(orange.sum()),
-           "blocked_manual": int(manual_blk.sum()), "white_components": int(n_cc)}}
+           "blocked_manual": int(manual_blk.sum()), "bridge_added_white": sum(b["added_white_px"] for b in bridges_out),
+           "carve_added_white": sum(c["added_white_px"] for c in carves_out), "white_components": int(n_cc)}}
     chk.append(("床 white", f"{int(white_only.sum())}px / 連結{n_cc}", "PASS" if n_cc == 1 else "FAIL"))
     chk.append(("床 md>15 の白", f"{sum(i['md_gt15_white_px'] for i in infos)}px", "PASS" if all(i['md_gt15_white_px'] == 0 for i in infos) else "FAIL"))
     chk.append(("assist(橙)", f"{int(orange.sum())}px", "既定0" if not orange.any() else "指定領域のみ"))
     mb = []
     for b in d.get("blocked", []):
         m = poly_mask(im.shape, b["polygon"])
-        leak = int((m & (white | orange)).sum())
+        carved = np.zeros((H_, W_), bool)
+        for c_ in d.get("carves", []):
+            carved |= poly_mask(im.shape, geom_polygon(rooms, c_))
+        leak = int((m & ~carved & (white | orange)).sum())
         mb.append({"id": b["id"], "room": b.get("room"), "reason": b.get("reason"), "leak_white_px": leak, "pass": leak == 0})
         chk.append((f"blocked {b['id']}", f"white漏れ{leak}px", "PASS" if leak == 0 else "FAIL"))
     res["blocked"] = mb
+    res["bridges"] = bridges_out
+    res["carves"] = carves_out
+    res["picture_fix_candidates"] = fixes
+    for f_ in fixes:
+        chk.append((f"{f_['kind']} {f_['id']}", f"+{f_['area_px']}px 絵と食い違い", "指定領域のみ"))
     # 出口
     ex_out = []
     for e in d.get("exits", []):
@@ -252,7 +302,7 @@ def main():
     anyquad = np.zeros((H_, W_), bool)
     for r in rooms.values():
         anyquad |= poly_mask(im.shape, r["quad"])
-    tint(white_only, (0, 255, 0)); tint(orange, (0, 157, 255), 0.6)
+    tint(white_only, (0, 255, 0)); tint(br_all & white_only, (255, 200, 0), 0.6); tint(ca_all & white_only, (0, 230, 255), 0.6); tint(orange, (0, 157, 255), 0.6)
     tint(anyquad & ~(white | orange) & ~manual_blk, (0, 0, 255), 0.4); tint(manual_blk & anyquad, (255, 0, 0), 0.45)
     o = o.astype(np.uint8)
     for rid, room in rooms.items():
@@ -261,12 +311,19 @@ def main():
         for j in range(7):
             cv2.line(o, tuple(int(x) for x in uv_to_img(room, 0, j / 6)), tuple(int(x) for x in uv_to_img(room, 1, j / 6)), (0, 255, 255), 1)
         cv2.polylines(o, [np.int32(room["quad"])], True, (255, 255, 255), 2)
+    lab_n = {}
     for e in ex_out:
         for c in e["candidates"]:
-            cv2.polylines(o, [np.int32(np.round(c["polygon"]))], True, (255, 255, 0), 2)
-            cv2.putText(o, c["id"], tuple(int(v) for v in np.array(c["polygon"])[0] + [8, -6]), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 1)
+            pg = np.array(c["polygon"])
+            cv2.polylines(o, [np.int32(np.round(pg))], True, (255, 255, 0), 2)
+            # ラベルは同じ出口の候補どうしが重ならないよう、候補の番号で縦にずらし、矩形の下端の外に置く
+            k = lab_n.get(e["id"], 0); lab_n[e["id"]] = k + 1
+            tx = int(pg[:, 0].min()) + 2; ty = int(pg[:, 1].max()) + 14 + 13 * k
+            cv2.putText(o, c["id"], (tx, ty), cv2.FONT_HERSHEY_SIMPLEX, 0.42, (255, 255, 0), 1)
         if e["check"]:
             cv2.polylines(o, [np.int32(np.round(e["check"]["polygon"]))], True, (255, 0, 255), 3)
+            pg = np.array(e["check"]["polygon"])
+            cv2.putText(o, e["id"], (int(pg[:, 0].min()) + 2, int(pg[:, 1].min()) - 6), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 0, 255), 1)
     for n_ in npc_out:
         cv2.circle(o, tuple(n_["snapped_img"]), 9, (255, 0, 255), -1)
         cv2.circle(o, tuple(int(v) for v in n_["img_projected"]), 6, (0, 255, 255), 2)

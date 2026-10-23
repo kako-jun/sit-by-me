@@ -34,12 +34,18 @@ def circle_check(room, c, H, Hi, pw, ph):
     P = apply_h(H, c["outline"])
     poly = P.astype(np.float32).reshape(-1, 1, 2)
     bw = float(np.ptp(P[:, 0])); bh = float(np.ptp(P[:, 1]))
-    # 輪郭の面積モーメント（多角形を平面図の画素に塗って二次モーメント）
-    cnv = np.zeros((ph, pw), np.uint8)
-    cv2.fillPoly(cnv, [np.int32(np.round(P))], 1)
+    # 輪郭の面積モーメント（多角形をその外接矩形の局所キャンバスに塗って二次モーメント。
+    # 平面図の外へ外挿した円でも空にならない）。点・画素が少ないと不安定なので None（WARN）にする
+    ox, oy = P.min(axis=0)
+    loc = np.int32(np.round(P - [ox, oy]))
+    cnv = np.zeros((int(loc[:, 1].max()) + 2, int(loc[:, 0].max()) + 2), np.uint8)
+    cv2.fillPoly(cnv, [loc], 1)
     ys, xs = np.nonzero(cnv)
-    ev = np.linalg.eigvalsh(np.cov(np.stack([xs, ys])))
-    mom = float(np.sqrt(ev[1] / ev[0]))
+    mom = None
+    if len(xs) >= 30 and len(c["outline"]) >= 6:
+        ev = np.linalg.eigvalsh(np.cov(np.stack([xs, ys])))
+        if ev[0] > 0:
+            mom = float(np.sqrt(ev[1] / ev[0]))
     bbox = max(bw, bh) / min(bw, bh)
     # 真円になる縦横比: v 方向を s 倍すると真円 → s = bw/bh（外接矩形）。plan_h を s 倍 = aspect を 1/s 倍
     a0 = float(room["plan_aspect"]["w_over_h"])
@@ -48,7 +54,8 @@ def circle_check(room, c, H, Hi, pw, ph):
     circ = src == f"circle:{c['id']}"
     return {
         "id": c["id"], "plan_bbox_wh": [round(bw, 1), round(bh, 1)],
-        "err_pct_bbox": round((bbox - 1) * 100, 2), "err_pct_moments": round((mom - 1) * 100, 2),
+        "err_pct_bbox": round((bbox - 1) * 100, 2), "err_pct_moments": None if mom is None else round((mom - 1) * 100, 2),
+        "warn": None if mom is not None else "モーメント法は点・画素が少なく判定から除外（bbox の真円度のみで見る）",
         "implied_aspect_w_over_h": round(implied, 3),
         "independence": "circular" if circ else "independent",
         "pass": bool(abs(bbox - 1) * 100 <= CIRCLE_TOL_PCT) if not circ else None,
@@ -132,7 +139,7 @@ def main():
             "aspect_verified_independently": indep,
         })
         for c in circles:
-            rows.append((room["id"], f"円 {c['id']}", f"{c['err_pct_bbox']:+.2f}%(矩形)/{c['err_pct_moments']:+.1f}%(モーメント)",
+            rows.append((room["id"], f"円 {c['id']}", (f"{c['err_pct_bbox']:+.2f}%(矩形)/" + ("WARN:モーメント除外" if c["err_pct_moments"] is None else f"{c['err_pct_moments']:+.1f}%(モーメント)")),
                          c["independence"], "-" if c["pass"] is None else ("PASS" if c["pass"] else "FAIL")))
         for l in lines:
             rows.append((room["id"], f"線 {l['id']}", f"{l['plan_dev_deg']:+.2f}deg 残差{l['resid_px']}px", l["independence"],
