@@ -77,25 +77,34 @@ class Ledger:
         return self.row("エリア", "エリアID", m["エリアID"]) if m else None
 
     def free_texts(self, map_id, plan=None):
-        """特徴(自由記述)。MAP → 建物 → 建物部位 → 要素 → 端の順。"""
+        """特徴(自由記述)。MAP → 建物 → 建物部位 → 建物窓列 → 要素 → 窓 → 端 → 採用要素の順。（決定の自由記述は DECISIONS 節の行末に入る）"""
         out = []
         m = self.map_row(map_id)
         if m and m[L.FREE]:
             out.append((f"MAP {m['MAP_ID']}", m[L.FREE]))
-        for b, parts, _ in self.buildings(map_id):
+        for b, parts, wins in self.buildings(map_id):
             if b[L.FREE]:
                 out.append((f"建物 {b['建物ID']}", b[L.FREE]))
             for p in parts:
                 if p[L.FREE]:
                     out.append((f"部位 {p['部位ID']}", p[L.FREE]))
+            for w in wins:
+                if w[L.FREE]:
+                    out.append((f"建物窓列 {w['窓列ID']}", w[L.FREE]))
         base = base_of(map_id)
         era = map_id[len(base) + 1:] if map_id != base else ""
         for r in self.T["要素"]:
             if r["MAP_ID"] == base and r["適用時期"] in ("", era) and r[L.FREE]:
                 out.append((f"要素 {r['要素ID']}", r[L.FREE]))
+        for r in self.T["窓"]:
+            if r["MAP_ID"] == base and r["適用時期"] in ("", era) and r[L.FREE]:
+                out.append((f"窓 {r['窓ID']}", r[L.FREE]))
         for r in self.T["端"]:
             if r["MAP_ID"] == base and r["適用時期"] in ("", era) and r[L.FREE]:
                 out.append((f"端 {r['端ID']}", r[L.FREE]))
+        for a in self.inherits(map_id):
+            if a[L.FREE]:
+                out.append((f"採用要素 {a['採用要素ID']}", a[L.FREE]))
         return out
 
 
@@ -137,7 +146,7 @@ def sections(map_id, depends=None):
             extra.append("必須語: " + d["必須語"].replace(";", "・"))
         if d["禁止語"]:
             extra.append("禁止語: " + d["禁止語"].replace(";", "・"))
-        L_.append(f"- [{d['決定ID']}] {d['決定の要点']}" + (f"（{' / '.join(extra)}）" if extra else ""))
+        L_.append(f"- [{d['決定ID']}] {d['決定の要点']}" + (f"（{' / '.join(extra)}）" if extra else "") + (f" 特徴: {d[L.FREE]}" if d[L.FREE] else ""))
     inh = led.inherits(map_id)
     L_ += ["", "INHERITED ELEMENTS（継承する要素: 採用画像の良い点。参考画像とこの文の両方で伝える。漏らさず再現する）:"]
     L_ += [f"- [{a['採用要素ID']}] {a['要素']}: {a['内容']}（確認語: {a['確認語']}）" for a in inh] or ["- なし"]

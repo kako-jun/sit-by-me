@@ -3,8 +3,10 @@
 root は環境変数 LEDGER_ROOT で差し替える（verify_index_reachable.rb・ledger_index.py・ledger_yaml.rb・ledger_io.py 共通の方針）。
 実行: uv run python3 -m unittest tests.test_ledger  （または discover -s tests）
 """
+import json
 import os
 from pathlib import Path
+import shlex
 import shutil
 import subprocess
 import sys
@@ -250,6 +252,156 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
         rows[0]["パス"] = "nowhere/plan.json"
         p.write_text(ledger_io.dumps("生成物", rows), encoding="utf-8")
         self.assertIn("どの配置規則", self.verify().stderr)
+
+
+class PromptReflectionTests(unittest.TestCase):
+    """verify_prompt_reflects_ledger.rb が、過去に漏れた事例（畳・化石の石・-fire の勝手口・火事版の上半分・渡り廊下の窓列）や
+    自由記述・継承要素の漏れを、壊した fixture で実際に検出するか。プロンプトは fixture 内のツールで導出する（画像生成はしない）。"""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.tmp = tempfile.TemporaryDirectory()
+        cls.base = Path(cls.tmp.name)
+        for name in ("scripts", ".claude/skills/sit-field-background/tools"):
+            shutil.copytree(ROOT / name, cls.base / name, ignore=shutil.ignore_patterns("__pycache__"))
+        for name in ("docs/ledger", "docs/topology"):
+            shutil.copytree(ROOT / name, cls.base / name, ignore=shutil.ignore_patterns("handoff"))
+        oblique = cls.base / "docs/production/oblique-mocks"
+        oblique.mkdir(parents=True)
+        for f in (ROOT / "docs/production/oblique-mocks").glob("*.json"):
+            shutil.copy(f, oblique / f.name)
+        for name in ("pyproject.toml", "uv.lock"):
+            shutil.copy(ROOT / name, cls.base / name)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def setUp(self):
+        self.scratch = tempfile.TemporaryDirectory()
+        self.addCleanup(self.scratch.cleanup)
+        self.work = Path(self.scratch.name) / "r"
+        shutil.copytree(self.base, self.work)
+
+    def rows(self, table):
+        return ledger_io.parse(table, (self.work / f"docs/ledger/{table}.yaml").read_text(encoding="utf-8"))
+
+    def save(self, table, rows):
+        (self.work / f"docs/ledger/{table}.yaml").write_text(ledger_io.dumps(table, rows), encoding="utf-8")
+
+    def edit_row(self, table, key, val, **changes):
+        rows = self.rows(table)
+        hit = [r for r in rows if r[key] == val]
+        self.assertTrue(hit, f"{table}.{key}={val} が無い")
+        hit[0].update(changes)
+        self.save(table, rows)
+
+    def delete_rows(self, table, pred):
+        rows = self.rows(table)
+        kept = [r for r in rows if not pred(r)]
+        self.assertLess(len(kept), len(rows), "消す行が無かった")
+        self.save(table, kept)
+
+    def probe_cmd(self):
+        probe = shlex.quote(str(self.work / ".claude/skills/sit-field-background/tools/oblique_prompt_probe.py"))
+        try:  # 斜めツールは numpy / opencv / pillow が要る。無い環境（素の uv run）では uv に足させる
+            import cv2, numpy, PIL  # noqa: F401, E401
+            return f"{shlex.quote(sys.executable)} {probe}"
+        except ImportError:
+            return f"uv run --project {shlex.quote(str(self.work))} --with numpy --with opencv-python-headless --with pillow python3 {probe}"
+
+    def verify(self, *args):
+        env = {**os.environ, "LEDGER_ROOT": str(self.work), "LEDGER_PROBE_CMD": self.probe_cmd()}
+        return subprocess.run([RUBY, str(self.work / "scripts/verify_prompt_reflects_ledger.rb"), *args], env=env, capture_output=True, text=True, cwd=self.work)
+
+    def assertDetects(self, *needles):
+        r = self.verify()
+        self.assertNotEqual(r.returncode, 0, "壊したのに PASS した\n" + r.stdout)
+        for n in needles:
+            self.assertIn(n, r.stderr)
+
+    def test_clean_ledger_passes_and_reports_gated_maps(self):
+        r = self.verify()
+        self.assertEqual(r.returncode, 0, r.stderr + r.stdout)
+        self.assertIn("PASS", r.stdout)
+        self.assertIn("ゲートで停止（対象外）: TRM-06", r.stdout)
+        self.assertNotIn("検査したMAP（0）", r.stdout)
+
+    # ---- 過去に漏れた4事例 + 渡り廊下の窓列
+    def test_tatami_leaking_into_prompt_is_detected(self):
+        self.edit_row("建物", "建物ID", "BLD-TRM-jukyo", **{"外壁": "畳敷きの外壁"})
+        self.assertDetects("TRM.no-tatami", "禁止語『畳』")
+
+    def test_tatami_decision_removed_is_detected(self):
+        self.delete_rows("決定", lambda r: r["決定ID"] == "TRM.no-tatami")
+        self.assertDetects("回帰アンカー tatami", "TRM.no-tatami")
+
+    def test_fossil_decision_removed_is_detected(self):
+        self.delete_rows("決定", lambda r: r["決定ID"] == "TRM-05.fossil")
+        self.assertDetects("回帰アンカー fossil-stone", "TRM-05.fossil")
+
+    def test_fossil_decision_no_longer_reaches_prompt_is_detected(self):
+        self.edit_row("決定", "決定ID", "TRM-05.fossil", **{"プロンプト出力": "なし"})
+        self.assertDetects("fossil-stone", "TRM-05.fossil")
+
+    def test_fire_back_door_on_wrong_wall_is_detected(self):
+        row = next(r for r in self.rows("決定") if r["決定ID"] == "TRM-05.door-back")
+        self.edit_row("決定", "決定ID", "TRM-05.door-back", **{"決定の要点": row["決定の要点"].replace("北壁", "西壁")})
+        self.assertDetects("door-back-fire", "西壁")
+
+    def test_fire_upper_half_decision_removed_is_detected(self):
+        self.delete_rows("決定", lambda r: r["決定ID"] == "TRM-05-fire.upper-half")
+        self.assertDetects("回帰アンカー fire-upper-half", "TRM-05-fire.upper-half")
+
+    def test_fire_upper_half_decision_with_dropped_wording_is_detected(self):
+        self.edit_row("決定", "決定ID", "TRM-05-fire.upper-half", **{"決定の要点": "火事版は燃える。"})
+        self.assertDetects("上半分だけ")
+
+    def test_corridor_window_row_changed_is_detected(self):
+        self.edit_row("建物窓列", "窓列ID", "BLD-TRM-corridor-w.south-wins", **{"先頭比": "0.6"})
+        self.assertDetects("BLD-TRM-corridor-w.south-wins", "一致しない")
+
+    def test_corridor_windows_missing_on_one_side_is_detected(self):
+        self.delete_rows("窓", lambda r: r["MAP_ID"] == "TRM-03" and r["建物窓列ID"] == "BLD-TRM-corridor-w.south-wins")
+        self.assertDetects("回帰アンカー corridor-windows", "TRM-03")
+
+    # ---- 自由記述・継承要素・決定の逐語
+    def test_free_text_on_window_must_reach_features(self):
+        win = next(r for r in self.rows("窓") if r["MAP_ID"] == "TRM-05")
+        self.edit_row("窓", "窓ID", win["窓ID"], **{"特徴(自由記述)": "窓枠に結露の水滴がある"})
+        r = self.verify()
+        self.assertEqual(r.returncode, 0, r.stderr)  # 導出側が FEATURES 節へそのまま入れている
+
+    def test_free_text_missing_from_prompt_is_detected(self):
+        # 導出器（ledger_query.free_texts の建物の行）を壊した状態を再現して、台帳の自由記述が FEATURES に出ない漏れを検出できるか
+        self.edit_row("建物", "建物ID", "BLD-TRM-jukyo", **{"特徴(自由記述)": "屋根に鳩が一羽いる"})
+        probe = self.work / ".claude/skills/sit-field-background/tools/ledger_query.py"
+        text = probe.read_text(encoding="utf-8")
+        self.assertIn('out.append((f"建物 {b[\'建物ID\']}", b[L.FREE]))', text)
+        probe.write_text(text.replace('out.append((f"建物 {b[\'建物ID\']}", b[L.FREE]))', "pass"), encoding="utf-8")
+        self.assertDetects("建物 BLD-TRM-jukyo", "特徴(自由記述)", "鳩")
+
+    def test_inherited_element_without_reference_image_is_detected(self):
+        plan = self.work / "docs/production/oblique-mocks/TRM-05-plan.json"
+        doc = json.loads(plan.read_text(encoding="utf-8"))
+        self.assertIn("TRM-04", doc["depends_on"])
+        doc["depends_on"] = [d for d in doc["depends_on"] if d != "TRM-04"]
+        plan.write_text(json.dumps(doc, ensure_ascii=False), encoding="utf-8")
+        self.assertDetects("採用要素 TRM-04.door-design", "REFERENCE IMAGES")
+
+    def test_decision_wording_changed_in_prompt_is_detected(self):
+        probe = self.work / ".claude/skills/sit-field-background/tools/ledger_query.py"
+        text = probe.read_text(encoding="utf-8")
+        old = "{d['決定の要点']}"
+        self.assertIn(old, text)
+        probe.write_text(text.replace(old, "{d['決定の要点'][:10]}", 1), encoding="utf-8")
+        self.assertDetects("要点が DECISIONS 節に逐語で現れない")
+
+    def test_gated_map_is_reported_not_checked(self):
+        r = self.verify("--maps", "TRM-06,TRM-05")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("ゲートで停止（対象外）: TRM-06", r.stdout)
+        self.assertIn("検査したMAP（1）: TRM-05", r.stdout)
 
 
 if __name__ == "__main__":

@@ -75,11 +75,14 @@ uv run --with opencv-python-headless --with numpy --with pillow python3 -I body_
 | `ledger_build.py` | 派生 JSON（plan・decor-pools・dependency-graph・接続図2種=幼稚園一式 `connections.json`／寺町全体 `connections-teramachi.json`）の生成（`build`）と鮮度検査（`check`）、必須キー雛形（`template`） |
 | `ledger_query.py` | MAP 1枚分のプロンプト台帳節 |
 | `ledger_index.py` | `docs/INDEX.md` の生成ビュー（台帳の表一覧・派生物・ファイル配置規則）の生成（`build`）と鮮度検査（`check`）。`verify_ledger.rb` が `check` を実行する。root は `LEDGER_ROOT` で差し替え可（`ledger_io.py` も同じ） |
+| `oblique_prompt_probe.py` | 全MAPの imagegen 編集プロンプトをファイルに書かず JSON で出す（ゲート停止MAPは `gated` に欠落一覧）。`scripts/verify_prompt_reflects_ledger.rb` が使う。`uv run --with numpy --with opencv-python-headless --with pillow python3 oblique_prompt_probe.py`。画像生成 API は呼ばない |
 | `ledger_csv_to_yaml_once.py` | 一度きりの CSV→YAML 変換（変換済み。`--verify-only` は コミット 40bf95d の CSV との無損失突合） |
 
 接続表の `図` は `;` 区切りで複数の接続図に属せる。`属性JSON` は `{図ID: {辺の出力キー: 値}}`（null=その図では出さない）で図ごとの上書きを持つ。MAP の `設計意図` は plan の `design`、`plan追加JSON` は plan 最上位の追加キー（例 `indoor`）、要素の種別 `閉鎖辺` は plan の `closed_edges`（屋外MAPの閉鎖した辺と理由）。
 
 ファイルの置き場所は台帳 `ファイル配置.yaml` が正本。`ruby scripts/verify_index_reachable.rb` が、全ファイルが配置規則にちょうど1つ一致し、到達=リンクのファイルが `docs/INDEX.md` からのリンクで辿れる（孤立・壊れたリンクはエラー）ことを検査する。新しいツール・スクリプト・ドキュメントを足したら INDEX から辿れるようにリンクを張る。
+
+`ruby scripts/verify_prompt_reflects_ledger.rb` が、台帳の決定（ID・要点・必須語・禁止語）・採用要素（参考画像とプロンプトの両方）・自由記述・建物窓列の窓が、導出したプロンプトに漏れなく現れるかを検査する（`--maps ID,ID`・`--from-json`。回帰アンカー=畳・化石の石・-fire の勝手口が北壁・火事版の上半分・渡り廊下の窓列はスクリプト内に期待を固定）。
 
 検証は Ruby（`scripts/verify_ledger.rb` ほか。Homebrew の Ruby 4.x: `PATH=/opt/homebrew/opt/ruby/bin:$PATH`）。
 
