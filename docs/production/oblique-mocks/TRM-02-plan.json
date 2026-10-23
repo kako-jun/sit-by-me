@@ -5,32 +5,287 @@
  "subtitle": "屋内・幼稚園期/火事後",
  "source": "寸法は採用画像 v3 を土台ホモグラフィで平面へ逆射影して丸めた値（台帳に寸法は無い）。戸口の位置・幅は kako-jun 決定（#144）と台帳。",
  "floors": [
-  {"id": "hall", "rect": [300, 433, 1300, 1127], "color": "#8f6a43", "label": "遊戯室の床", "walkable": true}
+  {
+   "id": "hall",
+   "rect": [
+    300,
+    433,
+    1300,
+    1127
+   ],
+   "color": "#8f6a43",
+   "label": "遊戯室の床",
+   "walkable": true
+  }
  ],
  "walls": [
-  {"id": "wall-n", "rect": [276, 409, 1324, 433], "h": 160, "kind": "wall"},
-  {"id": "wall-s", "rect": [276, 1127, 1324, 1151], "h": 150, "kind": "wall"},
-  {"id": "wall-w", "rect": [276, 409, 300, 1151], "h": 150, "kind": "wall"},
-  {"id": "wall-e", "rect": [1300, 409, 1324, 1151], "h": 150, "kind": "wall"}
+  {
+   "id": "wall-n",
+   "rect": [
+    276,
+    409,
+    1324,
+    433
+   ],
+   "h": 160,
+   "kind": "wall",
+   "window_count": 0
+  },
+  {
+   "id": "wall-s",
+   "rect": [
+    276,
+    1127,
+    1324,
+    1151
+   ],
+   "h": 150,
+   "kind": "wall",
+   "window_count": 4
+  },
+  {
+   "id": "wall-w",
+   "rect": [
+    276,
+    409,
+    300,
+    1151
+   ],
+   "h": 150,
+   "kind": "wall",
+   "window_count": 0
+  },
+  {
+   "id": "wall-e",
+   "rect": [
+    1300,
+    409,
+    1324,
+    1151
+   ],
+   "h": 150,
+   "kind": "wall",
+   "window_count": 0
+  }
  ],
  "doors": [
-  {"id": "TRM-02.door-west", "wall": "wall-w", "wall_side": "west", "face": "east", "center": 960, "along_ref": [433, 1127], "partner": "TRM-04.door-east", "status": "fixed", "note": "本堂へ。西壁・上下の中央より下寄り（v=0.76）"},
-  {"id": "TRM-02.door-outside", "wall": "wall-s", "wall_side": "south", "face": "north", "center": 1140, "along_ref": [300, 1300], "partner": "TRM-03.door-playroom", "status": "fixed", "note": "外へ。下辺の右端付近。扉前は空ける"}
+  {
+   "id": "TRM-02.door-west",
+   "wall": "wall-w",
+   "wall_side": "west",
+   "face": "east",
+   "center": 960,
+   "along_ref": [
+    433,
+    1127
+   ],
+   "partner": "TRM-04.door-east",
+   "status": "fixed",
+   "note": "本堂へ。西壁・上下の中央より下寄り（v=0.76）"
+  },
+  {
+   "id": "TRM-02.door-outside",
+   "wall": "wall-s",
+   "wall_side": "south",
+   "face": "north",
+   "center": 1140,
+   "along_ref": [
+    300,
+    1300
+   ],
+   "partner": "TRM-03.door-playroom",
+   "status": "fixed",
+   "note": "外へ。下辺の右端付近。扉前は空ける"
+  }
  ],
  "boxes": [
-  {"id": "stage", "rect": [540, 433, 1040, 540], "h": 30, "color": "#5a3a25", "label": "舞台（登れない）", "blocked": true},
-  {"id": "shelf-nw", "rect": [323, 433, 515, 473], "h": 110, "color": "#c99a52", "label": "棚(北西)", "blocked": true},
-  {"id": "shelf-ne", "rect": [1063, 433, 1257, 473], "h": 110, "color": "#c99a52", "label": "棚(北東)", "blocked": true},
-  {"id": "chair-w1", "rect": [305, 520, 365, 580], "h": 50, "color": "#d9b77a", "label": "椅子", "blocked": true},
-  {"id": "chair-w2", "rect": [305, 600, 365, 660], "h": 50, "color": "#d9b77a", "label": "椅子", "blocked": true},
-  {"id": "chair-w3", "rect": [305, 680, 365, 740], "h": 50, "color": "#d9b77a", "label": "椅子", "blocked": true},
-  {"id": "table-small", "rect": [1123, 492, 1242, 632], "h": 55, "color": "#d6a05a", "label": "小机", "blocked": true},
-  {"id": "toy-rack", "rect": [1240, 616, 1300, 836], "h": 120, "color": "#7fa85a", "label": "おもちゃ棚", "blocked": true},
-  {"id": "round-table", "rect": [1148, 798, 1262, 918], "h": 55, "color": "#d6a05a", "label": "丸テーブル", "blocked": true}
+  {
+   "id": "stage",
+   "rect": [
+    540,
+    433,
+    1040,
+    540
+   ],
+   "h": 30,
+   "color": "#5a3a25",
+   "label": "舞台（登れない）",
+   "blocked": true
+  },
+  {
+   "id": "shelf-nw",
+   "rect": [
+    323,
+    433,
+    515,
+    473
+   ],
+   "h": 110,
+   "color": "#c99a52",
+   "label": "棚(北西)",
+   "blocked": true
+  },
+  {
+   "id": "shelf-ne",
+   "rect": [
+    1063,
+    433,
+    1257,
+    473
+   ],
+   "h": 110,
+   "color": "#c99a52",
+   "label": "棚(北東)",
+   "blocked": true
+  },
+  {
+   "id": "chair-w1",
+   "rect": [
+    305,
+    520,
+    365,
+    580
+   ],
+   "h": 50,
+   "color": "#d9b77a",
+   "label": "椅子",
+   "blocked": true
+  },
+  {
+   "id": "chair-w2",
+   "rect": [
+    305,
+    600,
+    365,
+    660
+   ],
+   "h": 50,
+   "color": "#d9b77a",
+   "label": "椅子",
+   "blocked": true
+  },
+  {
+   "id": "chair-w3",
+   "rect": [
+    305,
+    680,
+    365,
+    740
+   ],
+   "h": 50,
+   "color": "#d9b77a",
+   "label": "椅子",
+   "blocked": true
+  },
+  {
+   "id": "table-small",
+   "rect": [
+    1123,
+    492,
+    1242,
+    632
+   ],
+   "h": 55,
+   "color": "#d6a05a",
+   "label": "小机",
+   "blocked": true
+  },
+  {
+   "id": "toy-rack",
+   "rect": [
+    1240,
+    616,
+    1300,
+    836
+   ],
+   "h": 120,
+   "color": "#7fa85a",
+   "label": "おもちゃ棚",
+   "blocked": true
+  },
+  {
+   "id": "round-table",
+   "rect": [
+    1148,
+    798,
+    1262,
+    918
+   ],
+   "h": 55,
+   "color": "#d6a05a",
+   "label": "丸テーブル",
+   "blocked": true
+  }
  ],
  "assumptions": [
   "家具の位置・大きさは採用画像 v3 から概略で拾った（設計書に家具の寸法は無い）。",
   "壁の高さ 150（前壁・側壁）・160（奥壁）。戸口の高さ134（2人分）に対する余裕。前壁を戸口高に合わせたため手前の床が約30px 隠れる。",
   "丸テーブルの椅子・テーブルの椅子は省略。"
+ ],
+ "windows": [
+  {
+   "id": "TRM-02.win-s1",
+   "wall": "wall-s",
+   "wall_side": "south",
+   "center": 390,
+   "width": 140,
+   "kind": "floor",
+   "sill": 0,
+   "height": 130,
+   "status": "default",
+   "along_ref": [
+    300,
+    1300
+   ],
+   "note": "南面の掃き出し窓（床まで届く引き違い・扉ではない）。枚数4は仮（#51）。位置は採用v3の窓の帯に合わせた既定（要確認）。窓から見えるのは室内の床で外の景色ではない"
+  },
+  {
+   "id": "TRM-02.win-s2",
+   "wall": "wall-s",
+   "wall_side": "south",
+   "center": 573,
+   "width": 140,
+   "kind": "floor",
+   "sill": 0,
+   "height": 130,
+   "status": "default",
+   "along_ref": [
+    300,
+    1300
+   ],
+   "note": "南面の掃き出し窓（床まで届く引き違い・扉ではない）。枚数4は仮（#51）。位置は採用v3の窓の帯に合わせた既定（要確認）。窓から見えるのは室内の床で外の景色ではない"
+  },
+  {
+   "id": "TRM-02.win-s3",
+   "wall": "wall-s",
+   "wall_side": "south",
+   "center": 757,
+   "width": 140,
+   "kind": "floor",
+   "sill": 0,
+   "height": 130,
+   "status": "default",
+   "along_ref": [
+    300,
+    1300
+   ],
+   "note": "南面の掃き出し窓（床まで届く引き違い・扉ではない）。枚数4は仮（#51）。位置は採用v3の窓の帯に合わせた既定（要確認）。窓から見えるのは室内の床で外の景色ではない"
+  },
+  {
+   "id": "TRM-02.win-s4",
+   "wall": "wall-s",
+   "wall_side": "south",
+   "center": 940,
+   "width": 140,
+   "kind": "floor",
+   "sill": 0,
+   "height": 130,
+   "status": "default",
+   "along_ref": [
+    300,
+    1300
+   ],
+   "note": "南面の掃き出し窓（床まで届く引き違い・扉ではない）。枚数4は仮（#51）。位置は採用v3の窓の帯に合わせた既定（要確認）。窓から見えるのは室内の床で外の景色ではない"
+  }
  ]
 }

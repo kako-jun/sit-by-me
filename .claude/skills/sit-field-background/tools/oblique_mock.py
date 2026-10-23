@@ -64,7 +64,7 @@ def load_plan(path, variant=None):
     if p.get("schema") != "sit-oblique-plan/1":
         sys.exit("schema が sit-oblique-plan/1 ではない")
     p.setdefault("floors", []); p.setdefault("walls", []); p.setdefault("doors", [])
-    p.setdefault("openings", []); p.setdefault("boxes", []); p.setdefault("markers", [])
+    p.setdefault("openings", []); p.setdefault("boxes", []); p.setdefault("markers", []); p.setdefault("windows", [])
     p["variant"] = None
     if variant:
         v = p.get("variants", {}).get(variant)
@@ -72,7 +72,7 @@ def load_plan(path, variant=None):
             sys.exit(f"variant {variant} が無い")
         p = copy.deepcopy(p)
         rm = set(v.get("remove", []))
-        for k in ("floors", "walls", "doors", "openings", "boxes", "markers"):
+        for k in ("floors", "walls", "doors", "openings", "boxes", "markers", "windows"):
             p[k] = [e for e in p[k] if e["id"] not in rm]
             p[k] += v.get("add", {}).get(k, [])
         p["name"] = v.get("name", p["name"]); p["subtitle"] = v.get("subtitle", p.get("subtitle", ""))
@@ -123,6 +123,24 @@ def door_geom(p, d):
         panel = [proj(x, a), proj(x, b), proj(x, b, DOOR_H), proj(x, a, DOOR_H)]
         anchor = proj(x, d["center"])
     return patch, panel, anchor
+
+
+WINDOW_KINDS = {"floor": "掃き出し窓（床まで届く引き違い・扉ではない）", "waist": "腰高窓"}
+
+
+def window_geom(p, win, hs=1.0):
+    """窓のガラス四角（画像）と中心の画像点。壁の見える面（横壁=南向きの y1 面・縦壁=中央側の面）に描く。"""
+    w = wall_by_id(p, win["wall"])
+    r = w["rect"]
+    a, b = win["center"] - win["width"] / 2, win["center"] + win["width"] / 2
+    z0, z1 = win["sill"] * hs, (win["sill"] + win["height"]) * hs
+    if is_h(w):
+        y = r[3]
+        q = [proj(a, y, z0), proj(b, y, z0), proj(b, y, z1), proj(a, y, z1)]
+    else:
+        x = visible_face_x(w)
+        q = [proj(x, a, z0), proj(x, b, z0), proj(x, b, z1), proj(x, a, z1)]
+    return q
 
 
 def rect_poly(rc, z=0.0):
@@ -216,6 +234,9 @@ def build_items(p, style):
             items.append((rc[3], "wall", box_polys(rc, h, color, top), w))
     for b in p["boxes"]:
         items.append((b["rect"][3] + (0.1 if b["h"] < 20 else 0), "box", box_polys(b["rect"], b["h"] * bs, b["color"]), b))
+    for wn in p["windows"]:
+        w = wall_by_id(p, wn["wall"])
+        items.append((w["rect"][3] + 0.1, "window", [(window_geom(p, wn, hs), "#a9d6ee", "window")], wn))
     for d in p["doors"]:
         patch, panel, anchor = door_geom(p, d)
         w = wall_by_id(p, d["wall"])
@@ -317,6 +338,8 @@ def render(p, style="color", labels=False, ss=2):
                     fill = "#000000"; ol = None
                 elif role == "door":
                     fill = "#000000"
+                elif role == "window":
+                    fill = "#ffffff"
                 elif tag == "box":
                     fill = blocked_gray if role == "top" else "#ffffff"
                 elif tag == "wall" and meta.get("kind") == "partition":
@@ -324,11 +347,17 @@ def render(p, style="color", labels=False, ss=2):
                 elif tag == "wall" and role == "top":
                     fill = "#ffffff"
             else:
-                if role == "door":
+                if role == "window":
+                    ol = "#5a3a1a"
+                elif role == "door":
                     ol = "#6a0036"
                 elif role == "floor":
                     ol = None
-            s.polygon(pts, fill=fill, outline=ol, width=lw)
+            s.polygon(pts, fill=fill, outline=ol, width=(3 if role == "window" else lw))
+            if role == "window":  # 引き違いの中桟
+                mx0 = ((pts[0][0] + pts[1][0]) / 2, (pts[0][1] + pts[1][1]) / 2)
+                mx1 = ((pts[2][0] + pts[3][0]) / 2, (pts[2][1] + pts[3][1]) / 2)
+                s.line([mx0, mx1], "#000000" if wire else "#5a3a1a", 2)
         if wire and tag == "opening":
             pts = polys[0][0]
             dashed(s, pts[0], pts[3], "#000000", 3); dashed(s, pts[1], pts[2], "#000000", 3)

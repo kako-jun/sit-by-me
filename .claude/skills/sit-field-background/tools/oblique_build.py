@@ -36,7 +36,7 @@ STAGES = ["validate", "mock", "wire", "mask", "occlusion", "prompt"]
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 ID_RE = re.compile(r"^[A-Z]{3}-\d{2}\.[A-Za-z0-9-]+$")
-PROMPT_VERSION = "oblique-edit-prompt/1"
+PROMPT_VERSION = "oblique-edit-prompt/2"
 
 
 def sha_bytes(b):
@@ -131,6 +131,56 @@ def validate_plan(p):
             E.append(f"markers {m.get('id')}: edge が不正")
         if not m.get("partner") or not ID_RE.match(m["partner"]):
             E.append(f"markers {m.get('id')}: partner が必要")
+    # 窓
+    for wn in p["windows"]:
+        reg("windows", wn)
+        wid = wn.get("id", "?")
+        if wn.get("wall") not in walls:
+            E.append(f"windows {wid}: wall {wn.get('wall')} が無い"); continue
+        w = walls[wn["wall"]]; r = w["rect"]
+        if wn.get("kind") not in M.WINDOW_KINDS:
+            E.append(f"windows {wid}: kind は {list(M.WINDOW_KINDS)} のどれか（掃き出し=floor・腰高=waist）"); continue
+        if wn.get("status") not in ("fixed", "default"):
+            E.append(f"windows {wid}: status は fixed|default")
+        for k in ("center", "width", "sill", "height"):
+            if not isinstance(wn.get(k), (int, float)):
+                E.append(f"windows {wid}: {k} が必要")
+        if not isinstance(wn.get("center"), (int, float)) or not isinstance(wn.get("width"), (int, float)) or not isinstance(wn.get("sill"), (int, float)) or not isinstance(wn.get("height"), (int, float)):
+            continue
+        if wn["kind"] == "floor" and wn["sill"] != 0:
+            E.append(f"windows {wid}: 掃き出し窓は sill=0（床まで届く）")
+        if wn["kind"] == "waist" and wn["sill"] <= 0:
+            E.append(f"windows {wid}: 腰高窓は sill>0")
+        lo, hi = (r[0], r[2]) if M.is_h(w) else (r[1], r[3])
+        a, b = wn["center"] - wn["width"] / 2, wn["center"] + wn["width"] / 2
+        if a < lo or b > hi:
+            E.append(f"windows {wid}: 壁の長さに収まらない（壁 {lo}〜{hi}、窓 {a:.0f}〜{b:.0f}）")
+        if wn["sill"] + wn["height"] > w["h"]:
+            E.append(f"windows {wid}: 窓の上端 {wn['sill'] + wn['height']} が壁の高さ {w['h']} を超える")
+        for d in p["doors"] + p["openings"]:
+            if d.get("wall") == wn["wall"]:
+                da, db = M.span(d)
+                top = M.DOOR_H if d in p["doors"] else w["h"]
+                if a < db and b > da and wn["sill"] < top:
+                    E.append(f"windows {wid}: 戸口・開口 {d['id']} と重なる")
+        for o in p["windows"]:
+            if o is not wn and o.get("wall") == wn["wall"] and isinstance(o.get("center"), (int, float)):
+                oa, ob = o["center"] - o["width"] / 2, o["center"] + o["width"] / 2
+                if a < ob and b > oa:
+                    E.append(f"windows {wid}: 窓 {o['id']} と重なる")
+        face = r[3] if M.is_h(w) else M.visible_face_x(w)
+        for bx in p["boxes"]:
+            q = bx["rect"]
+            if M.is_h(w):
+                adj = abs(q[1] - face) <= 2 and q[0] < b and q[2] > a
+            else:
+                adj = (abs(q[0] - face) <= 2 or abs(q[2] - face) <= 2) and q[1] < b and q[3] > a
+            if adj and bx["h"] > wn["sill"]:
+                E.append(f"windows {wid}: 家具 {bx['id']} が窓の前をふさぐ")
+    for w in p["walls"]:
+        n = sum(1 for x in p["windows"] if x.get("wall") == w["id"])
+        if w.get("window_count", 0) != n:
+            E.append(f"壁 {w['id']}: window_count={w.get('window_count', 0)} と windows[] の実数 {n} が不一致")
     # 戸口の前（歩く側）を blocked の箱が塞いでいないか
     for d in p["doors"]:
         if d.get("wall") not in walls or d.get("face") not in ("north", "south", "west", "east"):
@@ -183,6 +233,17 @@ def build_prompt(p, key):
     for w in p["walls"]:
         if w.get("kind") == "partition":
             L.append(f"- {w['id']}: 仕切り（壁より低い。壁と区別できる別素材で描く）。開口は箱の切れ目のまま")
+    if p["windows"]:
+        L += ["", "WINDOWS（個数・位置・種別を固定。ずらさない・増減しない・扉にしない。ガラス越しに見えるのは室内の床で、窓の中に雪や木を描かない）:"]
+        for w in p["walls"]:
+            ws = sorted([x for x in p["windows"] if x["wall"] == w["id"]], key=lambda x: x["center"])
+            if not ws:
+                continue
+            ax = "left to right" if M.is_h(w) else "back to front"
+            kinds = {M.WINDOW_KINDS[x["kind"]] for x in ws}
+            lo, hi = ws[0].get("along_ref", [0, 1])
+            pos = ", ".join(f"#{i+1} at {(x['center']-lo)/(hi-lo):.2f}" for i, x in enumerate(ws))
+            L.append(f"- 壁 {w['id']}（{w.get('label') or w.get('kind','wall')}）: {len(ws)}枚の{'・'.join(sorted(kinds))}。{ax}: {pos}（壁沿いの比）。窓台高さ{ws[0]['sill']}・高さ{ws[0]['height']}・幅{ws[0]['width']}（平面単位）")
     L += ["", "FLOORS:"] + [f"- {f['id']}（{f.get('label') or ''}）{'歩ける' if f.get('walkable', True) else '歩けない'}" for f in p["floors"]]
     L += ["", f"ASSUMPTIONS（既定・要確認）:"] + [f"- {a}" for a in p.get("assumptions", [])]
     return "\n".join(L) + "\n"
@@ -353,7 +414,7 @@ def main():
         cm = os.path.join(out, "connection-manifest.json")
         h = sha_bytes((sha_file(a.target) + "".join(sha_file(os.path.join(base, fn)) for fn in C["plans"]) + src_sha("oblique_mock.py", "oblique_topology.py")).encode())
         cur = load_manifest(cm)
-        outs = ["connection-diagram.png", "overview.png", "connections.md"]
+        outs = ["connection-diagram.png", "overview.png", "connections.md", "windows.md"]
         if not a.force and cur.get("input_sha") == h and all(os.path.exists(os.path.join(out, o)) for o in outs) and not a.from_stage:
             print("[connections] diagram: skip（入力 hash 同じ）")
         else:

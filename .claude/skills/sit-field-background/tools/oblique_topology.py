@@ -309,6 +309,26 @@ def build(conn_path, out):
     for mid, p in plans.items():
         for a_ in p.get("assumptions", []):
             L.append(f"- {mid}: {a_}")
+    wl = ["# 窓の一覧（機械生成。`oblique_topology.py`。手で直さない）", "",
+          "平面スペックの `windows[]` から生成。個数・位置・種別をすべて明示する。位置は壁沿いの中心座標（平面単位）と、壁の何割か（比。西→東・奥→手前）。"
+          "種別: 掃き出し窓=床まで届く引き違い（扉ではない）／腰高窓。status: fixed=#51 等で既決／default=既定（要確認）。窓は見た目のみで、歩行マスク・オクルージョンには影響しない。", "",
+          "## 壁ごとの個数", "", "| MAP | 壁 | 個数 | 種別 | status |", "|---|---|---|---|---|"]
+    rowsw = []
+    for mid, p in plans.items():
+        for w in p["walls"]:
+            ws = sorted([x for x in p["windows"] if x["wall"] == w["id"]], key=lambda x: x["center"])
+            if not ws:
+                continue
+            ks = "・".join(sorted({M.WINDOW_KINDS[x["kind"]].split("（")[0] for x in ws}))
+            sts = "・".join(sorted({x["status"] for x in ws}))
+            wl.append(f"| {mid} | {w['id']}（{w.get('label') or w.get('kind','wall')}） | {len(ws)} | {ks} | {sts} |")
+            for x in ws:
+                lo, hi = x.get("along_ref") or ((w["rect"][0], w["rect"][2]) if M.is_h(w) else (w["rect"][1], w["rect"][3]))
+                rowsw.append(f"| {mid} | {w['id']} | `{x['id']}` | {x['center']} | {(x['center']-lo)/(hi-lo):.2f} | {M.WINDOW_KINDS[x['kind']].split('（')[0]} | 窓台{x['sill']}・高さ{x['height']}・幅{x['width']} | {x['status']} | {x.get('note','')} |")
+    wl += ["", "## 窓ごとの位置", "", "| MAP | 壁 | 窓ID | 中心（平面単位） | 比 | 種別 | 寸法 | status | 備考 |", "|---|---|---|---|---|---|---|---|---|"] + rowsw
+    wl += ["", "窓の無い壁（window_count=0）: 本堂の広間・本堂棟（設計未指定のため置かない）ほか。"]
+    with open(os.path.join(out, "windows.md"), "w", encoding="utf-8") as f:
+        f.write("\n".join(wl) + "\n")
     if problems:
         L += ["", "## 検査で出た問題", ""] + [f"- {x}" for x in problems]
     with open(os.path.join(out, "connections.md"), "w", encoding="utf-8") as f:
@@ -344,7 +364,7 @@ def wire_single(p, path, plans):
         w_est = max(d.textbbox((0, 0), s_, font=f_xs)[2] for s_ in t.split("\n")) + 12
         h_est = len(t.split("\n")) * 31 + 10
         x = ax + (-w_est - 50 if side == "west" else (50 if side == "east" else -w_est / 2))
-        y = ay + 40 if side == "south" else ay - h_est - 20
+        y = ay + 100 if side == "south" else ay - h_est - 20
         if side == "south":
             y = min(y, M.H_IMG - h_est - 70)
         x = max(10, min(x, M.W - w_est - 10))

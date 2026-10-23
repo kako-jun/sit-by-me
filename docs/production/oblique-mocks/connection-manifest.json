@@ -1,9 +1,10 @@
 {
- "input_sha": "8d515d27e8da3f27eff91cef9b4da516dc5702d49bc7d034ac5dc99849ff742a",
+ "input_sha": "b5a959b3269625e4d5bbf9c67f7f1924e68acd7dedf430226273cd728c3e16ba",
  "outputs": {
-  "connection-diagram.png": "10095ee409db15e058e9cb5328636249b98755aa0ebf953437ea927780158f30",
-  "connections.md": "000a8386af7f449b256cbad7834563ee4831c4a5e516bbffe7e11239ad439b5c",
-  "overview.png": "5bbf0b69ae7c60397978f32bee2ecacdaafe7537737e4b5177507a4693b1c0d5"
+  "connection-diagram.png": "4a595a4d4cff1731617b8c318f2e920121618c39f3986c1f691c05e40940688a",
+  "connections.md": "3a3ebf5dcd033d370dc6595921451ed373e243ce7abc3440b3fefda23d953234",
+  "overview.png": "c3191a5e42ab7f8c3c0d23834b391231e418cef4b963101c36c6086139d2d4a9",
+  "windows.md": "b531c115eddadbbaf0dbdb36e84038f31dc452e9b79a7a0dd9ea5e8c27b940fa"
  },
  "problems": [],
  "schema": "sit-oblique-manifest/1"

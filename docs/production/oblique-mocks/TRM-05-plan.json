@@ -80,7 +80,8 @@
     280
    ],
    "h": 150,
-   "kind": "wall"
+   "kind": "wall",
+   "window_count": 0
   },
   {
    "id": "wall-s",
@@ -91,7 +92,8 @@
     1042
    ],
    "h": 150,
-   "kind": "wall"
+   "kind": "wall",
+   "window_count": 2
   },
   {
    "id": "wall-w",
@@ -102,7 +104,8 @@
     1042
    ],
    "h": 150,
-   "kind": "wall"
+   "kind": "wall",
+   "window_count": 0
   },
   {
    "id": "wall-e",
@@ -113,7 +116,8 @@
     1042
    ],
    "h": 150,
-   "kind": "wall"
+   "kind": "wall",
+   "window_count": 0
   },
   {
    "id": "part-v",
@@ -125,7 +129,8 @@
    ],
    "h": 90,
    "kind": "partition",
-   "label": "仕切り"
+   "label": "仕切り",
+   "window_count": 0
   },
   {
    "id": "part-h",
@@ -137,7 +142,8 @@
    ],
    "h": 90,
    "kind": "partition",
-   "label": "仕切り"
+   "label": "仕切り",
+   "window_count": 0
   }
  ],
  "doors": [
@@ -422,5 +428,39 @@
     "TRM-05.door-back"
    ]
   }
- }
+ },
+ "windows": [
+  {
+   "id": "TRM-05.win-s1",
+   "wall": "wall-s",
+   "wall_side": "south",
+   "center": 850,
+   "width": 120,
+   "kind": "waist",
+   "sill": 45,
+   "height": 55,
+   "status": "fixed",
+   "along_ref": [
+    420,
+    1170
+   ],
+   "note": "南面の腰高窓（#51 2026-10-21: 住居棟の南面は腰高窓のみ。扉・窓・窓の順）。個数2は採用外観v7。位置は既定（要確認）"
+  },
+  {
+   "id": "TRM-05.win-s2",
+   "wall": "wall-s",
+   "wall_side": "south",
+   "center": 1030,
+   "width": 120,
+   "kind": "waist",
+   "sill": 45,
+   "height": 55,
+   "status": "fixed",
+   "along_ref": [
+    420,
+    1170
+   ],
+   "note": "南面の腰高窓（#51 2026-10-21: 住居棟の南面は腰高窓のみ。扉・窓・窓の順）。個数2は採用外観v7。位置は既定（要確認）"
+  }
+ ]
 }

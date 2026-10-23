@@ -178,7 +178,7 @@ kako-jun 指示（2026-10-22、逐語）: 『モックを見せずに作るこ�
 
 ### 標準手順（1コマンド）
 
-1. `docs/production/oblique-mocks/<MAP>-plan.json`（`sit-oblique-plan/1`）を書く。部屋の床・壁（高さつき）・戸口（壁・辺・位置・歩く側・相手の door ID）・家具の箱（高さ・blocked）・内部仕切りと開口。寸法は台帳・kako-jun の決定から。**設計に無い所は発明せず、`status:"default"` と `assumptions` に『既定（要確認）』と書く**。時期別（-kids/-fire/-burnt）は `variants` の差分で書く。
+1. `docs/production/oblique-mocks/<MAP>-plan.json`（`sit-oblique-plan/1`）を書く。部屋の床・壁（高さつき）・戸口（壁・辺・位置・歩く側・相手の door ID）・家具の箱（高さ・blocked）・内部仕切りと開口。**窓は `windows[]`（壁・中心位置・幅・窓台高さ・高さ・種別=`floor`掃き出し/`waist`腰高・status=fixed/default）で個数・位置・種別をすべて明示し、各壁に `window_count`（実数と一致を検証）を持たせる。**モックの壁面に窓枠＋ガラスで描かれ（クリーン版にも。imagegen が窓をずらさない）、edit-prompt に個数・位置・種別が文章で出る。窓は見た目のみで歩行・オクルージョンに影響しない。一覧は `windows.md`（既定要確認の窓を kako-jun がレビュー）。寸法は台帳・kako-jun の決定から。**設計に無い所は発明せず、`status:"default"` と `assumptions` に『既定（要確認）』と書く**。時期別（-kids/-fire/-burnt）は `variants` の差分で書く。
 2. `connections.json` に MAP と接続を足す（外部の端点＝TRM-07・TRM-01・体内も）。
 3. `uv run --with numpy --with opencv-python-headless --with pillow python3 -I .claude/skills/sit-field-background/tools/oblique_build.py --all docs/production/oblique-mocks/connections.json`
 

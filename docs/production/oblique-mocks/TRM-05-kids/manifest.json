@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-05-kids",
  "plan": "docs/production/oblique-mocks/TRM-05-plan.json",
- "plan_sha256": "a58c94d3b0c1f4fc86cb1217ade82e9465728fb4c22cb839c8cb44f6307b1b3c+kids",
+ "plan_sha256": "31ceeb23fa5f0e2e18749f8dace151119531497cbf41689d05d8c7d1b30645ad+kids",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -22,7 +22,7 @@
      1
     ]
    },
-   "input_sha": "583d9defd16736c00d751a8fe0821f6be11e1113d4e7a57a1296f3330e059cea",
+   "input_sha": "aa79ea1ff275e5bb0153d4dec08fc895b604882fb00a9feaf23dd3474bba1421",
    "outputs": {
     "TRM-05-kids-exits.png": "317e09344b967f5d0b30fd8364756e942c81f81a23ce08c714e04cf114f3da9e",
     "TRM-05-kids-mask.json": "09885f0f9327a6ba9232d7fb3c960a77d5080952864e2786cc655b0d6ea28e1d",
@@ -32,35 +32,35 @@
    "white_components": 2
   },
   "mock": {
-   "input_sha": "583d9defd16736c00d751a8fe0821f6be11e1113d4e7a57a1296f3330e059cea",
+   "input_sha": "aa79ea1ff275e5bb0153d4dec08fc895b604882fb00a9feaf23dd3474bba1421",
    "outputs": {
-    "TRM-05-kids-clean.png": "dadb186d3b452ef807fbd6f578204d0f37913aa7366704ae6bba9d2ceacbb5f8",
-    "TRM-05-kids-review.png": "0914ec02f8ad5631923c9d8daa8fd796d8edcae5c538e8d63da991e2776e6867"
+    "TRM-05-kids-clean.png": "823f84fc74a1e3f5f6542a2d10ad388d24acd1b906759a25c19ca355825eb81a",
+    "TRM-05-kids-review.png": "ba29a199f4baf4f1e4ab8748ee555598791c427536638a2789179f98c7a8348e"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "583d9defd16736c00d751a8fe0821f6be11e1113d4e7a57a1296f3330e059cea",
+   "input_sha": "aa79ea1ff275e5bb0153d4dec08fc895b604882fb00a9feaf23dd3474bba1421",
    "outputs": {
     "TRM-05-kids-occlusion-depth.png": "f5da671de9dd99f8ea4905500a701c7eefc6735f48a98246b0cb646b3bb57a55",
     "TRM-05-kids-occlusion-edit.png": "8892f11fd88caa3f9aa225dcc1d8402e5278749e80a658598d9527e435189291",
-    "TRM-05-kids-occlusion-overlay.png": "5751e064bc086cf66773794626a09d2c26a8bac1b6872599bf12ce0f8d00469f",
+    "TRM-05-kids-occlusion-overlay.png": "376cd109c39bef60c54895f743f776f5c55038197d14fb3caf5a34ef7acc9f9b",
     "TRM-05-kids-occlusion.json": "7fae10054f948cd57b14e87ce4bb6756d28ce06a700c57534789a71b1b5027a6",
     "TRM-05-kids-occlusion.png": "4ce94d41d6440e015a1bed9c66c526eea9a46750465212d9cc9119602945543c"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "0f3ebf8234fa334ffa458283a9f717c03d1eb4663a707dfb4266477efecdc763",
+   "input_sha": "841c5ef8030b183e7867db9a221ee399175667eaf385749a41deff840698c744",
    "ledger_ready": false,
    "outputs": {
-    "TRM-05-kids-edit-prompt.txt": "c6a084d5a9ebb740bca1e955a380b9c35f402c499208a9e73bee0b2af7605289"
+    "TRM-05-kids-edit-prompt.txt": "4b9448880853b647aecd5e1b904eadf0f08d7c2804d9cc530de5362df1e35c0a"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "15d473db3d3d913cce05ab7b49031865333b3a28ac920004523611f3ae551aca",
+   "input_sha": "94cf420bb879fb9da07b9efc295468f09c3a3c39c18cc73c966f6fee173257c2",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -74,9 +74,9 @@
    ]
   },
   "wire": {
-   "input_sha": "d4f95d12c25e36f04b1911d27b70901dbd59d77764e4842c7cdf657d29cd14c8",
+   "input_sha": "a74a5689db3ea623bc4cf399c1fc5ef806c102ef32ccbe16ad2ec626459592b7",
    "outputs": {
-    "wire-TRM-05-kids.png": "62fa621210b6150c4bf113a3104f8ddf7de243d7fab68e60f641581209c1be00"
+    "wire-TRM-05-kids.png": "1aa8e64e5747f708b14dba2faa44f9c4da4b048da92fda3b3500782d2a005284"
    },
    "status": "ok"
   }

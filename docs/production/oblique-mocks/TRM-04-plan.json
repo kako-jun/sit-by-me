@@ -92,7 +92,8 @@
     440
    ],
    "h": 170,
-   "kind": "wall"
+   "kind": "wall",
+   "window_count": 0
   },
   {
    "id": "hall-w",
@@ -103,7 +104,8 @@
     1074
    ],
    "h": 150,
-   "kind": "wall"
+   "kind": "wall",
+   "window_count": 0
   },
   {
    "id": "hall-e",
@@ -114,7 +116,8 @@
     1074
    ],
    "h": 150,
-   "kind": "wall"
+   "kind": "wall",
+   "window_count": 0
   },
   {
    "id": "hall-s",
@@ -125,7 +128,8 @@
     1074
    ],
    "h": 150,
-   "kind": "wall"
+   "kind": "wall",
+   "window_count": 0
   },
   {
    "id": "corr-w-n",
@@ -136,7 +140,8 @@
     810
    ],
    "h": 120,
-   "kind": "wall"
+   "kind": "wall",
+   "window_count": 0
   },
   {
    "id": "corr-w-s",
@@ -147,7 +152,8 @@
     1074
    ],
    "h": 110,
-   "kind": "wall"
+   "kind": "wall",
+   "window_count": 3
   },
   {
    "id": "corr-w-end",
@@ -158,7 +164,8 @@
     1074
    ],
    "h": 120,
-   "kind": "wall"
+   "kind": "wall",
+   "window_count": 0
   },
   {
    "id": "corr-e-n",
@@ -169,7 +176,8 @@
     810
    ],
    "h": 120,
-   "kind": "wall"
+   "kind": "wall",
+   "window_count": 0
   },
   {
    "id": "corr-e-s",
@@ -180,7 +188,8 @@
     1074
    ],
    "h": 110,
-   "kind": "wall"
+   "kind": "wall",
+   "window_count": 3
   },
   {
    "id": "corr-e-end",
@@ -191,7 +200,8 @@
     1074
    ],
    "h": 120,
-   "kind": "wall"
+   "kind": "wall",
+   "window_count": 0
   }
  ],
  "doors": [
@@ -270,5 +280,103 @@
   "廊下の外端（西は x76〜100・東は x1507〜1531）は閉じた壁。住居・幼稚園へは別 MAP の戸口（本堂の西壁・東壁の戸口）から入る（README の確定: 廊下の外端案は不採用）。",
   "廊下の奥行き Y810〜1050 と外壁の高さは採用画像 v11 から概略。",
   "壁の飾り（芳名板・子どもの絵・灯籠・柱）は省略。"
+ ],
+ "windows": [
+  {
+   "id": "TRM-04.win-cw1",
+   "wall": "corr-w-s",
+   "wall_side": "south",
+   "center": 160,
+   "width": 70,
+   "kind": "waist",
+   "sill": 20,
+   "height": 50,
+   "status": "default",
+   "along_ref": [
+    100,
+    463
+   ],
+   "note": "西廊下の南壁の連窓（腰高）。#51: 廊下南壁に外観と同じ窓列。枚数・位置は既定（要確認）。外は見えない"
+  },
+  {
+   "id": "TRM-04.win-cw2",
+   "wall": "corr-w-s",
+   "wall_side": "south",
+   "center": 270,
+   "width": 70,
+   "kind": "waist",
+   "sill": 20,
+   "height": 50,
+   "status": "default",
+   "along_ref": [
+    100,
+    463
+   ],
+   "note": "西廊下の南壁の連窓（腰高）。#51: 廊下南壁に外観と同じ窓列。枚数・位置は既定（要確認）。外は見えない"
+  },
+  {
+   "id": "TRM-04.win-cw3",
+   "wall": "corr-w-s",
+   "wall_side": "south",
+   "center": 380,
+   "width": 70,
+   "kind": "waist",
+   "sill": 20,
+   "height": 50,
+   "status": "default",
+   "along_ref": [
+    100,
+    463
+   ],
+   "note": "西廊下の南壁の連窓（腰高）。#51: 廊下南壁に外観と同じ窓列。枚数・位置は既定（要確認）。外は見えない"
+  },
+  {
+   "id": "TRM-04.win-ce1",
+   "wall": "corr-e-s",
+   "wall_side": "south",
+   "center": 1230,
+   "width": 70,
+   "kind": "waist",
+   "sill": 20,
+   "height": 50,
+   "status": "default",
+   "along_ref": [
+    1144,
+    1507
+   ],
+   "note": "東廊下の南壁の連窓（腰高）。#51: 廊下南壁に外観と同じ窓列。枚数・位置は既定（要確認）。外は見えない"
+  },
+  {
+   "id": "TRM-04.win-ce2",
+   "wall": "corr-e-s",
+   "wall_side": "south",
+   "center": 1340,
+   "width": 70,
+   "kind": "waist",
+   "sill": 20,
+   "height": 50,
+   "status": "default",
+   "along_ref": [
+    1144,
+    1507
+   ],
+   "note": "東廊下の南壁の連窓（腰高）。#51: 廊下南壁に外観と同じ窓列。枚数・位置は既定（要確認）。外は見えない"
+  },
+  {
+   "id": "TRM-04.win-ce3",
+   "wall": "corr-e-s",
+   "wall_side": "south",
+   "center": 1450,
+   "width": 70,
+   "kind": "waist",
+   "sill": 20,
+   "height": 50,
+   "status": "default",
+   "along_ref": [
+    1144,
+    1507
+   ],
+   "note": "東廊下の南壁の連窓（腰高）。#51: 廊下南壁に外観と同じ窓列。枚数・位置は既定（要確認）。外は見えない"
+  }
  ]
 }
