@@ -309,6 +309,14 @@ def build_prompt(p, key):
     for w in p["walls"]:
         if w.get("kind") == "partition":
             L.append(f"- {w['id']}: 仕切り（壁より低い。壁と区別できる別素材で描く）。開口は箱の切れ目のまま")
+    ops = [d for d in p["openings"]] + [d for d in p["doors"] if d.get("passage")]
+    rps = [w for w in p["walls"] if w.get("kind") == "roof-passage"]
+    if ops or rps:
+        L += ["", "OPEN PASSAGES（左右・横方向に行き来する開口。壁に見せない）:"]
+        for o in ops:
+            L.append(f"- {o['id']}（{o['wall']}・中心{o['center']}・幅{M.door_w(o) if 'width_class' in o or o in p['doors'] else M.DOOR_W:.0f}）: 開口の上に梁・鴨居・垂れ壁・壁を描かない。奥まで見通せる開放した通路")
+        for w in rps:
+            L.append(f"- {w['id']}（{w.get('label') or '渡り廊下'}）: 屋根を柱で支えるだけの開放した通路（壁・窓・格子・戸を描かない）。屋根の下を左右へ奥まで見通せる")
     if p["doors"]:
         L += ["", "DOOR WIDTHS:"] + [f"- {d['id']}: 幅{'キャラ1人分（細い裏口）' if d.get('width_class') == '1person' else 'キャラ2人分'}（{M.door_w(d):.0f}平面単位）・{d['wall_side']}壁" for d in p["doors"]]
     if p["windows"]:

@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-04",
  "plan": "docs/production/oblique-mocks/TRM-04-plan.json",
- "plan_sha256": "acb4b6ae6e7adc647441388387b771375a2517fc51be2cfac54961e5b4927c57",
+ "plan_sha256": "63f658736e3b57523ce245b49a9549fb258828c5d27d4a397e63bb7f7c4e3669",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -22,7 +22,7 @@
      1
     ]
    },
-   "input_sha": "1eb94898c16279e81b7873086a82f5a23f110a725b69e33fd6ec73126f53c966",
+   "input_sha": "dede112f91ca5cab61127626e332a3fa9908a890e7367bf31e0155a7632197ca",
    "outputs": {
     "TRM-04-exits.png": "2c6e7b3107a32bd0263a6280623284c086646a2baa8f73027006da6804d080a2",
     "TRM-04-mask.json": "95fab560af2e4ea7c6caabfc7772a8acc8e5b34773cfe998e44509cd871ab3c8",
@@ -32,48 +32,49 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "1eb94898c16279e81b7873086a82f5a23f110a725b69e33fd6ec73126f53c966",
+   "input_sha": "dede112f91ca5cab61127626e332a3fa9908a890e7367bf31e0155a7632197ca",
    "outputs": {
-    "TRM-04-clean.png": "00acae9e95c32842691f54d5be5f9b8458b5c8837256c008ddc212d73e1905e1",
-    "TRM-04-review.png": "91c6a8a095b8b9fda8a14001332ccdd3f73362688bca55a2248c1d6bc4ab573c"
+    "TRM-04-clean.png": "aa3db6ff210b15538c9f026c53b0d00428d82a767783f8c6c18c346e34437822",
+    "TRM-04-review.png": "75cbd69b7abf1ad77eb9077200456f3feccd5106de19dffcd89cc8831b36c550"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "1eb94898c16279e81b7873086a82f5a23f110a725b69e33fd6ec73126f53c966",
+   "input_sha": "dede112f91ca5cab61127626e332a3fa9908a890e7367bf31e0155a7632197ca",
    "outputs": {
-    "TRM-04-occlusion-depth.png": "f91c0f468984810dabae3933f3cb413ac44ca4f4d5c0b8281a75bb619a7d34d6",
-    "TRM-04-occlusion-edit.png": "1f6635af78d05b022619215919e7d8f7746c9cfaa0bab9abf49f6bf179e9efce",
-    "TRM-04-occlusion-overlay.png": "4bdbe1ab270e0f9e83d6fbc02373436e63476db50768cf66aa974b3bec5876c7",
-    "TRM-04-occlusion.json": "52bf47005e1dc730bcb6903a5ea776e50e43a8f79a1d88dce8f0e0a15bc08139",
-    "TRM-04-occlusion.png": "b829be72839323f1e3edeaa4f456f7ece9d9c985fbdafc51f85e19f9f47c5838"
+    "TRM-04-occlusion-depth.png": "019f3594f08c2d3c5fef6459eef874284a25738488f15b4c9db6548c89cc28ae",
+    "TRM-04-occlusion-edit.png": "6da11bbfab02f1187d60fc4cd711de8a573aaca3873ab075a5978f4fd32ea152",
+    "TRM-04-occlusion-overlay.png": "ca1a898e950c11d58f2599839e65740b951691d94c1c72e6ca832629e75159f6",
+    "TRM-04-occlusion.json": "7a970ddb1077534654b17292a2337e1065795b8fd7292153c7154d895f60a712",
+    "TRM-04-occlusion.png": "a7d6d6cd37de8aaab05f5c5881b47b7532ef66c1ae0740b835d612962be6786c"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "47710188d2913eb6a572654a88f94fc2c00f304ce26d1ba23c753f60da3f4c77",
+   "input_sha": "7cdefdd34fb1b2df82fd58f6abb0d98b894d5266aaccf92db93925fa6633ba6a",
    "ledger_ready": false,
    "outputs": {
-    "TRM-04-edit-prompt.txt": "f09ea74ce25a52a40ebabeb8577a6be864a9d37d2f5f0b3a75248c86e31ea5ec"
+    "TRM-04-edit-prompt.txt": "9dd94806c41241215580a3196a74c024388e6d00ed1b8ad0633336e38fffd182"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "e851e91ed565f81d8faae8b8542a682def8cc3812444c2195a21856bb4970955",
+   "input_sha": "682d20a62c75ed4763524102f6083a3f8971dc1970d64fed194788977a00936e",
    "outputs": {},
    "status": "ok",
    "warnings": [
     "廊下の外端（西は x76〜100・東は x1507〜1531）は閉じた壁。住居・幼稚園へは別 MAP の戸口（本堂の西壁・東壁の戸口）から入る（README の確定: 廊下の外端案は不採用）。",
     "廊下の奥行き Y810〜1050 と外壁の高さは採用画像 v11 から概略。",
     "壁の飾り（芳名板・子どもの絵・灯籠・柱）は省略。",
-    "本堂に窓は置かない（確定。kako-jun 決定 2026-10-23）。本堂の壁は window_count=0 で、窓は描かない。"
+    "本堂に窓は置かない（確定。kako-jun 決定 2026-10-23）。本堂の壁は window_count=0 で、窓は描かない。",
+    "本堂の広間⇄西廊下・東廊下の開口（door-west/east）は passage（梁・鴨居・垂れ壁・壁を描かない開放した通路。kako-jun 2026-10-23「左右を行き来する開口部は壁に見えないように」）。"
    ]
   },
   "wire": {
-   "input_sha": "f4191bdab8bbb8337745d88209045393e5033bf347fc9538bb8790620a418444",
+   "input_sha": "3809eb1d1bf573848ea761de55bd793f3f1170e7bc4abaa5f01e30207cab8899",
    "outputs": {
-    "wire-TRM-04.png": "b931ab6d5066b361506414dcf31930841d97421e197a990361a465bd3e4716aa"
+    "wire-TRM-04.png": "d12fd1299f136f6802191eb8ae570c2c5f7179f0d7533ba78046a93d82db6b38"
    },
    "status": "ok"
   }

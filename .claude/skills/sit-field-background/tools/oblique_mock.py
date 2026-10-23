@@ -172,20 +172,20 @@ def shade(hexc, f):
     return "#%02x%02x%02x" % tuple(max(0, min(255, int(v * f))) for v in (r, g, b))
 
 
-def box_polys(rc, h, color, top=None):
+def box_polys(rc, h, color, top=None, z0=0.0):
     x0, y0, x1, y1 = rc
     sidex = x1 if (x0 + x1) / 2 <= BASE_W / 2 else x0
-    side = [proj(sidex, y0), proj(sidex, y1), proj(sidex, y1, h), proj(sidex, y0, h)]
-    front = [proj(x0, y1), proj(x1, y1), proj(x1, y1, h), proj(x0, y1, h)]
+    side = [proj(sidex, y0, z0), proj(sidex, y1, z0), proj(sidex, y1, h), proj(sidex, y0, h)]
+    front = [proj(x0, y1, z0), proj(x1, y1, z0), proj(x1, y1, h), proj(x0, y1, h)]
     topp = rect_poly(rc, h)
     return [(side, shade(color, 0.65), "side"), (front, shade(color, 0.85), "front"), (topp, top or shade(color, 1.12), "top")]
 
 
 def opening_cuts(p, w):
     cuts = []
-    for o in p["openings"]:
+    for o in p["openings"] + [d for d in p["doors"] if d.get("passage")]:
         if o["wall"] == w["id"]:
-            cuts.append(span(o))
+            cuts.append(span(o))  # 開口・passage の戸口は壁面を抜く（梁・鴨居・垂れ壁を描かない）
     return cuts
 
 
@@ -229,6 +229,10 @@ def build_items(p, style):
     for d in p["doors"]:
         patch, panel, anchor = door_geom(p, d)
         items.append((-450, "doorpatch", [(rect_poly(patch), "#ff9bd0", "doorpatch")], d))
+        if d.get("passage"):
+            w_ = wall_by_id(p, d["wall"]); r_ = w_["rect"]; a_, b_ = span(d)
+            rc_ = [a_, r_[1] - 2, b_, r_[3] + 2] if is_h(w_) else [r_[0] - 2, a_, r_[2] + 2, b_]
+            items.append((-440, "opening", [(rect_poly(rc_), OPEN_COLOR, "opening")], d))
     for m in p["markers"]:
         items.append((-450, "marker", [(rect_poly(marker_rect(m)), DOOR_COLOR, "marker")], m))
     for w in p["walls"]:
@@ -236,6 +240,15 @@ def build_items(p, style):
         color = w.get("color") or ("#4a4f57" if kind == "partition" else "#d8c9a6")
         top = w.get("top_color") or ("#262a30" if kind == "partition" else None)
         h = w["h"] * hs
+        if kind == "roof-passage":
+            # 渡り廊下: 床（石）＋四隅の柱＋屋根の板だけ。壁・窓は無い開放した通路
+            r = w["rect"]
+            items.append((-450, "floor", [(rect_poly(r), "#8d8f94", "floor")], {"id": w["id"] + "-floor", "walkable": False, "label": ""}))
+            ps = 16
+            for rc in ([r[0], r[1], r[0] + ps, r[1] + ps], [r[2] - ps, r[1], r[2], r[1] + ps], [r[0], r[3] - ps, r[0] + ps, r[3]], [r[2] - ps, r[3] - ps, r[2], r[3]]):
+                items.append((rc[3] - 0.5, "wall", box_polys(rc, h - 12 * hs, "#7a5a3a"), w))
+            items.append((r[3], "wall", box_polys(r, h, "#6c7077", w.get("top_color"), z0=h - 12 * hs), w))
+            continue
         for rc in wall_pieces(p, w):
             items.append((rc[3], "wall", box_polys(rc, h, color, top), w))
     for b in p["boxes"]:
@@ -244,6 +257,8 @@ def build_items(p, style):
         w = wall_by_id(p, wn["wall"])
         items.append((w["rect"][3] + 0.1, "window", [(window_geom(p, wn, hs), "#a9d6ee", "window")], wn))
     for d in p["doors"]:
+        if d.get("passage"):
+            continue
         patch, panel, anchor = door_geom(p, d)
         w = wall_by_id(p, d["wall"])
         key = w["rect"][3] + 0.2 if is_h(w) else w["rect"][3] + 0.2
@@ -504,7 +519,7 @@ def derive_occlusion(p):
         sil = np.zeros((H_IMG, W), np.uint8)
         for pts, _, _ in polys:
             cv2.fillPoly(sil, [np.round(np.array(pts)).astype(np.int32)], 255)
-        base_y = int(round(polys[1][0][0][1]))
+        base_y = int(round(proj(BASE_W / 2, key)[1]))
         feet = (walk_b * (rows < base_y - 4)).astype(np.uint8)
         body = cv2.dilate(feet, kern, anchor=(CHAR_PX // 2, 0))
         behind = int(((sil > 0) & (body > 0)).sum())

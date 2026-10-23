@@ -218,7 +218,8 @@
    "partner": "TRM-05.door-hall",
    "status": "fixed",
    "note": "住居へ。西壁・下寄り（v=0.76）。先は西廊下",
-   "width_class": "2people"
+   "width_class": "2people",
+   "passage": true
   },
   {
    "id": "TRM-04.door-east",
@@ -233,7 +234,8 @@
    "partner": "TRM-02.door-west",
    "status": "fixed",
    "note": "幼稚園へ。東壁・下寄り（v=0.76）。先は東廊下",
-   "width_class": "2people"
+   "width_class": "2people",
+   "passage": true
   },
   {
    "id": "TRM-04.door-south",
@@ -283,7 +285,8 @@
   "廊下の外端（西は x76〜100・東は x1507〜1531）は閉じた壁。住居・幼稚園へは別 MAP の戸口（本堂の西壁・東壁の戸口）から入る（README の確定: 廊下の外端案は不採用）。",
   "廊下の奥行き Y810〜1050 と外壁の高さは採用画像 v11 から概略。",
   "壁の飾り（芳名板・子どもの絵・灯籠・柱）は省略。",
-  "本堂に窓は置かない（確定。kako-jun 決定 2026-10-23）。本堂の壁は window_count=0 で、窓は描かない。"
+  "本堂に窓は置かない（確定。kako-jun 決定 2026-10-23）。本堂の壁は window_count=0 で、窓は描かない。",
+  "本堂の広間⇄西廊下・東廊下の開口（door-west/east）は passage（梁・鴨居・垂れ壁・壁を描かない開放した通路。kako-jun 2026-10-23「左右を行き来する開口部は壁に見えないように」）。"
  ],
  "windows": [
   {

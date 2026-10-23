@@ -70,16 +70,16 @@
   {
    "id": "hall-w",
    "kind": "wall",
-   "base_y": 599,
-   "area_px": 4685,
-   "body_overlap_px": 3318
+   "base_y": 587,
+   "area_px": 4288,
+   "body_overlap_px": 3240
   },
   {
    "id": "hall-e",
    "kind": "wall",
-   "base_y": 599,
-   "area_px": 4610,
-   "body_overlap_px": 3230
+   "base_y": 587,
+   "area_px": 4182,
+   "body_overlap_px": 3147
   },
   {
    "id": "corr-w-end",
@@ -94,20 +94,6 @@
    "base_y": 646,
    "area_px": 4586,
    "body_overlap_px": 3572
-  },
-  {
-   "id": "hall-w",
-   "kind": "wall",
-   "base_y": 667,
-   "area_px": 4933,
-   "body_overlap_px": 1575
-  },
-  {
-   "id": "hall-e",
-   "kind": "wall",
-   "base_y": 667,
-   "area_px": 4859,
-   "body_overlap_px": 1550
   },
   {
    "id": "corr-w-end",

@@ -91,11 +91,11 @@
     399
    ],
    "h": 70,
-   "kind": "building",
+   "kind": "roof-passage",
    "color": "#c9b890",
    "top_color": "#6c7077",
    "label": "渡り廊下",
-   "window_count": 3
+   "window_count": 0
   },
   {
    "id": "main-hall",
@@ -121,11 +121,11 @@
     399
    ],
    "h": 70,
-   "kind": "building",
+   "kind": "roof-passage",
    "color": "#c9b890",
    "top_color": "#6c7077",
    "label": "渡り廊下",
-   "window_count": 3
+   "window_count": 0
   },
   {
    "id": "kindergarten",
@@ -324,7 +324,8 @@
   "参道の幅156は台帳に無く採用外観の測定。",
   "境内側の戸口位置（住居・幼稚園）は台帳でTBD。既定を置いた（要確認）。園庭＝境内の右の区画（幼稚園の前）。東の通用門・TRM-01 への接続は無い（kako-jun 指摘、Issue #144）。",
   "園庭の遊具（#51 既決: 滑り台1・ブランコ1・半円アーチ4=赤青黄青・動物型1）の位置と大きさは既定（要確認）。幼稚園の掃き出し窓の前（Y425〜600）と、参道・door-playroom 前の通路は空けた。歩行マスクでは遊具=blocked。",
-  "本堂に窓は置かない（確定。kako-jun 決定 2026-10-23）。本堂の壁は window_count=0 で、窓は描かない。"
+  "本堂に窓は置かない（確定。kako-jun 決定 2026-10-23）。本堂の壁は window_count=0 で、窓は描かない。",
+  "渡り廊下（conn-w/conn-e）は屋根を柱で支えるだけの開放した通路に変更（kako-jun 2026-10-23「左右を行き来する開口部は壁に見えないように」。外観では屋根の下を抜ける通路）。旧の廊下棟の窓列（既定）は廃止。床は石（歩行不可。内部は TRM-04）。柱・屋根の寸法は既定（要確認）。"
  ],
  "windows": [
   {
@@ -422,102 +423,6 @@
     1565
    ],
    "note": "幼稚園棟の南面の掃き出し窓（#51: 床まで届く引き違い・扉ではない。玄関扉 door-playroom とは別）。枚数4は仮。位置は既定（要確認）"
-  },
-  {
-   "id": "TRM-03.win-cw1",
-   "wall": "conn-w",
-   "wall_side": "south",
-   "center": 430,
-   "width": 40,
-   "kind": "waist",
-   "sill": 25,
-   "height": 30,
-   "status": "default",
-   "along_ref": [
-    379,
-    596
-   ],
-   "note": "西の渡り廊下棟の南面の窓列（#51: 外観の廊下棟に窓列）。枚数・位置は既定（要確認）"
-  },
-  {
-   "id": "TRM-03.win-cw2",
-   "wall": "conn-w",
-   "wall_side": "south",
-   "center": 487,
-   "width": 40,
-   "kind": "waist",
-   "sill": 25,
-   "height": 30,
-   "status": "default",
-   "along_ref": [
-    379,
-    596
-   ],
-   "note": "西の渡り廊下棟の南面の窓列（#51: 外観の廊下棟に窓列）。枚数・位置は既定（要確認）"
-  },
-  {
-   "id": "TRM-03.win-cw3",
-   "wall": "conn-w",
-   "wall_side": "south",
-   "center": 545,
-   "width": 40,
-   "kind": "waist",
-   "sill": 25,
-   "height": 30,
-   "status": "default",
-   "along_ref": [
-    379,
-    596
-   ],
-   "note": "西の渡り廊下棟の南面の窓列（#51: 外観の廊下棟に窓列）。枚数・位置は既定（要確認）"
-  },
-  {
-   "id": "TRM-03.win-ce1",
-   "wall": "conn-e",
-   "wall_side": "south",
-   "center": 1002,
-   "width": 40,
-   "kind": "waist",
-   "sill": 25,
-   "height": 30,
-   "status": "default",
-   "along_ref": [
-    959,
-    1142
-   ],
-   "note": "東の渡り廊下棟の南面の窓列（#51: 外観の廊下棟に窓列）。枚数・位置は既定（要確認）"
-  },
-  {
-   "id": "TRM-03.win-ce2",
-   "wall": "conn-e",
-   "wall_side": "south",
-   "center": 1050,
-   "width": 40,
-   "kind": "waist",
-   "sill": 25,
-   "height": 30,
-   "status": "default",
-   "along_ref": [
-    959,
-    1142
-   ],
-   "note": "東の渡り廊下棟の南面の窓列（#51: 外観の廊下棟に窓列）。枚数・位置は既定（要確認）"
-  },
-  {
-   "id": "TRM-03.win-ce3",
-   "wall": "conn-e",
-   "wall_side": "south",
-   "center": 1098,
-   "width": 40,
-   "kind": "waist",
-   "sill": 25,
-   "height": 30,
-   "status": "default",
-   "along_ref": [
-    959,
-    1142
-   ],
-   "note": "東の渡り廊下棟の南面の窓列（#51: 外観の廊下棟に窓列）。枚数・位置は既定（要確認）"
   }
  ],
  "no_window_walls": [

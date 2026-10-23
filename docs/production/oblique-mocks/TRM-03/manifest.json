@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-03",
  "plan": "docs/production/oblique-mocks/TRM-03-plan.json",
- "plan_sha256": "bed30b8fb37f1707689f87cf9c7bb80565cb5acbcf40c7c69de3ec74472e34d7",
+ "plan_sha256": "e970e19f8f4e3d949c1a6e95aede25be8b241592f6c54d8bd1a5d33ace700ad3",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -25,7 +25,7 @@
      1
     ]
    },
-   "input_sha": "022c3e1c148c1506a0a1f49811e75870665310134208ee57b6a59ca0b500e812",
+   "input_sha": "a8364b88a7f1bbd655c2eb893946e6cae9327831b18a7009c09a23acf29b04a1",
    "outputs": {
     "TRM-03-exits.png": "3de754b22a66267a8772a955750aa277eafce7ee4af4c4e360aa8d9d00685b03",
     "TRM-03-mask.json": "afbd474f6ac59d3a4da260eae8740cdfc52895d065ac11a2636a2a6ba4009aee",
@@ -35,35 +35,35 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "022c3e1c148c1506a0a1f49811e75870665310134208ee57b6a59ca0b500e812",
+   "input_sha": "a8364b88a7f1bbd655c2eb893946e6cae9327831b18a7009c09a23acf29b04a1",
    "outputs": {
-    "TRM-03-clean.png": "083e70ad338f41621a81f46ce3113e3a0d2fc66edbcb48fe57084408534fa7f4",
-    "TRM-03-review.png": "26cdc35d31f2c285100fa195bf5868c611df82a56dac02386327a4797c3f39b3"
+    "TRM-03-clean.png": "3d3466e7423bafb66fe3fee4a2be441d45d9208cd7de48132c2100af6b98519d",
+    "TRM-03-review.png": "2bd73f2dd0cf878252c4304f31bbc70296c843e01c28d819c8f7354b818c8002"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "022c3e1c148c1506a0a1f49811e75870665310134208ee57b6a59ca0b500e812",
+   "input_sha": "a8364b88a7f1bbd655c2eb893946e6cae9327831b18a7009c09a23acf29b04a1",
    "outputs": {
     "TRM-03-occlusion-depth.png": "98e22144366b8565735eab2e7968c1e4c8d6de060e86696a11cc664ae2012c07",
     "TRM-03-occlusion-edit.png": "2d5be0a21b71a574588e12d1f444fbdef1d0f5b6094c30b8952bcd7d3713d72d",
-    "TRM-03-occlusion-overlay.png": "3819e9884f8565a629eac3082e3b7c44f5c02460c102c13b2a727e5e21fc330a",
+    "TRM-03-occlusion-overlay.png": "f77b8cc4d1868e0c798c504ade48274183b0e563eeebc1699a5deef13b540bcc",
     "TRM-03-occlusion.json": "c7edd0ad4707c76cc8758a05028d428b463ccfd070ed35a8cd76231b8dbe471b",
     "TRM-03-occlusion.png": "394a0ede6981cbc3866812e0be2c0fbc22d10091c666b6e9991416fe76fdc3ed"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "977dc008fbb3718adf8e423c36c0d6405b2cc2e08cf5833ec4d71bced15831fd",
+   "input_sha": "d9c806f360ea19e17a58f1f08c9f5880161e6bd42fbb2ddb9cd49b3d638366f9",
    "ledger_ready": false,
    "outputs": {
-    "TRM-03-edit-prompt.txt": "cb8f7aae1770b267500b85b8da13fd06a4a35eace8c7305bc8a3b79aaec9f24c"
+    "TRM-03-edit-prompt.txt": "4205a9b6fbc3c8c0020d8ee1d68a124064952871e5c4a69120b0ae4971b29f72"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "fad2327ccce1d91990aa21727d25097b1da3c6eca39c9a189516bc385ab06ae6",
+   "input_sha": "83f9a3ecd4142d59315fc99db5b284024d16ed14f110a037bfa852a28d4df5dc",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -72,14 +72,15 @@
     "境内側の戸口位置（住居・幼稚園）は台帳でTBD。既定を置いた（要確認）。園庭＝境内の右の区画（幼稚園の前）。東の通用門・TRM-01 への接続は無い（kako-jun 指摘、Issue #144）。",
     "園庭の遊具（#51 既決: 滑り台1・ブランコ1・半円アーチ4=赤青黄青・動物型1）の位置と大きさは既定（要確認）。幼稚園の掃き出し窓の前（Y425〜600）と、参道・door-playroom 前の通路は空けた。歩行マスクでは遊具=blocked。",
     "本堂に窓は置かない（確定。kako-jun 決定 2026-10-23）。本堂の壁は window_count=0 で、窓は描かない。",
+    "渡り廊下（conn-w/conn-e）は屋根を柱で支えるだけの開放した通路に変更（kako-jun 2026-10-23「左右を行き来する開口部は壁に見えないように」。外観では屋根の下を抜ける通路）。旧の廊下棟の窓列（既定）は廃止。床は石（歩行不可。内部は TRM-04）。柱・屋根の寸法は既定（要確認）。",
     "既定（要確認）: TRM-03.door-residence",
     "既定（要確認）: TRM-03.door-playroom"
    ]
   },
   "wire": {
-   "input_sha": "a9512d8a7d3c05b7c0af9b2d0ce8918e353fa010815dbd78a7d8c4cb1c2c7dde",
+   "input_sha": "82bdf16861e1a0ee2d4a8746cbc6c17902ef7eeba95e249351e4ee618ca1fb1d",
    "outputs": {
-    "wire-TRM-03.png": "4a0a41d4b65a4adc0709461f157975174036aa9a58c70bd6c9ac7bc4bff2c754"
+    "wire-TRM-03.png": "22ea166c490c228676d69478d0a8717c2d28abd6b763ee20194a1b9226e8fc23"
    },
    "status": "ok"
   }
