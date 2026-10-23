@@ -35,6 +35,7 @@ class LedgerVerifier
   def run
     check_presence
     check_columns
+    check_required_definition_columns
     check_unique
     check_fks
     check_required
@@ -111,6 +112,20 @@ class LedgerVerifier
       @t[tb].each_with_index do |row, i|
         extra = row.keys - cols
         err("表 #{tb}.yaml の#{i + 1}行目（#{row[cols.first]}）に表定義に無い列 #{extra.inspect}（綴り間違い？ 正しい列: #{cols.join(' / ')}）") unless extra.empty?
+      end
+    end
+  end
+
+  # 必須キー表のキー・条件の列名が、対象テーブルの表定義に在る（綴り間違いの条件は『=』だと常に偽になり、検査が黙って外れる）
+  def check_required_definition_columns
+    @t['必須キー'].each do |rk|
+      cols = schema[rk['対象テーブル']]
+      next if cols.nil? # 対象テーブル不明は LedgerRequiredKeys.check_definition がエラーにする
+
+      err("必須キー #{rk['対象テーブル']}.#{rk['キー']}: キーが表定義に無い") unless rk['キー'].start_with?('@') || cols.include?(rk['キー'])
+      rk['条件'].to_s.split('&').each do |c|
+        m = c.strip.match(/\A(.+?)(!=|=)(.*)\z/) or next
+        err("必須キー #{rk['対象テーブル']}.#{rk['キー']}: 条件『#{c.strip}』の列『#{m[1]}』が表定義に無い") unless cols.include?(m[1])
       end
     end
   end

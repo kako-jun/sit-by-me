@@ -915,3 +915,39 @@ class SchemaAndSyntaxTests(LedgerCopyBase):
         self.replace_in_row("端", self.ANCHOR, '  "MAP_ID": "TRM-05"\n', '  "MAP_ID": "TRM-05"\n  "MAP_ID": "TRM-02"\n')
         self.assertFailsWith(self.verify_ledger(), "重複")
         self.assertFailsWith(self.py("ledger_build.py", "check"), "重複")
+
+
+class RequiredKeysDefinitionTests(LedgerCopyBase):
+    """必須キー表の壊れ方（未知の対象テーブル・行の削除・必須度の誤り・条件の列名の綴り間違い）で、検査が黙って無効にならない。"""
+
+    def required(self, map_id="TRM-05"):
+        return subprocess.run([RUBY, str(self.work / "scripts/ledger_required_keys.rb"), map_id], env=self.env(), capture_output=True, text=True, cwd=self.work)
+
+    def test_clean_map_passes_the_gate(self):
+        self.assertEqual(self.required().returncode, 0)
+
+    def test_unknown_target_table_is_an_error_not_silently_ignored(self):
+        self.edit_row("必須キー", "キー", "外形", **{"対象テーブル": "建物X"})
+        r = self.required()
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("対象テーブル『建物X』は検査未対応", r.stdout)
+        self.assertFailsWith(self.verify_ledger(), "対象テーブル『建物X』は検査未対応")
+
+    def test_deleting_an_anchor_row_stops_the_gate(self):
+        self.delete_rows("必須キー", lambda r: r["対象テーブル"] == "MAP" and r["キー"] == "床材")
+        r = self.required()
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("最低限の行『MAP.床材』が無い", r.stdout)
+        self.assertFailsWith(self.verify_ledger(), "最低限の行『MAP.床材』")
+
+    def test_deleting_an_area_anchor_row_stops_the_gate(self):
+        self.delete_rows("必須キー", lambda r: r["対象テーブル"] == "エリア" and r["キー"] == "木の種類")
+        self.assertIn("最低限の行『エリア.木の種類』が無い", self.required().stdout)
+
+    def test_unknown_required_degree_is_an_error(self):
+        self.edit_row("必須キー", "キー", "床材", **{"必須度": "任意"})
+        self.assertIn("必須度『任意』", self.required().stdout)
+
+    def test_condition_column_typo_is_reported_by_verify_ledger(self):
+        self.edit_row("必須キー", "キー", "屋内外", **{"対象テーブル": "MAP", "条件": "描画方法=斜めモック"})
+        self.assertFailsWith(self.verify_ledger(), "条件『描画方法=斜めモック』の列『描画方法』が表定義に無い")

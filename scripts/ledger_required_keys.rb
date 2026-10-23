@@ -11,7 +11,31 @@ module LedgerRequiredKeys
   NOT_APPLICABLE = %w[該当なし なし].freeze
   KEY_TABLE_ID = { 'エリア' => 'エリアID', 'MAP' => 'MAP_ID', '建物' => '建物ID', '端' => '端ID', '決定' => '決定ID', '採用要素' => '採用要素ID', '素材' => '素材ID', '生成物' => '生成物ID' }.freeze
 
+  REQUIRED_DEGREES = %w[必須 条件付き必須].freeze
+  # 必須キー表がこれを持っていなくても生成ゲートが開かないように、コード側に固定した最低限の必須キー（対象テーブル => キー）。
+  # 必須キー表の行を消す・必須度を『任意』などに下げると、検査が黙って無効になる（行が無い=検査されない）のを防ぐ。
+  ANCHOR_KEYS = {
+    'エリア' => %w[名称 区域コード 机の天面の材質 台座の素材 木の種類 外周の装飾方針],
+    'MAP' => %w[エリアID 屋内外 状態 描画方式 床材 壁材 窓 扉の意匠 工作の材質 時期差分 建物ID 表現する部位 依存MAP 装飾プールID @接続 @窓の整合 @時期差分の整合]
+  }.freeze
+
   module_function
+
+  # 必須キー表そのものの健全性: 未知の対象テーブル・未知の必須度は黙って無効にせずエラー、アンカーの行が在って必須度が有効であること
+  def check_definition(tables)
+    errors = []
+    tables['必須キー'].each do |rk|
+      errors << "必須キー #{rk['対象テーブル']}.#{rk['キー']}: 対象テーブル『#{rk['対象テーブル']}』は検査未対応（KEY_TABLE_ID に無い。黙って無効になる）" unless KEY_TABLE_ID.key?(rk['対象テーブル'])
+      errors << "必須キー #{rk['対象テーブル']}.#{rk['キー']}: 必須度『#{rk['必須度']}』は #{REQUIRED_DEGREES.join('／')} のどちらでもない（黙って無効になる）" unless REQUIRED_DEGREES.include?(rk['必須度'])
+    end
+    ANCHOR_KEYS.each do |t, keys|
+      keys.each do |k|
+        hit = tables['必須キー'].find { |rk| rk['対象テーブル'] == t && rk['キー'] == k }
+        errors << "必須キー表に最低限の行『#{t}.#{k}』が無い（コード側アンカー。消すと生成ゲートが黙って開く）" unless hit
+      end
+    end
+    errors
+  end
 
   def cond_true?(cond, row)
     return true if cond.to_s.empty?
@@ -32,7 +56,7 @@ module LedgerRequiredKeys
 
   # 戻り値: [errors(blank/語彙外/未登録の未決), undecided([テーブル, ID, キー])]
   def check_rows(tables, only: nil)
-    errors = []
+    errors = check_definition(tables)
     undecided = []
     voc = vocab(tables)
     unresolved = tables['未決'].map { |r| [r['対象テーブル'], r['対象ID'], r['キー']] }
@@ -40,7 +64,7 @@ module LedgerRequiredKeys
     pools = tables['装飾プール'].map { |r| r['プールID'] }.uniq
     tables['必須キー'].each do |rk|
       t = rk['対象テーブル']
-      idcol = KEY_TABLE_ID[t] or next
+      idcol = KEY_TABLE_ID[t] or next # 未知の対象テーブルは check_definition がエラーにしている
       tables[t].each do |row|
         id = row[idcol]
         next if only && !only.call(t, row)
