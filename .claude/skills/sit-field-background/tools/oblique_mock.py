@@ -64,7 +64,7 @@ def load_plan(path, variant=None):
     if p.get("schema") != "sit-oblique-plan/1":
         sys.exit("schema が sit-oblique-plan/1 ではない")
     p.setdefault("floors", []); p.setdefault("walls", []); p.setdefault("doors", [])
-    p.setdefault("openings", []); p.setdefault("boxes", []); p.setdefault("markers", []); p.setdefault("windows", [])
+    p.setdefault("openings", []); p.setdefault("boxes", []); p.setdefault("markers", []); p.setdefault("windows", []); p.setdefault("annotations", [])
     p["variant"] = None
     if variant:
         v = p.get("variants", {}).get(variant)
@@ -72,7 +72,7 @@ def load_plan(path, variant=None):
             sys.exit(f"variant {variant} が無い")
         p = copy.deepcopy(p)
         rm = set(v.get("remove", []))
-        for k in ("floors", "walls", "doors", "openings", "boxes", "markers", "windows"):
+        for k in ("floors", "walls", "doors", "openings", "boxes", "markers", "windows", "annotations"):
             p[k] = [e for e in p[k] if e["id"] not in rm]
             p[k] += v.get("add", {}).get(k, [])
         p["name"] = v.get("name", p["name"]); p["subtitle"] = v.get("subtitle", p.get("subtitle", ""))
@@ -233,7 +233,7 @@ def build_items(p, style):
         for rc in wall_pieces(p, w):
             items.append((rc[3], "wall", box_polys(rc, h, color, top), w))
     for b in p["boxes"]:
-        items.append((b["rect"][3] + (0.1 if b["h"] < 20 else 0), "box", box_polys(b["rect"], b["h"] * bs, b["color"]), b))
+        items.append(((-500 + b["rect"][3] / 10000.0) if b["h"] < 20 else b["rect"][3], "box", box_polys(b["rect"], b["h"] * bs, b["color"]), b))
     for wn in p["windows"]:
         w = wall_by_id(p, wn["wall"])
         items.append((w["rect"][3] + 0.1, "window", [(window_geom(p, wn, hs), "#a9d6ee", "window")], wn))
@@ -410,6 +410,9 @@ def render(p, style="color", labels=False, ss=2):
         for m in p["markers"]:
             ax, ay = anchors[m["id"]]
             text((ax, ay - 30), m["id"], f2, "#ffffff", "#c0006a")
+        for an in p["annotations"]:
+            ax, ay = proj(*an["at"])
+            text((ax, ay), an["text"], f2, "#ffffff", "#c04000")
         text((W / 2, 24), f"{p['map_id']} {p['name']} - {p.get('subtitle','')}   [レビュー用・ラベル付き]", f1, "#000000", "#fff6c8")
     return img.resize((W, H_IMG), Image.LANCZOS), anchors
 

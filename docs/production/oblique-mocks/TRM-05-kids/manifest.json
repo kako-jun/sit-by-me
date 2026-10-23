@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-05-kids",
  "plan": "docs/production/oblique-mocks/TRM-05-plan.json",
- "plan_sha256": "5db0b328001c642368223e7e03b7e519ac92a48759a00d1ff6eea9c04b8609d3+kids",
+ "plan_sha256": "20a7dcda03bdaf703aa6a6f9b1f4b8d7098652053d4d3ebc83c5c9251c001354+kids",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -22,7 +22,7 @@
      1
     ]
    },
-   "input_sha": "f515e8ca1dfd6d9234aa847e71b1f819c4ac22cb45ad47e2fa8c360502069d2f",
+   "input_sha": "577521763919c0f4cc0b0b03b999406d75d82d4c23eb60e19cccbea8d6b208b4",
    "outputs": {
     "TRM-05-kids-exits.png": "5bce140dd8493db287431fb4b0cdf0dc82834c620bdbb847ecc3804940552c38",
     "TRM-05-kids-mask.json": "bce8d6a163b93aa8b0f88cfcb289098f8aabc93795c4cf747e82dff71e6a7a2b",
@@ -32,7 +32,7 @@
    "white_components": 2
   },
   "mock": {
-   "input_sha": "f515e8ca1dfd6d9234aa847e71b1f819c4ac22cb45ad47e2fa8c360502069d2f",
+   "input_sha": "577521763919c0f4cc0b0b03b999406d75d82d4c23eb60e19cccbea8d6b208b4",
    "outputs": {
     "TRM-05-kids-clean.png": "547457d7fd2232e5822a9bccd5406ccd2061b1d08553bdf963668f6fdd7d1da6",
     "TRM-05-kids-review.png": "d415af8a45e21de857f4fe3881e8a5f4892768682adb492be42ad8fcb379149a"
@@ -40,7 +40,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "f515e8ca1dfd6d9234aa847e71b1f819c4ac22cb45ad47e2fa8c360502069d2f",
+   "input_sha": "577521763919c0f4cc0b0b03b999406d75d82d4c23eb60e19cccbea8d6b208b4",
    "outputs": {
     "TRM-05-kids-occlusion-depth.png": "4f6cf1f9debd668bc457998fc65e81d63c078698bb695e9787ed522a33221d9c",
     "TRM-05-kids-occlusion-edit.png": "bb1dd7e6ec7b659fa5f60b0290e798b0e0bf96b25bd1f4d41fbf6e7725588ef2",
@@ -51,7 +51,7 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "c46447afd296d8ce46dd1b5f65ce9501299879cdb94d0c3ae676ecb9fb4b672a",
+   "input_sha": "af439410a326c297aa73cf348a1800298a61b494ff9e0677c7dd7ea8d9ab1ca5",
    "ledger_ready": false,
    "outputs": {
     "TRM-05-kids-edit-prompt.txt": "c3845946a608732697bccb8a39fa68cd43caee5373ccd39068f27ff18daaeaae"
@@ -60,7 +60,7 @@
   },
   "validate": {
    "errors": [],
-   "input_sha": "4d24b052ba1767d0accfa89e618b8a57ec11999698c6e77f199b0ae8b2801872",
+   "input_sha": "76af98d3ea9f2c89cad50619b0fc6b385667443e6f81943ff5aef63a0450d027",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -73,7 +73,7 @@
    ]
   },
   "wire": {
-   "input_sha": "b51444d9519780eda1e69f127c7d6f951fe966b2555b13e666eefdcf4e6bb2a5",
+   "input_sha": "d65cb4f9628da2dce3468e9f776622b5cf735d1d8dae16021a94b4857bd62a19",
    "outputs": {
     "wire-TRM-05-kids.png": "78bd02d30d048ba92021648f303d03b8d425e02fe5d1f82f2f6b20615aca4978"
    },

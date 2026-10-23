@@ -229,7 +229,7 @@ def build_prompt(p, key):
          "NO TEXT: 画像に文字・矢印・ラベルを入れない。人物は入れない。", "",
          "OBJECTS (色付きの箱 → 実物。位置・大きさは箱のまま):"]
     for b in p["boxes"]:
-        L.append(f"- {b['id']}（{b.get('label') or '箱'}）: 高さ{b['h']}。{'登れない・通れない物' if b.get('blocked') else '歩ける物'}")
+        L.append(f"- {b['id']}（{b.get('label') or '箱'}）: 高さ{b['h']}。{'登れない・通れない物' if b.get('blocked') else '歩ける物'}" + (f"。{b['prompt']}" if b.get("prompt") else ""))
     for w in p["walls"]:
         if w.get("kind") == "partition":
             L.append(f"- {w['id']}: 仕切り（壁より低い。壁と区別できる別素材で描く）。開口は箱の切れ目のまま")

@@ -297,6 +297,8 @@ def build(conn_path, out):
         if e.get("external"):
             exn = next((x for x in C["externals"] if e["a"] in x["ports"] or e["b"] in x["ports"]), {})
             note.append(exn.get("kind_note", "寺町の外への端点"))
+        for vk, vr in e.get("disabled_in", {}).items():
+            note.append(f"{vk} では無効（{vr}）")
         L.append(f"| `{e['a']}` | {info['a'][0]} | `{e['b']}` | {info['b'][0]} | 2人分（{M.DOOR_W}単位） | {verdict} | {'・'.join(note) or '-'} |")
     L += ["", "## 戸口の一覧（スペック由来）", "", "| 戸口 | MAP | 辺 | 位置 | 相手 | 備考 |", "|---|---|---|---|---|---|"]
     for mid, p in plans.items():
@@ -370,6 +372,9 @@ def wire_single(p, path, plans):
         x = max(10, min(x, M.W - w_est - 10))
         text_box(d, (x, y), t, f_xs, bg="#ffffee", anchor="lt")
         d.line([(ax, ay), (min(max(ax, x), x + w_est), y + (0 if side == "south" else h_est))], fill=K, width=2)
+    for an in p["annotations"]:
+        ax, ay = M.proj(*an["at"])
+        text_box(d, (ax, ay), an["text"], f_xs, bg="#fff0d0", outline="#c04000")
     for mk in p["markers"]:
         ax, ay = anchors[mk["id"]]
         text_box(d, (ax - 150, ay - 70), f"{mk['id']}\n{mk.get('label','')}\n相手: {mk.get('partner')}" + ("\n*既定（要確認）" if mk.get("status") == "default" else ""), f_xs, bg="#ffffee", anchor="lt")
