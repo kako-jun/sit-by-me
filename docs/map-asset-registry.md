@@ -33,7 +33,7 @@
 | ID | 画像 | 状態 | 一言特徴 | 時期 | 必須接続 | TBD |
 |---|---|---|---|---|
 | KRB-07 | `kanazawa-saigawa-bridge` | blocked | 雪と融雪水を抱えた犀川の鉄橋 | 幼稚園前半 | 茶屋街南岸 → 犀川橋 → 香林坊北岸 | 橋の実在形状・既存KRB-01/KRB-08端を参照してマスク照合 |
-| TRM-17 | `teramachi-entry-slope` | blocked | 用水と黒瓦を見上げる寺町の坂 | 幼稚園前半 | コンビニ北 → 寺町connector南 | 既存TRM-16/KRB-10端を参照してマスク照合 |
+| TRM-17 | `teramachi-entry-slope` | 台帳 | 用水と黒瓦を見上げる寺町の坂 | 幼稚園前半 | コンビニ北 → 寺町connector南 | 既存TRM-16/KRB-10端を参照してマスク照合 |
 | UCH-03 | `uchinada-pine-dune-path` | blocked | 風に鳴るクロマツ防砂林の木道 | 中学生後半 | 内灘駅 → 砂丘頂 → 砂浜 | 実在木道の幅・既存UCH-02/UCH-05端を参照してマスク照合 |
 | NTB-02 | `noto-uphill` | blocked | 海を背にして上がる雪混じりの漁村坂 | 幼稚園後半 | 低地 → 尾根 | 被災前後の同一端をマスク照合 |
 | NTB-03 | `noto-ridge` | blocked | 海を下に見下ろす小さな神社の尾根 | 幼稚園後半 | NTB-02 → NTB-04 | 被災前後の同一端をマスク照合 |
@@ -50,18 +50,18 @@
 
 | ID | 画像 | 地区 | 状態 |
 |---|---|---|---|
-| TRM-16 | `assets/images/fields/legacy/TRM-16.webp` | 寺町 | retired-replacement-required |
-| TRM-15 | `assets/images/fields/legacy/TRM-15.webp` | 寺町 | retired-replacement-required |
-| TRM-07 | `assets/images/fields/legacy/TRM-07.webp` | 寺町 | retired-replacement-required |
-| TRM-08 | `assets/images/fields/legacy/TRM-08.webp` | 寺町 | retired-replacement-required |
-| TRM-09 | `assets/images/fields/legacy/TRM-09.webp` | 寺町 | retired-replacement-required |
-| TRM-10 | `assets/images/fields/legacy/TRM-10.webp` | 寺町 | retired-replacement-required |
-| TRM-11 | `assets/images/fields/legacy/TRM-11.webp` | 寺町 | retired-replacement-required |
-| TRM-13 | `assets/images/fields/legacy/TRM-13.webp` | 寺町 | retired-replacement-required |
-| TRM-06 | `assets/images/fields/legacy/TRM-06.webp` | 寺町 | retired-replacement-required |
-| TRM-03 | `assets/images/fields/legacy/TRM-03.webp` | 寺町 | retired-replacement-required |
-| TRM-05 | `assets/images/fields/legacy/TRM-05.webp` | 寺町 | retired-replacement-required。kako-jun 指示（2026-10-23）: 幼稚園時代は父と同じ寝室（寝室1つ。画像は別・未作成・接尾辞 -kids。車椅子の区分は3値）、小学生から寝室2つ（採用画像 v12。通れる／通れないの2値、体内と同じ）。時期別は同一ID画像差し替え（-kids/-fire/-burnt/-wc） |
-| TRM-14 | `assets/images/fields/legacy/TRM-14.webp` | 寺町 | retired-replacement-required |
+| TRM-16 | `assets/images/fields/legacy/TRM-16.webp` | 寺町 | 台帳 |
+| TRM-15 | `assets/images/fields/legacy/TRM-15.webp` | 寺町 | 台帳 |
+| TRM-07 | `assets/images/fields/legacy/TRM-07.webp` | 寺町 | 台帳 |
+| TRM-08 | `assets/images/fields/legacy/TRM-08.webp` | 寺町 | 台帳 |
+| TRM-09 | `assets/images/fields/legacy/TRM-09.webp` | 寺町 | 台帳 |
+| TRM-10 | `assets/images/fields/legacy/TRM-10.webp` | 寺町 | 台帳 |
+| TRM-11 | `assets/images/fields/legacy/TRM-11.webp` | 寺町 | 台帳 |
+| TRM-13 | `assets/images/fields/legacy/TRM-13.webp` | 寺町 | 台帳 |
+| TRM-06 | `assets/images/fields/legacy/TRM-06.webp` | 寺町 | 台帳 |
+| TRM-03 | `assets/images/fields/legacy/TRM-03.webp` | 寺町 | 台帳 |
+| TRM-05 | `assets/images/fields/legacy/TRM-05.webp` | 寺町 | 台帳。寝室の方針・歩行マスクの値・時期別の画像差し替えは台帳の決定 `TRM-05.bedrooms`・`TRM-05.mask-values`・`TRM.era-variants` が正本（この表には書かない） |
+| TRM-14 | `assets/images/fields/legacy/TRM-14.webp` | 寺町 | 台帳 |
 | KRB-01 | `assets/images/fields/legacy/KRB-01.webp` | 香林坊 | legacy |
 | KRB-04 | `assets/images/fields/legacy/KRB-04.webp` | 香林坊 | legacy |
 | KRB-06 | `assets/images/fields/legacy/KRB-06.webp` | 香林坊 | legacy |

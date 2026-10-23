@@ -332,6 +332,86 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
         self.assertIn("W1: 仕切り", r.stdout)
 
 
+class LegacyMdReaderTests(unittest.TestCase):
+    """旧 md を読む scripts は見出し行の列名で読む（md_table.rb）。列の並び替えで壊れず、台帳管理のMAPは台帳で止まる。"""
+
+    CHECKLIST = """| ID | 状態 | Ref | mask / 出力 | 具体的TBD |
+|---|---|---|---|---|
+| KRB-01 | ready | R005 | x.webp | |
+"""
+    CHECKLIST_REORDERED = """| ID | 具体的TBD | mask / 出力 | Ref | 状態 |
+|---|---|---|---|---|
+| KRB-01 | | x.webp | R005 | ready |
+"""
+    SPEC = """| MAP | 時期 | 一言特徴 | 方位・主路・通行条件 | 暫定固定 |
+|---|---|---|---|---|
+| KRB-01 | 幼稚園 | 交差点 | 南へ | 固定A |
+"""
+    SPEC_REORDERED = """| MAP | 暫定固定 | 方位・主路・通行条件 | 一言特徴 | 時期 |
+|---|---|---|---|---|
+| KRB-01 | 固定A | 南へ | 交差点 | 幼稚園 |
+"""
+    TOPO = """#### MAP相互接続台帳 v2
+
+| From | To | 種別 | 主路・状態 |
+|---|---|---|---|
+| KRB-01.top | KRB-11.bottom | edge | 北へ |
+
+注記の地の文（表が途中で分かれても続きの行として読む）
+
+| KRB-01.right | KRB-12.left | edge | 東へ |
+
+#### 寺町の地形不変条件
+"""
+    TOPO_REORDERED = TOPO.replace("| From | To | 種別 | 主路・状態 |", "| From | To | 主路・状態 | 種別 |").replace("| edge | 北へ |", "| 北へ | edge |").replace("| edge | 東へ |", "| 東へ | edge |")
+
+    def run_ruby(self, root, *args):
+        return subprocess.run([RUBY, str(root / "scripts/build_map_prompt.rb"), *args], capture_output=True, text=True)
+
+    def make_root(self, checklist, spec, topo):
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        root = Path(tmp.name)
+        (root / "scripts").mkdir()
+        (root / "docs/ledger").mkdir(parents=True)
+        for f in ("build_map_prompt.rb", "md_table.rb", "ledger_yaml.rb"):
+            shutil.copy(ROOT / "scripts" / f, root / "scripts" / f)
+        (root / "docs/map-contract-checklist.md").write_text(checklist, encoding="utf-8")
+        (root / "docs/map-specifications.md").write_text(spec, encoding="utf-8")
+        (root / "docs/map-topology.md").write_text(topo, encoding="utf-8")
+        return root
+
+    def test_prompt_is_the_same_when_columns_are_reordered(self):
+        a = self.run_ruby(self.make_root(self.CHECKLIST, self.SPEC, self.TOPO), "KRB-01")
+        b = self.run_ruby(self.make_root(self.CHECKLIST_REORDERED, self.SPEC_REORDERED, self.TOPO_REORDERED), "KRB-01")
+        self.assertEqual(a.returncode, 0, a.stderr)
+        self.assertIn("Subject / unique landmark: 交差点", a.stdout)
+        self.assertIn("KRB-01.top / KRB-11.bottom / edge; KRB-01.right / KRB-12.left / edge", a.stdout)
+        self.assertEqual(a.stdout, b.stdout)
+
+    def test_blocked_status_still_blocks(self):
+        root = self.make_root(self.CHECKLIST.replace("ready", "blocked"), self.SPEC, self.TOPO)
+        r = self.run_ruby(root, "KRB-01")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("prompt generation is blocked", r.stderr)
+
+    def test_ledger_managed_map_stops_on_the_ledger_not_the_md(self):
+        root = self.make_root(self.CHECKLIST, self.SPEC, self.TOPO)
+        shutil.copy(ROOT / "docs/ledger/MAP.yaml", root / "docs/ledger/MAP.yaml")
+        shutil.copy(ROOT / "docs/ledger/未決.yaml", root / "docs/ledger/未決.yaml")
+        r = self.run_ruby(root, "TRM-04")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("managed by the ledger", r.stderr)
+        self.assertIn("U-042", r.stderr)  # TRM-04.dais の未決
+
+    def test_verify_map_ledger_requires_ledger_status_for_ledger_maps(self):
+        text = (ROOT / "docs/map-contract-checklist.md").read_text(encoding="utf-8")
+        self.assertIn("| TRM-04 | 台帳 |", text)
+        for needle in ("| TRM-02 | 台帳 |", "| TRM-03 | 台帳 |", "| TRM-05 | 台帳 |"):
+            self.assertIn(needle, text)
+        self.assertNotIn("recreate-required-1920x1080 |", "\n".join(l for l in text.splitlines() if l.startswith("| TRM-")))
+
+
 class PromptReflectionTests(unittest.TestCase):
     """verify_prompt_reflects_ledger.rb が、過去に漏れた事例（畳・化石の石・-fire の勝手口・火事版の上半分・渡り廊下の窓列）や
     自由記述・継承要素の漏れを、壊した fixture で実際に検出するか。プロンプトは fixture 内のツールで導出する（画像生成はしない）。"""

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'json'
+require_relative 'md_table'
 module MapGraph
   class Graph
     attr_reader :root, :areas, :edges
@@ -7,14 +8,13 @@ module MapGraph
       @root=root
       @areas=JSON.parse(File.read(File.join(root,'docs/topology/areas.json'))).fetch('areas')
       text=File.read(File.join(root,'docs/map-topology.md')).split('#### MAP相互接続台帳 v2',2).fetch(1).split('#### 寺町の地形不変条件',2).first
-      @edges=text.lines.select { |l| l.start_with?('|') }.map do |line|
-        c=line.split('|').map(&:strip)
-        next if c[1]=='From' || c[1].match?(/\A-+\z/)
-        raise "invalid topology row #{line}" unless c.length==6 && %w[edge door event oneway].include?(c[3])
-        a,ap=c[1].split('.',2);b,bp=c[2].split('.',2)
+      # 見出し行の列名（From/To/種別/主路・状態）で読む。列の位置に依存しない
+      @edges=MdTable.section_rows(text,'From','To','種別','主路・状態').map do |r|
+        raise "invalid topology row #{r[:cells].join(' | ')}" unless r[:cells].length==4 && r.values_at('From','To','種別','主路・状態').none?(&:nil?) && %w[edge door event oneway].include?(r['種別'])
+        a,ap=r['From'].split('.',2);b,bp=r['To'].split('.',2)
         raise 'missing endpoint' unless ap && bp
-        {'from'=>a,'from_port'=>ap,'to'=>b,'to_port'=>bp,'kind'=>c[3],'note'=>c[4],'id'=>"#{c[1]}>#{c[2]}:#{c[3]}"}
-      end.compact
+        {'from'=>a,'from_port'=>ap,'to'=>b,'to_port'=>bp,'kind'=>r['種別'],'note'=>r['主路・状態'],'id'=>"#{r['From']}>#{r['To']}:#{r['種別']}"}
+      end
     end
     def owner(id)
       @areas.find { |a| a['maps'].include?(id) }&.fetch('id')

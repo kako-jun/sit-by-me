@@ -428,8 +428,8 @@
  "depends_on": [],
  "_provenance": {
   "source": "MAP:TRM-04|要素|端|窓|既定値|時期差分|建物部位|建物窓列",
-  "input_sha": "72a3a3fa963f524ccebc4957f7b96e3bdfe32a24d8adf3d9e1957c7582dfb92c",
-  "generated_at": "2026-10-23T17:12",
+  "input_sha": "272933928826f4a6e6d286c985cdd12ac18be8de733699120c8e3cc01feb21e5",
+  "generated_at": "2026-10-24T03:11",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-04-plan",
   "do_not_edit": true

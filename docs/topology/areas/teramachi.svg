@@ -25,8 +25,8 @@
 <text x="790" y="473" class="label">親鸞像のある浄土真宗の境</text>
 <text x="790" y="494" class="label">内（屋外）</text>
 <circle class="node" data-map="TRM-04" cx="790" cy="160" r="34"/><text class="id" x="790" y="165">TRM-04</text>
-<text x="790" y="213" class="label">仏具の鈍い金と畳が対照に</text>
-<text x="790" y="234" class="label">なる本堂（屋内）</text>
+<text x="790" y="213" class="label">仏具の鈍い金と板張りの床</text>
+<text x="790" y="234" class="label">が対照になる本堂（屋内）</text>
 <circle class="node" data-map="TRM-05" cx="530" cy="160" r="34"/><text class="id" x="530" y="165">TRM-05</text>
 <text x="530" y="213" class="label">庫裏の台所と幼馴染の部屋</text>
 <text x="530" y="234" class="label">（屋内）</text>
