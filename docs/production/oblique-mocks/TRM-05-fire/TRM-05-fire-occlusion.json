@@ -40,6 +40,13 @@
    "body_overlap_px": 2798
   },
   {
+   "id": "chest",
+   "kind": "box",
+   "base_y": 479,
+   "area_px": 6416,
+   "body_overlap_px": 6101
+  },
+  {
    "id": "shelf-w",
    "kind": "box",
    "base_y": 480,
@@ -80,13 +87,6 @@
    "base_y": 506,
    "area_px": 2915,
    "body_overlap_px": 2800
-  },
-  {
-   "id": "chest",
-   "kind": "box",
-   "base_y": 518,
-   "area_px": 6645,
-   "body_overlap_px": 6325
   },
   {
    "id": "table",

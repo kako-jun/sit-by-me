@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-05",
  "plan": "docs/production/oblique-mocks/TRM-05-plan.json",
- "plan_sha256": "9d9f12d37934cfbd4a6bcb737e30f7384567e1aaea78abee143563745552aa64",
+ "plan_sha256": "e232ae51a9e8b07b240702dc54cab8855b17de6669a630baaf810e409465e2b9",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -22,45 +22,45 @@
      1
     ]
    },
-   "input_sha": "f5963a555f40095b3344b6f9a710f67c54d1d82d57a95e4f09b023433cae61d8",
+   "input_sha": "0c9e5197405e3b6e8f7d00e79acca1700932ce4c797c4baabd8183c337ce9cc7",
    "outputs": {
-    "TRM-05-exits.png": "879797ce2864dda005f5bd292e4bd0cd725aab5ced539fd35acdaba56cb2c56b",
+    "TRM-05-exits.png": "591b85ededfea85643e9052d27280e01525d68e8794e202d0ecc857cb79af6a3",
     "TRM-05-mask.json": "4bf086c5496726029f653021014e6f91f35f9b7f8222e23ebc663acc85081c1b",
-    "TRM-05-mask.png": "55d3791200e803516fe71c7f35ae64c6fcc3e15b697133ee0b16b7fcf66daad3"
+    "TRM-05-mask.png": "5394f08891efd3a8952b5aa4bc6968380857d6acfcd7b7435b01cee14453e7d9"
    },
    "status": "ok",
    "white_components": 1
   },
   "mock": {
-   "input_sha": "f5963a555f40095b3344b6f9a710f67c54d1d82d57a95e4f09b023433cae61d8",
+   "input_sha": "0c9e5197405e3b6e8f7d00e79acca1700932ce4c797c4baabd8183c337ce9cc7",
    "outputs": {
-    "TRM-05-clean.png": "33951023388c321064c4ada9b909c256297b200491af72036767c8568273c766",
-    "TRM-05-review.png": "7cb81b4833a957935724741d8ef1b4ac5de0c21d0884475f1e9f7ee1c3a7ca39"
+    "TRM-05-clean.png": "2bd4d5490c683ac69a9c028d9cf14511b293c71d215ebf8d692d4e31eb045fe5",
+    "TRM-05-review.png": "eef950f50cf4fb9e7a992192ec196b2446f48ffbdf76c9bbb1b35558542d6caa"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "f5963a555f40095b3344b6f9a710f67c54d1d82d57a95e4f09b023433cae61d8",
+   "input_sha": "0c9e5197405e3b6e8f7d00e79acca1700932ce4c797c4baabd8183c337ce9cc7",
    "outputs": {
-    "TRM-05-occlusion-depth.png": "c91525e9456d457b806392b25c9f0f9eeb42598d57ca371d86ab852345bc1739",
-    "TRM-05-occlusion-edit.png": "c9b58866e106a5b8f8ac2bc496c40463c6c9740c52b05e295d952e72e632c1b9",
-    "TRM-05-occlusion-overlay.png": "667135660c467b89fe88ef892777a2a253ba1e6a4b46ced2e7fdb562736a2bf0",
-    "TRM-05-occlusion.json": "b603231421ed174fabc97796597f352d4308fba901d9d12c611ead073ddbb11f",
-    "TRM-05-occlusion.png": "9a6e23db72bd7a2cd4909d6d4c105f0652769752dec9caaf86bca436fc567d6c"
+    "TRM-05-occlusion-depth.png": "2e9fb76fa590ef8dd037eee291d549be6bb98d5a72a4b12f2549439e7493b60e",
+    "TRM-05-occlusion-edit.png": "e09aba7f9f88c89e69b374b0501c6f45281064d0624b455dc37c49ae880e0fe1",
+    "TRM-05-occlusion-overlay.png": "af1f63468f21e1bc406e973cc612e845a4bfef6294507b06da0efee75e8e07ee",
+    "TRM-05-occlusion.json": "6a4cf112b3236ec10388383bc310a280b0f7cdb752139da91e5416f975519b27",
+    "TRM-05-occlusion.png": "d4f447b27499811cfb124c3ee0f7cfb3bed7b1f2709d659a487dc4b51357a485"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "ccaa7d3993ffc3d95c402c14d31c60c1bb9ca9a0ee5ea02f4037804cbd978602",
+   "input_sha": "5ae27c92bae1f6f1deb92e86a637e9e65c34d5fee36fe4f92000096b9871101c",
    "ledger_ready": false,
    "outputs": {
-    "TRM-05-edit-prompt.txt": "a5266917e1d37ae7675ec8f14a019b007548c8b37b98f11666ad51c622982c1b"
+    "TRM-05-edit-prompt.txt": "1fe766f244bc13d4de2643334c71aeb3d135660b542e71673d56ff06cd50aa1b"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "77861733f33065374f4b3b698639a0df02b0c10e4971917cf35822845c8803ce",
+   "input_sha": "999996cbdab8e735668b3acd8ae5067ef37ad6a3229221efd20d1845bf142620",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -69,14 +69,15 @@
     "家具の位置は採用画像 v12 から概略。",
     "勝手口 TRM-05.door-back は kako-jun 決定（2026-10-23）で fixed。北壁（画面上辺）の左（西）端（x420〜552）。台所の並び（コンロ・流し・食器棚・冷蔵庫）は戸口の右隣（x560〜783）に続ける。仕切り（x785）までの幅が約220なので、各家具の幅を詰めた（コンロ55・流し80・食器棚50・冷蔵庫38。並びの寸法は既定・要確認）。西の棚（Y492〜735）・食卓は元の位置。相手は TRM-06.door-house（寺町内・未制作MAP）。",
     "石は北東の隅（北壁と東壁の内側の角。x1125〜1170・Y280〜350）に移した（kako-jun 2026-10-23）。石のすぐ左の北壁に腰高窓1つ（中心x1070・幅80・窓台50・高さ55）。窓の種別・寸法は既定（要確認）。箪笥・台所・勝手口とは重ならないため家具は動かしていない。",
+    "南寝室の布団を北の仕切り・西の仕切りの角に寄せた（kako-jun 2026-10-23「もうちょっと上にして壁につける」）: [821,680,1015,858]→[809,615,1003,775]（北へ65・西へ12、壁に隙間なし。奥行きは178→160に詰めた＝door-hall から南の開口の通路（Y775〜907）を空けるため。寸法は既定・要確認）。長持も通路にかかっていたため北へ60（Y640〜734）。通路は paths で検証（幅2人分・踏ませない床と家具の上を通らない）。",
     "既定（要確認）: open-dining-bed-n",
     "既定（要確認）: open-dining-bed-s"
    ]
   },
   "wire": {
-   "input_sha": "b427fff2524449984f760fe4ff79d07fe394b0781b739fc9bc1f7d970ad9eadd",
+   "input_sha": "c87583fb751a099988525b5bff56753a9a6a5ba43853d4d0b82eff62880b5b4f",
    "outputs": {
-    "wire-TRM-05.png": "2c51d2266c366f73b1d7c80f31fc40112866338109ea02ea05eef191fdb7c3f5"
+    "wire-TRM-05.png": "acb4a2bdb4564a9aca54fbd045fb95bcc3ad4dce85f7f684d98566cc558d1cb8"
    },
    "status": "ok"
   }

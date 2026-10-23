@@ -53,6 +53,72 @@ def src_sha(*names):
 
 
 # ---------------------------------------------------------------- 検査
+
+def plan_free_grid(p, cell=2):
+    """平面（土台 1600x1270 単位）で歩ける所の格子。床（no_step=踏ませない床は除く）＋戸口・開口の通り道、から壁・blocked の箱を引く。"""
+    import numpy as np
+    import cv2
+    gw, gh = M.BASE_W // cell, M.BASE_D // cell
+    g = np.zeros((gh, gw), np.uint8)
+
+    def fill(rc, v):
+        x0, y0, x1, y1 = [int(round(c / cell)) for c in rc]
+        g[max(0, y0):max(0, y1), max(0, x0):max(0, x1)] = v
+    for f in p["floors"]:
+        if f.get("walkable", True) and not f.get("no_step"):
+            fill(f["rect"], 255)
+    for f in p["floors"]:
+        if f.get("no_step"):
+            fill(f["rect"], 0)
+    for w in p["walls"]:
+        fill(w["rect"], 0)
+    for bx in p["boxes"]:
+        if bx.get("blocked"):
+            fill(bx["rect"], 0)
+    for o in p["openings"]:
+        w = M.wall_by_id(p, o["wall"]); r = w["rect"]; a, b_ = M.span(o)
+        fill([a, r[1], b_, r[3]] if M.is_h(w) else [r[0], a, r[2], b_], 255)
+    for d in p["doors"]:
+        w = M.wall_by_id(p, d["wall"]); r = w["rect"]; a, b_ = M.span(d)
+        fill([a, r[1], b_, r[3]] if M.is_h(w) else [r[0], a, r[2], b_], 255)
+    return g
+
+
+def endpoint(p, ident):
+    """戸口・開口の通り道の入口の平面点（歩く側へ少し入った所）。"""
+    for d in p["doors"] + p["openings"]:
+        if d["id"] == ident:
+            w = M.wall_by_id(p, d["wall"]); r = w["rect"]
+            face = d.get("face", "east")
+            if M.is_h(w):
+                return (d["center"], (r[1] - 100) if face == "north" else (r[3] + 100))
+            return ((r[0] - 100) if face == "west" else (r[2] + 100), d["center"])
+    return None
+
+
+def check_paths(p):
+    """paths[]: 戸口⇄開口の通り道に、戸口幅（キャラ2人分）の通路を確保できるか。no_step の床・blocked の箱の上は通らない。"""
+    import numpy as np
+    import cv2
+    E = []
+    if not p.get("paths"):
+        return E
+    cell = 2
+    g = plan_free_grid(p, cell)
+    for pa in p["paths"]:
+        half = (pa.get("min_width", M.DOOR_W) / 2 - 2) / cell
+        k = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (int(2 * half) + 1, int(2 * half) + 1))
+        er = cv2.erode(g, k)
+        a, b_ = endpoint(p, pa["from"]), endpoint(p, pa["to"])
+        if a is None or b_ is None:
+            E.append(f"paths {pa.get('id')}: from/to の戸口・開口が無い"); continue
+        sa = (int(a[0] / cell), int(a[1] / cell)); sb = (int(b_[0] / cell), int(b_[1] / cell))
+        n, lab = cv2.connectedComponents((er > 0).astype(np.uint8))
+        la, lb = lab[sa[1], sa[0]], lab[sb[1], sb[0]]
+        if la == 0 or lb == 0 or la != lb:
+            E.append(f"paths {pa.get('id')}: {pa['from']} から {pa['to']} へ幅{pa.get('min_width', M.DOOR_W)}（キャラ2人分）の通路が取れない（布団・長持・家具が通路に乗っている、または狭い）")
+    return E
+
 def validate_plan(p):
     """(errors, warnings)。errors があれば後段へ進まない。"""
     E, Wn = [], []
@@ -186,6 +252,7 @@ def validate_plan(p):
             E.append(f"no_window_walls: wall {nw.get('wall')} が無い")
         elif any(x.get("wall") == nw["wall"] for x in p["windows"]):
             E.append(f"no_window_walls: 壁 {nw['wall']} は窓なしと確定しているのに windows[] がある")
+    E += check_paths(p)
     # 戸口の前（歩く側）を blocked の箱が塞いでいないか
     for d in p["doors"]:
         if d.get("wall") not in walls or d.get("face") not in ("north", "south", "west", "east"):

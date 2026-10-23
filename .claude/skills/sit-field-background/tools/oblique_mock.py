@@ -64,7 +64,7 @@ def load_plan(path, variant=None):
     if p.get("schema") != "sit-oblique-plan/1":
         sys.exit("schema が sit-oblique-plan/1 ではない")
     p.setdefault("floors", []); p.setdefault("walls", []); p.setdefault("doors", [])
-    p.setdefault("openings", []); p.setdefault("boxes", []); p.setdefault("markers", []); p.setdefault("windows", []); p.setdefault("annotations", [])
+    p.setdefault("openings", []); p.setdefault("boxes", []); p.setdefault("markers", []); p.setdefault("windows", []); p.setdefault("paths", []); p.setdefault("annotations", [])
     p["variant"] = None
     if variant:
         v = p.get("variants", {}).get(variant)
