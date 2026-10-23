@@ -193,6 +193,55 @@ class GeneratedViewFreshnessTests(Fixture):
         self.assertNotEqual(r.returncode, 0)
 
 
+class LedgerViewsTests(Fixture):
+    """ledger_views.py: build で生成し、手編集・台帳変更・欠落・手書きファイルの混入を check が検出する。"""
+
+    def views(self, cmd):
+        return subprocess.run([sys.executable, str(TOOLS / "ledger_views.py"), cmd], env=env_for(self.root), capture_output=True, text=True, cwd=ROOT)
+
+    def setUp(self):
+        super().setUp()
+        self.write("docs/ledger/語彙.yaml", ledger_io.dumps("語彙", [{"語彙ID": "V1", "グループ": "g", "値": "v", "英語断片": "", "説明": ""}]))
+        self.write("docs/ledger/決定.yaml", ledger_io.dumps("決定", [dict.fromkeys(ledger_io.SCHEMA["決定"], "") | {"決定ID": "T.one", "日付": "2026-10-24", "対象種別": "MAP", "対象ID": "TRM-02", "決定の要点": "テストの決定", "逐語": "「テスト」\n二行目", "状態": "有効", "プロンプト出力": "必須"}]))
+        r = self.views("build")
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+
+    def test_fresh_views_pass_and_contain_the_ledger(self):
+        r = self.views("check")
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        text = (self.root / "docs/ledger-views/決定.md").read_text(encoding="utf-8")
+        self.assertIn("T.one", text)
+        self.assertIn("> 「テスト」", text)
+        self.assertIn("> 二行目", text)
+
+    def test_hand_edit_fails(self):
+        p = self.root / "docs/ledger-views/決定.md"
+        p.write_text(p.read_text(encoding="utf-8") + "\n手で足した行\n", encoding="utf-8")
+        r = self.views("check")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("決定.md が台帳と一致しない", r.stdout)
+
+    def test_stale_after_ledger_change_fails_until_rebuilt(self):
+        self.write("docs/ledger/決定.yaml", ledger_io.dumps("決定", [dict.fromkeys(ledger_io.SCHEMA["決定"], "") | {"決定ID": "T.two", "日付": "2026-10-24", "対象種別": "MAP", "対象ID": "TRM-02", "決定の要点": "別の決定", "状態": "有効"}]))
+        r = self.views("check")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertEqual(self.views("build").returncode, 0)
+        self.assertEqual(self.views("check").returncode, 0)
+        self.assertIn("T.two", (self.root / "docs/ledger-views/決定.md").read_text(encoding="utf-8"))
+
+    def test_missing_view_fails(self):
+        (self.root / "docs/ledger-views/接続.md").unlink()
+        r = self.views("check")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("接続.md が無い", r.stdout)
+
+    def test_handwritten_file_in_views_dir_fails(self):
+        self.write("docs/ledger-views/メモ.md", "# 手書き\n")
+        r = self.views("check")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("生成ビューではない", r.stdout)
+
+
 class VerifyLedgerIntegrationTests(unittest.TestCase):
     """実リポの台帳をコピーして verify_ledger.rb が新表の違反と古い INDEX を検出するか（他の検査の結果とは独立に、該当メッセージの有無を見る）。"""
 
@@ -205,6 +254,7 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
         for name in ("docs/ledger", "docs/topology"):
             shutil.copytree(ROOT / name, cls.base / name, ignore=shutil.ignore_patterns("handoff"))
         shutil.copy(ROOT / "docs/INDEX.md", cls.base / "docs/INDEX.md")
+        shutil.copytree(ROOT / "docs/ledger-views", cls.base / "docs/ledger-views")
         for name in ("pyproject.toml", "uv.lock"):
             shutil.copy(ROOT / name, cls.base / name)
 
@@ -280,6 +330,22 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
         self.mutate(**{"Issue番号": "99999"})
         self.assertIn("Issue番号 '99999' が URL の Issue と違う", self.verify().stderr)
 
+
+    # ---- docs/ledger-views/*.md（台帳からの生成ビュー）の鮮度
+    def test_fresh_views_are_not_reported(self):
+        self.assertNotIn("生成ビューが古い、または検査できない: FAIL: docs/ledger-views", self.verify().stderr)
+        self.assertNotIn("ledger-views/ の生成ビューが古い", self.verify().stderr)
+
+    def test_hand_edited_view_is_reported_by_verify_ledger(self):
+        p = self.work / "docs/ledger-views/MAP.md"
+        p.write_text(p.read_text(encoding="utf-8").replace("MAP 一覧", "MAP 一覧（手編集）", 1), encoding="utf-8")
+        self.assertIn("ledger-views/ の生成ビューが古い", self.verify().stderr)
+
+    def test_ledger_change_without_regenerating_views_is_reported(self):
+        def mut(rows):
+            rows[0]["決定の要点"] += "（追記）"
+        self.edit_table("決定", mut)
+        self.assertIn("ledger-views/ の生成ビューが古い", self.verify().stderr)
 
     # ---- 描画定数・プロンプト文面（コードの直書きを台帳へ移した表。コードとの対応を verify_ledger.rb が見る）
     def edit_table(self, table, fn):

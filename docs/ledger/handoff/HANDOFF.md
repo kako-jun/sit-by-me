@@ -15,6 +15,14 @@ kako-jun「csvが本当にいいのか？yamlとかのほうが管理しやす�
 - 以降の本文中の `*.csv`・「CSV」は YAML に読み替え済み（歴史的記述を除く）。他の記録文書（ledger-db-design.md・local-orphans.md・curation-scripts/）は当時のままで、読むときは同様に読み替える。
 
 
+# 【第1段階の進捗（2026-10-24）】
+- (a)(b)(c) 実施済み（prompt反映検査・Issue点検・TRM-06〜17取込み）。**(d)(e)(f)(h)(i) 実施済み**:
+  - (d) 斜めツールの直書き定数・文面 → 新表 `描画定数.yaml`・`プロンプト文面.yaml`（`oblique_text.py` が読む。`verify_ledger.rb` がコードと台帳の対応を検査）。出力は変更前後でバイト一致。コード内に残したもの（色・乱数・検査の閾値・診断メッセージ・表の見出し・FONT）と理由は `tools/README.md`。
+  - (e) 旧mdは見出し行の列名で読む（`scripts/md_table.rb`）: build_map_prompt.rb・verify_map_ledger.rb・map_graph.rb・render_map_atlas.rb。**未対応（台帳に全129MAPが入る第2段階で置換）**: render_body_topology.rb・render_late_topology.rb・render_sunnyland_topology.rb（体内・後半・サニーランドの md 表を位置で読む）。
+  - (f) 畳の記述を TRM.no-tatami と整合、確定済みの戸口の位置・幅のTBDを台帳参照に、TRM-05 寝室方針の3表重複を決定ID参照に、`teramachi-rebuild-candidates.md` を参照のみに、寺町の legacy status を『台帳』に（verify_map_ledger が強制）。
+  - (h) 運用を SKILL.md・tools/README・INDEX 冒頭に明記。(i) `docs/ledger-views/*.md`（`ledger_views.py build|check`。verify_ledger.rb が検査）。
+- 残り: (g) 測定器、(j) 既定値の統合、未反映決定 384 件の仕分け（38件優先）、建物表の入れ子化、独立レビュー（opus）→PR。第2段階（体内・全MAP）。
+
 # 台帳DB化 引き継ぎ（WIP。2026-10-23 セッション終了時点）
 
 この置き場は一時的。第1段階の完了時に内容を台帳へ吸収してこの `handoff/` ごと削除する（INDEX の到達性検証では許可リスト『handoff（第1段階完了時に台帳へ吸収して削除）』）。
@@ -32,7 +40,7 @@ Issue #156（https://github.com/kako-jun/sit-by-me/issues/156）が正本。要�
 - 段階: 第0=INDEX・ファイル配置、第1=寺町（TRM-02〜17）、第2=体内・全MAP、第3=敵・素材・人物。
 
 ## どこまで済んだか（このブランチの実装）
-- 表（docs/ledger/）24枚: エリア15・MAP17（寺町）・建物5・建物部位・建物窓列・建物関係・建物時期差分・端・接続・接続図設定・要素・窓・時期差分・既定値・エリア固定・装飾プール・語彙・決定67（有効+訂正済み）・採用要素6・素材・生成物・必須キー62・未決45・キー別名。
+- 表（docs/ledger/）28枚（以下は当時の24枚の内訳。以降に ファイル配置・Issue点検・描画定数・プロンプト文面 を追加）: エリア15・MAP17（寺町）・建物5・建物部位・建物窓列・建物関係・建物時期差分・端・接続・接続図設定・要素・窓・時期差分・既定値・エリア固定・装飾プール・語彙・決定67（有効+訂正済み）・採用要素6・素材・生成物・必須キー62・未決45・キー別名。
 - ツール（.claude/skills/sit-field-background/tools/）: `ledger_io.py`（表定義 SCHEMA）・`ledger_flat.py`・`ledger_build.py`（導出器: plan/decor/connections/dependency-graph。`build`/`check`/`template`）・`ledger_query.py`（MAP→プロンプト台帳節）・`ledger_migrate_once.py`（一度きりの移行。再実行禁止）。`oblique_build.py` は必須キーゲート＋台帳節をプロンプトに入れる版（PROMPT_VERSION /5）。
 - 検証（scripts/）: `ledger_yaml.rb`・`ledger_required_keys.rb`・`verify_ledger.rb`（外部キー・一意・循環・必須キー・語彙・別名・決定整合・建物窓列・生成物鮮度・自由記述警告）。`verify_ledger.rb` は PASS（24表・決定67・警告0）。`verify_map_ledger.rb`・`verify_map_atlas.rb` は PASS（旧 md は併存）。
 - 意図的な修正（移行後のJSON差分）: 畳の語の除去、化石の石（決定表から展開）、-fire の勝手口 prompt（西壁→北壁）、TRM-03 の渡り廊下棟（roof-passage を取り消し→建物行から導出・連窓6を追加）、TRM-04 廊下窓の状態（既定→確定）、決定文の写し→決定参照。移行そのものは plan/decor/connections/dependency-graph とも無損失（`curation-scripts/compare_json_roundtrip.py`）。

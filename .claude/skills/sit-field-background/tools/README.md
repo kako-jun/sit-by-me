@@ -86,6 +86,7 @@ uv run --with opencv-python-headless --with numpy --with pillow python3 -I body_
 | `ledger_build.py` | 派生 JSON（plan・decor-pools・dependency-graph・接続図2種=幼稚園一式 `connections.json`／寺町全体 `connections-teramachi.json`）の生成（`build`）と鮮度検査（`check`）、必須キー雛形（`template`） |
 | `ledger_query.py` | MAP 1枚分のプロンプト台帳節 |
 | `ledger_index.py` | `docs/INDEX.md` の生成ビュー（台帳の表一覧・派生物・ファイル配置規則）の生成（`build`）と鮮度検査（`check`）。`verify_ledger.rb` が `check` を実行する。root は `LEDGER_ROOT` で差し替え可（`ledger_io.py` も同じ） |
+| `ledger_views.py` | 人が読む md ビュー `docs/ledger-views/*.md`（MAP・建物・決定・未決・採用要素・接続）を台帳から生成（`build`）・鮮度検査（`check`。`verify_ledger.rb` が実行）。手編集禁止（直すのは台帳。編集・台帳変更後の再生成漏れ・手書きファイルの混入は check が失敗する）。root は `LEDGER_ROOT` で差し替え可 |
 | `oblique_prompt_probe.py` | 全MAPの imagegen 編集プロンプトをファイルに書かず JSON で出す（ゲート停止MAPは `gated` に欠落一覧）。`scripts/verify_prompt_reflects_ledger.rb` が使う。`uv run --with numpy --with opencv-python-headless --with pillow python3 oblique_prompt_probe.py`。画像生成 API は呼ばない |
 | `ledger_write_rows.py` | 標準入力の JSON（行の配列）を台帳の1表として書く（YAML の書き出しは Python の `ledger_io` だけ）。`audit_issue_decisions.rb --write` が使う |
 | `ledger_csv_to_yaml_once.py` | 一度きりの CSV→YAML 変換（変換済み。`--verify-only` は コミット 40bf95d の CSV との無損失突合） |

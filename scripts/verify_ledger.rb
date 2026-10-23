@@ -43,6 +43,7 @@ class LedgerVerifier
     check_layout
     check_generated
     check_index_fresh
+    check_views_fresh
     check_free_text
     check_code_texts
     self
@@ -353,6 +354,14 @@ class LedgerVerifier
     project = File.expand_path('..', __dir__)
     out = `LEDGER_ROOT=#{@root.shellescape} uv run --project #{project.shellescape} python3 #{tool.shellescape} check 2>&1`
     err("docs/INDEX.md の生成ビューが古い、または検査できない: #{out.strip.lines.first(2).join(' / ')}") unless $?.success?
+  end
+
+  # docs/ledger-views/*.md（人が読むビュー）は台帳からの生成物。手編集・台帳変更後の再生成漏れ・手書きファイルの混入をエラーにする
+  def check_views_fresh
+    tool = File.expand_path('../.claude/skills/sit-field-background/tools/ledger_views.py', __dir__)
+    project = File.expand_path('..', __dir__)
+    out = `LEDGER_ROOT=#{@root.shellescape} uv run --project #{project.shellescape} python3 #{tool.shellescape} check 2>&1`
+    err("docs/ledger-views/ の生成ビューが古い、または検査できない: #{out.strip.lines.first(2).join(' / ')}") unless $?.success?
   end
 
   def check_generated
