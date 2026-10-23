@@ -253,6 +253,33 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
         p.write_text(ledger_io.dumps("生成物", rows), encoding="utf-8")
         self.assertIn("どの配置規則", self.verify().stderr)
 
+    # ---- Issue点検.yaml（verify_ledger.rb の外部キー・語彙・整合）
+    def mutate(self, **changes):
+        p = self.work / "docs/ledger/Issue点検.yaml"
+        rows = ledger_io.parse("Issue点検", p.read_text(encoding="utf-8"))
+        rows[0].update(changes)
+        p.write_text(ledger_io.dumps("Issue点検", rows), encoding="utf-8")
+
+    def test_clean_issue_audit_has_no_issue_audit_errors(self):
+        errs = [ln for ln in self.verify().stderr.splitlines() if ln.startswith("FAIL") and "Issue点検" in ln]
+        self.assertEqual(errs, [])
+
+    def test_unknown_decision_id_is_reported(self):
+        self.mutate(**{"決定ID": "NO.SUCH.DECISION", "分類": "決定表に反映済み"})
+        self.assertIn("外部キー Issue点検.決定ID='NO.SUCH.DECISION'", self.verify().stderr)
+
+    def test_unknown_classification_is_reported(self):
+        self.mutate(**{"分類": "たぶん決定"})
+        self.assertIn("分類 'たぶん決定' が語彙", self.verify().stderr)
+
+    def test_reflected_without_decision_id_is_reported(self):
+        self.mutate(**{"分類": "決定表に反映済み", "決定ID": ""})
+        self.assertIn("決定IDが空", self.verify().stderr)
+
+    def test_issue_number_mismatching_url_is_reported(self):
+        self.mutate(**{"Issue番号": "99999"})
+        self.assertIn("Issue番号 '99999' が URL の Issue と違う", self.verify().stderr)
+
 
 class PromptReflectionTests(unittest.TestCase):
     """verify_prompt_reflects_ledger.rb が、過去に漏れた事例（畳・化石の石・-fire の勝手口・火事版の上半分・渡り廊下の窓列）や
@@ -402,6 +429,114 @@ class PromptReflectionTests(unittest.TestCase):
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertIn("ゲートで停止（対象外）: TRM-06", r.stdout)
         self.assertIn("検査したMAP（1）: TRM-05", r.stdout)
+
+
+class IssueAuditTests(unittest.TestCase):
+    """audit_issue_decisions.rb: Issue の決定候補を決定表と突合して分類し、Issue点検.yaml の過不足を検出する（--from-json でオフライン）。"""
+
+    URL = "https://github.com/kako-jun/sit-by-me/issues"
+
+    @classmethod
+    def setUpClass(cls):
+        cls.tmp = tempfile.TemporaryDirectory()
+        cls.base = Path(cls.tmp.name)
+        for name in ("scripts", ".claude/skills/sit-field-background/tools"):
+            shutil.copytree(ROOT / name, cls.base / name, ignore=shutil.ignore_patterns("__pycache__"))
+        for name in ("pyproject.toml", "uv.lock"):
+            shutil.copy(ROOT / name, cls.base / name)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def setUp(self):
+        self.scratch = tempfile.TemporaryDirectory()
+        self.addCleanup(self.scratch.cleanup)
+        self.work = Path(self.scratch.name) / "r"
+        shutil.copytree(self.base, self.work)
+        (self.work / "docs/ledger").mkdir(parents=True)
+        dec = dict.fromkeys(ledger_io.SCHEMA["決定"], "")
+        d1 = dict(dec, **{"決定ID": "D.url", "決定の要点": "URLで反映", "出典URL": f"{self.URL}/7#issuecomment-111", "状態": "有効"})
+        d2 = dict(dec, **{"決定ID": "D.quote", "決定の要点": "逐語で反映", "逐語": "「畳がすごく不自然だ。苦手なら板張りにしろ」", "状態": "有効"})
+        self.write_table("決定", [d1, d2])
+        self.data = {"issues": [
+            {"number": 7, "html_url": f"{self.URL}/7", "body": "ただの説明", "created_at": "2026-10-01T00:00:00Z"},
+            {"number": 8, "html_url": f"https://github.com/kako-jun/sit-by-me/pull/8", "body": "", "created_at": "2026-10-01T00:00:00Z", "pull_request": {}}],
+            "comments": [
+            self.comment(111, 7, "## kako-jun 決定\nOK"),
+            self.comment(112, 7, "## 追加決定\nkako-jun「畳がすごく不自然だ。苦手なら板張りにしろ」"),
+            self.comment(113, 7, "## 決定\n逐語: 「廊下の端の扉は外へ開く向きにしろ、内開きは不可」"),
+            self.comment(114, 7, "## これからやること\nkako-jun 指示どおりに台帳を直す"),
+            self.comment(115, 8, "## 決定 レビュー指摘\n直した"),
+            self.comment(116, 7, "ふつうの雑談")]}
+
+    def comment(self, cid, num, body):
+        return {"id": cid, "issue_url": f"https://api.github.com/repos/kako-jun/sit-by-me/issues/{num}", "html_url": f"{self.URL}/{num}#issuecomment-{cid}",
+                "body": body, "created_at": f"2026-10-02T00:00:{cid % 60:02d}Z"}
+
+    def write_table(self, table, rows):
+        (self.work / f"docs/ledger/{table}.yaml").write_text(ledger_io.dumps(table, rows), encoding="utf-8")
+
+    def audit(self, *args):
+        j = self.work / "all.json"
+        j.write_text(json.dumps(self.data, ensure_ascii=False), encoding="utf-8")
+        return subprocess.run([RUBY, str(self.work / "scripts/audit_issue_decisions.rb"), "--from-json", str(j), *args],
+                              env=env_for(self.work), capture_output=True, text=True, cwd=self.work)
+
+    def table(self):
+        return {r["コメントURL"].rsplit("-", 1)[-1]: r for r in ledger_io.parse("Issue点検", (self.work / "docs/ledger/Issue点検.yaml").read_text(encoding="utf-8"))}
+
+    def test_classification(self):
+        self.assertEqual(self.audit("--write").returncode, 0)
+        t = self.table()
+        self.assertEqual((t["111"]["分類"], t["111"]["決定ID"]), ("決定表に反映済み", "D.url"))
+        self.assertEqual((t["112"]["分類"], t["112"]["決定ID"]), ("決定表に反映済み", "D.quote"))
+        self.assertEqual(t["113"]["分類"], "未反映(要取込み)")
+        self.assertIn("逐語あり", t["113"]["備考"])
+        self.assertEqual(t["114"]["分類"], "決定でない")
+        self.assertEqual(t["115"]["分類"], "対象外")
+        self.assertNotIn("116", t)  # 候補でない雑談
+        self.assertNotIn("issue-7", t)
+
+    def test_unlogged_candidate_without_quote_is_conservatively_unreflected(self):
+        self.data["comments"].append(self.comment(120, 7, "## kako-jun 指示\n台帳に入れる前に確認する"))
+        self.audit("--write")
+        self.assertEqual(self.table()["120"]["分類"], "未反映(要取込み)")
+        self.assertIn("逐語の引用なし", self.table()["120"]["備考"])
+
+    def test_check_fails_for_candidate_missing_from_table_and_passes_after_write(self):
+        r = self.audit()
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("未点検の候補", r.stderr)
+        self.assertEqual(self.audit("--write").returncode, 0)
+        self.assertEqual(self.audit().returncode, 0)
+        self.data["comments"].append(self.comment(121, 7, "## kako-jun 決定\nあとから増えた決定"))
+        r = self.audit()
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("issuecomment-121", r.stderr)
+
+    def test_check_fails_when_classification_drifts_from_scan(self):
+        self.audit("--write")
+        rows = ledger_io.parse("Issue点検", (self.work / "docs/ledger/Issue点検.yaml").read_text(encoding="utf-8"))
+        for row in rows:
+            if row["コメントURL"].endswith("-113"):
+                row["分類"] = "決定でない"  # 逐語つきの決定候補を黙って『決定でない』にした
+        self.write_table("Issue点検", rows)
+        r = self.audit()
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("分類が自動判定と違う", r.stderr)
+
+    def test_manual_classification_is_kept_on_rewrite(self):
+        self.audit("--write")
+        rows = ledger_io.parse("Issue点検", (self.work / "docs/ledger/Issue点検.yaml").read_text(encoding="utf-8"))
+        for row in rows:
+            if row["コメントURL"].endswith("-113"):
+                row["分類"] = "決定でない"
+                row["備考"] = "【手動】確認の結果、方針ではなく実施メモだった"
+        self.write_table("Issue点検", rows)
+        self.assertEqual(self.audit().returncode, 0)
+        self.audit("--write")
+        self.assertEqual(self.table()["113"]["分類"], "決定でない")
 
 
 if __name__ == "__main__":

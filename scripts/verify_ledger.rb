@@ -48,7 +48,7 @@ class LedgerVerifier
   end
 
   def check_presence
-    %w[エリア MAP 建物 建物部位 建物窓列 建物関係 建物時期差分 端 接続 接続図設定 要素 窓 時期差分 既定値 エリア固定 装飾プール 語彙 決定 採用要素 素材 生成物 必須キー 未決 キー別名 ファイル配置].each do |n|
+    %w[エリア MAP 建物 建物部位 建物窓列 建物関係 建物時期差分 端 接続 接続図設定 要素 窓 時期差分 既定値 エリア固定 装飾プール 語彙 決定 採用要素 素材 生成物 必須キー 未決 キー別名 ファイル配置 Issue点検].each do |n|
       err("表 #{n}.yaml が無い") unless File.file?(File.join(@root, 'docs/ledger', "#{n}.yaml"))
     end
   end
@@ -56,7 +56,7 @@ class LedgerVerifier
   UNIQUE = {
     'エリア' => ['エリアID'], 'MAP' => ['MAP_ID'], '建物' => ['建物ID'], '建物部位' => ['部位ID'], '建物窓列' => ['窓列ID'],
     '端' => %w[端ID 適用時期], '窓' => %w[窓ID 適用時期], '要素' => %w[MAP_ID 適用時期 要素ID], '決定' => ['決定ID'], '採用要素' => ['採用要素ID'],
-    '素材' => ['素材ID'], '生成物' => ['生成物ID'], '語彙' => ['語彙ID'], '未決' => ['未決ID'], '既定値' => ['既定ID'], 'ファイル配置' => ['配置ID']
+    '素材' => ['素材ID'], '生成物' => ['生成物ID'], '語彙' => ['語彙ID'], '未決' => ['未決ID'], '既定値' => ['既定ID'], 'ファイル配置' => ['配置ID'], 'Issue点検' => ['コメントURL']
   }.freeze
 
   def check_unique
@@ -132,6 +132,7 @@ class LedgerVerifier
       err("端 #{e['端ID']} の相手端 #{e['相手端']} が接続表に無い（接続は接続表が正）") unless ok
     end
     check_decision_fks
+    check_issue_audit
     @t['採用要素'].each do |a|
       err("外部キー 採用要素.素材ID='#{a['素材ID']}' が素材に無い") unless a['素材ID'].to_s.empty? || ids('素材', '素材ID').include?(a['素材ID'])
       err("採用要素 #{a['採用要素ID']} の元MAP #{a['元MAP']} が MAP に無い") unless ids('MAP', 'MAP_ID').include?(base_map(a['元MAP']))
@@ -195,6 +196,21 @@ class LedgerVerifier
         err("決定 #{d['決定ID']}: 置換先 #{d['置換先']} が決定表に無い") unless d['置換先'].to_s.empty? || ids('決定', '決定ID').include?(d['置換先'])
       end
     end
+  end
+
+  # Issue点検.yaml: 分類は語彙『Issue点検分類』、決定IDは決定表に在る、反映済みには決定IDが要る、URL と Issue番号が合う
+  def check_issue_audit
+    classes = @t['語彙'].select { |v| v['グループ'] == 'Issue点検分類' }.map { |v| v['値'] }
+    fk('Issue点検', '決定ID', '決定', '決定ID', list: true)
+    @t['Issue点検'].each do |r|
+      id = r['コメントURL']
+      err("Issue点検 #{id}: 分類 '#{r['分類']}' が語彙（Issue点検分類）に無い") unless classes.include?(r['分類'])
+      err("Issue点検 #{id}: 分類が『決定表に反映済み』なのに決定IDが空") if r['分類'] == '決定表に反映済み' && r['決定ID'].empty?
+      err("Issue点検 #{id}: Issue番号 '#{r['Issue番号']}' が URL の Issue と違う") unless id.match?(%r{/(issues|pull)/#{Regexp.escape(r['Issue番号'])}(\#|\z)})
+      err("Issue点検 #{id}: 候補の要約が空") if r['候補の要約'].empty?
+    end
+    pending = @t['Issue点検'].count { |r| r['分類'] == '未反映(要取込み)' }
+    warn!("Issue点検: 未反映(要取込み)が #{pending} 件（決定表へ取り込むか分類を確定する）") if pending.positive?
   end
 
   def check_required
