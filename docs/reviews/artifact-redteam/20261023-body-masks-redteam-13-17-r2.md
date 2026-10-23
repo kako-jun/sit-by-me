@@ -121,7 +121,7 @@ blocker: 0 ／ major: 1（F-R2-01 維持）／ minor: 4 ／ note: 5。
 
 ## 6. 検査に使ったコマンドと成果物
 
-`SP=/tmp/claude-1001/-home-kako-jun-repos-private-freeza/aa5acb76-b5dd-4655-b198-ef71c171c671/scratchpad/bdy13-17-r2`（リポ外）
+`SP=$S/bdy13-17-r2`（検査スクリプト・クロップは一時作業ディレクトリ（`$S`）に置いたもので、リポには含まれない）
 
 - 実行: すべて `uv run --with numpy --with pillow --with scipy [--with scikit-image] python3 ...`。`magick` は mask と traversal-edit の `compare -metric AE`（`$SP/cmp/`）のみ。`sha256sum` で §0 を取得。`jq` で links/register を読んだ。
 - スクリプト: `$SP/chk.py`（寸法・{0,255}・VP8L・連結成分・穴・rect 外の白・辺ごとの白）、`$SP/exit.py`（出口の列/行ごとに白の最初の位置・外向きの暗い画素・床色連続の始まり）、`$SP/ranges.py`（出口の区間と links の突き合わせ）、`$SP/diff.py`・`$SP/adj.py`（床色成分＝床の芯の中央値から L1<40・opening と mask の差。`$SP/diff{13..17}.png`: 白=一致、赤=床色だが black、青=white だが床色でない）、`$SP/width.py`（通路幅・スケルトン）、`$SP/p15.py`・`$SP/crop.py`（画素値とクロップ）。

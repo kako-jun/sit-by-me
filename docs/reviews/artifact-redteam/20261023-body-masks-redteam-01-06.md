@@ -136,7 +136,7 @@
 
 ## 6. 使ったコマンド・クロップ
 
-作業ディレクトリ: `/tmp/claude-1001/-home-kako-jun-repos-private-freeza/aa5acb76-b5dd-4655-b198-ef71c171c671/scratchpad/rt/`（実行は `uv run --with pillow --with numpy --with scipy --with scikit-image python3 -I <script>`）
+検査スクリプト・クロップは一時作業ディレクトリ（`$S`）に置いたもので、リポには含まれない。本回の成果物は `$S/rt/`。実行は `uv run --with pillow --with numpy --with scipy --with scikit-image python3 -I <script>`。
 
 - `rt_floor.py`: 床色（Lab 中央値）距離による white/black の突合、`rt_adj.py`: white に接する床色成分の列挙、`rt_exit.py`: 4辺の縁から 0〜30px 内側の white 区間・成分数、`rt_maze.py`: BDY-04 の 78 セルの再構成、`rt_misc.py`: BDY-02 首・BDY-03 くさび・BDY-04 通路幅、`crop.py`: 拡大クロップ。
 - sha256: `sha256sum assets/images/fields/masks/BDY-0[1-6]-* assets/images/fields/reference/body-*-bdy0[1-6]-adopted.webp`

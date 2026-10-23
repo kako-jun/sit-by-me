@@ -125,7 +125,7 @@ links / register（`docs/production/body-masks/`）
 
 ## 7. 使ったコマンド・クロップ
 
-作業ディレクトリ: `/tmp/claude-1001/-home-kako-jun-repos-private-freeza/aa5acb76-b5dd-4655-b198-ef71c171c671/scratchpad/r2/`（`uv run --with pillow --with numpy --with scipy --with scikit-image python3 -I <script>`）
+検査スクリプト・クロップは一時作業ディレクトリ（`$S`）に置いたもので、リポには含まれない。本回の成果物は `$S/r2/`。実行は `uv run --with pillow --with numpy --with scipy --with scikit-image python3 -I <script>`。
 
 - sha256: `sha256sum assets/images/fields/masks/BDY-0[1-6]-* assets/images/fields/reference/body-*-bdy0[1-6]-adopted.webp docs/production/body-masks/BDY-0[1-6]-*.json`
 - `a1.py`（寸法・値・同一・VP8L・連結・床色 dE・床色 black 成分）、`a2.py`（4辺の走査・dE>15 白のクラスタ・rect 外の白）、`forb.py`（禁止辺）、`links.py`（links と mask の突合）、`prof.py`（BDY-01 S の縦プロファイル）、`maze.py`（BDY-04 の再導出）、`crop.py`（左=原画素・右=mask 境界の赤線）

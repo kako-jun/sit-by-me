@@ -139,7 +139,7 @@ blocker: 0。主な理由: 全5枚で、必須出口が所定の辺に届き、�
 
 ## 4. 検査に使ったコマンドと成果物（スクラッチパッド）
 
-`SP=/tmp/claude-1001/-home-kako-jun-repos-private-freeza/aa5acb76-b5dd-4655-b198-ef71c171c671/scratchpad`（セッション用。リポ外）
+`SP=$S`（検査スクリプト・クロップは一時作業ディレクトリ（`$S`）に置いたもので、リポには含まれない）
 
 - 実行: すべて `uv run --with numpy --with pillow --with scipy [--with scikit-image] python3 ...`。`magick` で WebP→PNG に展開（`$SP/v/img{13..17}.png`・`mask{k}.png`・`ov{k}.png`）。
 - スクリプト: `$SP/chk.py`（寸法・2値・同一性）、`$SP/cmp.py`・`$SP/diff.py`（床色成分とマスクの突き合わせ。`$SP/v/diff{13..17}.png` に 白=一致・赤=床色だが black・青=white だが床色でない）、`$SP/inset.py`（境界から暗い画素までの距離）、`$SP/topo.py`（連結成分・穴・最大内接円）。他の検査（出口の隙間・辺ごとの白・通路幅・スケルトン）は標準入力のヒアドキュメントで実行（ファイルなし。上記の数値と式で再現可能）。

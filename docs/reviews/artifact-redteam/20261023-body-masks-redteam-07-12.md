@@ -115,7 +115,7 @@
 
 ## 5. 検査に使ったコマンド・成果物
 
-スクリプトとクロップはすべて `/tmp/claude-1001/-home-kako-jun-repos-private-freeza/aa5acb76-b5dd-4655-b198-ef71c171c671/scratchpad/`（以下 `$S`）。実行は `uv run --with pillow --with numpy --with scipy [--with scikit-image] python3 -I $S/aN.py`。
+検査スクリプト・クロップは一時作業ディレクトリ（`$S`）に置いたもので、リポには含まれない。実行は `uv run --with pillow --with numpy --with scipy --with scikit-image python3 -I <script>`。
 - `a1.py` 寸法・画素値・sha256・同一性、`a2.py` 輪郭重ね `ov07〜12.png` と連結成分、`a3.py` 床色モデル(md)とマスク外の床色成分、`a4.py` 白の暗い成分の位置、`a5.py` 辺ごとの白の範囲・禁止辺、`a6.py` 穴・幅、`a7.py` スケルトンと折れ、`crop.py`/`c.sh` 拡大クロップ（左=原画像、右=マスク輪郭=マゼンタ）。
 - クロップ: `c09_west.png`（F-01）、`c09_knee_in.png`、`c09_south.png`、`c07_stain.png`、`c07_north.png`、`c11_top.png`、`c10_south.png`、`c08_se.png`（F-03）、`ov_10_11_12.png`、`ov07.png`〜`ov12.png`。
 - 注: `$S` は一時領域。恒久保存が必要なら F-01 の `c09_west.png` だけ作成者が受け取ること。

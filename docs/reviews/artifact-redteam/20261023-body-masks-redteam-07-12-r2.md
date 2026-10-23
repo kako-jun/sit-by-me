@@ -104,7 +104,7 @@
 
 ## 7. 検査コマンド・成果物
 
-`$S` = `/tmp/claude-1001/-home-kako-jun-repos-private-freeza/aa5acb76-b5dd-4655-b198-ef71c171c671/scratchpad/`、本回の成果物は `$S/r2/`。実行は `uv run --with pillow --with numpy --with scipy [--with scikit-image] python3 -I <script>`。
+検査スクリプト・クロップは一時作業ディレクトリ（`$S`）に置いたもので、リポには含まれない。本回の成果物は `$S/r2/`。実行は `uv run --with pillow --with numpy --with scipy --with scikit-image python3 -I <script>`。
 
 - `$S/r2/b1.py`: sha256 と WebP chunk（VP8L）→ `$S/r2/sha.txt`
 - `$S/a1.py`: 寸法・画素値・同一性。`$S/a5.py`: 辺ごとの白の範囲と禁止辺。`$S/a7.py`: スケルトンの折れ
