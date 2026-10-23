@@ -427,9 +427,9 @@
  "decor_pool": "teramachi-winter",
  "depends_on": [],
  "_provenance": {
-  "source": "MAP:TRM-04|要素|端|窓|既定値|時期差分|建物部位|建物窓列",
-  "input_sha": "272933928826f4a6e6d286c985cdd12ac18be8de733699120c8e3cc01feb21e5",
-  "generated_at": "2026-10-24T03:11",
+  "source": "MAP:TRM-04|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
+  "input_sha": "866379fda98cda38de11167bc13f865561e1ad5c8d5f5b4719a02918793087d7",
+  "generated_at": "2026-10-24T04:46",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-04-plan",
   "do_not_edit": true

@@ -294,9 +294,9 @@
   "TRM-12"
  ],
  "_provenance": {
-  "source": "MAP:TRM-11|要素|端|窓|既定値|時期差分|建物部位|建物窓列",
-  "input_sha": "ada2a19665b2c7eaeeb3a2b56156d02f576ec7aa7ecd8ffc194eb5aa6bb0bd17",
-  "generated_at": "2026-10-24T02:11",
+  "source": "MAP:TRM-11|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
+  "input_sha": "a1e68483c3c63d033b916d5cfc60ab49d760b876c2ad40d85b84fb15f85cc47a",
+  "generated_at": "2026-10-24T04:46",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-11-plan",
   "do_not_edit": true

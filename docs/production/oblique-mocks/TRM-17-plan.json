@@ -322,9 +322,9 @@
   "TRM-03"
  ],
  "_provenance": {
-  "source": "MAP:TRM-17|要素|端|窓|既定値|時期差分|建物部位|建物窓列",
-  "input_sha": "fed2ec5a63c9715a1926328beec9e03ab1fbd1495183ddc92142d3e8d36a0dce",
-  "generated_at": "2026-10-24T02:11",
+  "source": "MAP:TRM-17|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
+  "input_sha": "a0bcf65ea4b15b0992f364db088002ac82b90f2e44d0054005d111f8bcbb835f",
+  "generated_at": "2026-10-24T04:46",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-17-plan",
   "do_not_edit": true

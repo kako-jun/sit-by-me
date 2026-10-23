@@ -167,8 +167,8 @@
  },
  "_provenance": {
   "source": "装飾プール|エリア固定|決定",
-  "input_sha": "aa1478fa1dca33cb2ef0f862f58e20a8a91d260ed91c9542ff91557bcda1f5a0",
-  "generated_at": "2026-10-23T17:15",
+  "input_sha": "1a0ef72a65b92dc238ef50c7bdb6bb3fae0ecab0e63a327b6dbbd09c03a9cdcf",
+  "generated_at": "2026-10-24T04:46",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-decor-pools",
   "do_not_edit": true

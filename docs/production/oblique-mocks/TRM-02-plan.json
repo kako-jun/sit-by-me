@@ -313,9 +313,9 @@
   "TRM-04"
  ],
  "_provenance": {
-  "source": "MAP:TRM-02|要素|端|窓|既定値|時期差分|建物部位|建物窓列",
-  "input_sha": "49e5c0c90a7df89deaa8ff7c2bdff19dc6c583404cf97257c6c10b437d012b63",
-  "generated_at": "2026-10-23T17:12",
+  "source": "MAP:TRM-02|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
+  "input_sha": "f2939f8d2f0f1f7f63a890189f692e4aa3e3881acc80857c3910f7c59a2c7555",
+  "generated_at": "2026-10-24T04:46",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-02-plan",
   "do_not_edit": true
