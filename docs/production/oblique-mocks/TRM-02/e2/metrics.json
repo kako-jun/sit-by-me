@@ -1,0 +1,1094 @@
+{
+ "map": "TRM-02",
+ "round": "e2",
+ "gates": {
+  "edge_recall_room_min": 0.6,
+  "edge_margin_min": 0.15,
+  "chamfer_room_max_px": 6.0,
+  "region_shift_max_px": 8,
+  "region_ok_ratio_min": 0.7,
+  "door_pink_residual_max": 0.02,
+  "window_white_green_max": 0.05,
+  "aspect_tol": 0.005
+ },
+ "takes_measured": 4,
+ "unreliable_regions": [
+  "box:chair-w1",
+  "box:chair-w2"
+ ],
+ "takes_pass": [
+  "3",
+  "4"
+ ],
+ "round2_needed": false,
+ "human_items": [
+  "窓の外に雪・木・空が描かれていないか（測定は窓ガラス内の白/緑の割合のみ。ガラス越しが室内の床に見えるかは目視）",
+  "床の模様の質（板張りに見えるか・不自然な模様がないか。測定は輝度の標準偏差のみ）",
+  "壁の見え方（厚み・材質・上端）と、戸口が木の扉/開口として自然か（ピンク残りは測定、造形は目視）",
+  "家具が実物（棚・椅子・机・舞台）として読めるか。人物・文字・矢印が入っていないか（文字有無は未測定）",
+  "段ボールの土台・雪・木の質感の様式（手作りミニチュアらしさ）"
+ ],
+ "takes": [
+  {
+   "take": "1",
+   "file": "/home/kako-jun/repos/2026/sit-by-me-wt-oblique/docs/production/oblique-mocks/TRM-02/e2/take1.png",
+   "resized_for_measure": false,
+   "orig_size": [
+    1672,
+    941
+   ],
+   "aspect_ok": true,
+   "edge": {
+    "recall6_room": 0.776,
+    "recall6_shifted_baseline": 0.495,
+    "margin": 0.281,
+    "chamfer_room_px": 3.74,
+    "recall6_full": 0.776,
+    "gen_edge_density_room": 0.0388
+   },
+   "regions": {
+    "door:TRM-02.door-west": {
+     "shift": {
+      "best_score": 0.675,
+      "dx": -2,
+      "dy": -6,
+      "score_at_0": 0.643
+     },
+     "pink_residual": 0.0,
+     "unreliable_self_check": false
+    },
+    "door:TRM-02.door-outside": {
+     "shift": {
+      "best_score": 0.647,
+      "dx": 8,
+      "dy": -2,
+      "score_at_0": 0.588
+     },
+     "pink_residual": 0.0,
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s1": {
+     "shift": {
+      "best_score": 0.678,
+      "dx": 0,
+      "dy": -10,
+      "score_at_0": 0.555
+     },
+     "glass": {
+      "mean_rgb": [
+       146.9,
+       121.9,
+       106.4
+      ],
+      "white": 0.0,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s2": {
+     "shift": {
+      "best_score": 0.731,
+      "dx": 0,
+      "dy": -10,
+      "score_at_0": 0.661
+     },
+     "glass": {
+      "mean_rgb": [
+       146.5,
+       120.8,
+       106.0
+      ],
+      "white": 0.0,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s3": {
+     "shift": {
+      "best_score": 0.738,
+      "dx": 0,
+      "dy": -10,
+      "score_at_0": 0.604
+     },
+     "glass": {
+      "mean_rgb": [
+       156.6,
+       125.1,
+       104.8
+      ],
+      "white": 0.0,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s4": {
+     "shift": {
+      "best_score": 0.725,
+      "dx": 0,
+      "dy": -12,
+      "score_at_0": 0.605
+     },
+     "glass": {
+      "mean_rgb": [
+       154.5,
+       125.1,
+       107.3
+      ],
+      "white": 0.0,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "box:stage": {
+     "shift": {
+      "best_score": 0.405,
+      "dx": 0,
+      "dy": -12,
+      "score_at_0": 0.397
+     },
+     "unreliable_self_check": false
+    },
+    "box:shelf-nw": {
+     "shift": {
+      "best_score": 0.719,
+      "dx": 0,
+      "dy": -8,
+      "score_at_0": 0.44
+     },
+     "unreliable_self_check": false
+    },
+    "box:shelf-ne": {
+     "shift": {
+      "best_score": 0.668,
+      "dx": -2,
+      "dy": -8,
+      "score_at_0": 0.487
+     },
+     "unreliable_self_check": false
+    },
+    "box:chair-w1": {
+     "shift": {
+      "best_score": 0.703,
+      "dx": -6,
+      "dy": 30,
+      "score_at_0": 0.519
+     },
+     "unreliable_self_check": true
+    },
+    "box:chair-w2": {
+     "shift": {
+      "best_score": 0.716,
+      "dx": -2,
+      "dy": -6,
+      "score_at_0": 0.523
+     },
+     "unreliable_self_check": true
+    },
+    "box:chair-w3": {
+     "shift": {
+      "best_score": 0.65,
+      "dx": -2,
+      "dy": -4,
+      "score_at_0": 0.582
+     },
+     "unreliable_self_check": false
+    },
+    "box:table-small": {
+     "shift": {
+      "best_score": 0.622,
+      "dx": -4,
+      "dy": 2,
+      "score_at_0": 0.571
+     },
+     "unreliable_self_check": false
+    },
+    "box:toy-rack": {
+     "shift": {
+      "best_score": 0.625,
+      "dx": 0,
+      "dy": -8,
+      "score_at_0": 0.548
+     },
+     "unreliable_self_check": false
+    },
+    "box:round-table": {
+     "shift": {
+      "best_score": 0.536,
+      "dx": -4,
+      "dy": -6,
+      "score_at_0": 0.391
+     },
+     "unreliable_self_check": false
+    }
+   },
+   "floor": {
+    "lum_std": 28.2,
+    "mean_rgb": [
+     161.3,
+     121.3,
+     90.7
+    ],
+    "mock_mean_rgb": [
+     159.4,
+     130.9,
+     105.7
+    ]
+   },
+   "pink_residual_whole_image": 0.0,
+   "provenance": {
+    "sha256": "d297be02b468c0457f7d7931627495fd424ef33ffad52eab6a748151e746e8fd",
+    "bytes": 2481264,
+    "size": [
+     1672,
+     941
+    ],
+    "mode": "RGB",
+    "unique_colors": 87652,
+    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a16711-66c9-7f30-9c60-f34c3f4191fd/exec-794f7ef8-f384-423e-b2a6-5938b68507ab.png",
+    "new_generated_images_in_run": 14,
+    "log_mentions_unavailable": false,
+    "log_fabrication_tool_calls": 0,
+    "log_mentions_image_gen": true
+   },
+   "global_shift_median_px": [
+    0.0,
+    -8.0
+   ],
+   "region_ok_ratio": 0.615,
+   "gates": {
+    "aspect": true,
+    "edge_recall": true,
+    "edge_margin": true,
+    "chamfer": true,
+    "regions": false,
+    "door_pink": true,
+    "window_content": true,
+    "genuine": true
+   },
+   "pass": false
+  },
+  {
+   "take": "2",
+   "file": "/home/kako-jun/repos/2026/sit-by-me-wt-oblique/docs/production/oblique-mocks/TRM-02/e2/take2.png",
+   "resized_for_measure": false,
+   "orig_size": [
+    1672,
+    941
+   ],
+   "aspect_ok": true,
+   "edge": {
+    "recall6_room": 0.937,
+    "recall6_shifted_baseline": 0.573,
+    "margin": 0.364,
+    "chamfer_room_px": 2.11,
+    "recall6_full": 0.903,
+    "gen_edge_density_room": 0.0438
+   },
+   "regions": {
+    "door:TRM-02.door-west": {
+     "shift": {
+      "best_score": 0.66,
+      "dx": -8,
+      "dy": 40,
+      "score_at_0": 0.6
+     },
+     "pink_residual": 0.0,
+     "unreliable_self_check": false
+    },
+    "door:TRM-02.door-outside": {
+     "shift": {
+      "best_score": 0.663,
+      "dx": -2,
+      "dy": 2,
+      "score_at_0": 0.61
+     },
+     "pink_residual": 0.0,
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s1": {
+     "shift": {
+      "best_score": 0.726,
+      "dx": 0,
+      "dy": -2,
+      "score_at_0": 0.717
+     },
+     "glass": {
+      "mean_rgb": [
+       144.0,
+       112.2,
+       94.7
+      ],
+      "white": 0.007,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s2": {
+     "shift": {
+      "best_score": 0.724,
+      "dx": 0,
+      "dy": 2,
+      "score_at_0": 0.72
+     },
+     "glass": {
+      "mean_rgb": [
+       164.8,
+       128.4,
+       107.0
+      ],
+      "white": 0.016,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s3": {
+     "shift": {
+      "best_score": 0.736,
+      "dx": 0,
+      "dy": -2,
+      "score_at_0": 0.731
+     },
+     "glass": {
+      "mean_rgb": [
+       163.7,
+       126.6,
+       104.5
+      ],
+      "white": 0.016,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s4": {
+     "shift": {
+      "best_score": 0.756,
+      "dx": -2,
+      "dy": -2,
+      "score_at_0": 0.726
+     },
+     "glass": {
+      "mean_rgb": [
+       157.9,
+       119.9,
+       96.9
+      ],
+      "white": 0.008,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "box:stage": {
+     "shift": {
+      "best_score": 0.645,
+      "dx": 0,
+      "dy": -2,
+      "score_at_0": 0.634
+     },
+     "unreliable_self_check": false
+    },
+    "box:shelf-nw": {
+     "shift": {
+      "best_score": 0.579,
+      "dx": 0,
+      "dy": -2,
+      "score_at_0": 0.527
+     },
+     "unreliable_self_check": false
+    },
+    "box:shelf-ne": {
+     "shift": {
+      "best_score": 0.6,
+      "dx": -20,
+      "dy": 38,
+      "score_at_0": 0.486
+     },
+     "unreliable_self_check": false
+    },
+    "box:chair-w1": {
+     "shift": {
+      "best_score": 0.723,
+      "dx": -6,
+      "dy": 34,
+      "score_at_0": 0.65
+     },
+     "unreliable_self_check": true
+    },
+    "box:chair-w2": {
+     "shift": {
+      "best_score": 0.722,
+      "dx": -2,
+      "dy": -2,
+      "score_at_0": 0.664
+     },
+     "unreliable_self_check": true
+    },
+    "box:chair-w3": {
+     "shift": {
+      "best_score": 0.695,
+      "dx": -2,
+      "dy": -2,
+      "score_at_0": 0.669
+     },
+     "unreliable_self_check": false
+    },
+    "box:table-small": {
+     "shift": {
+      "best_score": 0.588,
+      "dx": -12,
+      "dy": -20,
+      "score_at_0": 0.347
+     },
+     "unreliable_self_check": false
+    },
+    "box:toy-rack": {
+     "shift": {
+      "best_score": 0.59,
+      "dx": -2,
+      "dy": -28,
+      "score_at_0": 0.521
+     },
+     "unreliable_self_check": false
+    },
+    "box:round-table": {
+     "shift": {
+      "best_score": 0.548,
+      "dx": 2,
+      "dy": 8,
+      "score_at_0": 0.454
+     },
+     "unreliable_self_check": false
+    }
+   },
+   "floor": {
+    "lum_std": 31.32,
+    "mean_rgb": [
+     165.6,
+     110.9,
+     74.1
+    ],
+    "mock_mean_rgb": [
+     159.4,
+     130.9,
+     105.7
+    ]
+   },
+   "pink_residual_whole_image": 0.0,
+   "provenance": {
+    "sha256": "22f921acd16c458d600a1ea8ad4a7bbf1b01fad7026d16ca3b1f60084b5a375e",
+    "bytes": 2254810,
+    "size": [
+     1672,
+     941
+    ],
+    "mode": "RGB",
+    "unique_colors": 91731,
+    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a16711-6700-7b52-88f1-543bf28691f2/exec-12cf078d-247c-4c9d-8c67-53c02e661042.png",
+    "new_generated_images_in_run": 14,
+    "log_mentions_unavailable": false,
+    "log_fabrication_tool_calls": 0,
+    "log_mentions_image_gen": true
+   },
+   "global_shift_median_px": [
+    -2.0,
+    -2.0
+   ],
+   "region_ok_ratio": 0.692,
+   "gates": {
+    "aspect": true,
+    "edge_recall": true,
+    "edge_margin": true,
+    "chamfer": true,
+    "regions": false,
+    "door_pink": true,
+    "window_content": true,
+    "genuine": true
+   },
+   "pass": false
+  },
+  {
+   "take": "3",
+   "file": "/home/kako-jun/repos/2026/sit-by-me-wt-oblique/docs/production/oblique-mocks/TRM-02/e2/take3.png",
+   "resized_for_measure": false,
+   "orig_size": [
+    1672,
+    941
+   ],
+   "aspect_ok": true,
+   "edge": {
+    "recall6_room": 0.806,
+    "recall6_shifted_baseline": 0.535,
+    "margin": 0.272,
+    "chamfer_room_px": 4.13,
+    "recall6_full": 0.79,
+    "gen_edge_density_room": 0.0499
+   },
+   "regions": {
+    "door:TRM-02.door-west": {
+     "shift": {
+      "best_score": 0.676,
+      "dx": -18,
+      "dy": 10,
+      "score_at_0": 0.405
+     },
+     "pink_residual": 0.0,
+     "unreliable_self_check": false
+    },
+    "door:TRM-02.door-outside": {
+     "shift": {
+      "best_score": 0.713,
+      "dx": -4,
+      "dy": -6,
+      "score_at_0": 0.507
+     },
+     "pink_residual": 0.0,
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s1": {
+     "shift": {
+      "best_score": 0.712,
+      "dx": -6,
+      "dy": -8,
+      "score_at_0": 0.507
+     },
+     "glass": {
+      "mean_rgb": [
+       118.9,
+       107.7,
+       100.7
+      ],
+      "white": 0.0,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s2": {
+     "shift": {
+      "best_score": 0.716,
+      "dx": -4,
+      "dy": -6,
+      "score_at_0": 0.52
+     },
+     "glass": {
+      "mean_rgb": [
+       125.5,
+       115.5,
+       109.7
+      ],
+      "white": 0.0,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s3": {
+     "shift": {
+      "best_score": 0.733,
+      "dx": -4,
+      "dy": -6,
+      "score_at_0": 0.567
+     },
+     "glass": {
+      "mean_rgb": [
+       124.1,
+       115.2,
+       110.4
+      ],
+      "white": 0.0,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s4": {
+     "shift": {
+      "best_score": 0.755,
+      "dx": -4,
+      "dy": -6,
+      "score_at_0": 0.581
+     },
+     "glass": {
+      "mean_rgb": [
+       125.8,
+       115.2,
+       108.7
+      ],
+      "white": 0.0,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "box:stage": {
+     "shift": {
+      "best_score": 0.423,
+      "dx": -2,
+      "dy": -6,
+      "score_at_0": 0.278
+     },
+     "unreliable_self_check": false
+    },
+    "box:shelf-nw": {
+     "shift": {
+      "best_score": 0.667,
+      "dx": -12,
+      "dy": -8,
+      "score_at_0": 0.354
+     },
+     "unreliable_self_check": false
+    },
+    "box:shelf-ne": {
+     "shift": {
+      "best_score": 0.655,
+      "dx": 0,
+      "dy": -8,
+      "score_at_0": 0.571
+     },
+     "unreliable_self_check": false
+    },
+    "box:chair-w1": {
+     "shift": {
+      "best_score": 0.699,
+      "dx": -6,
+      "dy": 28,
+      "score_at_0": 0.494
+     },
+     "unreliable_self_check": true
+    },
+    "box:chair-w2": {
+     "shift": {
+      "best_score": 0.7,
+      "dx": -2,
+      "dy": -8,
+      "score_at_0": 0.536
+     },
+     "unreliable_self_check": true
+    },
+    "box:chair-w3": {
+     "shift": {
+      "best_score": 0.692,
+      "dx": -2,
+      "dy": -6,
+      "score_at_0": 0.537
+     },
+     "unreliable_self_check": false
+    },
+    "box:table-small": {
+     "shift": {
+      "best_score": 0.642,
+      "dx": 2,
+      "dy": -6,
+      "score_at_0": 0.541
+     },
+     "unreliable_self_check": false
+    },
+    "box:toy-rack": {
+     "shift": {
+      "best_score": 0.698,
+      "dx": 4,
+      "dy": -6,
+      "score_at_0": 0.533
+     },
+     "unreliable_self_check": false
+    },
+    "box:round-table": {
+     "shift": {
+      "best_score": 0.578,
+      "dx": 0,
+      "dy": -2,
+      "score_at_0": 0.568
+     },
+     "unreliable_self_check": false
+    }
+   },
+   "floor": {
+    "lum_std": 24.56,
+    "mean_rgb": [
+     154.6,
+     121.7,
+     94.0
+    ],
+    "mock_mean_rgb": [
+     159.4,
+     130.9,
+     105.7
+    ]
+   },
+   "pink_residual_whole_image": 0.0,
+   "provenance": {
+    "sha256": "3f2db0f5b521e4339a237eca4f852c7731460b1b6b012842dacd4f5287ab8862",
+    "bytes": 2588443,
+    "size": [
+     1672,
+     941
+    ],
+    "mode": "RGB",
+    "unique_colors": 80761,
+    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a16711-66db-7303-99ff-b4db154fb5ef/exec-5737f16c-4815-4962-844a-1156598eb47c.png",
+    "new_generated_images_in_run": 14,
+    "log_mentions_unavailable": false,
+    "log_fabrication_tool_calls": 0,
+    "log_mentions_image_gen": true
+   },
+   "global_shift_median_px": [
+    -4.0,
+    -6.0
+   ],
+   "region_ok_ratio": 0.846,
+   "gates": {
+    "aspect": true,
+    "edge_recall": true,
+    "edge_margin": true,
+    "chamfer": true,
+    "regions": true,
+    "door_pink": true,
+    "window_content": true,
+    "genuine": true
+   },
+   "pass": true
+  },
+  {
+   "take": "4",
+   "file": "/home/kako-jun/repos/2026/sit-by-me-wt-oblique/docs/production/oblique-mocks/TRM-02/e2/take4.png",
+   "resized_for_measure": false,
+   "orig_size": [
+    1672,
+    941
+   ],
+   "aspect_ok": true,
+   "edge": {
+    "recall6_room": 0.92,
+    "recall6_shifted_baseline": 0.54,
+    "margin": 0.38,
+    "chamfer_room_px": 2.68,
+    "recall6_full": 0.926,
+    "gen_edge_density_room": 0.0438
+   },
+   "regions": {
+    "door:TRM-02.door-west": {
+     "shift": {
+      "best_score": 0.696,
+      "dx": -8,
+      "dy": 38,
+      "score_at_0": 0.572
+     },
+     "pink_residual": 0.0,
+     "unreliable_self_check": false
+    },
+    "door:TRM-02.door-outside": {
+     "shift": {
+      "best_score": 0.656,
+      "dx": -4,
+      "dy": -2,
+      "score_at_0": 0.566
+     },
+     "pink_residual": 0.0,
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s1": {
+     "shift": {
+      "best_score": 0.639,
+      "dx": -4,
+      "dy": 0,
+      "score_at_0": 0.617
+     },
+     "glass": {
+      "mean_rgb": [
+       103.1,
+       101.6,
+       102.2
+      ],
+      "white": 0.0,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s2": {
+     "shift": {
+      "best_score": 0.643,
+      "dx": 0,
+      "dy": 0,
+      "score_at_0": 0.643
+     },
+     "glass": {
+      "mean_rgb": [
+       119.1,
+       115.5,
+       113.8
+      ],
+      "white": 0.0,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s3": {
+     "shift": {
+      "best_score": 0.653,
+      "dx": 0,
+      "dy": 0,
+      "score_at_0": 0.653
+     },
+     "glass": {
+      "mean_rgb": [
+       120.0,
+       115.0,
+       111.9
+      ],
+      "white": 0.0,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s4": {
+     "shift": {
+      "best_score": 0.669,
+      "dx": -2,
+      "dy": 0,
+      "score_at_0": 0.642
+     },
+     "glass": {
+      "mean_rgb": [
+       119.0,
+       111.7,
+       107.1
+      ],
+      "white": 0.0,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "box:stage": {
+     "shift": {
+      "best_score": 0.457,
+      "dx": 0,
+      "dy": -4,
+      "score_at_0": 0.444
+     },
+     "unreliable_self_check": false
+    },
+    "box:shelf-nw": {
+     "shift": {
+      "best_score": 0.585,
+      "dx": 0,
+      "dy": -8,
+      "score_at_0": 0.396
+     },
+     "unreliable_self_check": false
+    },
+    "box:shelf-ne": {
+     "shift": {
+      "best_score": 0.637,
+      "dx": 0,
+      "dy": -6,
+      "score_at_0": 0.539
+     },
+     "unreliable_self_check": false
+    },
+    "box:chair-w1": {
+     "shift": {
+      "best_score": 0.707,
+      "dx": -2,
+      "dy": 34,
+      "score_at_0": 0.693
+     },
+     "unreliable_self_check": true
+    },
+    "box:chair-w2": {
+     "shift": {
+      "best_score": 0.704,
+      "dx": 2,
+      "dy": -14,
+      "score_at_0": 0.671
+     },
+     "unreliable_self_check": true
+    },
+    "box:chair-w3": {
+     "shift": {
+      "best_score": 0.646,
+      "dx": 2,
+      "dy": -16,
+      "score_at_0": 0.541
+     },
+     "unreliable_self_check": false
+    },
+    "box:table-small": {
+     "shift": {
+      "best_score": 0.582,
+      "dx": 0,
+      "dy": -24,
+      "score_at_0": 0.577
+     },
+     "unreliable_self_check": false
+    },
+    "box:toy-rack": {
+     "shift": {
+      "best_score": 0.672,
+      "dx": 0,
+      "dy": -4,
+      "score_at_0": 0.669
+     },
+     "unreliable_self_check": false
+    },
+    "box:round-table": {
+     "shift": {
+      "best_score": 0.444,
+      "dx": -4,
+      "dy": -2,
+      "score_at_0": 0.423
+     },
+     "unreliable_self_check": false
+    }
+   },
+   "floor": {
+    "lum_std": 33.26,
+    "mean_rgb": [
+     153.9,
+     109.4,
+     78.5
+    ],
+    "mock_mean_rgb": [
+     159.4,
+     130.9,
+     105.7
+    ]
+   },
+   "pink_residual_whole_image": 0.0,
+   "provenance": {
+    "sha256": "402a303aae38360306ff541c6ad406ced45acddb57039f544a28f44e08dc4c2f",
+    "bytes": 2326824,
+    "size": [
+     1672,
+     941
+    ],
+    "mode": "RGB",
+    "unique_colors": 97084,
+    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a16711-66f6-7372-90fb-5fc0e28f4d00/exec-5af93af7-240c-4ded-959d-afb76dd8c530.png",
+    "new_generated_images_in_run": 14,
+    "log_mentions_unavailable": false,
+    "log_fabrication_tool_calls": 0,
+    "log_mentions_image_gen": true
+   },
+   "global_shift_median_px": [
+    0.0,
+    -2.0
+   ],
+   "region_ok_ratio": 0.769,
+   "gates": {
+    "aspect": true,
+    "edge_recall": true,
+    "edge_margin": true,
+    "chamfer": true,
+    "regions": true,
+    "door_pink": true,
+    "window_content": true,
+    "genuine": true
+   },
+   "pass": true
+  }
+ ],
+ "inter_take": {
+  "pairwise_chamfer": [
+   {
+    "pair": "1-2",
+    "sym_chamfer_room_px": 5.4
+   },
+   {
+    "pair": "1-3",
+    "sym_chamfer_room_px": 7.4
+   },
+   {
+    "pair": "1-4",
+    "sym_chamfer_room_px": 7.47
+   },
+   {
+    "pair": "2-3",
+    "sym_chamfer_room_px": 7.03
+   },
+   {
+    "pair": "2-4",
+    "sym_chamfer_room_px": 6.1
+   },
+   {
+    "pair": "3-4",
+    "sym_chamfer_room_px": 5.47
+   }
+  ],
+  "mean_pairwise_chamfer_px": 6.48,
+  "blurred_lum_pixel_std_room_mean": 12.21,
+  "region_shift_sd": {
+   "door:TRM-02.door-west": {
+    "dx_sd": 5.7,
+    "dy_sd": 19.4
+   },
+   "door:TRM-02.door-outside": {
+    "dx_sd": 5.0,
+    "dy_sd": 2.8
+   },
+   "window:TRM-02.win-s1": {
+    "dx_sd": 2.6,
+    "dy_sd": 4.1
+   },
+   "window:TRM-02.win-s2": {
+    "dx_sd": 1.7,
+    "dy_sd": 4.8
+   },
+   "window:TRM-02.win-s3": {
+    "dx_sd": 1.7,
+    "dy_sd": 3.8
+   },
+   "window:TRM-02.win-s4": {
+    "dx_sd": 1.4,
+    "dy_sd": 4.6
+   },
+   "box:stage": {
+    "dx_sd": 0.9,
+    "dy_sd": 3.7
+   },
+   "box:shelf-nw": {
+    "dx_sd": 5.2,
+    "dy_sd": 2.6
+   },
+   "box:shelf-ne": {
+    "dx_sd": 8.4,
+    "dy_sd": 19.6
+   },
+   "box:chair-w1": {
+    "dx_sd": 1.7,
+    "dy_sd": 2.6
+   },
+   "box:chair-w2": {
+    "dx_sd": 1.7,
+    "dy_sd": 4.3
+   },
+   "box:chair-w3": {
+    "dx_sd": 1.7,
+    "dy_sd": 5.4
+   },
+   "box:table-small": {
+    "dx_sd": 5.4,
+    "dy_sd": 10.5
+   },
+   "box:toy-rack": {
+    "dx_sd": 2.2,
+    "dy_sd": 9.6
+   },
+   "box:round-table": {
+    "dx_sd": 2.6,
+    "dy_sd": 5.2
+   }
+  },
+  "region_shift_sd_mean_px": 5.03
+ }
+}

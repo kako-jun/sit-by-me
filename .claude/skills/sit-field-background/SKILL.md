@@ -184,6 +184,10 @@ kako-jun 指示（2026-10-22、逐語）: 『モックを見せずに作るこ�
 
 段階（`tools/oblique_build.py`）: validate（スキーマ・戸口の相手不一致・幅不足・戸口の前の障害物・到達不能をエラー）→ mock（クリーン／ラベル付き）→ wire（個別の白黒ワイヤー図）→ mask（歩行マスク）→ occlusion（手前オクルージョン）→ prompt（imagegen 編集用。台帳 `build_map_prompt.rb` が ready でなければ blocked と記録）→ **承認ゲート** → adopt（`--adopt IMAGE --take N`。寸法・sha256・プロンプト hash・モック hash を記録）→ verify（`--status`。採用後にスペックが変われば「再生成が要る」）。各段の入力 hash・出力 sha256 は `docs/production/oblique-mocks/<MAP>/manifest.json`。入力が変わらない段はスキップ、変わった段以降だけ再実行（`--from STAGE`・`--force`）。接続図・一覧・接続表は `--all` で横断生成（`connection-diagram.png`・`overview.png`・`connections.md`）。
 
+### E2: クリーンモック編集元の生成と幾何保持の測定（TRM-02 で実証、#144）
+
+`tools/oblique_e2_run.sh MAP 4`（リポ直下）で、承認済みクリーンモックを編集元に imagegen を4テイク並列生成→`oblique_e2_measure.py` で幾何保持を数値化する。参照は**クリーンモック＋素材見本（`verification/body-layout/BDY-material-swatch-corrugated-edge.png`）の2枚のみ・様式参照なし**。結果は `docs/production/oblique-mocks/<MAP>/e2/`（`takeN.png`・`overlay-takeN.png`・`metrics.json`/`metrics.md`・`run-log.md`・`e2-report.md`）。TRM-02 の実測: 4テイクとも輪郭 recall@6px 0.78〜0.94（ずらし基準 0.50〜0.57）・Chamfer 2〜4px・戸口ピンク残り0・窓ガラスに空/木なし、領域ずれの合格は2/4（崩壊でなく局所ずれ）。採用は kako-jun が決める（assets 配置・台帳 status は E2 では触らない）。**画像の内容は測れる範囲を数値で出し、測れない項目（窓越しの見え方・床の模様・扉の造形・様式）は kako-jun の目視項目として別掲する。** 手順の落とし穴は `pitfalls.md` F。
+
 ### 決定（kako-jun、2026-10-23）
 
 - **全体レビューが承認ゲートの核**: 各戸口の位置・向き・幅（`width_class`: 原則キャラ2人分・住居/幼稚園の外への戸口1.5人分・勝手口1人分）・相手 MAP の戸口との位置整合・寺町外への端点を載せた接続図（白黒ワイヤー。昔の攻略本流）と全MAP一覧を見せ、通ってから生成する。生成後の修正より、モック段階の接続修正を優先する。
