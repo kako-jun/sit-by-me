@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-05-fire",
  "plan": "docs/production/oblique-mocks/TRM-05-plan.json",
- "plan_sha256": "31ceeb23fa5f0e2e18749f8dace151119531497cbf41689d05d8c7d1b30645ad+fire",
+ "plan_sha256": "5db0b328001c642368223e7e03b7e519ac92a48759a00d1ff6eea9c04b8609d3+fire",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -19,7 +19,7 @@
      2
     ]
    },
-   "input_sha": "f9a93f742bd485ba7954949d275f957353097fcdef64e00fe831461760302e26",
+   "input_sha": "07b276c9fa57598bf5cdfb59b82f49bb46dcae6a63941593b6c60abfdce47674",
    "outputs": {
     "TRM-05-fire-exits.png": "df4057bbae4b7fe92d9a13575d5dbf7c6ef9dbb5e8d8715fe2f2f7c533e91732",
     "TRM-05-fire-mask.json": "6940bb8712cf065f763355cb63d913b1a9e3132932c950389423c05c390032bb",
@@ -29,42 +29,42 @@
    "white_components": 2
   },
   "mock": {
-   "input_sha": "f9a93f742bd485ba7954949d275f957353097fcdef64e00fe831461760302e26",
+   "input_sha": "07b276c9fa57598bf5cdfb59b82f49bb46dcae6a63941593b6c60abfdce47674",
    "outputs": {
-    "TRM-05-fire-clean.png": "99d496e2f0c30fde7a3d7adb975d2c1712e1fb6de7fed74134b50c89782a6059",
-    "TRM-05-fire-review.png": "1ad7abe1ebc131fc96d5f7489c4131fbb2bd4cf9b0fbb4d34881f56115ecc512"
+    "TRM-05-fire-clean.png": "feb9bcb4493a37f5b0abbaafd1cb13d3075b53ecddc243c60a2f42aaaa43002f",
+    "TRM-05-fire-review.png": "e720344e93bfbb7c471b7c7ec40e9dae763a06b07337a7b0b7c1520f4c409d5a"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "f9a93f742bd485ba7954949d275f957353097fcdef64e00fe831461760302e26",
+   "input_sha": "07b276c9fa57598bf5cdfb59b82f49bb46dcae6a63941593b6c60abfdce47674",
    "outputs": {
     "TRM-05-fire-occlusion-depth.png": "27799d43cf50701afa12f137d528c56bfe5f38610e0491cd784005707c1859e7",
     "TRM-05-fire-occlusion-edit.png": "1f2501e449e972af23b5e3b6c0af5d23ca6f081f62559d646c877ad161f0b471",
-    "TRM-05-fire-occlusion-overlay.png": "fb18ddd89e541543988d964bed16352a50742fa8e78b5f49ff1fff1f9badd83a",
+    "TRM-05-fire-occlusion-overlay.png": "26c5923bb413f578fd213812cd55b92b21c44707c7a265088d19000bd92b2b30",
     "TRM-05-fire-occlusion.json": "456ec0dfd8b8ffc60cb545c3210bda8a1834a97e334ef078a9896d3ef38ca0d1",
     "TRM-05-fire-occlusion.png": "5fa8d4405d79d27a9f9bf9c029d79bc316de359fa759d76ed823f9d6defc56b7"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "1770a84f46971ac09cb53eb7d5dcd544a47fe629a2e0b9e2ebea9f0649b1b9f2",
+   "input_sha": "ef26acc1999a9e9c59636daa4039c412841587309a3b9a3ff63a177977079ea1",
    "ledger_ready": false,
    "outputs": {
-    "TRM-05-fire-edit-prompt.txt": "c78f8c7004ec0c3fc0075216dbfee3f8339cbded15b156d15e82a703d1d5a22e"
+    "TRM-05-fire-edit-prompt.txt": "33af454c8795b1ae15bc57fcad2954a4172c98a267fa7482360ecf9e1a38c87a"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "0f961e70132698cbf6cce5d19bd4ba532fd960c47c9dec2a15ecf9f025edd92a",
+   "input_sha": "e8e4509569c5858b17d6bd6052b71915fc9f4aac671ba6bf70b07de0ad03cfa0",
    "outputs": {},
    "status": "ok",
    "warnings": [
     "仕切りの開口（2か所）は設計未指定。既定: ダイニング↔北寝室（Y440）・ダイニング↔南寝室（Y841。本堂の戸口と一直線）。幅は2人分。",
     "本堂からの戸口（東壁・v=0.76）は南寝室の側に着く。採用画像の石の敷居は東壁の中ほど（v≈0.5）にあったが、決定は『上下の中央より下寄り』。",
     "家具の位置は採用画像 v12 から概略。",
-    "勝手口 TRM-05.door-back は寺町を行き止まりにしない円環（TRM-16→TRM-15→TRM-06→TRM-16。map-topology #51）のため追加。位置は台所側（コンロ・流し・食器棚のある側）の西壁で、コンロ（Y280〜340）と西の棚（Y492〜735）の間（中心Y420・v=0.19）。位置・壁は設計に無く既定（要確認）。相手は TRM-06.door-house（寺町内・未制作MAP）。",
+    "勝手口 TRM-05.door-back は kako-jun 決定（2026-10-23「台所の左端でいい」）で fixed。台所の西端（西壁の北端 Y280〜412）。戸口の前を空けるため、コンロ・流し・食器棚・冷蔵庫を東へ寄せ（各幅を少し詰めた）、並びの寸法は既定（要確認）。相手は TRM-06.door-house（寺町内・未制作MAP）。円環（TRM-16→TRM-15→TRM-06→TRM-16。map-topology #51）のため。",
     "火事の時点＝上半分が燃える（kako-jun 2026-10-23）。範囲 Y280〜640 は『上半分』の既定（要確認）。燃えた所は blocked。",
     "-fire では勝手口（台所側=燃える上半分）を外した（燃える範囲に戸口は置けない）。火事中の勝手口の扱いは要確認。",
     "既定（要確認）: open-dining-bed-n",
@@ -72,9 +72,9 @@
    ]
   },
   "wire": {
-   "input_sha": "1cbcf100dac2acfb445887b7a2bede168b529a584069bac765cc5e35c9a9d819",
+   "input_sha": "b21584efe6bd90265abff5ea9353cf8921e39054f607dda0f004b6cb624d31be",
    "outputs": {
-    "wire-TRM-05-fire.png": "6514efa0f135041dfd9847219f05cacdf3e8ff24a34d2c3a3c0ac5a32805f2b2"
+    "wire-TRM-05-fire.png": "7a3ca305b7112f1ef51645dbbd5ac5669f17d0c6adae598674365ea8d0537a82"
    },
    "status": "ok"
   }

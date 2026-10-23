@@ -12,32 +12,25 @@
  ],
  "occluders": [
   {
-   "id": "cupboard",
-   "kind": "box",
-   "base_y": 235,
-   "area_px": 7723,
-   "body_overlap_px": 3696
-  },
-  {
    "id": "fridge",
    "kind": "box",
    "base_y": 238,
-   "area_px": 6785,
-   "body_overlap_px": 6290
+   "area_px": 6225,
+   "body_overlap_px": 4258
   },
   {
    "id": "stove",
    "kind": "box",
    "base_y": 241,
    "area_px": 6004,
-   "body_overlap_px": 2845
+   "body_overlap_px": 2655
   },
   {
    "id": "sink",
    "kind": "box",
    "base_y": 241,
-   "area_px": 9047,
-   "body_overlap_px": 5714
+   "area_px": 7409,
+   "body_overlap_px": 2911
   },
   {
    "id": "dresser",
