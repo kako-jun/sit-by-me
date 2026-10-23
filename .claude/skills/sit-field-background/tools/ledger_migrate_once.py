@@ -182,6 +182,24 @@ def main():
             continue
         seen.add(frozenset([c[0], c[1]]))
         rows["接続"].append({"端A": c[0], "端B": c[1], "種別": c[2], "主路・状態": c[3]})
+    dep = load(os.path.join(OBL, "dependency-graph.json"))
+    for path_, v, t in F.flatten({k: v for k, v in dep.items() if k != "maps"}):
+        rows["接続図設定"].append({"図ID": "依存グラフ", "項目": path_, "値": v, "型": t})
+    for r in rows["MAP"]:
+        d = dep["maps"].get(r["MAP_ID"])
+        if d:
+            r["依存の確度"] = L.jp({"fixed": "確定", "derived": "導出", "needs-confirmation": "要確認"}, d["status"])
+            r["依存の根拠"] = d["basis"]
+            r["依存MAP"] = ";".join(d["depends_on"])
+    for key, d in dep["maps"].items():
+        mm = re.match(r"^(TRM-\d\d)-(\w+)$", key)
+        if mm:
+            for it, val in (("依存", ";".join(d["depends_on"])), ("依存の確度", L.jp({"fixed": "確定", "derived": "導出", "needs-confirmation": "要確認"}, d["status"])), ("依存の根拠", d["basis"])):
+                existing = [x for x in rows["時期差分"] if x["MAP_ID"] == mm.group(1) and x["時期"] == mm.group(2) and x["項目"] == it]
+                if existing:
+                    existing[0]["値"] = val
+                else:
+                    rows["時期差分"].append({"MAP_ID": mm.group(1), "時期": mm.group(2), "項目": it, "値": val})
     for tname, rs in rows.items():
         if rs:
             L.write(tname, rs)

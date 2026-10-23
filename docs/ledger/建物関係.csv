@@ -1,0 +1,5 @@
+通番,建物A,建物B,関係,方角,接続端ID,決定参照,特徴(自由記述)
+1,BLD-TRM-honden,BLD-TRM-corridor-w,渡り廊下で接続,西,TRM-04.door-west,TRM.left-right,
+2,BLD-TRM-corridor-w,BLD-TRM-jukyo,渡り廊下で接続,西,TRM-05.door-hall,TRM.left-right,
+3,BLD-TRM-honden,BLD-TRM-corridor-e,渡り廊下で接続,東,TRM-04.door-east,TRM.left-right,
+4,BLD-TRM-corridor-e,BLD-TRM-youchien,渡り廊下で接続,東,TRM-02.door-west,TRM.left-right,

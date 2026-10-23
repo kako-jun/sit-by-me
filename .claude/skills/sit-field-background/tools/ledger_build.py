@@ -235,6 +235,31 @@ def build_connections(T, zu="幼稚園一式"):
     return doc
 
 
+DEPSTATUS = {"fixed": "確定", "derived": "導出", "needs-confirmation": "要確認"}
+
+
+def build_deps(T):
+    doc = F.unflatten([(r["項目"], r["値"], r["型"]) for r in T["接続図設定"] if r["図ID"] == "依存グラフ"])
+    maps = {}
+    for m in T["MAP"]:
+        if m["依存の確度"]:
+            maps[m["MAP_ID"]] = {"depends_on": L.split_list(m["依存MAP"]), "status": L.en(DEPSTATUS, m["依存の確度"]), "basis": m["依存の根拠"]}
+    eras = {}
+    for r in T["時期差分"]:
+        e = eras.setdefault((r["MAP_ID"], r["時期"]), {})
+        if r["項目"] == "依存":
+            e["depends_on"] = L.split_list(r["値"])
+        elif r["項目"] == "依存の確度":
+            e["status"] = L.en(DEPSTATUS, r["値"])
+        elif r["項目"] == "依存の根拠":
+            e["basis"] = r["値"]
+    for (mid, era), e in eras.items():
+        if "depends_on" in e:
+            maps[f"{mid}-{era}"] = {"depends_on": e["depends_on"], "status": e["status"], "basis": e["basis"]}
+    doc["maps"] = maps
+    return doc
+
+
 # ---- 生成物の出力先
 def targets(T):
     out = []
@@ -245,6 +270,9 @@ def targets(T):
                         lambda t, mid=m["MAP_ID"]: input_rows(t, mid)))
     out.append(("G-decor-pools", "装飾プールJSON", "docs/production/oblique-mocks/decor-pools.json", "装飾プール|エリア固定|決定", build_decor,
                 lambda t: {"装飾プール": t["装飾プール"], "エリア固定": t["エリア固定"], "決定": [d for d in t["決定"] if any(r["決定参照"] == d["決定ID"] for r in t["装飾プール"] + t["エリア固定"])]}))
+    out.append(("G-dependency-graph", "依存グラフJSON", "docs/production/oblique-mocks/dependency-graph.json", "MAP.依存MAP|時期差分|接続図設定", build_deps,
+                lambda t: {"MAP": [(r["MAP_ID"], r["依存MAP"], r["依存の確度"], r["依存の根拠"]) for r in t["MAP"]], "時期差分": [r for r in t["時期差分"] if r["項目"].startswith("依存")],
+                           "接続図設定": [r for r in t["接続図設定"] if r["図ID"] == "依存グラフ"]}))
     out.append(("G-connections", "接続図JSON", "docs/production/oblique-mocks/connections.json", "接続|接続図設定", build_connections,
                 lambda t: {"接続": [r for r in t["接続"] if r["図"]], "接続図設定": t["接続図設定"]}))
     return out
