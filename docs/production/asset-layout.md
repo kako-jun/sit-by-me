@@ -43,6 +43,7 @@
 | legacy mask | `assets/images/fields/legacy/masks/<MAP ID>-*.webp` | 旧接続を変更しない検証専用。**可逆WebP**（元PNGと画素が完全一致）。JSON・生成補助（make_masks.py）は削除済み |
 | 外観参照 | `assets/images/fields/reference/<kebab-case>.webp` | 外観参照専用（平置き・小文字英数とハイフンのみ）。mapの「実行時参照」には使わない |
 | 体内マスク（runtime切替前） | `assets/images/fields/masks/BDY-NN-{mask,traversal-edit,mask-overlay}.webp`（17箇所×3=51ファイル） | `mask`・`traversal-edit` は**可逆WebP（VP8L）**、`mask-overlay` は確認用の**非可逆WebP**。体内17MAPのマスク（#142）。台帳は blocked 維持で runtime 未切替 |
+| 斜め視点マスク（runtime切替前） | `assets/images/fields/masks/TRM-02-{mask,traversal-edit,mask-overlay}.webp` | 寺町の斜め視点（#144）。形式は体内マスクと同じ（mask・edit は可逆WebP、overlay は非可逆）。入力JSON・結果は `docs/production/oblique-masks/`。台帳は blocked 維持（ready にしない） |
 | 戦闘背景 | `assets/images/battle-backgrounds/BGxxx.webp`（現存はBG001・BG005のみ。BG002〜004・006〜009は削除済みで、復元は git 履歴 `1bb09d0` から。戦闘背景の新規作成は別件） | 下表 |
 | ブランド | `assets/images/brand/logo.svg`（正本）、`logo.png`（SVG派生、WebP化しない） | 暫定の文字ロゴ（SIT BY ME）。ゲームIDではない。のち差し替え予定 |
 

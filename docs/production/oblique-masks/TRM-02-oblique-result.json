@@ -1,0 +1,249 @@
+{
+ "schema": "sit-oblique-result/1",
+ "map_id": "TRM-02",
+ "image": {
+  "sha256": "b6a5ab4594b83904be26da9974d56778f59cd54b2cb698e10192f0c0257b34e9",
+  "size": [
+   1672,
+   941
+  ]
+ },
+ "input_sha256": "e56c157e395ca29e4df6bfe7c57ee0f1061d63ac4503f0e0a19322ddb073dfde",
+ "register_sha256": "480f0e3429f7d9163c29230f092b39cd3ac478e8ead1bc92d9b6338385b86632",
+ "floor": [
+  {
+   "room": "hall",
+   "floor_core_lab": [
+    77,
+    140,
+    143
+   ],
+   "thr": 5.0,
+   "quad_px": 325313,
+   "white_px": 235471,
+   "white_share_of_quad": 0.724,
+   "md_gt15_white_px": 0,
+   "furniture_components": 19
+  }
+ ],
+ "counts_px": {
+  "white": 235471,
+  "assist_orange": 0,
+  "blocked_manual": 43459,
+  "white_components": 1
+ },
+ "blocked": [
+  {
+   "id": "stage",
+   "room": "hall",
+   "reason": "舞台は登れない（kako-jun 決定 #144）。手書き矩形",
+   "leak_white_px": 0,
+   "pass": true
+  },
+  {
+   "id": "south-wall-wooden-door",
+   "room": null,
+   "reason": "南壁右の木の扉。docs/map-topology.md:289「TRM-03から住居・遊戯室への屋外doorを新設しない」。床の外（quad の南）なので床マスクには元々出ないが、blocked として記録",
+   "leak_white_px": 0,
+   "pass": true
+  }
+ ],
+ "exits": [
+  {
+   "id": "door-west",
+   "room": "hall",
+   "edge": "west",
+   "partner": "TRM-04.door-east",
+   "design_source": [
+    {
+     "file": "docs/map-specifications.md",
+     "line": 47,
+     "quote": "door-west→TRM-04.door-east（本堂側＝西から入る）。扉位置・廊下長はTBD。舞台袖は画面内終端。TRM-05直結なし"
+    },
+    {
+     "file": "docs/map-topology.md",
+     "line": 141,
+     "quote": "TRM-04.door-east | TRM-02.door-west | door | 本堂から東（境内から北を見て右）の幼稚園への屋内廊下。TRM-02側は本堂側（西）から入る… 扉の位置・廊下長はTBD"
+    },
+    {
+     "file": "docs/map-contract-checklist.md",
+     "line": 58,
+     "quote": "TRM-04.door-east↔TRM-02.door-west（本堂側＝西から入る）の扉位置・廊下長…を記録する。TRM-05直結なし"
+    }
+   ],
+   "position_status": "TBD",
+   "check": null,
+   "note": "設計書に位置が無い（TBD）。絵から読まない。候補は candidates",
+   "candidates": [
+    {
+     "id": "A-nw",
+     "note": "西壁の北寄り（舞台の左側・棚の下）",
+     "polygon": [
+      [
+       390.9,
+       304.2
+      ],
+      [
+       436.1,
+       304.2
+      ],
+      [
+       432.9,
+       335.1
+      ],
+      [
+       387.3,
+       335.1
+      ]
+     ],
+     "range_px": 1488,
+     "white_px": 1291,
+     "floor_edge_px": 57,
+     "touches_floor_edge": true,
+     "edge_adjacent_in_plan": true,
+     "max_depth_into_floor_px": 17.5,
+     "pass": true
+    },
+    {
+     "id": "B-mid",
+     "note": "西壁の中ほど",
+     "polygon": [
+      [
+       373.1,
+       455.5
+      ],
+      [
+       420.6,
+       455.5
+      ],
+      [
+       415.3,
+       507.3
+      ],
+      [
+       367.0,
+       507.3
+      ]
+     ],
+     "range_px": 2548,
+     "white_px": 2341,
+     "floor_edge_px": 62,
+     "touches_floor_edge": true,
+     "edge_adjacent_in_plan": true,
+     "max_depth_into_floor_px": 47.7,
+     "pass": true
+    },
+    {
+     "id": "C-sw",
+     "note": "西壁の南寄り（E1 が絵から読んだ開口の付近。ただし絵は根拠にしない）",
+     "polygon": [
+      [
+       361.6,
+       553.5
+      ],
+      [
+       410.6,
+       553.5
+      ],
+      [
+       403.1,
+       627.4
+      ],
+      [
+       352.9,
+       627.4
+      ]
+     ],
+     "range_px": 3737,
+     "white_px": 2706,
+     "floor_edge_px": 74,
+     "touches_floor_edge": true,
+     "edge_adjacent_in_plan": true,
+     "max_depth_into_floor_px": 37.0,
+     "pass": true
+    }
+   ]
+  }
+ ],
+ "npcs": [
+  {
+   "id": "stage-front",
+   "room": "hall",
+   "uv": [
+    0.5,
+    0.27
+   ],
+   "img_projected": [
+    845.2,
+    379.5
+   ],
+   "clearance_before_px": 19.0,
+   "snapped_img": [
+    845,
+    380
+   ],
+   "snap_dist_px": 0.0,
+   "edge_clearance_px": 19.0,
+   "snapped_uv": [
+    0.5,
+    0.271
+   ],
+   "pass": true
+  },
+  {
+   "id": "shelf-front-left",
+   "room": "hall",
+   "uv": [
+    0.17,
+    0.22
+   ],
+   "img_projected": [
+    540.6,
+    363.5
+   ],
+   "clearance_before_px": 60.0,
+   "snapped_img": [
+    541,
+    364
+   ],
+   "snap_dist_px": 0.0,
+   "edge_clearance_px": 60.0,
+   "snapped_uv": [
+    0.17,
+    0.222
+   ],
+   "pass": true
+  },
+  {
+   "id": "table-side",
+   "room": "hall",
+   "uv": [
+    0.8,
+    0.76
+   ],
+   "img_projected": [
+    1145.1,
+    546.3
+   ],
+   "clearance_before_px": 6.0,
+   "snapped_img": [
+    1145,
+    540
+   ],
+   "snap_dist_px": 6.3,
+   "edge_clearance_px": 12.0,
+   "snapped_uv": [
+    0.801,
+    0.742
+   ],
+   "pass": true
+  }
+ ],
+ "verdict": {
+  "all_pass": true
+ },
+ "outputs": {
+  "traversal_edit_sha256": "695cfbe2a4841cc4feb87dc4a95b449e7c86ee966a9bc07480b9e9e21781e950",
+  "mask_sha256": "695cfbe2a4841cc4feb87dc4a95b449e7c86ee966a9bc07480b9e9e21781e950"
+ }
+}

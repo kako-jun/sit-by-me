@@ -1,0 +1,123 @@
+{
+ "schema": "sit-oblique-register/1",
+ "map_id": "TRM-02",
+ "image": {
+  "path": "kinder.png",
+  "sha256": "b6a5ab4594b83904be26da9974d56778f59cd54b2cb698e10192f0c0257b34e9",
+  "size": [
+   1672,
+   941
+  ]
+ },
+ "input_sha256": "e56c157e395ca29e4df6bfe7c57ee0f1061d63ac4503f0e0a19322ddb073dfde",
+ "rooms": [
+  {
+   "id": "hall",
+   "quad": [
+    [
+     392,
+     295
+    ],
+    [
+     1292,
+     295
+    ],
+    [
+     1358,
+     635
+    ],
+    [
+     352,
+     635
+    ]
+   ],
+   "plan_size": [
+    1600,
+    865
+   ],
+   "plan_aspect": {
+    "w_over_h": 1.85,
+    "source": "circle:round-table",
+    "note": "E1 で丸テーブル天板から決めた値。台帳・設計書に遊戯室の寸法は無い。よって丸テーブルの真円度は循環検証"
+   },
+   "H_img_to_plan": [
+    [
+     1.9801259418338013,
+     0.23295599315691803,
+     -844.9313871801407
+    ],
+    [
+     -2.3022003220503984e-16,
+     3.1674371200815363,
+     -934.3939504240532
+    ],
+    [
+     -2.88483719992056e-20,
+     0.00038583336366614557,
+     1.0
+    ]
+   ],
+   "H_plan_to_img": [
+    [
+     0.5050183823529409,
+     -0.08001355635126493,
+     351.941699346405
+    ],
+    [
+     3.681407594038935e-17,
+     0.28345012812542536,
+     264.85408496732026
+    ],
+    [
+     3.6485941021334394e-22,
+     -0.00010936451636623279,
+     0.8978104575163397
+    ]
+   ],
+   "plan_image": "TRM-02-hall-plan.png",
+   "circles": [
+    {
+     "id": "round-table",
+     "plan_bbox_wh": [
+      182.9,
+      186.4
+     ],
+     "err_pct_bbox": 1.89,
+     "err_pct_moments": 1.83,
+     "implied_aspect_w_over_h": 1.885,
+     "independence": "circular",
+     "pass": null,
+     "note": "縦横比をこの円から決めたため循環検証（縦横比の証拠にならない）"
+    }
+   ],
+   "lines": [
+    {
+     "id": "stage-front-edge",
+     "kind": "horizontal",
+     "plan_dev_deg": 0.1,
+     "resid_px": 0.65,
+     "n": 13,
+     "independence": "quad-only",
+     "pass": true
+    }
+   ],
+   "floor_lines_auto": {
+    "planks_horizontal": {
+     "n": 21,
+     "median_deg": 0.07,
+     "mad_deg": 0.25,
+     "independence": "quad-only",
+     "pass": true
+    },
+    "seams_vertical": {
+     "n": 315,
+     "median_deg": 5.07,
+     "mad_deg": 4.68,
+     "independence": "quad-only",
+     "pass": null
+    }
+   },
+   "aspect_verified_independently": false
+  }
+ ]
+}
