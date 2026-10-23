@@ -94,3 +94,9 @@ $T/key_grid.py <生成グリッド>/C002-elementary-wheelchair-grid.png assets/i
 $T/key_walk.py <生成グリッド>/C001-elementary-wheelchair-walk.png assets/images/characters/C001/walk C001-elementary-wheelchair alpha down,right,left,up 2
 $T/key_walk.py <生成グリッド>/C002-elementary-wheelchair-walk.png assets/images/characters/C002/walk C002-elementary-wheelchair alpha down,right,left,up
 ```
+
+## C001の年齢段階別フィールド歩き
+
+小学生・中学生・青年・壮年の車椅子歩きは各8方向×3コマ（24枚）。同じ頭身と車椅子寸法を保つため、年齢段階を進めるときは前段階の採用済み12コマを同時生成の配置・位相参照として使い、対象年齢のマスターを顔・年齢・衣装の参照にする。4方向の4×3グリッドは対応が保てる場合に一括切り出しできる。斜め4方向のグリッドは行連結、位相重複、色縁が続いたため、2回失敗した段階で同方向・同コマの採用済み画像と対象年齢マスターを使う個別編集に切り替える。グリッドを切り出すときは `key_walk.py` が12体を正しく分離できることを確認し、失敗時に行境界で強制分割しない。
+
+個別編集後はフレーム1〜3を並べ、手の接触状態、ハンドリム位置、肘、スポーク位相を年齢段階間で照合する。移動距離は生成画像の縮小前サイズではなく、最終共通キャンバス上の可視座標で測る。全身が出力端に触れる斜め上方向などは、縦横比を変えずに等方縮小して共通キャンバスへ収め、左右4%以上・上下6%以上の透明余白を確認する。余白追加は端接触がある候補に限り、通常フレームのスケールを一律に変えない。
