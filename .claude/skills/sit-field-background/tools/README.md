@@ -20,7 +20,7 @@ uv run --with opencv-python-headless --with numpy --with pillow python3 -I body_
 |---|---|---|---|
 | `body_floor_overlay.py` | MAP ID・生成画像・clean 割付図 → 床IoU＋重ね画像（緑=一致・赤=期待のみ・青=実測のみ） | `... body_floor_overlay.py BDY-07 gen.png [--clean path] [--out ov.png]` | `--clean` で割付図を指す（MAP ID 固定のパス規則が既定）。IoU の定義は `check_body_image.floor_iou_ov` |
 | `body_register.py` | 採用画像＋clean 割付図（＋幾何JSON）→ 位置合わせ変換・床の切り出し（`-floor-cut.png`）・位相検査・重ね画像・register.json | `... body_register.py BDY-04 adopted.webp --out DIR [--clean path] [--geometry json] [--npc "kiosk:0.30,0.50"]` | 迷路／脚の折れ点の位相検査は BDY 専用の分岐。連結成分・出口・スライス断面は汎用 |
-| `body_mask_export.py` | `body_register.py` の出力 → 2値マスク3種・links・register・export-report | `... body_mask_export.py --reg REGDIR --masks assets/images/fields/masks --notes-dir docs/production/body-masks [--maps ..]` | 出力名 `BDY-xx-*`・既定の MAP 一覧・接続の反対辺検査（topology から読む部分）。3値のエリアは assist 出力の追加が要る |
+| `body_mask_export.py` | `body_register.py` の出力 → 2値マスク3種・links・register・export-report | `... body_mask_export.py --reg REGDIR --masks assets/images/fields/masks --notes-dir docs/production/body-masks [--maps ..]` | 承認の事実（red-team 済み・逸脱承認）は `docs/production/body-masks/approvals.json` から読む（無ければ書かない）。接続検査の problems は exit 1、不正な `--maps`・入力欠落は exit 2。出力名 `BDY-xx-*`・既定の MAP 一覧・接続の反対辺検査（topology から読む部分）。3値のエリアは assist 出力の追加が要る |
 | `body_step_scan.py` | clean 画像のディレクトリ → 斜めの帯の段差（Z形）の件数 | `... body_step_scan.py [clean dir]` | 床色定数 `FLOOR=(232,201,168)` と天面 rect 定数 |
 
 ## 区分B: 体内専用（新エリアでは作り直し。構造は参考にする）

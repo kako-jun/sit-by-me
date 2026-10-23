@@ -15,6 +15,8 @@ make_masks.py（削除済み）の legacy 形式（フラット塗り・画像�
   <notes-dir>/BDY-xx-links.json      出口候補の範囲（模型の天面の矩形の辺上、比率0..1と画像px）。範囲値とランタイム扱いは TBD（kako-jun 2026-10-22）
   <notes-dir>/BDY-xx-register.json   body_register.py の出力（床の差・位相・信頼度）に、採用判断（画像の床を正とした）を足した写し
   <notes-dir>/export-report.json     17枚の一覧と、接続の辺の反対検査
+  承認の事実（red-team 済み・kako-jun の逸脱承認の日付と内容）は、コードに書かず <notes-dir>/approvals.json（--approvals で変更可）から読む。
+  無ければ register に承認の記述を書かない。接続検査に problems があれば exit 1、--maps や入力ファイルの不備は exit 2。
 """
 import argparse
 import glob
@@ -54,7 +56,41 @@ def rect_note(reg):
                 rect_used_for_registration=im["rect_used_for_registration"])
 
 
-def note_for(mid, reg):
+def load_approvals(path):
+    """承認の事実の読み込み元。無ければ空（承認は書かない）。形式は docs/production/body-masks/approvals.json 参照"""
+    if not path.is_file():
+        return {}
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as e:
+        die(f"approvals を読めない: {path}: {e}")
+
+
+def approval_text(appr, mid):
+    d = (appr.get("deviations") or {}).get(mid)
+    return d["text"] if d and d.get("text") else ""
+
+
+def runtime_status(appr):
+    parts = []
+    rt = appr.get("red_team") or {}
+    if rt.get("done"):
+        parts.append("red-team 済み")
+    devs = appr.get("deviations") or {}
+    if devs:
+        dates = sorted({d["date"] for d in devs.values() if d.get("date")})
+        who = sorted({d["approver"] for d in devs.values() if d.get("approver")})
+        if who and dates:
+            parts.append(f"{'・'.join(who)} の逸脱承認済み {dates[-1]}")
+    return "ready ではない（遷移の範囲値・ランタイムの扱いが TBD" + ("。" + "・".join(parts) if parts else "") + "）"
+
+
+def die(msg, code=2):
+    print("ERROR: " + msg, file=sys.stderr)
+    sys.exit(code)
+
+
+def note_for(mid, reg, appr=None):
     im = reg["image_measure"]
     fb = im["side_fallback_reasons"]
     parts = [NOTES.get(mid) or "", "【rect の測定】" + ("4辺とも測定値。" if not fb else "辺 " + "".join(sorted(fb)) + " は期待値のフォールバック（測定できなかった。直せない理由: 縁の層〔縁取り・波形〕が画像に読めず、期待値より良い根拠が画像に無い）。内訳: " + "; ".join(f"{k}={v}" for k, v in fb.items()) + "。"),
@@ -62,7 +98,7 @@ def note_for(mid, reg):
     th = reg["floor_cut"]["info"].get("exit_throat_extension")
     if th:
         parts.append(f"喉の延長で足した床 {th['added_px']}px（出口のある辺 {''.join(th['sides'])}）。")
-    parts.append(EXTRA.get(mid, ""))
+    parts.append(EXTRA.get(mid, "").replace("{APPROVAL}", approval_text(appr or {}, mid)).strip())
     return " ".join(p for p in parts if p)
 
 
@@ -77,8 +113,8 @@ EXTRA = {
     "BDY-04": "通路幅は画像の描画による差（画像で約56px。仕様 約77px→画像倍率で約66px）。マスクは画像に従う。",
     "BDY-17": "通路幅は画像の描画による差（記載 77px(1920基準)/約67px(画像倍率)に対し、画像で横の帯 48〜52px・縦の帯 63〜64px）。マスクは画像に従う。",
     "BDY-15": "入口（W）の白は、画像で見えている床より約19〜22px細い（上端の影帯を black にする定義のため）。画像の描画による差でマスクは画像に従う。入口の幅は決定の再確認事項。",
-    "BDY-02": "契約『首は1本・上で頭と口に分岐』と採用画像（旧版。北辺の床が首の狭まりのない1つの広い塊）が食い違う。首の狭まりがない旧版画像を kako-jun が承認済みの逸脱として採用（2026-10-23）。契約の首1本・分岐は画像では広い床の塊として現れる。マスクは画像の床に従う（変更不要。画像が正）。",
-    "BDY-13": "画像・マスクとも 1672x940（寸法ゲートは 1672x941。比率差0.1%）。寸法 1672x940 は kako-jun が例外承認（2026-10-23）。",
+    "BDY-02": "契約『首は1本・上で頭と口に分岐』と採用画像（旧版。北辺の床が首の狭まりのない1つの広い塊）が食い違う。{APPROVAL}契約の首1本・分岐は画像では広い床の塊として現れる。マスクは画像の床に従う（変更不要。画像が正）。",
+    "BDY-13": "画像・マスクとも 1672x940（寸法ゲートは 1672x941。比率差0.1%）。{APPROVAL}",
 }
 
 
@@ -301,9 +337,25 @@ def main():
     ap.add_argument("--masks", required=True)
     ap.add_argument("--notes-dir", required=True)
     ap.add_argument("--maps")
+    ap.add_argument("--approvals", help="承認の事実を読む JSON（既定: <notes-dir>/approvals.json。無ければ承認は書かない）")
     args = ap.parse_args()
-    maps = args.maps.split(",") if args.maps else MAPS
+    maps = [m.strip() for m in args.maps.split(",") if m.strip()] if args.maps else MAPS
+    bad_ids = [m for m in maps if m not in ADOPT]
+    if not maps or bad_ids:
+        die(f"--maps が不正（BDY-01〜BDY-17 のカンマ区切り）: {bad_ids or args.maps!r}")
     reg_dir, masks, notes = Path(args.reg), Path(args.masks), Path(args.notes_dir)
+    if not reg_dir.is_dir():
+        die(f"--reg がディレクトリでない: {reg_dir}")
+    appr = load_approvals(Path(args.approvals) if args.approvals else notes / "approvals.json")
+    for mid in maps:
+        need = [reg_dir / f"{mid}-register.json", reg_dir / f"{mid}-floor-cut.png"]
+        hits = glob.glob(str(REPO / "assets/images/fields/reference" / f"{ADOPT[mid]}-adopted.webp"))
+        miss = [str(x) for x in need if not x.is_file()] + ([] if hits else [f"採用画像 {ADOPT[mid]}-adopted.webp"])
+        gp = REPO / "verification/body-layout/geometry" / f"{mid}.json"
+        if not gp.is_file():
+            miss.append(str(gp))
+        if miss:
+            die(f"{mid}: 入力が無い: {', '.join(miss)}")
     masks.mkdir(parents=True, exist_ok=True); notes.mkdir(parents=True, exist_ok=True)
     report = {}
     all_links = {}
@@ -333,7 +385,7 @@ def main():
             wall_foot_definition="床（クリーム）の領域だけが white。壁の帯（段ボール・毛糸）・面取りの斜面・影・地形・土台縁・机は black",
             rect_measurement=rect_note(reg), lossless_readback_equals_floor_cut_array=True,
             rect_fallback_sides=sorted(k for k, v in reg["image_measure"]["side_measured_ok"].items() if not v),
-            forbidden_edge_check=fcheck, note=note_for(mid, reg), registration_confidence=reg["registration"]["confidence"], runtime_status="ready ではない（遷移の範囲値・ランタイムの扱いが TBD。red-team 済み・kako-jun の逸脱承認済み 2026-10-23）")
+            forbidden_edge_check=fcheck, note=note_for(mid, reg, appr), registration_confidence=reg["registration"]["confidence"], runtime_status=runtime_status(appr))
         (notes / f"{mid}-register.json").write_text(json.dumps(reg, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         all_links[mid] = links
         t = reg["topology"]; dr = reg["floor_diff_vs_mock"]; r = reg["registration"]
@@ -362,6 +414,8 @@ def main():
     print(f"maps={len(maps)} connections={len(conn)} problems={len(bad)}")
     for c in bad:
         print("  ", c)
+    if bad:
+        sys.exit(1)
 
 
 if __name__ == "__main__":

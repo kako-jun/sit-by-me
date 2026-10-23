@@ -670,9 +670,13 @@ def main():
         st8 = "FAIL"; bad8.append(f"床領域に緑・青・強赤が{frac_floor * 100:.1f}%")
     elif frac_floor >= 0.01:
         st8 = "WARN"; bad8.append(f"床領域に緑・青・強赤が{frac_floor * 100:.1f}%")
-    if tn and not (0 <= hm <= 50 or hm >= 340) :
+    if not tn:
+        if st8 == "PASS":
+            st8 = "WARN"
+        bad8.append("判定不能（地形の地色が測れない。全面ベタ画像など）")
+    elif not (0 <= hm <= 50 or hm >= 340):
         st8 = "FAIL"; bad8.append(f"地形の地色の色相{hm:.0f}°が肌・桃・茶の範囲（340-50°）外")
-    elif tn and (sm_ < 0.10 or sm_ > 0.80):
+    elif sm_ < 0.10 or sm_ > 0.80:
         if st8 == "PASS":
             st8 = "WARN"
         bad8.append(f"地形の地色の彩度{sm_:.2f}が 0.10-0.80 外")

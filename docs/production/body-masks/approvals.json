@@ -1,0 +1,21 @@
+{
+  "schema": "sit-body-approvals/1",
+  "note": "体内マスクの red-team 結果と kako-jun の逸脱承認の事実。tools/body_mask_export.py が register の note・runtime_status を作るときに読む（コードには書かない）。台帳・Issue と食い違う場合は台帳・Issue が正で、この JSON を直して再出力する。",
+  "red_team": {
+    "done": true,
+    "rounds": 2,
+    "reports": "docs/reviews/artifact-redteam/20261023-body-masks-redteam-*.md"
+  },
+  "deviations": {
+    "BDY-02": {
+      "approver": "kako-jun",
+      "date": "2026-10-23",
+      "text": "首の狭まりがない旧版画像を kako-jun が承認済みの逸脱として採用（2026-10-23）。"
+    },
+    "BDY-13": {
+      "approver": "kako-jun",
+      "date": "2026-10-23",
+      "text": "寸法 1672x940 は kako-jun が例外承認（2026-10-23）。"
+    }
+  }
+}

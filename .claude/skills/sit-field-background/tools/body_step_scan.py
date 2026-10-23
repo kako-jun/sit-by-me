@@ -50,8 +50,12 @@ def main():
         print(__doc__)
         return
     d = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).resolve().parents[4] / "verification/body-layout/clean"
+    files = sorted(d.glob("BDY-*.png")) if d.is_dir() else []
+    if not files:
+        print(f"ERROR: {d} に BDY-*.png が無い（ディレクトリが不在・空・0件）", file=sys.stderr)
+        sys.exit(1)
     tot = 0
-    for f in sorted(d.glob("BDY-*.png")):
+    for f in files:
         r = scan(f)
         tot += len(r)
         print(f"{f.stem}: 段差 {len(r)} 件" + ("  " + "; ".join(f"({a},{b})-({c},{e}) {l}px" for a, b, c, e, l in r) if r else ""))
