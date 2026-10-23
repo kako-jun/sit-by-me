@@ -33,6 +33,18 @@ uv run --with opencv-python-headless --with numpy --with pillow python3 -I body_
 | `build_body_prompt.py`（2956行） | 送信文・来歴の機械生成。原文束の逐語検証、形の実測、装飾計画（8族・`DECO_PICK`）、赤紙の座標、`leak_check`、`--verify-send`・`--verify-bundle`・`--plan` | 部品を分離して再利用（次にやること2）。体内の族プール・原文行の選別（`ROOM_PICKS`）は体内専用 |
 | `check_body_image.py` | 生成画像を期待幾何と実測で突き合わせる（寸法・床IoU・土台縁4層・通路・広間・赤紙・色の逸脱・装飾の色域） | 期待値（色の範囲・通路本数・広間の有無）を外出しして再利用（次にやること3）。限界は `../pitfalls.md` C |
 
+## 区分C: 斜め視点用（寺町 TRM-02〜05。#144。体内のツールとは独立）
+
+体内（真上）と違い、採用画像は少し手前の斜めから見下ろす。絵から平面図を逆算する3×3ホモグラフィで位置合わせし、床マスク・出口・NPC を出す。体内のツール・成果物は変更しない。依存は numpy/scipy/opencv-python-headless（`--masks-dir` の WebP 出力だけ pillow）。入力JSONの置き場と作り方は `docs/production/oblique-masks/README.md`。
+
+| ツール | 入力 → 出力 | 使い方 |
+|---|---|---|
+| `oblique_common.py` | 共通部品（入力JSONの読み込み・ホモグラフィ・表出力）。単体では実行しない | - |
+| `oblique_register.py` | 入力JSON＋採用画像 → ホモグラフィ（部屋ごと）・平面図への逆射影PNG・縦横比の検証（`circular`＝循環／`independent`＝独立／`quad-only`＝4点のみ）・register.json | `uv run --with numpy --with scipy --with opencv-python-headless python3 -I oblique_register.py INPUT.json --image IMG --out DIR` |
+| `oblique_mask.py` | 入力JSON＋採用画像＋register → 3値の edit PNG（white/black/orange `#FF9D00`）・白のみの mask・確認用 overlay・result.json（床・blocked・出口・NPC の判定表） | `uv run --with numpy --with scipy --with opencv-python-headless --with pillow python3 -I oblique_mask.py INPUT.json --image IMG --reg DIR --out DIR [--masks-dir assets/images/fields/masks]` |
+
+動作確認（ヘルプ）: `uv run --with numpy --with scipy --with opencv-python-headless --with pillow python3 -I oblique_register.py -h`（`oblique_mask.py` も同様）。同じ入力から同じ画素が出る（TRM-02 で2回実行し cmp 一致を確認）。
+
 ## 次にやること（優先度順。今回は大規模リファクタをしない）
 
 1. **【高】`body_layout.py` の `SPECS` を JSON 仕様に外出し**。新エリアは JSON を書くだけで割付図・接続検査・幾何JSONが出る。`body_geometry_json.py`・`body_sheet.py`・`build_body_prompt.py`・`check_body_image.py` が `body_layout` を import（または ast で読む）しているので、まず JSON を読む薄い層を足し、既存 SPECS を JSON へ書き出して出力が不変（割付図の sha256 一致）なことを確認してから置き換える。
