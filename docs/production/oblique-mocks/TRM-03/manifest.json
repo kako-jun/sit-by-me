@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-03",
  "plan": "docs/production/oblique-mocks/TRM-03-plan.json",
- "plan_sha256": "e970e19f8f4e3d949c1a6e95aede25be8b241592f6c54d8bd1a5d33ace700ad3",
+ "plan_sha256": "40e260a433fdb06c57e7a556d9c912d2096e653e6542d335d0cb2a19594eee43",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -25,45 +25,45 @@
      1
     ]
    },
-   "input_sha": "a8364b88a7f1bbd655c2eb893946e6cae9327831b18a7009c09a23acf29b04a1",
+   "input_sha": "f16afc7c940f6d1fc16d24a3d435aac793bf32a697ee9c578e98b5d5c9470af4",
    "outputs": {
-    "TRM-03-exits.png": "3de754b22a66267a8772a955750aa277eafce7ee4af4c4e360aa8d9d00685b03",
-    "TRM-03-mask.json": "afbd474f6ac59d3a4da260eae8740cdfc52895d065ac11a2636a2a6ba4009aee",
-    "TRM-03-mask.png": "79e01e36d3b131f2bbe09c0dec9755412aee7e13cbcb41d9e658d475273b36d0"
+    "TRM-03-exits.png": "ca752bbda523d004ca92bea85895612ade9fbfe53c0471fea188c228f656a79b",
+    "TRM-03-mask.json": "1b2800f991f5197fc4f555efb6f95ddee0b6c545d1dd6b437f5059e4bd8234b5",
+    "TRM-03-mask.png": "2b15b38c65d41426c60d347d2eeac2c5e817f7de5eb914dbaa5b0ea6f11b7c8b"
    },
    "status": "ok",
    "white_components": 1
   },
   "mock": {
-   "input_sha": "a8364b88a7f1bbd655c2eb893946e6cae9327831b18a7009c09a23acf29b04a1",
+   "input_sha": "f16afc7c940f6d1fc16d24a3d435aac793bf32a697ee9c578e98b5d5c9470af4",
    "outputs": {
-    "TRM-03-clean.png": "3d3466e7423bafb66fe3fee4a2be441d45d9208cd7de48132c2100af6b98519d",
-    "TRM-03-review.png": "2bd73f2dd0cf878252c4304f31bbc70296c843e01c28d819c8f7354b818c8002"
+    "TRM-03-clean.png": "c0847f31e0d5c4dfe1f84e103be0eea93eb84450f9e1263cbb6ba6acd21c0728",
+    "TRM-03-review.png": "b0a454afa1a507e1ea8624e0f6509a6f596c3239e385b69f065c32f176738d4b"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "a8364b88a7f1bbd655c2eb893946e6cae9327831b18a7009c09a23acf29b04a1",
+   "input_sha": "f16afc7c940f6d1fc16d24a3d435aac793bf32a697ee9c578e98b5d5c9470af4",
    "outputs": {
     "TRM-03-occlusion-depth.png": "98e22144366b8565735eab2e7968c1e4c8d6de060e86696a11cc664ae2012c07",
     "TRM-03-occlusion-edit.png": "2d5be0a21b71a574588e12d1f444fbdef1d0f5b6094c30b8952bcd7d3713d72d",
-    "TRM-03-occlusion-overlay.png": "f77b8cc4d1868e0c798c504ade48274183b0e563eeebc1699a5deef13b540bcc",
+    "TRM-03-occlusion-overlay.png": "ed1f0a6223c960f1e4b9533bac18e16c5ae1057e2d174d0c6dd3c7c7ae73b527",
     "TRM-03-occlusion.json": "c7edd0ad4707c76cc8758a05028d428b463ccfd070ed35a8cd76231b8dbe471b",
     "TRM-03-occlusion.png": "394a0ede6981cbc3866812e0be2c0fbc22d10091c666b6e9991416fe76fdc3ed"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "d9c806f360ea19e17a58f1f08c9f5880161e6bd42fbb2ddb9cd49b3d638366f9",
+   "input_sha": "5d65af18145f2cd493c3d2e994eddf0bcf82824f4585dab38675b306a2dc0eec",
    "ledger_ready": false,
    "outputs": {
-    "TRM-03-edit-prompt.txt": "4205a9b6fbc3c8c0020d8ee1d68a124064952871e5c4a69120b0ae4971b29f72"
+    "TRM-03-edit-prompt.txt": "5916121e452f0acc2876c32e92e032986d71890f4e469eb20b35a05626fcd37c"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "83f9a3ecd4142d59315fc99db5b284024d16ed14f110a037bfa852a28d4df5dc",
+   "input_sha": "ad5390f144cc35cb608619a45e4c0ad48b87d50ebab63308d3da8e4f23e2ff58",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -72,15 +72,16 @@
     "境内側の戸口位置（住居・幼稚園）は台帳でTBD。既定を置いた（要確認）。園庭＝境内の右の区画（幼稚園の前）。東の通用門・TRM-01 への接続は無い（kako-jun 指摘、Issue #144）。",
     "園庭の遊具（#51 既決: 滑り台1・ブランコ1・半円アーチ4=赤青黄青・動物型1）の位置と大きさは既定（要確認）。幼稚園の掃き出し窓の前（Y425〜600）と、参道・door-playroom 前の通路は空けた。歩行マスクでは遊具=blocked。",
     "本堂に窓は置かない（確定。kako-jun 決定 2026-10-23）。本堂の壁は window_count=0 で、窓は描かない。",
-    "渡り廊下（conn-w/conn-e）は屋根を柱で支えるだけの開放した通路に変更（kako-jun 2026-10-23「左右を行き来する開口部は壁に見えないように」。外観では屋根の下を抜ける通路）。旧の廊下棟の窓列（既定）は廃止。床は石（歩行不可。内部は TRM-04）。柱・屋根の寸法は既定（要確認）。",
+    "渡り廊下（conn-w/conn-e）は屋根を柱で支えるだけの開放した通路に変更（kako-jun 2026-10-23「左右を行き来する開口部は壁に見えないように」。外観では屋根の下を抜ける通路）。旧の廊下棟の窓列（既定）は廃止。床は木の板張り（確定。歩行不可。内部は TRM-04）。柱・屋根の寸法は既定（要確認）。",
+    "住居・幼稚園の外への戸口（door-residence/door-playroom）の幅をキャラ約1.5人分（100単位）に狭めた（既定・要確認。kako-jun 2026-10-23）。内部側（TRM-05/TRM-02 の door-outside）も同幅。窓の位置は変えていない（重ならない）。渡り廊下の床は木の板張り（確定。kako-jun 2026-10-23「渡り廊下の床は木だ」）。柱と屋根だけの廊下。",
     "既定（要確認）: TRM-03.door-residence",
     "既定（要確認）: TRM-03.door-playroom"
    ]
   },
   "wire": {
-   "input_sha": "82bdf16861e1a0ee2d4a8746cbc6c17902ef7eeba95e249351e4ee618ca1fb1d",
+   "input_sha": "d29586abb62e9764553582e27b1465641d128e5bcab1f0079215f0bea21fdcda",
    "outputs": {
-    "wire-TRM-03.png": "22ea166c490c228676d69478d0a8717c2d28abd6b763ee20194a1b9226e8fc23"
+    "wire-TRM-03.png": "0cf7c5c97b967217c3b9f9cae55f09a2ce6d575f34d1ac6f4a9c035851dff69c"
    },
    "status": "ok"
   }

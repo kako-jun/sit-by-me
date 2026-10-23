@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-05",
  "plan": "docs/production/oblique-mocks/TRM-05-plan.json",
- "plan_sha256": "93a86eac8db0ba1375f76a92d4d3cfd11e3ccfa866c15da616b9fbf09b8d906b",
+ "plan_sha256": "72912261f765b6e7081df60373245d2a0cf63f90af738e1f6af95d3a09db9b77",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -22,45 +22,45 @@
      1
     ]
    },
-   "input_sha": "971b63df015877290245eeb430a8f4a4d7fc42dd1d041128ca9de0bec922c40c",
+   "input_sha": "a32cf4da5e4da2690a253a58f52c08fdb601c9aa673d8fee14d7f218d069bf45",
    "outputs": {
-    "TRM-05-exits.png": "0be8fe238beb2b7ff4070be564293430bee42358d97d8ae0a2ad82417df3e39d",
-    "TRM-05-mask.json": "041f1c88e80750ab3ad1d4026a554ece493cb0c1bfe99cfbb9ca2a749964fd58",
-    "TRM-05-mask.png": "1181ca95976944684a5fcca887e6256da6e41b7d012f15ce210ebcc3502871f1"
+    "TRM-05-exits.png": "f76b2c82272debdf4c85e115f8996fb5b5bd65110282e5aa5fcb5c579afec4ea",
+    "TRM-05-mask.json": "1eac139f8f534c194eb5b73275e3fcaa02fb9e375d07e69257583eb70db45924",
+    "TRM-05-mask.png": "4c25ce50499cc7b7c6e03baf4f9f8fe48e9c11124efb2d810c2f7c547f3da99a"
    },
    "status": "ok",
    "white_components": 1
   },
   "mock": {
-   "input_sha": "971b63df015877290245eeb430a8f4a4d7fc42dd1d041128ca9de0bec922c40c",
+   "input_sha": "a32cf4da5e4da2690a253a58f52c08fdb601c9aa673d8fee14d7f218d069bf45",
    "outputs": {
-    "TRM-05-clean.png": "e0f45e36e1753247096b2053fcd6321f8c910d2dc68ce3508909f070293798be",
-    "TRM-05-review.png": "27f63edc00752d6b785e78473a6c22f5519ac28eeeb4cb436257c20a6d95f9fd"
+    "TRM-05-clean.png": "3b609ac74c7603645733876a5dff90c6609d4d99cab17bf7328b56b63b528074",
+    "TRM-05-review.png": "15829655481db4b0a6ef7cb6ceac4a36f1aa0c422180e1167b350644fab06490"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "971b63df015877290245eeb430a8f4a4d7fc42dd1d041128ca9de0bec922c40c",
+   "input_sha": "a32cf4da5e4da2690a253a58f52c08fdb601c9aa673d8fee14d7f218d069bf45",
    "outputs": {
-    "TRM-05-occlusion-depth.png": "edbb8d4fb9ea90531c8fad8ff051f8e954ff0719f34eadab06a2143f2107cac5",
-    "TRM-05-occlusion-edit.png": "2598973e86c9e552fb301cc604c037811903e147ecefda3c11e8df01f00c25e6",
-    "TRM-05-occlusion-overlay.png": "f2ffa0af68586ef2fce7ba25372c2ee5c630ced78960dfa9a0c3537bd395b27b",
+    "TRM-05-occlusion-depth.png": "7230c0584cb67644f9b3d2ff8a4c02b24dda7ab5b74ee04afaedba8c9d457d8e",
+    "TRM-05-occlusion-edit.png": "6d7720553dd15621ef3b1001d47d845b8f2f49a9109adc8a49d7888454d20ad4",
+    "TRM-05-occlusion-overlay.png": "7ed08ac8552040fbd608fe7963c27f8551ba81078db97d1fcccb68e3134bd9d7",
     "TRM-05-occlusion.json": "c7aaabb78ad1325bf8760bebaa8f399785255ab1bb01afd948ea55d9d5967b66",
-    "TRM-05-occlusion.png": "319fb301c214558fbdaeb980c3b9145fb63ff5d7c124bfd1993b12ccbb5d4366"
+    "TRM-05-occlusion.png": "0caca049560e1cbfadcfbb3726c8dff6c429848bb51a07d9406ec21de9b70f46"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "cddce954b7bbf519253f90e5d77c2fee924553e2c6bfb8f26f7d391d3d1e36cc",
+   "input_sha": "d69ae4587318f5022af12799cc8210f96df99349761f1eddf87558e64b030835",
    "ledger_ready": false,
    "outputs": {
-    "TRM-05-edit-prompt.txt": "a9b15c383f414e19d518e1084f17dc8fcac37eacd8d83c7bfabfd05c5cc86451"
+    "TRM-05-edit-prompt.txt": "e896f2fe5e84b37a40d2fd2f318e0845910447f0d9fde529657cd7d58055d8ae"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "0a80932942b0d7c89eff5e4467afcf2486cf70ed9f3765fc0ba1e2c7246c7144",
+   "input_sha": "58f67997cdec3d0089be142e65fbd108934ac0ee4909d4445541d18061e3edbb",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -73,14 +73,15 @@
     "長持を東壁・水平な仕切りの角に隙間なく付けた（kako-jun 2026-10-23「壁につけるなど自然に」）: [1000,640,1066,734]→[1104,615,1170,709]（東へ104・北へ25。南寝室の東壁沿い・水平な仕切りの直下）。石・北壁の窓・door-hall・南の開口への通路（2人幅）とは干渉しない。壁際に寄せられる他の家具（棚・箪笥・台所）は元から壁に接しており、食卓・長椅子は台所の中央で自然。",
     "勝手口 door-back の幅をキャラ1人分（66単位。x420〜486。位置は北壁の左端のまま、高さは2人分のまま）に変更（kako-jun 2026-10-23）。台所の家具の並びは詰め直さず、戸口の前（室内側）は空いたまま。-fire の火・燃えカスの箱も同じ幅。",
     "勝手口が1人幅になった分、台所の並びを太くして戸口の右端（x486）から仕切り（x785）まで隙間なく埋めた（kako-jun 2026-10-23）。幅: コンロ80（旧55）・流し96（旧80）・食器棚70（旧50）・冷蔵庫53（旧38）。基準寸法（75/90/65/50）を比例配分。戸口の前（室内側）は空いたまま。",
+    "住居・幼稚園の外への戸口（TRM-03.door-residence/door-playroom、TRM-05.door-outside、TRM-02.door-outside）の幅をキャラ約1.5人分（100単位）に狭めた（既定・要確認。kako-jun 2026-10-23）。戸口の高さは2人分のまま。扉の左右の壁が増えたが、窓・家具との重なりは無い（検証済み）。",
     "既定（要確認）: open-dining-bed-n",
     "既定（要確認）: open-dining-bed-s"
    ]
   },
   "wire": {
-   "input_sha": "2e8cf318a0e6b7cb69a169cbd4f152ec96ed21ba8b0bcc1a25e8b2a956bb13ef",
+   "input_sha": "ffa574b586f6b68a4bee7154cb73e97e4dff5021d0a42defeff64e2756b4fc9e",
    "outputs": {
-    "wire-TRM-05.png": "1ded0875543354b98e68c373bc3b8cbfc4c55de41928ff94c9d827c4de963a5f"
+    "wire-TRM-05.png": "1708e93d2af7dbde239d21754ccad55a9176c556b4fe6f2e389ec20edad5b85c"
    },
    "status": "ok"
   }

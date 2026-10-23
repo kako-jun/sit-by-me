@@ -316,9 +316,10 @@ def build_prompt(p, key):
         for o in ops:
             L.append(f"- {o['id']}（{o['wall']}・中心{o['center']}・幅{M.door_w(o) if 'width_class' in o or o in p['doors'] else M.DOOR_W:.0f}）: 開口の上に梁・鴨居・垂れ壁・壁を描かない。奥まで見通せる開放した通路")
         for w in rps:
-            L.append(f"- {w['id']}（{w.get('label') or '渡り廊下'}）: 屋根を柱で支えるだけの開放した通路（壁・窓・格子・戸を描かない）。屋根の下を左右へ奥まで見通せる")
+            L.append(f"- {w['id']}（{w.get('label') or '渡り廊下'}）: 屋根を柱で支えるだけの開放した通路（壁・窓・格子・戸を描かない）。屋根の下を左右へ奥まで見通せる。床は木の板張り（確定・茶色の板）。石の床にしない")
     if p["doors"]:
-        L += ["", "DOOR WIDTHS:"] + [f"- {d['id']}: 幅{'キャラ1人分（細い裏口）' if d.get('width_class') == '1person' else 'キャラ2人分'}（{M.door_w(d):.0f}平面単位）・{d['wall_side']}壁" for d in p["doors"]]
+        WN = {"1person": "キャラ1人分（細い裏口）", "1.5people": "キャラ1.5人分", "2people": "キャラ2人分"}
+        L += ["", "DOOR WIDTHS:"] + [f"- {d['id']}: 幅{WN[d.get('width_class', '2people')]}（{M.door_w(d):.0f}平面単位）・{d['wall_side']}壁" for d in p["doors"]]
     if p["windows"]:
         L += ["", "WINDOWS（個数・位置・種別を固定。ずらさない・増減しない・扉にしない。ガラス越しに見えるのは室内の床で、窓の中に雪や木を描かない）:"]
         for w in p["walls"]:

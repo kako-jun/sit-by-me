@@ -24,7 +24,7 @@ W, H_IMG = 1672, 941
 BASE_W, BASE_D = 1600, 1270
 CHAR = 66
 DOOR_W = 2 * CHAR
-WIDTH_CLASSES = {"2people": 2 * CHAR, "1person": CHAR}  # 戸口の幅の区分（既定=2人分。勝手口だけ1人分）
+WIDTH_CLASSES = {"2people": 2 * CHAR, "1.5people": 100, "1person": CHAR}  # 戸口の幅の区分（既定=2人分。勝手口だけ1人分）
 
 
 def door_w(d):
@@ -243,7 +243,7 @@ def build_items(p, style):
         if kind == "roof-passage":
             # 渡り廊下: 床（石）＋四隅の柱＋屋根の板だけ。壁・窓は無い開放した通路
             r = w["rect"]
-            items.append((-450, "floor", [(rect_poly(r), "#8d8f94", "floor")], {"id": w["id"] + "-floor", "walkable": False, "label": ""}))
+            items.append((-450, "floor", [(rect_poly(r), "#b07a45", "floor")], {"id": w["id"] + "-floor", "walkable": False, "label": ""}))
             ps = 16
             for rc in ([r[0], r[1], r[0] + ps, r[1] + ps], [r[2] - ps, r[1], r[2], r[1] + ps], [r[0], r[3] - ps, r[0] + ps, r[3]], [r[2] - ps, r[3] - ps, r[2], r[3]]):
                 items.append((rc[3] - 0.5, "wall", box_polys(rc, h - 12 * hs, "#7a5a3a"), w))

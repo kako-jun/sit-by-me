@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-02",
  "plan": "docs/production/oblique-mocks/TRM-02-plan.json",
- "plan_sha256": "9d598695211a229707d92a40b63bc517cb2d40e8aa102c3f54e094afcc376562",
+ "plan_sha256": "381f18882ed19ffd34892e4b77f085e94d1f3214fe35e4eccf986df91297e2c5",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -19,57 +19,58 @@
      2
     ]
    },
-   "input_sha": "24e06c45e6f7815f38dec03a26034cef0b14b9632a527725ab9a34edf14f4cf5",
+   "input_sha": "0ef2694da2d6c006a116d62788b29082e5a51588b2f238b7a3eca97a082b03f6",
    "outputs": {
-    "TRM-02-exits.png": "c0bf812b206e0c26a7a1e46e80ea81daefa0d0d9f98da9c16fa21363b7c5a6d9",
-    "TRM-02-mask.json": "6e5e28fdd2a6071cec5c7b4cd698d808abbb111aeccdcfb101dda489e884e645",
-    "TRM-02-mask.png": "5e484669c0973ad0fe6ece296ae8a602753c4cbe6f989ca75ca293e75bd042df"
+    "TRM-02-exits.png": "2ac804c0aaa2654e02eeafbeeeb69aa36189d7214aa65161b3da32bef98ade3f",
+    "TRM-02-mask.json": "e1d6593b47ee4f7498051012bc25c7e7e30bcd0fc0f5bee69296363db58ca6d2",
+    "TRM-02-mask.png": "ea5204a032c3ca44fa2668b25f330a3b0bdc27f020e7ff30cee412fdb6dcc1a8"
    },
    "status": "ok",
    "white_components": 4
   },
   "mock": {
-   "input_sha": "24e06c45e6f7815f38dec03a26034cef0b14b9632a527725ab9a34edf14f4cf5",
+   "input_sha": "0ef2694da2d6c006a116d62788b29082e5a51588b2f238b7a3eca97a082b03f6",
    "outputs": {
-    "TRM-02-clean.png": "da00e265f013c7be143266e5d9a92ab8b40885027cd14039c60a06990a6924fb",
-    "TRM-02-review.png": "07ee05ad9d59e7cd398efbbbb7250a131c02e920551357d0a84aa5b91b809ce4"
+    "TRM-02-clean.png": "3d3db7874e3610a08ea689c63e921898102035e008fc001dc2d78f830e1ad0bd",
+    "TRM-02-review.png": "05c28f5773706f106084ba013ff79cbd26a3665bd3f9dd6f63c2f7c0579d3551"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "24e06c45e6f7815f38dec03a26034cef0b14b9632a527725ab9a34edf14f4cf5",
+   "input_sha": "0ef2694da2d6c006a116d62788b29082e5a51588b2f238b7a3eca97a082b03f6",
    "outputs": {
     "TRM-02-occlusion-depth.png": "7b1c6aa0f37567e35c9acbf224ae73fa333b074290963c389661ff8d4565d330",
     "TRM-02-occlusion-edit.png": "3cf4489009d70a1d848b9b5a5b4ac68ce9f19f607241ef90e98cffb657a6c450",
-    "TRM-02-occlusion-overlay.png": "970e7f39677dbcfe1f29ec3f13c7e190bacb157cabbbc4d6f12b5bcaabf733e7",
+    "TRM-02-occlusion-overlay.png": "b4e945dc0e56b0c7ae1ac52560538df8aac242143333544de1210e701f06ee8f",
     "TRM-02-occlusion.json": "30ef9ef45c2ea6d3207864711362a7d6e8ed3c48079ba68a599d207bc17e660e",
     "TRM-02-occlusion.png": "954bffc9f45ce7c67ef6f1126f7802c309ee8982c6de73f59e0c945cb18a552b"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "2bc69acc63abbe9aabf40576419746b56162dc8f596adf237ddfe477d7e4bc76",
+   "input_sha": "49dcd2927811cb7ba346178eaf694390ec3206c8ee019fcef67798de6d25bf2a",
    "ledger_ready": false,
    "outputs": {
-    "TRM-02-edit-prompt.txt": "a955bedd857aeacbe16ad910965f5fb33c8bb0709c3853cea1dbf9b043ea14d1"
+    "TRM-02-edit-prompt.txt": "75f6fb25e022a35a9bd32146b23221e86778d1683d590ff48f92fad766d6c1a8"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "a9daeabcb1b9557bb0fb5eff4e1f4d1871260011753f9d6cba89aaa0ead95f08",
+   "input_sha": "2e40e5fdb78b470a34dd65f7e3dfd4bdec24e5302abc11d630171c67736e3c68",
    "outputs": {},
    "status": "ok",
    "warnings": [
     "家具の位置・大きさは採用画像 v3 から概略で拾った（設計書に家具の寸法は無い）。",
     "壁の高さ 150（前壁・側壁）・160（奥壁）。戸口の高さ134（2人分）に対する余裕。前壁を戸口高に合わせたため手前の床が約30px 隠れる。",
-    "丸テーブルの椅子・テーブルの椅子は省略。"
+    "丸テーブルの椅子・テーブルの椅子は省略。",
+    "住居・幼稚園の外への戸口（TRM-03.door-residence/door-playroom、TRM-05.door-outside、TRM-02.door-outside）の幅をキャラ約1.5人分（100単位）に狭めた（既定・要確認。kako-jun 2026-10-23）。戸口の高さは2人分のまま。扉の左右の壁が増えたが、窓・家具との重なりは無い（検証済み）。"
    ]
   },
   "wire": {
-   "input_sha": "5c28884c34de8223d7e166f4eb6b68769c795fd92d7c24e9cabbc61da38513c0",
+   "input_sha": "46c6f18728058b6bcf1a4d4b4619722ffbf3b1c77a7846490b20f8b5ceeced0e",
    "outputs": {
-    "wire-TRM-02.png": "553fb21bae66bb993b03610ee31164a0e268320dc493693c6339ae6c4f31b914"
+    "wire-TRM-02.png": "3e648583c4e21ed0406deeae547e6c24fc2309b43b32b4913a875da20dd961b4"
    },
    "status": "ok"
   }

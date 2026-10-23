@@ -19,6 +19,9 @@ import oblique_mock as M
 K = "#000000"
 
 
+WCN = {"2people": "2人分", "1.5people": "1.5人分", "1person": "1人分"}
+
+
 def fnt(n):
     return M.font(n)
 
@@ -66,7 +69,7 @@ def door_info(p, door):
         px = f"見かけ幅{abs(b1[0] - a1[0]):.0f}px"
     else:
         px = "側壁（縦）"
-    cls = "キャラ1人分" if door.get("width_class") == "1person" else "キャラ2人分"
+    cls = "キャラ" + WCN.get(door.get("width_class", "2people"), "2人分")
     return pos, frac, f"幅{M.door_w(door):.0f}単位={cls}（{px}）"
 
 
@@ -231,7 +234,7 @@ def build(conn_path, out):
         seg = max(zip(pts[:-1], pts[1:]), key=lambda s: (s[0][0] - s[1][0]) ** 2 + (s[0][1] - s[1][1]) ** 2)
         mx, my = (seg[0][0] + seg[1][0]) / 2, (seg[0][1] + seg[1][1]) / 2
         ws_ = [doors[x][1].get("width_class", "2people") for x in (a, b) if x in doors and "wall" in doors[x][1]]
-        wl_ = "キャラ1人分" if "1person" in ws_ else "キャラ2人分"
+        wl_ = "キャラ" + WCN[min(ws_, key=lambda c: M.WIDTH_CLASSES[c])] if ws_ else "キャラ2人分"
         lab = e["label"] + (f"\n幅={wl_}" if e["kind"] == "door" else "")
         if verdict.startswith("OK"):
             lab += "  位置整合OK"
@@ -269,7 +272,7 @@ def build(conn_path, out):
     # 凡例・接続一覧
     lx, ly = 60, 1290
     gx, gy = 2440, 1700
-    lines = ["凡例と読み方", "・黒い丸と太線=戸口どうしの接続（点線矢印=一方向のイベント）", "・戸口の幅=キャラ2人分（132単位。手前縁で約134px）。勝手口のみ1人分（66単位）", "・方角: 図の上が北。住居=西・本堂=中央・幼稚園=東", "・位置整合: 相手MAPの戸口との辺・位置（比）が一致=OK", "・*既定（要確認）=台帳に位置が無く仮置きした戸口", "・色つきモック: 仕切り=濃い灰（壁）", "　開口=緑（通れる所）／戸口=ピンク"] + ["・" + t_ for n in C.get("legend_notes", []) for x in n.split("。") if x for t_ in [(x + "。")[i:i + 32] for i in range(0, len(x) + 1, 32)] if t_.strip("。")]
+    lines = ["凡例と読み方", "・黒い丸と太線=戸口どうしの接続（点線矢印=一方向のイベント）", "・戸口の幅=キャラ2人分（132単位。手前縁で約134px）", "　ただし住居・幼稚園の外への戸口は1.5人分（100）、勝手口は1人分（66）", "・方角: 図の上が北。住居=西・本堂=中央・幼稚園=東", "・位置整合: 相手MAPの戸口との辺・位置（比）が一致=OK", "・*既定（要確認）=台帳に位置が無く仮置きした戸口", "・色つきモック: 仕切り=濃い灰（壁）", "　開口=緑（通れる所）／戸口=ピンク"] + ["・" + t_ for n in C.get("legend_notes", []) for x in n.split("。") if x for t_ in [(x + "。")[i:i + 32] for i in range(0, len(x) + 1, 32)] if t_.strip("。")]
     text_box(d, (gx, gy), "\n".join(lines), f_s, bg="#ffffff", anchor="lt")
     y0 = 1750
     d.text((lx, y0), "接続一覧（詳細は connections.md）", font=f_m, fill=K)
@@ -291,12 +294,13 @@ def build(conn_path, out):
 
     # ---------------------------------------------------------------- 接続表 md
     L = ["# 寺町 幼稚園一式の接続表（機械生成。`oblique_topology.py`。手で直さない）", "",
-         "平面図スペック（`*-plan.json`）と `connections.json` から生成。戸口の幅は既定でキャラ2人分（132平面単位。土台の手前縁で約134px。奥は遠近で縮む）。勝手口 door-back だけキャラ1人分（66単位・約67px）。位置の比: 西・東壁の戸口は v（その部屋の奥行き方向。0=奥・1=手前）、南壁の戸口は u（幅方向。0=西・1=東）。", "",
+         "平面図スペック（`*-plan.json`）と `connections.json` から生成。戸口の幅は既定でキャラ2人分（132平面単位。土台の手前縁で約134px。奥は遠近で縮む）。住居・幼稚園の外への戸口（外観・内部の両側）はキャラ1.5人分（100単位）、勝手口 door-back はキャラ1人分（66単位・約67px）。位置の比: 西・東壁の戸口は v（その部屋の奥行き方向。0=奥・1=手前）、南壁の戸口は u（幅方向。0=西・1=東）。", "",
          "![接続図](connection-diagram.png)", "",
          "| 戸口A | Aの位置 | 戸口B | Bの位置 | 幅 | 位置整合 | 備考 |", "|---|---|---|---|---|---|---|"]
     def wcell(e):
         ws_ = [doors[x][1].get("width_class", "2people") for x in (e["a"], e["b"]) if x in doors and "wall" in doors[x][1]]
-        return "1人分（%d単位）" % M.WIDTH_CLASSES["1person"] if "1person" in ws_ else "2人分（%d単位）" % M.DOOR_W
+        c_ = min(ws_, key=lambda c: M.WIDTH_CLASSES[c]) if ws_ else "2people"
+        return "%s（%d単位）" % (WCN[c_], M.WIDTH_CLASSES[c_])
     for e, info, verdict in rows:
         note = []
         for end in ("a", "b"):
