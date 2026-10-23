@@ -6,14 +6,14 @@
 
 **注記**: ステータス名 `recreate-required-1920x1080` は名前は1920×1080だが1672×941（16:9）も許容する（改名は別件）。
 
-**2026-10-18 / #51**: TRM-02〜TRM-16は全て `recreate-required-1920x1080`（旧TRM-01は2026-10-23にTRM-03の右の区画＝園庭へ統合して廃止し、行を削除。旧legacy画像 `assets/images/fields/legacy/TRM-01.webp` は参照専用の現存素材としてのみ残る）、生成契約は `blocked`。以下の旧画像パスは参照専用で、旧mask・旧passは新候補の採用根拠にならない。現行再作成状態は [候補台帳](teramachi-rebuild-candidates.md)、建物群の生成前入力は [制作前確認](production/20261018-teramachi-preflight.md) を参照する。
+**2026-10-18 / #51**: TRM-02〜TRM-16は全て `recreate-required-1920x1080`（旧TRM-01は2026-10-23にTRM-03の右の区画＝園庭へ統合して廃止し、行を削除。旧legacy画像 `legacy/TRM-01.webp` とそのmaskは2026-10-23に削除済み。履歴はgit）、生成契約は `blocked`。以下の旧画像パスは参照専用で、旧mask・旧passは新候補の採用根拠にならない。現行再作成状態は [候補台帳](teramachi-rebuild-candidates.md)、建物群の生成前入力は [制作前確認](production/20261018-teramachi-preflight.md) を参照する。
 
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
 | TRM-16 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-16.webp`; mask未記録 | TRM-06/TRM-15/TRM-17の三端と用水のblocked域を実画像から記録する |
 | TRM-15 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-15.webp`; mask未記録 | TRM-16/TRM-07/TRM-06端、火の見櫓周囲のblocked域を記録する |
 | TRM-07 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-07.webp`; mask未記録 | TRM-15/TRM-08/TRM-03端と山門のforeground域を記録する |
-| TRM-08 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-08.webp`; mask未記録 | 用水・井戸のblocked域とTRM-07/TRM-09端、top側は旧TRM-01正門が廃止され接続未決（要確認）。決定後に記録する |
+| TRM-08 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-08.webp`; mask未記録 | 用水・井戸のblocked域とTRM-07/TRM-09端、top側は塀・壁で閉じる（歩行マスク=黒、接続なし。旧TRM-01正門は廃止、#51 決定 2026-10-23） |
 | TRM-09 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-09.webp`; mask未記録 | TRM-08/TRM-10端、銭湯煙突・雪山のforeground/blockedを記録する |
 | TRM-10 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-10.webp`; mask未記録 | TRM-09/TRM-11を結ぶuniversalスロープの幅・折返しを記録する |
 | TRM-11 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-11.webp`; mask未記録 | TRM-10/TRM-13端、TRM-12ドア、団地棟のforegroundを記録する |
