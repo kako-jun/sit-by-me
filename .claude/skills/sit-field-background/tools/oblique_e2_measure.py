@@ -195,7 +195,8 @@ def outside_objects(rgb, m, hull_box):
     f = rgb.astype(np.int32)
     lum = (0.299 * f[..., 0] + 0.587 * f[..., 1] + 0.114 * f[..., 2])
     r, g, b = f[..., 0], f[..., 1], f[..., 2]
-    green = (g > r + 6) & (g > b + 6) & (lum < 115) & m
+    # 松の針葉（暗い緑・青緑・オリーブ）も拾う（洋風の杉・モミ専用の閾値にしない）。幹・枝は branch（暗い茶）
+    green = (g >= r + 3) & (g >= b + 3) & (lum < 125) & m
     branch = (r > g + 8) & (g > b + 5) & (lum < 120) & (r < 150) & m
     grass = (g > b + 25) & (r > b + 20) & (lum > 70) & (lum < 190) & ~green & m
     tree = (green | branch).astype(np.uint8)

@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-02",
  "plan": "docs/production/oblique-mocks/TRM-02-plan.json",
- "plan_sha256": "46faaf53ba63b2f76ce630a4953f365490a63b5c9e5a2e5239c966e9edb902e6",
+ "plan_sha256": "dee7b899dba357e7e02e872815eeb6d0d3e2a75d6a7ebf4447e786cb34052023",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -19,7 +19,7 @@
      2
     ]
    },
-   "input_sha": "80b23994cea06fb9cd7c4b5f0778ca173a54bf71116f7035b4a641075152bf3c",
+   "input_sha": "41b56c5884caf7fa30cc25fa4371f5a7e0793780ae541a97104fa01925161569",
    "outputs": {
     "TRM-02-exits.png": "2ac804c0aaa2654e02eeafbeeeb69aa36189d7214aa65161b3da32bef98ade3f",
     "TRM-02-mask.json": "e1d6593b47ee4f7498051012bc25c7e7e30bcd0fc0f5bee69296363db58ca6d2",
@@ -29,7 +29,7 @@
    "white_components": 4
   },
   "mock": {
-   "input_sha": "80b23994cea06fb9cd7c4b5f0778ca173a54bf71116f7035b4a641075152bf3c",
+   "input_sha": "41b56c5884caf7fa30cc25fa4371f5a7e0793780ae541a97104fa01925161569",
    "outputs": {
     "TRM-02-clean.png": "3d3db7874e3610a08ea689c63e921898102035e008fc001dc2d78f830e1ad0bd",
     "TRM-02-review.png": "05c28f5773706f106084ba013ff79cbd26a3665bd3f9dd6f63c2f7c0579d3551"
@@ -37,7 +37,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "80b23994cea06fb9cd7c4b5f0778ca173a54bf71116f7035b4a641075152bf3c",
+   "input_sha": "41b56c5884caf7fa30cc25fa4371f5a7e0793780ae541a97104fa01925161569",
    "outputs": {
     "TRM-02-occlusion-depth.png": "7b1c6aa0f37567e35c9acbf224ae73fa333b074290963c389661ff8d4565d330",
     "TRM-02-occlusion-edit.png": "3cf4489009d70a1d848b9b5a5b4ac68ce9f19f607241ef90e98cffb657a6c450",
@@ -48,27 +48,27 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "300056f309a8a75bfd6602b5a9515f4cfb133566bd085195037ab43479afe104",
+   "input_sha": "533bb93b9dc1df10ea0ec295677c1562b2c7d224cb5a9536eaf7bdfdc59411df",
    "ledger_ready": false,
    "outputs": {
-    "TRM-02-edit-prompt.txt": "233c9aa9e781dc12b017e905e473be855af4d252ad2c0563c0971975b199aa38"
+    "TRM-02-edit-prompt.txt": "998b9cde8937a0be168c3f0c21706cb08f046237fc3d19861fd26bf2c7dabcf8"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "edbbd6059d35948fb3ea4197eb2dc3c1af83741f9f0ca8f42bd174a8dbd96ea7",
+   "input_sha": "470d0b49cc75d4d4a0b979e582816388af3c319e6eca82f131b31b8981a995f1",
    "outputs": {},
    "status": "ok",
    "warnings": [
     "家具の位置・大きさは採用画像 v3 から概略で拾った（設計書に家具の寸法は無い）。",
     "壁の高さ 150（前壁・側壁）・160（奥壁）。戸口の高さ134（2人分）に対する余裕。前壁を戸口高に合わせたため手前の床が約30px 隠れる。",
-    "丸テーブルの椅子・テーブルの椅子は省略。",
+    "丸テーブルの椅子・テーブルの椅子はモックに箱が無い（装飾として机に寄せて描くのは可。床の占有は変えない）。",
     "住居・幼稚園の外への戸口（TRM-03.door-residence/door-playroom、TRM-05.door-outside、TRM-02.door-outside）の幅をキャラ約1.5人分（100単位）に狭めた（既定・要確認。kako-jun 2026-10-23）。戸口の高さは2人分のまま。扉の左右の壁が増えたが、窓・家具との重なりは無い（検証済み）。"
    ]
   },
   "wire": {
-   "input_sha": "9ab1e07f4a2f391222cc8a9a1bba6815bf1fd01178e06683f68c9cc8e377b5cd",
+   "input_sha": "8021e0fa4719b7ce5dc1d760ca68afa5ad1fae1207b774104060711e1cb2f1df",
    "outputs": {
     "wire-TRM-02.png": "e567893d35a7c1bcd8691538f5dc04bd1a2e795e3785fd07c67c27d3910529e1"
    },

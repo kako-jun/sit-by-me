@@ -39,7 +39,7 @@ ID_RE = re.compile(r"^[A-Z]{3}-\d{2}\.[A-Za-z0-9-]+$")
 PROMPT_VERSION = "oblique-edit-prompt/3"
 DECOR_FILE = os.path.join(REPO, "docs", "production", "oblique-mocks", "decor-pools.json")
 DECOR_LAYER_KEYS = ("desk", "slab_edge", "outside", "building")
-DECOR_REQUIRED = ("geometry_fixed", "fill_rule", "layers", "surfaces", "kinds", "allow", "forbid")
+DECOR_REQUIRED = ("geometry_fixed", "fill_rule", "layers", "surfaces", "kinds", "allow", "forbid", "trees")
 
 
 def load_decor(p):
@@ -78,6 +78,17 @@ def validate_decor(p, E, Wn):
         ly = (pool.get("layers") or {}).get(lk)
         if not (isinstance(ly, dict) and ly.get("look") and ly.get("fixed")):
             E.append(f"decor_pool {pid}: layers.{lk} に look と fixed が必要")
+    tr = pool.get("trees") or {}
+    for tk in ("pine", "deadtree"):
+        t = tr.get(tk)
+        if not (isinstance(t, dict) and t.get("look") and isinstance(t.get("count"), list) and len(t["count"]) == 2):
+            E.append(f"decor_pool {pid}: trees.{tk} に look と count [最小,最大] が必要")
+    if not (isinstance(tr.get("total"), list) and len(tr["total"]) == 2 and tr.get("forbid")):
+        E.append(f"decor_pool {pid}: trees.total [最小,最大] と trees.forbid が必要")
+    elif all(isinstance(tr.get(k), dict) and isinstance(tr[k].get("count"), list) for k in ("pine", "deadtree")):
+        lo = tr["pine"]["count"][0] + tr["deadtree"]["count"][0]; hi = tr["pine"]["count"][1] + tr["deadtree"]["count"][1]
+        if lo < tr["total"][0] or hi > tr["total"][1]:
+            E.append(f"decor_pool {pid}: 松+枯木の本数（{lo}〜{hi}）が total {tr['total']} に収まらない")
     for sk in ("wall", "floor", "door", "window"):
         if not (pool.get("surfaces") or {}).get(sk):
             E.append(f"decor_pool {pid}: surfaces.{sk} が必要")
@@ -359,6 +370,12 @@ def build_prompt(p, key):
         for k in DECOR_LAYER_KEYS:
             ly = pool["layers"][k]
             L.append(f"- {ly.get('label', k)}: {ly['look']} 固定: {ly['fixed']}")
+        tr = pool["trees"]
+        L += ["", f"TREES（建物の外。寺町の木=松＋枯木。常緑樹は松だけ。本数・比率は{'既定（要確認）' if tr.get('status') == 'default' else '確定'}）:",
+              f"- 合計{tr['total'][0]}〜{tr['total'][1]}本。松{tr['pine']['count'][0]}〜{tr['pine']['count'][1]}本・枯木{tr['deadtree']['count'][0]}〜{tr['deadtree']['count'][1]}本（松多め）。台座の四辺すべてに散らす",
+              f"- {tr['pine']['label']}: {tr['pine']['look']}",
+              f"- {tr['deadtree']['label']}: {tr['deadtree']['look']}",
+              f"- 禁止: {tr['forbid']}"]
         L += ["", "SURFACES（建物の面）:"] + [f"- {k}: {v}" for k, v in pool["surfaces"].items()]
         for w in p["walls"]:
             if w.get("look"):
