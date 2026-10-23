@@ -303,10 +303,12 @@ def provenance(path, out_dir, n):
     r["matches_codex_generated_image"] = None
     if gi.exists():
         old = set(before.read_text().split()) if before.exists() else set()
-        cands = [p for p in gi.rglob("*") if p.is_file() and p.suffix.lower() in (".png", ".webp", ".jpg") and p.relative_to(gi).parts[0] not in old]
+        # sha256 の突き合わせは generated_images 全体で行う（追加テイクの再実行で .gi-before が更新されても本物確認が効く）。新規数は参考値
+        allc = [p for p in gi.rglob("*") if p.is_file() and p.suffix.lower() in (".png", ".webp", ".jpg")]
+        cands = allc
         hit = [str(p) for p in cands if p.stat().st_size == r["bytes"] and sha(p) == r["sha256"]]
         r["matches_codex_generated_image"] = hit[0] if hit else False
-        r["new_generated_images_in_run"] = len(cands)
+        r["new_generated_images_in_run"] = len([p for p in allc if p.relative_to(gi).parts[0] not in old])
     log = out_dir / f"codex-take{n}.log"
     if not log.exists():
         log = out_dir / f"codex-take{n}.log.txt"  # 整形済み（先頭のみ）
@@ -331,7 +333,12 @@ def main():
     M = root / "docs/production/oblique-mocks"
     out = M / a.map_id / a.round
     mock_p = M / a.map_id / f"{a.map_id}-clean.png"
-    plan = om.load_plan(str(M / f"{a.map_id}-plan.json"))
+    pp = M / f"{a.map_id}-plan.json"
+    if pp.exists():
+        plan = om.load_plan(str(pp))
+    else:  # 時期別（-kids/-fire など）は基準 MAP の plan の variants 差分
+        base_id, _, var = a.map_id.rpartition("-")
+        plan = om.load_plan(str(M / f"{base_id}-plan.json"), var)
     mock = np.array(Image.open(mock_p).convert("RGB"))
     H, W = mock.shape[:2]
     size = (W, H)

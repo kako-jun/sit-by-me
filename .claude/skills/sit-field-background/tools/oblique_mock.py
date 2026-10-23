@@ -285,6 +285,10 @@ def table_bg(d, wire):
         y += hh
 
 
+SLAB_TAPES = [(x, 862, x + 70, 890) for x in (330, 640, 1040, 1520)]  # 台座の前縁の上のマスキングテープ（画像座標）
+SLAB_GLUE = [(x, 872, x + 16, 906) for x in (120, 520, 1260, 1590)]   # 白い糊の垂れ
+
+
 def draw_slab(d, wire, props=True):
     tl, tr, br, bl = [tuple(map(float, q)) for q in _DST]
     top = [tl, tr, br, bl]
@@ -297,10 +301,10 @@ def draw_slab(d, wire, props=True):
     d.polygon(top, fill="#f3f7fb")
     if props:
         # 机の上の小物は手前に固定（マステ4・糊4）
-        for x in (330, 640, 1040, 1520):
-            d.rectangle([x, 862, x + 70, 890], fill="#e2c78e", outline="#9a7a3a")
-        for x in (120, 520, 1260, 1590):
-            d.ellipse([x, 872, x + 16, 906], fill="#f6f6f6", outline="#cccccc")
+        for r_ in SLAB_TAPES:
+            d.rectangle(list(r_), fill="#e2c78e", outline="#9a7a3a")
+        for r_ in SLAB_GLUE:
+            d.ellipse(list(r_), fill="#f6f6f6", outline="#cccccc")
 
 
 def center_of(poly):

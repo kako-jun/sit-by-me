@@ -72,3 +72,6 @@ uv run --with opencv-python-headless --with numpy --with pillow python3 -I body_
 4. **【中】共通定数の集約**: 天面 rect（138,138,1782,942）が `body_layout`・`body_geometry_json`・`body_mask_export`・`body_register`・`body_step_scan` に、寸法 1672/OK_SIZES が `check_body_image`・`build_body_prompt` ほかに重複している（grep で確認）。1ファイル（例 `body_consts.py`）へ。
 5. **【低】`body_mask_export.py` の 3値対応（assist）**: 小学校より前のエリア用。`sit-field-mask` の3クラスを出力できるように。
 6. **【低】ツールのテスト**: 体内17枚の clean を使い、リファクタ前後の出力 sha256 が一致することを確認するスモークテスト。
+
+注（E2 の画像）: `docs/production/oblique-mocks/*/e2/` の生成画像（take*.png）・重ね画像（overlay-*.png）・style-ref.png は 2026-10-23 以降 git に入れない（`.gitignore`。ディスクには残る）。それ以前に追跡済みの TRM-02 e2 の PNG は履歴に残る（追跡だけ外した）。metrics・prompt・report は追跡する。
+

@@ -440,14 +440,21 @@ def coord_section(p, pool):
     L = ["", f"COORDINATES（画素座標。画像 {M.W}×{M.H_IMG}・左上原点・x は右・y は下。plan とモックの射影から機械的に出した値。これらの位置・大きさは1画素も動かさない。建物全体を上下左右へずらさない。装飾は面の内側だけ）:",
          f"- 台座の上面の台形（四隅 左上→右上→右下→左下）: {_pts([tl, tr, br, bl])}",
          f"- 台座の前縁（手前の厚み帯）: {_pts([bl, br, (br[0], br[1] + M.SLAB), (bl[0], bl[1] + M.SLAB)])}"]
+    L.append("- 台座の前縁の飾り（位置固定）: マスキングテープ " + " ".join(f"[{a},{b_},{c},{d_}]" for a, b_, c, d_ in M.SLAB_TAPES) + "／白い糊の垂れ " + " ".join(f"[{a},{b_},{c},{d_}]" for a, b_, c, d_ in M.SLAB_GLUE) + "（[x0,y0,x1,y1]。前縁の帯の全長に波形の段ボール断面の縦線を約10px間隔で細かく描く）")
     ws = p["walls"]
+    exterior = any(w.get("kind") == "building" for w in ws)
     x0 = min(w["rect"][0] for w in ws); y0 = min(w["rect"][1] for w in ws); x1 = max(w["rect"][2] for w in ws); y1 = max(w["rect"][3] for w in ws)
     ground = [M.proj(x0, y0), M.proj(x1, y0), M.proj(x1, y1), M.proj(x0, y1)]
     hb = max(w["h"] for w in ws if M.is_h(w) and w["rect"][1] == y0); hf = max(w["h"] for w in ws if M.is_h(w) and w["rect"][3] == y1)
     top = [M.proj(x0, y0, hb), M.proj(x1, y0, hb), M.proj(x1, y1, hf), M.proj(x0, y1, hf)]
-    L.append(f"- 建物の外壁の外形の接地線（左奥→右奥→右手前→左手前）: {_pts(ground)}")
-    L.append(f"- 建物の外壁の上端（同順。奥壁の高さ{hb}・手前壁の高さ{hf}）: {_pts(top)}")
-    L.append(f"- 建物の外壁全体の外接矩形: {_bbox([ground, top])}（[x0,y0,x1,y1]）")
+    if exterior:  # 外観: 建物ごとに接地線と上端（屋根は上端の外形に収める）
+        for w in ws:
+            g_ = M.rect_poly(w["rect"]); t_ = M.rect_poly(w["rect"], w["h"])
+            L.append(f"- 建物 {w['id']}（{w.get('label') or ''}。高さ{w['h']}）: 接地線 {_pts(g_)}／上端 {_pts(t_)}／外接矩形 {_bbox([g_, t_])}")
+    else:
+        L.append(f"- 建物の外壁の外形の接地線（左奥→右奥→右手前→左手前）: {_pts(ground)}")
+        L.append(f"- 建物の外壁の上端（同順。奥壁の高さ{hb}・手前壁の高さ{hf}）: {_pts(top)}")
+        L.append(f"- 建物の外壁全体の外接矩形: {_bbox([ground, top])}（[x0,y0,x1,y1]）")
     for f in p["floors"]:
         L.append(f"- 床 {f['id']}（四隅）: {_pts(M.rect_poly(f['rect']))}")
     for d in p["doors"]:
@@ -465,6 +472,9 @@ def coord_section(p, pool):
     sx0, sy0 = int(min(tl[0], bl[0])), int(tl[1]); sx1, sy1 = int(max(tr[0], br[0])), int(bl[1])
     L += ["", f"TREE PLACEMENT（建物の外の木の配置の目安。台座の上面で建物の外壁の外側。合計{tr_['total'][0]}〜{tr_['total'][1]}本＝松{tr_['pine']['count'][0]}〜{tr_['pine']['count'][1]}本＋枯木{tr_['deadtree']['count'][0]}〜{tr_['deadtree']['count'][1]}本。各辺に{n_lo}〜{n_hi}本ずつ、松多め）:",
           f"- 奥の帯: y {sy0}〜{by0}（x {sx0}〜{sx1}）／手前の帯: y {by1}〜{sy1}／左の帯: x {sx0}〜{bx0}／右の帯: x {bx1}〜{sx1}（いずれも台形の内側に収め、建物の外壁・外接矩形に重ねない）"]
+    if p.get("tree_zones"):  # 歩く地面の上に木を置かない MAP（外観）: 木を置ける帯を plan の矩形から出す
+        zs = [f"{z['id']}: {_bbox([M.rect_poly(z['rect'])])}" for z in p["tree_zones"]]
+        L[-1] = "- 木を置ける範囲（外接矩形。ここだけ。歩く地面〔参道・墓地・園庭〕の上には置かない）: " + "／".join(zs) + "。各辺の本数配分は問わない（合計だけ守る）"
     pats = []
     for d in p["doors"]:
         patch, _, _ = M.door_geom(p, d)
