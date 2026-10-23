@@ -57,12 +57,21 @@ def element_dict(T, r):
     if r["名称"]:
         d["label"] = r["名称"]
     look = expand_look(T, r["見た目"])
+    if not look and r["決定参照"]:
+        look = ref_text(T, L.split_list(r["決定参照"])[0])
     if look:
         d["look"] = look
     return d
 
 
-def edge_dict(r):
+def with_refs(T, text, refs):
+    ids = L.split_list(refs)
+    for i in ids:
+        ref_text(T, i)  # 存在確認
+    return text + (f"（決定 {', '.join(ids)}）" if ids else "")
+
+
+def edge_dict(T, r):
     d = json.loads(r["属性JSON"]) if r["属性JSON"] else {}
     d["id"] = r["端ID"]
     if r["壁"]:
@@ -84,14 +93,14 @@ def edge_dict(r):
     if r["通路"] == "開放":
         d["passage"] = True
     if r["備考"]:
-        d["note"] = r["備考"]
+        d["note"] = with_refs(T, r["備考"], r["決定参照"])
     return d
 
 
 def window_dict(T, r, walls):
     d = json.loads(r["属性JSON"]) if r["属性JSON"] else {}
     if r["種別"] == "窓なし":
-        d.update({"wall": r["壁"], "status": L.en(L.STATUS, r["状態"]), "reason": r["備考"]})
+        d.update({"wall": r["壁"], "status": L.en(L.STATUS, r["状態"]), "reason": with_refs(T, r["備考"], r["決定参照"])})
         return d
     d["id"] = r["窓ID"]
     d["wall"] = r["壁"]
@@ -100,8 +109,8 @@ def window_dict(T, r, walls):
     if r["沿い範囲"]:
         d["along_ref"] = json.loads(r["沿い範囲"])
     if r["備考"]:
-        d["note"] = r["備考"]
-    if r["建物窓列ID"]:
+        d["note"] = with_refs(T, r["備考"], r["決定参照"])
+    if r["建物窓列ID"] and r["中心"] == "":
         row = next(x for x in T["建物窓列"] if x["窓列ID"] == r["建物窓列ID"])
         lo, hi = d["along_ref"]
         ln, n = hi - lo, int(r["連番"])
@@ -128,7 +137,7 @@ def collect(T, map_id, era):
             out.setdefault(KIND_TO_KEY[r["種別"]], []).append(element_dict(T, r))
     for r in T["端"]:
         if r["MAP_ID"] == map_id and r["適用時期"] == era:
-            out.setdefault(EDGE_TO_KEY[r["種別"]], []).append(edge_dict(r))
+            out.setdefault(EDGE_TO_KEY[r["種別"]], []).append(edge_dict(T, r))
     return out
 
 
@@ -143,10 +152,10 @@ def build_plan(T, map_id):
         d = window_dict(T, r, walls)
         key = "no_window_walls" if r["種別"] == "窓なし" else "windows"
         p.setdefault(key, []).append(d)
-    p["assumptions"] = [x["内容"] for x in T["既定値"] if x["MAP_ID"] == map_id and x["適用時期"] == ""]
+    p["assumptions"] = [with_refs(T, x["内容"], x["決定参照"]) for x in T["既定値"] if x["MAP_ID"] == map_id and x["適用時期"] == ""]
     if m["装飾プールID"] and not m["装飾プールID"].startswith("未決"):
         p["decor_pool"] = m["装飾プールID"]
-    p["depends_on"] = L.split_list(m["依存MAP"])
+    p["depends_on"] = [x for x in L.split_list(m["依存MAP"]) if x not in ("なし", "該当なし")]
     eras = []
     for r in T["時期差分"]:
         if r["MAP_ID"] == map_id and r["時期"] not in eras:
@@ -175,7 +184,7 @@ def build_plan(T, map_id):
             add["windows"] = wins_v
         if add:
             v["add"] = add
-        ass = [x["内容"] for x in T["既定値"] if x["MAP_ID"] == map_id and x["適用時期"] == era]
+        ass = [with_refs(T, x["内容"], x["決定参照"]) for x in T["既定値"] if x["MAP_ID"] == map_id and x["適用時期"] == era]
         if ass:
             v["assumptions"] = ass
         p["variants"][era] = v
@@ -207,7 +216,15 @@ def build_decor(T):
         if r["エリアID"] not in aids:
             aids.append(r["エリアID"])
     for aid in aids:
-        doc["areas"][aid] = F.unflatten([(r["項目"], r["値"], r["型"]) for r in T["エリア固定"] if r["エリアID"] == aid])
+        rows = []
+        for r in T["エリア固定"]:
+            if r["エリアID"] != aid:
+                continue
+            v = r["値"]
+            if r["決定参照"] and not v:
+                v = f"{ref_text(T, r['決定参照'])}（決定 {r['決定参照']}）"
+            rows.append((r["項目"], v, r["型"]))
+        doc["areas"][aid] = F.unflatten(rows)
     return doc
 
 
@@ -243,7 +260,7 @@ def build_deps(T):
     maps = {}
     for m in T["MAP"]:
         if m["依存の確度"]:
-            maps[m["MAP_ID"]] = {"depends_on": L.split_list(m["依存MAP"]), "status": L.en(DEPSTATUS, m["依存の確度"]), "basis": m["依存の根拠"]}
+            maps[m["MAP_ID"]] = {"depends_on": [x for x in L.split_list(m["依存MAP"]) if x not in ("なし", "該当なし")], "status": L.en(DEPSTATUS, m["依存の確度"]), "basis": m["依存の根拠"]}
     eras = {}
     for r in T["時期差分"]:
         e = eras.setdefault((r["MAP_ID"], r["時期"]), {})

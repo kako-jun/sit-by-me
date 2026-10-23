@@ -1,6 +1,6 @@
 窓列ID,建物ID,部位ID,個数,先頭比,間隔比,幅比,窓台比,高さ比,窓種別,理由,決定参照,特徴(自由記述)
 BLD-TRM-corridor-w.south-wins,BLD-TRM-corridor-w,BLD-TRM-corridor-w.south-windows,3,0.165289,0.303030,0.192837,0.181818,0.454545,腰高,廊下棟の南壁の連窓（屋内・外観で共通）,TRM.building-shared,
-BLD-TRM-corridor-e.south-wins,BLD-TRM-corridor-e,BLD-TRM-corridor-e.south-windows,3,0.165289,0.303030,0.192837,0.181818,0.454545,腰高,廊下棟の南壁の連窓（屋内・外観で共通）,TRM.building-shared,
+BLD-TRM-corridor-e.south-wins,BLD-TRM-corridor-e,BLD-TRM-corridor-e.south-windows,3,0.236915,0.303030,0.192837,0.181818,0.454545,腰高,廊下棟の南壁の連窓（屋内・外観で共通）,TRM.building-shared,
 BLD-TRM-honden.windows,BLD-TRM-honden,BLD-TRM-honden.windows,0,,,,,,,窓なし（確定）,TRM.hall-no-window,
 BLD-TRM-jukyo.south-wins,BLD-TRM-jukyo,BLD-TRM-jukyo.south-windows,2,,,,,,腰高,南面の腰高窓2（扉・窓・窓の順）,TRM.windows-spec,
 BLD-TRM-youchien.south-wins,BLD-TRM-youchien,BLD-TRM-youchien.south-windows,4,,,,,,掃き出し,南面の掃き出し窓4（枚数は仮）,TRM-03.kindergarten-bigger,
