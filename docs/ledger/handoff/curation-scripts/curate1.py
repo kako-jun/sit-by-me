@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """曲線1: エリア・語彙・必須キー・未決・キー別名・建物・MAP キー・決定（CSV を書く）"""
 import json, sys, re
-sys.path.insert(0, '/home/kako-jun/repos/2026/sit-by-me-wt-ledger-master/.claude/skills/sit-field-background/tools')
-sys.path.insert(0, '/tmp/claude-1001/-home-kako-jun-repos-private-freeza/9f3f94f0-2c9d-45f2-a837-2e8539f6df7f/scratchpad/lm')
+sys.path.insert(0, '<repo>/.claude/skills/sit-field-background/tools')
+sys.path.insert(0, '<scratchpad>/lm')
 import ledger_io as L
 
 UNDECIDED = "未決(要確認)"

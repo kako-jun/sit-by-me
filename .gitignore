@@ -6,3 +6,6 @@ docs/production/oblique-mocks/*/e2/take*.png
 docs/production/oblique-mocks/*/e2/**/overlay-*.png
 docs/production/oblique-mocks/*/e2/overlay-*.png
 docs/production/oblique-mocks/*/e2/**/style-ref.png
+# E2 実行時の ~/.codex/generated_images 一覧（ローカルのセッションIDが並ぶので追跡しない）
+docs/production/oblique-mocks/*/e2/**/.gi-*.txt
+docs/production/oblique-mocks/*/e2/.gi-*.txt

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """曲線4: 意図的な修正（畳・化石の石・勝手口・渡り廊下棟）と決定参照への置換。JSON の決定文の写しを台帳参照へ。"""
 import json, sys, re
-sys.path.insert(0, '/home/kako-jun/repos/2026/sit-by-me-wt-ledger-master/.claude/skills/sit-field-background/tools')
+sys.path.insert(0, '<repo>/.claude/skills/sit-field-background/tools')
 import ledger_io as L
 
 def rep(rows, pred, **upd):

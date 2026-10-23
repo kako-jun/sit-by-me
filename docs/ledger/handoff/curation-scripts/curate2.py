@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """曲線2: MAP のキー・決定表・必須キー・未決・別名・採用要素・素材"""
 import json, sys, re
-sys.path.insert(0, '/home/kako-jun/repos/2026/sit-by-me-wt-ledger-master/.claude/skills/sit-field-background/tools')
-sys.path.insert(0, '/tmp/claude-1001/-home-kako-jun-repos-private-freeza/9f3f94f0-2c9d-45f2-a837-2e8539f6df7f/scratchpad/lm')
+sys.path.insert(0, '<repo>/.claude/skills/sit-field-background/tools')
+sys.path.insert(0, '<scratchpad>/lm')
 import ledger_io as L
 UND = "未決(要確認)"; NA = "該当なし"
 STD = "標準(段ボール・紙粘土・綿の雪・木)"
@@ -61,5 +61,5 @@ for mid, m in by.items():
     if m.get("依存の確度") == "要確認":
         unresolved.append(("MAP", mid, "依存MAP", "依存グラフで『要確認』（同じ建物・扉・場所を共有するか）"))
 L.write("MAP", maps)
-json.dump(unresolved, open('/tmp/claude-1001/-home-kako-jun-repos-private-freeza/9f3f94f0-2c9d-45f2-a837-2e8539f6df7f/scratchpad/lm/unresolved.json', 'w'), ensure_ascii=False)
+json.dump(unresolved, open('<scratchpad>/lm/unresolved.json', 'w'), ensure_ascii=False)
 print(len(unresolved), "unresolved")

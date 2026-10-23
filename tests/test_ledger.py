@@ -887,6 +887,34 @@ class MissingKeysGateTests(LedgerCopyBase):
         self.assertNotIn("MISSING:[]", r.stdout)
 
 
+class RubyCrashGateTests(LedgerCopyBase):
+    """台帳の内容と無関係に必須キー検査器(Ruby)が落ちた場合でも、生成ゲート・プロンプト導出が『欠落なし』として進まない。"""
+
+    def crash_checker(self):
+        p = self.work / "scripts/ledger_required_keys.rb"
+        p.write_text('raise "boom（テスト用の異常終了）"\n' + p.read_text(encoding="utf-8"), encoding="utf-8")
+
+    def test_missing_keys_stops_when_the_checker_crashes(self):
+        self.crash_checker()
+        code = "import ledger_query as Q; print(Q.missing_keys('TRM-05'))"
+        r = subprocess.run([sys.executable, "-c", code], env=self.env(PYTHONPATH=str(self.work / ".claude/skills/sit-field-background/tools")), capture_output=True, text=True, cwd=self.work)
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("異常終了", r.stderr)
+        self.assertNotEqual(r.stdout.strip(), "[]")
+
+    def test_prompt_probe_produces_nothing_when_the_checker_crashes(self):
+        self.crash_checker()
+        probe = self.work / ".claude/skills/sit-field-background/tools/oblique_prompt_probe.py"
+        try:
+            import cv2, numpy, PIL  # noqa: F401, E401
+            cmd = [sys.executable, str(probe)]
+        except ImportError:
+            cmd = ["uv", "run", "--project", str(self.work), "--with", "numpy", "--with", "opencv-python-headless", "--with", "pillow", "python3", str(probe)]
+        r = subprocess.run(cmd, env=self.env(), capture_output=True, text=True, cwd=self.work)
+        self.assertNotEqual(r.returncode, 0)
+        self.assertNotIn('"gated": []', r.stdout)  # ゲートが開いたことにして導出した記録を出さない
+
+
 class PromptNegationClauseTests(LedgerCopyBase):
     """禁止語の免除は『同じ節（。、区切り）にある否定』だけ。同じ行の別の節の否定で、禁止語（畳）を見逃してはならない。"""
 
@@ -1274,3 +1302,75 @@ class GatedMapsScopeTests(LedgerCopyBase):
             text = (ROOT / rel).read_text(encoding="utf-8")
             self.assertIn("TRM-06〜17", text, rel)
             self.assertIn("プロンプト反映検査の対象外", text, rel)
+
+
+class HandoffAndDocsFollowTests(unittest.TestCase):
+    """引き継ぎ文書（HANDOFF.md）の数値が台帳の実測と一致し、矛盾せず、handoff/ の削除手順がある。tools/README の渡り廊下の説明が現行。"""
+
+    HANDOFF = (ROOT / "docs/ledger/handoff/HANDOFF.md").read_text(encoding="utf-8")
+
+    def rows(self, table):
+        return ledger_io.parse(table, (ROOT / f"docs/ledger/{table}.yaml").read_text(encoding="utf-8"))
+
+    def test_numbers_match_the_ledger(self):
+        import re
+        dec = self.rows("決定")
+        valid = sum(1 for d in dec if d["状態"] == "有効")
+        m = re.search(r"決定(\d+)（有効(\d+)・訂正済み(\d+)）", self.HANDOFF)
+        self.assertEqual((int(m[1]), int(m[2]), int(m[3])), (len(dec), valid, len(dec) - valid))
+        self.assertEqual(int(re.search(r"`未決.yaml` に(\d+)件", self.HANDOFF)[1]), len(self.rows("未決")))
+        self.assertEqual(int(re.search(r"ファイル配置.yaml`（(\d+)規則", self.HANDOFF)[1]), len(self.rows("ファイル配置")))
+        self.assertIn(f"表（docs/ledger/）{len(list((ROOT / 'docs/ledger').glob('*.yaml')))}枚", self.HANDOFF)
+
+    def test_atlas_connection_count_is_consistent(self):
+        import re
+        counts = set(re.findall(r"129MAP/(\d+)接続", self.HANDOFF))
+        self.assertEqual(counts, {"137"})  # 以前は 136 と 137 が同居していた
+
+    def test_handoff_removal_procedure_is_written(self):
+        for needle in ("handoff/ の削除手順", "git mv", "DESIGN.md", "known-failures-baseline.txt", "curation-scripts/", "ledger_index.py build"):
+            self.assertIn(needle, self.HANDOFF)
+
+    def test_tools_readme_corridor_matches_the_current_decisions(self):
+        text = (ROOT / ".claude/skills/sit-field-background/tools/README.md").read_text(encoding="utf-8")
+        self.assertNotIn("床＋四隅の柱＋屋根の板だけの開放した通路", text)
+        self.assertIn("TRM-03.corridor-open は訂正済み", text)
+        dec = {d["決定ID"]: d for d in self.rows("決定")}
+        self.assertEqual((dec["TRM-03.corridor-open"]["状態"], dec["TRM-03.corridor-open"]["置換先"]), ("訂正済み", "TRM.building-shared"))
+
+    def test_known_constraint_about_font_on_macos_is_stated(self):
+        text = (ROOT / ".claude/skills/sit-field-background/tools/README.md").read_text(encoding="utf-8")
+        self.assertIn("既知の制約", text)
+        self.assertIn("macOS では mock 段", text)
+
+
+class NoLocalPathsTests(unittest.TestCase):
+    """公開リポに入るファイルへ、ローカルの絶対パス（/Users/kako-jun・/home/kako-jun）と codex のセッションIDを書かない。
+    対象: 引き継ぎ（handoff/ と curation-scripts）・斜めモックの E2 記録（codex ログ・metrics.json・.gi 一覧）。汎用表記は <repo>・<home>・<session-id>。"""
+
+    UUID = r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+
+    def files(self):
+        out = [p for p in (ROOT / "docs/ledger/handoff").rglob("*") if p.is_file() and "__pycache__" not in p.parts]
+        e2 = ROOT / "docs/production/oblique-mocks"
+        out += [p for p in e2.rglob("*") if p.is_file() and "e2" in p.parts and (p.name.startswith("codex-take") or p.name == "metrics.json" or p.name.startswith(".gi-"))]
+        return out
+
+    def test_no_absolute_home_paths(self):
+        import re
+        bad = [str(p.relative_to(ROOT)) for p in self.files() if re.search(r"/(?:Users|home)/kako-jun", p.read_text(encoding="utf-8", errors="replace"))]
+        self.assertEqual(bad, [])
+
+    def test_no_codex_session_ids(self):
+        import re
+        pat = re.compile(r"(?:generated_images/|session id:\s*|exec-)" + self.UUID)
+        bad = [str(p.relative_to(ROOT)) for p in self.files() if pat.search(p.read_text(encoding="utf-8", errors="replace"))]
+        self.assertEqual(bad, [])
+
+    def test_gi_listings_are_not_tracked(self):
+        self.assertEqual([p for p in self.files() if p.name.startswith(".gi-")], [])
+        self.assertIn(".gi-", (ROOT / ".gitignore").read_text(encoding="utf-8"))
+
+    def test_metrics_json_is_still_valid_json(self):
+        for p in (ROOT / "docs/production/oblique-mocks").rglob("metrics.json"):
+            json.loads(p.read_text(encoding="utf-8"))

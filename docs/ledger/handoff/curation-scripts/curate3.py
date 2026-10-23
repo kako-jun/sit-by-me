@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """曲線3: 決定表"""
 import json, re, sys
-sys.path.insert(0, '/home/kako-jun/repos/2026/sit-by-me-wt-ledger-master/.claude/skills/sit-field-background/tools')
+sys.path.insert(0, '<repo>/.claude/skills/sit-field-background/tools')
 import ledger_io as L
-S = '/tmp/claude-1001/-home-kako-jun-repos-private-freeza/9f3f94f0-2c9d-45f2-a837-2e8539f6df7f/scratchpad/lm/'
+S = '<scratchpad>/lm/'
 D = [json.loads(l) for l in open(S + 'decisions.jsonl')]
 drop = {"TRM-03.corridor", "TRM.open-passage", "TRM-03.standing"}
 # 修正する決定の内容

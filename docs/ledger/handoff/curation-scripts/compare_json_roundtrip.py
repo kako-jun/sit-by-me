@@ -1,7 +1,7 @@
 import sys,json
-sys.path.insert(0,'/home/kako-jun/repos/2026/sit-by-me-wt-ledger-master/.claude/skills/sit-field-background/tools')
+sys.path.insert(0,'<repo>/.claude/skills/sit-field-background/tools')
 import ledger_build as B
-O='/tmp/claude-1001/-home-kako-jun-repos-private-freeza/9f3f94f0-2c9d-45f2-a837-2e8539f6df7f/scratchpad/lm/orig/'
+O='<scratchpad>/lm/orig/'
 def norm(o):
     if isinstance(o,dict): return {k:norm(v) for k,v in o.items() if not(v in ([],None) and not isinstance(v,(int,float)) ) and k!='_provenance'}
     if isinstance(o,list): return [norm(x) for x in o]

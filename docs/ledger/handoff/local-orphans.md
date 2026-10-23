@@ -1,6 +1,6 @@
 # sit-by-me ローカル孤立情報の棚卸し(読み取り専用)
 
-調査日 2026-10-23。対象: sit-by-me 本体(`/home/kako-jun/repos/2026/sit-by-me`、branch body-maps-baseline-20261022、追跡1153ファイル、画像・レビューを除く文書/コード/JSON 486)と worktree 3つ(oblique 268 / teramachi-rest 355 / ledger-master 282 の本体に無い追加ファイル)、notes リポ、freeza セッションノート47本、memory。
+調査日 2026-10-23。対象: sit-by-me 本体(`<repo>`、branch body-maps-baseline-20261022、追跡1153ファイル、画像・レビューを除く文書/コード/JSON 486)と worktree 3つ(oblique 268 / teramachi-rest 355 / ledger-master 282 の本体に無い追加ファイル)、notes リポ、freeza セッションノート47本、memory。
 凡例: 「確認」=ファイル/コマンドで確認、「推測」=未確認。
 注意: 台帳(新形式)は ledger-master worktree の `docs/ledger/*.csv` 10表(MAP/端/接続/接続図設定/要素/窓/時期差分/既定値/エリア固定/装飾プール、計364行)が現状の全て。**決定表・採用要素表・未決表は ledger_io.py にスキーマだけあり、CSV はまだ無い**(確認: ledger_io.py L37-42、ls docs/ledger)。つまり「決定が台帳に降りていない」はほぼ全件が現状該当し、孤立の判定は「決定表が出来たとき移す先がある情報か」を基準にした。Issue 側は番号・本文を全件は突合していない(推測を含む)。
 

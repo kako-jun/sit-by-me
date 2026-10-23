@@ -1,6 +1,6 @@
 """決定・未決の追加（TRM-06〜17 取込みの続き。一度きり）。"""
 import sys
-sys.path.insert(0, "/Users/kako-jun/repos/2026/sit-by-me-wt-ledger-master/.claude/skills/sit-field-background/tools")
+sys.path.insert(0, "<repo>/.claude/skills/sit-field-background/tools")
 import ledger_io as L
 
 D = L.read("決定")

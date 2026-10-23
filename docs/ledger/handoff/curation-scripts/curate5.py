@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """曲線5: 必須キー・未決・キー別名・採用要素・素材"""
 import json, sys, os, glob
-sys.path.insert(0, '/home/kako-jun/repos/2026/sit-by-me-wt-ledger-master/.claude/skills/sit-field-background/tools')
+sys.path.insert(0, '<repo>/.claude/skills/sit-field-background/tools')
 import ledger_io as L
-S = '/tmp/claude-1001/-home-kako-jun-repos-private-freeza/9f3f94f0-2c9d-45f2-a837-2e8539f6df7f/scratchpad/lm/'
+S = '<scratchpad>/lm/'
 rows = []
 def rk(t, k, lv, cond="", grp="", desc=""):
     rows.append({"対象テーブル": t, "キー": k, "必須度": lv, "条件": cond, "語彙グループ": grp, "説明": desc})

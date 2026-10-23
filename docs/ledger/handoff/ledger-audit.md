@@ -1,6 +1,6 @@
 # sit-by-me MAP台帳の分散・重複の実態と統合案
 
-調査対象: /home/kako-jun/repos/2026/sit-by-me-wt-oblique (branch oblique-mask-tools-20261023)。読み取りのみ・リポ無変更。
+調査対象: <repo> (branch oblique-mask-tools-20261023)。読み取りのみ・リポ無変更。
 根拠は「確認」(ファイル/行/コマンド出力で確認) と「推測」に分けて書く。Issue 全文は i51.txt / i144.txt (同ディレクトリ) に保存。
 
 ## 1. 台帳の一覧と役割

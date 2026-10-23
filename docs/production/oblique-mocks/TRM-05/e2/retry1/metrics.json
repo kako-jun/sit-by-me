@@ -150,7 +150,7 @@
  "takes": [
   {
    "take": "1",
-   "file": "/home/kako-jun/repos/2026/sit-by-me-wt-oblique/docs/production/oblique-mocks/TRM-05/e2/retry1/take1.png",
+   "file": "<repo>/docs/production/oblique-mocks/TRM-05/e2/retry1/take1.png",
    "resized_for_measure": false,
    "orig_size": [
     1672,
@@ -376,7 +376,7 @@
     ],
     "mode": "RGB",
     "unique_colors": 154078,
-    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a16783-843c-7932-800f-1ddb5e6d78aa/exec-c15a27c5-d3b9-47ef-abff-538cb255450f.png",
+    "matches_codex_generated_image": "<home>/.codex/generated_images/<session-id>/exec-<exec-id>.png",
     "new_generated_images_in_run": 2,
     "log_mentions_unavailable": false,
     "log_fabrication_tool_calls": 0,
@@ -537,7 +537,7 @@
   },
   {
    "take": "2",
-   "file": "/home/kako-jun/repos/2026/sit-by-me-wt-oblique/docs/production/oblique-mocks/TRM-05/e2/retry1/take2.png",
+   "file": "<repo>/docs/production/oblique-mocks/TRM-05/e2/retry1/take2.png",
    "resized_for_measure": false,
    "orig_size": [
     1672,
@@ -763,7 +763,7 @@
     ],
     "mode": "RGB",
     "unique_colors": 160591,
-    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a16783-8458-7540-8112-45b381917daa/exec-3db29e3d-dd81-4072-94d6-91fe4117b321.png",
+    "matches_codex_generated_image": "<home>/.codex/generated_images/<session-id>/exec-<exec-id>.png",
     "new_generated_images_in_run": 2,
     "log_mentions_unavailable": false,
     "log_fabrication_tool_calls": 0,
@@ -924,7 +924,7 @@
   },
   {
    "take": "3",
-   "file": "/home/kako-jun/repos/2026/sit-by-me-wt-oblique/docs/production/oblique-mocks/TRM-05/e2/retry1/take3.png",
+   "file": "<repo>/docs/production/oblique-mocks/TRM-05/e2/retry1/take3.png",
    "resized_for_measure": false,
    "orig_size": [
     1672,
@@ -1150,7 +1150,7 @@
     ],
     "mode": "RGB",
     "unique_colors": 162401,
-    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a16794-b1ea-78a3-a22d-a12158206bbb/exec-266b0fb4-e766-41f2-8bd8-dd914f622495.png",
+    "matches_codex_generated_image": "<home>/.codex/generated_images/<session-id>/exec-<exec-id>.png",
     "new_generated_images_in_run": 2,
     "log_mentions_unavailable": false,
     "log_fabrication_tool_calls": 0,
@@ -1311,7 +1311,7 @@
   },
   {
    "take": "4",
-   "file": "/home/kako-jun/repos/2026/sit-by-me-wt-oblique/docs/production/oblique-mocks/TRM-05/e2/retry1/take4.png",
+   "file": "<repo>/docs/production/oblique-mocks/TRM-05/e2/retry1/take4.png",
    "resized_for_measure": false,
    "orig_size": [
     1672,
@@ -1537,7 +1537,7 @@
     ],
     "mode": "RGB",
     "unique_colors": 139552,
-    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a16783-8442-7080-8d99-0c855cbc50c0/exec-82f9be82-ddbd-4c03-8262-e992f8ba7b0f.png",
+    "matches_codex_generated_image": "<home>/.codex/generated_images/<session-id>/exec-<exec-id>.png",
     "new_generated_images_in_run": 2,
     "log_mentions_unavailable": false,
     "log_fabrication_tool_calls": 0,

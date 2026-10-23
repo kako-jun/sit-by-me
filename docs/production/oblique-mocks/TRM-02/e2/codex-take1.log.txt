@@ -1,14 +1,14 @@
 Reading additional input from stdin...
 OpenAI Codex v0.163.0
 --------
-workdir: /home/kako-jun/repos/2026/sit-by-me-wt-oblique
+workdir: <repo>
 model: gpt-6-luna
 provider: openai
 approval: never
 sandbox: workspace-write [workdir, /tmp, $TMPDIR] (network access enabled)
 reasoning effort: high
 reasoning summaries: none
-session id: 01a16711-66c9-7f30-9c60-f34c3f4191fd
+session id: <session-id>
 --------
 user
 Invoke the $imagegen skill and use the built-in image_gen tool at the HIGHEST quality (quality: high), edit-mode with the two attached reference images (image 1 = edit target mock, image 2 = material swatch), size 1672x941, then save the RE
@@ -55,6 +55,6 @@ No other style reference is given; the style is described in the text above (han
 
 OUTPUT: one image, 1672x941 landscape (if exactly that size is impossible, the nearest allowed size with the same aspect ratio). Do not crop, rotate, zoom or re-frame the mock.
 warning: Codex is ignoring 1 unrecognized configuration setting. Check for typos or deprecated settings.
-  user (/home/kako-jun/.codex/config.toml): `profiles.safe.sandbox_workspace_write` is ignored.
+  user (<home>/.codex/config.toml): `profiles.safe.sandbox_workspace_write` is ignored.
 warning: Codex is ignoring 1 unrecognized configuration setting. Check for typos or deprecated settings.
-  user (/home/kako-jun/.codex/config.toml): `profiles.safe.sandbox_workspace_write` is ignored.
+  user (<home>/.codex/config.toml): `profiles.safe.sandbox_workspace_write` is ignored.

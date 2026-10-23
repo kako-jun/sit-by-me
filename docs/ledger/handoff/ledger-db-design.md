@@ -1,6 +1,6 @@
 # sit-by-me 台帳DB化 設計案(日本語マスター → JSON派生 → プロンプト)
 
-調査: worktree /home/kako-jun/repos/2026/sit-by-me-wt-oblique。読み取りのみ。リポ無変更。前段の調査 ledger-audit.md(D1〜D10 の重複・漏れ実例)は有効なので再掲しない。
+調査: worktree <repo>。読み取りのみ。リポ無変更。前段の調査 ledger-audit.md(D1〜D10 の重複・漏れ実例)は有効なので再掲しない。
 「確認」=ファイル/コマンドで確認、「推測」=未確認。
 
 ## 0. 結論(先に)

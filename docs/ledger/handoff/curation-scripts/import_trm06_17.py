@@ -6,7 +6,7 @@ import os
 import re
 import sys
 
-TOOLS = "/Users/kako-jun/repos/2026/sit-by-me-wt-ledger-master/.claude/skills/sit-field-background/tools"
+TOOLS = "<repo>/.claude/skills/sit-field-background/tools"
 sys.path.insert(0, TOOLS)
 import ledger_flat as F  # noqa: E402
 import ledger_io as L  # noqa: E402
