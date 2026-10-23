@@ -127,18 +127,38 @@ class PromptReflection
   end
 
   # 行の中で、述語に一致する節（否定を含む節は除く）。無ければ nil。
-  # negation: false（回帰アンカー）は否定表現でも免除しないが、有効な決定の『決定の要点』の一部をそのまま引いた節
-  # （要素の見た目が決定参照で展開された文など）は決定の逐語なので免除する。
+  # negation: false（回帰アンカー）は否定表現でも免除しない。免除するのは次の2つだけ（部分文字列では免除しない）:
+  #   (a) 有効な決定の『決定の要点』を同じ区切り（CLAUSE_SPLIT）で分けた節のどれかと**完全一致**する節（決定の逐語の引用）
+  #   (b) 行末に『（決定 X）』の注記があり、X が全て台帳の決定IDである展開文の節（要素の見た目などが決定参照で展開された文）
   def leaking_clause(line, negation: true)
-    line.split(CLAUSE_SPLIT).find do |c|
+    return nil if !negation && annotated_expansion?(line)
+
+    clauses = line.split(CLAUSE_SPLIT)
+    clauses.each_with_index.find do |c, i|
       next false unless yield(c)
 
-      negation ? !c.match?(NEGATION_RE) : !decision_text.include?(c.strip)
-    end
+      negation ? !(c.match?(NEGATION_RE) || enumerated_under_negation?(c, clauses[i + 1])) : !decision_clauses.include?(c.strip)
+    end&.first
   end
 
-  def decision_text
-    @decision_text ||= @t['決定'].select { |d| d['状態'] == '有効' }.map { |d| d['決定の要点'] }.join("\n")
+  # 『畳、襖は描かない』のように、述語のない短い名詞だけの節の直後の節が否定なら、同じ否定の列挙とみなす（既知の制約: README）。
+  # 述語を持つ節（は・を・が・に・で・も を含む、または9字以上）は列挙とみなさない（『畳、ござを敷く。』の畳は漏れ）
+  BARE_NOUN_RE = /\A[^はをがにでも]{1,8}\z/.freeze
+
+  def enumerated_under_negation?(clause, following)
+    !following.nil? && following.match?(NEGATION_RE) && clause.strip.match?(BARE_NOUN_RE)
+  end
+
+  def annotated_expansion?(line)
+    m = line.match(/（決定 ([^）]+)）\s*\z/)
+    return false unless m
+
+    ids = m[1].split(/[,、\s]+/).reject(&:empty?)
+    !ids.empty? && ids.all? { |i| @t['決定'].any? { |d| d['決定ID'] == i && d['状態'] == '有効' } }
+  end
+
+  def decision_clauses
+    @decision_clauses ||= @t['決定'].select { |d| d['状態'] == '有効' }.flat_map { |d| d['決定の要点'].split(CLAUSE_SPLIT).map(&:strip) }.reject(&:empty?)
   end
 
   def mentions?(line, word)

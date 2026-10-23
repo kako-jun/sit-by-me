@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'json'
+require 'open3'
 require 'yaml'
 
 # docs/ledger/<表名>.yaml の読み込み。マスターは日本語キーの YAML（表ごと1ファイル、中身は行のリスト）。
@@ -35,8 +37,36 @@ module LedgerYaml
 
       row = Hash.new('')
       r.each { |k, v| row[str(k)] = str(v) }
+      check_columns(table, row, i)
       row
     end
+  end
+
+  # 表定義（Python ledger_io.py の SCHEMA）。定義を二重に持たず、Python が JSON で出す口（ledger_io.py schema）を読む。
+  def schema
+    @schema ||= load_schema
+  end
+
+  def load_schema
+    tool = File.expand_path('../.claude/skills/sit-field-background/tools/ledger_io.py', __dir__)
+    # scripts/ だけを複製した最小の検査用 root（ledger_io.py が無い）では列照合を省く。リポ本体では常に有り、verify_ledger.rb は別に必須とする
+    return {} unless File.file?(tool)
+
+    project = File.expand_path('..', __dir__)
+    out, err_, st = Open3.capture3('uv', 'run', '--project', project, 'python3', tool, 'schema')
+    raise "表定義(ledger_io.py schema)を読めない: #{err_.lines.first(3).join(' / ')}" unless st.success?
+
+    JSON.parse(out)
+  end
+
+  # 行のキーが表定義に含まれること。綴り間違い（『決定参考』）や未定義列は、読み手が黙って空欄扱いにして検査をすり抜けるので止める
+  # （Python 側 ledger_io.parse と同じ規則）。表定義に無い表は verify_ledger.rb が別に報告する
+  def check_columns(table, row, index)
+    cols = schema[table]
+    return if cols.nil?
+
+    extra = row.keys - cols
+    raise "#{table}.yaml: #{index + 1}行目に表定義に無い列 #{extra.inspect}（ledger_io.py の SCHEMA。綴り間違い？ 正しい列: #{cols.join(' / ')}）" unless extra.empty?
   end
 
   # YAML の構文木で検査する（Python 側 ledger_io._check_syntax と同じ規則）: 全スカラー（キーも値も）は引用符つきか block scalar、

@@ -326,8 +326,8 @@
    ],
    "partner": "TRM-04.door-south",
    "width_class": "2people",
-   "status": "fixed",
-   "note": "本堂の正面。建物の中央（決定 TRM.door-width, TRM.door-width-outside, TRM.mock-master）"
+   "status": "default",
+   "note": "本堂の正面。建物の中央。位置は採用外観画像の読み取りと司令塔の既定（#144 コメント 6355539302『本堂の正面扉は南壁の中央』）で、kako-jun が位置を明示した発言は確認できていない（未決 U-050。相手端 TRM-04.door-south と同じ扉）。幅は決定参照のとおり（決定 TRM.door-width, TRM.door-width-outside, TRM.mock-master）"
   },
   {
    "id": "TRM-03.door-residence",
@@ -588,8 +588,8 @@
  ],
  "_provenance": {
   "source": "MAP:TRM-03|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "20d44e4dfc46b2e5d6b0053c787160ed8cb16e897b7d22581362d85ab8eadd2b",
-  "generated_at": "2026-10-24T04:51",
+  "input_sha": "c9b4ccbcdd34dcb53c2fac363f47cb7138e0301d2e8144aa3b8ac3427712ae0c",
+  "generated_at": "2026-10-24T06:12",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-03-plan",
   "do_not_edit": true

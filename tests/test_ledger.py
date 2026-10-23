@@ -442,6 +442,12 @@ class LegacyMdReaderTests(unittest.TestCase):
         (root / "docs/ledger").mkdir(parents=True)
         for f in ("build_map_prompt.rb", "md_table.rb", "ledger_yaml.rb"):
             shutil.copy(ROOT / "scripts" / f, root / "scripts" / f)
+        # ledger_yaml.rb は表定義(SCHEMA)を ledger_io.py schema から読む
+        tools = root / ".claude/skills/sit-field-background/tools"
+        tools.mkdir(parents=True)
+        shutil.copy(ROOT / ".claude/skills/sit-field-background/tools/ledger_io.py", tools / "ledger_io.py")
+        for name in ("pyproject.toml", "uv.lock"):
+            shutil.copy(ROOT / name, root / name)
         (root / "docs/map-contract-checklist.md").write_text(checklist, encoding="utf-8")
         (root / "docs/map-specifications.md").write_text(spec, encoding="utf-8")
         (root / "docs/map-topology.md").write_text(topo, encoding="utf-8")
@@ -928,6 +934,51 @@ class PromptNegationClauseTests(LedgerCopyBase):
         r = self.verify_prompt()
         self.assertFailsWith(r, "TRM-05", "畳")
 
+    # ---- 再レビュー（中-2）: 回帰アンカーの免除は『決定の要点の節と完全一致』か『決定参照つき展開文』だけ
+    def emptied_forbidden_words(self, word):
+        rows = self.rows("決定")
+        hit = [r for r in rows if r["禁止語"] == word]
+        self.assertTrue(hit)
+        for r in hit:
+            r["禁止語"] = ""
+        self.save("決定", rows)
+
+    def test_anchor_detects_one_word_clause_even_when_the_word_is_in_a_decision_text(self):
+        # 禁止語を台帳から空にされても、回帰アンカーは固定の期待で畳の漏れを検出する（1語の節が決定の要点の部分文字列でも免除しない）
+        self.emptied_forbidden_words("畳")
+        self.edit_row("要素", "要素ID", "bed-n", **{"見た目": "床は板張り、畳、ござを敷く。"})
+        self.rebuild()
+        self.assertFailsWith(self.verify_prompt(), "回帰アンカー tatami", "畳")
+
+    def test_anchor_detects_ammonite_in_a_list_even_with_the_forbidden_word_emptied(self):
+        self.emptied_forbidden_words("アンモナイト")
+        self.edit_row("要素", "要素ID", "bed-n", **{"見た目": "棚に巻貝、アンモナイト、貝殻を並べる。"})
+        self.rebuild()
+        self.assertFailsWith(self.verify_prompt(), "回帰アンカー fossil-stone", "アンモナイト")
+
+    def test_anchor_still_exempts_a_decision_referenced_expansion(self):
+        self.edit_row("要素", "要素ID", "bed-n", **{"見た目": "畳を描かない。畳を使わない。（決定 TRM.no-tatami）"})
+        self.rebuild()
+        r = self.verify_prompt()
+        self.assertEqual(r.returncode, 0, r.stderr)
+
+    def test_anchor_does_not_exempt_a_reference_to_a_nonexistent_decision(self):
+        self.edit_row("要素", "要素ID", "bed-n", **{"見た目": "畳を使う部屋がある。（決定 TRM.no-such-decision）"})
+        self.rebuild()
+        self.assertFailsWith(self.verify_prompt(), "回帰アンカー tatami")
+
+    # ---- 軽微 b: 名詞だけの節の直後が否定なら同じ否定の列挙とみなす（述語を持つ節は別）
+    def test_bare_noun_enumerated_under_a_following_negation_is_not_a_leak(self):
+        self.edit_row("要素", "要素ID", "hall-floor", **{"見た目": "濃い茶色の板張り。矢来、名簿は描かない。"})
+        self.rebuild()
+        r = self.verify_prompt()
+        self.assertNotIn("矢来", r.stderr)
+
+    def test_forbidden_word_with_its_own_predicate_before_a_negation_is_still_a_leak(self):
+        self.edit_row("要素", "要素ID", "hall-floor", **{"見た目": "濃い茶色の板張り。矢来を置く、名簿は描かない。"})
+        self.rebuild()
+        self.assertFailsWith(self.verify_prompt(), "矢来")
+
 
 class SchemaAndSyntaxTests(LedgerCopyBase):
     """列名の綴り間違い・未定義列、未引用スカラー、重複キーは、読み手が黙って受け入れず verify_ledger / ledger_build check で失敗する。"""
@@ -943,6 +994,14 @@ class SchemaAndSyntaxTests(LedgerCopyBase):
         self.replace_in_row("端", self.ANCHOR, '"決定参照"', '"決定参考"')
         r = self.py("ledger_build.py", "check")
         self.assertFailsWith(r, "決定参考")
+
+    def test_ruby_reader_itself_rejects_a_misspelled_column(self):
+        # 軽微 a: verify_ledger を経由しない Ruby の読み手（LedgerYaml.read）も列を照合する。黙って空欄扱いにしない
+        self.replace_in_row("端", self.ANCHOR, '"決定参照"', '"決定参考"')
+        r = subprocess.run([RUBY, "-e", "require './scripts/ledger_yaml'; LedgerYaml.read('端')"], env=self.env(), capture_output=True, text=True, cwd=self.work)
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("表定義", r.stderr)
+        self.assertIn("決定参考", r.stderr)
 
     def test_unquoted_scalar_is_rejected_by_ruby_and_python(self):
         self.replace_in_row("端", self.ANCHOR, '"中心": "', '"中心": 841 #"')
@@ -1155,6 +1214,39 @@ class SourceQuoteTests(IssueAuditBase):
         self.assertEqual(r.returncode, 1)
         self.assertIn("Issue のコメント", r.stderr)
 
+    # ---- 再レビュー指摘（中-1）: 偽の逐語を通さない
+    def test_short_quote_needs_an_exact_bracketed_match(self):
+        self.data["comments"] += [self.comment(204, 7, "## 回答\nkako-jun「A,A」"), self.comment(205, 7, "## 別\nxA,Ay の話")]
+        self.assertEqual(self.check(self.decision("D.short", "「A,A」（2問への回答）", [self.u(204)])).returncode, 0)
+        r = self.check(self.decision("D.fakeshort", "「B,B」（2問への回答）", [self.u(204)]))  # A,A → B,B の改変
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("B,B", r.stderr)
+        r = self.check(self.decision("D.loose", "「A,A」", [self.u(205)]))  # 括弧なしの部分一致では通さない
+        self.assertEqual(r.returncode, 1)
+
+    def test_outer_double_corner_brackets_are_checked_as_quotes(self):
+        r = self.check(self.decision("D.corner", "『机の材質など、必ず指定が必要なものは強制する』", [self.u(201)]))
+        self.assertEqual(r.returncode, 0, r.stderr)
+        r = self.check(self.decision("D.fakecorner", "『人間の三人ぶんくらいの幅の扉にしろ』", [self.u(201)]))
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("三人ぶん", r.stderr)
+
+    def test_decision_without_checkable_quote_fails_unless_explicitly_marked(self):
+        r = self.check(self.decision("D.stripped", "机の材質など、必ず指定が必要なものは強制する", [self.u(201)]))  # 引用符を外した偽の文
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("D.stripped", r.stderr)
+        r = self.check(self.decision("D.fakeplain", "人間の三人ぶんくらいの幅の扉にしろ", [self.u(201)]))
+        self.assertEqual(r.returncode, 1)
+        r = self.check(self.decision("D.marked", "（逐語の引用なし: Issue記録の決定文）扉の幅は2人分", [self.u(201)]))
+        self.assertEqual(r.returncode, 0, r.stderr)
+
+    def test_pass_message_reports_the_actual_scope_and_the_exceptions(self):
+        r = self.check(self.decision("D.a", "「机の材質など、必ず指定が必要なものは強制する」「化石はゴツゴツした茶色と黒の石にしろ」", [self.u(201), self.u(202)]),
+                       self.decision("D.b", "（逐語の引用なし: Issue記録の決定文）扉の幅は2人分", [self.u(201)]))
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("決定2件中、照合1件・引用2個・例外1件", r.stdout)
+        self.assertIn("D.b", r.stdout)
+
     def test_real_ledger_decisions_all_have_issue_source_urls(self):
         # 実リポの決定表: 出典が Issue のものは全て Issue のコメント/本文の URL（; 区切り）で、出典の Issue 番号と一致する（verify_ledger.rb が検査）
         rows = ledger_io.parse("決定", (ROOT / "docs/ledger/決定.yaml").read_text(encoding="utf-8"))
@@ -1210,6 +1302,37 @@ class DecisionSourceTests(LedgerCopyBase):
         self.assertNotIn("TRM-04.mask-confirmed", [d["決定ID"] for d in self.real("決定")])
         self.assertTrue(any(u["対象ID"] == "TRM-04" and "歩行マスク・出口" in u["キー"] and u["状態"] == "未決" for u in self.real("未決")))
 
+    def test_u050_and_main_door_record_the_commander_default_not_a_kako_jun_statement(self):
+        # 再レビュー中-3: #144 comment 6355539302 に『司令塔の既定』として存在する。『Issue全コメントに該当なし』は誤り
+        u = next(u for u in self.real("未決") if u["未決ID"] == "U-050")
+        self.assertIn("6355539302", u["内容"])
+        self.assertIn("司令塔", u["内容"])
+        self.assertNotIn("該当なし", u["内容"])
+        edges = {e["端ID"]: e for e in self.real("端")}
+        for eid in ("TRM-04.door-south", "TRM-03.door-main"):
+            self.assertEqual(edges[eid]["状態"], "既定(要確認)", eid)
+            self.assertIn("U-050", edges[eid]["備考"], eid)
+        self.assertNotIn("該当なし", (ROOT / "docs/ledger/handoff/HANDOFF.md").read_text(encoding="utf-8"))
+
+    def test_review_followups_are_recorded_in_handoff_and_readme(self):
+        handoff = (ROOT / "docs/ledger/handoff/HANDOFF.md").read_text(encoding="utf-8")
+        readme = (ROOT / ".claude/skills/sit-field-background/tools/README.md").read_text(encoding="utf-8")
+        self.assertIn("squash マージし、マージ後にこのブランチ", handoff)  # 軽微 e
+        self.assertIn("元の発言そのものとの一致は保証しない", handoff)  # 軽微 f
+        self.assertIn("元の発言そのものとの一致は保証しない", readme)
+        self.assertIn("禁止語の節分割", readme)  # 軽微 b の既知の制約
+        self.assertIn("decisions-59.jsonl", handoff)  # 軽微 c: 行き先
+        self.assertFalse((ROOT / "docs/ledger/handoff/decisions-59.jsonl").exists())
+        reason = next(r for r in self.real("ファイル配置") if r["配置ID"] == "ledger-handoff")["許可リスト理由"]
+        self.assertIn("第2段階以降", reason)
+        self.assertNotIn("第1段階完了時", reason)
+
+    def test_decision_source_url_is_unconditionally_required(self):
+        # 軽微 d: 形骸化した条件『出典!=会話（Issue #144 に記録）』を整理。全決定が Issue 出典なので意味は変わらない
+        rk = next(r for r in self.real("必須キー") if r["対象テーブル"] == "決定" and r["キー"] == "出典URL")
+        self.assertEqual((rk["必須度"], rk["条件"]), ("必須", ""))
+        self.assertTrue(all(d["出典URL"] for d in self.real("決定")))
+
     def test_decision_notes_have_no_leading_whitespace(self):
         for d in self.real("決定"):
             self.assertEqual(d["備考"], d["備考"].lstrip(), d["決定ID"])
@@ -1253,12 +1376,12 @@ class ConfirmedEdgeBasisTests(LedgerCopyBase):
         self.assertEqual(self.edge_errors(), [])
 
     def test_confirmed_edge_without_decision_is_reported(self):
-        self.edit_row("端", "端ID", "TRM-04.door-south", **{"決定参照": ""})
+        self.edit_row("端", "端ID", "TRM-02.door-west", **{"決定参照": ""})
         errs = self.edge_errors()
-        self.assertTrue(any("TRM-04.door-south" in ln for ln in errs), errs)
+        self.assertTrue(any("TRM-02.door-west" in ln for ln in errs), errs)
 
     def test_default_state_edge_does_not_need_a_decision(self):
-        self.edit_row("端", "端ID", "TRM-04.door-south", **{"決定参照": "", "状態": "既定(要確認)"})
+        self.edit_row("端", "端ID", "TRM-02.door-west", **{"決定参照": "", "状態": "既定(要確認)"})
         self.assertEqual(self.edge_errors(), [])
 
     def test_loop_connections_cite_the_loop_decision_and_back_door_note_is_current(self):

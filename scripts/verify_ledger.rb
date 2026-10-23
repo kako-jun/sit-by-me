@@ -94,14 +94,10 @@ class LedgerVerifier
   # 各行のキーが表定義（ledger_io.py の SCHEMA）に含まれること。綴り間違い（『決定参考』）や未定義列は、読み手が黙って空欄扱いにして
   # 検査をすり抜けるので、ここで止める。表定義は Python の SCHEMA を JSON で出して読む（定義を二重に持たない）。
   def schema
-    @schema ||= begin
-      tool = File.expand_path('../.claude/skills/sit-field-background/tools/ledger_io.py', __dir__)
-      project = File.expand_path('..', __dir__)
-      out, err_, st = Open3.capture3('uv', 'run', '--project', project, 'python3', tool, 'schema')
-      raise "表定義(ledger_io.py schema)を読めない: #{err_.lines.first(3).join(' / ')}" unless st.success?
+    s = LedgerYaml.schema
+    raise '表定義(ledger_io.py)が無い' if s.empty?
 
-      JSON.parse(out)
-    end
+    s
   end
 
   def check_columns

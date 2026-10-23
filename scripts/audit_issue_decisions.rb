@@ -57,15 +57,15 @@ class IssueAudit
     m ? (m[2] || "issue-#{m[1]}") : nil
   end
 
-  # 逐語欄から「…」の引用を取り出す（入れ子の『…』は外側の引用の一部。括弧書きの注記など引用の外は無視）。
-  # 比較用に空白・markdown の強調（**）・バッククォートを除き、入れ子の括弧は「」にそろえる。4字未満は照合に使わない
+  # 逐語欄から「…」『…』の引用を取り出す（最外側の括弧は 「」『』 のどちらでも引用。入れ子の括弧は外側の引用の一部。括弧書きの注記など引用の外は無視）。
+  # 比較用に空白・markdown の強調（**）・バッククォートを除き、入れ子の括弧は「」にそろえる。長さでは除外しない（短い引用の扱いは check_quotes）
   def self.verbatim_quotes(text)
     out = []
     depth = 0
     buf = +''
     text.each_char do |ch|
       if depth.zero?
-        if ch == '「'
+        if ['「', '『'].include?(ch)
           depth = 1
           buf = +''
         end
@@ -85,34 +85,54 @@ class IssueAudit
         buf << ch
       end
     end
-    out.map { |q| squash(q) }.select { |q| q.size >= 4 }
+    out.map { |q| squash(q) }.reject(&:empty?)
   end
 
   def self.squash(s) = s.to_s.gsub(/\s+/, '').delete('*`').tr('『』', '「」')
 
+  SHORT_QUOTE = 4 # これ未満の引用は、部分一致だと別の文に紛れるので「」ごと完全一致で照合する
+  NO_QUOTE_MARK = '（逐語の引用なし' # 逐語欄にこの語を明記した決定だけが『引用0件』の例外（Issue記録の決定文など、kako-jun の発言そのものが無い場合）
+
+  attr_reader :quote_stats
+
   # 決定表の各決定について、逐語の各引用が出典URL群のどれかのコメント（または Issue 本文）の本文に実在することを検査する。
+  # 出典が Issue の決定は、照合できる引用を最低1件必須（例外は逐語欄に NO_QUOTE_MARK と明記した決定のみ。件数は quote_stats に別掲）。
+  # 保証するのは『出典コメントに転記された文との一致』まで。元の発言そのものとの一致は保証しない。
   # 戻り値: エラー文のリスト（空なら合格）。候補（引用が実在する別コメント）も添える。
   def check_quotes
     bodies = {}
     @issues.each_value { |i| bodies["issue-#{i['number']}"] = [self.class.squash(i['body']), i['html_url']] }
     @comments.each { |c| bodies[c['id'].to_s] = [self.class.squash(c['body']), c['html_url']] }
     errors = []
+    @quote_stats = { decisions: @t['決定'].size, checked: 0, quotes: 0, exceptions: [] }
     @t['決定'].each do |d|
       id = d['決定ID']
       qs = self.class.verbatim_quotes(d['逐語'])
-      next if qs.empty?
-
+      marked = d['逐語'].include?(NO_QUOTE_MARK)
       urls = d['出典URL'].split(';').map(&:strip).reject(&:empty?)
-      errors << "決定 #{id}: 逐語に引用があるのに出典URLが無い" && next if urls.empty?
-
+      if urls.empty?
+        errors << "決定 #{id}: 出典URLが無い"
+        next
+      end
       srcs = urls.map { |u| [u, self.class.source_id(u)] }
       srcs.select { |_, sid| sid.nil? }.each { |u, _| errors << "決定 #{id}: 出典URL『#{u}』が Issue のコメント（または本文）のURLでない" }
       srcs.select { |_, sid| sid && !bodies.key?(sid) }.each { |u, _| errors << "決定 #{id}: 出典URL『#{u}』のコメントを取得結果に見つけられない" }
+      if qs.empty?
+        if marked
+          @quote_stats[:exceptions] << id
+        else
+          errors << "決定 #{id}: 逐語に照合できる引用（「…」『…』）が無い（引用のない決定は逐語欄に『#{NO_QUOTE_MARK}: 理由）』と明記する）"
+        end
+        next
+      end
+      @quote_stats[:checked] += 1
+      @quote_stats[:quotes] += qs.size
       have = srcs.map { |_, sid| bodies[sid] }.compact
       qs.each do |q|
-        next if have.any? { |b, _| b.include?(q) }
+        needle = q.size < SHORT_QUOTE ? "「#{q}」" : q
+        next if have.any? { |b, _| b.include?(needle) }
 
-        cands = bodies.values.select { |b, _| b.include?(q) }.map(&:last).first(3)
+        cands = bodies.values.select { |b, _| b.include?(needle) }.map(&:last).first(3)
         errors << "決定 #{id}: 逐語の引用「#{q[0, 30]}」が出典URL群のどのコメントにも実在しない" + (cands.empty? ? '（どのコメントにも無い）' : "（実在するコメント: #{cands.join(' ')}）")
       end
     end
@@ -230,7 +250,9 @@ if $PROGRAM_NAME == __FILE__
   if ARGV.include?('--check-quotes')
     errors = audit.check_quotes
     errors.each { |e| warn "FAIL: #{e}" }
-    puts errors.empty? ? "PASS: 決定 #{audit.instance_variable_get(:@t)['決定'].size} 件の逐語の引用は全て出典URLのコメントに実在する" : "FAIL: 逐語の引用が出典に実在しない #{errors.size} 件"
+    st = audit.quote_stats
+    ex = st[:exceptions]
+    puts errors.empty? ? "PASS: 決定#{st[:decisions]}件中、照合#{st[:checked]}件・引用#{st[:quotes]}個・例外#{ex.size}件（逐語の引用なし明記: #{ex.join(' ')}）。出典コメントの転記との一致までを保証する（元の発言との一致は保証しない）" : "FAIL: 逐語の引用が出典に実在しない／照合できない #{errors.size} 件"
     exit(errors.empty? ? 0 : 1)
   end
   puts "Issue #{data['issues'].size} 件・コメント #{data['comments'].size} 件を走査 → 候補 #{audit.rows.size} 件"

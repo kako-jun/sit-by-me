@@ -27,13 +27,18 @@ kako-jun「csvが本当にいいのか？yamlとかのほうが管理しやす�
 `docs/ledger/handoff/` の各ファイルの行き先（吸収してから `git rm`。1コミットずつ、`ledger_index.py build`・`ruby scripts/verify_index_reachable.rb` を通す）:
 1. `ledger-db-design.md`（設計の背景・採用理由。残す価値がある）→ `git mv` で `docs/ledger/DESIGN.md`（台帳の設計文書）へ。中の『CSV』は YAML に読み替えて冒頭に一文注記する。`ファイル配置.yaml` に `docs/ledger/DESIGN.md`（到達=リンク）の規則を足し、`docs/INDEX.md` の台帳の節にリンクを張る。
 2. `existing-test-failures-52.txt`（既存テスト失敗の基準線）→ `git mv` で `tests/known-failures-baseline.txt` へ。`ファイル配置.yaml` に規則を足し、`tests/` の README か INDEX から参照する（基準線は main と同じ集合の失敗一覧。減ったら更新）。
-3. `curation-scripts/`（移行時の一度きりのデータ作成スクリプト。再実行すると手修正が消える）→ `git rm -r`。履歴は git に残る。
-4. `HANDOFF.md`・`ledger-audit.md`・`local-orphans.md` → 内容は台帳（Issue点検・決定・未決・ファイル配置）・tools/README・SKILL.md・INDEX に吸収済みなので `git rm`（`ledger-audit.md`・`local-orphans.md` は当時の調査記録。必要な事実が台帳に載っていることを確認してから消す）。
-5. 最後に `ファイル配置.yaml` の `ledger-handoff` 規則を削除し、`docs/INDEX.md` の『引き継ぎ』リンクを外して `uv run python3 .claude/skills/sit-field-background/tools/ledger_index.py build`、`tests/test_ledger.py` の `ignore_patterns("handoff")`（fixture のコピー除外）を外す。`verify_ledger.rb`・`verify_index_reachable.rb`・`uv run python3 -m unittest tests.test_ledger` を通してコミット。
+3. `decisions-59.jsonl`（決定の初期取り込み用データ）→ **第1段階の再レビュー対応で `git rm` 済み**。59件の決定IDは全て `決定.yaml` にあり、逐語は一致（TRM-05.mask-values の1件だけ、実在する発言の引用に訂正済み）、決定の要点は3件（TRM-03.corridor・TRM-05.door-back・TRM.open-passage）が決定表のほうが新しい。吸収するものは残っていない。
+4. `curation-scripts/`（移行時の一度きりのデータ作成スクリプト。再実行すると手修正が消える）→ `git rm -r`。履歴は git に残る。
+5. `HANDOFF.md`・`ledger-audit.md`・`local-orphans.md` → 内容は台帳（Issue点検・決定・未決・ファイル配置）・tools/README・SKILL.md・INDEX に吸収済みなので `git rm`（`ledger-audit.md`・`local-orphans.md` は当時の調査記録。必要な事実が台帳に載っていることを確認してから消す）。
+6. 最後に `ファイル配置.yaml` の `ledger-handoff` 規則を削除し、`docs/INDEX.md` の『引き継ぎ』リンクを外して `uv run python3 .claude/skills/sit-field-background/tools/ledger_index.py build`、`tests/test_ledger.py` の `ignore_patterns("handoff")`（fixture のコピー除外）を外す。`verify_ledger.rb`・`verify_index_reachable.rb`・`uv run python3 -m unittest tests.test_ledger` を通してコミット。
+
+# 【マージ手順（PR を main に入れるとき）】
+- **squash マージし、マージ後にこのブランチ（ledger-master-phase1-20261023）を削除する**。ブランチの旧コミットには、公開リポに載せない絶対パス（ローカルのホーム配下）や codex のセッション ID が残っている（現行ツリーからは除去済みで `NoLocalPathsTests` が検査するが、履歴は書き換えない）。squash なら main の履歴にはそれらが入らない。通常マージ・rebase マージはしない。
+- `--check-quotes` が保証するのは『出典コメントに転記された文との一致』までで、元の発言そのものとの一致は保証しない（`tools/README.md` の『逐語の出典の実在検査』）。
 
 # 台帳DB化 引き継ぎ（WIP。2026-10-23 セッション終了時点）
 
-この置き場は一時的。第1段階の完了時に内容を台帳へ吸収してこの `handoff/` ごと削除する（INDEX の到達性検証では許可リスト『handoff（第1段階完了時に台帳へ吸収して削除）』）。
+この置き場は一時的。第2段階以降に、上の『handoff/ の削除手順』で内容を台帳へ吸収してこの `handoff/` ごと削除する（INDEX の到達性検証では許可リスト『handoff（第2段階以降に、HANDOFF.md の削除手順で台帳へ吸収してから削除）』）。
 
 ## 目的・目標
 Issue #156（https://github.com/kako-jun/sit-by-me/issues/156）が正本。要点: 日本語キーの YAML（`docs/ledger/<表名>.yaml`）を**情報の唯一のマスター**にし、エリア・MAP・建物・接続・要素・窓・決定・採用要素…を別表にして ID で関連づけ、重複をなくし、スキルが台帳から**一意にプロンプトを作る**（再現性）。Issue は台帳に書くまでの仮。kako-jun の指示の逐語は #156 本文。設計の承認は「まかせる」（#144 コメント）。
@@ -57,7 +62,7 @@ Issue #156（https://github.com/kako-jun/sit-by-me/issues/156）が正本。要�
 
 ## 未着手・未了（次にやる順序）
 1. **WIP の検証を通す**: `ruby scripts/verify_ledger.rb`（PASS）、`ruby scripts/verify_map_ledger.rb`、`ruby scripts/verify_map_atlas.rb`、`uv run python3 -m unittest discover -s tests`（既存の失敗52件から増えないこと。一覧 `existing-test-failures-52.txt`。main と同じ集合）。TRM-04 の採用記録 `manifest.adoption.plan_sha256` は plan 再生成で古くなる: 幾何不変（clean.png の sha 同一）を確認してから rebaseline を記録する。
-2. ~~第0段階~~ **実施済み（2026-10-24）**: `docs/INDEX.md`（表一覧・派生物・配置規則は `ledger_index.py` が台帳から生成するビュー。`check` を `verify_ledger.rb` が実行）・`docs/ledger/ファイル配置.yaml`（40規則。asset-layout.md と verify_asset_layout.py の画像ID規則を合流。verification/・body-*・oblique-* を含む。許可リストは『許可リスト理由』列、handoff は『第1段階完了時に台帳へ吸収して削除』）・`scripts/verify_index_reachable.rb`（配置規則漏れ/複数一致・孤立・壊れたリンク・許可リストの入口を検査）・`tests/test_ledger.py`（fixture で失敗することを確認）。docs/issue-map.md ⇔ INDEX は相互リンク。**第1段階の完了時は『ファイル配置.yaml』の `ledger-handoff` 行と handoff/ を同時に削除し、INDEX の HANDOFF リンクも外す**。
+2. ~~第0段階~~ **実施済み（2026-10-24）**: `docs/INDEX.md`（表一覧・派生物・配置規則は `ledger_index.py` が台帳から生成するビュー。`check` を `verify_ledger.rb` が実行）・`docs/ledger/ファイル配置.yaml`（40規則。asset-layout.md と verify_asset_layout.py の画像ID規則を合流。verification/・body-*・oblique-* を含む。許可リストは『許可リスト理由』列、handoff は『第1段階完了時に台帳へ吸収して削除』）・`scripts/verify_index_reachable.rb`（配置規則漏れ/複数一致・孤立・壊れたリンク・許可リストの入口を検査）・`tests/test_ledger.py`（fixture で失敗することを確認）。docs/issue-map.md ⇔ INDEX は相互リンク。**handoff/ の削除は上の『handoff/ の削除手順』（第2段階以降）で行い、最後に『ファイル配置.yaml』の `ledger-handoff` 行を同時に削除し、INDEX の HANDOFF リンクも外す**。
 3. 第1段階の残り: (a) `verify_prompt_reflects_ledger.rb`（決定ID・必須語・継承要素・自由記述がプロンプトに現れるか。漏れ=畳・化石の石・勝手口・火事版の上半分・渡り廊下の窓列を検出するテスト）と `tests/test_ledger.py`（壊れた fixture で失敗すること。`LEDGER_ROOT` で root を差し替え可）。(b) `audit_issue_decisions.rb`（Issue コメントの決定候補と決定表の差分。`Issue点検.csv` で分類）。(c) ~~TRM-06〜17~~ **実施済み（2026-10-24。`curation-scripts/import_trm06_17*.py`。新列 MAP.設計意図・plan追加JSON／接続.属性JSON、接続図『寺町全体』、要素種別『閉鎖辺』、MAP状態『モック作成済み(承認待ち)』）**: teramachi-rest ブランチ（teramachi-rest-mocks-20261023。読むだけ）の plan 12個・connections-teramachi.json・teramachi-assumptions.md・oblique-masks/README.md の 2026-10-23 の決定を MAP・接続・決定・未決へ取込み。(d) コード内定数の台帳化: oblique_mock.py の幅クラス/視点/マステ座標、oblique_build.py・oblique_topology.py（L382）の直書き文。(e) `build_map_prompt.rb`・`verify_map_ledger.rb` の旧 md 列位置依存を YAML 参照へ。(f) 旧 md 突合: 畳（specifications:46・contract-checklist:57・topology:290）、TBD の勝手口・戸口幅、TRM-05 寝室方針の3表重複、`teramachi-rebuild-candidates.md` を参照のみに、legacy status は寺町だけ廃止。(g) 測定器: 火事版の上半分（火の色の領域が上半分に限られるか）・採用要素（みかん等）の存在確認を参考表示に。(h) SKILL.md・tools/README・docs 冒頭に運用（決定は先に台帳・必須キーと自由記述）。(i) `md ビュー` の生成と鮮度検査。(j) 既定値 `TRM-05.door-back` の旧 assumptions 2件（a08/a09）は a04 に統合済み。
 4. 独立レビュー（sonnet 以下。コードレビューは opus 可だが上限は現行メイン以下）→ PR → マージ。第2段階以降は #156 のチェックリスト。
 
@@ -75,7 +80,7 @@ Issue #156（https://github.com/kako-jun/sit-by-me/issues/156）が正本。要�
 
 ## 既知の問題
 - 既存テストの失敗52件は main と同じ集合（`existing-test-failures-52.txt`。test_asset_migration 43・test_map_id_renumber 8 ほか）。台帳と無関係。
-- 決定の逐語の出典URLは、引用ごとに実在するコメントを `;` 区切りで指す（独立レビュー後に修正。`ruby scripts/audit_issue_decisions.rb --check-quotes [--from-json F]` が検査）。旧『会話（Issue #144 に記録）』の3件は #156 本文を出典にした。TRM-04.mask-confirmed は発言の逐語を Issue で確認できず決定表から外し未決 U-050 へ移した。
+- 決定の逐語の出典URLは、引用ごとに実在するコメントを `;` 区切りで指す（独立レビュー後に修正。`ruby scripts/audit_issue_decisions.rb --check-quotes [--from-json F]` が検査）。旧『会話（Issue #144 に記録）』の3件は #156 本文を出典にした。TRM-04.mask-confirmed は決定表から外し未決 U-050 へ移した（石の敷居・須弥壇の段・本堂の正面扉などは kako-jun の発言ではなく、司令塔の既定として #144 コメント 6355539302 に記録されている。kako-jun の確認待ち。端 TRM-04.door-south・TRM-03.door-main の位置は既定(要確認)）。
 - `TRM-05.mikan` の素材IDは空（採用画像の確定後に紐付け）。`未決.yaml` に50件（TRM-06〜17 の壁材・窓・時期差分・装飾プール、依存要確認、TRM-04 の歩行マスク・出口の出典確認 U-050 ほか）。
 - 接続: `TRM-05.door-back⇄TRM-06.door-house` は接続.yaml にあり、topology v2（map-topology.md）にも 2026-10-24 に追加済み（atlas は 129MAP/137接続）。
 - curation-scripts/ はこのセッションの台帳データ作成スクリプト（記録用。再実行すると手修正が消える）。
