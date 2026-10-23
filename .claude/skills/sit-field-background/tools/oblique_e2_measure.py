@@ -45,6 +45,10 @@ DECOR_GATES = {
     "outside_flat_white_max": 0.15,    # 建物の外で「明るく平坦な白」（白い素地）の割合の上限
     "outside_tree_blobs_min": 6,       # 建物の外の木（常緑樹・枯木）の塊の数
     "outside_tree_sides_min": 3,       # 木が奥・手前・左・右のうち何辺にあるか
+    # エリア固定（机の天面）。基準は生成前に決定（2026-10-23）。机の平均色は areas.<area>.desk.mean_rgb（採用済み4枚の実測 (127,75,38)）に対する Lab ΔE76
+    "desk_dE_area_max": 15.0,          # 机の平均色がエリア固定値から ΔE 15 以内（MAP間で机が変わらない）
+    "desk_inter_take_dE_max": 8.0,     # テイク間の机の平均色の最大ペア差
+    "desk_grain_ratio_min": 0.80,      # 板目の向き: 横方向の板目エネルギー比 gy²/gx²（横=エリア固定）。採用4枚の実測 1.58/0.81(本堂=混在)/2.46/1.39
     "outside_evergreen_ratio_min": 0.30, "outside_branch_ratio_min": 0.30, "outside_grass_ratio_min": 0.20,
 }
 ROUND2_IF_PASS_LT = 2  # 合格テイクがこの数未満なら追加ラウンド
@@ -222,7 +226,24 @@ def outside_objects(rgb, m, hull_box):
             "tree_blobs": blobs, "tree_sides": sorted(sides), "flat_white_frac": round(float(flat_white.sum() / a), 4)}
 
 
-def decor_eval(rgb, ge, masks, hull_box, ref):
+def desk_grain_ratio(rgb, m):
+    g = cv2.GaussianBlur(cv2.cvtColor(rgb, cv2.COLOR_RGB2GRAY).astype(np.float32), (0, 0), 1.2)
+    gx = cv2.Sobel(g, cv2.CV_32F, 1, 0)[m]; gy = cv2.Sobel(g, cv2.CV_32F, 0, 1)[m]
+    return float((gy * gy).mean() / max((gx * gx).mean(), 1e-6))
+
+
+def area_fixed_of(plan, root):
+    """plan の decor_pool → area → areas.<area>.desk（エリア固定）。無ければ None。"""
+    pid = plan.get("decor_pool")
+    try:
+        doc = json.loads((Path(root) / "docs/production/oblique-mocks/decor-pools.json").read_text(encoding="utf-8"))
+        ar = doc["pools"][pid]["area"]
+        return {"area": ar, **doc["areas"][ar]["desk"]}
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def decor_eval(rgb, ge, masks, hull_box, ref, area=None):
     d = {"regions": {k: region_stats(rgb, m, ge) for k, m in masks.items()}, "outside_objects": outside_objects(rgb, masks["outside"], hull_box)}
     G = DECOR_GATES
     g = {}
@@ -235,6 +256,13 @@ def decor_eval(rgb, ge, masks, hull_box, ref):
     for k in ("desk", "slab_front", "outside", "floor"):
         d["regions"][k]["dE_vs_ref"] = round(dE(d["regions"][k]["lab"], ref["regions"][k]["lab"]), 1)
         g[f"layer_color:{k}"] = d["regions"][k]["dE_vs_ref"] <= G["layer_color_dE_max"]
+    if area:
+        alab = cv2.cvtColor(np.array([[area["mean_rgb"]]], np.float32) / 255.0, cv2.COLOR_RGB2LAB)[0, 0]
+        d["desk_area_fixed"] = {"area": area["area"], "mean_rgb": area["mean_rgb"], "grain": area["grain"]}
+        d["regions"]["desk"]["dE_vs_area"] = round(dE(d["regions"]["desk"]["lab"], [float(v) for v in alab]), 1)
+        d["regions"]["desk"]["grain_ratio"] = round(desk_grain_ratio(rgb, masks["desk"]), 2)
+        g["desk_area_color"] = d["regions"]["desk"]["dE_vs_area"] <= G["desk_dE_area_max"]
+        g["desk_grain"] = (d["regions"]["desk"]["grain_ratio"] >= G["desk_grain_ratio_min"]) if area["grain"] == "horizontal" else (d["regions"]["desk"]["grain_ratio"] <= 1 / G["desk_grain_ratio_min"])
     sep = dE(d["regions"]["desk"]["lab"], d["regions"]["outside"]["lab"])
     rsep = dE(ref["regions"]["desk"]["lab"], ref["regions"]["outside"]["lab"])
     d["layer_sep_desk_outside"] = round(sep, 1); d["layer_sep_ratio_vs_ref"] = round(sep / max(rsep, 1e-6), 2)
@@ -386,7 +414,7 @@ def main():
         r["gates"] = g
         r["pass"] = all(g.values())
         if ref:
-            r["decor"], r["decor_gates"] = decor_eval(rgb, ge, dmasks, hull_box, ref)
+            r["decor"], r["decor_gates"] = decor_eval(rgb, ge, dmasks, hull_box, ref, area_fixed_of(plan, root))
             # 元画像の構図コピー検出: 生成輪郭が『モック』と『元画像』のどちらに近いか（室内。小さい方に寄っている）
             yy, xx = np.nonzero(ref["edges"] & room)
             r["decor"]["chamfer_to_ref_edges_px"] = round(float(dg[yy, xx].mean()), 2)
@@ -421,9 +449,14 @@ def main():
                 sd[k] = {"dx_sd": round(float(np.std(dxs)), 1), "dy_sd": round(float(np.std(dys)), 1)}
         inter["region_shift_sd"] = sd
         inter["region_shift_sd_mean_px"] = round(float(np.mean([v["dx_sd"] + v["dy_sd"] for v in sd.values()]) / 2), 2) if sd else None
-    summary = {"map": a.map_id, "round": a.round, "gates": GATES, "takes_measured": len(res), "unreliable_regions": sorted(unreliable),
+    desk_inter = None
+    if ref and len(res) >= 2:
+        labs = [np.array(r["decor"]["regions"]["desk"]["lab"]) for r in res]
+        mx = max(float(np.linalg.norm(x - y)) for x, y in itertools.combinations(labs, 2))
+        desk_inter = {"max_pair_dE": round(mx, 1), "ok": mx <= DECOR_GATES["desk_inter_take_dE_max"], "desk_lab_per_take": {r["take"]: r["decor"]["regions"]["desk"]["lab"] for r in res}}
+    summary = {"map": a.map_id, "desk_inter_take": desk_inter, "round": a.round, "gates": GATES, "takes_measured": len(res), "unreliable_regions": sorted(unreliable),
                "takes_pass": [r["take"] for r in res if r["pass"]],
-               "ref": a.ref, "ref_stats": {k: v for k, v in (ref or {}).items() if k != "edges"}, "takes_pass_decor": [r["take"] for r in res if r.get("pass_decor")], "takes_pass_all": [r["take"] for r in res if r.get("pass_all")],
+               "ref": a.ref, "ref_stats": {k: v for k, v in (ref or {}).items() if k != "edges"}, "takes_pass_decor": [r["take"] for r in res if r.get("pass_decor")], "takes_pass_all": [r["take"] for r in res if r.get("pass_all") and (desk_inter is None or desk_inter["ok"])],
                "decor_gates": DECOR_GATES if ref else None,
                "round2_needed": sum(r["pass"] for r in res) < ROUND2_IF_PASS_LT,
                "human_items": HUMAN_ITEMS, "takes": res, "inter_take": inter}
@@ -445,6 +478,8 @@ def main():
         L += ["", "領域ごとの エッジ密度比 / 色エントロピー比 / 平均色ΔE（対 ref）", "", "| region | " + " | ".join(f"take{r['take']}" for r in res) + " | ref(エッジ密度,エントロピー) |", "|---|" + "---|" * (len(res) + 1)]
         for k in ref["regions"]:
             L.append(f"| {k} | " + " | ".join(f"{r['decor']['regions'][k]['edge_ratio_vs_ref']} / {r['decor']['regions'][k]['entropy_ratio_vs_ref']}" + (f" / dE{r['decor']['regions'][k]['dE_vs_ref']}" if 'dE_vs_ref' in r['decor']['regions'][k] else "") for r in res) + f" | {ref['regions'][k]['edge_density']}, {ref['regions'][k]['color_entropy']} |")
+    if desk_inter:
+        L += ["", f"机の天面（エリア固定）: テイク間の最大ペア差 ΔE {desk_inter['max_pair_dE']}（基準 ≤{DECOR_GATES['desk_inter_take_dE_max']}）→ {'OK' if desk_inter['ok'] else 'FAIL（全テイクの合幾何+装飾を不合格扱い）'}"]
     L += ["", "## 領域ごとの最良ずれ (dx,dy) px", "", "| region | " + " | ".join(f"take{r['take']}" for r in res) + " |", "|---|" + "---|" * len(res)]
     for k in (res[0]["regions"] if res else []):
         L.append(f"| {k}{' (測定不能)' if k in unreliable else ''} | " + " | ".join(f"({r['regions'][k]['shift']['dx']},{r['regions'][k]['shift']['dy']})" if r["regions"][k]["shift"] else "-" for r in res) + " |")

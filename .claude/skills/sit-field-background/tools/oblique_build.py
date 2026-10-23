@@ -49,7 +49,57 @@ def load_decor(p):
         return None
     with open(DECOR_FILE, encoding="utf-8") as f:
         doc = json.load(f)
-    return doc["pools"].get(pid) if doc.get("schema") == "sit-oblique-decor/1" else None
+    if doc.get("schema") != "sit-oblique-decor/1":
+        return None
+    pool = doc["pools"].get(pid)
+    return effective_pool(doc, pool) if pool else None
+
+
+AREA_OVERRIDE_PLAN_KEYS = ("area", "area_fixed", "desk_look", "trees", "slab_look")
+
+
+def effective_pool(doc, pool):
+    """プールに area_fixed（机の天面・木の種類・台座の素材）を継承させた実効プール。上書きはここでは起きない（validate_decor がエラーにする）。"""
+    import copy
+    a = (doc.get("areas") or {}).get(pool.get("area", ""))
+    if not a:
+        return pool
+    e = copy.deepcopy(pool)
+    e.setdefault("layers", {}).setdefault("desk", {})["look"] = a["desk"]["look"]
+    e["layers"].setdefault("slab_edge", {})["look"] = a["slab"]["look"]
+    e["trees"] = a["trees"]
+    e["area_fixed"] = {"area": pool["area"], "desk": a["desk"], "slab": a["slab"], "trees": a["trees"]}
+    return e
+
+
+def area_fixed_sha(doc, area):
+    a = (doc.get("areas") or {}).get(area)
+    return hashlib.sha256(json.dumps(a, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:12] if a else None
+
+
+def check_area_consistency(plan_dir):
+    """同じエリアの全 MAP が同じ area_fixed を継承していること、MAP/プール側で上書きしていないこと。(errors, {area: [map...]})"""
+    import glob
+    with open(DECOR_FILE, encoding="utf-8") as f:
+        doc = json.load(f)
+    E, by_area = [], {}
+    for pf in sorted(glob.glob(os.path.join(plan_dir, "*-plan.json"))):
+        with open(pf, encoding="utf-8") as f:
+            pl = json.load(f)
+        pid = pl.get("decor_pool")
+        if not pid:
+            continue
+        pool = doc.get("pools", {}).get(pid)
+        if not pool:
+            E.append(f"{pl.get('map_id')}: decor_pool {pid} が無い"); continue
+        by_area.setdefault(pool.get("area"), []).append(pl.get("map_id"))
+        for k in AREA_OVERRIDE_PLAN_KEYS:
+            if k in pl:
+                E.append(f"{pl.get('map_id')}: plan の {k} はエリア固定項目の上書き（禁止）")
+    for ar in by_area:
+        if ar not in (doc.get("areas") or {}):
+            E.append(f"エリア {ar}（{by_area[ar]}）が decor-pools.json の areas に無い")
+    return E, by_area
 
 
 def box_look(b, pool):
@@ -71,6 +121,25 @@ def validate_decor(p, E, Wn):
     pool = doc.get("pools", {}).get(pid)
     if pool is None:
         E.append(f"decor_pool {pid} が decor-pools.json に無い"); return
+    # エリア固定項目: area を継承。プール側・plan 側の上書きはエラー
+    area = pool.get("area")
+    areas = doc.get("areas") or {}
+    if area not in areas:
+        E.append(f"decor_pool {pid}: area {area!r} が decor-pools.json の areas に無い（エリアを足すときは kako-jun と area_fixed を決める）"); return
+    a = areas[area]
+    if not (a.get("desk", {}).get("look") and isinstance(a["desk"].get("mean_rgb"), list) and len(a["desk"]["mean_rgb"]) == 3 and a["desk"].get("grain") in ("horizontal", "vertical")):
+        E.append(f"areas.{area}.desk に look・mean_rgb[3]・grain(horizontal|vertical) が必要")
+    if not a.get("slab", {}).get("look"):
+        E.append(f"areas.{area}.slab.look（台座の素材）が必要")
+    if pool.get("trees"):
+        E.append(f"decor_pool {pid}: trees はエリア固定項目（areas.{area}.trees）。プール側で上書きできない")
+    for lk in ("desk", "slab_edge"):
+        if (pool.get("layers") or {}).get(lk, {}).get("look"):
+            E.append(f"decor_pool {pid}: layers.{lk}.look はエリア固定項目（areas.{area}）。プール側で上書きできない")
+    for k in AREA_OVERRIDE_PLAN_KEYS:
+        if k in p:
+            E.append(f"plan の {k} はエリア固定項目の上書き（禁止）。エリア固定は decor-pools.json の areas.{area} で決める")
+    pool = effective_pool(doc, pool)
     for k in DECOR_REQUIRED:
         if not pool.get(k):
             E.append(f"decor_pool {pid}: {k} が必要")
@@ -369,7 +438,7 @@ def build_prompt(p, key):
              "LAYERS（外から内へ。層の境界の位置・形はモックのまま。質感と装飾で埋める）:"]
         for k in DECOR_LAYER_KEYS:
             ly = pool["layers"][k]
-            L.append(f"- {ly.get('label', k)}: {ly['look']} 固定: {ly['fixed']}")
+            L.append(f"- {ly.get('label', k)}: {ly['look']} 固定: {ly['fixed']}" + (f" 【エリア固定（{pool['area']}）: 全MAP共通。変えない】" if k in ("desk", "slab_edge") else ""))
         tr = pool["trees"]
         L += ["", f"TREES（建物の外。寺町の木=松＋枯木。常緑樹は松だけ。本数・比率は{'既定（要確認）' if tr.get('status') == 'default' else '確定'}）:",
               f"- 合計{tr['total'][0]}〜{tr['total'][1]}本。松{tr['pine']['count'][0]}〜{tr['pine']['count'][1]}本・枯木{tr['deadtree']['count'][0]}〜{tr['deadtree']['count'][1]}本（松多め）。台座の四辺すべてに散らす",
@@ -588,6 +657,12 @@ def main():
         for pp, v in jobs:
             _, errs = build_one(pp, out, v, a.from_stage, a.force)
             bad += bool(errs)
+        cerr, by_area = check_area_consistency(base)
+        for ar, maps in by_area.items():
+            print(f"[area:{ar}] area_fixed を継承する MAP: {', '.join(maps)}")
+        for e_ in cerr:
+            print(f"[area] ERROR: {e_}")
+        bad += bool(cerr)
         # 接続図（全MAP横断）。入力 hash で skip
         cm = os.path.join(out, "connection-manifest.json")
         h = sha_bytes((sha_file(a.target) + "".join(sha_file(os.path.join(base, fn)) for fn in C["plans"]) + src_sha("oblique_mock.py", "oblique_topology.py")).encode())
