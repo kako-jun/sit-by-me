@@ -1,0 +1,125 @@
+{
+ "schema": "sit-body-mock-geometry/1",
+ "map": "BDY-06",
+ "name": "左手2・末端",
+ "canvas": {
+  "w": 1920,
+  "h": 1080
+ },
+ "model_rect": {
+  "px": {
+   "x0": 138,
+   "y0": 138,
+   "x1": 1782,
+   "y1": 942,
+   "w": 1644,
+   "h": 804
+  },
+  "desk_margin_px": 90,
+  "band_px": {
+   "foam": 28,
+   "corrugated": 20
+  }
+ },
+ "coord_note": "ratio=((x-138)/1644,(y-138)/804)。1672幅の採用画像へは x*(1672/1920) ではなく body_register.py の変換を使う",
+ "main_width_px": 230,
+ "passage_width_px": 230,
+ "clean_colors": {
+  "floor": [
+   232,
+   201,
+   168
+  ],
+  "terrain": [
+   170,
+   130,
+   110
+  ],
+  "desk": [
+   118,
+   120,
+   126
+  ],
+  "band": [
+   150,
+   110,
+   62
+  ],
+  "wall": [
+   92,
+   104,
+   128
+  ]
+ },
+ "exits": [
+  {
+   "port": "door-passage-base",
+   "side": "S",
+   "slot": 0.392,
+   "edge_point": {
+    "px": [
+     782.45,
+     942.0
+    ],
+    "ratio": [
+     0.392,
+     1.0
+    ]
+   },
+   "partner": "BDY-05.door-passage-tip",
+   "range": {
+    "along": "x",
+    "a_px": 597.28,
+    "b_px": 967.62,
+    "a_ratio": 0.27937,
+    "b_ratio": 0.50463,
+    "depth_px": 60
+   },
+   "inward_dir": [
+    0.7838,
+    -0.6211
+   ]
+  }
+ ],
+ "corridors": [
+  {
+   "kind": "limb",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      782.45,
+      942.0
+     ],
+     "ratio": [
+      0.392,
+      1.0
+     ],
+     "is_port": true
+    },
+    {
+     "px": [
+      1262.0,
+      562.0
+     ],
+     "ratio": [
+      0.6837,
+      0.52736
+     ],
+     "is_port": false
+    }
+   ]
+  }
+ ],
+ "topology_expect": {
+  "floor_components": 1,
+  "exits_per_side": {
+   "N": 0,
+   "E": 0,
+   "S": 1,
+   "W": 0
+  },
+  "exit_count": 1,
+  "bends": 0
+ }
+}

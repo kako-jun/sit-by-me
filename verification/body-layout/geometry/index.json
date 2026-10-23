@@ -1,0 +1,90 @@
+{
+ "schema": "sit-body-mock-geometry/1",
+ "maps": [
+  {
+   "map": "BDY-01",
+   "exits": 1,
+   "corridors": 1
+  },
+  {
+   "map": "BDY-02",
+   "exits": 7,
+   "corridors": 8
+  },
+  {
+   "map": "BDY-03",
+   "exits": 4,
+   "corridors": 4
+  },
+  {
+   "map": "BDY-04",
+   "exits": 1,
+   "corridors": 59
+  },
+  {
+   "map": "BDY-05",
+   "exits": 2,
+   "corridors": 1
+  },
+  {
+   "map": "BDY-06",
+   "exits": 1,
+   "corridors": 1
+  },
+  {
+   "map": "BDY-07",
+   "exits": 2,
+   "corridors": 1
+  },
+  {
+   "map": "BDY-08",
+   "exits": 1,
+   "corridors": 1
+  },
+  {
+   "map": "BDY-09",
+   "exits": 2,
+   "corridors": 1
+  },
+  {
+   "map": "BDY-10",
+   "exits": 2,
+   "corridors": 1
+  },
+  {
+   "map": "BDY-11",
+   "exits": 1,
+   "corridors": 1
+  },
+  {
+   "map": "BDY-12",
+   "exits": 2,
+   "corridors": 1
+  },
+  {
+   "map": "BDY-13",
+   "exits": 2,
+   "corridors": 1
+  },
+  {
+   "map": "BDY-14",
+   "exits": 1,
+   "corridors": 1
+  },
+  {
+   "map": "BDY-15",
+   "exits": 1,
+   "corridors": 1
+  },
+  {
+   "map": "BDY-16",
+   "exits": 1,
+   "corridors": 5
+  },
+  {
+   "map": "BDY-17",
+   "exits": 1,
+   "corridors": 7
+  }
+ ]
+}

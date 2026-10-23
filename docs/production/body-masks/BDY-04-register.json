@@ -1,0 +1,547 @@
+{
+ "map": "BDY-04",
+ "image": "assets/images/fields/reference/body-brain-maze-bdy04-adopted.webp",
+ "size": [
+  1672,
+  941
+ ],
+ "scale_vs_1920": 0.87083,
+ "image_measure": {
+  "rect_measured": [
+   129,
+   113,
+   1545,
+   815
+  ],
+  "rect_expected_scaled": [
+   120,
+   120,
+   1552,
+   820
+  ],
+  "rect_used": [
+   129,
+   113,
+   1545,
+   815
+  ],
+  "rect_used_for_registration": [
+   129,
+   113,
+   1545,
+   815
+  ],
+  "layers_ok": true,
+  "rect_ok": true,
+  "edge_dev_px": 9,
+  "side_measured_ok": {
+   "N": true,
+   "E": true,
+   "S": true,
+   "W": true
+  },
+  "side_fallback_reasons": {},
+  "desk_depth_px": {
+   "N": 77,
+   "E": 86,
+   "S": 89,
+   "W": 88
+  },
+  "floor_color": [
+   241,
+   209,
+   173
+  ],
+  "floor_color_source": "estimate",
+  "floor_color_checker_estimate": [
+   241,
+   209,
+   173
+  ],
+  "floor_color_estimated_ok": true,
+  "floor_px_color_only": 469348
+ },
+ "registration": {
+  "chosen_model": "T",
+  "models": {
+   "init": {
+    "params": {
+     "dx": 0.0,
+     "dy": 0.0,
+     "dlogs": 0.0,
+     "drot_deg": 0.0,
+     "dlog_aniso": 0.0
+    },
+    "cost_px_incl_endpoint_term": 4.38,
+    "points": 5798,
+    "inlier_frac": 0.7234,
+    "inlier_mean_px": 3.26,
+    "inlier_max_px": 10.44,
+    "all_mean_px": 6.07,
+    "p90_px": 13.89
+   },
+   "T": {
+    "params": {
+     "dx": -0.2634,
+     "dy": 1.8803,
+     "dlogs": 0.0,
+     "drot_deg": 0.0,
+     "dlog_aniso": 0.0
+    },
+    "cost_px_incl_endpoint_term": 3.94,
+    "points": 5798,
+    "inlier_frac": 0.7689,
+    "inlier_mean_px": 2.93,
+    "inlier_max_px": 10.45,
+    "all_mean_px": 5.02,
+    "p90_px": 12.08
+   },
+   "S": {
+    "params": {
+     "dx": -0.5669,
+     "dy": 2.8995,
+     "dlogs": -0.0038,
+     "drot_deg": 0.0,
+     "dlog_aniso": 0.0
+    },
+    "cost_px_incl_endpoint_term": 3.66,
+    "points": 5798,
+    "inlier_frac": 0.8651,
+    "inlier_mean_px": 3.48,
+    "inlier_max_px": 10.44,
+    "all_mean_px": 4.55,
+    "p90_px": 10.98
+   },
+   "SR": {
+    "params": {
+     "dx": -0.5688,
+     "dy": 2.94,
+     "dlogs": -0.0036,
+     "drot_deg": 0.0,
+     "dlog_aniso": 0.0
+    },
+    "cost_px_incl_endpoint_term": 3.66,
+    "points": 5798,
+    "inlier_frac": 0.8687,
+    "inlier_mean_px": 3.48,
+    "inlier_max_px": 10.44,
+    "all_mean_px": 4.52,
+    "p90_px": 10.99
+   },
+   "A": {
+    "params": {
+     "dx": -0.3628,
+     "dy": 3.1066,
+     "dlogs": -0.0039,
+     "drot_deg": 0.0004,
+     "dlog_aniso": 0.0063
+    },
+    "cost_px_incl_endpoint_term": 3.46,
+    "points": 5798,
+    "inlier_frac": 0.8693,
+    "inlier_mean_px": 3.37,
+    "inlier_max_px": 10.45,
+    "all_mean_px": 4.42,
+    "p90_px": 10.7
+   }
+  },
+  "transform": {
+   "scale_x": 0.86131,
+   "scale_y": 0.87313,
+   "rot_deg": 0.0,
+   "tx": 9.88,
+   "ty": -5.61
+  },
+  "matrix_mock_to_image": [
+   [
+    0.861314,
+    0.0,
+    9.875259
+   ],
+   [
+    0.0,
+    0.873134,
+    -5.612262
+   ]
+  ],
+  "residual": {
+   "points": 5798,
+   "inlier_frac": 0.7689,
+   "inlier_mean_px": 2.93,
+   "inlier_max_px": 10.45,
+   "all_mean_px": 5.02,
+   "p90_px": 12.08
+  },
+  "confidence": "MID",
+  "confidence_note": "residual=モック床境界点→画像の床（色だけで抽出）の境界までの距離。inlier=12px(x倍率)以内の割合。HIGH: inlier>=0.80 かつ平均<=4px(x倍率) / MID: >=0.5 / LOW: それ未満"
+ },
+ "floor_cut": {
+  "info": {
+   "color_floor_core_median": [
+    241,
+    210,
+    174
+   ],
+   "color_floor_thr": 5.0,
+   "color_floor_erode_px": 1,
+   "color_strict_removed_from_grabcut_px": 68407,
+   "grabcut_iters": 5,
+   "grabcut_after_sliver_px": 513440,
+   "seed_deep_px": 294274,
+   "grabcut_floor_px": 524553,
+   "isolated_floorlike_components_dropped": 0,
+   "wall_bevel_sliver_removed_px": 10957,
+   "cut_before_sliver_px": 524397,
+   "exit_throat_extension": {
+    "sides": [
+     "S"
+    ],
+    "added_px": 180,
+    "exits": [
+     {
+      "side": "S",
+      "run": [
+       806,
+       866
+      ],
+      "md_thr": 5.0,
+      "added_px": 154,
+      "added_beyond_edge_px": 19,
+      "clipped_at_edge_because_floor_color_reaches_desk": false
+     },
+     {
+      "side": "S",
+      "run": [
+       806,
+       866
+      ],
+      "md_thr": 10.0,
+      "added_px": 26,
+      "added_beyond_edge_px": 0,
+      "clipped_at_edge_because_floor_color_reaches_desk": false
+     }
+    ],
+    "finalize": {
+     "edge_spur_removed_px": 0,
+     "nonfloor_md2_removed_px": 0,
+     "nonfloor_md2_removed_from_pre_throat_white_px": 0,
+     "nonfloor_removed_beyond_rect_px": 0,
+     "disconnected_dropped_px": 0,
+     "holes_filled": [],
+     "holes_kept_area_px": [],
+     "rule": "縁の外の white は md<5 のみ / 小さな穴は床色（md中央値<10）のときだけ埋める"
+    }
+   }
+  },
+  "color_only_px": 469348
+ },
+ "floor_diff_vs_mock": {
+  "mock_floor_px": 535171,
+  "cut_floor_px": 445213,
+  "both_px": 445194,
+  "iou": 0.8318,
+  "only_image_px": 19,
+  "only_mock_px": 89977,
+  "only_image_pct_of_mock": 0.0,
+  "only_mock_pct_of_mock": 16.81,
+  "structural_only_image_px": 0,
+  "structural_only_mock_px": 34037,
+  "structural_only_image": [],
+  "structural_only_mock": [
+   {
+    "area_px": 3865,
+    "bbox": [
+     974,
+     484,
+     1254,
+     498
+    ],
+    "centroid": [
+     1111,
+     490
+    ]
+   },
+   {
+    "area_px": 3123,
+    "bbox": [
+     205,
+     170,
+     423,
+     184
+    ],
+    "centroid": [
+     312,
+     176
+    ]
+   },
+   {
+    "area_px": 2908,
+    "bbox": [
+     935,
+     589,
+     1151,
+     602
+    ],
+    "centroid": [
+     1042,
+     595
+    ]
+   },
+   {
+    "area_px": 1985,
+    "bbox": [
+     691,
+     170,
+     841,
+     183
+    ],
+    "centroid": [
+     766,
+     176
+    ]
+   },
+   {
+    "area_px": 1638,
+    "bbox": [
+     1344,
+     484,
+     1461,
+     497
+    ],
+    "centroid": [
+     1402,
+     490
+    ]
+   },
+   {
+    "area_px": 1433,
+    "bbox": [
+     931,
+     380,
+     1039,
+     393
+    ],
+    "centroid": [
+     984,
+     386
+    ]
+   }
+  ]
+ },
+ "edge_bias_signed_px": {
+  "S(下向きの縁)": {
+   "n": 4332,
+   "mean_px": 1.0
+  },
+  "N(上向きの縁)": {
+   "n": 4298,
+   "mean_px": 12.42
+  },
+  "E(右向きの縁)": {
+   "n": 3265,
+   "mean_px": 4.83
+  },
+  "W(左向きの縁)": {
+   "n": 3310,
+   "mean_px": 4.16
+  }
+ },
+ "topology": {
+  "components": {
+   "count": 1,
+   "big_count": 1,
+   "sizes_top": [
+    445213
+   ]
+  },
+  "mock_components": {
+   "count": 1,
+   "big_count": 1,
+   "sizes_top": [
+    535171
+   ]
+  },
+  "exits": {
+   "N": {
+    "image_count": 0,
+    "mock_count": 0,
+    "spec_count": 0,
+    "match": true,
+    "pairs": [],
+    "mock_only": []
+   },
+   "E": {
+    "image_count": 0,
+    "mock_count": 0,
+    "spec_count": 0,
+    "match": true,
+    "pairs": [],
+    "mock_only": []
+   },
+   "S": {
+    "image_count": 1,
+    "mock_count": 1,
+    "spec_count": 1,
+    "match": true,
+    "pairs": [
+     {
+      "image": [
+       805,
+       867
+      ],
+      "mock": [
+       803,
+       869
+      ],
+      "center_shift_px": 0.0,
+      "width_image": 63,
+      "width_mock": 67
+     }
+    ],
+    "mock_only": []
+   },
+   "W": {
+    "image_count": 0,
+    "mock_count": 0,
+    "spec_count": 0,
+    "match": true,
+    "pairs": [],
+    "mock_only": []
+   }
+  },
+  "slice_profile_image": {
+   "h": [
+    11,
+    7,
+    7,
+    9,
+    5,
+    6,
+    8,
+    7,
+    4
+   ],
+   "v": [
+    4,
+    3,
+    8,
+    3,
+    4,
+    5,
+    4,
+    4,
+    4
+   ]
+  },
+  "slice_profile_mock": {
+   "h": [
+    3,
+    7,
+    7,
+    7,
+    5,
+    6,
+    7,
+    7,
+    4
+   ],
+   "v": [
+    4,
+    3,
+    3,
+    3,
+    4,
+    5,
+    4,
+    4,
+    4
+   ]
+  },
+  "slice_profile_mismatch": {
+   "h": [
+    1,
+    4,
+    7
+   ],
+   "v": [
+    3
+   ],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "maze_grid": {
+   "cells_open": 78,
+   "cells": 78,
+   "passages": 77,
+   "mock_passages": 77,
+   "missing_vs_mock": [],
+   "extra_vs_mock": [],
+   "components": 1,
+   "loops": 0,
+   "dead_ends": 11,
+   "t_junctions": 10,
+   "corners": 38,
+   "ambiguous_edges": [],
+   "spec": {
+    "passages": 77,
+    "dead_ends": 11,
+    "t_junctions": 10,
+    "corners": 38
+   }
+  },
+  "holes": 0,
+  "holes_spec": null
+ },
+ "adoption": {
+  "floor_source": "採用画像の床の見え（床色クラスタ基準の切り出し）を正とした。モックは位置合わせと位相検査の基準であり、床の正解ではない",
+  "mask_classes": "2値（white=床=通れる / black=それ以外）。assist(#FF9D00) 不使用",
+  "wall_foot_definition": "床（クリーム）の領域だけが white。壁の帯（段ボール・毛糸）・面取りの斜面・影・地形・土台縁・机は black",
+  "rect_measurement": {
+   "method": "check_body_image.measure_layers（机→縁取り→波形→天面の4層の構造測定）を辺ごとに判定。層が読め期待から60px以内の辺は測定値、それ以外の辺は期待値へフォールバック",
+   "rect_used": [
+    129,
+    113,
+    1545,
+    815
+   ],
+   "side_measured_ok": {
+    "N": true,
+    "E": true,
+    "S": true,
+    "W": true
+   },
+   "side_fallback_reasons": {},
+   "rect_used_for_registration": [
+    129,
+    113,
+    1545,
+    815
+   ]
+  },
+  "lossless_readback_equals_floor_cut_array": true,
+  "rect_fallback_sides": [],
+  "forbidden_edge_check": {
+   "definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い",
+   "sides": {
+    "N": {
+     "white_px_inside_band": 0,
+     "white_px_outside_edge": 0,
+     "ok": true
+    },
+    "E": {
+     "white_px_inside_band": 0,
+     "white_px_outside_edge": 0,
+     "ok": true
+    },
+    "W": {
+     "white_px_inside_band": 0,
+     "white_px_outside_edge": 0,
+     "ok": true
+    }
+   },
+   "ok": true
+  },
+  "note": "MID。床の差のモックのみ約17%は、画像の通路が壁際の影の帯（約8〜10px）ぶん細いこと。迷路の格子は辺・行き止まり・T字・曲がり・成分とも仕様と一致。床=クリーム色の領域だけ、影は black（画像の床を正） 【rect の測定】4辺とも測定値。 【床色基準の統一・喉】床=床の芯の色からのマハラノビス距離 md<5 が続く所まで white。壁の帯・面取り・影・地形・毛糸は black（影の帯を床の内側へ削り込まない）。出口の喉は、縁の内側で床色が続く所まで、縁の外側は波形の帯の切れ目を床色が途切れず通る列だけ white（出口の幅=切れ目の幅、模型の外の机へは出さない。床色が机まで続く辺は縁で止める）。縁際の影で暗い床は測定済みの辺の出口だけ、縁の内側・出口の区間の幅の中に限り md<10 まで許す（縁の外・区間の外へは延ばさない）。縁の外の white は床の芯の色（md<5）のみ（テープ・縁取り・帯の色は除く）。white に囲まれた床色の小さな穴は埋める。壁の面取り上面（幅<約7px）の捨て処理は幅を絞った（旧は約14px）。禁止辺の検査: 出口でない辺で、縁から内側4px以内と縁の外側に white が無いこと。出口の範囲（links）は縁から内側4pxの帯の white の連続区間 喉の延長で足した床 180px（出口のある辺 S）。 通路幅は画像の描画による差（画像で約56px。仕様 約77px→画像倍率で約66px）。マスクは画像に従う。",
+  "registration_confidence": "MID",
+  "runtime_status": "ready ではない（遷移の範囲値・ランタイムの扱いが TBD。red-team 済み・kako-jun の逸脱承認済み 2026-10-23）"
+ }
+}

@@ -1,0 +1,300 @@
+{
+ "schema": "sit-body-mock-geometry/1",
+ "map": "BDY-16",
+ "name": "心臓・分岐室",
+ "canvas": {
+  "w": 1920,
+  "h": 1080
+ },
+ "model_rect": {
+  "px": {
+   "x0": 138,
+   "y0": 138,
+   "x1": 1782,
+   "y1": 942,
+   "w": 1644,
+   "h": 804
+  },
+  "desk_margin_px": 90,
+  "band_px": {
+   "foam": 28,
+   "corrugated": 20
+  }
+ },
+ "coord_note": "ratio=((x-138)/1644,(y-138)/804)。1672幅の採用画像へは x*(1672/1920) ではなく body_register.py の変換を使う",
+ "main_width_px": 230,
+ "passage_width_px": 230,
+ "clean_colors": {
+  "floor": [
+   232,
+   201,
+   168
+  ],
+  "terrain": [
+   170,
+   130,
+   110
+  ],
+  "desk": [
+   118,
+   120,
+   126
+  ],
+  "band": [
+   150,
+   110,
+   62
+  ],
+  "wall": [
+   92,
+   104,
+   128
+  ]
+ },
+ "exits": [
+  {
+   "port": "door-passage-torso",
+   "side": "N",
+   "slot": 0.26,
+   "edge_point": {
+    "px": [
+     565.44,
+     138.0
+    ],
+    "ratio": [
+     0.26,
+     0.0
+    ]
+   },
+   "partner": "BDY-02.door-passage-heart",
+   "range": {
+    "along": "x",
+    "a_px": 450.44,
+    "b_px": 680.44,
+    "a_ratio": 0.19005,
+    "b_ratio": 0.32995,
+    "depth_px": 60
+   },
+   "inward_dir": [
+    -0.0023,
+    1.0
+   ]
+  }
+ ],
+ "rooms": [
+  {
+   "name": "右心房",
+   "center": {
+    "px": [
+     565.0,
+     328.0
+    ],
+    "ratio": [
+     0.25973,
+     0.23632
+    ]
+   },
+   "radius_px": 160
+  },
+  {
+   "name": "右心室",
+   "center": {
+    "px": [
+     565.0,
+     752.0
+    ],
+    "ratio": [
+     0.25973,
+     0.76368
+    ]
+   },
+   "radius_px": 160
+  },
+  {
+   "name": "左心房",
+   "center": {
+    "px": [
+     1355.0,
+     328.0
+    ],
+    "ratio": [
+     0.74027,
+     0.23632
+    ]
+   },
+   "radius_px": 160
+  },
+  {
+   "name": "左心室",
+   "center": {
+    "px": [
+     1355.0,
+     752.0
+    ],
+    "ratio": [
+     0.74027,
+     0.76368
+    ]
+   },
+   "radius_px": 160
+  }
+ ],
+ "corridors": [
+  {
+   "kind": "entry",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      565.44,
+      138.0
+     ],
+     "ratio": [
+      0.26,
+      0.0
+     ],
+     "is_port": true
+    },
+    {
+     "px": [
+      565.0,
+      328.0
+     ],
+     "ratio": [
+      0.25973,
+      0.23632
+     ],
+     "is_port": false
+    }
+   ]
+  },
+  {
+   "kind": "link",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      565.0,
+      328.0
+     ],
+     "ratio": [
+      0.25973,
+      0.23632
+     ],
+     "is_port": false
+    },
+    {
+     "px": [
+      565.0,
+      752.0
+     ],
+     "ratio": [
+      0.25973,
+      0.76368
+     ],
+     "is_port": false
+    }
+   ]
+  },
+  {
+   "kind": "link",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      1355.0,
+      328.0
+     ],
+     "ratio": [
+      0.74027,
+      0.23632
+     ],
+     "is_port": false
+    },
+    {
+     "px": [
+      1355.0,
+      752.0
+     ],
+     "ratio": [
+      0.74027,
+      0.76368
+     ],
+     "is_port": false
+    }
+   ]
+  },
+  {
+   "kind": "link",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      565.0,
+      328.0
+     ],
+     "ratio": [
+      0.25973,
+      0.23632
+     ],
+     "is_port": false
+    },
+    {
+     "px": [
+      1355.0,
+      328.0
+     ],
+     "ratio": [
+      0.74027,
+      0.23632
+     ],
+     "is_port": false
+    }
+   ]
+  },
+  {
+   "kind": "link",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      565.0,
+      752.0
+     ],
+     "ratio": [
+      0.25973,
+      0.76368
+     ],
+     "is_port": false
+    },
+    {
+     "px": [
+      1355.0,
+      752.0
+     ],
+     "ratio": [
+      0.74027,
+      0.76368
+     ],
+     "is_port": false
+    }
+   ]
+  }
+ ],
+ "expect": {
+  "rooms": 4,
+  "corners": 3,
+  "tjunc": 1,
+  "deadends": 0
+ },
+ "topology_expect": {
+  "floor_components": 1,
+  "exits_per_side": {
+   "N": 1,
+   "E": 0,
+   "S": 0,
+   "W": 0
+  },
+  "exit_count": 1
+ }
+}

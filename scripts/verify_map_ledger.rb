@@ -180,7 +180,7 @@ fail!('胴体は上半身と下半身の縦2MAP') unless ux==lx && uy<ly
 fail!('頭は胴体の上') unless coords['BDY-04'][0]==ux && coords['BDY-04'][1]<uy
 [%w[BDY-02 BDY-05 BDY-06],%w[BDY-02 BDY-07 BDY-08],%w[BDY-03 BDY-09 BDY-10 BDY-11],%w[BDY-03 BDY-12 BDY-13 BDY-14]].each_with_index do |path,i|
   base_x,base_y=coords.fetch(path.first)
-  direction_x=i.even? ? -1:1; direction_y=i<2 ? -1:1
+  direction_x=i.even? ? 1:-1; direction_y=i<2 ? -1:1
   fail!('手は左右斜め上・足は左右斜め下の連続通路') unless path.drop(1).all? { |id| (coords[id][0]-base_x)*direction_x>0 } && path.each_cons(2).all? { |a,b| (coords[b][1]-coords[a][1])*direction_y>0 }
 end
 expected_spokes={'upper_torso'=>'BDY-02','lower_torso'=>'BDY-03','head'=>'BDY-04','left_arm'=>%w[BDY-05 BDY-06],'right_arm'=>%w[BDY-07 BDY-08],'left_leg'=>%w[BDY-09 BDY-10 BDY-11],'right_leg'=>%w[BDY-12 BDY-13 BDY-14],'rooms'=>%w[BDY-15 BDY-16 BDY-17]}

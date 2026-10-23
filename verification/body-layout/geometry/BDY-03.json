@@ -1,0 +1,292 @@
+{
+ "schema": "sit-body-mock-geometry/1",
+ "map": "BDY-03",
+ "name": "下半身",
+ "canvas": {
+  "w": 1920,
+  "h": 1080
+ },
+ "model_rect": {
+  "px": {
+   "x0": 138,
+   "y0": 138,
+   "x1": 1782,
+   "y1": 942,
+   "w": 1644,
+   "h": 804
+  },
+  "desk_margin_px": 90,
+  "band_px": {
+   "foam": 28,
+   "corrugated": 20
+  }
+ },
+ "coord_note": "ratio=((x-138)/1644,(y-138)/804)。1672幅の採用画像へは x*(1672/1920) ではなく body_register.py の変換を使う",
+ "main_width_px": 230,
+ "passage_width_px": 230,
+ "clean_colors": {
+  "floor": [
+   232,
+   201,
+   168
+  ],
+  "terrain": [
+   170,
+   130,
+   110
+  ],
+  "desk": [
+   118,
+   120,
+   126
+  ],
+  "band": [
+   150,
+   110,
+   62
+  ],
+  "wall": [
+   92,
+   104,
+   128
+  ]
+ },
+ "exits": [
+  {
+   "port": "door-passage-upper",
+   "side": "N",
+   "slot": 0.5,
+   "edge_point": {
+    "px": [
+     960.0,
+     138.0
+    ],
+    "ratio": [
+     0.5,
+     0.0
+    ]
+   },
+   "partner": "BDY-02.door-passage-lower",
+   "range": {
+    "along": "x",
+    "a_px": 845.0,
+    "b_px": 1075.0,
+    "a_ratio": 0.43005,
+    "b_ratio": 0.56995,
+    "depth_px": 60
+   },
+   "inward_dir": [
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "port": "door-passage-stomach",
+   "side": "E",
+   "slot": 0.162,
+   "edge_point": {
+    "px": [
+     1782.0,
+     268.25
+    ],
+    "ratio": [
+     1.0,
+     0.162
+    ]
+   },
+   "partner": "BDY-15.door-passage-torso",
+   "range": {
+    "along": "y",
+    "a_px": 147.21,
+    "b_px": 389.28,
+    "a_ratio": 0.01146,
+    "b_ratio": 0.31254,
+    "depth_px": 60
+   },
+   "inward_dir": [
+    -0.9501,
+    0.3118
+   ]
+  },
+  {
+   "port": "door-passage-left-leg",
+   "side": "E",
+   "slot": 0.82,
+   "edge_point": {
+    "px": [
+     1782.0,
+     797.28
+    ],
+    "ratio": [
+     1.0,
+     0.82
+    ]
+   },
+   "partner": "BDY-09.door-passage-torso",
+   "range": {
+    "along": "y",
+    "a_px": 676.69,
+    "b_px": 917.87,
+    "a_ratio": 0.67002,
+    "b_ratio": 0.96998,
+    "depth_px": 60
+   },
+   "inward_dir": [
+    -0.9537,
+    -0.3008
+   ]
+  },
+  {
+   "port": "door-passage-right-leg",
+   "side": "W",
+   "slot": 0.82,
+   "edge_point": {
+    "px": [
+     138.0,
+     797.28
+    ],
+    "ratio": [
+     0.0,
+     0.82
+    ]
+   },
+   "partner": "BDY-12.door-passage-torso",
+   "range": {
+    "along": "y",
+    "a_px": 676.69,
+    "b_px": 917.87,
+    "a_ratio": 0.67002,
+    "b_ratio": 0.96998,
+    "depth_px": 60
+   },
+   "inward_dir": [
+    0.9537,
+    -0.3008
+   ]
+  }
+ ],
+ "corridors": [
+  {
+   "kind": "trunk",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      960.0,
+      138.0
+     ],
+     "ratio": [
+      0.5,
+      0.0
+     ],
+     "is_port": true
+    },
+    {
+     "px": [
+      960.0,
+      538.0
+     ],
+     "ratio": [
+      0.5,
+      0.49751
+     ],
+     "is_port": false
+    }
+   ]
+  },
+  {
+   "kind": "limb",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      960.0,
+      538.0
+     ],
+     "ratio": [
+      0.5,
+      0.49751
+     ],
+     "is_port": false
+    },
+    {
+     "px": [
+      1782.0,
+      797.28
+     ],
+     "ratio": [
+      1.0,
+      0.82
+     ],
+     "is_port": true
+    }
+   ]
+  },
+  {
+   "kind": "limb",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      960.0,
+      538.0
+     ],
+     "ratio": [
+      0.5,
+      0.49751
+     ],
+     "is_port": false
+    },
+    {
+     "px": [
+      138.0,
+      797.28
+     ],
+     "ratio": [
+      0.0,
+      0.82
+     ],
+     "is_port": true
+    }
+   ]
+  },
+  {
+   "kind": "limb",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      960.0,
+      538.0
+     ],
+     "ratio": [
+      0.5,
+      0.49751
+     ],
+     "is_port": false
+    },
+    {
+     "px": [
+      1782.0,
+      268.25
+     ],
+     "ratio": [
+      1.0,
+      0.162
+     ],
+     "is_port": true
+    }
+   ]
+  }
+ ],
+ "topology_expect": {
+  "floor_components": 1,
+  "exits_per_side": {
+   "N": 1,
+   "E": 2,
+   "S": 0,
+   "W": 1
+  },
+  "exit_count": 4
+ }
+}

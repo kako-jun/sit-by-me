@@ -1,0 +1,129 @@
+{
+ "schema": "sit-body-exit-candidates/1",
+ "map": "BDY-07",
+ "status": "出口候補の範囲（遷移の範囲値とランタイムの扱いは TBD、kako-jun 2026-10-22。ready ではない）",
+ "image": {
+  "path": "assets/images/fields/reference/body-right-arm-1-bdy07-adopted.webp",
+  "size": [
+   1672,
+   941
+  ]
+ },
+ "model_top_rect_image_px": {
+  "x0": 133,
+  "y0": 114,
+  "x1": 1546,
+  "y1": 786,
+  "w": 1413,
+  "h": 672
+ },
+ "coordinate_note": "a/b は辺に沿う区間（N/S は x、E/W は y）の画像px、ratio は天面の矩形に対する 0..1。区間は『床が模型の縁（波形の内側＝天面の矩形）に届く範囲』＝縁から内側4pxの帯の white の連続区間を、最終マスクから実測した値（出口でない辺の禁止検査も同じ4px帯）",
+ "exits": [
+  {
+   "id": "BDY-07.door-passage-tip",
+   "port": "door-passage-tip",
+   "side": "N",
+   "partner": "BDY-08.door-passage-base",
+   "along": "x",
+   "mock_range_in_image": {
+    "a_px": 805.2,
+    "b_px": 1178.7
+   },
+   "spec_slot_ratio": 0.608,
+   "edge_line_px": 114,
+   "range_definition": "4px 帯に white が無い（床が縁に届かない）ため、縁から内側 30px の帯の white の連続区間",
+   "detected": true,
+   "image_range": {
+    "a_px": 841,
+    "b_px": 1100,
+    "a_ratio": 0.5011,
+    "b_ratio": 0.6844,
+    "width_px": 260,
+    "center_px": 970.5,
+    "center_ratio": 0.5927
+   },
+   "center_shift_vs_mock_px": -21.5,
+   "floor_gap_to_edge_px": 7,
+   "white_beyond_edge_px": 0
+  },
+  {
+   "id": "BDY-07.door-passage-torso",
+   "port": "door-passage-torso",
+   "side": "E",
+   "partner": "BDY-02.door-passage-right-arm",
+   "along": "y",
+   "mock_range_in_image": {
+    "a_px": 349.9,
+    "b_px": 576.5
+   },
+   "spec_slot_ratio": 0.5,
+   "edge_line_px": 1546,
+   "range_definition": "縁（rect）から内側 4px の帯の white の連続区間",
+   "detected": true,
+   "image_range": {
+    "a_px": 427,
+    "b_px": 593,
+    "a_ratio": 0.4658,
+    "b_ratio": 0.7128,
+    "width_px": 167,
+    "center_px": 510.0,
+    "center_ratio": 0.5893
+   },
+   "center_shift_vs_mock_px": 46.8,
+   "floor_gap_to_edge_px": 0,
+   "white_beyond_edge_px": 2,
+   "edge_definitions": {
+    "rect_edge": {
+     "line_px": 1546,
+     "range": {
+      "a_px": 427,
+      "b_px": 593
+     }
+    },
+    "front_edge": {
+     "line_px": 1547,
+     "range": {
+      "a_px": 544,
+      "b_px": 555
+     }
+    },
+    "note": "辺の定義は2つ: rect_edge（模型の天面の矩形の縁 x=1546）と front_edge（white が実際に届く最も外の行 x=1547、縁から 2px 外）。遷移の範囲値の確定時に、どちらを辺として採るか決める（TBD）"
+   }
+  }
+ ],
+ "unexpected_exits": [
+  {
+   "side": "N",
+   "image_range_px": [
+    841,
+    1094
+   ],
+   "note": "仕様に無い出口（画像で縁に届く床の区間）"
+  },
+  {
+   "side": "E",
+   "image_range_px": [
+    420,
+    594
+   ],
+   "note": "仕様に無い出口（画像で縁に届く床の区間）"
+  }
+ ],
+ "events": [],
+ "forbidden_edge_check": {
+  "definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い",
+  "sides": {
+   "S": {
+    "white_px_inside_band": 0,
+    "white_px_outside_edge": 0,
+    "ok": true
+   },
+   "W": {
+    "white_px_inside_band": 0,
+    "white_px_outside_edge": 0,
+    "ok": true
+   }
+  },
+  "ok": true
+ }
+}

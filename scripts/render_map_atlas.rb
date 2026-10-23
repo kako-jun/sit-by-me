@@ -53,7 +53,7 @@ module MapAtlas
         node_label(id,spec).each_with_index { |line,i| out<<%(<text x="#{x+65}" y="#{y-8+i*21}" class="label" style="text-anchor:start">#{esc(line)}</text>) }
       else
         label_y=id=='BDY-01' ? y-42:y+53
-        label_x=id=='BDY-13' ? x-75:x
+        label_x=id=='BDY-13' ? x+75:x
         node_label(id,spec).each_with_index { |line,i| out<<%(<text x="#{label_x}" y="#{label_y+i*21}" class="label">#{esc(line)}</text>) }
       end
     end

@@ -1,0 +1,552 @@
+{
+ "schema": "sit-body-mock-geometry/1",
+ "map": "BDY-02",
+ "name": "上半身",
+ "canvas": {
+  "w": 1920,
+  "h": 1080
+ },
+ "model_rect": {
+  "px": {
+   "x0": 138,
+   "y0": 138,
+   "x1": 1782,
+   "y1": 942,
+   "w": 1644,
+   "h": 804
+  },
+  "desk_margin_px": 90,
+  "band_px": {
+   "foam": 28,
+   "corrugated": 20
+  }
+ },
+ "coord_note": "ratio=((x-138)/1644,(y-138)/804)。1672幅の採用画像へは x*(1672/1920) ではなく body_register.py の変換を使う",
+ "main_width_px": 230,
+ "passage_width_px": 230,
+ "clean_colors": {
+  "floor": [
+   232,
+   201,
+   168
+  ],
+  "terrain": [
+   170,
+   130,
+   110
+  ],
+  "desk": [
+   118,
+   120,
+   126
+  ],
+  "band": [
+   150,
+   110,
+   62
+  ],
+  "wall": [
+   92,
+   104,
+   128
+  ]
+ },
+ "exits": [
+  {
+   "port": "door-passage-head",
+   "side": "N",
+   "slot": 0.5,
+   "edge_point": {
+    "px": [
+     960.0,
+     138.0
+    ],
+    "ratio": [
+     0.5,
+     0.0
+    ]
+   },
+   "partner": "BDY-04.door-passage-torso",
+   "range": {
+    "along": "x",
+    "a_px": 845.0,
+    "b_px": 1075.0,
+    "a_ratio": 0.43005,
+    "b_ratio": 0.56995,
+    "depth_px": 60
+   }
+  },
+  {
+   "port": "door-passage-mouth",
+   "side": "N",
+   "slot": 0.74,
+   "edge_point": {
+    "px": [
+     1354.56,
+     138.0
+    ],
+    "ratio": [
+     0.74,
+     0.0
+    ]
+   },
+   "partner": "BDY-01.door-passage-torso",
+   "range": {
+    "along": "x",
+    "a_px": 1239.56,
+    "b_px": 1469.56,
+    "a_ratio": 0.67005,
+    "b_ratio": 0.80995,
+    "depth_px": 60
+   }
+  },
+  {
+   "port": "door-passage-left-arm",
+   "side": "E",
+   "slot": 0.28,
+   "edge_point": {
+    "px": [
+     1782.0,
+     363.12
+    ],
+    "ratio": [
+     1.0,
+     0.28
+    ]
+   },
+   "partner": "BDY-05.door-passage-torso",
+   "range": {
+    "along": "y",
+    "a_px": 248.12,
+    "b_px": 478.12,
+    "a_ratio": 0.13697,
+    "b_ratio": 0.42303,
+    "depth_px": 60
+   }
+  },
+  {
+   "port": "door-passage-lung",
+   "side": "S",
+   "slot": 0.26,
+   "edge_point": {
+    "px": [
+     565.44,
+     942.0
+    ],
+    "ratio": [
+     0.26,
+     1.0
+    ]
+   },
+   "partner": "BDY-17.door-passage-torso",
+   "range": {
+    "along": "x",
+    "a_px": 450.44,
+    "b_px": 680.44,
+    "a_ratio": 0.19005,
+    "b_ratio": 0.32995,
+    "depth_px": 60
+   }
+  },
+  {
+   "port": "door-passage-lower",
+   "side": "S",
+   "slot": 0.5,
+   "edge_point": {
+    "px": [
+     960.0,
+     942.0
+    ],
+    "ratio": [
+     0.5,
+     1.0
+    ]
+   },
+   "partner": "BDY-03.door-passage-upper",
+   "range": {
+    "along": "x",
+    "a_px": 845.0,
+    "b_px": 1075.0,
+    "a_ratio": 0.43005,
+    "b_ratio": 0.56995,
+    "depth_px": 60
+   }
+  },
+  {
+   "port": "door-passage-heart",
+   "side": "S",
+   "slot": 0.74,
+   "edge_point": {
+    "px": [
+     1354.56,
+     942.0
+    ],
+    "ratio": [
+     0.74,
+     1.0
+    ]
+   },
+   "partner": "BDY-16.door-passage-torso",
+   "range": {
+    "along": "x",
+    "a_px": 1239.56,
+    "b_px": 1469.56,
+    "a_ratio": 0.67005,
+    "b_ratio": 0.80995,
+    "depth_px": 60
+   }
+  },
+  {
+   "port": "door-passage-right-arm",
+   "side": "W",
+   "slot": 0.5,
+   "edge_point": {
+    "px": [
+     138.0,
+     540.0
+    ],
+    "ratio": [
+     0.0,
+     0.5
+    ]
+   },
+   "partner": "BDY-07.door-passage-torso",
+   "range": {
+    "along": "y",
+    "a_px": 425.0,
+    "b_px": 655.0,
+    "a_ratio": 0.35697,
+    "b_ratio": 0.64303,
+    "depth_px": 60
+   }
+  }
+ ],
+ "hall": {
+  "center": {
+   "px": [
+    960.0,
+    700.0
+   ],
+   "ratio": [
+    0.5,
+    0.699
+   ]
+  },
+  "rx_px": 300,
+  "ry_px": 205,
+  "wall_thickness_px": 22,
+  "note": "広間=横長の楕円の床。壁(WALL_T)は床の外側を一周し、帯が接する所だけ途切れる"
+ },
+ "neck": {
+  "junction": {
+   "px": [
+    960.0,
+    350.0
+   ],
+   "ratio": [
+    0.5,
+    0.26368
+   ]
+  },
+  "mouth_bend_y_px": 225
+ },
+ "corridors": [
+  {
+   "kind": "neck",
+   "port": null,
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      960.0,
+      577.0
+     ],
+     "ratio": [
+      0.5,
+      0.54602
+     ],
+     "is_port": false
+    },
+    {
+     "px": [
+      960.0,
+      350.0
+     ],
+     "ratio": [
+      0.5,
+      0.26368
+     ],
+     "is_port": false
+    }
+   ]
+  },
+  {
+   "kind": "branch",
+   "port": "door-passage-head",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      960.0,
+      350.0
+     ],
+     "ratio": [
+      0.5,
+      0.26368
+     ],
+     "is_port": false
+    },
+    {
+     "px": [
+      960.0,
+      138.0
+     ],
+     "ratio": [
+      0.5,
+      0.0
+     ],
+     "is_port": true
+    }
+   ]
+  },
+  {
+   "kind": "branch",
+   "port": "door-passage-mouth",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      960.0,
+      350.0
+     ],
+     "ratio": [
+      0.5,
+      0.26368
+     ],
+     "is_port": false
+    },
+    {
+     "px": [
+      1354.56,
+      225.0
+     ],
+     "ratio": [
+      0.74,
+      0.10821
+     ],
+     "is_port": false
+    },
+    {
+     "px": [
+      1354.56,
+      138.0
+     ],
+     "ratio": [
+      0.74,
+      0.0
+     ],
+     "is_port": true
+    }
+   ]
+  },
+  {
+   "kind": "arm",
+   "port": "door-passage-right-arm",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      138.0,
+      540.0
+     ],
+     "ratio": [
+      0.0,
+      0.5
+     ],
+     "is_port": true
+    },
+    {
+     "px": [
+      300.0,
+      540.0
+     ],
+     "ratio": [
+      0.09854,
+      0.5
+     ],
+     "is_port": false
+    },
+    {
+     "px": [
+      800.0,
+      690.0
+     ],
+     "ratio": [
+      0.40268,
+      0.68657
+     ],
+     "is_port": false
+    }
+   ]
+  },
+  {
+   "kind": "arm",
+   "port": "door-passage-left-arm",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      1782.0,
+      363.12
+     ],
+     "ratio": [
+      1.0,
+      0.28
+     ],
+     "is_port": true
+    },
+    {
+     "px": [
+      1662.0,
+      363.0
+     ],
+     "ratio": [
+      0.92701,
+      0.27985
+     ],
+     "is_port": false
+    },
+    {
+     "px": [
+      1090.0,
+      650.0
+     ],
+     "ratio": [
+      0.57908,
+      0.63682
+     ],
+     "is_port": false
+    }
+   ]
+  },
+  {
+   "kind": "arm",
+   "port": "door-passage-heart",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      1354.56,
+      942.0
+     ],
+     "ratio": [
+      0.74,
+      1.0
+     ],
+     "is_port": true
+    },
+    {
+     "px": [
+      1355.0,
+      800.0
+     ],
+     "ratio": [
+      0.74027,
+      0.82338
+     ],
+     "is_port": false
+    },
+    {
+     "px": [
+      1160.0,
+      745.0
+     ],
+     "ratio": [
+      0.62165,
+      0.75498
+     ],
+     "is_port": false
+    }
+   ]
+  },
+  {
+   "kind": "arm",
+   "port": "door-passage-lung",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      565.44,
+      942.0
+     ],
+     "ratio": [
+      0.26,
+      1.0
+     ],
+     "is_port": true
+    },
+    {
+     "px": [
+      565.0,
+      800.0
+     ],
+     "ratio": [
+      0.25973,
+      0.82338
+     ],
+     "is_port": false
+    },
+    {
+     "px": [
+      760.0,
+      745.0
+     ],
+     "ratio": [
+      0.37835,
+      0.75498
+     ],
+     "is_port": false
+    }
+   ]
+  },
+  {
+   "kind": "arm",
+   "port": "door-passage-lower",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      960.0,
+      942.0
+     ],
+     "ratio": [
+      0.5,
+      1.0
+     ],
+     "is_port": true
+    },
+    {
+     "px": [
+      960.0,
+      800.0
+     ],
+     "ratio": [
+      0.5,
+      0.82338
+     ],
+     "is_port": false
+    }
+   ]
+  }
+ ],
+ "topology_expect": {
+  "floor_components": 1,
+  "exits_per_side": {
+   "N": 2,
+   "E": 1,
+   "S": 3,
+   "W": 1
+  },
+  "exit_count": 7
+ }
+}

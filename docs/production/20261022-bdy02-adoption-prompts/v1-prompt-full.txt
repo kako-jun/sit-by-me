@@ -1,0 +1,177 @@
+Invoke the $imagegen skill and use the built-in image_gen tool at the HIGHEST quality (quality: high), requesting 1920x1080 (16:9), in IMAGE EDIT mode, to create the image described in the prompt below. Two reference images are attached, in this order: (1) a flat two-colour layout diagram with no text, which is the image to be repainted (use only its passage geometry, as described in the prompt); (2) a thin close-up strip of the edge of a hand-made cardboard miniature, for materials and craft feel only (as described in the prompt). Call image_gen EXACTLY ONCE: no retries, no regeneration, no multiple candidates, even if you think the result is imperfect. Then save the REAL generated PNG (decode the tool result) into the current workspace at out/bdy02-v1.png. You are STRICTLY FORBIDDEN from fabricating/drawing the image with magick/ImageMagick/PIL/Pillow/numpy/SVG/canvas/any code; only the image_gen tool. If the image_gen tool is genuinely not in your toolset, do NOT fabricate - output exactly: IMAGE_GEN_TOOL_UNAVAILABLE. Do not resize or crop the result. Do not use any files in ~/.codex/generated_images/ made by other calls; only the image generated in this call. Report the saved file path.
+Output a 16:9 landscape image. Target 1920x1080; if not possible, 1672x941. Do NOT use 3:2 or 1536x1024.
+
+Generate ONE image: the final field background for map BDY-02 (the upper torso, 上半身・胴体上段, of the imaginary human body inside which the story travels). Do not generate any other map.
+
+=== SOURCE TEXT (verbatim, do not paraphrase) ===
+(This block is a specification, not text to be drawn. No letter, number or word from it may appear in the picture.)
+[Issue #142 本文より（kako-jun 指示 2026-10-22、逐語）]
+体内など、未確定の要素が少ないマップからエリアぜんぶのマップ画像を作っていきたい
+[Issue #142 本文より（逐語）]
+未確定は「通行幅（キャラ3人分）の画素値・脳の迷路形・pixel/mask」だけ。BDY-02 は先行previewが却下済みで、再生成前に配置モックが必要（contract-checklist 140行）。
+
+[Issue #142 全文（gh issue view 142 --json title,body）。1行目=タイトル、以降=本文、逐語]
+素材: 体内17MAP（BDY-01〜17）の配置モック・契約・背景生成
+## 背景
+kako-jun 指示（2026-10-22）: 「体内など、未確定の要素が少ないマップからエリアぜんぶのマップ画像を作っていきたい」。全15エリア・130MAPの背景を、未確定が少ないエリアから順に作る。第1弾は体内17MAP（BDY-01〜17）。
+
+## 体内を最初にする根拠
+- 接続は map-topology.md v2台帳と docs/topology/body.svg で確定済み（17ノード・17接続・一本道＋分岐室）。
+- 材料は art-direction.md「#74 体内の最新空間・色の契約」で確定（foamboard土台・corrugated断面・paper clay・肌色/薄桃/クリームのposter paint・赤い折り紙は工作アクセント）。
+- 未確定は「通行幅（キャラ3人分）の画素値・脳の迷路形・pixel/mask」だけ。BDY-02 は先行previewが却下済みで、再生成前に配置モックが必要（contract-checklist 140行）。
+
+## これからやること
+1. **配置モック（割付図）**: 17MAPそれぞれの画像端の接続辺・通路の向き・幅（3人分）を、体内の方位（body.svg）と整合させて幾何で作る。BDY-02 から着手し、全MAPの辺の整合（出た辺の反対の辺から入る）を機械検査する。
+2. **契約と完全prompt**: 対象行の原文束（registry/specifications/topology/checklist）を逐語添付し、独立レビュー（opus）を通す。
+3. **1枚ずつ生成→実寸検査（1920×1080 または 1672×941）→生画像レビュー→kako-jun採否**。順序は BDY-02 → 首（BDY-01）・頭（BDY-04）→ 手足 → 分岐室（心臓・肺・胃）→ BDY-03。
+4. 不合格は削除して来歴だけ記録。採用はWebP化して reference 配下へ（mask・links・red-team は別工程）。
+
+## 体内の後の順序
+体内が通ったら、未確定の少ない順に他エリアへ進む。順序案は別コメントで棚卸し後に提示する。
+[優先規則] 後のコメント（kako-jun決定 2026-10-22）が旧コメントの仮案・未決に優先する。
+[Issue #142 コメント（gh issue view 142 --comments の全件、逐語。2026-10-22 時点でコメントは2件（2件目が「kako-jun 決定（2026-10-22『推奨で』）」）。末尾の -- は gh の区切り）]
+[注記] これより前のコメントの未決・仮案は、次の決定コメント(2026-10-22)で解決済み。決定コメントが優先する。
+author:	kako-jun
+association:	owner
+edited:	false
+status:	none
+--
+## 進捗（2026-10-22）
+- 工程1完了: 体内17枚の割付図と整合表を作成（`verification/body-layout/`、ツール `.claude/skills/sit-field-background/tools/body_layout.py`）。機械検査C1〜C7は全件OK（16接続の両端が反対辺・余分な通路なし・BDY-02は7本のみ）。未コミット。
+- 辺の割当は原文に無く、body.svg の座標から導いた**仮案**。BDY-02: 北=頭・口、東=右腕・肺、南=心臓・下半身、西=左腕。口を北辺にしたのは「口=北東」の45度タイブレーク（東辺でも成立）。手足2枚目以降の向き（L字・縦通路）も機械導出の仮案。主路幅は画像幅比0.14（269px、「3人並び」の仮置き）。
+- BDY-02 の割付図は中央で7本が塊になる。promptでは「丸い広間に7本が接する」と肯定形で解釈（本数・辺・幅は変えない）。
+- 工程2: BDY-02 の完全prompt草案と参照一覧を作成（`verification/body-layout/BDY-02-prompt.md`）。画像は未生成。
+
+## これからやること
+- BDY-02 prompt の独立レビュー（生成前・sonnet。メインがSonnetのため上限規則でopusは使わない）。通れば BDY-02 を1枚生成し、実寸・生画像レビュー→kako-jun採否。
+- 未決（kako-jun確認事項）: 口の辺（北/東）、通行幅の実数、赤い折り紙・毛糸の量。
+
+--
+author:	kako-jun
+association:	owner
+edited:	false
+status:	none
+--
+## kako-jun 決定（2026-10-22「推奨で」）
+BDY-02 の以下を、提示した推奨どおりに確定:
+1. 口の辺 = 北辺（頭の右隣）。
+2. 7本の辺と位置 = 北: 頭・口／東: 右腕・肺／南: 心臓・下半身／西: 左腕（割付図 `verification/body-layout/BDY-02.png` の位置）。
+3. 中央 = 丸い広間（paper clay の丸い地形）に7本が接する。
+4. 通路幅 = 画像幅の14%（269px。「キャラクター3人が横に並べる幅」の仮置き）。
+5. 赤い折り紙 = 手切りで輪郭が不揃いな赤い紙片を6枚。毛糸 = クリームと薄桃。
+
+## これからやること
+- 上の決定を prompt の原文束へ逐語で追記し、「kako-jun決定待ち」表記を外す。
+- 再レビュー（sonnet・独立）→ 通過後に BDY-02 を1枚生成 → 実寸・実画素検査 → 生画像レビュー → 採否。
+
+--
+
+[map-asset-registry.md 表見出し（174行）]
+| ID | 管理名 | 地区 | 契約 |
+|---|---|---|---|
+[map-asset-registry.md:176]
+| BDY-02 | `BDY-02` | 抽象体内 | 上半身・胴体上段。7経路は画像端で遷移し、方位は `docs/topology/body.svg` に従う（口=北東、頭=北、左腕=北西、右腕=北東、下半身=南、心臓=南西、肺=南東）。口から胴体への首道は1本、頭道はそこから分岐。体外形・洞窟口は描かず、平面床と低い仕切りで道を作る。心臓・肺の部屋と胃は描かない（胃はBDY-03からBDY-15へ接続）。架空人体・非写実・肌色寄り・非グロ、主路幅はキャラクター3人分程度。体内材料は `art-direction.md`／`map-specifications.md` を参照。 |
+
+[map-specifications.md 表見出し（203行）]
+| MAP | 時期 | 一言特徴 | 接続 | 不変条件／TBD |
+|---|---|---|---|---|
+[map-specifications.md:205]
+| BDY-02 | 中3 | 上半身・胴体上段（最初に契約する体内MAP） | door-passage-mouth→BDY-01.door-passage-torso、door-passage-lower→BDY-03.door-passage-upper、door-passage-head→BDY-04.door-passage-torso、door-passage-left-arm→BDY-05.door-passage-torso、door-passage-right-arm→BDY-07.door-passage-torso、door-passage-heart→BDY-16.door-passage-torso、door-passage-lung→BDY-17.door-passage-torso | 上半身の独立した1MAP。各通路は画像の端まで続き、端で隣のMAPへ遷移する。配置方位は `docs/topology/body.svg` に従う: 口=北東、頭=北、左腕=北西、右腕=北東、下半身=南、心臓=南西、肺=南東。口から胴体へ入る首の通路は1本だけで、頭はそこから分かれる北向きの枝。体の外形は描かず、平面の床と低い仕切りだけで通路を作る。心臓・肺の部屋自体はBDY-16/17にあるため描かず、胃への接続も置かない（胃BDY-15は下半身BDY-03から接続）。7接続のみ。幼稚園児が考える架空人体、肌色寄り・非写実・非グロ。全主路・枝はキャラクター3人分程度の幅。材料は体内共通仕様。 |
+
+[map-topology.md:118 冒頭規則、逐語]
+以下は接続の向きを一意にする正本である。`→` の両側は必ず反対の画像辺とし、`door` は画像端でなく室内・階層遷移である。`event` は一方向の物語イベント、`oneway` は一方向の通常移動。`door-passage-*` は体内の抽象通路名で物理的な扉ではない。`pending` は旧仮説のID追跡だけの行で、隣接・通行路・生成契約ではない。`§3.1` 以降の旧試作時の図・発注文は履歴説明であり、ここにない辺指定を新規プロンプト、画像生成、マスクに使ってはならない。
+
+[map-topology.md 表: BDY-02 に入る・出る接続行]
+| BDY-01.door-passage-torso | BDY-02.door-passage-mouth | door | 架空人体の抽象通路。door-passageは物理的な扉でない。上半身/下半身2枚・手各2枚・足各3枚の連続一本道 |
+| BDY-02.door-passage-lower | BDY-03.door-passage-upper | door | 架空人体の抽象通路。door-passageは物理的な扉でない。上半身/下半身2枚・手各2枚・足各3枚の連続一本道 |
+| BDY-02.door-passage-head | BDY-04.door-passage-torso | door | 架空人体の抽象通路。door-passageは物理的な扉でない。上半身/下半身2枚・手各2枚・足各3枚の連続一本道 |
+| BDY-02.door-passage-left-arm | BDY-05.door-passage-torso | door | 架空人体の抽象通路。door-passageは物理的な扉でない。上半身/下半身2枚・手各2枚・足各3枚の連続一本道 |
+| BDY-02.door-passage-right-arm | BDY-07.door-passage-torso | door | 架空人体の抽象通路。door-passageは物理的な扉でない。上半身/下半身2枚・手各2枚・足各3枚の連続一本道 |
+| BDY-02.door-passage-heart | BDY-16.door-passage-torso | door | 架空人体の抽象通路。door-passageは物理的な扉でない。上半身/下半身2枚・手各2枚・足各3枚の連続一本道 |
+| BDY-02.door-passage-lung | BDY-17.door-passage-torso | door | 架空人体の抽象通路。door-passageは物理的な扉でない。上半身/下半身2枚・手各2枚・足各3枚の連続一本道 |
+
+[map-topology.md 684行（見出し）・686行・688行 体内の現行空間設計（#74・追加ボリューム決定）、逐語]
+## 体内の現行空間設計（#74・追加ボリューム決定）
+
+TRM-01園庭→BDY-01口は一方向の物語イベント。病院・海外からの体内経路や恒常的な徒歩口ではない。胴体は縦2MAP、上半身BDY-02→下半身BDY-03。頭BDY-04は上半身の上の迷路状通路。左右の手は上半身から斜め上へ伸び、左BDY-05→BDY-06／右BDY-07→BDY-08の各2MAPの一本道。左右の足は下半身から斜め下へ伸び、左BDY-09→BDY-10→BDY-11／右BDY-12→BDY-13→BDY-14の各3MAPの一本道。手足末端は閉じ、手足相互の連絡や迂回路を足さない。方向は分岐の方位であり、各手足MAPには縦方向の通路ボリュームを持たせる。
+
+BDY-15胃・BDY-16心臓・BDY-17肺はそれぞれ独立したMAPで、胴体からの単純な分岐室。医学的解剖や写実的臓器ではなく、現実離れした幼稚園児の想像する架空人体の抽象概念、肌色寄りでよい。胃の盾役・エラー細胞と、心臓での水の精霊・火による復活という既存の物語を保持。BDY-02の作画契約: 口→上半身→下半身を中央主路でつなぎ、頭・左右の腕・心臓・肺を枝にする。各経路は画像端で隣MAPへ遷移し、洞窟状の穴や物理的な扉は描かない。体の外形を描かず、平面床と低い仕切りで道を作る。配置方位は `docs/topology/body.svg` のBDY-02接続線に従う。心臓・肺の部屋はBDY-02内に描かず、胃はBDY-03からBDY-15へ接続する。空間接続から新たな攻略順・肺ボス・全枝任意という条件を決めない。迷路形状・mask/pixel・幅・発火条件はTBD。
+
+[map-contract-checklist.md 表見出し（138行）]
+| ID | 状態 | Ref | mask / 出力 | 具体的TBD |
+|---|---|---|---|---|
+[map-contract-checklist.md:140]
+| BDY-02 | blocked | R018 | 先行previewはユーザー却下（体の外形・洞窟状の穴）。正本未保存・mask未作成。再生成前に配置モックが必要。 | 上半身・胴体上段。接続契約は `map-specifications.md` BDY-02 行と `docs/topology/body.svg` を照合する。口から胴体への首道は1本、頭はその枝。各経路は画像端で隣MAPへ遷移する。体外形・洞窟口・物理扉なし。平面床と低い仕切り。心臓・肺の部屋はBDY-16/17、胃BDY-15はBDY-03から接続。架空人体・非写実・肌色寄り・非グロ、通路幅はキャラクター3人分程度、体内材料は `art-direction.md` 参照。配置モック、生画像レビュー、採否、maskは未完了。 |
+
+[docs/art-direction.md 195行（見出し）・197行（本文）#74 体内の最新空間・色の契約、逐語]
+## #74 体内の最新空間・色の契約
+
+体内は医学的な身体の再現でなく、現実離れした幼稚園児の想像する架空人体の抽象的概念。肌色寄りでよく、血や写実的な臓器・内壁を描かず、グロくしない。胴体は縦2MAPの上半身/下半身、手各2MAP・足各3MAPの縦通路ボリューム。頭は上、手は斜め上、足は斜め下。脳は迷路状通路、心臓・肺は単純な分岐室。背景共通の手作りジオラマに合わせ、5 mm foamboardの土台と見えるcorrugated cardboard断面、指跡・爪楊枝の跡を残したpaper clayの丸い地形を使う。肌色・薄桃・クリーム色のmatte poster paintで着色し、赤い折り紙を切った形を血痕に見えない明確な工作アクセントとして置く。毛糸は通路の縁や造形の継ぎ目に用い、雪の綿は使わない。白いPVA接着剤とmasking tapeで固定し、紙端・接着・塗りの手作り感を残す。旧『紙粘土・セロファンだけ』『口から手足が直結』という解釈を新規生成の固定根拠にしない（材料決定は2026-10-21 kako-junとの相談）。
+
+[docs/map-reference-research.md R018 行と #74 体内の最新根拠]
+24:| R018 | BDY-01〜BDY-17 | `docs/art-direction.md` と `docs/assets-policy.md`／プロジェクト正本 | 人体の写実・流血・臓器表現を避け、幼稚園児が想像する架空人体を肌色寄りの手作りジオラマで表す。共通背景の工作材（foamboard・段ボール・paper clay・matte poster paint）に、赤い折り紙の切片と毛糸を加える。雪景色の綿は使わない（2026-10-21決定） | 体内のMAPごとの敵・戦闘域は各契約行で決める |
+## #74 体内の最新根拠
+
+ユーザー原文に基づく空間: 胴体は縦2MAP（上半身・下半身）、手は各2MAP、足は各3MAPの通路。頭上・手左右斜め上・足左右斜め下、脳は迷路、心臓・肺は単純な分岐室。非写実・現実離れした幼稚園児の想像する架空人体、肌色寄り。医学的資料から形状を推測しない。BDY-02上半身/BDY-03下半身への各部接続と肺BDY-17は制作上のID配置。胃を下半身、心臓と肺を上半身から分けることは抽象的なゲーム配置で、解剖の事実ではない。
+
+[docs/decisions.md 341行（体内空間の決定）]
+体内入口はTRM-01園庭→BDY-01口の物語イベント。胴体は縦2MAPの上半身BDY-02・下半身BDY-03、左右手各2MAP、左右足各3MAP。手足は一本道、頭は上の迷路通路、胃・心臓・肺は単純な分岐室。肌色寄りの幼稚園児の想像する架空人体で医学的写実はしない。新規BDY-02〜BDY-03・BDY-05・BDY-07・BDY-09〜BDY-10・BDY-12〜BDY-13・BDY-17を追加して全126MAP。既存の胃・心臓の物語条件を保持。工程Aをコミット・プッシュしてから、工程Bで全体図と残りの全MAP接続図を作る。
+
+[相手側MAPの原文（接続相手: BDY-01 / BDY-03 / BDY-04 / BDY-05 / BDY-07 / BDY-16 / BDY-17）。registry]
+111:| BDY-01 | `BDY-01` | 抽象体内 | 口・体内入口。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+116:| BDY-04 | `BDY-04` | 抽象体内 | 頭・脳の迷路通路。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+118:| BDY-16 | `BDY-16` | 抽象体内 | 心臓・分岐室。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+177:| BDY-17 | `BDY-17` | 抽象体内 | 肺・分岐室。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+183:| BDY-03 | `BDY-03` | 抽象体内 | 下半身・胴体下段。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+184:| BDY-05 | `BDY-05` | 抽象体内 | 左手通路1・付け根側。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+185:| BDY-07 | `BDY-07` | 抽象体内 | 右手通路1・付け根側。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+[相手側 specifications]
+119:| BDY-01 | 中3 | 口・体内入口 | door-passage-torso→BDY-02.door-passage-mouth | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+124:| BDY-04 | 中3 | 頭・脳の迷路通路 | door-passage-torso→BDY-02.door-passage-head | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+126:| BDY-16 | 中3 | 心臓・分岐室 | door-passage-torso→BDY-02.door-passage-heart | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+206:| BDY-17 | 中3 | 肺・分岐室 | door-passage-torso→BDY-02.door-passage-lung | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+212:| BDY-03 | 中3 | 下半身・胴体下段 | door-passage-upper→BDY-02.door-passage-lower、door-passage-left-leg→BDY-09.door-passage-torso、door-passage-right-leg→BDY-12.door-passage-torso、door-passage-stomach→BDY-15.door-passage-torso | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+213:| BDY-05 | 中3 | 左手通路1・付け根側 | door-passage-torso→BDY-02.door-passage-left-arm、door-passage-tip→BDY-06.door-passage-base | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+214:| BDY-07 | 中3 | 右手通路1・付け根側 | door-passage-torso→BDY-02.door-passage-right-arm、door-passage-tip→BDY-08.door-passage-base | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+[相手側 contract-checklist]
+75:| BDY-01 | blocked | R018 | 未生成・mask未作成 | 口・体内入口。door-passage-torso→BDY-02.door-passage-mouth。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+80:| BDY-04 | blocked | R018 | 未生成・mask未作成 | 頭・脳の迷路通路。door-passage-torso→BDY-02.door-passage-head。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+82:| BDY-16 | blocked | R018 | 未生成・mask未作成 | 心臓・分岐室。door-passage-torso→BDY-02.door-passage-heart。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+141:| BDY-17 | blocked | R018 | 未生成・mask未作成 | 肺・分岐室。door-passage-torso→BDY-02.door-passage-lung。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+147:| BDY-03 | blocked | R018 | 未生成・mask未作成 | 下半身・胴体下段。door-passage-upper→BDY-02.door-passage-lower、door-passage-left-leg→BDY-09.door-passage-torso、door-passage-right-leg→BDY-12.door-passage-torso、door-passage-stomach→BDY-15.door-passage-torso。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+148:| BDY-05 | blocked | R018 | 未生成・mask未作成 | 左手通路1・付け根側。door-passage-torso→BDY-02.door-passage-left-arm、door-passage-tip→BDY-06.door-passage-base。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+149:| BDY-07 | blocked | R018 | 未生成・mask未作成 | 右手通路1・付け根側。door-passage-torso→BDY-02.door-passage-right-arm、door-passage-tip→BDY-08.door-passage-base。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・pixel/mask・脳内迷路はTBD、blocked。 |
+
+[docs/map-reference-research.md:57（BDY の視覚契約行）、逐語]
+| BDY-01〜BDY-17 | 体内の抽象ダンジョン | 実在写真を参照しない。安全表現・接続・ボス配置の視覚契約をMAP別に書くまで生成不可 |
+
+[docs/map-topology.md:46・616（体内エリア行。同文）、690、逐語]
+| 体内 | 中3 | ダンジョン・既存の部位イベント | 17MAP | 0 | 上半身/下半身各1、手各2、足各3、口・頭・胃・心臓・肺 | 肌色寄りの幼稚園児の架空人体。非写実 | 頭は上、手は斜め上、足は斜め下の一本道 | 脳は迷路、心臓・肺は分岐室 |
+119案の単一胴体・各手足1MAPは追加口述により失効。全130MAP（#87/#89でKRB-02・NTB-07、#87でデパート2階KRB-03・4階KRB-05を追加）、体内17MAP。工程Aの体内正本をコミット・プッシュした後、工程Bの全体図・アトラス・全15エリア図も更新済み。
+
+[注記] BDY-02 の視覚契約に相当するのは map-specifications.md:205（上掲）。map-reference-research.md:57 が言う「ボス配置の視覚契約」について、BDY-02 に関する原文はなく、BDY-02 にボス配置は描かない。
+
+[再構築候補台帳 docs/teramachi-rebuild-candidates.md: BDY の行は無い（寺町専用。grep 0件）。TBD一覧は生成側へ送らない]
+
+=== WHAT TO DRAW (positive description; sentence numbers P1.. are referenced in the correspondence table) ===
+P1. This is ONE independent map, BDY-02, seen as a hand-made tabletop diorama from above. The whole frame is the top surface of the model: the floor of the passages, the paper-clay terrain between them, and low partitions. The image is the model seen from above and shows nothing outside the model.
+P2. THE SEVEN PASSAGES. Seven flat floor bands, each 270 px wide (0.14 of the image width, a stand-in for three characters side by side; no character is drawn), run from the central floor to the image edges and continue ALL THE WAY to the edge of the frame, where they end cut off by the frame (each leads on to the next map through the frame edge). Positions in the 1920x1080 frame, copied from the layout diagram (first image):
+  - North edge (top), 2 passages: the head passage at x 825 to 1094 (running straight down toward the middle); the neck passage (from the mouth) at x 1286 to 1555 (sweeping down and to the left toward the middle).
+  - East edge (right), 2 passages: the right-arm passage at y 167 to 436 (sloping down and to the left toward the middle); the lung passage at y 664 to 933 (sloping up and to the left toward the middle).
+  - South edge (bottom), 2 passages: the heart passage at x 364 to 633 (rising and bending toward the middle); the lower-body passage at x 825 to 1094 (running straight up toward the middle).
+  - West edge (left), 1 passage: the left-arm passage at y 405 to 674 (running to the right, toward the middle).
+  Along every other stretch of the four frame edges, the frame edge cuts through solid raised paper-clay terrain: the floor bands are the only floor that reaches the frame, 7 in all.
+P3. THE CENTRAL FLOOR AND THE ROUND PLATFORM. At the middle of the model the seven bands join one central mass of flat floor, with exactly the outline shown in the layout diagram (first image); this central floor is the same plain flat floor as the passages (same cream and pale peach, no new colour). On the middle of this central floor stands a round platform: a round raised disc of smooth paper clay, centred at about x 960, y 600, with a radius of 198 px (diameter 396 px), a size measured from the layout diagram as the largest circle centred there that lies entirely inside the floor. The platform is raised above the surrounding floor, like a low round step, not a pit or a hole; it is a low walkable step: its top and rim can be walked over by the characters. It has a low rounded paper-clay rim that runs continuously all the way around its circumference, with no gap anywhere. The platform lies wholly inside the central floor, tangent to the floor outline at its radius (r = 198, zero margin), and touches no frame edge. The seven bands keep their width and their number and are joined to the central floor as in the diagram; the outline of the whole floor (the bands and the central floor) is exactly as in the layout diagram. The top of the platform is a flat, plain surface of smooth paper clay with nothing placed on it: no organ, no heart, no lung, no stomach, no face.
+P4. THE NECK AND THE HEAD. The neck passage is ONE single passage; the head passage is the northward branch that joins the neck passage on the north side of the central floor (the two bands merge on the north side of the central floor into one route that runs into it, as in the layout diagram). The lower-body passage is the straight route running south from the central floor.
+P5. The passages are plain flat floors. Between and beside them, every non-passage part of the frame is rounded raised terrain made of paper clay, bordered along the passage edges by LOW PARTITIONS (low ridges built from stacked strips of corrugated cardboard, with paper clay smoothed over their tops, seen from above as raised borders; the wavy cross-section of the corrugated strips is visible on their cut sides) that make the passages. There are no doors, door frames or gates, no cave mouths, no round holes or tunnel mouths, no outline of any body: the model is only a flat floor, low partitions and terrain.
+P6. The place is an imaginary human body as a kindergarten child would imagine it: skin-toned, a toy-like and non-realistic craft, soft and clean.
+P7. COLORS: matte poster paint in flesh skin tone, pale pink and cream, applied with a flat brush (brush streaks and uneven coats visible). Passage floors cream and pale peach; the central floor in the same cream and pale peach as the passage floors, and the platform top in the same cream and pale peach range (no new colour); terrain and partitions skin tone and pale pink.
+P8. Yarn (wool yarn in cream and pale pink; these two colours only) is glued along the edges of the passages and at the seams between partitions and terrain.
+P9. Exactly 6 hand-cut red paper pieces with uneven edges (cut with scissors from red origami paper, flat on the surface, glued with PVA) are placed on the terrain and on the partitions as clear craft accents. Their outlines are irregular and unequal, not drawn as any particular symbol; they are clean paper cut-outs, never blood stains or liquid.
+P10. MATERIALS AND TOOLS (every material must be identifiable at full size): terrain core: 5 mm foamboard cut in layers that form the steps of the terrain; partitions: strips of corrugated cardboard stacked into low bands, with the exposed corrugated cross-section (the wavy flute layer) visible on their cut edges; terrain surface and platform: paper clay modelled by hand, with toothpick marks, finger prints and spatula marks; floors: matte poster paint on paper clay; edges and seams: yarn; joints and fixing: strips of masking tape and white PVA glue with squeeze-out visible; accents: 6 pieces of red origami paper cut by hand with scissors. Hand-made roughness required: glue squeeze-out, thread lint, ragged hand-cut paper edges, paint unevenness, visible material seams, coarse grain. Parts look like paper and clay (matte, soft edges), not like real skin, flesh, organs or stone. It must read as a crude hand-made model, not a photograph.
+P11. CAMERA: the whole picture is the top surface of the tabletop model, filled edge to edge by the model. The camera looks down steeper than 45 degrees from horizontal, as close to straight down as possible, never lower than 45 degrees from horizontal. North is the top of the image. Flat evenly lit tabletop light. The picture has no sky, no horizon, no vanishing point, no people, no characters, no readable text, no letters, no numbers, no logos.
+P12. DIMENSIONS: request 1920x1080 (16:9). If the tool cannot return it, 1672x941 is acceptable. Any other size is a failure; never resize or crop to pass. Measure the real output file.
+
+=== REFERENCE (two attached images, in this order) ===
+FIRST IMAGE: a flat layout diagram with two plain flat colours and no text: the light cream area is the passage floor, the brown area is everything else. Copy ONLY the geometry of the passages exactly: the number of passages (7), the edge each reaches, the position along that edge, the band width and the outline of each band and of the central floor mass. The central floor mass keeps its diagram outline as flat floor; on top of it, add the round platform of P3 (centre about x 960, y 600, radius 198 px, continuous low rim all round). Repaint everything as the hand-made model described above: the cream area becomes the passage floors painted as in P7, and the brown area becomes the paper-clay terrain and low partitions described in P5. Do NOT carry over the diagram's two flat colours or its perfectly straight, hard edges.
+SECOND IMAGE: a thin close-up strip of the front edge of a hand-made cardboard miniature base. Take from it ONLY the feel of three materials: the exposed corrugated cardboard cross-section (the wavy flute layer along the top of the strip), the masking tape, and the ragged torn paper edge. Take no content from it, and ignore the few white cotton fibres at its top edge and its brown colour.
