@@ -47,9 +47,9 @@
 - `{C001,C002}-{elementary,teen,adult,midlife}.webp`: 小学生・中学生・青年・壮年の三面図。
 - `{C001,C002}-{elementary,teen,adult,midlife}-wheelchair.webp`: 事故後の主人公としての車椅子姿（膝掛けで脚を覆う）。
 - `{C003,C004}-{elementary,teen,adult}.webp`: シャー・ペー子の小学生・中学生・青年。壮年編では2人とも離脱するので壮年版は作らない。
-- フィールドの歩きは、上下左右の4方向に加え、**斜め4方向（左上・右上・左下・右下）も作る**（2026-10-14 kako-jun。斜めに歩く道があるため）。斜めの左向きは、右向きの反転でよい。
+- フィールドの歩きは、上下左右の4方向に加え、**斜め4方向（左上・右上・左下・右下）も作る**（2026-10-14 kako-jun。斜めに歩く道があるため）。斜めの左向きは、右向きの反転でよい。C001幼稚園期の斜め歩き12枚を2026-10-23に追加。
 - フィールドの歩きは主人公（男＝オトン／女＝ナム）の分だけ作る（フィールドは先頭の主人公1人だけ表示。2026-10-14）。他の仲間の歩きは不要。
-- フィールドの歩き: 幼稚園期（スノーボードウェア）は `assets/images/characters/Cxxx/walk/Cxxx-walk-{dir}-{1,2,3}.webp`、小学生は `Cxxx-elementary-walk-{dir}-{1,2,3}.webp`。戦闘ポーズの小学生版は `poses/Cxxx-elementary-{pose}.webp`。事故後の主人公（オトン/ナム）の車椅子版は `Cxxx-elementary-wheelchair-{pose}.webp` と `Cxxx-elementary-wheelchair-walk-{dir}-{1,2,3}.png`。4方向×3コマは仮の仕様で、name-name のフィールド移動の仕様が決まったら合わせる。
+- フィールドの歩き: 幼稚園期（スノーボードウェア）は `assets/images/characters/Cxxx/walk/Cxxx-walk-{dir}-{1,2,3}.webp`（`dir`: `down`, `left`, `right`, `up`, `downleft`, `downright`, `upleft`, `upright`）、小学生は `Cxxx-elementary-walk-{dir}-{1,2,3}.webp`。戦闘ポーズの小学生版は `poses/Cxxx-elementary-{pose}.webp`。事故後の主人公（オトン/ナム）の車椅子版は `Cxxx-elementary-wheelchair-{pose}.webp` と `Cxxx-elementary-wheelchair-walk-{dir}-{1,2,3}.png`。各方向3コマは仮の仕様で、name-name のフィールド移動の仕様が決まったら合わせる。
 - AI の定番見た目だった旧テンプレ絵（成長シート・車椅子シート・方向確認サンプル）は 2026-10-14 に撤去した。
 
 ### 年齢段階と衣装

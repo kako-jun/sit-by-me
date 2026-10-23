@@ -48,7 +48,7 @@ uv run --with pillow --with numpy --with scipy python3 -I verification/character
 
 ## フィールドの歩き（幼稚園期・スノーボードウェア）
 
-`key_walk.py`: 4行×3列の歩きグリッド（クロマキー背景）を透過にし、12コマを同じ大きさの枠へ足元そろえで切り出す。絵がセル境界をまたぐので、`key_grid.py` と同じく全体でかたまりを見つけて重心でコマへ振り分ける。生成では2行目と3行目の向きが入れ替わることがあるので、行の向きを引数で指定する（顔を拡大して確かめる）。出力は `walk/{name}-walk-{down,left,right,up}-{1,2,3}.webp`。
+`key_walk.py`: 4行×3列の歩きグリッドを透過にし、12コマを同じ大きさの枠へ足元そろえで切り出す。背景指定は `alpha`（透過生成）またはクロマキー色。絵がセル境界をまたぐので、`key_grid.py` と同じく全体でかたまりを見つけて重心でコマへ振り分ける。生成では行順が変わることがあるので、顔と背中を拡大して向きを確認し、引数で各行を指定する。方向は `down`, `left`, `right`, `up`, `downleft`, `downright`, `upleft`, `upright`。出力は `walk/{name}-walk-{dir}-{1,2,3}.webp`。
 
 ```
 uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_walk.py \
@@ -59,9 +59,11 @@ uv run --with pillow --with numpy --with scipy python3 -I verification/character
   <生成グリッド>/C003-walk-grid.png assets/images/characters/C003/walk C003 magenta down,left,right,up
 uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_walk.py \
   <生成グリッド>/C004-walk-grid.png assets/images/characters/C004/walk C004 green down,right,left,up
+uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_walk.py \
+  <生成グリッド>/C001-diagonal-walk-grid.png assets/images/characters/C001/walk C001 alpha downleft,downright,upleft,upright
 ```
 
-コマ数（4方向×3コマ）と枠の大きさは仮。name-name にフィールド移動のモードができたら、その仕様に合わせる。
+コマ数（各方向3コマ）と枠の大きさは仮。name-name にフィールド移動のモードができたら、その仕様に合わせる。
 
 ## 小学生（少年編前半）
 
