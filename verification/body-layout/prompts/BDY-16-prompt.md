@@ -1,5 +1,7 @@
 # BDY-16（心臓・分岐室）装飾込み1回生成の完全 imagegen prompt（`build_body_prompt.py` 自動生成。Issue #142）
 
+> 履歴: 2026-10-22 時点の生成記録。2026-10-23 に TRM-01 は TRM-03 に統合（園庭=TRM-03の右の区画、起点は TRM-03.event-kiss）。現行の正本は docs/map-topology.md と docs/production/body-masks/BDY-01-links.json。本文中の TRM-01・行番号は当時のまま（送信済みの逐語記録）。
+
 状態: **機械生成・独立レビュー未実施・画像未生成**。`.claude/skills/sit-field-background/SKILL.md` のゲート（台帳原文・材料固定宣言・一意解釈・寸法）に沿う。型は採用済み BDY-02（v2 の構図・原文束、v3 の装飾語彙）。画像は生成しない。
 
 ## 0. 来歴・警告・TBD

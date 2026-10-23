@@ -30,7 +30,7 @@
 - 保存済み（採用・#142 2026-10-22）: `assets/images/fields/reference/body-lungs-bdy17-adopted.webp`（BDY-17（肺・5部屋の外周の環。案A）の基準状態。様式参照なし・装飾込み1回生成。非可逆WebP品質85、実寸1672×941・リサイズなし、194,058 bytes、sha256 `dc1c67d1c156565ca19ec006d38de13a484a601064aa5cecbbec80e9702633a4`。PNG原本は残さない）。マスク作成済み・第2回red-team済み・blocked維持・runtime未切替。来歴は [体内MAP採用記録](20261022-body-maps-adoption.md)。
 - `raw/`・`verification/`（検証JSON・VFIELD・prototype/legacy-masks）・BG002〜004・BG006〜009（candidates/ ごと）・DIAG は #68 の追従PRで削除済み。復元は git 履歴から。
 
-寺町16枚の全再作成と全件通過後の一括切替（#51）は継続する。
+寺町15枚（TRM-02〜TRM-16。旧TRM-01は統合で廃止）の全再作成と全件通過後の一括切替（#51）は継続する。
 
 全712ファイルの旧→新／削除、SHA-256、理由は [移行manifest](20261018-asset-migration.json)。全行の復元元はmanifestの `base_commit` で、`git show <base_commit>:<old>` が元データを返す。元promptは既存の記録以外から復元・創作しない。過去レビューのパスは当時の記録として残す。
 
