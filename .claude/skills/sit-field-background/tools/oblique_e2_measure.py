@@ -49,7 +49,9 @@ DECOR_GATES = {
     "desk_dE_area_max": 15.0,          # 机の平均色がエリア固定値から ΔE 15 以内（MAP間で机が変わらない）
     "desk_inter_take_dE_max": 8.0,     # テイク間の机の平均色の最大ペア差
     "desk_grain_ratio_min": 0.80,      # 板目の向き: 横方向の板目エネルギー比 gy²/gx²（横=エリア固定）。採用4枚の実測 1.58/0.81(本堂=混在)/2.46/1.39
-    "outside_evergreen_ratio_min": 0.30, "outside_branch_ratio_min": 0.30, "outside_grass_ratio_min": 0.20,
+    # 2026-10-23 基準変更（生成前に e2-report.md へ記録）: 常緑樹は元画像比でなく松の緑量の絶対基準（外周に占める針葉の割合）
+    "outside_pine_green_abs_min": 0.003,
+    "outside_evergreen_ratio_min": None, "outside_branch_ratio_min": 0.30, "outside_grass_ratio_min": 0.20,
 }
 ROUND2_IF_PASS_LT = 2  # 合格テイクがこの数未満なら追加ラウンド
 
@@ -110,6 +112,20 @@ def regions(plan, size):
     for f in floors:
         fl |= f
     return R, fl
+
+
+def base_band(plan, size):
+    """家具箱の接地線（前面の下辺＋見える側面の下辺）の帯。装飾込みの上面で測らない（2026-10-23 基準変更）。"""
+    out = {}
+    for b in plan["boxes"]:
+        x0, y0, x1, y1 = b["rect"]
+        sidex = x1 if (x0 + x1) / 2 <= om.BASE_W / 2 else x0
+        m = np.zeros((size[1], size[0]), np.uint8)
+        for a, c in (((x0, y1), (x1, y1)), ((sidex, y0), (sidex, y1))):
+            pa = tuple(int(round(v)) for v in om.proj(*a)); pc = tuple(int(round(v)) for v in om.proj(*c))
+            cv2.line(m, pa, pc, 1, 7)
+        out[("box", b["id"])] = m > 0
+    return out
 
 
 def band(mask, w=3):
@@ -270,7 +286,7 @@ def decor_eval(rgb, ge, masks, hull_box, ref, area=None):
     o, ro = d["outside_objects"], ref["outside_objects"]
     g["outside_flat_white"] = o["flat_white_frac"] <= G["outside_flat_white_max"]
     g["outside_trees"] = o["tree_blobs"] >= G["outside_tree_blobs_min"] and len(o["tree_sides"]) >= G["outside_tree_sides_min"]
-    g["outside_evergreen"] = o["evergreen_frac"] >= G["outside_evergreen_ratio_min"] * ro["evergreen_frac"]
+    g["outside_evergreen"] = o["evergreen_frac"] >= G["outside_pine_green_abs_min"]
     g["outside_branch"] = o["branch_frac"] >= G["outside_branch_ratio_min"] * ro["branch_frac"]
     g["outside_grass"] = o["grass_frac"] >= G["outside_grass_ratio_min"] * ro["grass_frac"]
     return d, g
@@ -321,6 +337,7 @@ def main():
     size = (W, H)
     me = cv2.Canny(cv2.cvtColor(mock, cv2.COLOR_RGB2GRAY), 40, 120) > 0
     R, floor = regions(plan, size)
+    BASE = base_band(plan, size)
     room = np.zeros((H, W), bool)
     xs = [q for k, m in R.items() for q in [m]]
     wall_polys = []
@@ -350,7 +367,7 @@ def main():
     dmock = dist_to(edges_gen(mock))
     unreliable = set()
     for (kind, rid), m in R.items():
-        s0 = best_shift(band(m) & (cv2.dilate(me.astype(np.uint8), np.ones((5, 5), np.uint8)) > 0), dmock)
+        s0 = best_shift((BASE.get((kind, rid), None) if (kind, rid) in BASE else band(m)) & (cv2.dilate(me.astype(np.uint8), np.ones((5, 5), np.uint8)) > 0), dmock)
         if (not s0) or abs(s0["dx"]) > GATES["region_shift_max_px"] or abs(s0["dy"]) > GATES["region_shift_max_px"]:
             unreliable.add(f"{kind}:{rid}")
     files = a.files or [str(out / f"take{i}.png") for i in range(1, a.takes + 1)]
@@ -376,7 +393,7 @@ def main():
         reg = {}
         for (kind, rid), m in R.items():
             # モックで実際に輪郭になっている所（壁に隠れた辺・同色の境は除く）だけを帯として使う
-            s = best_shift(band(m) & (cv2.dilate(me.astype(np.uint8), np.ones((5, 5), np.uint8)) > 0), dg)
+            s = best_shift((BASE[(kind, rid)] if (kind, rid) in BASE else band(m)) & (cv2.dilate(me.astype(np.uint8), np.ones((5, 5), np.uint8)) > 0), dg)
             ent = {"shift": s}
             if kind == "window":
                 ent["glass"] = glass_stats(rgb, m)
@@ -399,6 +416,12 @@ def main():
         r["global_shift_median_px"] = [float(np.median(sx)) if sx else None, float(np.median(sy)) if sy else None]
         ok = [abs(s["dx"]) <= GATES["region_shift_max_px"] and abs(s["dy"]) <= GATES["region_shift_max_px"] for s in shifts]
         r["region_ok_ratio"] = round(sum(ok) / max(1, len(ok)), 3)
+        # 参考（合否には使わない）: 建物の輪郭の指標＝窓・戸口の最良ずれ。家具は脚のある机などで接地線の輪郭が弱く取り違えやすい
+        ws_ = [v["shift"] for k_, v in reg.items() if k_.startswith("window") and v["shift"]]
+        ds_ = [v["shift"] for k_, v in reg.items() if k_.startswith("door") and v["shift"] and not v["unreliable_self_check"]]
+        r["structure"] = {"window_mean_abs_dy": round(float(np.mean([abs(x["dy"]) for x in ws_])), 1) if ws_ else None,
+                          "window_within8": f"{sum(1 for x in ws_ if abs(x['dx']) <= 8 and abs(x['dy']) <= 8)}/{len(ws_)}",
+                          "door_within8": f"{sum(1 for x in ds_ if abs(x['dx']) <= 8 and abs(x['dy']) <= 8)}/{len(ds_)}"}
         gl = [v["glass"] for v in reg.values() if "glass" in v]
         pk = [v["pink_residual"] for v in reg.values() if "pink_residual" in v]
         g = {
@@ -478,6 +501,7 @@ def main():
         L += ["", "領域ごとの エッジ密度比 / 色エントロピー比 / 平均色ΔE（対 ref）", "", "| region | " + " | ".join(f"take{r['take']}" for r in res) + " | ref(エッジ密度,エントロピー) |", "|---|" + "---|" * (len(res) + 1)]
         for k in ref["regions"]:
             L.append(f"| {k} | " + " | ".join(f"{r['decor']['regions'][k]['edge_ratio_vs_ref']} / {r['decor']['regions'][k]['entropy_ratio_vs_ref']}" + (f" / dE{r['decor']['regions'][k]['dE_vs_ref']}" if 'dE_vs_ref' in r['decor']['regions'][k] else "") for r in res) + f" | {ref['regions'][k]['edge_density']}, {ref['regions'][k]['color_entropy']} |")
+    L += ["", "建物の輪郭の指標（参考）: " + "; ".join(f"take{r['take']}: 窓の平均|dy| {r['structure']['window_mean_abs_dy']}・窓±8内 {r['structure']['window_within8']}・戸口±8内 {r['structure']['door_within8']}・全体ずれ中央値 {r['global_shift_median_px']}" for r in res)]
     if desk_inter:
         L += ["", f"机の天面（エリア固定）: テイク間の最大ペア差 ΔE {desk_inter['max_pair_dE']}（基準 ≤{DECOR_GATES['desk_inter_take_dE_max']}）→ {'OK' if desk_inter['ok'] else 'FAIL（全テイクの合幾何+装飾を不合格扱い）'}"]
     L += ["", "## 領域ごとの最良ずれ (dx,dy) px", "", "| region | " + " | ".join(f"take{r['take']}" for r in res) + " |", "|---|" + "---|" * len(res)]
