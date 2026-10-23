@@ -1,0 +1,434 @@
+{
+ "map": "BDY-07",
+ "image": "assets/images/fields/reference/body-right-arm-1-bdy07-adopted.webp",
+ "size": [
+  1672,
+  941
+ ],
+ "scale_vs_1920": 0.87083,
+ "image_measure": {
+  "rect_measured": [
+   133,
+   114,
+   1546,
+   786
+  ],
+  "rect_expected_scaled": [
+   120,
+   120,
+   1552,
+   820
+  ],
+  "rect_used": [
+   133,
+   114,
+   1546,
+   786
+  ],
+  "layers_ok": true,
+  "rect_ok": true,
+  "edge_dev_px": 34,
+  "floor_color": [
+   233,
+   205,
+   171
+  ],
+  "floor_color_source": "mock-core(estimate differed by 140)",
+  "floor_color_checker_estimate": [
+   203,
+   151,
+   115
+  ],
+  "floor_color_estimated_ok": true,
+  "floor_px_color_only": 104470
+ },
+ "registration": {
+  "chosen_model": "T",
+  "models": {
+   "init": {
+    "params": {
+     "dx": 0.0,
+     "dy": 0.0,
+     "dlogs": 0.0,
+     "drot_deg": 0.0,
+     "dlog_aniso": 0.0
+    },
+    "cost_px_incl_endpoint_term": 26.45,
+    "points": 426,
+    "inlier_frac": 0.108,
+    "inlier_mean_px": 4.3,
+    "inlier_max_px": 10.24,
+    "all_mean_px": 15.73,
+    "p90_px": 17.42
+   },
+   "T": {
+    "params": {
+     "dx": -0.1415,
+     "dy": 13.1654,
+     "dlogs": 0.0,
+     "drot_deg": 0.0,
+     "dlog_aniso": 0.0
+    },
+    "cost_px_incl_endpoint_term": 23.43,
+    "points": 426,
+    "inlier_frac": 0.1878,
+    "inlier_mean_px": 5.37,
+    "inlier_max_px": 10.42,
+    "all_mean_px": 14.77,
+    "p90_px": 17.42
+   },
+   "S": {
+    "params": {
+     "dx": -0.613,
+     "dy": 13.0903,
+     "dlogs": 0.0007,
+     "drot_deg": 0.0,
+     "dlog_aniso": 0.0
+    },
+    "cost_px_incl_endpoint_term": 23.43,
+    "points": 426,
+    "inlier_frac": 0.1854,
+    "inlier_mean_px": 5.32,
+    "inlier_max_px": 10.42,
+    "all_mean_px": 14.77,
+    "p90_px": 17.42
+   },
+   "SR": {
+    "params": {
+     "dx": 2.9761,
+     "dy": 16.6709,
+     "dlogs": -0.0198,
+     "drot_deg": 2.5,
+     "dlog_aniso": 0.0
+    },
+    "cost_px_incl_endpoint_term": 18.44,
+    "points": 426,
+    "inlier_frac": 0.5822,
+    "inlier_mean_px": 3.5,
+    "inlier_max_px": 10.43,
+    "all_mean_px": 8.99,
+    "p90_px": 17.42
+   },
+   "A": {
+    "params": {
+     "dx": -6.3099,
+     "dy": 14.6713,
+     "dlogs": -0.0027,
+     "drot_deg": 2.5,
+     "dlog_aniso": -0.02
+    },
+    "cost_px_incl_endpoint_term": 18.16,
+    "points": 426,
+    "inlier_frac": 0.5869,
+    "inlier_mean_px": 3.21,
+    "inlier_max_px": 10.43,
+    "all_mean_px": 8.8,
+    "p90_px": 17.42
+   }
+  },
+  "transform": {
+   "scale_x": 0.85949,
+   "scale_y": 0.83582,
+   "rot_deg": 0.0,
+   "tx": 14.25,
+   "ty": 11.82
+  },
+  "matrix_mock_to_image": [
+   [
+    0.859489,
+    0.0,
+    14.248997
+   ],
+   [
+    0.0,
+    0.835821,
+    11.822103
+   ]
+  ],
+  "residual": {
+   "points": 426,
+   "inlier_frac": 0.1878,
+   "inlier_mean_px": 5.37,
+   "inlier_max_px": 10.42,
+   "all_mean_px": 14.77,
+   "p90_px": 17.42
+  },
+  "confidence": "LOW",
+  "confidence_note": "residual=モック床境界点→画像の床（色だけで抽出）の境界までの距離。inlier=12px(x倍率)以内の割合。HIGH: inlier>=0.80 かつ平均<=4px(x倍率) / MID: >=0.5 / LOW: それ未満"
+ },
+ "floor_cut": {
+  "info": {
+   "grabcut_iters": 5,
+   "seed_deep_px": 99900,
+   "grabcut_floor_px": 141702,
+   "isolated_floorlike_components_dropped": 0,
+   "wall_bevel_sliver_removed_px": 4383,
+   "cut_before_sliver_px": 141061
+  },
+  "color_only_px": 104470
+ },
+ "floor_diff_vs_mock": {
+  "mock_floor_px": 125958,
+  "cut_floor_px": 136678,
+  "both_px": 118557,
+  "iou": 0.8229,
+  "only_image_px": 18121,
+  "only_mock_px": 7401,
+  "only_image_pct_of_mock": 14.39,
+  "only_mock_pct_of_mock": 5.88,
+  "structural_only_image_px": 18121,
+  "structural_only_mock_px": 428,
+  "structural_only_image": [
+   {
+    "area_px": 18121,
+    "bbox": [
+     1032,
+     273,
+     1545,
+     596
+    ],
+    "centroid": [
+     1307,
+     450
+    ]
+   }
+  ],
+  "structural_only_mock": [
+   {
+    "area_px": 428,
+    "bbox": [
+     1530,
+     348,
+     1545,
+     375
+    ],
+    "centroid": [
+     1537,
+     361
+    ]
+   }
+  ]
+ },
+ "edge_bias_signed_px": {
+  "S(下向きの縁)": {
+   "n": 330,
+   "mean_px": -2.39
+  },
+  "N(上向きの縁)": {
+   "n": 742,
+   "mean_px": 3.94
+  },
+  "E(右向きの縁)": {
+   "n": 227,
+   "mean_px": 2.03
+  },
+  "W(左向きの縁)": {
+   "n": 6,
+   "mean_px": 19.84
+  }
+ },
+ "topology": {
+  "components": {
+   "count": 1,
+   "big_count": 1,
+   "sizes_top": [
+    136678
+   ]
+  },
+  "mock_components": {
+   "count": 1,
+   "big_count": 1,
+   "sizes_top": [
+    125958
+   ]
+  },
+  "exits": {
+   "N": {
+    "image_count": 1,
+    "mock_count": 1,
+    "spec_count": 1,
+    "match": true,
+    "pairs": [
+     {
+      "image": [
+       829,
+       1105
+      ],
+      "mock": [
+       804,
+       1204
+      ],
+      "center_shift_px": -37.0,
+      "width_image": 277,
+      "width_mock": 401
+     }
+    ],
+    "mock_only": []
+   },
+   "E": {
+    "image_count": 1,
+    "mock_count": 1,
+    "spec_count": 1,
+    "match": true,
+    "pairs": [
+     {
+      "image": [
+       393,
+       596
+      ],
+      "mock": [
+       332,
+       576
+      ],
+      "center_shift_px": 40.5,
+      "width_image": 204,
+      "width_mock": 245
+     }
+    ],
+    "mock_only": []
+   },
+   "S": {
+    "image_count": 0,
+    "mock_count": 0,
+    "spec_count": 0,
+    "match": true,
+    "pairs": [],
+    "mock_only": []
+   },
+   "W": {
+    "image_count": 0,
+    "mock_count": 0,
+    "spec_count": 0,
+    "match": true,
+    "pairs": [],
+    "mock_only": []
+   }
+  },
+  "slice_profile_image": {
+   "h": [
+    2,
+    2,
+    2,
+    2,
+    1,
+    1,
+    1,
+    0,
+    0
+   ],
+   "v": [
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    2,
+    2,
+    2
+   ]
+  },
+  "slice_profile_mock": {
+   "h": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0
+   ],
+   "v": [
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "slice_profile_mismatch": {
+   "h": [
+    1,
+    2,
+    3,
+    4,
+    7
+   ],
+   "v": [
+    7,
+    8,
+    9
+   ],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "bends": {
+   "image": 0,
+   "image_turn_deg": [],
+   "mock": 1,
+   "mock_turn_deg": [
+    16.9
+   ],
+   "spec": 0,
+   "centerline_len_image_px": 938,
+   "centerline_len_mock_px": 959
+  }
+ },
+ "npc": [
+  {
+   "name": "a",
+   "ratio": [
+    0.5,
+    0.5
+   ],
+   "mock_px": [
+    960.0,
+    540.0
+   ],
+   "image_px": [
+    839.4,
+    463.2
+   ],
+   "snapped_px": [
+    1042,
+    283
+   ],
+   "snap_distance_px": 271.3,
+   "already_on_floor": false,
+   "snapped_ratio": [
+    0.6433,
+    0.2515
+   ]
+  },
+  {
+   "name": "b",
+   "ratio": [
+    0.3,
+    0.8
+   ],
+   "mock_px": [
+    631.2,
+    781.2
+   ],
+   "image_px": [
+    556.8,
+    664.8
+   ],
+   "snapped_px": [
+    898,
+    172
+   ],
+   "snap_distance_px": 599.4,
+   "already_on_floor": false,
+   "snapped_ratio": [
+    0.5414,
+    0.0863
+   ]
+  }
+ ]
+}
