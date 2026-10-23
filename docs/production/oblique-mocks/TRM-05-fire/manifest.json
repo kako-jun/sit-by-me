@@ -80,9 +80,9 @@
    ]
   },
   "wire": {
-   "input_sha": "2c8555da48fd60d138eb15efa7a8cc849455f83107509c72ffd4e331f5095608",
+   "input_sha": "a7a5007ce0c0f2d8d51048ba3786b05b24bdfa2b8e2d8a3fb90fa155e25ffca3",
    "outputs": {
-    "wire-TRM-05-fire.png": "bcb2aa32a29c34a27c93a449064b1c0886eef3c7b606ba65a91147f8a80868d5"
+    "wire-TRM-05-fire.png": "b7e1ec81079ba9fbe8868551130eaab8d53f3e1df565ca49f4905684da798c13"
    },
    "status": "ok"
   }

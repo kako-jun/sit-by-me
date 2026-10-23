@@ -68,9 +68,9 @@
    ]
   },
   "wire": {
-   "input_sha": "46c6f18728058b6bcf1a4d4b4619722ffbf3b1c77a7846490b20f8b5ceeced0e",
+   "input_sha": "f719d045182308a788f1cec1c96ece57622ae5d78451bb19eac7558e9ab03a53",
    "outputs": {
-    "wire-TRM-02.png": "3e648583c4e21ed0406deeae547e6c24fc2309b43b32b4913a875da20dd961b4"
+    "wire-TRM-02.png": "e567893d35a7c1bcd8691538f5dc04bd1a2e795e3785fd07c67c27d3910529e1"
    },
    "status": "ok"
   }

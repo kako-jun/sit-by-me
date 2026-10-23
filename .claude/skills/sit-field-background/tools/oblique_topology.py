@@ -7,6 +7,7 @@
       docs/production/oblique-mocks/connections.json --out docs/production/oblique-mocks
 """
 import argparse
+import re
 import json
 import os
 import sys
@@ -20,6 +21,20 @@ K = "#000000"
 
 
 WCN = {"2people": "2人分", "1.5people": "1.5人分", "1person": "1人分"}
+
+
+
+def width_text(doors):
+    """戸口の width_class から幅の説明文を導出する（ハードコードしない）。"""
+    g = {}
+    for d in doors:
+        g.setdefault(d.get("width_class", "2people"), []).append(d["id"].split(".", 1)[-1] if len(doors) == 1 else d["id"])
+    base = max(g, key=lambda c: len(g[c]))
+    s = "幅は原則キャラ%s" % WCN[base]
+    for c in sorted(g, key=lambda c: -M.WIDTH_CLASSES[c]):
+        if c != base:
+            s += "。%sは%s" % ("・".join(g[c]), WCN[c])
+    return s
 
 
 def fnt(n):
@@ -185,7 +200,10 @@ def build(conn_path, out):
     d = ImageDraw.Draw(img)
     f_t, f_m, f_s, f_xs = fnt(46), fnt(30), fnt(24), fnt(21)
     d.text((60, 40), C["title"], font=f_t, fill=K)
-    d.text((60, 108), "白黒ワイヤーフレーム（平面図から機械生成）。黒塗り=戸口（幅・高さともキャラ2人分）。灰=登れない。破線枠=仕切りの開口（既定・要確認）。", font=f_s, fill=K)
+    wt = width_text([dd for pp in plans.values() for dd in pp["doors"]]).split("。")
+    d.text((60, 100), "白黒ワイヤーフレーム（平面図から機械生成）。黒塗り=戸口（%s。高さはキャラ2人分）。灰=登れない。破線枠=仕切りの開口（既定・要確認）。" % wt[0], font=f_s, fill=K)
+    if len(wt) > 1:
+        d.text((60, 136), "幅の例外: " + "。".join(wt[1:]) + "。", font=f_s, fill=K)
     anchors_abs, cell_boxes = {}, {}
     for mid, cfg in C["cells"].items():
         p = plans[mid]
@@ -272,7 +290,25 @@ def build(conn_path, out):
     # 凡例・接続一覧
     lx, ly = 60, 1290
     gx, gy = 2440, 1700
-    lines = ["凡例と読み方", "・黒い丸と太線=戸口どうしの接続（点線矢印=一方向のイベント）", "・戸口の幅=キャラ2人分（132単位。手前縁で約134px）", "　ただし住居・幼稚園の外への戸口は1.5人分（100）、勝手口は1人分（66）", "・方角: 図の上が北。住居=西・本堂=中央・幼稚園=東", "・位置整合: 相手MAPの戸口との辺・位置（比）が一致=OK", "・*既定（要確認）=台帳に位置が無く仮置きした戸口", "・色つきモック: 仕切り=濃い灰（壁）", "　開口=緑（通れる所）／戸口=ピンク"] + ["・" + t_ for n in C.get("legend_notes", []) for x in n.split("。") if x for t_ in [(x + "。")[i:i + 32] for i in range(0, len(x) + 1, 32)] if t_.strip("。")]
+    items = ["黒い丸と太線=戸口どうしの接続（点線矢印=一方向のイベント）", "戸口の幅: " + width_text([dd for pp in plans.values() for dd in pp["doors"]]) + "（132単位=手前縁で約134px。1.5人分=100・1人分=66）", "方角: 図の上が北。住居=西・本堂=中央・幼稚園=東", "位置整合: 相手MAPの戸口との辺・位置（比）・幅が一致=OK", "*既定（要確認）=台帳に位置が無く仮置きした戸口", "色つきモック: 仕切り=濃い灰（壁）／開口=緑（通れる所）／戸口=ピンク"] + list(C.get("legend_notes", []))
+    lines = ["凡例と読み方"]
+    def wrap(it, n=30):
+        toks = re.split(r"(?<=[。・、／])", it)
+        out, cur = [], ""
+        for tk in toks:
+            while len(tk) > n:
+                if cur:
+                    out.append(cur); cur = ""
+                out.append(tk[:n]); tk = tk[n:]
+            if len(cur) + len(tk) > n and cur:
+                out.append(cur); cur = ""
+            cur += tk
+        if cur:
+            out.append(cur)
+        return out
+    for it in items:
+        chunks = wrap(it)
+        lines += ["・" + chunks[0]] + ["　" + c_ for c_ in chunks[1:]]
     text_box(d, (gx, gy), "\n".join(lines), f_s, bg="#ffffff", anchor="lt")
     y0 = 1750
     d.text((lx, y0), "接続一覧（詳細は connections.md）", font=f_m, fill=K)
@@ -396,7 +432,7 @@ def wire_single(p, path, plans):
     for o in p["openings"]:
         ax, ay = anchors[o["id"]]
         text_box(d, (ax - 60, ay - 14), "開口*要確認", f_xs, bg="#ffffff", pad=2)
-    text_box(d, (20, M.H_IMG - 60), "白黒ワイヤー（平面図から機械生成）。黒塗り=戸口（幅・高さともキャラ2人分）／灰=登れない／破線=仕切りの開口（既定・要確認）", f_xs, anchor="lt", bg="#ffffff", outline=None)
+    text_box(d, (20, M.H_IMG - 60), "白黒ワイヤー（平面図から機械生成）。黒塗り=戸口（%s。高さはキャラ2人分）／灰=登れない／破線=仕切りの開口（既定・要確認）" % width_text(p["doors"]), f_xs, anchor="lt", bg="#ffffff", outline=None)
     img.save(path)
 
 
