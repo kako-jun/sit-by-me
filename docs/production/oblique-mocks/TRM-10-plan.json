@@ -1,0 +1,303 @@
+{
+ "schema": "sit-oblique-plan/1",
+ "map_id": "TRM-10",
+ "name": "バリアフリースロープ",
+ "subtitle": "屋外・犀川側の団地へ下る蛇行する車椅子主路。上=TRM-09、下=TRM-11。石段なし",
+ "source": "台帳 map-topology v2 の接続行・map-specifications の寺町の行・map-asset-registry・teramachi-rebuild-candidates（TRM-01 は 2026-10-23 に TRM-03 へ統合・廃止）と Issue #51/#144 の決定。",
+ "design": "犀川側の団地へ下る雪囲いスロープ。TRM-09北→TRM-11南、蛇行する車椅子主路。途中の急段差なし。",
+ "floors": [
+  {
+   "id": "snow",
+   "rect": [
+    0,
+    0,
+    1600,
+    1270
+   ],
+   "color": "#e8eef4",
+   "label": "",
+   "walkable": false,
+   "look": "雪に覆われた地面（歩けない部分）"
+  },
+  {
+   "id": "ramp",
+   "poly": [
+    [
+     1020,
+     0
+    ],
+    [
+     1020,
+     241
+    ],
+    [
+     320,
+     461
+    ],
+    [
+     320,
+     854
+    ],
+    [
+     820,
+     1054
+    ],
+    [
+     820,
+     1270
+    ],
+    [
+     980,
+     1270
+    ],
+    [
+     980,
+     946
+    ],
+    [
+     480,
+     746
+    ],
+    [
+     480,
+     579
+    ],
+    [
+     1180,
+     359
+    ],
+    [
+     1180,
+     0
+    ]
+   ],
+   "color": "#9fa4ab",
+   "label": "緩いスロープ（蛇行）",
+   "walkable": true,
+   "look": "雪囲いと手すりのある緩い車椅子用スロープ。急な段差・石段なし",
+   "label_at": [
+    400,
+    650
+   ]
+  }
+ ],
+ "walls": [
+  {
+   "id": "house-nw",
+   "rect": [
+    60,
+    100,
+    300,
+    420
+   ],
+   "h": 120,
+   "kind": "building",
+   "color": "#e6d8b8",
+   "top_color": "#6c7077",
+   "label": "民家",
+   "window_count": 0
+  },
+  {
+   "id": "house-ne",
+   "rect": [
+    1300,
+    80,
+    1540,
+    480
+   ],
+   "h": 120,
+   "kind": "building",
+   "color": "#e6d8b8",
+   "top_color": "#6c7077",
+   "label": "民家",
+   "window_count": 0
+  },
+  {
+   "id": "house-sw",
+   "rect": [
+    60,
+    880,
+    300,
+    1200
+   ],
+   "h": 120,
+   "kind": "building",
+   "color": "#e6d8b8",
+   "top_color": "#6c7077",
+   "label": "民家",
+   "window_count": 0
+  },
+  {
+   "id": "house-se",
+   "rect": [
+    1180,
+    820,
+    1520,
+    1180
+   ],
+   "h": 120,
+   "kind": "building",
+   "color": "#e6d8b8",
+   "top_color": "#6c7077",
+   "label": "民家",
+   "window_count": 0
+  },
+  {
+   "id": "closure-n1",
+   "rect": [
+    18,
+    18,
+    1016,
+    44
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-n2",
+   "rect": [
+    1184,
+    18,
+    1582,
+    44
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-s1",
+   "rect": [
+    18,
+    1226,
+    816,
+    1252
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-s2",
+   "rect": [
+    984,
+    1226,
+    1582,
+    1252
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-w1",
+   "rect": [
+    18,
+    18,
+    44,
+    1252
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "閉鎖（塀・擁壁）",
+   "window_count": 0
+  },
+  {
+   "id": "closure-e1",
+   "rect": [
+    1556,
+    18,
+    1582,
+    1252
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "閉鎖（塀・擁壁）",
+   "window_count": 0
+  }
+ ],
+ "doors": [],
+ "markers": [
+  {
+   "id": "TRM-10.top",
+   "edge": "north",
+   "at": 1100,
+   "partner": "TRM-09.bottom",
+   "label": "TRM-09 へ（上）",
+   "status": "default",
+   "width": 160
+  },
+  {
+   "id": "TRM-10.bottom",
+   "edge": "south",
+   "at": 900,
+   "partner": "TRM-11.top",
+   "label": "TRM-11 へ（下）",
+   "status": "default",
+   "width": 160
+  }
+ ],
+ "boxes": [
+  {
+   "id": "yukigakoi-1",
+   "rect": [
+    1220,
+    100,
+    1290,
+    260
+   ],
+   "h": 70,
+   "color": "#b5a27a",
+   "label": "雪囲い",
+   "blocked": true,
+   "look": "縄と丸太の雪囲い"
+  },
+  {
+   "id": "yukigakoi-2",
+   "rect": [
+    250,
+    560,
+    320,
+    700
+   ],
+   "h": 70,
+   "color": "#b5a27a",
+   "label": "雪囲い",
+   "blocked": true,
+   "look": "縄と丸太の雪囲い"
+  }
+ ],
+ "closed_edges": [
+  {
+   "edge": "west",
+   "reason": "塀・擁壁で閉鎖"
+  },
+  {
+   "edge": "east",
+   "reason": "塀・擁壁で閉鎖"
+  }
+ ],
+ "assumptions": [
+  "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+  "既定（要確認）: 蛇行の形（上 x1100 → 左へ折り返す → 下 x900。幅160）・雪囲いの位置・民家4軒は設計に無い（台帳は『犀川側へ蛇行する車椅子主路。石段なし』のみ）。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+  "スロープの勾配・段差は平面モックに出ない（見下ろし図）。台帳『途中の急段差なし』。",
+  "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。"
+ ]
+}

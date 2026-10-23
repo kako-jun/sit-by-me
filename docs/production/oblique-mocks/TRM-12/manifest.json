@@ -1,0 +1,77 @@
+{
+ "ledger": {
+  "checklist": "docs/map-contract-checklist.md",
+  "era_suffix": null,
+  "registry": "docs/map-asset-registry.md",
+  "row_id": "TRM-12"
+ },
+ "map_id": "TRM-12",
+ "plan": "docs/production/oblique-mocks/TRM-12-plan.json",
+ "plan_sha256": "bf0d82146d426ac5a6040d90e531af29863ad5ab08527f0689495a7e718b1e3f",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-12.door": [
+     1
+    ]
+   },
+   "input_sha": "65396efd328e38da234e4d913e9b1af9e1af7aba56c31858b8ebdb96f1f8e075",
+   "outputs": {
+    "TRM-12-exits.png": "4dd52bed2bd5aa1635426c6de52048e19ac36171ad807cb1d7ab4da1de39c9f0",
+    "TRM-12-mask.json": "35c29b091f1d72686e0c3ea59b25f2bcccbe7103b5158902244494a2a2e86caf",
+    "TRM-12-mask.png": "aace252435977a08d74583038fcca41d0b02f6d3284791ec59f9af86eaa61f98"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "65396efd328e38da234e4d913e9b1af9e1af7aba56c31858b8ebdb96f1f8e075",
+   "outputs": {
+    "TRM-12-clean.png": "0d132cccd01f409708a9bd3d3764941539ebd9a8f2b2eebe01c080b1ffa98935",
+    "TRM-12-review.png": "02e90f3e4a0110c9f866483a14ff2ac122c96b32238e72c73ba53b4d4e123feb"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "65396efd328e38da234e4d913e9b1af9e1af7aba56c31858b8ebdb96f1f8e075",
+   "outputs": {
+    "TRM-12-occlusion-depth.png": "2eb521c3ec320ec391054c1540fad030d6140ba93273c333c45d4f0a0504dc97",
+    "TRM-12-occlusion-edit.png": "f5e954176a463079b09291384d823b1a844efa15a536734360fb06bc0e4798de",
+    "TRM-12-occlusion-overlay.png": "764c1ef46bfbfe1c527e238929fe87a2ab632131c0393cfc764b4906eb8afc4a",
+    "TRM-12-occlusion.json": "3250ef25d4f5448280883499824dee310cac2b6d0fe7ca4f7ee2507f1bca5d9a",
+    "TRM-12-occlusion.png": "a57a4fe591163a8db758f6a92bf9c3c127c6c19cf103cf0735dee34bd8744792"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "f246c02003ab5643665d04570fb0be4517689c49258bc9e2c1e5f7ac2ff83b17",
+   "ledger_ready": false,
+   "outputs": {
+    "TRM-12-edit-prompt.txt": "9be86977c260fd8c757351593b01dfe241a839ff1d0bbbfcf8f49d8bcb7a191b"
+   },
+   "status": "blocked"
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "c800559af8bdf6f9bafbdfef383ba1513fca96c786025e1d51057245011b4513",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "既定（要確認）: 部屋の大きさ・間取り（玄関左下・居間・窓際は北壁の窓の下）・家具の位置は設計に無い（台帳は『玄関→居間→窓際で、段差なし・車椅子の回転余地』のみ）。",
+    "既定（要確認）: 北壁の窓（掃き出し・幅240・中央）。種別・位置・個数は既定（要確認）。",
+    "車椅子の回転余地: 居間の中央に直径150の空きを残した（家具は壁沿い・食卓は右寄り）。直径は既定。",
+    "TRM-12 は事故後〜壮年の時期の部屋（map-specifications）。モックは時期差を持たない。",
+    "既定（要確認）: TRM-12.door",
+    "decor_pool 未指定: edit-prompt に見た目（look）と許す/禁じる装飾が出ない（簡素な絵になりやすい。E2 round1 の失敗）"
+   ]
+  },
+  "wire": {
+   "input_sha": "e6e6284558f89937ccd2573cc02cd2cacbfd620fb6d660fca70f85e43f33cd13",
+   "outputs": {
+    "wire-TRM-12.png": "2533cb85e3bbbd7424b39634f420a2e12b44737ce93e3ed2273d43040ef9e3e8"
+   },
+   "status": "ok"
+  }
+ }
+}

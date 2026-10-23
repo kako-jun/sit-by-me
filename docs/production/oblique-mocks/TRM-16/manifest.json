@@ -1,0 +1,84 @@
+{
+ "ledger": {
+  "checklist": "docs/map-contract-checklist.md",
+  "era_suffix": null,
+  "registry": "docs/map-asset-registry.md",
+  "row_id": "TRM-16"
+ },
+ "map_id": "TRM-16",
+ "plan": "docs/production/oblique-mocks/TRM-16-plan.json",
+ "plan_sha256": "299e13b90cd905ad7a44ab61db9639d49d6fa9683351b9ba02525a5a37a68ac7",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-16.left": [
+     1
+    ],
+    "TRM-16.right": [
+     1
+    ],
+    "TRM-16.top": [
+     1
+    ]
+   },
+   "input_sha": "92f7a867111a87113169ac386f429a4ac6b401b092964bbf7f0f154f872bdc64",
+   "outputs": {
+    "TRM-16-exits.png": "4a7c11a29b2e27856029f5deb6f8e643f854eca51dd9a5cbff79b9711f3a814a",
+    "TRM-16-mask.json": "5fbbeff4b8b19d7b5366e29639c437236f78592e94669dc5b2ae7cf18fb04de8",
+    "TRM-16-mask.png": "10762cdbab5f7f738b8ba7222a22a53ccdb36652176f1e576ac7571d8de55e5e"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "92f7a867111a87113169ac386f429a4ac6b401b092964bbf7f0f154f872bdc64",
+   "outputs": {
+    "TRM-16-clean.png": "c62e2f18a1ceea3626ccf72c0c198c99425b439e36de813227f68eb344edb295",
+    "TRM-16-review.png": "10ee952953a0456e6c697e5146de043753de6792d1b358c0020c779ea0881b4e"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "92f7a867111a87113169ac386f429a4ac6b401b092964bbf7f0f154f872bdc64",
+   "outputs": {
+    "TRM-16-occlusion-depth.png": "902d28df8d5e3bad4730c56e38c85ce2ec842de64a65f267d4f6ce1e0be4bde1",
+    "TRM-16-occlusion-edit.png": "aac80cf6f07d45dcf370b29e68416122e6fc338719b6968cdcc70fe3b6c91cb3",
+    "TRM-16-occlusion-overlay.png": "9551b9dfd31278ce75f248f0b6f9e106dc758339c36f01aab3f2c4e4e2daccea",
+    "TRM-16-occlusion.json": "9b68a7a24d34ec23c8a9e9c45fda9220839697cbdcfd37907740cbad7b9d2a31",
+    "TRM-16-occlusion.png": "730e6ddd4203af47e6fd017d4a578d24b466b77eb8bcdd9749274a9c35c5cfad"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "04412315940c6d442c2214c448e4d187c83d1c5a43006525ca5bcac5011f6ef5",
+   "ledger_ready": false,
+   "outputs": {
+    "TRM-16-edit-prompt.txt": "4ac0605d200d27c2de6953bb5d7e09c22c7a9f9bdb1d84bc213d3543ee625e7f"
+   },
+   "status": "blocked"
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "0abb1ce0f118ae6bb223c8bfb516d6524e11937121c8760e83b47d4026db1f31",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+    "既定（要確認）: 道の幅: 狭い道=132（キャラ2人分。車椅子の最小）、街路=160、広い道=260（既定・要確認）。 左132（TRM-06.right）・右160（TRM-15.left）・上160（TRM-17.bottom）。",
+    "既定（要確認）: 用水の位置（南北に x700〜770・歩行不可）・石橋（y780〜940）・寺門（x180〜520）・寺門前の石畳・土塀・民家は設計に無い（台帳は『用水と寺門・bottomは閉鎖』のみ）。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+    "既定（要確認）: 斜め道の形（石橋から東へ、北東へ曲がって右 y430 へ。上の坂は斜め道の途中から北へ分岐）。寺門の先は歩けない（寺の内は TRM-03）。",
+    "TRM-06.right⇄TRM-16.left は円環（16→15→06→16）の一辺。TRM-16.left は住居裏の細道へ続く（旧TRM-01接続は廃止）。",
+    "既定（要確認）: 台帳『bottomは閉鎖』。",
+    "decor_pool 未指定: edit-prompt に見た目（look）と許す/禁じる装飾が出ない（簡素な絵になりやすい。E2 round1 の失敗）"
+   ]
+  },
+  "wire": {
+   "input_sha": "b16b12b1b73244b64bc3f96bf8a48ee5a13ac53fa10699ae2aed4bdf3cd238f8",
+   "outputs": {
+    "wire-TRM-16.png": "bbc331d7e7fd70784e6386c43a89f86cbdcbd678ec0b8ab5561cee58b3f15296"
+   },
+   "status": "ok"
+  }
+ }
+}

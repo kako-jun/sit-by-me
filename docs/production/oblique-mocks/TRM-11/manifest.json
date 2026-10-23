@@ -1,0 +1,84 @@
+{
+ "ledger": {
+  "checklist": "docs/map-contract-checklist.md",
+  "era_suffix": null,
+  "registry": "docs/map-asset-registry.md",
+  "row_id": "TRM-11"
+ },
+ "map_id": "TRM-11",
+ "plan": "docs/production/oblique-mocks/TRM-11-plan.json",
+ "plan_sha256": "3ea3a5e6792b61f637f45c710f77e9f1f79fa52f3ab00d0c20b0cfde723ea0c2",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-11.door": [
+     1
+    ],
+    "TRM-11.right": [
+     1
+    ],
+    "TRM-11.top": [
+     1
+    ]
+   },
+   "input_sha": "498266f11a65c1c4261de663a6fa92dc336458e85c926ee0f8f64951d7cf112f",
+   "outputs": {
+    "TRM-11-exits.png": "a5fa2381d78b3d309e77bc82eb228e983ec53d9fbd5108fa5f85301ea951d64b",
+    "TRM-11-mask.json": "debbbaefecb0c491fa9172d54db661e5c9911d19d0493ee09657c44a70de41ad",
+    "TRM-11-mask.png": "dace9741e0df115d73c6ed80a0e6d583bc40d588e0e7d2cd4f13e71cc5485440"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "498266f11a65c1c4261de663a6fa92dc336458e85c926ee0f8f64951d7cf112f",
+   "outputs": {
+    "TRM-11-clean.png": "413ee6c43abdefb682d487d54f95cfab708f4a89d510d45c82e73cd6b5907a9f",
+    "TRM-11-review.png": "218114f6dddfcc277299fb68f266364e6e6f6357d58d8f2ef26ea7a890df3120"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "498266f11a65c1c4261de663a6fa92dc336458e85c926ee0f8f64951d7cf112f",
+   "outputs": {
+    "TRM-11-occlusion-depth.png": "145ce5ecfdbb1ab4de3df34328ed22f585e4e2bea81c73661880360366430cb6",
+    "TRM-11-occlusion-edit.png": "572dce373340c2cde4982cb60e91d683364c17af0f5926a9a2b95784283a85ed",
+    "TRM-11-occlusion-overlay.png": "2c3f6e1885383aaea51306ba2d3d22b831d2f7385e53543cd4a212cf9a4c4f15",
+    "TRM-11-occlusion.json": "29a7e6553e4d7f18a1f9cbc4ecf555d95628e4ccdb56d51f7601375cf42579d3",
+    "TRM-11-occlusion.png": "89d0b7ead786ec2812316355bd3227ca5d7903ee56f13519b999375c6b391204"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "4c1a684e9de4f81d8f159f82ba6e260d657ca77c0f501741db3776885e034bd0",
+   "ledger_ready": false,
+   "outputs": {
+    "TRM-11-edit-prompt.txt": "4fabfa0960678acafd30e6deacadc9b846ec81af814f1dd9e57f2558d50443cc"
+   },
+   "status": "blocked"
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "06578631f2532154e142c7ac299076a4dee29d809862d0990e759cdd72e869c6",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+    "既定（要確認）: 棟の配置（A・B棟を北に2つ・C棟を南に長く）・遊具・自転車置き場・石段口の位置は設計に無い（台帳は『県営住宅中庭。石段は立位期のみ』のみ）。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+    "既定（要確認）: 棟入口 TRM-11.door はA棟の南面・x276（比0.30）。出入口はキャラ2人分（決定済み）。",
+    "TRM-11.right は石段口（立位期だけ通れる。3値マスク assist はこの段では出さない）。台帳『立位期だけの石段』。",
+    "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。（左・下はC棟と塀で閉鎖）",
+    "既定（要確認）: TRM-11.door",
+    "decor_pool 未指定: edit-prompt に見た目（look）と許す/禁じる装飾が出ない（簡素な絵になりやすい。E2 round1 の失敗）"
+   ]
+  },
+  "wire": {
+   "input_sha": "0b031a2c6b08589ebb6bbbcfcf8585445b048c0bea2ca56fb5ceb3719caea471",
+   "outputs": {
+    "wire-TRM-11.png": "de75abcfa24a956f58cea810167e680e990d60b985a7cd9674ad55352e308dd3"
+   },
+   "status": "ok"
+  }
+ }
+}

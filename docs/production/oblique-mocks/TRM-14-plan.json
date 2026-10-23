@@ -1,0 +1,290 @@
+{
+ "schema": "sit-oblique-plan/1",
+ "map_id": "TRM-14",
+ "name": "段丘上の分岐",
+ "subtitle": "屋外・段丘の上。下=TRM-13（石段）、右=SCH-01（学校側へ）",
+ "source": "台帳 map-topology v2 の接続行・map-specifications の寺町の行・map-asset-registry・teramachi-rebuild-candidates（TRM-01 は 2026-10-23 に TRM-03 へ統合・廃止）と Issue #51/#144 の決定。",
+ "design": "段丘上の分岐、学校側へ向く眺め。TRM-13南↔SCH-01東、車椅子主路はSCH-01側。石段と学校坂を混同しない。",
+ "floors": [
+  {
+   "id": "snow",
+   "rect": [
+    0,
+    0,
+    1600,
+    1270
+   ],
+   "color": "#e8eef4",
+   "label": "",
+   "walkable": false,
+   "look": "雪に覆われた地面（歩けない部分）"
+  },
+  {
+   "id": "plaza",
+   "rect": [
+    500,
+    340,
+    1100,
+    740
+   ],
+   "color": "#8d8b86",
+   "label": "段丘上の広場",
+   "walkable": true,
+   "look": "石敷きの広場。学校側へ向く眺め",
+   "label_at": [
+    800,
+    450
+   ]
+  },
+  {
+   "id": "stairs",
+   "rect": [
+    734,
+    700,
+    866,
+    1270
+   ],
+   "color": "#a9a7a0",
+   "label": "石段（TRM-13 から）",
+   "walkable": true,
+   "surface": "stairs",
+   "label_at": [
+    800,
+    1000
+   ]
+  },
+  {
+   "id": "school-road",
+   "poly": [
+    [
+     1000,
+     580
+    ],
+    [
+     1600,
+     580
+    ],
+    [
+     1600,
+     420
+    ],
+    [
+     1000,
+     420
+    ]
+   ],
+   "color": "#50545a",
+   "label": "学校側へ（SCH-01）",
+   "walkable": true,
+   "label_at": [
+    1350,
+    500
+   ]
+  }
+ ],
+ "walls": [
+  {
+   "id": "house-w",
+   "rect": [
+    60,
+    150,
+    440,
+    700
+   ],
+   "h": 120,
+   "kind": "building",
+   "color": "#e6d8b8",
+   "top_color": "#6c7077",
+   "label": "民家",
+   "window_count": 0
+  },
+  {
+   "id": "rail",
+   "rect": [
+    500,
+    300,
+    1100,
+    330
+   ],
+   "h": 50,
+   "kind": "fence",
+   "color": "#b5a27a",
+   "top_color": "#8a7a5a",
+   "label": "手すり（眺めの縁）",
+   "window_count": 0
+  },
+  {
+   "id": "house-ne",
+   "rect": [
+    1150,
+    100,
+    1500,
+    330
+   ],
+   "h": 120,
+   "kind": "building",
+   "color": "#e6d8b8",
+   "top_color": "#6c7077",
+   "label": "民家",
+   "window_count": 0
+  },
+  {
+   "id": "house-se",
+   "rect": [
+    1150,
+    720,
+    1500,
+    1100
+   ],
+   "h": 110,
+   "kind": "building",
+   "color": "#e6d8b8",
+   "top_color": "#6c7077",
+   "label": "民家",
+   "window_count": 0
+  },
+  {
+   "id": "house-sw",
+   "rect": [
+    60,
+    800,
+    500,
+    1222
+   ],
+   "h": 110,
+   "kind": "building",
+   "color": "#e6d8b8",
+   "top_color": "#6c7077",
+   "label": "民家",
+   "window_count": 0
+  },
+  {
+   "id": "closure-n1",
+   "rect": [
+    18,
+    18,
+    1582,
+    44
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "閉鎖（擁壁・手すり）",
+   "window_count": 0
+  },
+  {
+   "id": "closure-s1",
+   "rect": [
+    18,
+    1226,
+    730,
+    1252
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-s2",
+   "rect": [
+    870,
+    1226,
+    1582,
+    1252
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-w1",
+   "rect": [
+    18,
+    18,
+    44,
+    1252
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "閉鎖（塀・家並み）",
+   "window_count": 0
+  },
+  {
+   "id": "closure-e1",
+   "rect": [
+    1556,
+    18,
+    1582,
+    416
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-e2",
+   "rect": [
+    1556,
+    584,
+    1582,
+    1252
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  }
+ ],
+ "doors": [],
+ "markers": [
+  {
+   "id": "TRM-14.bottom",
+   "edge": "south",
+   "at": 800,
+   "partner": "TRM-13.top",
+   "label": "TRM-13 へ（下・石段）",
+   "status": "default",
+   "width": 132
+  },
+  {
+   "id": "TRM-14.right",
+   "edge": "east",
+   "at": 500,
+   "partner": "SCH-01.left",
+   "label": "SCH-01 へ（右・学校側の車椅子坂）",
+   "status": "default",
+   "width": 160
+  }
+ ],
+ "boxes": [],
+ "closed_edges": [
+  {
+   "edge": "north",
+   "reason": "擁壁・手すりで閉鎖"
+  },
+  {
+   "edge": "west",
+   "reason": "塀・家並みで閉鎖"
+  }
+ ],
+ "assumptions": [
+  "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+  "既定（要確認）: 広場の大きさ・手すり・学校側への道（y500・幅160）・民家の位置は設計に無い。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+  "学校側の車椅子坂（SCH-01）と石段（TRM-13）を混同しない（台帳）。TRM-14 は石段の上端と学校側道の分岐で、車椅子主路は SCH-01 側。",
+  "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。（上・左）"
+ ]
+}

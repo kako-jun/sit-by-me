@@ -1,0 +1,84 @@
+{
+ "ledger": {
+  "checklist": "docs/map-contract-checklist.md",
+  "era_suffix": null,
+  "registry": "docs/map-asset-registry.md",
+  "row_id": "TRM-06"
+ },
+ "map_id": "TRM-06",
+ "plan": "docs/production/oblique-mocks/TRM-06-plan.json",
+ "plan_sha256": "b116b350a518127b5460b024a0317e61b97dec07b9179a109016408d8b64da72",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-06.door-house": [
+     1
+    ],
+    "TRM-06.right": [
+     1
+    ],
+    "TRM-06.top": [
+     1
+    ]
+   },
+   "input_sha": "55447f264e26f84f71d2b5422bec6149f6bc30e6b1b3608329e08fc6f150a958",
+   "outputs": {
+    "TRM-06-exits.png": "d384636f5a664962bf2b1b4c496c96c4f4d777af286c4007527315cff64a145b",
+    "TRM-06-mask.json": "c3706f6baf07d6ce9aad97defcfd68e667429eb65c204e430688ad634ff80331",
+    "TRM-06-mask.png": "0175ecc375304f775ab6d00ced43f71b1ebf0170994d8b170cf1e75b78567056"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "55447f264e26f84f71d2b5422bec6149f6bc30e6b1b3608329e08fc6f150a958",
+   "outputs": {
+    "TRM-06-clean.png": "abcb764f62e7a21fc08b10e65e2dad7ad7c2258f6a29de7fb12a5ec3c8e1624e",
+    "TRM-06-review.png": "06cd4049015c9f04c4d77f2389e05f79b49bc318f542ec143af3c59bfe1a22e7"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "55447f264e26f84f71d2b5422bec6149f6bc30e6b1b3608329e08fc6f150a958",
+   "outputs": {
+    "TRM-06-occlusion-depth.png": "5dfff0184441af4c741061dd9bdbd363cd0a6eea127f6d99c6f9c409d6dd567b",
+    "TRM-06-occlusion-edit.png": "04e13214e3980dc217379843bf566a3b63d5db5f7a03f62b6523eff45951b7fc",
+    "TRM-06-occlusion-overlay.png": "b829bd9141df6f12f8afe89d8bd51b43c0976587e9d33b68aefc149fa7c443ee",
+    "TRM-06-occlusion.json": "264d53b8f06de226907579dfa2face3d37ffee56fa145304195a6bb303c88a10",
+    "TRM-06-occlusion.png": "ae028dcf54fb268568e0ca9a1bdb7dbc5bc706bb960088302c7f5710b16864eb"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "8816c0be4032edec50c5413d05232a6ec460e484e38e471c0f3814122e56852b",
+   "ledger_ready": false,
+   "outputs": {
+    "TRM-06-edit-prompt.txt": "3e41cb15b1da892011a34d62773c0f9cf879b1289b8ba03100b81c96be58baa6"
+   },
+   "status": "blocked"
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "b3da5def8594342f0fb0672c8d48ffd06afcf83420baf9df982c988c1e72d8ec",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+    "既定（要確認）: 細道の形（上から入って南へ下り、東へ曲がって右へ抜けるL字）・幅132・土塀・隣家・住居の位置と大きさは設計に無い。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+    "既定（要確認）: 勝手口 TRM-06.door-house の位置（住居の東面・中央 y520）と向き。TRM-05.door-back は TRM-05 の北壁（左端）にあるが、台帳は TRM-06 側の位置・向きを定めていない。両MAPの画面の向きは円環（16→15→06→16）が非ユークリッドなので一致させていない。幅1人分・相手IDは決定済み。",
+    "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。（左・下）",
+    "既定（要確認）: 宝箱枝は作らない（台帳『宝箱枝の扱いTBD』。主路を優先）。",
+    "既定（要確認）: TRM-06.door-house",
+    "decor_pool 未指定: edit-prompt に見た目（look）と許す/禁じる装飾が出ない（簡素な絵になりやすい。E2 round1 の失敗）"
+   ]
+  },
+  "wire": {
+   "input_sha": "52290faa0b9d32d93dca71fb120e1595c7c29eac5a398f4a1c519f85b0b8ee9b",
+   "outputs": {
+    "wire-TRM-06.png": "5762dbdc5d94596f6a1a9accc65334e3d2dd131f3a2d9c903513a8c90edb1c18"
+   },
+   "status": "ok"
+  }
+ }
+}

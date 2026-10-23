@@ -1,0 +1,409 @@
+{
+ "schema": "sit-oblique-plan/1",
+ "map_id": "TRM-16",
+ "name": "用水と寺門の斜め道",
+ "subtitle": "屋外・用水と寺門が交わる斜め道。左=TRM-06、右=TRM-15、上=TRM-17。下は閉鎖",
+ "source": "台帳 map-topology v2 の接続行・map-specifications の寺町の行・map-asset-registry・teramachi-rebuild-candidates（TRM-01 は 2026-10-23 に TRM-03 へ統合・廃止）と Issue #51/#144 の決定。",
+ "design": "用水と寺門が交わる斜め道。左端←TRM-06.right、右→TRM-15（東）、北→TRM-17。画面内で北東へ曲がる。犀川へ向かう出口はtop。",
+ "floors": [
+  {
+   "id": "snow",
+   "rect": [
+    0,
+    0,
+    1600,
+    1270
+   ],
+   "color": "#e8eef4",
+   "label": "",
+   "walkable": false,
+   "look": "雪に覆われた地面（歩けない部分）"
+  },
+  {
+   "id": "canal",
+   "rect": [
+    700,
+    0,
+    770,
+    1270
+   ],
+   "color": "#7fb0d8",
+   "label": "用水",
+   "walkable": false,
+   "surface": "water",
+   "look": "雪の中を南北に流れる用水",
+   "label_at": [
+    735,
+    300
+   ]
+  },
+  {
+   "id": "stub",
+   "rect": [
+    0,
+    794,
+    700,
+    926
+   ],
+   "color": "#b9bec6",
+   "label": "細道（TRM-06 から）",
+   "walkable": true,
+   "look": "住居裏の細道",
+   "label_at": [
+    330,
+    860
+   ]
+  },
+  {
+   "id": "gate-path",
+   "rect": [
+    290,
+    300,
+    410,
+    794
+   ],
+   "color": "#8d8b86",
+   "label": "寺門前の石畳",
+   "walkable": true,
+   "label_at": [
+    350,
+    560
+   ]
+  },
+  {
+   "id": "bridge",
+   "rect": [
+    690,
+    780,
+    780,
+    940
+   ],
+   "color": "#8d8b86",
+   "label": "石橋",
+   "walkable": true,
+   "look": "用水をまたぐ小さな石橋",
+   "label_at": [
+    735,
+    860
+   ]
+  },
+  {
+   "id": "diag",
+   "poly": [
+    [
+     770,
+     940
+    ],
+    [
+     938,
+     940
+    ],
+    [
+     1288,
+     510
+    ],
+    [
+     1600,
+     510
+    ],
+    [
+     1600,
+     350
+    ],
+    [
+     1212,
+     350
+    ],
+    [
+     862,
+     780
+    ],
+    [
+     770,
+     780
+    ]
+   ],
+   "color": "#50545a",
+   "label": "斜め道（北東へ）",
+   "walkable": true,
+   "look": "用水沿いの街路。画面内で北東へ曲がる",
+   "label_at": [
+    1250,
+    560
+   ]
+  },
+  {
+   "id": "branch-n",
+   "rect": [
+    920,
+    0,
+    1080,
+    740
+   ],
+   "color": "#50545a",
+   "label": "坂へ（TRM-17）",
+   "walkable": true,
+   "label_at": [
+    1000,
+    200
+   ]
+  }
+ ],
+ "walls": [
+  {
+   "id": "temple-gate",
+   "rect": [
+    180,
+    80,
+    520,
+    300
+   ],
+   "h": 150,
+   "kind": "building",
+   "color": "#e6d8b8",
+   "top_color": "#6c7077",
+   "label": "寺門",
+   "window_count": 0
+  },
+  {
+   "id": "dobei",
+   "rect": [
+    560,
+    0,
+    600,
+    760
+   ],
+   "h": 70,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "土塀（寺の塀）",
+   "window_count": 0
+  },
+  {
+   "id": "house-ne",
+   "rect": [
+    1150,
+    80,
+    1500,
+    300
+   ],
+   "h": 120,
+   "kind": "building",
+   "color": "#e6d8b8",
+   "top_color": "#6c7077",
+   "label": "民家",
+   "window_count": 0
+  },
+  {
+   "id": "house-se",
+   "rect": [
+    1000,
+    980,
+    1500,
+    1222
+   ],
+   "h": 110,
+   "kind": "building",
+   "color": "#e6d8b8",
+   "top_color": "#6c7077",
+   "label": "民家",
+   "window_count": 0
+  },
+  {
+   "id": "house-sw",
+   "rect": [
+    60,
+    1000,
+    600,
+    1222
+   ],
+   "h": 110,
+   "kind": "building",
+   "color": "#e6d8b8",
+   "top_color": "#6c7077",
+   "label": "民家",
+   "window_count": 0
+  },
+  {
+   "id": "closure-n1",
+   "rect": [
+    18,
+    18,
+    696,
+    44
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-n2",
+   "rect": [
+    774,
+    18,
+    916,
+    44
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-n3",
+   "rect": [
+    1084,
+    18,
+    1582,
+    44
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-s1",
+   "rect": [
+    18,
+    1226,
+    696,
+    1252
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-s2",
+   "rect": [
+    774,
+    1226,
+    1582,
+    1252
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-w1",
+   "rect": [
+    18,
+    18,
+    44,
+    790
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-w2",
+   "rect": [
+    18,
+    930,
+    44,
+    1252
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-e1",
+   "rect": [
+    1556,
+    18,
+    1582,
+    346
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-e2",
+   "rect": [
+    1556,
+    514,
+    1582,
+    1252
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  }
+ ],
+ "doors": [],
+ "markers": [
+  {
+   "id": "TRM-16.left",
+   "edge": "west",
+   "at": 860,
+   "partner": "TRM-06.right",
+   "label": "TRM-06 へ（左・住居裏の細道）",
+   "status": "default",
+   "width": 132
+  },
+  {
+   "id": "TRM-16.right",
+   "edge": "east",
+   "at": 430,
+   "partner": "TRM-15.left",
+   "label": "TRM-15 へ（右・用水沿い）",
+   "status": "default",
+   "width": 160
+  },
+  {
+   "id": "TRM-16.top",
+   "edge": "north",
+   "at": 1000,
+   "partner": "TRM-17.bottom",
+   "label": "TRM-17 へ（上・犀川へ向かう坂）",
+   "status": "default",
+   "width": 160
+  }
+ ],
+ "boxes": [],
+ "closed_edges": [
+  {
+   "edge": "south",
+   "reason": "家並みで閉鎖（台帳: bottom閉鎖。用水だけ流れ出る）"
+  }
+ ],
+ "assumptions": [
+  "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+  "既定（要確認）: 道の幅: 狭い道=132（キャラ2人分。車椅子の最小）、街路=160、広い道=260（既定・要確認）。 左132（TRM-06.right）・右160（TRM-15.left）・上160（TRM-17.bottom）。",
+  "既定（要確認）: 用水の位置（南北に x700〜770・歩行不可）・石橋（y780〜940）・寺門（x180〜520）・寺門前の石畳・土塀・民家は設計に無い（台帳は『用水と寺門・bottomは閉鎖』のみ）。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+  "既定（要確認）: 斜め道の形（石橋から東へ、北東へ曲がって右 y430 へ。上の坂は斜め道の途中から北へ分岐）。寺門の先は歩けない（寺の内は TRM-03）。",
+  "TRM-06.right⇄TRM-16.left は円環（16→15→06→16）の一辺。TRM-16.left は住居裏の細道へ続く（旧TRM-01接続は廃止）。",
+  "既定（要確認）: 台帳『bottomは閉鎖』。"
+ ]
+}

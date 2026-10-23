@@ -1,0 +1,79 @@
+{
+ "ledger": {
+  "checklist": "docs/map-contract-checklist.md",
+  "era_suffix": null,
+  "registry": "docs/map-asset-registry.md",
+  "row_id": "TRM-13"
+ },
+ "map_id": "TRM-13",
+ "plan": "docs/production/oblique-mocks/TRM-13-plan.json",
+ "plan_sha256": "41a6c8ea9ddcb099a102de2588f63e4250bea72b6c5f24b2c8889b6eb3c64b45",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-13.left": [
+     1
+    ],
+    "TRM-13.top": [
+     1
+    ]
+   },
+   "input_sha": "055856a5cdb38795530a214e6d6b8db18d5ee6a27f7b1dc1b00f4e0941cb7ed4",
+   "outputs": {
+    "TRM-13-exits.png": "011406259cb61fda8215a5334c5aca3ab485aec46ea85f12e8ad00a0b048a303",
+    "TRM-13-mask.json": "a64682379cb98b1cbc166ec87582a77eadcb63bc15fdede89e67f96ad7267cb9",
+    "TRM-13-mask.png": "7f7d9c34ad789927a3ee211aacdcc0a9fedda31f3a33f450a2a5db1af5901605"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "055856a5cdb38795530a214e6d6b8db18d5ee6a27f7b1dc1b00f4e0941cb7ed4",
+   "outputs": {
+    "TRM-13-clean.png": "ebe97d11832ff5375870646707763f136ae6c4a2812d5cf7c7e470a19aa27cb9",
+    "TRM-13-review.png": "3c655587ebe94b666a76a7f64aa4dc2cc61f7935ecf9b6c3a7e8a4fdc3a935cf"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "055856a5cdb38795530a214e6d6b8db18d5ee6a27f7b1dc1b00f4e0941cb7ed4",
+   "outputs": {
+    "TRM-13-occlusion-depth.png": "426f7b61fa7ce311285a82acb839a1e1a1c1a9e9ffb6f653750186877f90b6bc",
+    "TRM-13-occlusion-edit.png": "3a4e8944a672e1ec057a3770360ff5c704a93940a9dbf9e4a82f5d729cfc1994",
+    "TRM-13-occlusion-overlay.png": "84a6026232f0ee06c43003eace5bfa88eaeaddfb3503aaaf23c41e921fe59d29",
+    "TRM-13-occlusion.json": "0fe88fa20838da31f1d8ea88fc14ece6a45e9f8b9cbff221fc4c912e061b1b68",
+    "TRM-13-occlusion.png": "23d4e680c0e6e9c4a5f0813b2337a0785bf108bd8e369d0842c7fdf6e990ccd7"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "ab6ad17e67df8f8c66902418706bc0c6b6fc1693c0ea952565114b94c22099f0",
+   "ledger_ready": false,
+   "outputs": {
+    "TRM-13-edit-prompt.txt": "15ba5002580ce1053b4f586898f023dbaca0085dfcbcad46597012780cab6ded"
+   },
+   "status": "blocked"
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "5d270eedbe56d00fe85612a6e4f3e16c80f549e9f2e1d74d32f0b0e527724771",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+    "既定（要確認）: 石畳（左 y800）が石段（x800・上へ）につながる形・石垣・民家の位置は設計に無い。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+    "立位期だけ通れる。事故後は入口を閉鎖（map-specifications）。3値マスク（assist・車椅子不可）はこの段では出さず、このメモと floors の look に残す。",
+    "台帳『石段下、車椅子不可』『left→top 接続』に従った。右・下は閉鎖（旧候補 v6『right/bottomは擁壁・民家・雪の壁』より）。",
+    "decor_pool 未指定: edit-prompt に見た目（look）と許す/禁じる装飾が出ない（簡素な絵になりやすい。E2 round1 の失敗）"
+   ]
+  },
+  "wire": {
+   "input_sha": "2f37db96c4dcb61cca9102b2bcfc405ddba50d5a6c887ae19332e6e18885a777",
+   "outputs": {
+    "wire-TRM-13.png": "11dd558fc78a51482bb68d1c19e4c972325dae8f49c4e816dd59b1d5767ff85a"
+   },
+   "status": "ok"
+  }
+ }
+}

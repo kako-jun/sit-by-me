@@ -1,0 +1,293 @@
+{
+ "schema": "sit-oblique-plan/1",
+ "map_id": "TRM-11",
+ "name": "県営住宅の中庭",
+ "subtitle": "屋外・犀川側の団地の中庭。上=TRM-10、右=TRM-13（石段口）、棟入口=TRM-12",
+ "source": "台帳 map-topology v2 の接続行・map-specifications の寺町の行・map-asset-registry・teramachi-rebuild-candidates（TRM-01 は 2026-10-23 に TRM-03 へ統合・廃止）と Issue #51/#144 の決定。",
+ "design": "犀川側の県営住宅の中庭。TRM-10北↔TRM-13東（立位期だけの石段口）、棟入口→TRM-12（ドア遷移）。",
+ "floors": [
+  {
+   "id": "snow",
+   "rect": [
+    0,
+    0,
+    1600,
+    1270
+   ],
+   "color": "#e8eef4",
+   "label": "",
+   "walkable": false,
+   "look": "雪に覆われた地面（歩けない部分）"
+  },
+  {
+   "id": "court",
+   "rect": [
+    60,
+    380,
+    1540,
+    1060
+   ],
+   "color": "#8d8b86",
+   "label": "県営住宅の中庭",
+   "walkable": true,
+   "look": "雪かきされた団地の中庭。石敷き",
+   "label_at": [
+    600,
+    960
+   ]
+  },
+  {
+   "id": "entry",
+   "rect": [
+    820,
+    0,
+    980,
+    400
+   ],
+   "color": "#b9bec6",
+   "label": "TRM-10 から入る道",
+   "walkable": true,
+   "label_at": [
+    900,
+    200
+   ]
+  },
+  {
+   "id": "stairs-mouth",
+   "rect": [
+    1400,
+    734,
+    1600,
+    866
+   ],
+   "color": "#a9a7a0",
+   "label": "石段口（立位期のみ）→TRM-13",
+   "walkable": true,
+   "label_at": [
+    1500,
+    800
+   ]
+  }
+ ],
+ "walls": [
+  {
+   "id": "block-a",
+   "rect": [
+    60,
+    150,
+    780,
+    380
+   ],
+   "h": 200,
+   "kind": "building",
+   "color": "#d9d3c4",
+   "top_color": "#6c7077",
+   "label": "県営住宅 A棟（棟入口）",
+   "window_count": 0,
+   "look": "コンクリートの団地棟。ベランダ"
+  },
+  {
+   "id": "block-b",
+   "rect": [
+    1020,
+    150,
+    1540,
+    380
+   ],
+   "h": 200,
+   "kind": "building",
+   "color": "#d9d3c4",
+   "top_color": "#6c7077",
+   "label": "県営住宅 B棟",
+   "window_count": 0
+  },
+  {
+   "id": "block-c",
+   "rect": [
+    60,
+    1060,
+    1540,
+    1230
+   ],
+   "h": 160,
+   "kind": "building",
+   "color": "#d9d3c4",
+   "top_color": "#6c7077",
+   "label": "県営住宅 C棟",
+   "window_count": 0
+  },
+  {
+   "id": "closure-n1",
+   "rect": [
+    18,
+    18,
+    816,
+    44
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-n2",
+   "rect": [
+    984,
+    18,
+    1582,
+    44
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-w1",
+   "rect": [
+    18,
+    18,
+    44,
+    1252
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "閉鎖（塀・擁壁）",
+   "window_count": 0
+  },
+  {
+   "id": "closure-e1",
+   "rect": [
+    1556,
+    18,
+    1582,
+    730
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  },
+  {
+   "id": "closure-e2",
+   "rect": [
+    1556,
+    870,
+    1582,
+    1252
+   ],
+   "h": 60,
+   "kind": "fence",
+   "color": "#cdb98f",
+   "top_color": "#8a7a5a",
+   "label": "",
+   "window_count": 0
+  }
+ ],
+ "doors": [
+  {
+   "id": "TRM-11.door",
+   "wall": "block-a",
+   "wall_side": "south",
+   "face": "south",
+   "center": 276,
+   "along_ref": [
+    60,
+    780
+   ],
+   "partner": "TRM-12.door",
+   "status": "default",
+   "note": "A棟の棟入口（県営住宅の室内 TRM-12 へ）。団地内はドア遷移（台帳）。位置・どの棟かは台帳に無く既定（要確認）。TRM-12 側の戸口と同じ比（0.30）",
+   "width_class": "2people"
+  }
+ ],
+ "markers": [
+  {
+   "id": "TRM-11.top",
+   "edge": "north",
+   "at": 900,
+   "partner": "TRM-10.bottom",
+   "label": "TRM-10 へ（上）",
+   "status": "default",
+   "width": 160
+  },
+  {
+   "id": "TRM-11.right",
+   "edge": "east",
+   "at": 800,
+   "partner": "TRM-13.left",
+   "label": "TRM-13 へ（右・石段口。立位期のみ）",
+   "status": "default",
+   "width": 132
+  }
+ ],
+ "boxes": [
+  {
+   "id": "slide",
+   "rect": [
+    980,
+    600,
+    1060,
+    720
+   ],
+   "h": 80,
+   "color": "#3b78c8",
+   "label": "遊具（滑り台）",
+   "blocked": true,
+   "look": "団地の中庭の滑り台"
+  },
+  {
+   "id": "sandbox",
+   "rect": [
+    380,
+    700,
+    560,
+    820
+   ],
+   "h": 15,
+   "color": "#d9c28a",
+   "label": "砂場",
+   "blocked": true,
+   "look": "雪をかぶった砂場"
+  },
+  {
+   "id": "bike",
+   "rect": [
+    1100,
+    860,
+    1380,
+    960
+   ],
+   "h": 70,
+   "color": "#8a8a8a",
+   "label": "自転車置き場",
+   "blocked": true,
+   "look": "屋根つきの自転車置き場"
+  }
+ ],
+ "closed_edges": [
+  {
+   "edge": "west",
+   "reason": "塀・擁壁で閉鎖"
+  },
+  {
+   "edge": "south",
+   "reason": "C棟（建物）で閉鎖"
+  }
+ ],
+ "assumptions": [
+  "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+  "既定（要確認）: 棟の配置（A・B棟を北に2つ・C棟を南に長く）・遊具・自転車置き場・石段口の位置は設計に無い（台帳は『県営住宅中庭。石段は立位期のみ』のみ）。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+  "既定（要確認）: 棟入口 TRM-11.door はA棟の南面・x276（比0.30）。出入口はキャラ2人分（決定済み）。",
+  "TRM-11.right は石段口（立位期だけ通れる。3値マスク assist はこの段では出さない）。台帳『立位期だけの石段』。",
+  "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。（左・下はC棟と塀で閉鎖）"
+ ]
+}

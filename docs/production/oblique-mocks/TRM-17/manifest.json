@@ -1,0 +1,80 @@
+{
+ "ledger": {
+  "checklist": "docs/map-contract-checklist.md",
+  "era_suffix": null,
+  "registry": "docs/map-asset-registry.md",
+  "row_id": "TRM-17"
+ },
+ "map_id": "TRM-17",
+ "plan": "docs/production/oblique-mocks/TRM-17-plan.json",
+ "plan_sha256": "d8d2c194b87feca1a9712532156a946503ab716b8d367f276d15175f64b71ae9",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-17.bottom": [
+     1
+    ],
+    "TRM-17.top": [
+     1
+    ]
+   },
+   "input_sha": "03752aa2d2623a9c23aaae7d05af53aa964b3a1bb3620a0d1d0b8f5c1c5f7598",
+   "outputs": {
+    "TRM-17-exits.png": "ab1a60bc35d2fb67b665fcdf5e5a2f0f42a113b3f2878acc83f93efff6478e0c",
+    "TRM-17-mask.json": "1e071582dd8c03c7634b66de3c400361e6365d24abb37180f901db45bd7f50fc",
+    "TRM-17-mask.png": "a3998f85161419c7075ac71dbdcb196c79383f28e38bdf506436852ee4ec16f4"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "03752aa2d2623a9c23aaae7d05af53aa964b3a1bb3620a0d1d0b8f5c1c5f7598",
+   "outputs": {
+    "TRM-17-clean.png": "067da68236675a77a1fc4a1f38ebaf8680cba982302fee8ea778b8c6be8a2acf",
+    "TRM-17-review.png": "22998d9a348168b3046ad03feca0773c2ed606dae47884e6bb876f765798938d"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "03752aa2d2623a9c23aaae7d05af53aa964b3a1bb3620a0d1d0b8f5c1c5f7598",
+   "outputs": {
+    "TRM-17-occlusion-depth.png": "5b5ad2d6c9d7483a12fab1fd5424735ffb9e62e7de46fdbafafe9786d56c150f",
+    "TRM-17-occlusion-edit.png": "448f220152f3d173c66574ff7f6152da3ff567d6d46118bdab781b4ecfa88c29",
+    "TRM-17-occlusion-overlay.png": "1f69a2ca091c5863dc1ea2ec01547fd66cfe777c8361367c3d6c4271c9577589",
+    "TRM-17-occlusion.json": "b4f4b7c7140235b6402482699d7683755c1879d95ec6bcc6dd6630bc50edceda",
+    "TRM-17-occlusion.png": "53aefc295a2f4bd1e9f902df8c2deb8120083f0f7733a7f0ae9865617c205d36"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "2dd962489751e1c46a261ff8af25abff7d252d75d785cef0a187b98735299fe3",
+   "ledger_ready": false,
+   "outputs": {
+    "TRM-17-edit-prompt.txt": "c65bd2489df74ca16bfc943bbcc318d93bde89a9e46cfc5a7511ef4dea5db607"
+   },
+   "status": "blocked"
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "2e9b18a603de22f15e99a276bc59bc4ba3121edf4dae8fb6036c5daa18cbbe59",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+    "既定（要確認）: 坂の形（下 x1000 → 西へ折り返し → 北東へ → 上 x900。幅160）・細い用水・擁壁・寺の屋根・民家は設計に無い（台帳は『用水と黒瓦を見上げる坂・擁壁と石積み・坂の上に寺の屋根』）。",
+    "坂の勾配（上り）は見下ろし図に出ない。主坂は車椅子でも連続通行できる幅（台帳）。枝（脇道・石段の小路）は作らない（台帳: 枝は作らない。旧版の石段の小路の宝箱は撤回扱い）。",
+    "TRM-17 の上端の接続先 KRB-10.bottom は寺町の外（コンビニ）。旧 3.2 の図（left/top）は ledger v2（TRM-16.top↔TRM-17.bottom・TRM-17.top↔KRB-10.bottom）と食い違うため、v2 に従った。",
+    "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。",
+    "decor_pool 未指定: edit-prompt に見た目（look）と許す/禁じる装飾が出ない（簡素な絵になりやすい。E2 round1 の失敗）"
+   ]
+  },
+  "wire": {
+   "input_sha": "c0075335a2ff02c03306e5cc00e45c5f149559236e733819a2c133ab068c7f4e",
+   "outputs": {
+    "wire-TRM-17.png": "2e701ce80ccd3abb968eca808af9cab7986971962e2381a1b66fd228aced121c"
+   },
+   "status": "ok"
+  }
+ }
+}

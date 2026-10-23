@@ -1,0 +1,79 @@
+{
+ "ledger": {
+  "checklist": "docs/map-contract-checklist.md",
+  "era_suffix": null,
+  "registry": "docs/map-asset-registry.md",
+  "row_id": "TRM-14"
+ },
+ "map_id": "TRM-14",
+ "plan": "docs/production/oblique-mocks/TRM-14-plan.json",
+ "plan_sha256": "1be541e1012d0ede7062bfec0669df6723a0d01083a4f15c654cbff53b5970a1",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-14.bottom": [
+     1
+    ],
+    "TRM-14.right": [
+     1
+    ]
+   },
+   "input_sha": "5d18b4bb653c1fe060f4c5dfdba77d8ff69c942a2d03a599aa20b9e139adfa72",
+   "outputs": {
+    "TRM-14-exits.png": "2386ac8fa2180f8be7960e8c65523c56020fde76814a23182c125ba19a0adef3",
+    "TRM-14-mask.json": "3225b141232fec1e9fcd92933e9a46ffdd6bc430a36c649764baee33e036084d",
+    "TRM-14-mask.png": "6272d0ea34a9079db796ead41a88021ec523ed5d85c37eb977fccf9c83b3679d"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "5d18b4bb653c1fe060f4c5dfdba77d8ff69c942a2d03a599aa20b9e139adfa72",
+   "outputs": {
+    "TRM-14-clean.png": "cb1190e993f2c5556898b542ed07591d5a1142b855575f8d18856e0528f04629",
+    "TRM-14-review.png": "5beb1b9fa2e6fdcc5deab0ffc33ff3dcdfdd0f408c60a7ef11945af1eba14b9a"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "5d18b4bb653c1fe060f4c5dfdba77d8ff69c942a2d03a599aa20b9e139adfa72",
+   "outputs": {
+    "TRM-14-occlusion-depth.png": "fab443cfd102a32890f380bb70e29ccdb721edc51e2ba29f6f766d11863fa765",
+    "TRM-14-occlusion-edit.png": "0979fbc0e1f0f17121b03705f546c2012d61168a9f6e7e001beab78a0c4f4a7b",
+    "TRM-14-occlusion-overlay.png": "5eefeb60e438923d45083c2901e87e4fc1c1d85c418c55d91a8c7794def4e24b",
+    "TRM-14-occlusion.json": "28716f93b9b9651f159ffdfa160f6b8586f2a00ae9729eec26958b25fb6eeba3",
+    "TRM-14-occlusion.png": "2e5ba76fd562832e763e71c525e59d301b7fcc3a9c2b7c0c29aa2e5d987b54f8"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "2e67f167861b1175d6a3e4b10f147ae8a7ba4aaeb9ec0d427e21fc657162cdfa",
+   "ledger_ready": false,
+   "outputs": {
+    "TRM-14-edit-prompt.txt": "062efdec7070a7005afa875c95b9051a697be37fa2bb90151f17e9c31a4d2177"
+   },
+   "status": "blocked"
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "8e3e522d27be4f8a8b7308d8463093999abfb8917aced434d8387f92492e8a58",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+    "既定（要確認）: 広場の大きさ・手すり・学校側への道（y500・幅160）・民家の位置は設計に無い。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+    "学校側の車椅子坂（SCH-01）と石段（TRM-13）を混同しない（台帳）。TRM-14 は石段の上端と学校側道の分岐で、車椅子主路は SCH-01 側。",
+    "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。（上・左）",
+    "decor_pool 未指定: edit-prompt に見た目（look）と許す/禁じる装飾が出ない（簡素な絵になりやすい。E2 round1 の失敗）"
+   ]
+  },
+  "wire": {
+   "input_sha": "bdf56c83056d40eac4038bf16c4fe7b4ea4342332c991b34aca0dcbbc3ac5e25",
+   "outputs": {
+    "wire-TRM-14.png": "1c60e68244a7e143ac49e4fff57cc82cee07c423cd077359db2391b43e5a35aa"
+   },
+   "status": "ok"
+  }
+ }
+}

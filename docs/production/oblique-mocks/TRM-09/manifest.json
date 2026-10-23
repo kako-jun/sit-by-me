@@ -1,0 +1,80 @@
+{
+ "ledger": {
+  "checklist": "docs/map-contract-checklist.md",
+  "era_suffix": null,
+  "registry": "docs/map-asset-registry.md",
+  "row_id": "TRM-09"
+ },
+ "map_id": "TRM-09",
+ "plan": "docs/production/oblique-mocks/TRM-09-plan.json",
+ "plan_sha256": "550f33a9fd76cb3758e49f93b7ee0c3539538b98f4a19cfea64045bb7cab5737",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-09.bottom": [
+     1
+    ],
+    "TRM-09.left": [
+     1
+    ]
+   },
+   "input_sha": "eb3521730bdc8dd58223b9acce9b8f866e8790061ffcac0f95bc61e9258ea57a",
+   "outputs": {
+    "TRM-09-exits.png": "d928e9faa5368de9f2a85efdf54d7a0dca5d34a198039fb9fe11b1bb1ab84406",
+    "TRM-09-mask.json": "c051cd1b4540cca069035f39a69122fbf11dddd10700ec5b1f65489e63085a53",
+    "TRM-09-mask.png": "5434c98cac436c710b30d05f02d779bb3ef7a1b843e95bc8a5bc505f03dc533a"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "eb3521730bdc8dd58223b9acce9b8f866e8790061ffcac0f95bc61e9258ea57a",
+   "outputs": {
+    "TRM-09-clean.png": "3272fde2f537d84b709f58b482d34f8ae78e8a852c7f473c5baa6d969740985c",
+    "TRM-09-review.png": "b9f0bf18ee44270cbb26518bb89f1660bc0a29e0a963929faf2372cdadb1095c"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "eb3521730bdc8dd58223b9acce9b8f866e8790061ffcac0f95bc61e9258ea57a",
+   "outputs": {
+    "TRM-09-occlusion-depth.png": "1366b6da540cc07b2adc21ef1cbae7c737b00943f38a98c5fa5bc90f21a76079",
+    "TRM-09-occlusion-edit.png": "01328fa2595438e486869946e885a516e740f57d2f70845d8d6f567bc6c5d592",
+    "TRM-09-occlusion-overlay.png": "433fc8c36cf0a67a124ba03350dcc2c51859639cfd1685866b8384920de7db14",
+    "TRM-09-occlusion.json": "c080b4b2251d8ab563e2971eada2d192ba7a089b81698d2d5ff6a26cbcc9e52f",
+    "TRM-09-occlusion.png": "2a3faf1701f8ca6ef8b6fd06ce5841d90c7fbd62294868dc84e1654669f5da2c"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "2201a0608acef37907779a9dfcaaa3fbf5f39755d37ac34685f8984fd79a00a2",
+   "ledger_ready": false,
+   "outputs": {
+    "TRM-09-edit-prompt.txt": "8b22cea0ad1b6a53cbc57f826f8ff771374cfe21367c134dd2783ff5e64b99d8"
+   },
+   "status": "blocked"
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "701ea807122b9a8b09e39a84d91a6289936c0bd001d7b474a2e65148ffce6e50",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+    "既定（要確認）: 道の幅: 狭い道=132（キャラ2人分。車椅子の最小）、街路=160、広い道=260（既定・要確認）。 左の出入口260・下の出入口160（TRM-08.right・TRM-10.top と一致）。",
+    "既定（要確認）: 銭湯・煙突の大きさ・位置、道の形（左から入って東へ、手前で南へ折れる）、民家は設計に無い。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+    "時期差は営業灯だけ・地形不変（map-specifications）。モックは灯りを描かない。",
+    "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。（上・右は台帳『top/right閉鎖』）",
+    "decor_pool 未指定: edit-prompt に見た目（look）と許す/禁じる装飾が出ない（簡素な絵になりやすい。E2 round1 の失敗）"
+   ]
+  },
+  "wire": {
+   "input_sha": "e3953bf7f3377e5ad2db397a8b6e70f184d6c9c691781fe929a888e1f5e9da84",
+   "outputs": {
+    "wire-TRM-09.png": "c36e75363d3ac34d0320c7d0dc2eaba16c9d48ce7359e1004019fe4a5e9ba353"
+   },
+   "status": "ok"
+  }
+ }
+}
