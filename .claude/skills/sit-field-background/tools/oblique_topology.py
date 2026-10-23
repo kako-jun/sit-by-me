@@ -26,6 +26,8 @@ WCN = {"2people": "2人分", "1.5people": "1.5人分", "1person": "1人分"}
 
 def width_text(doors):
     """戸口の width_class から幅の説明文を導出する（ハードコードしない）。"""
+    if not doors:
+        return "戸口なし（端の出入口の幅は各注記）"
     g = {}
     for d in doors:
         g.setdefault(d.get("width_class", "2people"), []).append(d["id"].split(".", 1)[-1] if len(doors) == 1 else d["id"])
@@ -405,7 +407,7 @@ def wire_single(p, path, plans):
             seen.add(meta["id"])
             cx, cy = M.proj(*meta["label_at"]) if meta.get("label_at") else (sum(q[0] for q in polys[0][0]) / 4, sum(q[1] for q in polys[0][0]) / 4)
             d.text((cx - 60, cy - 12), meta["label"], font=f_xs, fill="#666666")
-        elif tag == "wall" and meta["id"] not in seen and meta.get("kind") in ("partition", "building"):
+        elif tag == "wall" and meta["id"] not in seen and (meta.get("kind") in ("partition", "building") or (meta.get("kind") in ("fence", "retaining") and meta.get("label"))):
             seen.add(meta["id"])
             cx, cy = (sum(q[0] for q in polys[2][0]) / 4, sum(q[1] for q in polys[2][0]) / 4)
             text_box(d, (cx, cy), meta.get("label", ""), f_s, pad=3, outline=None)
@@ -428,7 +430,10 @@ def wire_single(p, path, plans):
         text_box(d, (ax, ay), an["text"], f_xs, bg="#fff0d0", outline="#c04000")
     for mk in p["markers"]:
         ax, ay = anchors[mk["id"]]
-        text_box(d, (ax - 150, ay - 70), f"{mk['id']}\n{mk.get('label','')}\n相手: {mk.get('partner')}" + ("\n*既定（要確認）" if mk.get("status") == "default" else ""), f_xs, bg="#ffffee", anchor="lt")
+        t_ = f"{mk['id']}\n{mk.get('label','')}\n相手: {mk.get('partner')}" + (f"\n幅{M.marker_w(mk):.0f}単位" if "width" in mk else "") + ("\n*既定（要確認）" if mk.get("status") == "default" else "")
+        w_ = max(d.textbbox((0, 0), s_, font=f_xs)[2] for s_ in t_.split("\n")) + 12
+        h_ = len(t_.split("\n")) * 31 + 10
+        text_box(d, (max(10, min(ax - 150, M.W - w_ - 10)), max(70, min(ay - 70, M.H_IMG - h_ - 70))), t_, f_xs, bg="#ffffee", anchor="lt")  # 画面からはみ出さないよう寄せる
     for o in p["openings"]:
         ax, ay = anchors[o["id"]]
         text_box(d, (ax - 60, ay - 14), "開口*要確認", f_xs, bg="#ffffff", pad=2)
