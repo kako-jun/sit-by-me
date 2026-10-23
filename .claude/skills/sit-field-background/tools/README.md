@@ -63,7 +63,15 @@ uv run --with opencv-python-headless --with numpy --with pillow python3 -I body_
 
 窓: 平面スペックの `windows[]`（壁・中心・幅・窓台高さ・高さ・種別 floor/waist・status・along_ref）と各壁の `window_count` を検証（壁内に収まる・戸口/開口/他の窓/家具と重ならない・壁高以内・個数一致）。モック（クリーン含む）・ワイヤーに描き、edit-prompt に出し、`windows.md`（MAP×壁×個数×位置(中心・比)×種別×status）を生成する。窓は歩行・オクルージョンに影響しない。
 
-視点の定数（`oblique_mock.py` 先頭）: 土台の天面 1600×1270 平面単位、台形の4隅、見下ろし約42度、1キャラ=66単位・出入口132単位。オクルージョンのキャラ寸法 67×100px は既定（要確認）。スペックの書き方・戸口の相手・開口の既定は `docs/production/oblique-mocks/*-plan.json` を雛形にする。
+視点・寸法・文面の正本は台帳（コードは読むだけ）: `oblique_text.py` が台帳の **`描画定数.yaml`**（視点＝画像1672×941・土台1600×1270・台形の4隅・見下ろし約42度・1キャラ=66単位・戸口の高さ132・幅クラス（2人分132/1.5人分100/1人分66）・窓種別の名前・台座の飾り（マステ4・糊4）の位置・オクルージョンのキャラ寸法 67×100px〔既定・要確認〕・overview の並び）と **`プロンプト文面.yaml`**（imagegen 用プロンプト〔PR.*〕・モックのラベル〔MK.*〕・接続図/接続表/窓一覧の文面〔TP.*〕。`{名前}` が変数の差し込み口）を読む。数値や言い回しを変えるときは台帳を直す（コードを直さない）。`ruby scripts/verify_ledger.rb` が、コードが参照するIDが全て在る・どの行もコードから参照されている・変数列が本文と一致する、を検査する。スペックの書き方・戸口の相手・開口の既定は `docs/production/oblique-mocks/*-plan.json` を雛形にする。
+
+**コード内に残したもの（台帳に置かない理由）**
+- 描画の見た目の調整値: 机・床・壁・扉・窓・開口の色、机の木目の乱数（seed 7・帯の太さ48〜78）、ラベルの文字サイズ・枠線、台座の前面の色、柱の太さ16・屋根板の厚み12、壁を100単位に分ける刻み、戸口の歩く側の伸ばし（壁の高さ×1.4・最小60）。画像の質感だけを決めるアルゴリズム定数で、プロンプト・決定・接続に出ない。
+- 検査アルゴリズムの定数: 格子の刻み2、戸口の前の障害物検査の80単位、経路の入口の100単位、位置整合の許容0.05・0.03、`min_width` の既定。判定の計算手順であり、変えるときはコードのレビューが要る。
+- 検査の診断メッセージ（`validate_plan` の `E.append(...)`・`oblique_topology.build` の problems）: 失敗時に開発者へ出す文で、プロンプト・接続表・窓一覧・接続図に入らない（manifest に失敗として記録されるだけ）。
+- 表の見出し行・列名（`connections.md`／`windows.md` の `| 戸口A | Aの位置 | …`）と画像の座標・フォントサイズ: 出力の書式であって文面ではない。
+- `FONT`（`/usr/share/fonts/noto-cjk/...`）: 実行環境のパス。環境ごとに違うので台帳に置かない（Linux 前提。macOS では差し替えが要る）。
+- （削除済み）`oblique_topology.py` の `if False` で無効化されていた旧ラベル「寺町外の端点」は死にコードだったので消した。
 
 ## 台帳（docs/ledger/<表名>.yaml）
 
@@ -71,6 +79,7 @@ uv run --with opencv-python-headless --with numpy --with pillow python3 -I body_
 
 | ファイル | 役割 |
 |---|---|
+| `oblique_text.py` | 斜めツールが台帳の `描画定数`・`プロンプト文面` を読む口（`text(ID, 変数…)`・`const(ID)`）。ID や変数が合わなければ止まる（既定値で黙って続けない） |
 | `ledger_io.py` | 表定義 `SCHEMA` と読み書き（`read`/`write`。行は日本語キーの dict）。PyYAML はリポ直下 `pyproject.toml` で依存宣言 |
 | `ledger_build.py` | 派生 JSON（plan・decor-pools・dependency-graph・接続図2種=幼稚園一式 `connections.json`／寺町全体 `connections-teramachi.json`）の生成（`build`）と鮮度検査（`check`）、必須キー雛形（`template`） |
 | `ledger_query.py` | MAP 1枚分のプロンプト台帳節 |

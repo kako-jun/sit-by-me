@@ -28,6 +28,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import oblique_mock as M  # noqa: E402
+import oblique_text as X  # noqa: E402
 import oblique_topology as T  # noqa: E402
 import ledger_query as LQ  # noqa: E402
 import ledger_io as LIO  # noqa: E402
@@ -304,12 +305,12 @@ def validate_plan(p):
                 E.append(f"{kind} {did}: along_ref [a,b] が必要（位置の比の基準）")
             lo, hi = (r[0], r[2]) if M.is_h(w) else (r[1], r[3])
             a, b = M.span(d)
-            if d.get("width_class", "2people") not in M.WIDTH_CLASSES:
+            if d.get("width_class", M.WIDTH_DEFAULT) not in M.WIDTH_CLASSES:
                 E.append(f"{kind} {did}: width_class は {list(M.WIDTH_CLASSES)}")
             if kind == "doors" and "width_class" not in d:
                 E.append(f"doors {did}: width_class（2people|1person）が必要")
             if a < lo or b > hi:
-                E.append(f"{kind} {did}: 戸口の幅（{d.get('width_class','2people')}={M.door_w(d):.0f}）が壁の長さに収まらない（壁 {lo}〜{hi}、戸口 {a:.0f}〜{b:.0f}）")
+                E.append(f"{kind} {did}: 戸口の幅（{d.get('width_class', M.WIDTH_DEFAULT)}={M.door_w(d):.0f}）が壁の長さに収まらない（壁 {lo}〜{hi}、戸口 {a:.0f}〜{b:.0f}）")
             if kind == "doors":
                 if M.DOOR_H > w["h"]:
                     E.append(f"doors {did}: 戸口の高さ{M.DOOR_H}（キャラ2人分）が壁の高さ{w['h']}を超える")
@@ -446,12 +447,12 @@ def _pts(poly):
 
 
 def coord_section(p, pool):
-    """幾何を画素座標で固定する節（plan とモックの射影から機械的に出す。手書き禁止）。画像 M.W x M.H_IMG・左上原点・x右・y下。"""
+    """幾何を画素座標で固定する節（plan とモックの射影から機械的に出す。手書き禁止）。画像 M.W x M.H_IMG・左上原点・x右・y下。文面は台帳『プロンプト文面』。"""
     tl, tr, br, bl = [tuple(map(float, q)) for q in M._DST]
-    L = ["", f"COORDINATES（画素座標。画像 {M.W}×{M.H_IMG}・左上原点・x は右・y は下。plan とモックの射影から機械的に出した値。これらの位置・大きさは1画素も動かさない。建物全体を上下左右へずらさない。装飾は面の内側だけ）:",
-         f"- 台座の上面の台形（四隅 左上→右上→右下→左下）: {_pts([tl, tr, br, bl])}",
-         f"- 台座の前縁（手前の厚み帯）: {_pts([bl, br, (br[0], br[1] + M.SLAB), (bl[0], bl[1] + M.SLAB)])}"]
-    L.append("- 台座の前縁の飾り（位置固定）: マスキングテープ " + " ".join(f"[{a},{b_},{c},{d_}]" for a, b_, c, d_ in M.SLAB_TAPES) + "／白い糊の垂れ " + " ".join(f"[{a},{b_},{c},{d_}]" for a, b_, c, d_ in M.SLAB_GLUE) + "（[x0,y0,x1,y1]。前縁の帯の全長に波形の段ボール断面の縦線を約10px間隔で細かく描く）")
+    L = ["", X.text("PR.coord.head", W=M.W, H=M.H_IMG),
+         X.text("PR.coord.slab-top", pts=_pts([tl, tr, br, bl])),
+         X.text("PR.coord.slab-front", pts=_pts([bl, br, (br[0], br[1] + M.SLAB), (bl[0], bl[1] + M.SLAB)]))]
+    L.append(X.text("PR.coord.slab-props", tapes=" ".join(f"[{a},{b_},{c},{d_}]" for a, b_, c, d_ in M.SLAB_TAPES), glue=" ".join(f"[{a},{b_},{c},{d_}]" for a, b_, c, d_ in M.SLAB_GLUE)))
     ws = p["walls"]
     exterior = any(w.get("kind") == "building" for w in ws)
     x0 = min(w["rect"][0] for w in ws); y0 = min(w["rect"][1] for w in ws); x1 = max(w["rect"][2] for w in ws); y1 = max(w["rect"][3] for w in ws)
@@ -461,129 +462,140 @@ def coord_section(p, pool):
     if exterior:  # 外観: 建物ごとに接地線と上端（屋根は上端の外形に収める）
         for w in ws:
             g_ = M.rect_poly(w["rect"]); t_ = M.rect_poly(w["rect"], w["h"])
-            L.append(f"- 建物 {w['id']}（{w.get('label') or ''}。高さ{w['h']}）: 接地線 {_pts(g_)}／上端 {_pts(t_)}／外接矩形 {_bbox([g_, t_])}")
+            L.append(X.text("PR.coord.building", id=w["id"], label=w.get("label") or "", h=w["h"], ground=_pts(g_), top=_pts(t_), bbox=_bbox([g_, t_])))
     else:
-        L.append(f"- 建物の外壁の外形の接地線（左奥→右奥→右手前→左手前）: {_pts(ground)}")
-        L.append(f"- 建物の外壁の上端（同順。奥壁の高さ{hb}・手前壁の高さ{hf}）: {_pts(top)}")
-        L.append(f"- 建物の外壁全体の外接矩形: {_bbox([ground, top])}（[x0,y0,x1,y1]）")
+        L.append(X.text("PR.coord.ground", pts=_pts(ground)))
+        L.append(X.text("PR.coord.top", hb=hb, hf=hf, pts=_pts(top)))
+        L.append(X.text("PR.coord.bbox", bbox=_bbox([ground, top])))
     for f in p["floors"]:
-        L.append(f"- 床 {f['id']}（四隅）: {_pts(M.rect_poly(f['rect']))}")
+        L.append(X.text("PR.coord.floor", id=f["id"], pts=_pts(M.rect_poly(f["rect"]))))
     for d in p["doors"]:
         _, panel, _ = M.door_geom(p, d)
-        L.append(f"- 戸口 {d['id']}（扉面の四隅）: {_pts(panel)}・外接矩形 {_bbox([panel])}")
+        L.append(X.text("PR.coord.door", id=d["id"], pts=_pts(panel), bbox=_bbox([panel])))
     for w in p["windows"]:
         q = M.window_geom(p, w)
-        L.append(f"- 窓 {w.get('id', '')}（ガラスの四隅）: {_pts(q)}・外接矩形 {_bbox([q])}")
+        L.append(X.text("PR.coord.window", id=w.get("id", ""), pts=_pts(q), bbox=_bbox([q])))
     for b in p["boxes"]:
         polys = [q for q, _, _ in M.box_polys(b["rect"], b["h"], b["color"])]
-        L.append(f"- 家具箱 {b['id']}（{b.get('label') or ''}）: 外接矩形 {_bbox(polys)}")
+        L.append(X.text("PR.coord.box", id=b["id"], label=b.get("label") or "", bbox=_bbox(polys)))
     tr_ = pool["trees"]
     n_lo, n_hi = -(-tr_["total"][0] // 4), -(-tr_["total"][1] // 4)
     bx0, by0, bx1, by1 = _bbox([ground, top])
     sx0, sy0 = int(min(tl[0], bl[0])), int(tl[1]); sx1, sy1 = int(max(tr[0], br[0])), int(bl[1])
-    L += ["", f"TREE PLACEMENT（建物の外の木の配置の目安。台座の上面で建物の外壁の外側。合計{tr_['total'][0]}〜{tr_['total'][1]}本＝松{tr_['pine']['count'][0]}〜{tr_['pine']['count'][1]}本＋枯木{tr_['deadtree']['count'][0]}〜{tr_['deadtree']['count'][1]}本。各辺に{n_lo}〜{n_hi}本ずつ、松多め）:",
-          f"- 奥の帯: y {sy0}〜{by0}（x {sx0}〜{sx1}）／手前の帯: y {by1}〜{sy1}／左の帯: x {sx0}〜{bx0}／右の帯: x {bx1}〜{sx1}（いずれも台形の内側に収め、建物の外壁・外接矩形に重ねない）"]
+    L += ["", X.text("PR.tree.head", tmin=tr_["total"][0], tmax=tr_["total"][1], pmin=tr_["pine"]["count"][0], pmax=tr_["pine"]["count"][1], dmin=tr_["deadtree"]["count"][0], dmax=tr_["deadtree"]["count"][1], nlo=n_lo, nhi=n_hi),
+          X.text("PR.tree.bands", sy0=sy0, by0=by0, sx0=sx0, sx1=sx1, by1=by1, sy1=sy1, bx0=bx0, bx1=bx1)]
     if p.get("tree_zones"):  # 歩く地面の上に木を置かない MAP（外観）: 木を置ける帯を plan の矩形から出す
         zs = [f"{z['id']}: {_bbox([M.rect_poly(z['rect'])])}" for z in p["tree_zones"]]
-        L[-1] = "- 木を置ける範囲（外接矩形。ここだけ。歩く地面〔参道・墓地・園庭〕の上には置かない）: " + "／".join(zs) + "。各辺の本数配分は問わない（合計だけ守る）"
+        L[-1] = X.text("PR.tree.zones", zones="／".join(zs))
     pats = []
     for d in p["doors"]:
         patch, _, _ = M.door_geom(p, d)
         pats.append(f"{d['id']}: {_pts(M.rect_poly(patch))}")
-    L.append("- 木・小物を置かない範囲（戸口の前の床パッチ。雪の地面として低く保つ）: " + "／".join(pats))
+    L.append(X.text("PR.keepout", pats="／".join(pats)))
     return L
 
 
 def door_section(p):
-    """戸口の個数と一覧を冒頭近くに固定する（見落とし防止。細い戸口ほど強調）。"""
-    WN = {"1person": "キャラ1人分の細い扉", "1.5people": "キャラ1.5人分", "2people": "キャラ2人分"}
+    """戸口の個数と一覧を冒頭近くに固定する（見落とし防止。細い戸口ほど強調）。文面は台帳『プロンプト文面』。"""
+    WN = {k: X.text("PR.door.wname." + k) for k in ("1person", "1.5people", "2people")}
     ds = [d for d in p["doors"] if not d.get("passage")]
     ps = [d for d in p["doors"] if d.get("passage")]
-    L = [f"DOORS（濃いピンクの四角が戸口。**全部で{len(ds)}個。1つも欠かさない・増やさない**。位置・幅・高さはモックのまま、木の板戸または開口として描く。高さはキャラ2人分。ピンクの色は残さない）:"]
+    L = [X.text("PR.door.head", n=len(ds))]
     for d in ds:
         _, panel, _ = M.door_geom(p, d)
         w = M.wall_by_id(p, d["wall"])
-        wd = d.get("width_class", "2people")
-        strong = "【細い扉。見落としやすいので必ず描く。壁のままにしない】" if wd == "1person" else ""
-        L.append(f"  - {d['id']}: {d['wall_side']}壁（{w.get('label') or w['id']}）・扉面の外接矩形 {_bbox([panel])}・幅{WN.get(wd, wd)}（{M.door_w(d):.0f}平面単位）{strong}。{d['wall_side']}壁に小さな扉を必ず1つ描く")
+        wd = d.get("width_class", M.WIDTH_DEFAULT)
+        strong = X.text("PR.door.strong") if wd == "1person" else ""
+        L.append(X.text("PR.door.item", id=d["id"], side=d["wall_side"], label=w.get("label") or w["id"], bbox=_bbox([panel]), wname=WN.get(wd, wd), units=f"{M.door_w(d):.0f}", strong=strong))
     if ps:
-        L.append(f"  （このほか壁面を抜いた通り抜けの戸口 {len(ps)} 個は OPEN PASSAGES に記す。扉は描かない）")
+        L.append(X.text("PR.door.passage-note", n=len(ps)))
     return "\n".join(L)
 
 
+def _obj_line(b, pool):
+    blk = X.text("PR.object.blocked") if b.get("blocked") else X.text("PR.object.walkable")
+    label = b.get("label") or X.text("PR.object.default-label")
+    if pool:
+        s = X.text("PR.object.pool", id=b["id"], label=label, h=b["h"], blk=blk, look=box_look(b, pool))
+    else:
+        s = X.text("PR.object.nopool", id=b["id"], label=label, h=b["h"], blk=blk)
+    return s + (X.text("PR.object.prompt-suffix", prompt=b["prompt"]) if b.get("prompt") else "")
+
+
 def build_prompt(p, key, ledger_text=""):
-    """imagegen 編集用プロンプト（決定論）。モック=編集元1枚。原文束は台帳（build_map_prompt.rb）に依存するので別セクション。"""
+    """imagegen 編集用プロンプト（決定論）。モック=編集元1枚。原文束は台帳（build_map_prompt.rb）に依存するので別セクション。
+    文面はすべて台帳『プロンプト文面』（oblique_text.text）。ここは並べ方と差し込みだけ。"""
     pool = load_decor(p)
     if pool:
-        L = [f"# {PROMPT_VERSION} {key}", "",
-             "ROLE: 添付のモック画像（色付きの箱で作った間取りの斜め見下ろし図）を編集して、手作りミニチュア（段ボールの台座・綿の雪・紙粘土の木・木目の床の工作）の一枚絵に仕上げる。モックは**位置と大きさを正確にするための型**で、見た目の完成形ではない。",
-             f"GEOMETRY（固定。ここだけが『足さない・消さない・ずらさない』）: {pool['geometry_fixed']}",
-             f"FILL（装飾。簡素にしない）: {pool['fill_rule']}",
+        L = [X.text("PR.title", version=PROMPT_VERSION, key=key), "",
+             X.text("PR.role"),
+             X.text("PR.geometry", text=pool["geometry_fixed"]),
+             X.text("PR.fill", text=pool["fill_rule"]),
              door_section(p),
-             "NO TEXT: 画像に文字・数字・矢印・ラベルを入れない。人物は入れない。", "",
+             X.text("PR.notext"), "",
              ledger_text, "",
-             "LAYERS（外から内へ。層の境界の位置・形はモックのまま。質感と装飾で埋める）:"]
+             X.text("PR.layers-head")]
         L = L[:-1] + coord_section(p, pool) + ["", L[-1]]  # LAYERS 見出しの直前に座標節
         for k in DECOR_LAYER_KEYS:
             ly = pool["layers"][k]
-            L.append(f"- {ly.get('label', k)}: {ly['look']} 固定: {ly['fixed']}" + (f" 【エリア固定（{pool['area']}）: 全MAP共通。変えない】" if k in ("desk", "slab_edge") else ""))
+            L.append(X.text("PR.layer", label=ly.get("label", k), look=ly["look"], fixed=ly["fixed"]) + (X.text("PR.layer.areafixed", area=pool["area"]) if k in ("desk", "slab_edge") else ""))
         tr = pool["trees"]
-        L += ["", f"TREES（建物の外。エリア固定の木の種類=台帳のエリア表『木の種類』。本数・比率は{'既定（要確認）' if tr.get('status') == 'default' else '確定'}）:",
-              f"- 合計{tr['total'][0]}〜{tr['total'][1]}本。松{tr['pine']['count'][0]}〜{tr['pine']['count'][1]}本・枯木{tr['deadtree']['count'][0]}〜{tr['deadtree']['count'][1]}本（松多め）。台座の四辺すべてに散らす",
-              f"- {tr['pine']['label']}: {tr['pine']['look']}",
-              f"- {tr['deadtree']['label']}: {tr['deadtree']['look']}",
-              f"- 禁止: {tr['forbid']}"]
-        L += ["", "SURFACES（建物の面）:"] + [f"- {k}: {v}" for k, v in pool["surfaces"].items()]
+        L += ["", X.text("PR.trees-head", status=X.text("PR.trees-status.default") if tr.get("status") == "default" else X.text("PR.trees-status.fixed")),
+              X.text("PR.trees-total", tmin=tr["total"][0], tmax=tr["total"][1], pmin=tr["pine"]["count"][0], pmax=tr["pine"]["count"][1], dmin=tr["deadtree"]["count"][0], dmax=tr["deadtree"]["count"][1]),
+              X.text("PR.trees-kind", label=tr["pine"]["label"], look=tr["pine"]["look"]),
+              X.text("PR.trees-kind", label=tr["deadtree"]["label"], look=tr["deadtree"]["look"]),
+              X.text("PR.trees-forbid", forbid=tr["forbid"])]
+        L += ["", X.text("PR.surfaces-head")] + [X.text("PR.kv", k=k, v=v) for k, v in pool["surfaces"].items()]
         for w in p["walls"]:
             if w.get("look"):
-                L.append(f"- 壁 {w['id']}: {w['look']}")
-        L += ["", "OBJECTS (色付きの箱 → 実物。位置・大きさ・高さは箱のまま。見た目で十分に作り込む):"]
+                L.append(X.text("PR.wall-look", id=w["id"], look=w["look"]))
+        L += ["", X.text("PR.objects-head.pool")]
         for b in p["boxes"]:
-            L.append(f"- {b['id']}（{b.get('label') or '箱'}）: 高さ{b['h']}。{'登れない・通れない物' if b.get('blocked') else '歩ける物'}。見た目: {box_look(b, pool)}" + (f"。{b['prompt']}" if b.get("prompt") else ""))
+            L.append(_obj_line(b, pool))
     else:
-        L = [f"# {PROMPT_VERSION} {key}", "",
-             "ROLE: 添付のモック画像（色付きの箱で作った間取りの斜め見下ろし図）を編集して、手作りミニチュア（段ボールの土台・雪・木の質感）の一枚絵に仕上げる。",
-             "GEOMETRY (必ず保つ): 画像の寸法・視点・土台の台形・壁の位置と高さ・箱の位置と大きさ・戸口の位置と大きさを一切動かさない。足さない・消さない・ずらさない。",
-             "DOORS: 濃いピンクの四角は戸口。その位置・幅・高さのまま、木の扉または開口として描く（高さはキャラ2人分。幅は戸口ごとに下記）。ピンクの色は残さない。",
-             "NO TEXT: 画像に文字・矢印・ラベルを入れない。人物は入れない。", "",
-             "OBJECTS (色付きの箱 → 実物。位置・大きさは箱のまま):"]
+        L = [X.text("PR.title", version=PROMPT_VERSION, key=key), "",
+             X.text("PR.nopool.role"),
+             X.text("PR.nopool.geometry"),
+             X.text("PR.nopool.doors"),
+             X.text("PR.nopool.notext"), "",
+             X.text("PR.nopool.objects-head")]
         for b in p["boxes"]:
-            L.append(f"- {b['id']}（{b.get('label') or '箱'}）: 高さ{b['h']}。{'登れない・通れない物' if b.get('blocked') else '歩ける物'}" + (f"。{b['prompt']}" if b.get("prompt") else ""))
+            L.append(_obj_line(b, None))
     for w in p["walls"]:
         if w.get("kind") == "partition":
-            L.append(f"- {w['id']}: 仕切り（壁より低い。壁と区別できる別素材で描く）。開口は箱の切れ目のまま")
+            L.append(X.text("PR.partition", id=w["id"]))
     ops = [d for d in p["openings"]] + [d for d in p["doors"] if d.get("passage")]
     rps = [w for w in p["walls"] if w.get("kind") == "roof-passage"]
     if ops or rps:
-        L += ["", "OPEN PASSAGES（左右・横方向に行き来する開口。壁に見せない）:"]
+        L += ["", X.text("PR.passages-head")]
         vmap = {v["id"]: v for v in M.opening_voids(p)}
         for o in ops:
             v = vmap.get(o["id"])
-            co = f"・開口の空間（壁の高さ分）の外接矩形 {_bbox([v['hull']])}・床の部分 {_pts(v['ground'])}" if v else ""
-            L.append(f"- {o['id']}（{o['wall']}・中心{o['center']}・幅{M.door_w(o) if 'width_class' in o or o in p['doors'] else M.DOOR_W:.0f}{co}）: **扉のない通り抜けられる開口。床が連続して隣の部屋とつながる。仕切りの壁が開口の幅だけ途切れた素直な切り口にする。壁・梁・鴨居・垂れ壁・柱・敷居の台座を描かない。緑の印（緑の面・緑の線）は残さない**（決定 TRM.open-passage）")
+            co = X.text("PR.passage.coords", hull=_bbox([v['hull']]), ground=_pts(v['ground'])) if v else ""
+            L.append(X.text("PR.passage.item", id=o["id"], wall=o["wall"], center=o["center"], width=f"{M.door_w(o) if 'width_class' in o or o in p['doors'] else M.DOOR_W:.0f}", co=co))
         for w in rps:
-            L.append(f"- {w['id']}（{w.get('label') or '渡り廊下'}）: 屋根を柱で支えるだけの開放した通路（壁・窓・格子・戸を描かない）。屋根の下を左右へ奥まで見通せる。床の材質は台帳の建物表に従う")
+            L.append(X.text("PR.passage.roof", id=w["id"], label=w.get("label") or X.text("PR.passage.roof-default-label")))
     if p["doors"]:
-        WN = {"1person": "キャラ1人分（細い裏口）", "1.5people": "キャラ1.5人分", "2people": "キャラ2人分"}
-        L += ["", "DOOR WIDTHS:"] + [f"- {d['id']}: 幅{WN[d.get('width_class', '2people')]}（{M.door_w(d):.0f}平面単位）・{d['wall_side']}壁" for d in p["doors"]]
+        WN = {k: X.text("PR.door-widths.wname." + k) for k in ("1person", "1.5people", "2people")}
+        L += ["", X.text("PR.door-widths-head")] + [X.text("PR.door-widths.item", id=d["id"], wname=WN[d.get("width_class", M.WIDTH_DEFAULT)], units=f"{M.door_w(d):.0f}", side=d["wall_side"]) for d in p["doors"]]
     if p["windows"]:
-        L += ["", "WINDOWS（個数・位置・種別を固定。ずらさない・増減しない・扉にしない。ガラス越しに見えるのは室内の床で、窓の中に雪や木・外の景色を描かない）:"]
+        L += ["", X.text("PR.windows-head")]
         for w in p["walls"]:
             ws = sorted([x for x in p["windows"] if x["wall"] == w["id"]], key=lambda x: x["center"])
             if not ws:
                 continue
-            ax = "left to right" if M.is_h(w) else "back to front"
+            ax = X.text("PR.windows.axis.h") if M.is_h(w) else X.text("PR.windows.axis.v")
             kinds = {M.WINDOW_KINDS[x["kind"]] for x in ws}
             lo, hi = ws[0].get("along_ref", [0, 1])
-            pos = ", ".join(f"#{i+1} at {(x['center']-lo)/(hi-lo):.2f}" for i, x in enumerate(ws))
-            L.append(f"- 壁 {w['id']}（{w.get('label') or w.get('kind','wall')}）: {len(ws)}枚の{'・'.join(sorted(kinds))}。{ax}: {pos}（壁沿いの比）。窓台高さ{ws[0]['sill']}・高さ{ws[0]['height']}・幅{ws[0]['width']}（平面単位）")
+            pos = ", ".join(X.text("PR.windows.pos", i=i + 1, ratio=f"{(x['center']-lo)/(hi-lo):.2f}") for i, x in enumerate(ws))
+            L.append(X.text("PR.windows.wall", id=w["id"], label=w.get("label") or w.get("kind", "wall"), n=len(ws), kinds="・".join(sorted(kinds)), axis=ax, pos=pos, sill=ws[0]["sill"], h=ws[0]["height"], w=ws[0]["width"]))
     for nw in p.get("no_window_walls", []):
-        L.append(f"- 壁 {nw['wall']}: 窓は描かない（0枚・確定: {nw.get('reason','')}）。壁に窓・格子窓・採光窓を足さない")
-    L += ["", "FLOORS:"] + [f"- {f['id']}（{f.get('label') or ''}）{'歩ける' if f.get('walkable', True) else '歩けない'}" + (f"。見た目: {f['look']}" if f.get("look") else "") for f in p["floors"]]
+        L.append(X.text("PR.windows.none", wall=nw["wall"], reason=nw.get("reason", "")))
+    L += ["", X.text("PR.floors-head")] + [X.text("PR.floors.item", id=f["id"], label=f.get("label") or "", walk=X.text("PR.floors.walkable") if f.get("walkable", True) else X.text("PR.floors.blocked")) + (X.text("PR.floors.look", look=f["look"]) if f.get("look") else "") for f in p["floors"]]
     if pool:
-        L += ["", "ALLOWED DECORATION（許す。積極的に使って面を埋める）:"] + [f"- {a}" for a in pool["allow"]]
-        L += ["", "FORBIDDEN（禁じる。これだけは守る）:"] + [f"- {a}" for a in pool["forbid"]]
-    L += ["", f"ASSUMPTIONS（既定・要確認）:"] + [f"- {a}" for a in p.get("assumptions", [])]
+        L += ["", X.text("PR.allowed-head")] + [f"- {a}" for a in pool["allow"]]
+        L += ["", X.text("PR.forbidden-head")] + [f"- {a}" for a in pool["forbid"]]
+    L += ["", X.text("PR.assumptions-head")] + [f"- {a}" for a in p.get("assumptions", [])]
     return "\n".join(L) + "\n"
 
 
@@ -668,10 +680,10 @@ def build_one(plan_path, outroot, variant=None, from_stage=None, force=False, lo
             fn = f"{key}-edit-prompt.txt"
             with open(os.path.join(out, fn), "w", encoding="utf-8") as f:
                 f.write(text)
-                f.write("\n# ---- 台帳の出所 ----\n")
-                f.write(f"# docs/ledger の決定 {len(ledger_mat['decisions'])} 件・継承要素 {len(ledger_mat['inherits'])} 件を全て上に入れた（status に依存しない）。\n")
+                f.write("\n" + X.text("PR.trailer.head") + "\n")
+                f.write(X.text("PR.trailer.counts", nd=len(ledger_mat['decisions']), ni=len(ledger_mat['inherits'])) + "\n")
                 if unadopted:
-                    f.write(f"# DRAFT: 依存MAP {', '.join(unadopted)} が未採用。確定してから生成を起動する（参考画像が揃わないため）。\n")
+                    f.write(X.text("PR.trailer.draft", maps=", ".join(unadopted)) + "\n")
             files = [fn]
             extra = {"unadopted_dependencies": unadopted}
         man["stages"][st] = {"input_sha": inputs[st], "status": "ok" if st != "prompt" or not extra.get("unadopted_dependencies") else "blocked",

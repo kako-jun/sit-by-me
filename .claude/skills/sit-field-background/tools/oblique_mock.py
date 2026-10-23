@@ -20,21 +20,26 @@ import cv2
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-W, H_IMG = 1672, 941
-BASE_W, BASE_D = 1600, 1270
-CHAR = 66
-DOOR_W = 2 * CHAR
-WIDTH_CLASSES = {"2people": 2 * CHAR, "1.5people": 100, "1person": CHAR}  # 戸口の幅の区分（既定=2人分。勝手口だけ1人分）
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import oblique_text as X  # noqa: E402
+
+# 視点・寸法・幅クラス・窓種別・台座の飾りの位置は台帳『描画定数』が正本（docs/ledger/描画定数.yaml）。ここは読むだけ。
+W, H_IMG = X.const_num("view.image-width"), X.const_num("view.image-height")
+BASE_W, BASE_D = X.const_num("view.base-width"), X.const_num("view.base-depth")
+CHAR = X.const_num("view.char")
+WIDTH_CLASSES = {k: X.const_num("width." + k) for k in ("2people", "1.5people", "1person")}  # 戸口の幅の区分（既定=2人分。勝手口だけ1人分）
+WIDTH_DEFAULT = X.const("width.default")
+DOOR_W = WIDTH_CLASSES[WIDTH_DEFAULT]
 
 
 def door_w(d):
-    return WIDTH_CLASSES.get(d.get("width_class", "2people"), DOOR_W)
+    return WIDTH_CLASSES.get(d.get("width_class", WIDTH_DEFAULT), DOOR_W)
 
-DOOR_H = 2 * CHAR
-KV = 0.74  # cos(42度)
-SLAB = 35
+DOOR_H = X.const_num("door.height")
+KV = X.const_num("view.kv")  # cos(42度)
+SLAB = X.const_num("view.slab")
 _SRC = np.float32([[0, 0], [BASE_W, 0], [BASE_W, BASE_D], [0, BASE_D]])
-_DST = np.float32([[165, 55], [1525, 55], [1650, 850], [22, 850]])
+_DST = np.float32(X.const_json("view.base-quad"))
 HM = cv2.getPerspectiveTransform(_SRC, _DST)
 HI = np.linalg.inv(HM)
 FONT = "/usr/share/fonts/noto-cjk/NotoSansCJK-Medium.ttc"
@@ -131,7 +136,7 @@ def door_geom(p, d):
     return patch, panel, anchor
 
 
-WINDOW_KINDS = {"floor": "掃き出し窓（床まで届く引き違い・扉ではない）", "waist": "腰高窓"}
+WINDOW_KINDS = {"floor": X.const("window.floor"), "waist": X.const("window.waist")}
 
 
 def window_geom(p, win, hs=1.0):
@@ -287,8 +292,8 @@ def table_bg(d, wire):
         y += hh
 
 
-SLAB_TAPES = [(x, 862, x + 70, 890) for x in (330, 640, 1040, 1520)]  # 台座の前縁の上のマスキングテープ（画像座標）
-SLAB_GLUE = [(x, 872, x + 16, 906) for x in (120, 520, 1260, 1590)]   # 白い糊の垂れ
+SLAB_TAPES = [tuple(r) for r in X.const_json("slab.tapes")]  # 台座の前縁の上のマスキングテープ（画像座標）
+SLAB_GLUE = [tuple(r) for r in X.const_json("slab.glue")]    # 白い糊の垂れ
 
 
 def draw_slab(d, wire, props=True):
@@ -466,7 +471,7 @@ def render(p, style="color", labels=False, ss=2, _void_pass=True, _raw=False):
             if tag == "wall" and meta.get("kind") == "partition" and meta["id"] not in seen:
                 seen.add(meta["id"])
                 cx, cy = center_of(polys[2][0])
-                text((cx, cy), meta.get("label", "仕切り"), f2, "#ffffff", "#4a4f57")
+                text((cx, cy), meta.get("label", X.text("MK.partition-default-label")), f2, "#ffffff", "#4a4f57")
             if tag == "wall" and meta.get("kind") == "building" and meta["id"] not in seen:
                 seen.add(meta["id"])
                 cx, cy = center_of(polys[2][0])
@@ -476,16 +481,16 @@ def render(p, style="color", labels=False, ss=2, _void_pass=True, _raw=False):
             text((ax, ay + 24), dd["id"], f2, "#ffffff", "#c0006a")
         for o in p["openings"]:
             ax, ay = anchors[o["id"]]
-            text((ax, ay), "開口(要確認)", f2, "#222222", OPEN_COLOR)
+            text((ax, ay), X.text("MK.opening-label"), f2, "#222222", OPEN_COLOR)
         for m in p["markers"]:
             ax, ay = anchors[m["id"]]
             text((ax, ay - 30), m["id"], f2, "#ffffff", "#c0006a")
         for an in p["annotations"]:
             ax, ay = proj(*an["at"])
             text((ax, ay), an["text"], f2, "#ffffff", "#c04000")
-        for i, (lab, colr, fg) in enumerate((("仕切り=壁（濃い灰）", "#4a4f57", "#ffffff"), ("開口=通れる所（緑）", OPEN_COLOR, "#003311"), ("戸口（ピンク）", DOOR_COLOR, "#ffffff"))):
+        for i, (lab, colr, fg) in enumerate(((X.text("MK.legend.partition"), "#4a4f57", "#ffffff"), (X.text("MK.legend.opening"), OPEN_COLOR, "#003311"), (X.text("MK.legend.door"), DOOR_COLOR, "#ffffff"))):
             text((130 + i * 230, H_IMG - 28), lab, f2, fg, colr)
-        text((W / 2, 24), f"{p['map_id']} {p['name']} - {p.get('subtitle','')}   [レビュー用・ラベル付き]", f1, "#000000", "#fff6c8")
+        text((W / 2, 24), X.text("MK.review-title", map_id=p["map_id"], name=p["name"], subtitle=p.get("subtitle", "")), f1, "#000000", "#fff6c8")
     if _raw:
         return img, anchors
     return img.resize((W, H_IMG), Image.LANCZOS), anchors
@@ -539,8 +544,8 @@ def derive_mask(p):
 # ---------------------------------------------------------------- 手前オクルージョン
 OCC_MIN_H = 20.0       # これ未満の高さの箱（敷物・低い段）は隠さない
 OCC_MIN_FLOOR_PX = 200  # キャラの体が重ならない物（奥壁・手前の壁）は出さない
-CHAR_PX = 67
-BODY_PX = 100  # キャラの高さ（既定・要確認。1キャラ幅=67px から約1.5倍）
+CHAR_PX = X.const_num("occlusion.char-width")
+BODY_PX = X.const_num("occlusion.body-height")  # キャラの高さ（既定・要確認。1キャラ幅=67px から約1.5倍）
 
 
 def derive_occlusion(p):
@@ -610,7 +615,7 @@ def write_mask(p, out):
     Image.fromarray(rgb).save(os.path.join(out, f"{mid}-exits.png"))
     doc = {"schema": "sit-oblique-mock-mask/1", "map_id": mid, "size": [W, H_IMG], "white_components": ncomp,
            "door_width_plan": DOOR_W, "exits": exits, "exit_components": comps,
-           "note": "平面図から導いた。床=白・blocked=黒（壁・blocked の箱は画像上の覆いも黒）・戸口と開口=白"}
+           "note": X.text("MK.mask-note")}
     with open(os.path.join(out, f"{mid}-mask.json"), "w", encoding="utf-8") as f:
         json.dump(doc, f, ensure_ascii=False, indent=1)
     return [f"{mid}-mask.png", f"{mid}-exits.png", f"{mid}-mask.json"], doc
@@ -634,7 +639,7 @@ def write_occlusion(p, out):
     Image.fromarray(np.clip(ov, 0, 255).astype(np.uint8)).save(os.path.join(out, f"{mid}-occlusion-overlay.png"))
     with open(os.path.join(out, f"{mid}-occlusion.json"), "w", encoding="utf-8") as f:
         json.dump({"schema": "sit-oblique-mock-occlusion/1", "map_id": mid, "size": [W, H_IMG],
-                   "rule": "スプライトの足元y < depth[画素] の画素だけ、occlusion の白で隠す。奥壁・キャラの体が重ならない物は出さない。戸口の開口は抜く。歩行マスクとは別レイヤー（前景に隠れる床を通行不能にしない）。",
+                   "rule": X.text("MK.occlusion-rule"),
                    "char_px": [CHAR_PX, BODY_PX], "occluders": pieces}, f, ensure_ascii=False, indent=1)
     return [f"{mid}-occlusion.png", f"{mid}-occlusion-edit.png", f"{mid}-occlusion-depth.png", f"{mid}-occlusion-overlay.png", f"{mid}-occlusion.json"]
 

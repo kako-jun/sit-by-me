@@ -44,11 +44,43 @@ class LedgerVerifier
     check_generated
     check_index_fresh
     check_free_text
+    check_code_texts
     self
   end
 
+  # 描画定数・プロンプト文面: 空値なし、変数列と本文の {名前} が一致、コード（oblique_*.py）が参照するIDが全て在り、どの行もコードから参照されている（死んだ行を残さない）
+  CODE_REF = /["']((?:PR|MK|TP)\.[A-Za-z0-9._-]*|(?:view|width|door|window|slab|occlusion|topology)\.[A-Za-z0-9._-]*)["']/.freeze
+
+  def check_code_texts
+    texts = @t['プロンプト文面']
+    consts = @t['描画定数']
+    texts.each do |r|
+      id = r['文面ID']
+      err("プロンプト文面 #{id}: 文面が空") if r['文面'].to_s.strip.empty?
+      vars = r['文面'].to_s.scan(/\{([A-Za-z0-9_]+)\}/).flatten.uniq.sort
+      err("プロンプト文面 #{id}: 変数列 '#{r['変数']}' が本文の変数 #{vars.join(',')} と違う") unless r['変数'].to_s.split(',').sort == vars
+      err("プロンプト文面 #{id}: 使用箇所が空") if r['使用箇所'].to_s.strip.empty?
+    end
+    consts.each do |r|
+      err("描画定数 #{r['定数ID']}: 値が空") if r['値'].to_s.strip.empty?
+      err("描画定数 #{r['定数ID']}: コード内の名前が空") if r['コード内の名前'].to_s.strip.empty?
+    end
+    tools = File.join(@root, '.claude/skills/sit-field-background/tools')
+    refs = Dir.glob(File.join(tools, 'oblique_*.py')).flat_map { |f| File.read(f, encoding: 'UTF-8').scan(CODE_REF).flatten }.uniq
+    all_ids = texts.map { |r| r['文面ID'] } + consts.map { |r| r['定数ID'] }
+    refs.each do |ref|
+      # 末尾が '.' のものは動的に連結する接頭辞（"PR.door.wname." + k）
+      ok = ref.end_with?('.') ? all_ids.any? { |i| i.start_with?(ref) } : all_ids.include?(ref)
+      err("コードが参照する台帳ID '#{ref}' が 描画定数/プロンプト文面 に無い") unless ok
+    end
+    all_ids.each do |i|
+      used = refs.any? { |ref| ref.end_with?('.') ? i.start_with?(ref) : ref == i }
+      err("台帳ID #{i} がどのコード（oblique_*.py）からも参照されていない（死んだ行。消すか、コードを台帳参照にする）") unless used
+    end
+  end
+
   def check_presence
-    %w[エリア MAP 建物 建物部位 建物窓列 建物関係 建物時期差分 端 接続 接続図設定 要素 窓 時期差分 既定値 エリア固定 装飾プール 語彙 決定 採用要素 素材 生成物 必須キー 未決 キー別名 ファイル配置 Issue点検].each do |n|
+    %w[エリア MAP 建物 建物部位 建物窓列 建物関係 建物時期差分 端 接続 接続図設定 要素 窓 時期差分 既定値 エリア固定 装飾プール 語彙 決定 採用要素 素材 生成物 必須キー 未決 キー別名 ファイル配置 Issue点検 描画定数 プロンプト文面].each do |n|
       err("表 #{n}.yaml が無い") unless File.file?(File.join(@root, 'docs/ledger', "#{n}.yaml"))
     end
   end
@@ -56,7 +88,7 @@ class LedgerVerifier
   UNIQUE = {
     'エリア' => ['エリアID'], 'MAP' => ['MAP_ID'], '建物' => ['建物ID'], '建物部位' => ['部位ID'], '建物窓列' => ['窓列ID'],
     '端' => %w[端ID 適用時期], '窓' => %w[窓ID 適用時期], '要素' => %w[MAP_ID 適用時期 要素ID], '決定' => ['決定ID'], '採用要素' => ['採用要素ID'],
-    '素材' => ['素材ID'], '生成物' => ['生成物ID'], '語彙' => ['語彙ID'], '未決' => ['未決ID'], '既定値' => ['既定ID'], 'ファイル配置' => ['配置ID'], 'Issue点検' => ['コメントURL']
+    '素材' => ['素材ID'], '生成物' => ['生成物ID'], '語彙' => ['語彙ID'], '未決' => ['未決ID'], '既定値' => ['既定ID'], 'ファイル配置' => ['配置ID'], 'Issue点検' => ['コメントURL'], '描画定数' => ['定数ID'], 'プロンプト文面' => ['文面ID']
   }.freeze
 
   def check_unique

@@ -281,6 +281,57 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
         self.assertIn("Issue番号 '99999' が URL の Issue と違う", self.verify().stderr)
 
 
+    # ---- 描画定数・プロンプト文面（コードの直書きを台帳へ移した表。コードとの対応を verify_ledger.rb が見る）
+    def edit_table(self, table, fn):
+        p = self.work / f"docs/ledger/{table}.yaml"
+        rows = ledger_io.parse(table, p.read_text(encoding="utf-8"))
+        fn(rows)
+        p.write_text(ledger_io.dumps(table, rows), encoding="utf-8")
+
+    def code_text_errors(self):
+        return [ln for ln in self.verify().stderr.splitlines() if ln.startswith("FAIL") and ("プロンプト文面" in ln or "描画定数" in ln or "台帳ID" in ln)]
+
+    def test_clean_code_texts_have_no_errors(self):
+        self.assertEqual(self.code_text_errors(), [])
+
+    def test_code_reference_without_row_is_reported(self):
+        self.edit_table("プロンプト文面", lambda rows: rows.remove(next(r for r in rows if r["文面ID"] == "PR.role")))
+        self.assertIn("コードが参照する台帳ID 'PR.role'", self.verify().stderr)
+
+    def test_row_without_code_reference_is_reported(self):
+        def add(rows):
+            r = dict(rows[0]); r["文面ID"] = "PR.dead-row"; r["文面"] = "誰も使わない"; r["変数"] = ""
+            rows.append(r)
+        self.edit_table("プロンプト文面", add)
+        self.assertIn("台帳ID PR.dead-row がどのコード", self.verify().stderr)
+
+    def test_variable_column_mismatch_is_reported(self):
+        def mut(rows):
+            next(r for r in rows if r["文面ID"] == "PR.partition")["文面"] += "{extra}"
+        self.edit_table("プロンプト文面", mut)
+        self.assertIn("プロンプト文面 PR.partition: 変数列", self.verify().stderr)
+
+    def test_empty_constant_value_is_reported(self):
+        def mut(rows):
+            next(r for r in rows if r["定数ID"] == "view.char")["値"] = ""
+        self.edit_table("描画定数", mut)
+        self.assertIn("描画定数 view.char: 値が空", self.verify().stderr)
+
+    def test_oblique_text_stops_on_unknown_id_and_on_wrong_variables(self):
+        def run(code):
+            return subprocess.run([sys.executable, "-c", "import sys; sys.path.insert(0, %r); import oblique_text as X; %s" % (str(self.work / ".claude/skills/sit-field-background/tools"), code)],
+                                  env={**os.environ, "LEDGER_ROOT": str(self.work)}, capture_output=True, text=True, cwd=self.work)
+        r = run("X.text('PR.no-such-id')")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("が台帳", r.stderr)
+        r = run("X.text('PR.partition')")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("変数が合わない", r.stderr)
+        r = run("print(X.text('PR.partition', id='W1'))")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("W1: 仕切り", r.stdout)
+
+
 class PromptReflectionTests(unittest.TestCase):
     """verify_prompt_reflects_ledger.rb が、過去に漏れた事例（畳・化石の石・-fire の勝手口・火事版の上半分・渡り廊下の窓列）や
     自由記述・継承要素の漏れを、壊した fixture で実際に検出するか。プロンプトは fixture 内のツールで導出する（画像生成はしない）。"""
