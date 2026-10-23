@@ -455,6 +455,19 @@ class LegacyMdReaderTests(unittest.TestCase):
         self.assertIn("KRB-01.top / KRB-11.bottom / edge; KRB-01.right / KRB-12.left / edge", a.stdout)
         self.assertEqual(a.stdout, b.stdout)
 
+    def test_ledger_root_redirects_where_the_md_files_are_read_from(self):
+        # スクリプトを複製せず本物の scripts/ を使い、LEDGER_ROOT だけで md の読み先（docs/*.md）を差し替える
+        root = self.make_root(self.CHECKLIST, self.SPEC, self.TOPO)
+        r = subprocess.run([RUBY, str(ROOT / "scripts/build_map_prompt.rb"), "KRB-01"], env=env_for(root), capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("Subject / unique landmark: 交差点", r.stdout)  # fixture の md の内容（本物の docs には無い）
+
+    def test_verify_map_ledger_reads_md_from_ledger_root(self):
+        root = self.make_root(self.CHECKLIST, self.SPEC, self.TOPO)
+        r = subprocess.run([RUBY, str(ROOT / "scripts/verify_map_ledger.rb")], env=env_for(root), capture_output=True, text=True)
+        self.assertNotEqual(r.returncode, 0)  # fixture には map-ids.json が無い → 本物の docs を読んで PASS してはならない
+        self.assertNotIn("PASS", r.stdout)
+
     def test_blocked_status_still_blocks(self):
         root = self.make_root(self.CHECKLIST.replace("ready", "blocked"), self.SPEC, self.TOPO)
         r = self.run_ruby(root, "KRB-01")

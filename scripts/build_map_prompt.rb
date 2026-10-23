@@ -9,7 +9,7 @@
 # 台帳（docs/ledger/MAP.yaml）に行がある MAP（寺町）は md を読まず、台帳の状態・未決で停止する（プロンプトは
 # oblique_build.py が台帳ゲートつきで作る）。
 
-ROOT = File.expand_path('..', __dir__)
+ROOT = ENV['LEDGER_ROOT'] || File.expand_path('..', __dir__) # LEDGER_ROOT で md の読み先も差し替える（ledger_yaml.rb と同じ環境変数）
 require_relative 'md_table'
 require_relative 'ledger_yaml'
 

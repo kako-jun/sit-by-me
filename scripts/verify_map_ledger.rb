@@ -6,7 +6,7 @@
 # 表は見出し行の列名で読む（md_table.rb。列の位置に依存しない）。台帳（docs/ledger）に行がある寺町のMAPは、
 # 契約チェックリストの状態列を『台帳』とし、状態・未決・既定は台帳（verify_ledger.rb）が検査する。
 
-ROOT = File.expand_path('..', __dir__)
+ROOT = ENV['LEDGER_ROOT'] || File.expand_path('..', __dir__) # LEDGER_ROOT で md の読み先も差し替える（ledger_yaml.rb と同じ環境変数）
 require 'rexml/document'
 require 'json'
 require_relative 'md_table'

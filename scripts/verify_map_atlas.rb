@@ -73,8 +73,8 @@ module MapAtlasVerification
 end
 if $PROGRAM_NAME==__FILE__
   begin
-    MapAtlasVerification.verify!(File.expand_path('..',__dir__))
-    g=MapGraph::Graph.new(File.expand_path('..',__dir__))
+    MapAtlasVerification.verify!(ENV['LEDGER_ROOT'] || File.expand_path('..',__dir__))
+    g=MapGraph::Graph.new(ENV['LEDGER_ROOT'] || File.expand_path('..',__dir__))
     puts "PASS: full atlas #{g.areas.sum { |a| a['maps'].length }} MAPs / #{g.edges.length} connections, 15 areas, overview cross-area ports and directed events"
   rescue StandardError => e
     warn "FAIL: atlas: #{e.message}"
