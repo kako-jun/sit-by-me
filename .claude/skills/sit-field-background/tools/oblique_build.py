@@ -24,19 +24,20 @@ import hashlib
 import json
 import os
 import re
-import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import oblique_mock as M  # noqa: E402
 import oblique_topology as T  # noqa: E402
+import ledger_query as LQ  # noqa: E402
+import ledger_io as LIO  # noqa: E402
 from PIL import Image  # noqa: E402
 
 STAGES = ["validate", "mock", "wire", "mask", "occlusion", "prompt"]
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 ID_RE = re.compile(r"^[A-Z]{3}-\d{2}\.[A-Za-z0-9-]+$")
-PROMPT_VERSION = "oblique-edit-prompt/4"
+PROMPT_VERSION = "oblique-edit-prompt/5"
 DECOR_FILE = os.path.join(REPO, "docs", "production", "oblique-mocks", "decor-pools.json")
 DECOR_LAYER_KEYS = ("desk", "slab_edge", "outside", "building")
 DECOR_REQUIRED = ("geometry_fixed", "fill_rule", "layers", "surfaces", "kinds", "allow", "forbid", "trees")
@@ -510,7 +511,7 @@ def door_section(p):
     return "\n".join(L)
 
 
-def build_prompt(p, key):
+def build_prompt(p, key, ledger_text=""):
     """imagegen 編集用プロンプト（決定論）。モック=編集元1枚。原文束は台帳（build_map_prompt.rb）に依存するので別セクション。"""
     pool = load_decor(p)
     if pool:
@@ -520,13 +521,14 @@ def build_prompt(p, key):
              f"FILL（装飾。簡素にしない）: {pool['fill_rule']}",
              door_section(p),
              "NO TEXT: 画像に文字・数字・矢印・ラベルを入れない。人物は入れない。", "",
+             ledger_text, "",
              "LAYERS（外から内へ。層の境界の位置・形はモックのまま。質感と装飾で埋める）:"]
         L = L[:-1] + coord_section(p, pool) + ["", L[-1]]  # LAYERS 見出しの直前に座標節
         for k in DECOR_LAYER_KEYS:
             ly = pool["layers"][k]
             L.append(f"- {ly.get('label', k)}: {ly['look']} 固定: {ly['fixed']}" + (f" 【エリア固定（{pool['area']}）: 全MAP共通。変えない】" if k in ("desk", "slab_edge") else ""))
         tr = pool["trees"]
-        L += ["", f"TREES（建物の外。寺町の木=松＋枯木。常緑樹は松だけ。本数・比率は{'既定（要確認）' if tr.get('status') == 'default' else '確定'}）:",
+        L += ["", f"TREES（建物の外。エリア固定の木の種類=台帳のエリア表『木の種類』。本数・比率は{'既定（要確認）' if tr.get('status') == 'default' else '確定'}）:",
               f"- 合計{tr['total'][0]}〜{tr['total'][1]}本。松{tr['pine']['count'][0]}〜{tr['pine']['count'][1]}本・枯木{tr['deadtree']['count'][0]}〜{tr['deadtree']['count'][1]}本（松多め）。台座の四辺すべてに散らす",
               f"- {tr['pine']['label']}: {tr['pine']['look']}",
               f"- {tr['deadtree']['label']}: {tr['deadtree']['look']}",
@@ -558,9 +560,9 @@ def build_prompt(p, key):
         for o in ops:
             v = vmap.get(o["id"])
             co = f"・開口の空間（壁の高さ分）の外接矩形 {_bbox([v['hull']])}・床の部分 {_pts(v['ground'])}" if v else ""
-            L.append(f"- {o['id']}（{o['wall']}・中心{o['center']}・幅{M.door_w(o) if 'width_class' in o or o in p['doors'] else M.DOOR_W:.0f}{co}）: **扉のない通り抜けられる開口。床が連続して隣の部屋とつながる。仕切りの壁が開口の幅だけ途切れた素直な切り口にする。壁・梁・鴨居・垂れ壁・柱・敷居の台座を描かない。緑の印（緑の面・緑の線）は残さない**（#51 2026-10-21）")
+            L.append(f"- {o['id']}（{o['wall']}・中心{o['center']}・幅{M.door_w(o) if 'width_class' in o or o in p['doors'] else M.DOOR_W:.0f}{co}）: **扉のない通り抜けられる開口。床が連続して隣の部屋とつながる。仕切りの壁が開口の幅だけ途切れた素直な切り口にする。壁・梁・鴨居・垂れ壁・柱・敷居の台座を描かない。緑の印（緑の面・緑の線）は残さない**（決定 TRM.open-passage）")
         for w in rps:
-            L.append(f"- {w['id']}（{w.get('label') or '渡り廊下'}）: 屋根を柱で支えるだけの開放した通路（壁・窓・格子・戸を描かない）。屋根の下を左右へ奥まで見通せる。床は木の板張り（確定・茶色の板）。石の床にしない")
+            L.append(f"- {w['id']}（{w.get('label') or '渡り廊下'}）: 屋根を柱で支えるだけの開放した通路（壁・窓・格子・戸を描かない）。屋根の下を左右へ奥まで見通せる。床の材質は台帳の建物表に従う")
     if p["doors"]:
         WN = {"1person": "キャラ1人分（細い裏口）", "1.5people": "キャラ1.5人分", "2people": "キャラ2人分"}
         L += ["", "DOOR WIDTHS:"] + [f"- {d['id']}: 幅{WN[d.get('width_class', '2people')]}（{M.door_w(d):.0f}平面単位）・{d['wall_side']}壁" for d in p["doors"]]
@@ -585,19 +587,6 @@ def build_prompt(p, key):
     return "\n".join(L) + "\n"
 
 
-def ledger_gate(map_id):
-    """台帳（build_map_prompt.rb）が ready か。戻り (ready, text)。"""
-    base = re.sub(r"-(kids|fire|burnt|wc)$", "", map_id)
-    script = os.path.join(REPO, "scripts", "build_map_prompt.rb")
-    if not os.path.exists(script):
-        return False, "scripts/build_map_prompt.rb が無い"
-    try:
-        r = subprocess.run(["ruby", script, base], capture_output=True, text=True, timeout=60)
-        return r.returncode == 0 and "blocked" not in r.stdout[:200], (r.stdout + r.stderr).strip()
-    except Exception as ex:  # noqa: BLE001
-        return False, f"ruby 実行失敗: {ex}"
-
-
 # ---------------------------------------------------------------- manifest
 def load_manifest(path):
     if os.path.exists(path):
@@ -619,16 +608,25 @@ def build_one(plan_path, outroot, variant=None, from_stage=None, force=False, lo
     os.makedirs(out, exist_ok=True)
     mpath = os.path.join(out, "manifest.json")
     man = load_manifest(mpath)
+    miss = LQ.missing_keys(key)
+    if miss:  # 必須キーが全部埋まっているMAPだけを起動する（足りないキーを一覧で報告）
+        log(f"[{key}] 必須キー欠落のため起動しない（docs/ledger の必須キー表）:")
+        for m_ in miss:
+            log("   MISSING: " + m_)
+        return man, ["必須キー欠落: " + "; ".join(miss)]
+    ledger_text, ledger_mat = LQ.sections(key, p.get("depends_on", []))
+    unadopted = [d for d, pth in [(d_, pth_) for d_, pth_, _ in LQ.Ledger().references(key, p.get("depends_on", []))] if not pth]
     plan_sha = sha_file(plan_path) + (f"+{variant}" if variant else "")
     tool_mock = src_sha("oblique_mock.py")
     tool_topo = src_sha("oblique_mock.py", "oblique_topology.py")
     man.update({"map_id": key, "plan": os.path.relpath(plan_path, REPO), "plan_sha256": plan_sha,
-                "ledger": {"registry": "docs/map-asset-registry.md", "checklist": "docs/map-contract-checklist.md",
-                           "row_id": re.sub(r"-(kids|fire|burnt|wc)$", "", key), "era_suffix": variant}})
+                "ledger": {"tables": "docs/ledger/*.csv", "row_id": re.sub(r"-(kids|fire|burnt|wc)$", "", key), "era_suffix": variant,
+                           "decisions": ledger_mat["decisions"], "inherits": ledger_mat["inherits"], "references": ledger_mat["refs"],
+                           "input_sha": sha_bytes((ledger_text + json.dumps(ledger_mat, sort_keys=True)).encode())}})
     inputs = {"validate": sha_bytes((plan_sha + tool_mock + src_sha("oblique_build.py")).encode()),
               "mock": sha_bytes((plan_sha + tool_mock).encode()), "wire": sha_bytes((plan_sha + tool_topo).encode()),
               "mask": sha_bytes((plan_sha + tool_mock).encode()), "occlusion": sha_bytes((plan_sha + tool_mock).encode()),
-              "prompt": sha_bytes((plan_sha + PROMPT_VERSION + tool_mock + (sha_file(DECOR_FILE) if os.path.exists(DECOR_FILE) else "")).encode())}
+              "prompt": sha_bytes((plan_sha + PROMPT_VERSION + tool_mock + (sha_file(DECOR_FILE) if os.path.exists(DECOR_FILE) else "") + ledger_text + json.dumps(ledger_mat, sort_keys=True)).encode())}
     dirty = bool(force)
     errors = []
     for st in STAGES:
@@ -666,16 +664,17 @@ def build_one(plan_path, outroot, variant=None, from_stage=None, force=False, lo
         elif st == "occlusion":
             files = M.write_occlusion(p, out)
         elif st == "prompt":
-            text = build_prompt(p, key)
+            text = build_prompt(p, key, ledger_text)
             fn = f"{key}-edit-prompt.txt"
-            ready, gate_text = ledger_gate(key)
             with open(os.path.join(out, fn), "w", encoding="utf-8") as f:
                 f.write(text)
-                f.write("\n# ---- 台帳ゲート（scripts/build_map_prompt.rb）----\n")
-                f.write(("READY\n" if ready else "BLOCKED（原文束は未取得。台帳の TBD を埋めて ready にしてから）\n") + gate_text + "\n")
+                f.write("\n# ---- 台帳の出所 ----\n")
+                f.write(f"# docs/ledger の決定 {len(ledger_mat['decisions'])} 件・継承要素 {len(ledger_mat['inherits'])} 件を全て上に入れた（status に依存しない）。\n")
+                if unadopted:
+                    f.write(f"# DRAFT: 依存MAP {', '.join(unadopted)} が未採用。確定してから生成を起動する（参考画像が揃わないため）。\n")
             files = [fn]
-            extra = {"ledger_ready": ready}
-        man["stages"][st] = {"input_sha": inputs[st], "status": "ok" if st != "prompt" or extra.get("ledger_ready") else "blocked",
+            extra = {"unadopted_dependencies": unadopted}
+        man["stages"][st] = {"input_sha": inputs[st], "status": "ok" if st != "prompt" or not extra.get("unadopted_dependencies") else "blocked",
                              "outputs": {fn: sha_file(os.path.join(out, fn)) for fn in files}, **extra}
         log(f"[{key}] {st}: 実行 → {', '.join(files)}")
     save_manifest(mpath, man)

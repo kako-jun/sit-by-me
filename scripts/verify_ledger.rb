@@ -1,0 +1,317 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# docs/ledger/*.csv（日本語マスター）の整合性検証。外部キー・一意性・必須キー・語彙・別名・決定の整合・生成物の鮮度・自由記述の矛盾警告。
+#   ruby scripts/verify_ledger.rb            # エラーがあれば exit 1（警告は表示だけ）
+require 'json'
+require 'digest'
+require_relative 'ledger_csv'
+require_relative 'ledger_required_keys'
+
+class LedgerVerifier
+  attr_reader :errors, :warnings
+
+  def initialize(root = LedgerCsv::ROOT)
+    @root = root
+    @errors = []
+    @warnings = []
+    @t = LedgerCsv.load_all
+  end
+
+  def err(msg) = @errors << msg
+  def warn!(msg) = @warnings << msg
+
+  def map_ids
+    @map_ids ||= begin
+      ids = JSON.parse(File.read(File.join(@root, 'docs/topology/map-ids.json'), encoding: 'UTF-8'))
+      ids.fetch('areas').flat_map { |code, n| (1..n).map { |i| format('%s-%02d', code, i) } }
+    end
+  end
+
+  def base_map(id) = id.sub(/-(kids|fire|burnt|wc)\z/, '')
+
+  def run
+    check_presence
+    check_unique
+    check_fks
+    check_required
+    check_aliases
+    check_decisions
+    check_buildings
+    check_windows
+    check_generated
+    check_free_text
+    self
+  end
+
+  def check_presence
+    %w[エリア MAP 建物 建物部位 建物窓列 建物関係 建物時期差分 端 接続 接続図設定 要素 窓 時期差分 既定値 エリア固定 装飾プール 語彙 決定 採用要素 素材 生成物 必須キー 未決 キー別名].each do |n|
+      err("表 #{n}.csv が無い") unless File.file?(File.join(@root, 'docs/ledger', "#{n}.csv"))
+    end
+  end
+
+  UNIQUE = {
+    'エリア' => ['エリアID'], 'MAP' => ['MAP_ID'], '建物' => ['建物ID'], '建物部位' => ['部位ID'], '建物窓列' => ['窓列ID'],
+    '端' => %w[端ID 適用時期], '窓' => %w[窓ID 適用時期], '要素' => %w[MAP_ID 適用時期 要素ID], '決定' => ['決定ID'], '採用要素' => ['採用要素ID'],
+    '素材' => ['素材ID'], '生成物' => ['生成物ID'], '語彙' => ['語彙ID'], '未決' => ['未決ID'], '既定値' => ['既定ID']
+  }.freeze
+
+  def check_unique
+    UNIQUE.each do |tb, cols|
+      dup = @t[tb].group_by { |r| cols.map { |c| r[c] } }.select { |_, v| v.size > 1 }.keys
+      err("#{tb}: 主キー重複 #{dup.map { |k| k.join('/') }.join(', ')}") unless dup.empty?
+    end
+    pairs = @t['接続'].map { |r| [r['端A'], r['端B']].sort }
+    dup = pairs.group_by(&:itself).select { |_, v| v.size > 1 }.keys
+    err("接続: 同じ端の組が重複 #{dup.map { |k| k.join('⇄') }.join(', ')}") unless dup.empty?
+    ends = @t['接続'].flat_map { |r| [r['端A'], r['端B']] }
+    ends.group_by(&:itself).each do |e, v|
+      next unless v.size > 1 && e.match?(/\.door/)
+
+      err("接続: 扉の端 #{e} が複数の接続に使われている")
+    end
+  end
+
+  def ids(table, col) = @t[table].map { |r| r[col] }
+
+  def fk(table, col, target_table, target_col, allow: [], list: false, optional: true)
+    set = ids(target_table, target_col)
+    @t[table].each do |r|
+      v = r[col].to_s
+      next if v.empty? && optional
+
+      (list ? v.split(';') : [v]).each do |tok|
+        next if allow.include?(tok) || set.include?(tok)
+
+        err("外部キー #{table}.#{col}='#{tok}' が #{target_table}.#{target_col} に無い（#{r.values.first}）")
+      end
+    end
+  end
+
+  def check_fks
+    fk('MAP', 'エリアID', 'エリア', 'エリアID', optional: false)
+    fk('MAP', '建物ID', '建物', '建物ID', list: true)
+    @t['MAP'].each do |m|
+      m['依存MAP'].to_s.split(';').each do |d|
+        next if %w[なし 該当なし 未決(要確認)].include?(d)
+
+        err("外部キー MAP.依存MAP='#{d}' が MAP に無い（#{m['MAP_ID']}）") unless ids('MAP', 'MAP_ID').include?(d)
+        err("依存MAPの自己参照 #{m['MAP_ID']}") if d == m['MAP_ID']
+      end
+    end
+    check_dep_cycle
+    fk('建物', 'エリアID', 'エリア', 'エリアID')
+    fk('建物部位', '建物ID', '建物', '建物ID', optional: false)
+    fk('建物窓列', '建物ID', '建物', '建物ID', optional: false)
+    fk('建物窓列', '部位ID', '建物部位', '部位ID')
+    fk('建物関係', '建物A', '建物', '建物ID')
+    fk('建物関係', '建物B', '建物', '建物ID')
+    fk('建物関係', '接続端ID', '端', '端ID')
+    fk('建物時期差分', '建物ID', '建物', '建物ID', optional: false)
+    fk('建物時期差分', '部位ID', '建物部位', '部位ID')
+    fk('端', 'MAP_ID', 'MAP', 'MAP_ID', optional: false)
+    fk('端', '建物部位ID', '建物部位', '部位ID')
+    fk('窓', 'MAP_ID', 'MAP', 'MAP_ID', optional: false)
+    fk('窓', '建物窓列ID', '建物窓列', '窓列ID')
+    fk('要素', 'MAP_ID', 'MAP', 'MAP_ID', optional: false)
+    fk('要素', '建物部位ID', '建物部位', '部位ID')
+    fk('既定値', 'MAP_ID', 'MAP', 'MAP_ID', optional: false)
+    fk('時期差分', 'MAP_ID', 'MAP', 'MAP_ID', optional: false)
+    @t['接続'].each do |r|
+      %w[端A 端B].each do |c|
+        err("接続.#{c}='#{r[c]}' の MAP が MAP ID 登録に無い") unless map_ids.include?(r[c].split('.').first)
+      end
+    end
+    @t['端'].each do |e|
+      next if e['相手端'].to_s.empty?
+
+      ok = @t['接続'].any? { |c| [c['端A'], c['端B']].sort == [e['端ID'], e['相手端']].sort }
+      err("端 #{e['端ID']} の相手端 #{e['相手端']} が接続表に無い（接続は接続表が正）") unless ok
+    end
+    check_decision_fks
+    @t['採用要素'].each do |a|
+      err("外部キー 採用要素.素材ID='#{a['素材ID']}' が素材に無い") unless a['素材ID'].to_s.empty? || ids('素材', '素材ID').include?(a['素材ID'])
+      err("採用要素 #{a['採用要素ID']} の元MAP #{a['元MAP']} が MAP に無い") unless ids('MAP', 'MAP_ID').include?(base_map(a['元MAP']))
+      a['継承先MAP'].split(';').each { |m| err("採用要素 #{a['採用要素ID']} の継承先MAP #{m} が MAP に無い") unless ids('MAP', 'MAP_ID').include?(base_map(m)) }
+    end
+    @t['素材'].each do |s|
+      owner = s['所有者ID']
+      ok = ids('MAP', 'MAP_ID').include?(base_map(owner))
+      err("素材 #{s['素材ID']} の所有者 #{owner} が MAP に無い") unless ok
+    end
+    # 決定参照（全表）: 存在し、訂正済み・撤回済みの決定を参照していない
+    dec = @t['決定'].to_h { |d| [d['決定ID'], d] }
+    @t.each do |tb, rows|
+      next unless rows.first&.key?('決定参照')
+
+      rows.each do |r|
+        r['決定参照'].to_s.split(';').each do |ref|
+          if !dec.key?(ref)
+            err("決定参照 #{tb}(#{r.values.first})='#{ref}' が決定表に無い")
+          elsif dec[ref]['状態'] != '有効'
+            err("決定参照 #{tb}(#{r.values.first})='#{ref}' は #{dec[ref]['状態']}（置換先 #{dec[ref]['置換先']}）の決定を参照している")
+          end
+        end
+      end
+    end
+    @t['未決'].each do |u|
+      err("未決 #{u['未決ID']} の解決決定ID #{u['解決決定ID']} が決定表に無い") unless u['解決決定ID'].to_s.empty? || dec.key?(u['解決決定ID'])
+    end
+  end
+
+  def check_dep_cycle
+    deps = @t['MAP'].to_h { |m| [m['MAP_ID'], m['依存MAP'].to_s.split(';').reject { |d| %w[なし 該当なし 未決(要確認)].include?(d) }] }
+    state = {}
+    visit = lambda do |n, path|
+      return if state[n] == :done
+      return err("依存MAPの循環 #{(path + [n]).join('→')}") if state[n] == :open
+
+      state[n] = :open
+      (deps[n] || []).each { |d| visit.call(d, path + [n]) }
+      state[n] = :done
+    end
+    deps.each_key { |n| visit.call(n, []) }
+  end
+
+  def check_decision_fks
+    tabs = { 'エリア' => ['エリア', 'エリアID'], 'MAP' => ['MAP', 'MAP_ID'], '建物' => ['建物', '建物ID'], '端' => ['端', '端ID'], '要素' => ['要素', '要素ID'], '窓' => ['窓', '窓ID'], '接続' => ['接続', '端A'] }
+    @t['決定'].each do |d|
+      tt = tabs[d['対象種別']]
+      if tt.nil?
+        err("決定 #{d['決定ID']}: 対象種別 '#{d['対象種別']}' が不正")
+      else
+        set = ids(*tt)
+        set += ids('接続', '端B') if d['対象種別'] == '接続'
+        err("決定 #{d['決定ID']}: 対象ID '#{d['対象ID']}' が #{d['対象種別']} 表に無い") unless set.include?(d['対象ID'])
+      end
+      d['対象MAP'].to_s.split(';').each do |m|
+        err("決定 #{d['決定ID']}: 対象MAP '#{m}' が MAP に無い") unless ids('MAP', 'MAP_ID').include?(base_map(m))
+      end
+      if d['状態'] == '訂正済み'
+        err("決定 #{d['決定ID']}: 訂正済みなのに置換先が無い") if d['置換先'].to_s.empty?
+        err("決定 #{d['決定ID']}: 置換先 #{d['置換先']} が決定表に無い") unless d['置換先'].to_s.empty? || ids('決定', '決定ID').include?(d['置換先'])
+      end
+    end
+  end
+
+  def check_required
+    errors, undecided = LedgerRequiredKeys.check_rows(@t)
+    errors.each { |e| err(e) }
+    @undecided = undecided
+    @t['未決'].each do |u|
+      next unless u['状態'] == '未決'
+
+      known = @undecided.any? { |t, i, k| t == u['対象テーブル'] && i == u['対象ID'] && k == u['キー'] }
+      # 未決表の行は、必須キーの『未決(要確認)』に対応するものと、個別の未確定事項の両方を含む（後者は警告にしない）
+      known
+    end
+  end
+
+  def check_aliases
+    aliases = @t['キー別名'].map { |r| [r['別名'], r['正規名']] }.to_h
+    @t['必須キー'].each { |r| err("必須キー表のキー '#{r['キー']}' は別名（正規名: #{aliases[r['キー']]}）") if aliases.key?(r['キー']) }
+    LedgerCsv.tables.each do |tb|
+      LedgerCsv.header(tb).each { |h| warn!("別名の列名 #{tb}.#{h}（正規名 #{aliases[h]} に直す）") if aliases.key?(h) }
+    end
+    (@t['エリア固定'] + @t['装飾プール']).each do |r|
+      k = r['項目'].to_s.split(/[.\[]/).last
+      warn!("項目 '#{r['項目']}' の末尾が別名 #{k}（正規名 #{aliases[k]}）") if aliases.key?(k)
+    end
+  end
+
+  def check_decisions
+    @t['決定'].each do |d|
+      id = d['決定ID']
+      d['必須語'].to_s.split(';').each { |w| err("決定 #{id}: 必須語『#{w}』が決定の要点に無い") unless d['決定の要点'].include?(w) }
+      d['禁止語'].to_s.split(';').each { |w| err("決定 #{id}: 禁止語『#{w}』が決定の要点に無い") unless d['決定の要点'].include?(w) }
+      err("決定 #{id}: 日付が YYYY-MM-DD でない") unless d['日付'].match?(/\A\d{4}-\d\d-\d\d\z/)
+      if d['出典'].start_with?('Issue') && !d['出典URL'].match?(%r{\Ahttps://github\.com/[^/]+/[^/]+/issues/\d+#issuecomment-\d+\z})
+        err("決定 #{id}: 出典URL が Issue コメントのURLでない")
+      end
+      err("決定 #{id}: 出典の Issue 番号と出典URLが食い違う") if d['出典'] =~ /#(\d+)/ && !d['出典URL'].to_s.empty? && !d['出典URL'].include?("/issues/#{$1}#")
+    end
+  end
+
+  def check_buildings
+    parts = @t['建物部位']
+    @t['建物窓列'].each do |w|
+      part = parts.find { |p| p['部位ID'] == w['部位ID'] }
+      next unless part
+
+      err("建物窓列 #{w['窓列ID']}: 部位 #{part['部位ID']} が開放なのに窓列がある（開放と窓列は両立しない）") if part['状態'] == '開放' && w['個数'].to_i.positive?
+      err("建物窓列 #{w['窓列ID']}: 部位が窓なしなのに個数が #{w['個数']}") if part['状態'] == 'なし' && w['個数'].to_i.positive?
+    end
+    # 屋内と外観の食い違い防止: 建物窓列のある建物は、窓表の行数が個数と一致する（MAP・時期ごと）
+    @t['窓'].select { |w| !w['建物窓列ID'].to_s.empty? }.group_by { |w| [w['建物窓列ID'], w['MAP_ID'], w['適用時期'], w['壁']] }.each do |(wid, mid, era, wall), rows|
+      n = @t['建物窓列'].find { |x| x['窓列ID'] == wid }&.fetch('個数', nil)
+      err("窓 #{mid}#{era.empty? ? '' : "-#{era}"} の壁 #{wall}: 建物窓列 #{wid} の個数 #{n} と窓表の行数 #{rows.size} が違う") if n && n.to_i != rows.size
+    end
+  end
+
+  def check_windows
+    @t['窓'].each do |w|
+      next if w['種別'] == '窓なし'
+
+      err("窓 #{w['窓ID']}: 壁側/種別/状態が空") if w['壁側'].empty? || w['状態'].empty?
+    end
+  end
+
+  def check_generated
+    @t['生成物'].each do |g|
+      path = File.join(@root, g['パス'])
+      unless File.file?(path)
+        err("生成物 #{g['生成物ID']}: パス #{g['パス']} が無い（リンク切れ）")
+        next
+      end
+      next unless g['パス'].end_with?('.json') && !g['入力ハッシュ'].to_s.empty?
+
+      prov = (JSON.parse(File.read(path, encoding: 'UTF-8'))['_provenance'] || {})
+      err("生成物 #{g['生成物ID']}: JSON の _provenance.input_sha が生成物表と違う（手編集か古い）") if prov['input_sha'] != g['入力ハッシュ']
+    end
+    return if ENV['LEDGER_SKIP_REGEN']
+
+    tool = File.join(@root, '.claude/skills/sit-field-background/tools/ledger_build.py')
+    return unless File.file?(tool)
+
+    out = `uv run python3 #{tool} check 2>&1`
+    err("派生JSONが台帳から再生成した内容と一致しない: #{out.strip.lines.first(3).join(' / ')}") unless $?.success?
+  end
+
+  # 自由記述（特徴）: 禁止語との衝突・必須キー値との食い違い・構造化できる内容（寸法・個数・材質）を警告
+  def check_free_text
+    free = '特徴(自由記述)'
+    forb = @t['決定'].select { |d| d['状態'] == '有効' }.flat_map { |d| d['禁止語'].to_s.split(';') } + @t['語彙'].select { |v| v['グループ'] == '禁止語' }.map { |v| v['値'] }
+    @t.each do |tb, rows|
+      next unless rows.first&.key?(free)
+
+      rows.each do |r|
+        text = r[free].to_s
+        next if text.empty?
+
+        who = "#{tb} #{r.values.first}"
+        forb.uniq.each do |w|
+          next unless text.include?(w)
+
+          warn!("自由記述 #{who}: 禁止語『#{w}』が出る（否定形でなければ衝突）") unless text.match?(/描かない|ない|禁止|不可|しない/)
+        end
+        warn!("自由記述 #{who}: 寸法らしい数値（#{$&}）→ 必須キー・要素表へ移す候補") if text =~ /\d+\s*(px|cm|mm|単位|ピクセル)/
+        warn!("自由記述 #{who}: 個数らしい数値（#{$&}）→ 必須キーへ移す候補") if text =~ /\d+\s*(個|本|枚|つ|か所)/
+        if tb == 'MAP' && r['床材'].to_s != '' && text =~ /畳/ && !r['床材'].include?('畳')
+          warn!("自由記述 #{who}: 床材キー（#{r['床材']}）と食い違う可能性（畳）")
+        end
+      end
+    end
+  end
+end
+
+if $PROGRAM_NAME == __FILE__
+  v = LedgerVerifier.new.run
+  v.warnings.each { |w| warn "WARN: #{w}" }
+  if v.errors.empty?
+    puts "PASS: ledger tables=#{LedgerCsv.tables.size}, decisions=#{v.instance_variable_get(:@t)['決定'].size}, maps=#{v.instance_variable_get(:@t)['MAP'].size}, warnings=#{v.warnings.size}"
+  else
+    v.errors.each { |e| warn "FAIL: #{e}" }
+    warn "FAIL: #{v.errors.size} errors"
+    exit 1
+  end
+end

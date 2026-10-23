@@ -2,32 +2,6 @@
  "schema": "sit-oblique-deps/1",
  "note": "依存グラフ。判定基準=『同じ建物・扉・家具・場所を複数枚で描くか』。共有するなら先に確定した画像を参考画像として後続へ渡す（直列）。共有しないなら並列。屋内→屋外の順（扉・渡り廊下は室内が確定してから外観）。戸口で接続する2枚は扉を共有するので室内が親。道の端の連続（地面・用水の流れ）だけの接続は共有とみなさない（要確認の項目は dependency-notes.md）。TRM-01 は廃止（TRM-03 へ統合）。TRM-06〜17 の plan は別ブランチ teramachi-rest-mocks-20261023（読むだけ）。",
  "maps": {
-  "TRM-04": {
-   "depends_on": [],
-   "status": "fixed",
-   "basis": "本堂。扉のデザインの正本。最初に確定する（kako-jun 2026-10-23）"
-  },
-  "TRM-05": {
-   "depends_on": [
-    "TRM-04"
-   ],
-   "status": "fixed",
-   "basis": "住居（基準）。本堂の扉・材質を参考に。家具のデザインの正本"
-  },
-  "TRM-05-kids": {
-   "depends_on": [
-    "TRM-05"
-   ],
-   "status": "fixed",
-   "basis": "住居の幼稚園時代。住居基準の家具・材質に一致"
-  },
-  "TRM-05-fire": {
-   "depends_on": [
-    "TRM-05"
-   ],
-   "status": "fixed",
-   "basis": "住居の火事の時点。住居基準に一致"
-  },
   "TRM-02": {
    "depends_on": [
     "TRM-04"
@@ -43,6 +17,18 @@
    ],
    "status": "fixed",
    "basis": "外観。内部（04・05・02）が全部確定してから。扉・渡り廊下・建物は内部と一致"
+  },
+  "TRM-04": {
+   "depends_on": [],
+   "status": "fixed",
+   "basis": "本堂。扉のデザインの正本。最初に確定する（kako-jun 2026-10-23）"
+  },
+  "TRM-05": {
+   "depends_on": [
+    "TRM-04"
+   ],
+   "status": "fixed",
+   "basis": "住居（基準）。本堂の扉・材質を参考に。家具のデザインの正本"
   },
   "TRM-06": {
    "depends_on": [
@@ -114,6 +100,28 @@
    ],
    "status": "needs-confirmation",
    "basis": "寺町への坂道。坂の上の寺の屋根・黒瓦は TRM-03 の屋根と共有（要確認）"
+  },
+  "TRM-05-kids": {
+   "depends_on": [
+    "TRM-05"
+   ],
+   "status": "fixed",
+   "basis": "住居の幼稚園時代。住居基準の家具・材質に一致"
+  },
+  "TRM-05-fire": {
+   "depends_on": [
+    "TRM-05"
+   ],
+   "status": "fixed",
+   "basis": "住居の火事の時点。住居基準に一致"
   }
+ },
+ "_provenance": {
+  "source": "MAP.依存MAP|時期差分|接続図設定",
+  "input_sha": "2eb5cb20c964623be3a62948a6460d8bba6c663f4b6038d9a1e36bc7d6f3a843",
+  "generated_at": "2026-10-23T17:12",
+  "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
+  "ledger_id": "G-dependency-graph",
+  "do_not_edit": true
  }
 }
