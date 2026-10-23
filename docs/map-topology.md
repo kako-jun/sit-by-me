@@ -6,7 +6,7 @@
 - [庭園・城・三塔・登山道](topology/late-dungeons.svg)
 - [サニーランド円環](topology/sunnyland.svg)
 - [全15エリア間の全体図](topology/overview.svg)
-- [全129MAP・136接続のアトラス](topology/atlas.svg)
+- [全129MAP・137接続のアトラス](topology/atlas.svg)
 - [全15エリアの個別図一覧](topology/README.md)
 
 全129ID（欠番 TRM-01 を除く。TRM-01 は 2026-10-23 に TRM-03 へ統合して廃止、IDは詰めない）と一意なエリア所属を登録し、体内工程Aのコミット・プッシュ後、工程Bで全体図・全MAPアトラス・15個別図を生成済み。各図は端IDと一方向イベントまで正本と照合する。画素／mask／ゲーム実装の完成を意味しない。接続正本は以下のv2台帳。
@@ -123,7 +123,7 @@
 | TRM-16.top | TRM-17.bottom | edge | 寺町から北へ抜ける坂 |
 | TRM-15.right | TRM-07.left | edge | 火の見櫓から広い道 |
 | TRM-15.bottom | TRM-06.top | edge | 勝手口の細道へ。TRM-06は住居の裏の道としてTRM-16へ戻るループの一部（行き止まりではない） |
-| TRM-06.right | TRM-16.left | edge | 住居の裏の道から用水沿いの斜め道（TRM-16）の西端へ続く。TRM-16→TRM-15→TRM-06→TRM-16のループ（#51）。TRM-06↔TRM-05の勝手口の扉は台帳になくTBD |
+| TRM-06.right | TRM-16.left | edge | 住居の裏の道から用水沿いの斜め道（TRM-16）の西端へ続く。TRM-16→TRM-15→TRM-06→TRM-16のループ（#51）。TRM-06↔TRM-05の勝手口の扉は TRM-05.door-back↔TRM-06.door-house（上の行） |
 | TRM-07.right | TRM-08.left | edge | 寺塀沿いの主路 |
 | TRM-07.top | TRM-03.bottom | edge | 山門から境内へ |
 | TRM-08.right | TRM-09.left | edge | 用水合流から銭湯へ |
@@ -139,6 +139,7 @@
 | TRM-03.door-playroom | TRM-02.door-outside | door | 境内（TRM-03）の東（右）の幼稚園の外への出入口（kako-jun 2026-10-23、#144）。幼稚園側は下辺（南壁）の右端付近（E1の絵の南壁右の木の扉）。境内側の位置はTBD |
 | TRM-04.door-west | TRM-05.door-hall | door | 本堂から西（境内から北を見て左）の庫裏（住居）への渡り廊下。住居側の接続は東壁側で上下の中央より下寄り（kako-jun 2026-10-23、#144。幅・正確な位置はTBD） |
 | TRM-04.door-east | TRM-02.door-west | door | 本堂から東（境内から北を見て右）の幼稚園への屋内廊下。TRM-02側は本堂側（西）から入るので既存IDのwestと整合。扉の位置・廊下長はTBD。幼稚園側の接続は西壁側で上下の中央より下寄り（kako-jun 2026-10-23、#144。幅・正確な位置はTBD） |
+| TRM-05.door-back | TRM-06.door-house | door | 住居（庫裏）の勝手口と住居の裏の細道TRM-06の勝手口（kako-jun 2026-10-23、#144。幅はキャラ1人分で両側一致）。TRM-05側は北壁（上辺）の左（西）端。TRM-06側の位置・向きは台帳に無く既定（要確認）。TRM-05-fire では焼失して通れない |
 | TRM-17.top | KRB-10.bottom | edge | 寺町北端から生活店へ |
 | KRB-10.top | KRB-08.bottom | edge | 茶屋街南端 |
 | KRB-08.top | KRB-07.bottom | edge | 犀川南詰 |
@@ -286,6 +287,7 @@
 | `TRM-03.door-playroom` | `TRM-02.door-outside` | 境内から東（右）の幼稚園の外への出入口。幼稚園側は下辺（南壁）の右端付近。境内側の位置TBD。 |
 | `TRM-04.door-west` | `TRM-05.door-hall` | 本堂から西（左）の庫裏へ渡る廊下。畳廊下の方位と扉位置を一致させる。住居側は東壁側で上下の中央より下寄り。幅・正確な位置TBD。 |
 | `TRM-04.door-east` | `TRM-02.door-west` | 中央の本堂から東（右）の幼稚園へ屋内廊下で移動。TRM-02は本堂側（西面）から入る。扉位置・廊下長TBD。幼稚園側は西壁側で上下の中央より下寄り。舞台袖は画面内終端。 |
+| `TRM-05.door-back` | `TRM-06.door-house` | 住居（庫裏）の北壁左端の勝手口（幅1人分）から裏の細道TRM-06へ。TRM-06側の位置・向きは既定（要確認）。TRM-05-fireでは焼失して通れない。 |
 
 #60によりTRM-03は屋外、TRM-04/TRM-05/TRM-02は屋内。本堂を中央、境内から北（本堂）を見て左＝西が住居、右＝東が幼稚園とする（#51 2026-10-19の決定。旧「住居＝東・幼稚園＝西」は廃止）。園庭は別MAPではなく、境内TRM-03の右（東）の区画（幼稚園の前）である（2026-10-23にTRM-01をTRM-03へ統合。東の通用門 TRM-03.door-kindergarten↔TRM-01.door-west は無い）。`TRM-05.door-playroom ↔ TRM-02.door-west` と `TRM-03.door-residence ↔ TRM-05.door-temple` は現行グラフから除外する。旧「TRM-03から住居・遊戯室への屋外doorを新設しない」は2026-10-23のkako-jun決定（#144）で置き換え、住居・幼稚園は本堂側と外の2つずつの出入口を持つ（`TRM-03.door-residence ↔ TRM-05.door-outside`・`TRM-03.door-playroom ↔ TRM-02.door-outside`）。園庭（TRM-03の右の区画）とTRM-02遊戯室の直結は未契約。建物の外形・廊下の長さ・画面内配置・通行幅はこの接続図から推測せず、[制作前確認](production/20261018-teramachi-preflight.md)のTBDを解く。
 

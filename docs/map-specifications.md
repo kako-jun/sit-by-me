@@ -14,7 +14,7 @@
 | TRM-10 barrier-free-ramp | 事故後 | 犀川側の団地へ下る雪囲いスロープ | TRM-09北→TRM-11南、蛇行する車椅子主路 | 途中の急段差なし |
 | TRM-11 danchi-court | 事故後〜壮年 | 犀川側の県営住宅の中庭 | TRM-10北↔TRM-13東、棟入口→TRM-12 | 団地内はドア遷移 |
 | TRM-13 old-slope-foot | 立てる時期 | 石段の下の古い坂道 | TRM-11西↔TRM-14北、車椅子不可 | 事故後は入口を閉鎖 |
-| TRM-06 narrow-lane | 全時期 | 寺の勝手口へ入る土塀の細道 | TRM-15.bottomから入り、TRM-06.right→TRM-16.leftへ戻るループの一部。住居の裏の道 | 宝箱枝の扱い・TRM-05への勝手口の扉はTBD（要確認） |
+| TRM-06 narrow-lane | 全時期 | 寺の勝手口へ入る土塀の細道 | TRM-15.bottomから入り、TRM-06.right→TRM-16.leftへ戻るループの一部。住居の裏の道 | 宝箱枝の扱いはTBD（要確認）。勝手口は TRM-06.door-house⇄TRM-05.door-back（幅1人分・決定済み。TRM-06側の位置・向きは既定で要確認） |
 | TRM-03 temple-grounds | 全時期 | 親鸞像のある浄土真宗の境内（屋外） | bottom→TRM-07、door-main→TRM-04、event-kiss→BDY-01.event-mouth（園庭でのキス・一方向） | #60/#51。本堂中心・境内から見て左（西）住居・右（東）幼稚園の同じ建物群。**右の区画＝園庭（幼稚園の前。旧TRM-01を2026-10-23に統合。本堂の裏で雪遊びをする私立幼稚園の園庭）**。東の通用門・別マップへの出口なし。住居／遊戯室への屋外door: door-residence→TRM-05.door-outside、door-playroom→TRM-02.door-outside（2026-10-23 kako-jun決定 #144で旧「なし」を置換。境内側の位置TBD） |
 | TRM-05 residence | 全時期 | 庫裏の台所と幼馴染の部屋（屋内） | door-hall→中央TRM-04のdoor-west（東壁側・上下の中央より下寄り）、door-outside→TRM-03.door-residence（下辺の中央より左寄りのダイニング側）。2026-10-23 kako-jun決定 #144。TRM-02直結なし | #60/#51。本堂の西（左）。台所は火事イベントの場所。kako-jun 指示（2026-10-23）: 幼稚園時代は父と同じ寝室（寝室1つ。画像は別・未作成・接尾辞 -kids。車椅子の区分は3値）、小学生から寝室2つ（採用画像 v12。通れる／通れないの2値、体内と同じ）。時期別は同一ID画像差し替え（-kids/-fire/-burnt/-wc） |
 | TRM-14 slope-top | 立てる時期〜中学生 | 段丘上の分岐、学校側へ向く眺め | TRM-13南↔SCH-01東、車椅子主路はSCH-01側 | 石段と学校坂を混同しない |

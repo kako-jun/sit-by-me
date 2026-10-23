@@ -18,7 +18,7 @@
 | TRM-10 | `TRM-10-teramachi-barrier-free-ramp-rebuild-v2-candidate.png` | top→TRM-09、bottom→TRM-11 | 犀川側へ蛇行する車椅子主路。石段なし | recreate-required-1920x1080 |
 | TRM-11 | `TRM-11-teramachi-danchi-court-rebuild-v2-candidate.png` | top→TRM-10、right→TRM-13、door→TRM-12 | 県営住宅中庭。石段は立位期のみ | recreate-required-1920x1080 |
 | TRM-13 | `TRM-13-teramachi-old-slope-foot-rebuild-v6-candidate.png` | left→TRM-11、top→TRM-14 | 石段下、車椅子不可 | recreate-required-1920x1080 |
-| TRM-06 | `TRM-06-teramachi-narrow-lane-rebuild-candidate.png` | top→TRM-15、right→TRM-16.left | 住居の裏の道。TRM-16→TRM-15→TRM-06→TRM-16のループ。他辺閉鎖。勝手口の扉TBD | recreate-required-1920x1080 |
+| TRM-06 | `TRM-06-teramachi-narrow-lane-rebuild-candidate.png` | top→TRM-15、right→TRM-16.left | 住居の裏の道。TRM-16→TRM-15→TRM-06→TRM-16のループ。他辺閉鎖。勝手口の扉は TRM-06.door-house⇄TRM-05.door-back（幅1人分・決定済み。TRM-06側の位置・向きは要確認） | recreate-required-1920x1080 |
 | TRM-03 | `TRM-03-temple-grounds-rebuild-v4-candidate.png` | bottom→TRM-07、door-main→TRM-04（園庭のキスevent→BDY-01） | 屋外境内。右の区画が園庭（旧TRM-01を統合）で東の通用門なし。住居・遊戯室への屋外door: door-residence→TRM-05.door-outside、door-playroom→TRM-02.door-outside（2026-10-23決定 #144で旧「なし」を置換） | recreate-required-1920x1080 |
 | TRM-05 | `TRM-05-temple-residence-rebuild-v3-candidate.png` | door-hall→TRM-04.door-west（東壁側・上下の中央より下寄り）、door-outside→TRM-03.door-residence（下辺の中央より左寄りのダイニング側） | 屋内庫裏。本堂の西（左）。TRM-02直結なし | recreate-required-1920x1080 |
 | TRM-14 | `TRM-14-teramachi-slope-top-rebuild-v2-candidate.png` | bottom→TRM-13、right→SCH-01 | 段丘上。学校側車椅子坂と石段を混同しない | recreate-required-1920x1080 |
