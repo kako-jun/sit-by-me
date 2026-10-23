@@ -13,7 +13,8 @@ import json
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-REPO = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
+# LEDGER_ROOT でリポジトリ root を差し替えられる（テストの fixture 用。Ruby 側 ledger_yaml.rb と同じ環境変数）
+REPO = os.environ.get("LEDGER_ROOT") or os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 LEDGER = os.path.join(REPO, "docs", "ledger")
 BUILDER_VERSION = "ledger-build/1"
 
@@ -46,6 +47,9 @@ SCHEMA = {
     "必須キー": ["対象テーブル", "キー", "必須度", "条件", "語彙グループ", "説明"],
     "未決": ["未決ID", "対象テーブル", "対象ID", "キー", "内容", "状態", "解決決定ID"],
     "キー別名": ["正規名", "別名", "対象テーブル", "説明"],
+    # ファイル配置: パターンは repo root からの相対パス（/ 区切り）に fullmatch する正規表現。{MAP_ID} は MAP ID の正規表現に展開する
+    # 到達: リンク（INDEX からのリンクの連鎖で到達できなければ孤立としてエラー）／許可（許可リスト。理由が要る）
+    "ファイル配置": ["配置ID", "パターン", "種別", "用途", "所有表", "生成元", "到達", "入口", "許可リスト理由", "検査", "備考"],
 }
 
 
@@ -75,6 +79,7 @@ TABLE_DOC = {
     "必須キー": "対象テーブルごとの必須キー定義。",
     "未決": "未決（要確認）の一覧。",
     "キー別名": "列名・キー名の別名と正規名。",
+    "ファイル配置": "リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。",
 }
 
 

@@ -5,6 +5,7 @@
 #   ruby scripts/verify_ledger.rb            # エラーがあれば exit 1（警告は表示だけ）
 require 'json'
 require 'digest'
+require 'shellwords'
 require_relative 'ledger_yaml'
 require_relative 'ledger_required_keys'
 
@@ -39,13 +40,15 @@ class LedgerVerifier
     check_decisions
     check_buildings
     check_windows
+    check_layout
     check_generated
+    check_index_fresh
     check_free_text
     self
   end
 
   def check_presence
-    %w[エリア MAP 建物 建物部位 建物窓列 建物関係 建物時期差分 端 接続 接続図設定 要素 窓 時期差分 既定値 エリア固定 装飾プール 語彙 決定 採用要素 素材 生成物 必須キー 未決 キー別名].each do |n|
+    %w[エリア MAP 建物 建物部位 建物窓列 建物関係 建物時期差分 端 接続 接続図設定 要素 窓 時期差分 既定値 エリア固定 装飾プール 語彙 決定 採用要素 素材 生成物 必須キー 未決 キー別名 ファイル配置].each do |n|
       err("表 #{n}.yaml が無い") unless File.file?(File.join(@root, 'docs/ledger', "#{n}.yaml"))
     end
   end
@@ -53,7 +56,7 @@ class LedgerVerifier
   UNIQUE = {
     'エリア' => ['エリアID'], 'MAP' => ['MAP_ID'], '建物' => ['建物ID'], '建物部位' => ['部位ID'], '建物窓列' => ['窓列ID'],
     '端' => %w[端ID 適用時期], '窓' => %w[窓ID 適用時期], '要素' => %w[MAP_ID 適用時期 要素ID], '決定' => ['決定ID'], '採用要素' => ['採用要素ID'],
-    '素材' => ['素材ID'], '生成物' => ['生成物ID'], '語彙' => ['語彙ID'], '未決' => ['未決ID'], '既定値' => ['既定ID']
+    '素材' => ['素材ID'], '生成物' => ['生成物ID'], '語彙' => ['語彙ID'], '未決' => ['未決ID'], '既定値' => ['既定ID'], 'ファイル配置' => ['配置ID']
   }.freeze
 
   def check_unique
@@ -254,6 +257,54 @@ class LedgerVerifier
 
       err("窓 #{w['窓ID']}: 壁側/種別/状態が空") if w['壁側'].empty? || w['状態'].empty?
     end
+  end
+
+  MAP_ID_RE = '(?:TRM|KRB|STN|NTR|NTB|UTS|SNL|SCH|NTA|UCH|BDY|APT|OVS|GRD|CST)-\\d{2}'
+
+  def layout_regexps
+    @layout_regexps ||= @t['ファイル配置'].map do |r|
+      Regexp.new("\\A(?:#{r['パターン'].gsub('{MAP_ID}', MAP_ID_RE)})\\z")
+    rescue RegexpError
+      nil
+    end
+  end
+
+  # ファイル配置表: 列の値・外部キー（所有表→表名、入口→実在パス）・生成物のパスがどれかの規則に一致すること
+  def check_layout
+    rows = @t['ファイル配置']
+    table_names = LedgerYaml.tables
+    rows.each_with_index do |r, i|
+      id = r['配置ID']
+      err("ファイル配置 #{id}: パターンが空・正規表現として不正") if r['パターン'].to_s.empty? || layout_regexps[i].nil?
+      err("ファイル配置 #{id}: 種別・用途が空") if r['種別'].to_s.empty? || r['用途'].to_s.empty?
+      err("ファイル配置 #{id}: 到達 '#{r['到達']}' は リンク/許可 のどちらでもない") unless %w[リンク 許可].include?(r['到達'])
+      if r['到達'] == '許可'
+        err("ファイル配置 #{id}: 到達=許可 には許可リスト理由が要る") if r['許可リスト理由'].to_s.strip.empty?
+      elsif !r['許可リスト理由'].to_s.strip.empty? || !r['入口'].to_s.strip.empty?
+        err("ファイル配置 #{id}: 到達=リンク に許可リスト理由・入口がある")
+      end
+      split_semi(r['所有表']).each do |tb|
+        err("外部キー ファイル配置.所有表='#{tb}' が表に無い（#{id}）") unless table_names.include?(tb)
+      end
+      split_semi(r['入口']).each do |e|
+        err("外部キー ファイル配置.入口='#{e}' が実在しない（#{id}）") unless File.exist?(File.join(@root, e))
+      end
+    end
+    @t['生成物'].each do |g|
+      next if layout_regexps.compact.any? { |re| re.match?(g['パス']) }
+
+      err("生成物 #{g['生成物ID']}: パス #{g['パス']} がどの配置規則（ファイル配置）にも一致しない")
+    end
+  end
+
+  def split_semi(s) = s.to_s.split(';').map(&:strip).reject(&:empty?)
+
+  # docs/INDEX.md の生成ビューが台帳から再生成した内容と一致するか（古ければエラー）
+  def check_index_fresh
+    tool = File.expand_path('../.claude/skills/sit-field-background/tools/ledger_index.py', __dir__)
+    project = File.expand_path('..', __dir__)
+    out = `LEDGER_ROOT=#{@root.shellescape} uv run --project #{project.shellescape} python3 #{tool.shellescape} check 2>&1`
+    err("docs/INDEX.md の生成ビューが古い、または検査できない: #{out.strip.lines.first(2).join(' / ')}") unless $?.success?
   end
 
   def check_generated
