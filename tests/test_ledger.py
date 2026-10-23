@@ -1032,3 +1032,20 @@ class StatusVocabularyTests(LedgerCopyBase):
     def test_material_state_outside_vocabulary_is_reported(self):
         self.edit_row("素材", "素材ID", "A-001", **{"状態": "採用済み"})
         self.assertFailsWith(self.verify_ledger(), "『状態』の値『採用済み』が語彙（素材状態）に無い")
+
+
+class ConnectionEndpointExistsTests(LedgerCopyBase):
+    """接続が、端表に行があるMAPの存在しない端を指していたら失敗する（仮想端点・端表にまだ行が無いMAPは対象外）。"""
+
+    def end_errors(self):
+        return [ln for ln in self.verify_ledger().stderr.splitlines() if "存在しない端を指す接続" in ln]
+
+    def test_clean_ledger_has_no_dangling_connection(self):
+        self.assertEqual(self.end_errors(), [])
+
+    def test_connection_to_a_nonexistent_edge_is_reported(self):
+        self.edit_row("接続", "端A", "TRM-05.door-hall", **{"端A": "TRM-05.door-hall-typo"})
+        self.assertTrue(any("TRM-05.door-hall-typo" in ln for ln in self.end_errors()), self.verify_ledger().stderr)
+
+    def test_virtual_port_of_the_connection_diagram_is_allowed(self):
+        self.assertFalse(any("event-kiss" in ln for ln in self.end_errors()))

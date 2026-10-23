@@ -215,6 +215,18 @@ class LedgerVerifier
         err("接続.#{c}='#{r[c]}' の MAP が MAP ID 登録に無い") unless map_ids.include?(r[c].split('.').first)
       end
     end
+    # 台帳に端の行があるMAPの端を指す接続は、その端が端表に実在すること（存在しない端を指す接続が通らない）。
+    # 端の行を持たないMAP（まだ台帳化していない寺町外の端点など）の端は対象外
+    mapped = @t['端'].map { |e| e['MAP_ID'] }.uniq
+    # 接続図だけの仮想端点（接続図設定の virtual_ports["MAP.端"]。物語イベントなど戸口でない端）は端表に無くてよい
+    virtual = @t['接続図設定'].map { |r| r['項目'][/\Avirtual_ports\["([^"]+)"\]/, 1] }.compact.uniq
+    edge_ids = ids('端', '端ID') + virtual
+    @t['接続'].each do |r|
+      %w[端A 端B].each do |c|
+        mid = r[c].split('.').first
+        err("接続.#{c}='#{r[c]}': MAP #{mid} は端表に行があるのに、この端が端表にも接続図設定の仮想端点(virtual_ports)にも無い（存在しない端を指す接続）") if mapped.include?(mid) && !edge_ids.include?(r[c])
+      end
+    end
     @t['端'].each do |e|
       next if e['相手端'].to_s.empty?
 
