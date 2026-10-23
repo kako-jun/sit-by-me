@@ -44,6 +44,8 @@ def verify(root):
             rf'fields/legacy/masks/{MAP_ID}[-\w]+\.webp',
             # 外観参照は非可逆WebP(品質85)
             r'fields/reference/[a-z0-9]+(?:-[a-z0-9]+)*\.webp',
+            # 体内マスク(#142、runtime切替前)。mask・traversal-editは可逆WebP、mask-overlayは確認用の非可逆WebP
+            r'fields/masks/BDY-\d{2}-(?:mask|traversal-edit|mask-overlay)\.webp',
             r'battle-backgrounds/BG\d{3}\.webp',
             r'brand/logo\.(?:svg|png)',
         )
