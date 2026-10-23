@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-03",
  "plan": "docs/production/oblique-mocks/TRM-03-plan.json",
- "plan_sha256": "449cf42771d4ca479879243df27b10915b96ee50e30b5e18ce5c419aa2dde91a",
+ "plan_sha256": "336ec29ea5a556331a3530a7e30efa0c9a53c67a56e66904df421f82a9630415",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -25,59 +25,60 @@
      1
     ]
    },
-   "input_sha": "36c5529daffabccb5f32dcf0f7b766303bb32c0285d490407fad073ac3199401",
+   "input_sha": "42ed6c754ed542c747c45ef3de049313a63c6f7baa67621dfa2a490da507f16f",
    "outputs": {
-    "TRM-03-exits.png": "62b53b4a1bf7de18136285ce167e4fa1f73e8d216020f71a513e7fa44fbd9f45",
+    "TRM-03-exits.png": "3de754b22a66267a8772a955750aa277eafce7ee4af4c4e360aa8d9d00685b03",
     "TRM-03-mask.json": "afbd474f6ac59d3a4da260eae8740cdfc52895d065ac11a2636a2a6ba4009aee",
-    "TRM-03-mask.png": "8fcf0f954c1453a63641d7423468c2f297fb86cde37f103b291fcae4f2b7e1a7"
+    "TRM-03-mask.png": "79e01e36d3b131f2bbe09c0dec9755412aee7e13cbcb41d9e658d475273b36d0"
    },
    "status": "ok",
    "white_components": 1
   },
   "mock": {
-   "input_sha": "36c5529daffabccb5f32dcf0f7b766303bb32c0285d490407fad073ac3199401",
+   "input_sha": "42ed6c754ed542c747c45ef3de049313a63c6f7baa67621dfa2a490da507f16f",
    "outputs": {
-    "TRM-03-clean.png": "fbf5887c02e6eaf77302cfd07a586a042943c8dd79fd5d77e85ed956eb2add8b",
-    "TRM-03-review.png": "feefa5f2fd55c29cdc239cdec5900875d0e2741f5850082ae789304fb9323f4f"
+    "TRM-03-clean.png": "c0b5115c219546139e6dfa987d9fb44809ab67bdaa816c4ae87c793ec2fceef4",
+    "TRM-03-review.png": "afa1076e11af0e3dc5290fb418add2cdfcb7b4311daced73f9aa61ce16cab205"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "36c5529daffabccb5f32dcf0f7b766303bb32c0285d490407fad073ac3199401",
+   "input_sha": "42ed6c754ed542c747c45ef3de049313a63c6f7baa67621dfa2a490da507f16f",
    "outputs": {
-    "TRM-03-occlusion-depth.png": "c9476aebdc742cd1b4475f91c08ecb8b37ea57767330e03dbe106c70b867b7e9",
-    "TRM-03-occlusion-edit.png": "7ae82929e396641c258f1a4310b8a0381f1ea4325034169b7ba6077204d70038",
-    "TRM-03-occlusion-overlay.png": "2336fcecf414c33c3287c9136ddbfee5de9cacaddabb9112ad2e5fa8543e651d",
-    "TRM-03-occlusion.json": "11589b18d915c285dbc590361f2d6bdc531c8eafff8a234104fe91d5974e6260",
-    "TRM-03-occlusion.png": "89ad69e29f51cd32cf568425abe87f70b64dda20295a7383b9a16b21f019bae3"
+    "TRM-03-occlusion-depth.png": "98e22144366b8565735eab2e7968c1e4c8d6de060e86696a11cc664ae2012c07",
+    "TRM-03-occlusion-edit.png": "2d5be0a21b71a574588e12d1f444fbdef1d0f5b6094c30b8952bcd7d3713d72d",
+    "TRM-03-occlusion-overlay.png": "6f781e3852dfbdd21f07fffc2fc635494c3ca9891ac5cb84ab8d5ed4f060a0dd",
+    "TRM-03-occlusion.json": "c7edd0ad4707c76cc8758a05028d428b463ccfd070ed35a8cd76231b8dbe471b",
+    "TRM-03-occlusion.png": "394a0ede6981cbc3866812e0be2c0fbc22d10091c666b6e9991416fe76fdc3ed"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "f282d92c4b44d20b6e7b754d3fdabd57de780feb5a559da8502d494070df4292",
+   "input_sha": "06db66719cb730d8b09be73e48c4ad0d7dd956261e611306cbb7d068b73c5b0b",
    "ledger_ready": false,
    "outputs": {
-    "TRM-03-edit-prompt.txt": "2bbef96e014ad99d71c620a4b2402e993ea9376fdb131342549b6461b373cab2"
+    "TRM-03-edit-prompt.txt": "1036024a96b1b2038fc752c5d33d7a4f307343538eb0ffc95fe6274132afa30e"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "f74f526642b8620d907da1851ca1dd1ddfa7d6ca0ce2d890c378784c84d78014",
+   "input_sha": "86a7a5ba6e09c7bbc3b5925cd0513002e72d6c8a40d6af8f9e9d3789e19b9f11",
    "outputs": {},
    "status": "ok",
    "warnings": [
     "屋根は箱の天面色で表した（形は省略。高さは画面に収めるため低め: 住居・幼稚園110・本堂150・渡り廊下70）。墓石・遊具は個別に置かず区画ラベルのみ。鐘楼・親鸞像は採用外観から概略。",
     "参道の幅156は台帳に無く採用外観の測定。",
     "境内側の戸口位置（住居・幼稚園）は台帳でTBD。既定を置いた（要確認）。園庭＝境内の右の区画（幼稚園の前）。東の通用門・TRM-01 への接続は無い（kako-jun 指摘、Issue #144）。",
+    "園庭の遊具（#51 既決: 滑り台1・ブランコ1・半円アーチ4=赤青黄青・動物型1）の位置と大きさは既定（要確認）。幼稚園の掃き出し窓の前（Y425〜600）と、参道・door-playroom 前の通路は空けた。歩行マスクでは遊具=blocked。",
     "既定（要確認）: TRM-03.door-residence",
     "既定（要確認）: TRM-03.door-playroom"
    ]
   },
   "wire": {
-   "input_sha": "1c27d96c7700914d926e8fe1ecfbba01a7fce64277a3e84fcb5ef9573fda1e6b",
+   "input_sha": "7eb7682244194c09f81cbb427f74165d599479ef97606ce1c7c5b656117e4983",
    "outputs": {
-    "wire-TRM-03.png": "2fd92a939abf731eaa6ef604ed61f3c27b18d7279e10233f2ae6143ca5964808"
+    "wire-TRM-03.png": "03715b632d34929bcc7f18776ac9e2357eb90733532735948dcbae8b4cfef0c2"
    },
    "status": "ok"
   }

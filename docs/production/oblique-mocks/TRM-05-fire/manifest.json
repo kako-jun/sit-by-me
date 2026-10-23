@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-05-fire",
  "plan": "docs/production/oblique-mocks/TRM-05-plan.json",
- "plan_sha256": "b2eb5d84c58a5218d1cc7e26c2c8739254da6115f0e21b349675d548c3df1eb1+fire",
+ "plan_sha256": "01638ae50e8387375614eb47783f83c86a370368b6657f94e74cf72497df4dc6+fire",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -19,7 +19,7 @@
      2
     ]
    },
-   "input_sha": "743632682e1d8d5fd6fc7f9c9d1167eb18ceee4553410bb4797dc893a67265f8",
+   "input_sha": "fd85d3041db26e7c0998db5e4f25941f5489f1c88dca1c0f273bfd8a3ec98141",
    "outputs": {
     "TRM-05-fire-exits.png": "df4057bbae4b7fe92d9a13575d5dbf7c6ef9dbb5e8d8715fe2f2f7c533e91732",
     "TRM-05-fire-mask.json": "6940bb8712cf065f763355cb63d913b1a9e3132932c950389423c05c390032bb",
@@ -29,7 +29,7 @@
    "white_components": 2
   },
   "mock": {
-   "input_sha": "743632682e1d8d5fd6fc7f9c9d1167eb18ceee4553410bb4797dc893a67265f8",
+   "input_sha": "fd85d3041db26e7c0998db5e4f25941f5489f1c88dca1c0f273bfd8a3ec98141",
    "outputs": {
     "TRM-05-fire-clean.png": "ea7fdb83c305145c1a918dd33bc8123a7401ce8871432b2aac10ebe121074fec",
     "TRM-05-fire-review.png": "56923e04455961460ba13aa7900bd047d938a79455adac359ed0089aa53f341c"
@@ -37,7 +37,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "743632682e1d8d5fd6fc7f9c9d1167eb18ceee4553410bb4797dc893a67265f8",
+   "input_sha": "fd85d3041db26e7c0998db5e4f25941f5489f1c88dca1c0f273bfd8a3ec98141",
    "outputs": {
     "TRM-05-fire-occlusion-depth.png": "27799d43cf50701afa12f137d528c56bfe5f38610e0491cd784005707c1859e7",
     "TRM-05-fire-occlusion-edit.png": "1f2501e449e972af23b5e3b6c0af5d23ca6f081f62559d646c877ad161f0b471",
@@ -48,29 +48,31 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "2927b134d8e658a637bbee0d491f8228a5c147dfba3b2c6a7892975c9a4b7685",
+   "input_sha": "7655c0cf733b3df62eff0e49d672804fc2108676441602d21bd876fb628a7776",
    "ledger_ready": false,
    "outputs": {
-    "TRM-05-fire-edit-prompt.txt": "d75fa50441628f357b55aee7b1f02c0ee0602d16a8562918402d87251ff78523"
+    "TRM-05-fire-edit-prompt.txt": "87eb8423e35db6b45c12d36f1bfecbf57bd5b34c8e8ecb35f1be82f2b4b7f6ae"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "4ff40dd5b5566c3abc07879878aaee43085659d6679d15d0d2b71336723cb0b0",
+   "input_sha": "6e9d465eb743c77d5ca12df68c2b5284ae566339cc5d763743b23cec5c6a5f35",
    "outputs": {},
    "status": "ok",
    "warnings": [
     "仕切りの開口（2か所）は設計未指定。既定: ダイニング↔北寝室（Y440）・ダイニング↔南寝室（Y841。本堂の戸口と一直線）。幅は2人分。",
     "本堂からの戸口（東壁・v=0.76）は南寝室の側に着く。採用画像の石の敷居は東壁の中ほど（v≈0.5）にあったが、決定は『上下の中央より下寄り』。",
     "家具の位置は採用画像 v12 から概略。",
+    "勝手口 TRM-05.door-back は寺町を行き止まりにしない円環（TRM-16→TRM-15→TRM-06→TRM-16。map-topology #51）のため追加。位置は台所側（コンロ・流し・食器棚のある側）の西壁で、コンロ（Y280〜340）と西の棚（Y492〜735）の間（中心Y420・v=0.19）。位置・壁は設計に無く既定（要確認）。相手は TRM-06.door-house（寺町内・未制作MAP）。",
     "火事の時点＝上半分が燃える（kako-jun 2026-10-23）。範囲 Y280〜640 は『上半分』の既定（要確認）。燃えた所は blocked。",
+    "-fire では勝手口（台所側=燃える上半分）を外した（燃える範囲に戸口は置けない）。火事中の勝手口の扱いは要確認。",
     "既定（要確認）: open-dining-bed-n",
     "既定（要確認）: open-dining-bed-s"
    ]
   },
   "wire": {
-   "input_sha": "e15cf7f9a6666f2bea573955229e7a4c0c640a16f201edbc1107e57ade0ca38c",
+   "input_sha": "c3984b1479aa4a9883ac64ef79f4c5891ee90baf1e9de72177067e1f6bc6bb38",
    "outputs": {
     "wire-TRM-05-fire.png": "799412eff97334f0e1bb6659a90079d497c61b1ce16918228d14f0d883f8b307"
    },

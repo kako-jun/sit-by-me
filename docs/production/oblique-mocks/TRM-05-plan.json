@@ -5,68 +5,418 @@
  "subtitle": "屋内・小学生以降（寝室2つ）",
  "source": "寸法は採用画像 v12 を逆射影して丸めた値。戸口は kako-jun 決定（#144）。仕切りの開口は設計未指定のため既定（要確認）。",
  "floors": [
-  {"id": "dining", "rect": [420, 280, 785, 1018], "color": "#7a5636", "label": "ダイニング・台所", "walkable": true},
-  {"id": "bed-n", "rect": [809, 280, 1170, 591], "color": "#8a6a46", "label": "北寝室", "walkable": true},
-  {"id": "bed-s", "rect": [809, 615, 1170, 1018], "color": "#8a6a46", "label": "南寝室", "walkable": true},
-  {"id": "futon-n", "rect": [815, 356, 1000, 542], "color": "#6f8fb0", "label": "布団", "walkable": true},
-  {"id": "futon-s", "rect": [821, 680, 1015, 858], "color": "#b06f78", "label": "布団", "walkable": true}
+  {
+   "id": "dining",
+   "rect": [
+    420,
+    280,
+    785,
+    1018
+   ],
+   "color": "#7a5636",
+   "label": "ダイニング・台所",
+   "walkable": true
+  },
+  {
+   "id": "bed-n",
+   "rect": [
+    809,
+    280,
+    1170,
+    591
+   ],
+   "color": "#8a6a46",
+   "label": "北寝室",
+   "walkable": true
+  },
+  {
+   "id": "bed-s",
+   "rect": [
+    809,
+    615,
+    1170,
+    1018
+   ],
+   "color": "#8a6a46",
+   "label": "南寝室",
+   "walkable": true
+  },
+  {
+   "id": "futon-n",
+   "rect": [
+    815,
+    356,
+    1000,
+    542
+   ],
+   "color": "#6f8fb0",
+   "label": "布団",
+   "walkable": true
+  },
+  {
+   "id": "futon-s",
+   "rect": [
+    821,
+    680,
+    1015,
+    858
+   ],
+   "color": "#b06f78",
+   "label": "布団",
+   "walkable": true
+  }
  ],
  "walls": [
-  {"id": "wall-n", "rect": [396, 256, 1194, 280], "h": 150, "kind": "wall"},
-  {"id": "wall-s", "rect": [396, 1018, 1194, 1042], "h": 150, "kind": "wall"},
-  {"id": "wall-w", "rect": [396, 256, 420, 1042], "h": 150, "kind": "wall"},
-  {"id": "wall-e", "rect": [1170, 256, 1194, 1042], "h": 150, "kind": "wall"},
-  {"id": "part-v", "rect": [785, 280, 809, 1018], "h": 90, "kind": "partition", "label": "仕切り"},
-  {"id": "part-h", "rect": [809, 591, 1170, 615], "h": 90, "kind": "partition", "label": "仕切り"}
+  {
+   "id": "wall-n",
+   "rect": [
+    396,
+    256,
+    1194,
+    280
+   ],
+   "h": 150,
+   "kind": "wall"
+  },
+  {
+   "id": "wall-s",
+   "rect": [
+    396,
+    1018,
+    1194,
+    1042
+   ],
+   "h": 150,
+   "kind": "wall"
+  },
+  {
+   "id": "wall-w",
+   "rect": [
+    396,
+    256,
+    420,
+    1042
+   ],
+   "h": 150,
+   "kind": "wall"
+  },
+  {
+   "id": "wall-e",
+   "rect": [
+    1170,
+    256,
+    1194,
+    1042
+   ],
+   "h": 150,
+   "kind": "wall"
+  },
+  {
+   "id": "part-v",
+   "rect": [
+    785,
+    280,
+    809,
+    1018
+   ],
+   "h": 90,
+   "kind": "partition",
+   "label": "仕切り"
+  },
+  {
+   "id": "part-h",
+   "rect": [
+    809,
+    591,
+    1170,
+    615
+   ],
+   "h": 90,
+   "kind": "partition",
+   "label": "仕切り"
+  }
  ],
  "doors": [
-  {"id": "TRM-05.door-hall", "wall": "wall-e", "wall_side": "east", "face": "west", "center": 841, "along_ref": [280, 1018], "partner": "TRM-04.door-west", "status": "fixed", "note": "本堂から入る。東壁・下寄り（v=0.76）。南寝室に入る形（要確認）"},
-  {"id": "TRM-05.door-outside", "wall": "wall-s", "wall_side": "south", "face": "north", "center": 640, "along_ref": [420, 1170], "partner": "TRM-03.door-residence", "status": "fixed", "note": "外へ。下辺の中央より左寄り（ダイニング側）"}
+  {
+   "id": "TRM-05.door-hall",
+   "wall": "wall-e",
+   "wall_side": "east",
+   "face": "west",
+   "center": 841,
+   "along_ref": [
+    280,
+    1018
+   ],
+   "partner": "TRM-04.door-west",
+   "status": "fixed",
+   "note": "本堂から入る。東壁・下寄り（v=0.76）。南寝室に入る形（要確認）"
+  },
+  {
+   "id": "TRM-05.door-outside",
+   "wall": "wall-s",
+   "wall_side": "south",
+   "face": "north",
+   "center": 640,
+   "along_ref": [
+    420,
+    1170
+   ],
+   "partner": "TRM-03.door-residence",
+   "status": "fixed",
+   "note": "外へ。下辺の中央より左寄り（ダイニング側）"
+  },
+  {
+   "id": "TRM-05.door-back",
+   "wall": "wall-w",
+   "wall_side": "west",
+   "face": "east",
+   "center": 420,
+   "along_ref": [
+    280,
+    1018
+   ],
+   "partner": "TRM-06.door-house",
+   "status": "default",
+   "note": "勝手口（裏口）。台所側の西壁。家具（コンロ・流し・西の棚）を避けた位置。既定（要確認）"
+  }
  ],
  "openings": [
-  {"id": "open-dining-bed-n", "wall": "part-v", "wall_side": "west", "face": "east", "center": 440, "along_ref": [280, 1018], "status": "default", "note": "既定（要確認）: ダイニング↔北寝室"},
-  {"id": "open-dining-bed-s", "wall": "part-v", "wall_side": "west", "face": "east", "center": 841, "along_ref": [280, 1018], "status": "default", "note": "既定（要確認）: ダイニング↔南寝室。本堂の戸口と一直線"}
+  {
+   "id": "open-dining-bed-n",
+   "wall": "part-v",
+   "wall_side": "west",
+   "face": "east",
+   "center": 440,
+   "along_ref": [
+    280,
+    1018
+   ],
+   "status": "default",
+   "note": "既定（要確認）: ダイニング↔北寝室"
+  },
+  {
+   "id": "open-dining-bed-s",
+   "wall": "part-v",
+   "wall_side": "west",
+   "face": "east",
+   "center": 841,
+   "along_ref": [
+    280,
+    1018
+   ],
+   "status": "default",
+   "note": "既定（要確認）: ダイニング↔南寝室。本堂の戸口と一直線"
+  }
  ],
  "boxes": [
-  {"id": "stove", "rect": [445, 280, 520, 340], "h": 80, "color": "#8a8a8a", "label": "コンロ", "blocked": true},
-  {"id": "sink", "rect": [530, 280, 640, 340], "h": 85, "color": "#b8c4cc", "label": "流し", "blocked": true},
-  {"id": "cupboard", "rect": [640, 280, 715, 330], "h": 130, "color": "#a0693a", "label": "食器棚", "blocked": true},
-  {"id": "fridge", "rect": [720, 280, 775, 335], "h": 160, "color": "#a8c8b0", "label": "冷蔵庫", "blocked": true},
-  {"id": "shelf-w", "rect": [420, 492, 470, 735], "h": 100, "color": "#8a5a30", "label": "棚", "blocked": true},
-  {"id": "table", "rect": [580, 551, 674, 797], "h": 55, "color": "#a0693a", "label": "食卓", "blocked": true},
-  {"id": "bench-l", "rect": [535, 590, 570, 760], "h": 35, "color": "#8a5a30", "label": "", "blocked": true},
-  {"id": "bench-r", "rect": [690, 590, 725, 760], "h": 35, "color": "#8a5a30", "label": "", "blocked": true},
-  {"id": "dresser", "rect": [813, 280, 904, 347], "h": 100, "color": "#7a4a2a", "label": "箪笥", "blocked": true},
-  {"id": "rock", "rect": [1030, 400, 1075, 470], "h": 40, "color": "#8a7a6a", "label": "石", "blocked": true},
-  {"id": "chest", "rect": [1000, 700, 1066, 794], "h": 60, "color": "#7a4a2a", "label": "長持", "blocked": true}
+  {
+   "id": "stove",
+   "rect": [
+    445,
+    280,
+    520,
+    340
+   ],
+   "h": 80,
+   "color": "#8a8a8a",
+   "label": "コンロ",
+   "blocked": true
+  },
+  {
+   "id": "sink",
+   "rect": [
+    530,
+    280,
+    640,
+    340
+   ],
+   "h": 85,
+   "color": "#b8c4cc",
+   "label": "流し",
+   "blocked": true
+  },
+  {
+   "id": "cupboard",
+   "rect": [
+    640,
+    280,
+    715,
+    330
+   ],
+   "h": 130,
+   "color": "#a0693a",
+   "label": "食器棚",
+   "blocked": true
+  },
+  {
+   "id": "fridge",
+   "rect": [
+    720,
+    280,
+    775,
+    335
+   ],
+   "h": 160,
+   "color": "#a8c8b0",
+   "label": "冷蔵庫",
+   "blocked": true
+  },
+  {
+   "id": "shelf-w",
+   "rect": [
+    420,
+    492,
+    470,
+    735
+   ],
+   "h": 100,
+   "color": "#8a5a30",
+   "label": "棚",
+   "blocked": true
+  },
+  {
+   "id": "table",
+   "rect": [
+    580,
+    551,
+    674,
+    797
+   ],
+   "h": 55,
+   "color": "#a0693a",
+   "label": "食卓",
+   "blocked": true
+  },
+  {
+   "id": "bench-l",
+   "rect": [
+    535,
+    590,
+    570,
+    760
+   ],
+   "h": 35,
+   "color": "#8a5a30",
+   "label": "",
+   "blocked": true
+  },
+  {
+   "id": "bench-r",
+   "rect": [
+    690,
+    590,
+    725,
+    760
+   ],
+   "h": 35,
+   "color": "#8a5a30",
+   "label": "",
+   "blocked": true
+  },
+  {
+   "id": "dresser",
+   "rect": [
+    813,
+    280,
+    904,
+    347
+   ],
+   "h": 100,
+   "color": "#7a4a2a",
+   "label": "箪笥",
+   "blocked": true
+  },
+  {
+   "id": "rock",
+   "rect": [
+    1030,
+    400,
+    1075,
+    470
+   ],
+   "h": 40,
+   "color": "#8a7a6a",
+   "label": "石",
+   "blocked": true
+  },
+  {
+   "id": "chest",
+   "rect": [
+    1000,
+    700,
+    1066,
+    794
+   ],
+   "h": 60,
+   "color": "#7a4a2a",
+   "label": "長持",
+   "blocked": true
+  }
  ],
  "assumptions": [
   "仕切りの開口（2か所）は設計未指定。既定: ダイニング↔北寝室（Y440）・ダイニング↔南寝室（Y841。本堂の戸口と一直線）。幅は2人分。",
   "本堂からの戸口（東壁・v=0.76）は南寝室の側に着く。採用画像の石の敷居は東壁の中ほど（v≈0.5）にあったが、決定は『上下の中央より下寄り』。",
-  "家具の位置は採用画像 v12 から概略。"
+  "家具の位置は採用画像 v12 から概略。",
+  "勝手口 TRM-05.door-back は寺町を行き止まりにしない円環（TRM-16→TRM-15→TRM-06→TRM-16。map-topology #51）のため追加。位置は台所側（コンロ・流し・食器棚のある側）の西壁で、コンロ（Y280〜340）と西の棚（Y492〜735）の間（中心Y420・v=0.19）。位置・壁は設計に無く既定（要確認）。相手は TRM-06.door-house（寺町内・未制作MAP）。"
  ],
  "variants": {
   "kids": {
    "name": "住居（庫裏）・幼稚園時代",
    "subtitle": "屋内・寝室1つ（父と同室）-kids",
-   "remove": ["part-h", "open-dining-bed-n", "futon-s", "chest"],
+   "remove": [
+    "part-h",
+    "open-dining-bed-n",
+    "futon-s",
+    "chest"
+   ],
    "add": {
     "floors": [
-     {"id": "futon-s", "rect": [821, 420, 1015, 560], "color": "#b06f78", "label": "父の布団", "walkable": true}
+     {
+      "id": "futon-s",
+      "rect": [
+       821,
+       420,
+       1015,
+       560
+      ],
+      "color": "#b06f78",
+      "label": "父の布団",
+      "walkable": true
+     }
     ],
     "boxes": []
    },
-   "assumptions": ["幼稚園時代＝父と同じ寝室1つ（kako-jun 2026-10-23）。仕切りの下半分を取り、寝室を1室にした。開口は南側の1か所のみ（既定・要確認）。寝室内の家具の再配置は仮。"]
+   "assumptions": [
+    "幼稚園時代＝父と同じ寝室1つ（kako-jun 2026-10-23）。仕切りの下半分を取り、寝室を1室にした。開口は南側の1か所のみ（既定・要確認）。寝室内の家具の再配置は仮。"
+   ]
   },
   "fire": {
    "name": "住居（庫裏）・火事の時点",
    "subtitle": "屋内・上半分が燃える -fire",
    "add": {
     "boxes": [
-     {"id": "fire-zone", "rect": [420, 280, 1170, 640], "h": 6, "color": "#ff5a1f", "label": "燃えている（登れない）", "blocked": true}
+     {
+      "id": "fire-zone",
+      "rect": [
+       420,
+       280,
+       1170,
+       640
+      ],
+      "h": 6,
+      "color": "#ff5a1f",
+      "label": "燃えている（登れない）",
+      "blocked": true
+     }
     ]
    },
-   "assumptions": ["火事の時点＝上半分が燃える（kako-jun 2026-10-23）。範囲 Y280〜640 は『上半分』の既定（要確認）。燃えた所は blocked。"]
+   "assumptions": [
+    "火事の時点＝上半分が燃える（kako-jun 2026-10-23）。範囲 Y280〜640 は『上半分』の既定（要確認）。燃えた所は blocked。",
+    "-fire では勝手口（台所側=燃える上半分）を外した（燃える範囲に戸口は置けない）。火事中の勝手口の扱いは要確認。"
+   ],
+   "remove": [
+    "TRM-05.door-back"
+   ]
   }
  }
 }

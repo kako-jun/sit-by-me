@@ -75,6 +75,40 @@
     ]
    ],
    "status": "fixed"
+  },
+  {
+   "id": "TRM-05.door-back",
+   "partner": "TRM-06.door-house",
+   "wall_side": "west",
+   "plan_patch": [
+    336,
+    354.0,
+    480,
+    486.0
+   ],
+   "image_polygon": [
+    [
+     558,
+     249
+    ],
+    [
+     552,
+     326
+    ],
+    [
+     421,
+     326
+    ],
+    [
+     429,
+     249
+    ],
+    [
+     504,
+     162
+    ]
+   ],
+   "status": "default"
   }
  ],
  "exit_components": {
@@ -82,6 +116,9 @@
    1
   ],
   "TRM-05.door-outside": [
+   1
+  ],
+  "TRM-05.door-back": [
    1
   ]
  },

@@ -161,8 +161,9 @@ def build(conn_path, out):
                 if dd.get("partner") and dd["partner"] != (b if end == "a" else a):
                     problems.append(f"{ident} の partner {dd['partner']} が接続リストと不一致")
             else:
-                info[end] = ("（寺町の外・別MAP）", None, "", "", None, "")
-        verdict = "（寺町外・整合検査なし）"
+                ext = next((x for x in C["externals"] if ident in x["ports"]), {})
+                info[end] = (ext.get("note", "（寺町の外・別MAP）"), None, "", "", None, "")
+        verdict = "（外部ノード・整合検査なし）"
         if "a" in info and info["a"][1] is not None and info["b"][1] is not None:
             sa, sb = info["a"][3], info["b"][3]
             opp = {"west": "east", "east": "west", "south": "north", "north": "south"}
@@ -190,11 +191,15 @@ def build(conn_path, out):
         for k, v in anc.items():
             anchors_abs[k] = (v[0] + x0, v[1] + y0)
         cell_boxes[mid] = (x0, y0, x0 + crop.width, y0 + crop.height)
-        text_box(d, (x0, y0 - 92), f"{mid}  {p['name']}\n{p.get('subtitle','')}", f_m, anchor="lt")
+        ty = (y0 + crop.height + 14) if cfg.get("title_below") else (y0 - 92)
+        text_box(d, (x0, ty), f"{mid}  {p['name']}\n{p.get('subtitle','')}", f_m, anchor="lt")
     for ex in C["externals"]:
         x, y, w, h = ex["box"]
-        d.rounded_rectangle([x, y, x + w, y + h], radius=14, outline=K, width=4, fill="#ffffff")
-        d.text((x + 16, y + 38), ex["label"], font=f_s, fill=K)
+        d.rounded_rectangle([x, y, x + w, y + h], radius=14, outline=None if ex.get("dashed") else K, width=4, fill="#ffffff")
+        if ex.get("dashed"):
+            for a_, b_ in (((x, y), (x + w, y)), ((x + w, y), (x + w, y + h)), ((x + w, y + h), (x, y + h)), ((x, y + h), (x, y))):
+                M.dashed(d, a_, b_, K, 4, dash=16)
+        d.text((x + 16, y + 14 if "\n" in ex["label"] else y + 38), ex["label"], font=f_s, fill=K)
         for pid, (side, fr) in ex["ports"].items():
             pt = {"top": (x + w * fr, y), "bottom": (x + w * fr, y + h), "left": (x, y + h * fr), "right": (x + w, y + h * fr)}[side]
             anchors_abs[pid] = pt
@@ -290,7 +295,8 @@ def build(conn_path, out):
             if info[end][5] == "default":
                 note.append(f"{e[end]} は既定（要確認）")
         if e.get("external"):
-            note.append("寺町の外への端点")
+            exn = next((x for x in C["externals"] if e["a"] in x["ports"] or e["b"] in x["ports"]), {})
+            note.append(exn.get("kind_note", "寺町の外への端点"))
         L.append(f"| `{e['a']}` | {info['a'][0]} | `{e['b']}` | {info['b'][0]} | 2人分（{M.DOOR_W}単位） | {verdict} | {'・'.join(note) or '-'} |")
     L += ["", "## 戸口の一覧（スペック由来）", "", "| 戸口 | MAP | 辺 | 位置 | 相手 | 備考 |", "|---|---|---|---|---|---|"]
     for mid, p in plans.items():

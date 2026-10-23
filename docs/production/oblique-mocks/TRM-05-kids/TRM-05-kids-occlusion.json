@@ -30,7 +30,7 @@
    "kind": "box",
    "base_y": 241,
    "area_px": 6004,
-   "body_overlap_px": 5500
+   "body_overlap_px": 2845
   },
   {
    "id": "sink",
@@ -47,13 +47,6 @@
    "body_overlap_px": 6515
   },
   {
-   "id": "wall-w",
-   "kind": "wall",
-   "base_y": 250,
-   "area_px": 3900,
-   "body_overlap_px": 3520
-  },
-  {
    "id": "wall-e",
    "kind": "wall",
    "base_y": 250,
@@ -66,13 +59,6 @@
    "base_y": 264,
    "area_px": 2663,
    "body_overlap_px": 2548
-  },
-  {
-   "id": "wall-w",
-   "kind": "wall",
-   "base_y": 308,
-   "area_px": 4102,
-   "body_overlap_px": 2955
   },
   {
    "id": "wall-e",
@@ -94,13 +80,6 @@
    "base_y": 323,
    "area_px": 2821,
    "body_overlap_px": 2706
-  },
-  {
-   "id": "wall-w",
-   "kind": "wall",
-   "base_y": 368,
-   "area_px": 4303,
-   "body_overlap_px": 1415
   },
   {
    "id": "wall-e",
