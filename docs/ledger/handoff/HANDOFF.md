@@ -9,7 +9,7 @@ kako-jun「csvが本当にいいのか？yamlとかのほうが管理しやす�
 - 実装済みの24表（CSV・364行）は `ledger_io.py` のスキーマを使って YAML へ自動変換する小さなスクリプトを作る（WIP の今が最も安い時期）。**第0段階（INDEX・配置表・到達性検証）を始める前に変換する**。→ **2026-10-24 変換済み**（下記「実施済み」）。検証は YAML スキーマ（必須キー定義を含む）＋外部キー存在検査。以下の本文中の「CSV」は「YAML」に読み替える（`docs/ledger/*.csv` → `docs/ledger/**/*.yaml`）。
 
 **実施済み（2026-10-24）**: 24表764行を `docs/ledger/<表名>.yaml`（表ごと1ファイル・行のリスト・日本語キー・全スカラー引用つき文字列・先頭に表の説明コメント）へ無損失変換し、CSV は削除。
-- 変換器 `.claude/skills/sit-field-background/tools/ledger_csv_to_yaml_once.py`（一度きり。`--verify-only` で git HEAD の CSV と突合の再検査ができる）。
+- 変換器 `.claude/skills/sit-field-background/tools/ledger_csv_to_yaml_once.py`（一度きり。`--verify-only` で コミット 40bf95d の CSV と突合の再検査ができる）。
 - Python: `ledger_io.py` の `read`/`write` は据え置き、内部を YAML に差し替え（PyYAML はリポ直下 `pyproject.toml` で依存宣言。`uv run python3` で自動導入）。
 - Ruby: `scripts/ledger_csv.rb` → `scripts/ledger_yaml.rb`（標準 `yaml`。全値を文字列へ正規化）。Ruby は Homebrew の 4.x が要る（macOS 標準の 2.6 は `verify_ledger.rb` の構文で動かない: `PATH=/opt/homebrew/opt/ruby/bin:$PATH`）。
 - 以降の本文中の `*.csv`・「CSV」は YAML に読み替え済み（歴史的記述を除く）。他の記録文書（ledger-db-design.md・local-orphans.md・curation-scripts/）は当時のままで、読むときは同様に読み替える。

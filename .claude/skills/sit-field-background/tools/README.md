@@ -74,7 +74,7 @@ uv run --with opencv-python-headless --with numpy --with pillow python3 -I body_
 | `ledger_io.py` | 表定義 `SCHEMA` と読み書き（`read`/`write`。行は日本語キーの dict）。PyYAML はリポ直下 `pyproject.toml` で依存宣言 |
 | `ledger_build.py` | 派生 JSON の生成（`build`）と鮮度検査（`check`）、必須キー雛形（`template`） |
 | `ledger_query.py` | MAP 1枚分のプロンプト台帳節 |
-| `ledger_csv_to_yaml_once.py` | 一度きりの CSV→YAML 変換（変換済み。`--verify-only` は git HEAD の CSV との無損失突合） |
+| `ledger_csv_to_yaml_once.py` | 一度きりの CSV→YAML 変換（変換済み。`--verify-only` は コミット 40bf95d の CSV との無損失突合） |
 
 検証は Ruby（`scripts/verify_ledger.rb` ほか。Homebrew の Ruby 4.x: `PATH=/opt/homebrew/opt/ruby/bin:$PATH`）。
 

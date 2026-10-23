@@ -17,6 +17,9 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ledger_io as L  # noqa: E402
 
 
+CSV_REV = "40bf95d"  # CSV マスターが最後に存在したコミット
+
+
 def read_csv(table, text=None):
     if text is None:
         with open(os.path.join(L.LEDGER, f"{table}.csv"), encoding="utf-8", newline="") as f:
@@ -26,7 +29,7 @@ def read_csv(table, text=None):
 
 
 def csv_texts():
-    """作業ツリーに CSV があればそれ、無ければ HEAD の CSV を使う（変換後の再検査用）。"""
+    """作業ツリーに CSV があればそれ、無ければ CSV_REV（CSV 最後のコミット）の CSV を使う（変換後の再検査用）。"""
     out = {}
     for t in L.SCHEMA:
         p = os.path.join(L.LEDGER, f"{t}.csv")
@@ -34,7 +37,7 @@ def csv_texts():
             with open(p, encoding="utf-8", newline="") as f:
                 out[t] = f.read()
         else:
-            r = subprocess.run(["git", "show", f"HEAD:docs/ledger/{t}.csv"], cwd=L.REPO, capture_output=True)
+            r = subprocess.run(["git", "show", f"{CSV_REV}:docs/ledger/{t}.csv"], cwd=L.REPO, capture_output=True)
             if r.returncode == 0:
                 out[t] = r.stdout.decode("utf-8")
     return out
