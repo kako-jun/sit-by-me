@@ -283,6 +283,13 @@ def validate_plan(p):
                     E.append(f"boxes {e['id']}: color が必要")
                 if kind == "floors" and "color" not in e:
                     E.append(f"floors {e['id']}: color が必要")
+    for f in p["floors"]:
+        if f.get("poly") is not None:
+            pl = f["poly"]
+            if not (isinstance(pl, list) and len(pl) >= 3 and all(isinstance(q, list) and len(q) == 2 and all(isinstance(v, (int, float)) for v in q) for q in pl)):
+                E.append(f"floors {f.get('id')}: poly は [[x,y],...]（3点以上）")
+        if f.get("surface") is not None and f["surface"] not in M.FLOOR_SURFACES:
+            E.append(f"floors {f.get('id')}: surface は {list(M.FLOOR_SURFACES)} のどれか")
     walls = {w["id"]: w for w in p["walls"] if "rect" in w and "id" in w}
     seen_span = {}
     for kind in ("doors", "openings"):
@@ -329,6 +336,8 @@ def validate_plan(p):
             E.append(f"markers {m.get('id')}: edge が不正")
         if not m.get("partner") or not ID_RE.match(m["partner"]):
             E.append(f"markers {m.get('id')}: partner が必要")
+        if "width" in m and not (isinstance(m["width"], (int, float)) and M.CHAR <= m["width"] <= 600):
+            E.append(f"markers {m.get('id')}: width は {M.CHAR}〜600（平面単位）。未指定=2人分{M.DOOR_W}")
     # 窓
     for wn in p["windows"]:
         reg("windows", wn)
