@@ -53,6 +53,8 @@ class Ledger:
         m = self.map_row(map_id)
         out = []
         for bid in L.split_list(m["建物ID"]) if m else []:
+            if bid in ("該当なし", "なし"):  # 建物の無いMAP（道・屋内の団地室など）
+                continue
             b = self.row("建物", "建物ID", bid)
             parts = [p for p in self.T["建物部位"] if p["建物ID"] == bid]
             wins = [w for w in self.T["建物窓列"] if w["建物ID"] == bid]

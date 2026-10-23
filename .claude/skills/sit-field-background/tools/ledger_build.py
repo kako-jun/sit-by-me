@@ -16,7 +16,8 @@ import ledger_flat as F  # noqa: E402
 import ledger_io as L  # noqa: E402
 
 OBL = os.path.join(L.REPO, "docs", "production", "oblique-mocks")
-PLAN_KEYS = {"floors": "床", "walls": "壁", "boxes": "家具", "paths": "経路", "tree_zones": "樹木帯", "annotations": "注記"}
+PLAN_KEYS = {"floors": "床", "walls": "壁", "boxes": "家具", "paths": "経路", "tree_zones": "樹木帯", "annotations": "注記", "closed_edges": "閉鎖辺"}
+NO_ID_KINDS = ("注記", "閉鎖辺")  # plan 上で id を持たない要素
 KIND_TO_KEY = {v: k for k, v in PLAN_KEYS.items()}
 EDGE_TO_KEY = {"戸口": "doors", "開口": "openings", "縁": "markers"}
 
@@ -52,12 +53,12 @@ def expand_look(T, s):
 
 def element_dict(T, r):
     d = json.loads(r["属性JSON"]) if r["属性JSON"] else {}
-    if r["種別"] != "注記":
+    if r["種別"] not in NO_ID_KINDS:
         d["id"] = r["要素ID"]
     if r["名称"]:
         d["label"] = r["名称"]
     look = expand_look(T, r["見た目"])
-    if not look and r["決定参照"]:
+    if not look and r["決定参照"] and r["種別"] != "閉鎖辺":
         look = ref_text(T, L.split_list(r["決定参照"])[0])
     if look:
         d["look"] = look
@@ -144,6 +145,9 @@ def collect(T, map_id, era):
 def build_plan(T, map_id):
     m = next(x for x in T["MAP"] if x["MAP_ID"] == map_id)
     p = {"schema": "sit-oblique-plan/1", "map_id": map_id, "name": m["名称"], "subtitle": m["字幕"], "source": m["寸法根拠"]}
+    if m["設計意図"]:
+        p["design"] = m["設計意図"]
+    p.update(json.loads(m["plan追加JSON"]) if m["plan追加JSON"] else {})
     base = collect(T, map_id, "")
     p.update(base)
     walls = p.get("walls", [])
@@ -232,7 +236,7 @@ def build_connections(T, zu="幼稚園一式"):
     doc = F.unflatten([(r["項目"], r["値"], r["型"]) for r in T["接続図設定"] if r["図ID"] == zu])
     edges = []
     for r in T["接続"]:
-        if r["図"] != zu:
+        if zu not in L.split_list(r["図"]):
             continue
         e = {"a": r["端A"], "b": r["端B"], "kind": r["種別"]}
         if r["期待"]:
@@ -247,8 +251,22 @@ def build_connections(T, zu="幼稚園一式"):
             e["external"] = True
         if r["無効時期"]:
             e["disabled_in"] = json.loads(r["無効時期"])
+        for k, v in (json.loads(r["属性JSON"]).get(zu, {}) if r["属性JSON"] else {}).items():
+            if v is None:
+                e.pop(k, None)
+            else:
+                e[k] = v
         edges.append(e)
     doc["edges"] = edges
+    if "maps_info" in doc:  # 屋内外と設計意図は MAP 表から導出（台帳に無い MAP の分だけ接続図設定の行を使う）
+        mp = {m["MAP_ID"]: m for m in T["MAP"]}
+        info = {}
+        for mid in doc.get("overview_order", list(doc["maps_info"])):
+            if mid in doc["maps_info"]:
+                info[mid] = doc["maps_info"][mid]
+            elif mp.get(mid, {}).get("設計意図"):
+                info[mid] = {"kind": mp[mid]["屋内外"], "design": mp[mid]["設計意図"]}
+        doc["maps_info"] = info
     return doc
 
 
@@ -290,13 +308,28 @@ def targets(T):
     out.append(("G-dependency-graph", "依存グラフJSON", "docs/production/oblique-mocks/dependency-graph.json", "MAP.依存MAP|時期差分|接続図設定", build_deps,
                 lambda t: {"MAP": [(r["MAP_ID"], r["依存MAP"], r["依存の確度"], r["依存の根拠"]) for r in t["MAP"]], "時期差分": [r for r in t["時期差分"] if r["項目"].startswith("依存")],
                            "接続図設定": [r for r in t["接続図設定"] if r["図ID"] == "依存グラフ"]}))
-    out.append(("G-connections", "接続図JSON", "docs/production/oblique-mocks/connections.json", "接続|接続図設定", build_connections,
-                lambda t: {"接続": [r for r in t["接続"] if r["図"]], "接続図設定": t["接続図設定"]}))
+    for gid, zu, path_ in (("G-connections", "幼稚園一式", "connections.json"), ("G-connections-teramachi", "寺町全体", "connections-teramachi.json")):
+        out.append((gid, "接続図JSON", f"docs/production/oblique-mocks/{path_}", "接続|接続図設定|MAP.設計意図(寺町全体のみ)", lambda t, z=zu: build_connections(t, z),
+                    lambda t, z=zu: conn_inputs(t, z)))
     return out
 
 
+def conn_inputs(T, zu):
+    sel = {"接続": [r for r in T["接続"] if zu in L.split_list(r["図"])], "接続図設定": [r for r in T["接続図設定"] if r["図ID"] == zu]}
+    if zu != "幼稚園一式":  # maps_info の導出元（MAP.設計意図・屋内外）
+        sel["MAP"] = [(m["MAP_ID"], m["屋内外"], m["設計意図"]) for m in T["MAP"]]
+    return sel
+
+
+NEW_COLS = {"MAP": ("設計意図", "plan追加JSON"), "接続": ("属性JSON",)}  # 後から足した列。空なら入力ハッシュに含めない（既存の派生物のハッシュを変えない）
+
+
+def _trim(table, rows):
+    return [{k: v for k, v in r.items() if not (k in NEW_COLS.get(table, ()) and v == "")} for r in rows]
+
+
 def input_rows(T, mid):
-    sel = {"MAP": [r for r in T["MAP"] if r["MAP_ID"] == mid]}
+    sel = {"MAP": _trim("MAP", [r for r in T["MAP"] if r["MAP_ID"] == mid])}
     for tb in ("要素", "端", "窓", "既定値", "時期差分"):
         sel[tb] = [r for r in T[tb] if r["MAP_ID"] == mid]
     sel["建物部位"] = T["建物部位"]
@@ -305,6 +338,7 @@ def input_rows(T, mid):
 
 
 def input_hash(sel):
+    sel = {k: (_trim(k, v) if k in NEW_COLS and v and isinstance(v[0], dict) else v) for k, v in sel.items()}
     return L.sha(L.jdump(sel) + L.BUILDER_VERSION)
 
 

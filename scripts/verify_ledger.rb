@@ -93,7 +93,7 @@ class LedgerVerifier
 
   def check_fks
     fk('MAP', 'エリアID', 'エリア', 'エリアID', optional: false)
-    fk('MAP', '建物ID', '建物', '建物ID', list: true)
+    fk('MAP', '建物ID', '建物', '建物ID', list: true, allow: %w[該当なし])
     @t['MAP'].each do |m|
       m['依存MAP'].to_s.split(';').each do |d|
         next if %w[なし 該当なし 未決(要確認)].include?(d)
