@@ -1,0 +1,153 @@
+{
+ "schema": "sit-body-mock-geometry/1",
+ "map": "BDY-05",
+ "name": "左手1",
+ "canvas": {
+  "w": 1920,
+  "h": 1080
+ },
+ "model_rect": {
+  "px": {
+   "x0": 138,
+   "y0": 138,
+   "x1": 1782,
+   "y1": 942,
+   "w": 1644,
+   "h": 804
+  },
+  "desk_margin_px": 90,
+  "band_px": {
+   "foam": 28,
+   "corrugated": 20
+  }
+ },
+ "coord_note": "ratio=((x-138)/1644,(y-138)/804)。1672幅の採用画像へは x*(1672/1920) ではなく body_register.py の変換を使う",
+ "main_width_px": 230,
+ "passage_width_px": 230,
+ "clean_colors": {
+  "floor": [
+   232,
+   201,
+   168
+  ],
+  "terrain": [
+   170,
+   130,
+   110
+  ],
+  "desk": [
+   118,
+   120,
+   126
+  ],
+  "band": [
+   150,
+   110,
+   62
+  ],
+  "wall": [
+   92,
+   104,
+   128
+  ]
+ },
+ "exits": [
+  {
+   "port": "door-passage-tip",
+   "side": "N",
+   "slot": 0.392,
+   "edge_point": {
+    "px": [
+     782.45,
+     138.0
+    ],
+    "ratio": [
+     0.392,
+     0.0
+    ]
+   },
+   "partner": "BDY-06.door-passage-base",
+   "range": {
+    "along": "x",
+    "a_px": 565.16,
+    "b_px": 999.73,
+    "a_ratio": 0.25983,
+    "b_ratio": 0.52417,
+    "depth_px": 60
+   },
+   "inward_dir": [
+    -0.8485,
+    0.5293
+   ]
+  },
+  {
+   "port": "door-passage-torso",
+   "side": "W",
+   "slot": 0.5,
+   "edge_point": {
+    "px": [
+     138.0,
+     540.0
+    ],
+    "ratio": [
+     0.0,
+     0.5
+    ]
+   },
+   "partner": "BDY-02.door-passage-left-arm",
+   "range": {
+    "along": "y",
+    "a_px": 404.46,
+    "b_px": 675.54,
+    "a_ratio": 0.33142,
+    "b_ratio": 0.66858,
+    "depth_px": 60
+   },
+   "inward_dir": [
+    0.8485,
+    -0.5293
+   ]
+  }
+ ],
+ "corridors": [
+  {
+   "kind": "limb",
+   "width_px": 230,
+   "polyline": [
+    {
+     "px": [
+      138.0,
+      540.0
+     ],
+     "ratio": [
+      0.0,
+      0.5
+     ],
+     "is_port": true
+    },
+    {
+     "px": [
+      782.45,
+      138.0
+     ],
+     "ratio": [
+      0.392,
+      0.0
+     ],
+     "is_port": true
+    }
+   ]
+  }
+ ],
+ "topology_expect": {
+  "floor_components": 1,
+  "exits_per_side": {
+   "N": 1,
+   "E": 0,
+   "S": 0,
+   "W": 1
+  },
+  "exit_count": 2,
+  "bends": 0
+ }
+}
