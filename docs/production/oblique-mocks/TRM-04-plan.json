@@ -217,7 +217,8 @@
    ],
    "partner": "TRM-05.door-hall",
    "status": "fixed",
-   "note": "住居へ。西壁・下寄り（v=0.76）。先は西廊下"
+   "note": "住居へ。西壁・下寄り（v=0.76）。先は西廊下",
+   "width_class": "2people"
   },
   {
    "id": "TRM-04.door-east",
@@ -231,7 +232,8 @@
    ],
    "partner": "TRM-02.door-west",
    "status": "fixed",
-   "note": "幼稚園へ。東壁・下寄り（v=0.76）。先は東廊下"
+   "note": "幼稚園へ。東壁・下寄り（v=0.76）。先は東廊下",
+   "width_class": "2people"
   },
   {
    "id": "TRM-04.door-south",
@@ -245,7 +247,8 @@
    ],
    "partner": "TRM-03.door-main",
    "status": "fixed",
-   "note": "正面扉。南壁中央（台帳 ID は door-south）"
+   "note": "正面扉。南壁中央（台帳 ID は door-south）",
+   "width_class": "2people"
   }
  ],
  "boxes": [

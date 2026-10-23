@@ -175,8 +175,12 @@ def validate_plan(p):
                 E.append(f"{kind} {did}: along_ref [a,b] が必要（位置の比の基準）")
             lo, hi = (r[0], r[2]) if M.is_h(w) else (r[1], r[3])
             a, b = M.span(d)
+            if d.get("width_class", "2people") not in M.WIDTH_CLASSES:
+                E.append(f"{kind} {did}: width_class は {list(M.WIDTH_CLASSES)}")
+            if kind == "doors" and "width_class" not in d:
+                E.append(f"doors {did}: width_class（2people|1person）が必要")
             if a < lo or b > hi:
-                E.append(f"{kind} {did}: 戸口の幅（キャラ2人分={M.DOOR_W}）が壁の長さに収まらない（壁 {lo}〜{hi}、戸口 {a:.0f}〜{b:.0f}）")
+                E.append(f"{kind} {did}: 戸口の幅（{d.get('width_class','2people')}={M.door_w(d):.0f}）が壁の長さに収まらない（壁 {lo}〜{hi}、戸口 {a:.0f}〜{b:.0f}）")
             if kind == "doors":
                 if M.DOOR_H > w["h"]:
                     E.append(f"doors {did}: 戸口の高さ{M.DOOR_H}（キャラ2人分）が壁の高さ{w['h']}を超える")
@@ -297,7 +301,7 @@ def build_prompt(p, key):
     L = [f"# {PROMPT_VERSION} {key}", "",
          "ROLE: 添付のモック画像（色付きの箱で作った間取りの斜め見下ろし図）を編集して、手作りミニチュア（段ボールの土台・雪・木の質感）の一枚絵に仕上げる。",
          "GEOMETRY (必ず保つ): 画像の寸法・視点・土台の台形・壁の位置と高さ・箱の位置と大きさ・戸口の位置と大きさを一切動かさない。足さない・消さない・ずらさない。",
-         "DOORS: 濃いピンクの四角は戸口。その位置・幅・高さ（キャラ2人分）のまま、木の扉または開口として描く。ピンクの色は残さない。",
+         "DOORS: 濃いピンクの四角は戸口。その位置・幅・高さのまま、木の扉または開口として描く（高さはキャラ2人分。幅は戸口ごとに下記）。ピンクの色は残さない。",
          "NO TEXT: 画像に文字・矢印・ラベルを入れない。人物は入れない。", "",
          "OBJECTS (色付きの箱 → 実物。位置・大きさは箱のまま):"]
     for b in p["boxes"]:
@@ -305,6 +309,8 @@ def build_prompt(p, key):
     for w in p["walls"]:
         if w.get("kind") == "partition":
             L.append(f"- {w['id']}: 仕切り（壁より低い。壁と区別できる別素材で描く）。開口は箱の切れ目のまま")
+    if p["doors"]:
+        L += ["", "DOOR WIDTHS:"] + [f"- {d['id']}: 幅{'キャラ1人分（細い裏口）' if d.get('width_class') == '1person' else 'キャラ2人分'}（{M.door_w(d):.0f}平面単位）・{d['wall_side']}壁" for d in p["doors"]]
     if p["windows"]:
         L += ["", "WINDOWS（個数・位置・種別を固定。ずらさない・増減しない・扉にしない。ガラス越しに見えるのは室内の床で、窓の中に雪や木を描かない）:"]
         for w in p["walls"]:

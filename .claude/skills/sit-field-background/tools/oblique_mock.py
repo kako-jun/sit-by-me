@@ -24,6 +24,12 @@ W, H_IMG = 1672, 941
 BASE_W, BASE_D = 1600, 1270
 CHAR = 66
 DOOR_W = 2 * CHAR
+WIDTH_CLASSES = {"2people": 2 * CHAR, "1person": CHAR}  # 戸口の幅の区分（既定=2人分。勝手口だけ1人分）
+
+
+def door_w(d):
+    return WIDTH_CLASSES.get(d.get("width_class", "2people"), DOOR_W)
+
 DOOR_H = 2 * CHAR
 KV = 0.74  # cos(42度)
 SLAB = 35
@@ -101,7 +107,7 @@ def visible_face_x(w):
 
 
 def span(d):
-    return d["center"] - DOOR_W / 2, d["center"] + DOOR_W / 2
+    return d["center"] - door_w(d) / 2, d["center"] + door_w(d) / 2
 
 
 def door_geom(p, d):

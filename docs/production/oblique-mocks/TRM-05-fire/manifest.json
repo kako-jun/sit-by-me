@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-05-fire",
  "plan": "docs/production/oblique-mocks/TRM-05-plan.json",
- "plan_sha256": "49416ef3c441ee0dbab97f252b78a706daba37410dda7490df82bbd34b83e4a4+fire",
+ "plan_sha256": "990412009ed5d90947a881da752670f4c3910f8232d7e2660fda2d15cd296e74+fire",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -19,7 +19,7 @@
      2
     ]
    },
-   "input_sha": "13b248c31260f6423ff4e010dcfe2f3735e26e66dc9cba082b779c99272411e1",
+   "input_sha": "91f32e6a4940e23f1636253403293267629a2c3595d1907aa97ece89f96aff5e",
    "outputs": {
     "TRM-05-fire-exits.png": "b9f148bf6549a709067854e0136a5711f452023ef56e1eb1f47d9ee4ea8721d9",
     "TRM-05-fire-mask.json": "6940bb8712cf065f763355cb63d913b1a9e3132932c950389423c05c390032bb",
@@ -29,35 +29,35 @@
    "white_components": 2
   },
   "mock": {
-   "input_sha": "13b248c31260f6423ff4e010dcfe2f3735e26e66dc9cba082b779c99272411e1",
+   "input_sha": "91f32e6a4940e23f1636253403293267629a2c3595d1907aa97ece89f96aff5e",
    "outputs": {
-    "TRM-05-fire-clean.png": "fcf5b1af29d26ca120b42e13faf0863300d94ab78758ff41ff91438031d56607",
-    "TRM-05-fire-review.png": "be7bb572710b6c534dd89bf10e191e1cdf9d3e1d6616af1c10ff71a742c55b66"
+    "TRM-05-fire-clean.png": "9b10242428a5202350b7fed4720046495342a45a1be19ec787867fae66aa634d",
+    "TRM-05-fire-review.png": "eff8cfe201d532698cb3f4784e6123dfb9a2ceae5b7011a390ea1591ba6777d3"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "13b248c31260f6423ff4e010dcfe2f3735e26e66dc9cba082b779c99272411e1",
+   "input_sha": "91f32e6a4940e23f1636253403293267629a2c3595d1907aa97ece89f96aff5e",
    "outputs": {
     "TRM-05-fire-occlusion-depth.png": "c211882bb4e31b6e7ee7a4963daa32e599d280721f670344aca2eb3411a05666",
     "TRM-05-fire-occlusion-edit.png": "a1d36a0ba6d4eb794be59a5844d0e98aae5c44de848917ff454785565668bdea",
-    "TRM-05-fire-occlusion-overlay.png": "ee527fac482f504336ec931bf99b58b6fcb3c0f52ac32723fe527bf8e438ac40",
+    "TRM-05-fire-occlusion-overlay.png": "ad4fb995ae396e6ff862e85512f5f8cafae60a475b1428be750755901620874e",
     "TRM-05-fire-occlusion.json": "f34237cdfc1296a4bc8b480eb9a89a9c13992a211bc90ed9dd231d7d493aa685",
     "TRM-05-fire-occlusion.png": "17cc6dc45d82efb18b3560be0148c409780467b2802a0439cb1eb9dbb5b6a51d"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "43a02aa0f875fedd5445badea2e29d85f0c2a99ce012ed59bbe400b5c249106f",
+   "input_sha": "762d845ec7a09bf00ee2a1e88d99ef2ee1d714a86580df142da37ee5e330005b",
    "ledger_ready": false,
    "outputs": {
-    "TRM-05-fire-edit-prompt.txt": "4b8ae9946b007640a081d30d05abb150b96e8399cd94dcdb93021b6ac050053a"
+    "TRM-05-fire-edit-prompt.txt": "9af877a70fbd86d14221ffa2bdc2c9a2aa9ff919fa7a0ee9c5da8fd7df1703d3"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "dec1d2509ddf994aa16a4e0df1c17716e04d294304327acd0fd7be91c6d97b3f",
+   "input_sha": "ee7e32e402a0c910b8fdd15e033f6bba633fda74a1a1518fcc7c357e545a2900",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -68,6 +68,7 @@
     "石は北東の隅（北壁と東壁の内側の角。x1125〜1170・Y280〜350）に移した（kako-jun 2026-10-23）。石のすぐ左の北壁に腰高窓1つ（中心x1070・幅80・窓台50・高さ55）。窓の種別・寸法は既定（要確認）。箪笥・台所・勝手口とは重ならないため家具は動かしていない。",
     "南寝室の布団を北の仕切り・西の仕切りの角に寄せた（kako-jun 2026-10-23「もうちょっと上にして壁につける」）: [821,680,1015,858]→[809,615,1003,775]（北へ65・西へ12、壁に隙間なし。奥行きは178→160に詰めた＝door-hall から南の開口の通路（Y775〜907）を空けるため。寸法は既定・要確認）。長持も通路にかかっていたため北へ60（Y640〜734）。通路は paths で検証（幅2人分・踏ませない床と家具の上を通らない）。",
     "長持を東壁・水平な仕切りの角に隙間なく付けた（kako-jun 2026-10-23「壁につけるなど自然に」）: [1000,640,1066,734]→[1104,615,1170,709]（東へ104・北へ25。南寝室の東壁沿い・水平な仕切りの直下）。石・北壁の窓・door-hall・南の開口への通路（2人幅）とは干渉しない。壁際に寄せられる他の家具（棚・箪笥・台所）は元から壁に接しており、食卓・長椅子は台所の中央で自然。",
+    "勝手口 door-back の幅をキャラ1人分（66単位。x420〜486。位置は北壁の左端のまま、高さは2人分のまま）に変更（kako-jun 2026-10-23）。台所の家具の並びは詰め直さず、戸口の前（室内側）は空いたまま。-fire の火・燃えカスの箱も同じ幅。",
     "火事の時点＝上半分が燃える（kako-jun 2026-10-23）。範囲 Y280〜640 は『上半分』の既定（要確認）。燃えた所は blocked。",
     "火事後（-burnt、未作成）も勝手口は戻らない想定（kako-jun 2026-10-23「燃えたら勝手口もなくなる」）。要確認。",
     "-fire では勝手口は焼失した戸口: 同じ位置（北壁の左端 x420〜552）に火・燃えカスの blocked 箱を置いた（kako-jun 2026-10-23）。通常戸口ではなく、TRM-06 へは行けない。炎・燃えカスの箱の大きさは既定（要確認）。",
@@ -77,9 +78,9 @@
    ]
   },
   "wire": {
-   "input_sha": "a8d70e3831aa54fab5160640eaf9a38f85a06dc59800295bfb50336f8fbf5ea4",
+   "input_sha": "b0dfad8640b330c1a56c359c2ad21bce8c4cfce8f509f36f3bee7bb75487c2a5",
    "outputs": {
-    "wire-TRM-05-fire.png": "38553c5dd41718cd7e95c833a03c8ede577c7bc5d6ddef72a57edfbd2b198dea"
+    "wire-TRM-05-fire.png": "2a07d7b320fd985209d80facff16c25b9851864c57b5f26e655aad2f8d0eba71"
    },
    "status": "ok"
   }

@@ -61,12 +61,13 @@ def door_info(p, door):
     else:
         pos = f"{side}壁 u={frac:.2f}（{'中央' if abs(frac - 0.5) < 0.03 else ('中央より左寄り' if frac < 0.5 else '右寄り')}）"
     if M.is_h(w):
-        a1 = M.proj(door["center"] - M.DOOR_W / 2, w["rect"][3])
-        b1 = M.proj(door["center"] + M.DOOR_W / 2, w["rect"][3])
+        a1 = M.proj(door["center"] - M.door_w(door) / 2, w["rect"][3])
+        b1 = M.proj(door["center"] + M.door_w(door) / 2, w["rect"][3])
         px = f"見かけ幅{abs(b1[0] - a1[0]):.0f}px"
     else:
         px = "側壁（縦）"
-    return pos, frac, f"幅{M.DOOR_W}単位=キャラ2人分（{px}）"
+    cls = "キャラ1人分" if door.get("width_class") == "1person" else "キャラ2人分"
+    return pos, frac, f"幅{M.door_w(door):.0f}単位={cls}（{px}）"
 
 
 def compass(d, x, y, f):
@@ -169,7 +170,8 @@ def build(conn_path, out):
             opp = {"west": "east", "east": "west", "south": "north", "north": "south"}
             sides_ok = (sb == opp[sa]) if e.get("expect") == "opposite" else (sa == sb)
             pos_ok = abs(info["a"][1] - info["b"][1]) <= 0.05
-            verdict = ("OK" if sides_ok and pos_ok else "NG") + f"（辺{'一致' if sides_ok else '不整合'}・位置差{abs(info['a'][1]-info['b'][1]):.2f}）"
+            w_ok = doors[a][1].get("width_class", "2people") == doors[b][1].get("width_class", "2people")
+            verdict = ("OK" if sides_ok and pos_ok and w_ok else "NG") + f"（辺{'一致' if sides_ok else '不整合'}・幅{'一致' if w_ok else '不一致'}・位置差{abs(info['a'][1]-info['b'][1]):.2f}）"
             if verdict.startswith("NG"):
                 problems.append(f"{a}↔{b}: {verdict}")
         rows.append((e, info, verdict))
@@ -228,7 +230,9 @@ def build(conn_path, out):
         # 線ラベル（中間の線分の中央）
         seg = max(zip(pts[:-1], pts[1:]), key=lambda s: (s[0][0] - s[1][0]) ** 2 + (s[0][1] - s[1][1]) ** 2)
         mx, my = (seg[0][0] + seg[1][0]) / 2, (seg[0][1] + seg[1][1]) / 2
-        lab = e["label"] + ("\n幅=キャラ2人分" if e["kind"] == "door" else "")
+        ws_ = [doors[x][1].get("width_class", "2people") for x in (a, b) if x in doors and "wall" in doors[x][1]]
+        wl_ = "キャラ1人分" if "1person" in ws_ else "キャラ2人分"
+        lab = e["label"] + (f"\n幅={wl_}" if e["kind"] == "door" else "")
         if verdict.startswith("OK"):
             lab += "  位置整合OK"
         tags.append((mx, my, lab))
@@ -265,7 +269,7 @@ def build(conn_path, out):
     # 凡例・接続一覧
     lx, ly = 60, 1290
     gx, gy = 2440, 1700
-    lines = ["凡例と読み方", "・黒い丸と太線=戸口どうしの接続（点線矢印=一方向のイベント）", "・戸口の幅=キャラ2人分（132単位。手前縁で約134px）", "・方角: 図の上が北。住居=西・本堂=中央・幼稚園=東", "・位置整合: 相手MAPの戸口との辺・位置（比）が一致=OK", "・*既定（要確認）=台帳に位置が無く仮置きした戸口", "・色つきモック: 仕切り=濃い灰（壁）", "　開口=緑（通れる所）／戸口=ピンク"] + ["・" + t_ for n in C.get("legend_notes", []) for x in n.split("。") if x for t_ in [(x + "。")[i:i + 32] for i in range(0, len(x) + 1, 32)] if t_.strip("。")]
+    lines = ["凡例と読み方", "・黒い丸と太線=戸口どうしの接続（点線矢印=一方向のイベント）", "・戸口の幅=キャラ2人分（132単位。手前縁で約134px）。勝手口のみ1人分（66単位）", "・方角: 図の上が北。住居=西・本堂=中央・幼稚園=東", "・位置整合: 相手MAPの戸口との辺・位置（比）が一致=OK", "・*既定（要確認）=台帳に位置が無く仮置きした戸口", "・色つきモック: 仕切り=濃い灰（壁）", "　開口=緑（通れる所）／戸口=ピンク"] + ["・" + t_ for n in C.get("legend_notes", []) for x in n.split("。") if x for t_ in [(x + "。")[i:i + 32] for i in range(0, len(x) + 1, 32)] if t_.strip("。")]
     text_box(d, (gx, gy), "\n".join(lines), f_s, bg="#ffffff", anchor="lt")
     y0 = 1750
     d.text((lx, y0), "接続一覧（詳細は connections.md）", font=f_m, fill=K)
@@ -287,9 +291,12 @@ def build(conn_path, out):
 
     # ---------------------------------------------------------------- 接続表 md
     L = ["# 寺町 幼稚園一式の接続表（機械生成。`oblique_topology.py`。手で直さない）", "",
-         "平面図スペック（`*-plan.json`）と `connections.json` から生成。戸口の幅はすべてキャラ2人分（132平面単位。土台の手前縁で約134px。奥は遠近で縮む）。位置の比: 西・東壁の戸口は v（その部屋の奥行き方向。0=奥・1=手前）、南壁の戸口は u（幅方向。0=西・1=東）。", "",
+         "平面図スペック（`*-plan.json`）と `connections.json` から生成。戸口の幅は既定でキャラ2人分（132平面単位。土台の手前縁で約134px。奥は遠近で縮む）。勝手口 door-back だけキャラ1人分（66単位・約67px）。位置の比: 西・東壁の戸口は v（その部屋の奥行き方向。0=奥・1=手前）、南壁の戸口は u（幅方向。0=西・1=東）。", "",
          "![接続図](connection-diagram.png)", "",
          "| 戸口A | Aの位置 | 戸口B | Bの位置 | 幅 | 位置整合 | 備考 |", "|---|---|---|---|---|---|---|"]
+    def wcell(e):
+        ws_ = [doors[x][1].get("width_class", "2people") for x in (e["a"], e["b"]) if x in doors and "wall" in doors[x][1]]
+        return "1人分（%d単位）" % M.WIDTH_CLASSES["1person"] if "1person" in ws_ else "2人分（%d単位）" % M.DOOR_W
     for e, info, verdict in rows:
         note = []
         for end in ("a", "b"):
@@ -300,7 +307,7 @@ def build(conn_path, out):
             note.append(exn.get("kind_note", "寺町の外への端点"))
         for vk, vr in e.get("disabled_in", {}).items():
             note.append(f"{vk} では無効（{vr}）")
-        L.append(f"| `{e['a']}` | {info['a'][0]} | `{e['b']}` | {info['b'][0]} | 2人分（{M.DOOR_W}単位） | {verdict} | {'・'.join(note) or '-'} |")
+        L.append(f"| `{e['a']}` | {info['a'][0]} | `{e['b']}` | {info['b'][0]} | {wcell(e)} | {verdict} | {'・'.join(note) or '-'} |")
     L += ["", "## 戸口の一覧（スペック由来）", "", "| 戸口 | MAP | 辺 | 位置 | 相手 | 備考 |", "|---|---|---|---|---|---|"]
     for mid, p in plans.items():
         for dd in p["doors"]:

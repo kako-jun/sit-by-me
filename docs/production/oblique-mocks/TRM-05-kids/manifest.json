@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-05-kids",
  "plan": "docs/production/oblique-mocks/TRM-05-plan.json",
- "plan_sha256": "49416ef3c441ee0dbab97f252b78a706daba37410dda7490df82bbd34b83e4a4+kids",
+ "plan_sha256": "990412009ed5d90947a881da752670f4c3910f8232d7e2660fda2d15cd296e74+kids",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -22,45 +22,45 @@
      1
     ]
    },
-   "input_sha": "a28861ac4d166994cf287705c74b671ea80d4d6d4359067b8a72c866f80b7b27",
+   "input_sha": "84fc171dcb16b810e2e43a834082c27755af4c99c9b0db0d41e55e68baccb208",
    "outputs": {
-    "TRM-05-kids-exits.png": "0a34420af1a2d752244d16a4cd57cbab8aab3c07e11450f403eb61321f3eff26",
-    "TRM-05-kids-mask.json": "f7b8b7e0780731fcb806a1ce4c8a976025bc0be36bda7d54d8b3093457e7bd32",
-    "TRM-05-kids-mask.png": "59f39e5d71be3df1c22deb6258615f678baaa97345ac65e32f89206a2686d429"
+    "TRM-05-kids-exits.png": "b5a67d8a0e9d881a66465cb557da983a7cc789683ee0fe89fcae8061a317a67d",
+    "TRM-05-kids-mask.json": "431e2c0c2b6787489daeba2ec7f888216956a2532031529a614de2eee6ad1b55",
+    "TRM-05-kids-mask.png": "90f5ef73de32d35cebbed562879dc2d9e665f7591375830c1ef8e94fe89477f6"
    },
    "status": "ok",
    "white_components": 1
   },
   "mock": {
-   "input_sha": "a28861ac4d166994cf287705c74b671ea80d4d6d4359067b8a72c866f80b7b27",
+   "input_sha": "84fc171dcb16b810e2e43a834082c27755af4c99c9b0db0d41e55e68baccb208",
    "outputs": {
-    "TRM-05-kids-clean.png": "95c76cf724b2e865f5c3aa4ab0680f2de3f4f200e52bf7710abbde4d6471ccd2",
-    "TRM-05-kids-review.png": "ec7f74e93c326b6972a57e6cc7852104048dc7204127c1a694b7a8764735d6bb"
+    "TRM-05-kids-clean.png": "b75c38bd84319bb2dcdfb92d9b405f0f3457ccadf9c816549d0fae0d93e68bd2",
+    "TRM-05-kids-review.png": "d19202d4feb4c2bf26bc9f87a94d5ea743c30cb1257d360c6d21a713d26eeb42"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "a28861ac4d166994cf287705c74b671ea80d4d6d4359067b8a72c866f80b7b27",
+   "input_sha": "84fc171dcb16b810e2e43a834082c27755af4c99c9b0db0d41e55e68baccb208",
    "outputs": {
     "TRM-05-kids-occlusion-depth.png": "57b76dceb6b4cc33e505e95a188a53e1d0913442a352b538cd0a0cb7db9717e0",
     "TRM-05-kids-occlusion-edit.png": "34f93d1fc14ec437453b1293b808986fe419339c9de78e564486e9ef3d74948e",
-    "TRM-05-kids-occlusion-overlay.png": "d2cea525cf1359ba124b7853b46c89b426d214d1d220e71d4296af76a6691b7a",
+    "TRM-05-kids-occlusion-overlay.png": "4673b8c5fd9ecd01f67c67da182e1e5c5452efbfdfbe4faeec7fcd1f609d861d",
     "TRM-05-kids-occlusion.json": "af78707db0991eacbaa3e7f07840adedb000cd2fe9391d2da814c653833242ad",
     "TRM-05-kids-occlusion.png": "e2394e66c70dea0ae2bc8309aed3cfd1d2a30bae8391b6cba5f6b97c405e2713"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "1de18128f6e2944bdca651e18e43d19193afc702666d97befee740bcecf6fdde",
+   "input_sha": "d2d54b2c1306aa769ee24dd3de0f6fe8edbaff2f49749e64991a45ce913e2204",
    "ledger_ready": false,
    "outputs": {
-    "TRM-05-kids-edit-prompt.txt": "c8f4cdcc97c82cf7ab30da8c24fdddf737d205fafba91c74ea3f4c1e06cd3462"
+    "TRM-05-kids-edit-prompt.txt": "1e7cd3e853e8102bed38fa673d6ba54b4b31790bfd05f1dcdace7f8266569288"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "c63192f944fc524d1d422eac53e6733854b6e30e6a0d0d55bdf2b22d402b131b",
+   "input_sha": "29cb8eed574515cf906b08a0c7c30addbe01e6ba412b84925c1436f2a5ecc741",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -71,6 +71,7 @@
     "石は北東の隅（北壁と東壁の内側の角。x1125〜1170・Y280〜350）に移した（kako-jun 2026-10-23）。石のすぐ左の北壁に腰高窓1つ（中心x1070・幅80・窓台50・高さ55）。窓の種別・寸法は既定（要確認）。箪笥・台所・勝手口とは重ならないため家具は動かしていない。",
     "南寝室の布団を北の仕切り・西の仕切りの角に寄せた（kako-jun 2026-10-23「もうちょっと上にして壁につける」）: [821,680,1015,858]→[809,615,1003,775]（北へ65・西へ12、壁に隙間なし。奥行きは178→160に詰めた＝door-hall から南の開口の通路（Y775〜907）を空けるため。寸法は既定・要確認）。長持も通路にかかっていたため北へ60（Y640〜734）。通路は paths で検証（幅2人分・踏ませない床と家具の上を通らない）。",
     "長持を東壁・水平な仕切りの角に隙間なく付けた（kako-jun 2026-10-23「壁につけるなど自然に」）: [1000,640,1066,734]→[1104,615,1170,709]（東へ104・北へ25。南寝室の東壁沿い・水平な仕切りの直下）。石・北壁の窓・door-hall・南の開口への通路（2人幅）とは干渉しない。壁際に寄せられる他の家具（棚・箪笥・台所）は元から壁に接しており、食卓・長椅子は台所の中央で自然。",
+    "勝手口 door-back の幅をキャラ1人分（66単位。x420〜486。位置は北壁の左端のまま、高さは2人分のまま）に変更（kako-jun 2026-10-23）。台所の家具の並びは詰め直さず、戸口の前（室内側）は空いたまま。-fire の火・燃えカスの箱も同じ幅。",
     "幼稚園時代＝父と同じ寝室1つ（kako-jun 2026-10-23）。仕切りの下半分を取り、寝室を1室にした。開口は南側の1か所のみ（既定・要確認）。寝室内の家具の再配置は仮。",
     "-kids: 仕切りの下半分を取った跡の床（Y591〜615）を寝室の床で埋めた。布団は子（北側）・父（南側）の2組で、位置は元の2つの寝室の布団の位置のまま（既定・要確認）。",
     "-kids の父の布団は仕切りが無いので西の仕切り（x809）に付け、北へ上げた: [821,680,1015,858]→[809,597,1003,775]（寸法そのまま・西へ12・北へ83）。door-hall から南の開口の通路（Y775〜907）を空けた。",
@@ -78,9 +79,9 @@
    ]
   },
   "wire": {
-   "input_sha": "056ce07bf9928fd3440e36c9d60a502f3dda12a2ce50fa936e030b2c0bdcc91e",
+   "input_sha": "e4cbc4a2c4b977ec7f6aa45484073edb038a45fbdc455b426356c40eb935f28a",
    "outputs": {
-    "wire-TRM-05-kids.png": "250e8db5fafd372e41c947051c6f6a98628fd0f5f87e3347c9624c885d5143e8"
+    "wire-TRM-05-kids.png": "eedfc2ceedaaf61ff0024fe4e02278f56623efa7c218eb392023360d2f65b2ad"
    },
    "status": "ok"
   }

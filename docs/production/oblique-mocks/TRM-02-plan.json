@@ -81,7 +81,8 @@
    ],
    "partner": "TRM-04.door-east",
    "status": "fixed",
-   "note": "本堂へ。西壁・上下の中央より下寄り（v=0.76）"
+   "note": "本堂へ。西壁・上下の中央より下寄り（v=0.76）",
+   "width_class": "2people"
   },
   {
    "id": "TRM-02.door-outside",
@@ -95,7 +96,8 @@
    ],
    "partner": "TRM-03.door-playroom",
    "status": "fixed",
-   "note": "外へ。下辺の右端付近。扉前は空ける"
+   "note": "外へ。下辺の右端付近。扉前は空ける",
+   "width_class": "2people"
   }
  ],
  "boxes": [

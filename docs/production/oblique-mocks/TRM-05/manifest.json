@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-05",
  "plan": "docs/production/oblique-mocks/TRM-05-plan.json",
- "plan_sha256": "49416ef3c441ee0dbab97f252b78a706daba37410dda7490df82bbd34b83e4a4",
+ "plan_sha256": "990412009ed5d90947a881da752670f4c3910f8232d7e2660fda2d15cd296e74",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -22,45 +22,45 @@
      1
     ]
    },
-   "input_sha": "eedd5954ca991c9084d0f1b26ae4bd3b0b8f56d7049c407db72860982f58c89b",
+   "input_sha": "5dd6fd638c0cd3907ceff2e0ecfd16852b9fcbe136baae6ffab5f5be20b1cefa",
    "outputs": {
-    "TRM-05-exits.png": "6d8c491bafd09c2eeb931af614c487b9c49bb6cc6714c2a48f37c73ed4276bb2",
-    "TRM-05-mask.json": "4bf086c5496726029f653021014e6f91f35f9b7f8222e23ebc663acc85081c1b",
-    "TRM-05-mask.png": "8cc6aaa4a16bd6ae22c19c3cb1daee83219927dd6f4b58f268be87e49086c10e"
+    "TRM-05-exits.png": "c688914e5bbc43d0fe45c59f5ebbeccc5c24d4ccb5b8e28c6390038920dc4476",
+    "TRM-05-mask.json": "041f1c88e80750ab3ad1d4026a554ece493cb0c1bfe99cfbb9ca2a749964fd58",
+    "TRM-05-mask.png": "a2d318aedd039b11c5db5d338ed4b699feac33d46a65708a40981264193bf379"
    },
    "status": "ok",
    "white_components": 1
   },
   "mock": {
-   "input_sha": "eedd5954ca991c9084d0f1b26ae4bd3b0b8f56d7049c407db72860982f58c89b",
+   "input_sha": "5dd6fd638c0cd3907ceff2e0ecfd16852b9fcbe136baae6ffab5f5be20b1cefa",
    "outputs": {
-    "TRM-05-clean.png": "0220a9e92f56d14e82939fe49c3139438b01e51f31051cdbfed37e3a24e71c5f",
-    "TRM-05-review.png": "55ce4b810471f2898a4d080d152c15c4190f51ba97b0b60ed6f3b3197ae789bc"
+    "TRM-05-clean.png": "c4241780c54dfac70b4c15edb5382a496444bd92195c8a446b3e046c0a90f191",
+    "TRM-05-review.png": "352ebf3f9196a170a5dd18e3beccdca21af4ca0dd50c58377fbd4de0bf18110c"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "eedd5954ca991c9084d0f1b26ae4bd3b0b8f56d7049c407db72860982f58c89b",
+   "input_sha": "5dd6fd638c0cd3907ceff2e0ecfd16852b9fcbe136baae6ffab5f5be20b1cefa",
    "outputs": {
     "TRM-05-occlusion-depth.png": "32a99e8bab9a4f34b7bff429d6568d6d9b24131b70b72e469e494da8322bc1cc",
     "TRM-05-occlusion-edit.png": "4d00d1a12eacd81c260412610315cf095a941e43625a41fd9f93f4e979e268c0",
-    "TRM-05-occlusion-overlay.png": "b79336cc4d1cc6c48c8c60f425de817b01656b3d6aeb8c0becf061ada67798ac",
+    "TRM-05-occlusion-overlay.png": "e79ef739a4158c8717a5746fea364a6f94c9db8ea8d8375139c53737092fcff5",
     "TRM-05-occlusion.json": "6e098262c402b020398e4ff8ad001d050fba28d77a4370ffe48ec4e745c4254b",
     "TRM-05-occlusion.png": "72b77ad34f4004e5946b04e43f57442e186fe7532f5044bed8d84596c8ec019b"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "fca6efb08680f9f27b84d86846cb196572890d856c80c73de1addfc573f5a652",
+   "input_sha": "28cb506548645dd06e164d79aac51e6a5ce7003ceff8771346ac547e958638d1",
    "ledger_ready": false,
    "outputs": {
-    "TRM-05-edit-prompt.txt": "289bae7fc78acffac59ed8b68112e8aae2375045d5350cfd6cbe0437ddae3efc"
+    "TRM-05-edit-prompt.txt": "1874e0a704f670b626e38011ac677d030b0b3a21aad32880e3835ddc6f3ff0a5"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "c8c2b2781d9e991554bdb0375cf4f5469194e12e3503c33999432cc12896c715",
+   "input_sha": "fd710f02cd566eada68cfa78295ab199a2ce0f99723181b741dff4975ab2f329",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -71,14 +71,15 @@
     "石は北東の隅（北壁と東壁の内側の角。x1125〜1170・Y280〜350）に移した（kako-jun 2026-10-23）。石のすぐ左の北壁に腰高窓1つ（中心x1070・幅80・窓台50・高さ55）。窓の種別・寸法は既定（要確認）。箪笥・台所・勝手口とは重ならないため家具は動かしていない。",
     "南寝室の布団を北の仕切り・西の仕切りの角に寄せた（kako-jun 2026-10-23「もうちょっと上にして壁につける」）: [821,680,1015,858]→[809,615,1003,775]（北へ65・西へ12、壁に隙間なし。奥行きは178→160に詰めた＝door-hall から南の開口の通路（Y775〜907）を空けるため。寸法は既定・要確認）。長持も通路にかかっていたため北へ60（Y640〜734）。通路は paths で検証（幅2人分・踏ませない床と家具の上を通らない）。",
     "長持を東壁・水平な仕切りの角に隙間なく付けた（kako-jun 2026-10-23「壁につけるなど自然に」）: [1000,640,1066,734]→[1104,615,1170,709]（東へ104・北へ25。南寝室の東壁沿い・水平な仕切りの直下）。石・北壁の窓・door-hall・南の開口への通路（2人幅）とは干渉しない。壁際に寄せられる他の家具（棚・箪笥・台所）は元から壁に接しており、食卓・長椅子は台所の中央で自然。",
+    "勝手口 door-back の幅をキャラ1人分（66単位。x420〜486。位置は北壁の左端のまま、高さは2人分のまま）に変更（kako-jun 2026-10-23）。台所の家具の並びは詰め直さず、戸口の前（室内側）は空いたまま。-fire の火・燃えカスの箱も同じ幅。",
     "既定（要確認）: open-dining-bed-n",
     "既定（要確認）: open-dining-bed-s"
    ]
   },
   "wire": {
-   "input_sha": "1241f03730036c26bf9d7f353a90b9bb1afac6101a251c147d79044a082b2248",
+   "input_sha": "92a93a26b7f70005d75509029fdadd96635c8d19b020ba8b8c9985749794659a",
    "outputs": {
-    "wire-TRM-05.png": "e3abc323d0112ab30a2fe0c739398dae2afb6694eaf760f51a1e5fec5b81fe8d"
+    "wire-TRM-05.png": "1923ad1e115056e5446b3d204b41100c07bb61efc4ece6f1a32c28fa47a27db2"
    },
    "status": "ok"
   }

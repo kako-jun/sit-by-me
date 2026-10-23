@@ -156,7 +156,8 @@
    ],
    "partner": "TRM-04.door-south",
    "status": "fixed",
-   "note": "本堂の正面。建物の中央"
+   "note": "本堂の正面。建物の中央",
+   "width_class": "2people"
   },
   {
    "id": "TRM-03.door-residence",
@@ -170,7 +171,8 @@
    ],
    "partner": "TRM-05.door-outside",
    "status": "default",
-   "note": "住居の外への戸口。建物幅の0.29（内部の戸口と揃える）。境内側の位置は台帳TBD"
+   "note": "住居の外への戸口。建物幅の0.29（内部の戸口と揃える）。境内側の位置は台帳TBD",
+   "width_class": "2people"
   },
   {
    "id": "TRM-03.door-playroom",
@@ -184,7 +186,8 @@
    ],
    "partner": "TRM-02.door-outside",
    "status": "default",
-   "note": "幼稚園の外への戸口。建物幅の0.84（内部の戸口と揃える）。境内側の位置は台帳TBD"
+   "note": "幼稚園の外への戸口。建物幅の0.84（内部の戸口と揃える）。境内側の位置は台帳TBD",
+   "width_class": "2people"
   }
  ],
  "markers": [
