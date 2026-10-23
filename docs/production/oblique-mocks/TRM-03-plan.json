@@ -15,7 +15,8 @@
    ],
    "color": "#e8eef4",
    "label": "",
-   "walkable": true
+   "walkable": true,
+   "look": "綿の雪の地面（足跡・土の露出・草）。"
   },
   {
    "id": "grave",
@@ -31,7 +32,8 @@
    "label_at": [
     360,
     1000
-   ]
+   ],
+   "look": "墓地: 雪の地面に低い灰色の石の墓石が点在する。"
   },
   {
    "id": "playground",
@@ -47,7 +49,8 @@
    "label_at": [
     1230,
     1120
-   ]
+   ],
+   "look": "園庭: 雪の地面と足跡。"
   },
   {
    "id": "path",
@@ -63,7 +66,8 @@
    "label_at": [
     800,
     1000
-   ]
+   ],
+   "look": "参道: 黒い石畳（大きな板石、雪が所々にかかる）。"
   }
  ],
  "walls": [
@@ -80,7 +84,8 @@
    "color": "#e6d8b8",
    "top_color": "#6c7077",
    "label": "住居（庫裏）",
-   "window_count": 2
+   "window_count": 2,
+   "look": "住居（庫裏）: クリーム色の漆喰の壁と木の柱、灰色の瓦の寄棟屋根（雪）、南壁に焦げ茶の木の板戸（小窓つき）と腰高のガラス窓2枚。"
   },
   {
    "id": "conn-w",
@@ -97,7 +102,8 @@
    "label": "渡り廊下",
    "window_count": 0,
    "floor_status": "fixed",
-   "floor": "wood"
+   "floor": "wood",
+   "look": "渡り廊下: 柱と低い灰色の瓦屋根だけの開放した通路。床は木の板張り（確定）。壁・窓・格子・戸を描かない。"
   },
   {
    "id": "main-hall",
@@ -112,7 +118,8 @@
    "color": "#e6d8b8",
    "top_color": "#6c7077",
    "label": "本堂",
-   "window_count": 0
+   "window_count": 0,
+   "look": "本堂: 灰色の瓦の大きな寄棟屋根（雪・堂々とした軒）、正面に格子戸の大きな引き戸と木の柱、石の踏み段。窓は描かない。"
   },
   {
    "id": "conn-e",
@@ -129,7 +136,8 @@
    "label": "渡り廊下",
    "window_count": 0,
    "floor_status": "fixed",
-   "floor": "wood"
+   "floor": "wood",
+   "look": "渡り廊下: 柱と低い灰色の瓦屋根だけの開放した通路。床は木の板張り（確定）。壁・窓・格子・戸を描かない。"
   },
   {
    "id": "kindergarten",
@@ -144,7 +152,8 @@
    "color": "#e6d8b8",
    "top_color": "#6c7077",
    "label": "幼稚園（遊戯室）",
-   "window_count": 4
+   "window_count": 4,
+   "look": "幼稚園（遊戯室）: クリーム色の壁、灰色の瓦の寄棟屋根（雪）、南壁に大きな掃き出しの引き違いガラス窓4枚と木の戸（1.5人幅）。"
   }
  ],
  "doors": [
@@ -216,7 +225,8 @@
    "h": 170,
    "color": "#8a7a5a",
    "label": "鐘楼",
-   "blocked": true
+   "blocked": true,
+   "kind": "bell"
   },
   {
    "id": "statue",
@@ -229,7 +239,8 @@
    "h": 90,
    "color": "#9a9a9a",
    "label": "親鸞像",
-   "blocked": true
+   "blocked": true,
+   "kind": "statue"
   },
   {
    "id": "slide",
@@ -242,7 +253,8 @@
    "h": 90,
    "color": "#3b78c8",
    "label": "滑り台",
-   "blocked": true
+   "blocked": true,
+   "kind": "slide"
   },
   {
    "id": "swing",
@@ -255,7 +267,8 @@
    "h": 120,
    "color": "#d23a3a",
    "label": "ブランコ",
-   "blocked": true
+   "blocked": true,
+   "kind": "swing"
   },
   {
    "id": "arch-1",
@@ -268,7 +281,9 @@
    "h": 45,
    "color": "#d23a3a",
    "label": "半円(赤)",
-   "blocked": true
+   "blocked": true,
+   "kind": "arch",
+   "look": "半円のタイヤ型の遊具（赤）。地面から半分出ている。"
   },
   {
    "id": "arch-2",
@@ -281,7 +296,9 @@
    "h": 45,
    "color": "#3b78c8",
    "label": "半円(青)",
-   "blocked": true
+   "blocked": true,
+   "kind": "arch",
+   "look": "半円のタイヤ型の遊具（青）。地面から半分出ている。"
   },
   {
    "id": "arch-3",
@@ -294,7 +311,9 @@
    "h": 45,
    "color": "#e8c62a",
    "label": "半円(黄)",
-   "blocked": true
+   "blocked": true,
+   "kind": "arch",
+   "look": "半円のタイヤ型の遊具（黄）。地面から半分出ている。"
   },
   {
    "id": "arch-4",
@@ -307,7 +326,9 @@
    "h": 45,
    "color": "#3b78c8",
    "label": "半円(青)",
-   "blocked": true
+   "blocked": true,
+   "kind": "arch",
+   "look": "半円のタイヤ型の遊具（青）。地面から半分出ている。"
   },
   {
    "id": "animal",
@@ -320,7 +341,8 @@
    "h": 70,
    "color": "#f2f2f2",
    "label": "動物遊具(丸)",
-   "blocked": true
+   "blocked": true,
+   "kind": "animal"
   }
  ],
  "assumptions": [
@@ -435,6 +457,36 @@
    "wall": "main-hall",
    "status": "fixed",
    "reason": "本堂に窓は置かない（kako-jun 決定 2026-10-23）"
+  }
+ ],
+ "decor_pool": "teramachi-winter-exterior",
+ "tree_zones": [
+  {
+   "id": "north-margin",
+   "rect": [
+    0,
+    0,
+    1600,
+    100
+   ]
+  },
+  {
+   "id": "west-margin",
+   "rect": [
+    0,
+    100,
+    90,
+    425
+   ]
+  },
+  {
+   "id": "east-margin",
+   "rect": [
+    1570,
+    100,
+    1600,
+    425
+   ]
   }
  ]
 }
