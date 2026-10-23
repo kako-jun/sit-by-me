@@ -219,12 +219,12 @@ def build_items(p, style):
         r = w["rect"]
         a, b = span(o)
         rc = [a, r[1] - 2, b, r[3] + 2] if is_h(w) else [r[0] - 2, a, r[2] + 2, b]
-        items.append((-900, "opening", [(rect_poly(rc), OPEN_COLOR, "opening")], o))
+        items.append((-450, "opening", [(rect_poly(rc), OPEN_COLOR, "opening")], o))
     for d in p["doors"]:
         patch, panel, anchor = door_geom(p, d)
-        items.append((-900, "doorpatch", [(rect_poly(patch), "#ff9bd0", "doorpatch")], d))
+        items.append((-450, "doorpatch", [(rect_poly(patch), "#ff9bd0", "doorpatch")], d))
     for m in p["markers"]:
-        items.append((-900, "marker", [(rect_poly(marker_rect(m)), DOOR_COLOR, "marker")], m))
+        items.append((-450, "marker", [(rect_poly(marker_rect(m)), DOOR_COLOR, "marker")], m))
     for w in p["walls"]:
         kind = w.get("kind", "wall")
         color = w.get("color") or ("#4a4f57" if kind == "partition" else "#d8c9a6")

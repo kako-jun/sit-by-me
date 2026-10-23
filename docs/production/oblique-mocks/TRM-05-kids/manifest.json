@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-05-kids",
  "plan": "docs/production/oblique-mocks/TRM-05-plan.json",
- "plan_sha256": "de941374bb7817d742482246cccbe9e2438081831b7aa80b5919ec790e40b207+kids",
+ "plan_sha256": "9d9f12d37934cfbd4a6bcb737e30f7384567e1aaea78abee143563745552aa64+kids",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -22,45 +22,45 @@
      1
     ]
    },
-   "input_sha": "9be36abe21ce2dedac714d213ff69d1242fa135020d5f24e304a1fa4016f0638",
+   "input_sha": "26ef5c710c5051460adf14b33eb8da2640f1a298e761d959a0da7c2b7e43d651",
    "outputs": {
-    "TRM-05-kids-exits.png": "43a80d752c53656bd8a0065d30343db03f68a15944b0a227d01716ba37db9316",
-    "TRM-05-kids-mask.json": "9a340cfabdd8b5830623cf73d66963ff889f793e3e20e887940e542f64973bfa",
-    "TRM-05-kids-mask.png": "ba53b03d7bd277739529ad02c52c5e6c1d7c0d356b1463733085485d0d59562f"
+    "TRM-05-kids-exits.png": "0a34420af1a2d752244d16a4cd57cbab8aab3c07e11450f403eb61321f3eff26",
+    "TRM-05-kids-mask.json": "f7b8b7e0780731fcb806a1ce4c8a976025bc0be36bda7d54d8b3093457e7bd32",
+    "TRM-05-kids-mask.png": "59f39e5d71be3df1c22deb6258615f678baaa97345ac65e32f89206a2686d429"
    },
    "status": "ok",
-   "white_components": 2
+   "white_components": 1
   },
   "mock": {
-   "input_sha": "9be36abe21ce2dedac714d213ff69d1242fa135020d5f24e304a1fa4016f0638",
+   "input_sha": "26ef5c710c5051460adf14b33eb8da2640f1a298e761d959a0da7c2b7e43d651",
    "outputs": {
-    "TRM-05-kids-clean.png": "fbe1c6fb8fb0d95521962f7fa49cf83357e9a731b20bb7b4797feca171a9fdff",
-    "TRM-05-kids-review.png": "c203bdbab58ecd37d62731bcac630362707dcbdb6e034e4b7fb5f45f9d82e0a5"
+    "TRM-05-kids-clean.png": "73b4be298b6787564e02ad6d9aea1e2864b70999bb923dee8eec52fb7cdb1d5e",
+    "TRM-05-kids-review.png": "f1a8075c9775ab4170e331176cbad60c1a74d7c74edc5772de3a3e37f69d2149"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "9be36abe21ce2dedac714d213ff69d1242fa135020d5f24e304a1fa4016f0638",
+   "input_sha": "26ef5c710c5051460adf14b33eb8da2640f1a298e761d959a0da7c2b7e43d651",
    "outputs": {
     "TRM-05-kids-occlusion-depth.png": "57b76dceb6b4cc33e505e95a188a53e1d0913442a352b538cd0a0cb7db9717e0",
     "TRM-05-kids-occlusion-edit.png": "34f93d1fc14ec437453b1293b808986fe419339c9de78e564486e9ef3d74948e",
-    "TRM-05-kids-occlusion-overlay.png": "d975f1315abd5413e08b7cb0b9c9683d9ac33da598b212c948c635f27e27168e",
+    "TRM-05-kids-occlusion-overlay.png": "35a05b46656dce2698630329577182f5371c14a2bce09df89a855cac65b78ff1",
     "TRM-05-kids-occlusion.json": "af78707db0991eacbaa3e7f07840adedb000cd2fe9391d2da814c653833242ad",
     "TRM-05-kids-occlusion.png": "e2394e66c70dea0ae2bc8309aed3cfd1d2a30bae8391b6cba5f6b97c405e2713"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "9d953fcb9f34f6d63b4b1f1abe9ab440b07e769a93c255006b264a022719b12e",
+   "input_sha": "0b9c73683cd1489712104cbbfcf09ed9ee7ca2adc588571efb658a2631646ea6",
    "ledger_ready": false,
    "outputs": {
-    "TRM-05-kids-edit-prompt.txt": "d578d207b23b46c42a20a7b9a265c7042d03699a5d77eede5a6f4ac662ee8244"
+    "TRM-05-kids-edit-prompt.txt": "7fb42cc149159ed52c40319d5b00468e15af422a19d76b12136ca8c88791da67"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "72a71ac22eec650482640ee1e303026ec331c8d6ebe00a616494512a96387b48",
+   "input_sha": "67a13064bfeed4dc6df23aae22b9abf7fed503f689681879f8f1091bb955944d",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -70,13 +70,14 @@
     "勝手口 TRM-05.door-back は kako-jun 決定（2026-10-23）で fixed。北壁（画面上辺）の左（西）端（x420〜552）。台所の並び（コンロ・流し・食器棚・冷蔵庫）は戸口の右隣（x560〜783）に続ける。仕切り（x785）までの幅が約220なので、各家具の幅を詰めた（コンロ55・流し80・食器棚50・冷蔵庫38。並びの寸法は既定・要確認）。西の棚（Y492〜735）・食卓は元の位置。相手は TRM-06.door-house（寺町内・未制作MAP）。",
     "石は北東の隅（北壁と東壁の内側の角。x1125〜1170・Y280〜350）に移した（kako-jun 2026-10-23）。石のすぐ左の北壁に腰高窓1つ（中心x1070・幅80・窓台50・高さ55）。窓の種別・寸法は既定（要確認）。箪笥・台所・勝手口とは重ならないため家具は動かしていない。",
     "幼稚園時代＝父と同じ寝室1つ（kako-jun 2026-10-23）。仕切りの下半分を取り、寝室を1室にした。開口は南側の1か所のみ（既定・要確認）。寝室内の家具の再配置は仮。",
+    "-kids: 仕切りの下半分を取った跡の床（Y591〜615）を寝室の床で埋めた。布団は子（北側）・父（南側）の2組で、位置は元の2つの寝室の布団の位置のまま（既定・要確認）。",
     "既定（要確認）: open-dining-bed-s"
    ]
   },
   "wire": {
-   "input_sha": "602236397a3f51b66044a89ad5b694d369206bdba2e38447fbe6755c5f097464",
+   "input_sha": "1cb832d7f2d52acc4a7740d9f371ad1a235cd6357c91c61f2ef8220ba56eb8fc",
    "outputs": {
-    "wire-TRM-05-kids.png": "d2bdc9f3da484c86c8051103380f1c40edac4c24252b28ae55348f343bd0c42f"
+    "wire-TRM-05-kids.png": "580c0228e50398d77f1f04b07ef5929a54429b1240dddc152b42b441544e2f9c"
    },
    "status": "ok"
   }

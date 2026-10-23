@@ -22,7 +22,7 @@
      1
     ]
    },
-   "input_sha": "e14f874439a3b6090ce711dcbdf53da99c9ff3858d295a49df69b10b36037e2b",
+   "input_sha": "f0e00206c5bb5aeaa781017e9021132dddbd62f1b42537f578a6c538d9ba9881",
    "outputs": {
     "TRM-04-exits.png": "2c6e7b3107a32bd0263a6280623284c086646a2baa8f73027006da6804d080a2",
     "TRM-04-mask.json": "95fab560af2e4ea7c6caabfc7772a8acc8e5b34773cfe998e44509cd871ab3c8",
@@ -32,7 +32,7 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "e14f874439a3b6090ce711dcbdf53da99c9ff3858d295a49df69b10b36037e2b",
+   "input_sha": "f0e00206c5bb5aeaa781017e9021132dddbd62f1b42537f578a6c538d9ba9881",
    "outputs": {
     "TRM-04-clean.png": "00acae9e95c32842691f54d5be5f9b8458b5c8837256c008ddc212d73e1905e1",
     "TRM-04-review.png": "91c6a8a095b8b9fda8a14001332ccdd3f73362688bca55a2248c1d6bc4ab573c"
@@ -40,7 +40,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "e14f874439a3b6090ce711dcbdf53da99c9ff3858d295a49df69b10b36037e2b",
+   "input_sha": "f0e00206c5bb5aeaa781017e9021132dddbd62f1b42537f578a6c538d9ba9881",
    "outputs": {
     "TRM-04-occlusion-depth.png": "f91c0f468984810dabae3933f3cb413ac44ca4f4d5c0b8281a75bb619a7d34d6",
     "TRM-04-occlusion-edit.png": "1f6635af78d05b022619215919e7d8f7746c9cfaa0bab9abf49f6bf179e9efce",
@@ -51,7 +51,7 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "14e0f9dbd55cd70241b24d6c1d564281130bc41b362ea5d560489e2b172255f8",
+   "input_sha": "46c39d7375932fbae134002dc71817593699b1c00cd3d02a646f693f4aed836e",
    "ledger_ready": false,
    "outputs": {
     "TRM-04-edit-prompt.txt": "58b4288a220ef70e6032293dca60fa55ad8b127f310abdf20000744318bcdd42"
@@ -60,7 +60,7 @@
   },
   "validate": {
    "errors": [],
-   "input_sha": "de948bd5f567fc662e876d8eba1481959b0d848f00479a9bea6eec94a1972c18",
+   "input_sha": "8fa6479f1edf0333a899ce2c36834f463e049403b44b71155ff2d71beb7b746d",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -70,7 +70,7 @@
    ]
   },
   "wire": {
-   "input_sha": "eb433501e1edeb37cbc9d6bf3d4e581837c8a307d8bc6a57ee9e037a65d9bf57",
+   "input_sha": "870d100b05683096379868e6bb5780b55415544cc5961a1796e1afc059e6f75c",
    "outputs": {
     "wire-TRM-04.png": "b931ab6d5066b361506414dcf31930841d97421e197a990361a465bd3e4716aa"
    },
