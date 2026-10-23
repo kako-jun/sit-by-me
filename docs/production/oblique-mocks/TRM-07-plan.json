@@ -1,0 +1,323 @@
+{
+ "schema": "sit-oblique-plan/1",
+ "map_id": "TRM-07",
+ "name": "山門の通り",
+ "subtitle": "屋外・消雪パイプと寺の長塀の広い道。左=TRM-15、右=TRM-08、上=TRM-03（山門）",
+ "source": "台帳 map-topology v2 の接続行・map-specifications の寺町の行・map-asset-registry・teramachi-rebuild-candidates（TRM-01 は 2026-10-23 に TRM-03 へ統合・廃止）と Issue #51/#144 の決定。",
+ "design": "消雪パイプと寺の長塀の広い道。TRM-15 西↔TRM-08 東、北の山門→TRM-03。山門は中央より北寄り。",
+ "floors": [
+  {
+   "color": "#e8eef4",
+   "label": "",
+   "rect": [
+    0,
+    0,
+    1600,
+    1270
+   ],
+   "walkable": false,
+   "id": "snow",
+   "look": "雪に覆われた地面（歩けない部分）"
+  },
+  {
+   "color": "#50545a",
+   "label_at": [
+    300,
+    860
+   ],
+   "rect": [
+    0,
+    730,
+    1600,
+    990
+   ],
+   "walkable": true,
+   "id": "road",
+   "label": "山門の通り（消雪パイプ）",
+   "look": "消雪パイプの水で雪が溶けた濡れたアスファルトの広い道。路面に消雪パイプの噴き出し口が並ぶ"
+  },
+  {
+   "color": "#8d8b86",
+   "label_at": [
+    800,
+    250
+   ],
+   "rect": [
+    734,
+    0,
+    866,
+    740
+   ],
+   "walkable": true,
+   "id": "sando",
+   "label": "参道（石畳）",
+   "look": "山門から境内へ続く縦の石畳（TRM-03 の参道）"
+  }
+ ],
+ "walls": [
+  {
+   "color": "#cdb98f",
+   "h": 90,
+   "kind": "fence",
+   "rect": [
+    0,
+    560,
+    700,
+    600
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "fence-w",
+   "label": "寺の長塀"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 90,
+   "kind": "fence",
+   "rect": [
+    900,
+    560,
+    1600,
+    600
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "fence-e",
+   "label": "寺の長塀"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 150,
+   "kind": "building",
+   "rect": [
+    700,
+    520,
+    900,
+    600
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "sanmon",
+   "label": "山門"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 110,
+   "kind": "building",
+   "rect": [
+    80,
+    1070,
+    520,
+    1222
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-1",
+   "label": "民家"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 110,
+   "kind": "building",
+   "rect": [
+    640,
+    1080,
+    1000,
+    1222
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-2",
+   "label": "民家"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 110,
+   "kind": "building",
+   "rect": [
+    1100,
+    1060,
+    1500,
+    1222
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-3",
+   "label": "民家"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    18,
+    730,
+    44
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-n1"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    870,
+    18,
+    1582,
+    44
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-n2"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "rect": [
+    18,
+    1226,
+    1582,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-s1",
+   "label": "閉鎖（家並み・塀。台帳: bottom閉鎖）"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    18,
+    44,
+    726
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-w1"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    994,
+    44,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-w2"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    1556,
+    18,
+    1582,
+    726
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-e1"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    1556,
+    994,
+    1582,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-e2"
+  }
+ ],
+ "closed_edges": [
+  {
+   "edge": "south",
+   "reason": "家並み・塀で閉鎖（台帳: bottom閉鎖）"
+  }
+ ],
+ "openings": [
+  {
+   "id": "TRM-07.opening-sanmon",
+   "wall": "sanmon",
+   "wall_side": "south",
+   "center": 800,
+   "along_ref": [
+    700,
+    900
+   ],
+   "width_class": "2people",
+   "status": "default",
+   "note": "山門の通り抜け（参道の幅=キャラ2人分。山門の壁の下を抜ける）。台帳『山門は中央より北寄り』"
+  }
+ ],
+ "markers": [
+  {
+   "at": 800,
+   "edge": "north",
+   "label": "山門→境内（TRM-03 へ）",
+   "width": 132,
+   "id": "TRM-07.top",
+   "partner": "TRM-03.bottom",
+   "status": "fixed",
+   "note": "TRM-03.bottom と同位置（x800・幅132。TRM-03 plan の既存値）"
+  },
+  {
+   "at": 860,
+   "edge": "west",
+   "label": "TRM-15 へ（左）",
+   "width": 260,
+   "id": "TRM-07.left",
+   "partner": "TRM-15.right",
+   "status": "default"
+  },
+  {
+   "at": 860,
+   "edge": "east",
+   "label": "TRM-08 へ（右）",
+   "width": 260,
+   "id": "TRM-07.right",
+   "partner": "TRM-08.left",
+   "status": "default"
+  }
+ ],
+ "assumptions": [
+  "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+  "既定（要確認）: 道の幅: 狭い道=132（キャラ2人分。車椅子の最小）、街路=160、広い道=260（既定・要確認）。 TRM-07 は広い道（幅260）で、左右の出入口の幅も260（TRM-15.right・TRM-08.left と一致）。",
+  "既定（要確認）: 長塀の位置（y560〜600）・山門の大きさ（幅200・高さ150）・道の位置（y730〜990）・民家3軒の位置は設計に無い。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+  "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。（下は台帳『bottomは閉鎖』）",
+  "山門の位置（中央より北寄り）と TRM-03.bottom との接続位置 x800 は台帳・TRM-03 既存値に従った。"
+ ],
+ "depends_on": [
+  "TRM-03"
+ ],
+ "_provenance": {
+  "source": "MAP:TRM-07|要素|端|窓|既定値|時期差分|建物部位|建物窓列",
+  "input_sha": "efcc272575aa6af081f6914b8608954a765e5ddfa6a2a2d876347dec6200959f",
+  "generated_at": "2026-10-24T02:11",
+  "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
+  "ledger_id": "G-TRM-07-plan",
+  "do_not_edit": true
+ }
+}

@@ -151,9 +151,9 @@
   }
  ],
  "_provenance": {
-  "source": "接続|接続図設定",
-  "input_sha": "9efeec4525cff2cb38103818dda753004c2abdb846917b51534b814d0d13472f",
-  "generated_at": "2026-10-23T17:12",
+  "source": "接続|接続図設定|MAP.設計意図(寺町全体のみ)",
+  "input_sha": "7c0e4f6c91aefbe927c03679f4971566e25d74a9fc93277062512c0063b4a6cd",
+  "generated_at": "2026-10-24T02:11",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-connections",
   "do_not_edit": true

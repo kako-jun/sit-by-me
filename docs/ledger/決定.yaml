@@ -1140,3 +1140,25 @@
   "対象MAP": "TRM-02;TRM-03;TRM-04;TRM-05;TRM-06;TRM-07;TRM-08;TRM-09;TRM-10;TRM-11;TRM-12;TRM-13;TRM-14;TRM-15;TRM-16;TRM-17"
   "備考": " 分類: process"
   "特徴(自由記述)": ""
+- "決定ID": "TRM-04.mask-confirmed"
+  "日付": "2026-10-23"
+  "対象種別": "MAP"
+  "対象ID": "TRM-04"
+  "対象名": "本堂のマスク・出口の確定"
+  "決定の要点": "本堂 TRM-04 のマスク: 石の敷居は通れる（bridge）。須弥壇の段は blocked（広間とは別、部屋にしない）。扉は本堂の壁（廊下の外端案は不採用）。assist は0。出口は door-west・door-east が側壁の下寄り（v=0.552〜0.968、中心 0.76）、正面（台帳 ID は TRM-04.door-south）が南壁の中央（u=0.392〜0.608）。西・東の敷居は広間と廊下の間に壁・柱・段があるが、設計では通れる（絵の修正候補）。"
+  "逐語": |-
+      （kako-jun の発言そのものは台帳に未転記。docs/production/oblique-masks/README.md「TRM-04（本堂）の確定（kako-jun 2026-10-23）」の記述を逐語で転記）
+      - 石の敷居は通れる（bridge）。須弥壇の段は blocked（広間とは別、部屋にしない）。扉は本堂の壁（廊下の外端案は不採用）。assist は0。
+      - キャラの基準 `char_unit`（入力JSONに根拠付き）: 体内の1人幅77px（1920幅）→ 1672幅で67.1px、2人幅134.1px。各出口の中心でその room の行列の局所スケールにより平面長へ換算した。
+      - 出口は fixed: `door-west`・`door-east` は側壁の下寄り v=0.552〜0.968（中心 0.76）、`door-front`（台帳 ID は TRM-04.door-south）は南壁の中央 u=0.392〜0.608。
+      - 絵の修正候補: 西・東の敷居（広間と廊下の間に壁・柱・段があるが、設計では通れる）。
+  "出典": "docs/production/oblique-masks/README.md（kako-jun 2026-10-23 の確定の記録。発言の逐語は未確認。Issue 側の記録を要確認）"
+  "出典URL": "https://github.com/kako-jun/sit-by-me/blob/main/docs/production/oblique-masks/README.md"
+  "状態": "有効"
+  "置換先": ""
+  "プロンプト出力": "なし"
+  "必須語": ""
+  "禁止語": ""
+  "対象MAP": "TRM-04"
+  "備考": "マスク・出口の設計値。プロンプトには入れない。char_unit の数値は採用画像 v11 からの算出値（旧方式の記録）。2026-10-23 の方針転換でモックが正本になったため、座標は plan を優先する"
+  "特徴(自由記述)": ""

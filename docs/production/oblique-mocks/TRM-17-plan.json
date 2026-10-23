@@ -1,0 +1,332 @@
+{
+ "schema": "sit-oblique-plan/1",
+ "map_id": "TRM-17",
+ "name": "寺町への坂道",
+ "subtitle": "屋外・用水と黒瓦を見上げる寺町の坂。下=TRM-16、上=KRB-10（寺町外・コンビニ）",
+ "source": "台帳 map-topology v2 の接続行・map-specifications の寺町の行・map-asset-registry・teramachi-rebuild-candidates（TRM-01 は 2026-10-23 に TRM-03 へ統合・廃止）と Issue #51/#144 の決定。",
+ "design": "寺町台地の入口の坂。擁壁と石積み、細い用水、坂の上に寺の屋根。北上しつつ蛇行して段丘へ。車椅子主坂。",
+ "floors": [
+  {
+   "color": "#e8eef4",
+   "label": "",
+   "rect": [
+    0,
+    0,
+    1600,
+    1270
+   ],
+   "walkable": false,
+   "id": "snow",
+   "look": "雪に覆われた地面（歩けない部分）"
+  },
+  {
+   "color": "#50545a",
+   "label_at": [
+    500,
+    560
+   ],
+   "poly": [
+    [
+     1080,
+     1270
+    ],
+    [
+     1080,
+     901
+    ],
+    [
+     580,
+     651
+    ],
+    [
+     580,
+     469
+    ],
+    [
+     980,
+     269
+    ],
+    [
+     980,
+     0
+    ],
+    [
+     820,
+     0
+    ],
+    [
+     820,
+     171
+    ],
+    [
+     420,
+     371
+    ],
+    [
+     420,
+     749
+    ],
+    [
+     920,
+     999
+    ],
+    [
+     920,
+     1270
+    ]
+   ],
+   "walkable": true,
+   "id": "slope",
+   "label": "坂（上り・蛇行）",
+   "look": "湿った雪の坂道。車椅子でも連続して上れる勾配と幅"
+  },
+  {
+   "color": "#7fb0d8",
+   "label_at": [
+    1135,
+    1000
+   ],
+   "rect": [
+    1110,
+    800,
+    1160,
+    1270
+   ],
+   "surface": "water",
+   "walkable": false,
+   "id": "canal",
+   "label": "細い用水",
+   "look": "融雪水の細い用水"
+  }
+ ],
+ "walls": [
+  {
+   "color": "#bfb6a4",
+   "h": 130,
+   "kind": "building",
+   "rect": [
+    100,
+    60,
+    500,
+    300
+   ],
+   "top_color": "#3c3f44",
+   "window_count": 0,
+   "id": "temple-roof",
+   "label": "寺の屋根（黒瓦）"
+  },
+  {
+   "color": "#9a9a96",
+   "h": 110,
+   "kind": "retaining",
+   "rect": [
+    100,
+    480,
+    380,
+    900
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "retaining-w",
+   "label": "擁壁・石積み"
+  },
+  {
+   "color": "#9a9a96",
+   "h": 100,
+   "kind": "retaining",
+   "rect": [
+    640,
+    460,
+    860,
+    640
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "retaining-m",
+   "label": "擁壁・石積み"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 120,
+   "kind": "building",
+   "rect": [
+    1200,
+    100,
+    1500,
+    500
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-e",
+   "label": "民家"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 110,
+   "kind": "building",
+   "rect": [
+    60,
+    960,
+    420,
+    1222
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-sw",
+   "label": "民家"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    18,
+    816,
+    44
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-n1"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    984,
+    18,
+    1582,
+    44
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-n2"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    1226,
+    916,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-s1"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    1084,
+    1226,
+    1106,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-s2"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    1164,
+    1226,
+    1582,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-s3"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "rect": [
+    18,
+    18,
+    44,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-w1",
+   "label": "閉鎖（擁壁・塀）"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "rect": [
+    1556,
+    18,
+    1582,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-e1",
+   "label": "閉鎖（擁壁・塀）"
+  }
+ ],
+ "closed_edges": [
+  {
+   "edge": "west",
+   "reason": "擁壁・塀で閉鎖"
+  },
+  {
+   "edge": "east",
+   "reason": "擁壁・塀で閉鎖"
+  }
+ ],
+ "markers": [
+  {
+   "at": 1000,
+   "edge": "south",
+   "label": "TRM-16 へ（下）",
+   "width": 160,
+   "id": "TRM-17.bottom",
+   "partner": "TRM-16.top",
+   "status": "default"
+  },
+  {
+   "at": 900,
+   "edge": "north",
+   "label": "KRB-10 へ（上・寺町の外）",
+   "width": 160,
+   "id": "TRM-17.top",
+   "partner": "KRB-10.bottom",
+   "status": "default"
+  }
+ ],
+ "assumptions": [
+  "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+  "既定（要確認）: 坂の形（下 x1000 → 西へ折り返し → 北東へ → 上 x900。幅160）・細い用水・擁壁・寺の屋根・民家は設計に無い（台帳は『用水と黒瓦を見上げる坂・擁壁と石積み・坂の上に寺の屋根』）。",
+  "坂の勾配（上り）は見下ろし図に出ない。主坂は車椅子でも連続通行できる幅（台帳）。枝（脇道・石段の小路）は作らない（台帳: 枝は作らない。旧版の石段の小路の宝箱は撤回扱い）。",
+  "TRM-17 の上端の接続先 KRB-10.bottom は寺町の外（コンビニ）。旧 3.2 の図（left/top）は ledger v2（TRM-16.top↔TRM-17.bottom・TRM-17.top↔KRB-10.bottom）と食い違うため、v2 に従った。",
+  "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。"
+ ],
+ "depends_on": [
+  "TRM-03"
+ ],
+ "_provenance": {
+  "source": "MAP:TRM-17|要素|端|窓|既定値|時期差分|建物部位|建物窓列",
+  "input_sha": "fed2ec5a63c9715a1926328beec9e03ab1fbd1495183ddc92142d3e8d36a0dce",
+  "generated_at": "2026-10-24T02:11",
+  "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
+  "ledger_id": "G-TRM-17-plan",
+  "do_not_edit": true
+ }
+}

@@ -1,0 +1,274 @@
+{
+ "schema": "sit-oblique-plan/1",
+ "map_id": "TRM-09",
+ "name": "銭湯",
+ "subtitle": "屋外・湯気の煙突が立つ銭湯前。左=TRM-08、下=TRM-10。上・右は閉鎖",
+ "source": "台帳 map-topology v2 の接続行・map-specifications の寺町の行・map-asset-registry・teramachi-rebuild-candidates（TRM-01 は 2026-10-23 に TRM-03 へ統合・廃止）と Issue #51/#144 の決定。",
+ "design": "湯気の煙突が立つ銭湯前。TRM-08西↔TRM-10南（bottom）。時期差は営業灯だけ、地形不変。",
+ "floors": [
+  {
+   "color": "#e8eef4",
+   "label": "",
+   "rect": [
+    0,
+    0,
+    1600,
+    1270
+   ],
+   "walkable": false,
+   "id": "snow",
+   "look": "雪に覆われた地面（歩けない部分）"
+  },
+  {
+   "color": "#50545a",
+   "label_at": [
+    250,
+    600
+   ],
+   "rect": [
+    0,
+    470,
+    1180,
+    730
+   ],
+   "walkable": true,
+   "id": "road",
+   "label": "銭湯前の道",
+   "look": "湯気で雪が少し溶けた道"
+  },
+  {
+   "color": "#b9bec6",
+   "label_at": [
+    1100,
+    1000
+   ],
+   "rect": [
+    1020,
+    470,
+    1180,
+    1270
+   ],
+   "walkable": true,
+   "id": "slope",
+   "label": "団地側への生活スロープへ",
+   "look": "犀川側の団地へ下る緩い道"
+  },
+  {
+   "color": "#8d8b86",
+   "label_at": [
+    680,
+    435
+   ],
+   "rect": [
+    380,
+    400,
+    980,
+    470
+   ],
+   "walkable": true,
+   "id": "apron",
+   "label": "銭湯の前（石畳）",
+   "look": "銭湯の玄関前の石畳。自転車置き場"
+  }
+ ],
+ "walls": [
+  {
+   "color": "#e6d8b8",
+   "h": 200,
+   "kind": "building",
+   "rect": [
+    360,
+    100,
+    1000,
+    400
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "sento",
+   "label": "銭湯",
+   "look": "入母屋の大屋根の銭湯。暖簾のかかった入口。営業灯は時期差"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 110,
+   "kind": "building",
+   "rect": [
+    60,
+    820,
+    500,
+    1222
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-sw",
+   "label": "民家"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 110,
+   "kind": "building",
+   "rect": [
+    1260,
+    560,
+    1530,
+    900
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-e",
+   "label": "民家"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "rect": [
+    18,
+    18,
+    1582,
+    44
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-n1",
+   "label": "閉鎖（塀・壁。台帳: top閉鎖）"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    1226,
+    1016,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-s1"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    1184,
+    1226,
+    1582,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-s2"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    18,
+    44,
+    466
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-w1"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    734,
+    44,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-w2"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "rect": [
+    1556,
+    18,
+    1582,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-e1",
+   "label": "閉鎖（塀・壁。台帳: right閉鎖）"
+  }
+ ],
+ "boxes": [
+  {
+   "blocked": true,
+   "color": "#9a8f84",
+   "h": 330,
+   "rect": [
+    1040,
+    60,
+    1100,
+    120
+   ],
+   "id": "chimney",
+   "label": "煙突",
+   "look": "湯気の煙突"
+  }
+ ],
+ "closed_edges": [
+  {
+   "edge": "north",
+   "reason": "銭湯の裏・塀で閉鎖（台帳: top閉鎖）"
+  },
+  {
+   "edge": "east",
+   "reason": "塀・壁で閉鎖（台帳: right閉鎖）"
+  }
+ ],
+ "markers": [
+  {
+   "at": 600,
+   "edge": "west",
+   "label": "TRM-08 へ（左）",
+   "width": 260,
+   "id": "TRM-09.left",
+   "partner": "TRM-08.right",
+   "status": "default"
+  },
+  {
+   "at": 1100,
+   "edge": "south",
+   "label": "TRM-10 へ（下・団地側スロープ）",
+   "width": 160,
+   "id": "TRM-09.bottom",
+   "partner": "TRM-10.top",
+   "status": "default"
+  }
+ ],
+ "assumptions": [
+  "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+  "既定（要確認）: 道の幅: 狭い道=132（キャラ2人分。車椅子の最小）、街路=160、広い道=260（既定・要確認）。 左の出入口260・下の出入口160（TRM-08.right・TRM-10.top と一致）。",
+  "既定（要確認）: 銭湯・煙突の大きさ・位置、道の形（左から入って東へ、手前で南へ折れる）、民家は設計に無い。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+  "時期差は営業灯だけ・地形不変（map-specifications）。モックは灯りを描かない。",
+  "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。（上・右は台帳『top/right閉鎖』）"
+ ],
+ "depends_on": [],
+ "_provenance": {
+  "source": "MAP:TRM-09|要素|端|窓|既定値|時期差分|建物部位|建物窓列",
+  "input_sha": "b1d0b3fb82f78fdf199312934fb2a3716383e1ad66fcdaf5d981b1c68e60bc84",
+  "generated_at": "2026-10-24T02:11",
+  "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
+  "ledger_id": "G-TRM-09-plan",
+  "do_not_edit": true
+ }
+}

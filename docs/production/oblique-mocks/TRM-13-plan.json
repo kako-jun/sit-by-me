@@ -1,0 +1,270 @@
+{
+ "schema": "sit-oblique-plan/1",
+ "map_id": "TRM-13",
+ "name": "石段の下の古い坂道",
+ "subtitle": "屋外・立位期だけの古い石段。左=TRM-11、上=TRM-14。車椅子不可",
+ "source": "台帳 map-topology v2 の接続行・map-specifications の寺町の行・map-asset-registry・teramachi-rebuild-candidates（TRM-01 は 2026-10-23 に TRM-03 へ統合・廃止）と Issue #51/#144 の決定。",
+ "design": "石段の下の古い坂道。TRM-11西↔TRM-14北、車椅子不可。事故後は入口を閉鎖（立てる時期のみ）。",
+ "floors": [
+  {
+   "color": "#e8eef4",
+   "label": "",
+   "rect": [
+    0,
+    0,
+    1600,
+    1270
+   ],
+   "walkable": false,
+   "id": "snow",
+   "look": "雪に覆われた地面（歩けない部分）"
+  },
+  {
+   "color": "#8d8b86",
+   "label_at": [
+    300,
+    800
+   ],
+   "rect": [
+    0,
+    734,
+    800,
+    866
+   ],
+   "walkable": true,
+   "id": "paving",
+   "label": "石畳（平ら）",
+   "look": "手切りの黒い紙の石畳"
+  },
+  {
+   "color": "#a9a7a0",
+   "label_at": [
+    800,
+    450
+   ],
+   "rect": [
+    734,
+    0,
+    866,
+    866
+   ],
+   "surface": "stairs",
+   "walkable": true,
+   "id": "stairs",
+   "label": "古い石段（立位期のみ・車椅子不可）",
+   "look": "急な古い石段。手すり"
+  }
+ ],
+ "walls": [
+  {
+   "color": "#9a9a96",
+   "h": 120,
+   "kind": "retaining",
+   "rect": [
+    560,
+    0,
+    720,
+    640
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "retaining-w",
+   "label": "石垣（段丘の擁壁）"
+  },
+  {
+   "color": "#9a9a96",
+   "h": 100,
+   "kind": "retaining",
+   "rect": [
+    880,
+    0,
+    1100,
+    330
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "retaining-e",
+   "label": "石垣"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 120,
+   "kind": "building",
+   "rect": [
+    1000,
+    480,
+    1480,
+    900
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-e",
+   "label": "民家"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 110,
+   "kind": "building",
+   "rect": [
+    60,
+    920,
+    500,
+    1222
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-sw",
+   "label": "民家"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 110,
+   "kind": "building",
+   "rect": [
+    900,
+    960,
+    1500,
+    1222
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-se",
+   "label": "民家"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    18,
+    730,
+    44
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-n1"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    870,
+    18,
+    1582,
+    44
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-n2"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "rect": [
+    18,
+    1226,
+    1582,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-s1",
+   "label": "閉鎖（擁壁・民家）"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    18,
+    44,
+    730
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-w1"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    870,
+    44,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-w2"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "rect": [
+    1556,
+    18,
+    1582,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-e1",
+   "label": "閉鎖（擁壁・民家）"
+  }
+ ],
+ "closed_edges": [
+  {
+   "edge": "east",
+   "reason": "擁壁・民家で閉鎖（旧候補v6の記述）"
+  },
+  {
+   "edge": "south",
+   "reason": "擁壁・民家で閉鎖（旧候補v6の記述）"
+  }
+ ],
+ "markers": [
+  {
+   "at": 800,
+   "edge": "west",
+   "label": "TRM-11 へ（左・立位期のみ）",
+   "width": 132,
+   "id": "TRM-13.left",
+   "partner": "TRM-11.right",
+   "status": "default"
+  },
+  {
+   "at": 800,
+   "edge": "north",
+   "label": "TRM-14 へ（上・石段）",
+   "width": 132,
+   "id": "TRM-13.top",
+   "partner": "TRM-14.bottom",
+   "status": "default"
+  }
+ ],
+ "assumptions": [
+  "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+  "既定（要確認）: 石畳（左 y800）が石段（x800・上へ）につながる形・石垣・民家の位置は設計に無い。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+  "立位期だけ通れる。事故後は入口を閉鎖（map-specifications）。3値マスク（assist・車椅子不可）はこの段では出さず、このメモと floors の look に残す。",
+  "台帳『石段下、車椅子不可』『left→top 接続』に従った。右・下は閉鎖（旧候補 v6『right/bottomは擁壁・民家・雪の壁』より）。"
+ ],
+ "depends_on": [],
+ "_provenance": {
+  "source": "MAP:TRM-13|要素|端|窓|既定値|時期差分|建物部位|建物窓列",
+  "input_sha": "aef0ea91f1d11e9be2e6f9733328a983a49a1e34bb964ae44a0d0b3a9c6ecb8f",
+  "generated_at": "2026-10-24T02:11",
+  "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
+  "ledger_id": "G-TRM-13-plan",
+  "do_not_edit": true
+ }
+}

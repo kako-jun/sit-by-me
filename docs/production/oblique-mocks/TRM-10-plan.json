@@ -1,0 +1,311 @@
+{
+ "schema": "sit-oblique-plan/1",
+ "map_id": "TRM-10",
+ "name": "バリアフリースロープ",
+ "subtitle": "屋外・犀川側の団地へ下る蛇行する車椅子主路。上=TRM-09、下=TRM-11。石段なし",
+ "source": "台帳 map-topology v2 の接続行・map-specifications の寺町の行・map-asset-registry・teramachi-rebuild-candidates（TRM-01 は 2026-10-23 に TRM-03 へ統合・廃止）と Issue #51/#144 の決定。",
+ "design": "犀川側の団地へ下る雪囲いスロープ。TRM-09北→TRM-11南、蛇行する車椅子主路。途中の急段差なし。",
+ "floors": [
+  {
+   "color": "#e8eef4",
+   "label": "",
+   "rect": [
+    0,
+    0,
+    1600,
+    1270
+   ],
+   "walkable": false,
+   "id": "snow",
+   "look": "雪に覆われた地面（歩けない部分）"
+  },
+  {
+   "color": "#9fa4ab",
+   "label_at": [
+    400,
+    650
+   ],
+   "poly": [
+    [
+     1020,
+     0
+    ],
+    [
+     1020,
+     241
+    ],
+    [
+     320,
+     461
+    ],
+    [
+     320,
+     854
+    ],
+    [
+     820,
+     1054
+    ],
+    [
+     820,
+     1270
+    ],
+    [
+     980,
+     1270
+    ],
+    [
+     980,
+     946
+    ],
+    [
+     480,
+     746
+    ],
+    [
+     480,
+     579
+    ],
+    [
+     1180,
+     359
+    ],
+    [
+     1180,
+     0
+    ]
+   ],
+   "walkable": true,
+   "id": "ramp",
+   "label": "緩いスロープ（蛇行）",
+   "look": "雪囲いと手すりのある緩い車椅子用スロープ。急な段差・石段なし"
+  }
+ ],
+ "walls": [
+  {
+   "color": "#e6d8b8",
+   "h": 120,
+   "kind": "building",
+   "rect": [
+    60,
+    100,
+    300,
+    420
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-nw",
+   "label": "民家"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 120,
+   "kind": "building",
+   "rect": [
+    1300,
+    80,
+    1540,
+    480
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-ne",
+   "label": "民家"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 120,
+   "kind": "building",
+   "rect": [
+    60,
+    880,
+    300,
+    1200
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-sw",
+   "label": "民家"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 120,
+   "kind": "building",
+   "rect": [
+    1180,
+    820,
+    1520,
+    1180
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-se",
+   "label": "民家"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    18,
+    1016,
+    44
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-n1"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    1184,
+    18,
+    1582,
+    44
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-n2"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    1226,
+    816,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-s1"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    984,
+    1226,
+    1582,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-s2"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "rect": [
+    18,
+    18,
+    44,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-w1",
+   "label": "閉鎖（塀・擁壁）"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "rect": [
+    1556,
+    18,
+    1582,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-e1",
+   "label": "閉鎖（塀・擁壁）"
+  }
+ ],
+ "boxes": [
+  {
+   "blocked": true,
+   "color": "#b5a27a",
+   "h": 70,
+   "rect": [
+    1220,
+    100,
+    1290,
+    260
+   ],
+   "id": "yukigakoi-1",
+   "label": "雪囲い",
+   "look": "縄と丸太の雪囲い"
+  },
+  {
+   "blocked": true,
+   "color": "#b5a27a",
+   "h": 70,
+   "rect": [
+    250,
+    560,
+    320,
+    700
+   ],
+   "id": "yukigakoi-2",
+   "label": "雪囲い",
+   "look": "縄と丸太の雪囲い"
+  }
+ ],
+ "closed_edges": [
+  {
+   "edge": "west",
+   "reason": "塀・擁壁で閉鎖"
+  },
+  {
+   "edge": "east",
+   "reason": "塀・擁壁で閉鎖"
+  }
+ ],
+ "markers": [
+  {
+   "at": 1100,
+   "edge": "north",
+   "label": "TRM-09 へ（上）",
+   "width": 160,
+   "id": "TRM-10.top",
+   "partner": "TRM-09.bottom",
+   "status": "default"
+  },
+  {
+   "at": 900,
+   "edge": "south",
+   "label": "TRM-11 へ（下）",
+   "width": 160,
+   "id": "TRM-10.bottom",
+   "partner": "TRM-11.top",
+   "status": "default"
+  }
+ ],
+ "assumptions": [
+  "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+  "既定（要確認）: 蛇行の形（上 x1100 → 左へ折り返す → 下 x900。幅160）・雪囲いの位置・民家4軒は設計に無い（台帳は『犀川側へ蛇行する車椅子主路。石段なし』のみ）。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+  "スロープの勾配・段差は平面モックに出ない（見下ろし図）。台帳『途中の急段差なし』。",
+  "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。"
+ ],
+ "depends_on": [],
+ "_provenance": {
+  "source": "MAP:TRM-10|要素|端|窓|既定値|時期差分|建物部位|建物窓列",
+  "input_sha": "a2603d611439210ad654e7e12b347824547cd0d4eb25c7b357e454a95d4270ff",
+  "generated_at": "2026-10-24T02:11",
+  "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
+  "ledger_id": "G-TRM-10-plan",
+  "do_not_edit": true
+ }
+}

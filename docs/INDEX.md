@@ -55,28 +55,28 @@
 | 表 | 行数 | 説明 | 列 |
 |---|---|---|---|
 | [エリア](ledger/エリア.yaml) | 15 | エリア（区域）の台帳。1行=1エリア。 | エリアID / 区域コード / 名称 / 目標枚数 / 台帳段階 / 机の天面の材質 / 台座の素材 / 木の種類 / 外周の装飾方針 / 備考 / 特徴(自由記述) |
-| [MAP](ledger/MAP.yaml) | 17 | MAP（1枚の背景）の台帳。1行=1MAP。 | MAP_ID / エリアID / 名称 / 字幕 / 時期 / 屋内外 / 状態 / 建物ID / 表現する部位 / 一言特徴 / 描画方式 / 装飾プールID / 依存MAP / 依存の確度 / 依存の根拠 / 床材 / 壁材 / 窓 / 扉の意匠 / 工作の材質 / 時期差分 / 採用状態 / 寸法根拠 / 備考 / 特徴(自由記述) |
+| [MAP](ledger/MAP.yaml) | 17 | MAP（1枚の背景）の台帳。1行=1MAP。設計意図=plan の design。plan追加JSON=plan の最上位に足す追加キー(例 indoor)。 | MAP_ID / エリアID / 名称 / 字幕 / 時期 / 屋内外 / 状態 / 建物ID / 表現する部位 / 一言特徴 / 描画方式 / 装飾プールID / 依存MAP / 依存の確度 / 依存の根拠 / 床材 / 壁材 / 窓 / 扉の意匠 / 工作の材質 / 時期差分 / 採用状態 / 寸法根拠 / 備考 / 設計意図 / plan追加JSON / 特徴(自由記述) |
 | [建物](ledger/建物.yaml) | 5 | 建物の台帳。屋内と外観は同じ建物行から導出する。 | 建物ID / 名称 / エリアID / 種別 / 外形 / 屋根 / 外壁 / 窓列 / 扉 / 材質 / 関係 / 状態 / 備考 / 特徴(自由記述) |
 | [建物部位](ledger/建物部位.yaml) | 20 | 建物の部位（壁・屋根・扉など）。 | 部位ID / 建物ID / 部位種別 / 方角 / 状態 / 材質 / 見た目 / 決定参照 / 特徴(自由記述) |
 | [建物窓列](ledger/建物窓列.yaml) | 5 | 建物の壁ごとの窓列。 | 窓列ID / 建物ID / 部位ID / 個数 / 先頭比 / 間隔比 / 幅比 / 窓台比 / 高さ比 / 窓種別 / 理由 / 決定参照 / 特徴(自由記述) |
 | [建物関係](ledger/建物関係.yaml) | 4 | 建物どうしの関係（渡り廊下で接続など）。 | 通番 / 建物A / 建物B / 関係 / 方角 / 接続端ID / 決定参照 / 特徴(自由記述) |
 | [建物時期差分](ledger/建物時期差分.yaml) | 4 | 建物の時期ごとの差分。 | 建物ID / 時期 / 部位ID / 差分 / 内容 / 決定参照 / 特徴(自由記述) |
-| [端](ledger/端.yaml) | 14 | MAP の端（戸口・開口・縁）。 | 端ID / MAP_ID / 適用時期 / 種別 / 壁 / 壁側 / 面 / 中心 / 沿い範囲 / 相手端 / 幅クラス / 状態 / 通路 / 建物部位ID / 備考 / 決定参照 / 属性JSON / 特徴(自由記述) |
-| [接続](ledger/接続.yaml) | 22 | 端と端の接続。 | 端A / 端B / 種別 / 期待 / ラベル / 方角A / 方角B / 外部 / 無効時期 / 図 / 主路・状態 / 決定参照 / 特徴(自由記述) |
-| [接続図設定](ledger/接続図設定.yaml) | 47 | 接続図の描画設定（図ID×項目）。 | 図ID / 項目 / 値 / 型 / 決定参照 |
-| [要素](ledger/要素.yaml) | 84 | MAP 内の要素（家具・物・樹木など）。 | MAP_ID / 適用時期 / 要素ID / 種別 / 名称 / 建物部位ID / 見た目 / 決定参照 / 属性JSON / 特徴(自由記述) |
-| [窓](ledger/窓.yaml) | 30 | MAP の壁の窓。 | 窓ID / MAP_ID / 適用時期 / 壁 / 壁側 / 中心 / 幅 / 種別 / 窓台 / 高さ / 状態 / 沿い範囲 / 建物窓列ID / 連番 / 備考 / 決定参照 / 属性JSON / 特徴(自由記述) |
+| [端](ledger/端.yaml) | 43 | MAP の端（戸口・開口・縁）。 | 端ID / MAP_ID / 適用時期 / 種別 / 壁 / 壁側 / 面 / 中心 / 沿い範囲 / 相手端 / 幅クラス / 状態 / 通路 / 建物部位ID / 備考 / 決定参照 / 属性JSON / 特徴(自由記述) |
+| [接続](ledger/接続.yaml) | 22 | 端と端の接続。図は ; 区切りで複数の接続図に属せる。属性JSON は {図ID: {辺の出力キー: 値(null=その図では出さない)}} で図ごとの上書きを持つ。 | 端A / 端B / 種別 / 期待 / ラベル / 方角A / 方角B / 外部 / 無効時期 / 図 / 主路・状態 / 決定参照 / 属性JSON / 特徴(自由記述) |
+| [接続図設定](ledger/接続図設定.yaml) | 223 | 接続図の描画設定（図ID×項目）。 | 図ID / 項目 / 値 / 型 / 決定参照 |
+| [要素](ledger/要素.yaml) | 283 | MAP 内の要素（家具・物・樹木など）。 | MAP_ID / 適用時期 / 要素ID / 種別 / 名称 / 建物部位ID / 見た目 / 決定参照 / 属性JSON / 特徴(自由記述) |
+| [窓](ledger/窓.yaml) | 31 | MAP の壁の窓。 | 窓ID / MAP_ID / 適用時期 / 壁 / 壁側 / 中心 / 幅 / 種別 / 窓台 / 高さ / 状態 / 沿い範囲 / 建物窓列ID / 連番 / 備考 / 決定参照 / 属性JSON / 特徴(自由記述) |
 | [時期差分](ledger/時期差分.yaml) | 16 | MAP の時期ごとの差分。 | MAP_ID / 時期 / 項目 / 値 / 決定参照 |
-| [既定値](ledger/既定値.yaml) | 31 | 仮置きの既定値（要確認）。 | 既定ID / MAP_ID / 適用時期 / 内容 / 決定参照 |
+| [既定値](ledger/既定値.yaml) | 89 | 仮置きの既定値（要確認）。 | 既定ID / MAP_ID / 適用時期 / 内容 / 決定参照 |
 | [エリア固定](ledger/エリア固定.yaml) | 22 | エリア単位で固定する指定（机の天面・木の種類・台座など）。 | エリアID / 項目 / 値 / 型 / 決定参照 |
 | [装飾プール](ledger/装飾プール.yaml) | 80 | 装飾プールの設定。 | プールID / 項目 / 値 / 型 / 決定参照 |
-| [語彙](ledger/語彙.yaml) | 105 | 許す・禁じる語彙と英語プロンプト断片。 | 語彙ID / グループ / 値 / 英語断片 / 説明 |
-| [決定](ledger/決定.yaml) | 67 | kako-jun の決定（逐語・出典つき）。status に関係なくプロンプトへ入る。 | 決定ID / 日付 / 対象種別 / 対象ID / 対象名 / 決定の要点 / 逐語 / 出典 / 出典URL / 状態 / 置換先 / プロンプト出力 / 必須語 / 禁止語 / 対象MAP / 備考 / 特徴(自由記述) |
+| [語彙](ledger/語彙.yaml) | 107 | 許す・禁じる語彙と英語プロンプト断片。 | 語彙ID / グループ / 値 / 英語断片 / 説明 |
+| [決定](ledger/決定.yaml) | 68 | kako-jun の決定（逐語・出典つき）。status に関係なくプロンプトへ入る。 | 決定ID / 日付 / 対象種別 / 対象ID / 対象名 / 決定の要点 / 逐語 / 出典 / 出典URL / 状態 / 置換先 / プロンプト出力 / 必須語 / 禁止語 / 対象MAP / 備考 / 特徴(自由記述) |
 | [採用要素](ledger/採用要素.yaml) | 6 | 採用画像から次の絵へ継承する要素。 | 採用要素ID / 素材ID / 元MAP / 要素 / 内容 / 継承先MAP / 継承方法 / 状態 / 確認語 / 決定参照 / 特徴(自由記述) |
 | [素材](ledger/素材.yaml) | 36 | 素材（画像・マスクなど。没も行で保持）。 | 素材ID / 所有者ID / 種別 / パス / 状態 / 日付 / 来歴 / sha256 / 特徴(自由記述) |
-| [生成物](ledger/生成物.yaml) | 7 | 派生物（JSON）の登録と鮮度検査用ハッシュ。 | 生成物ID / 種別 / パス / 元の表 / 入力ハッシュ / 生成日時 / 再生成コマンド / 備考 |
+| [生成物](ledger/生成物.yaml) | 20 | 派生物（JSON）の登録と鮮度検査用ハッシュ。 | 生成物ID / 種別 / パス / 元の表 / 入力ハッシュ / 生成日時 / 再生成コマンド / 備考 |
 | [必須キー](ledger/必須キー.yaml) | 62 | 対象テーブルごとの必須キー定義。 | 対象テーブル / キー / 必須度 / 条件 / 語彙グループ / 説明 |
-| [未決](ledger/未決.yaml) | 45 | 未決（要確認）の一覧。 | 未決ID / 対象テーブル / 対象ID / キー / 内容 / 状態 / 解決決定ID |
+| [未決](ledger/未決.yaml) | 49 | 未決（要確認）の一覧。 | 未決ID / 対象テーブル / 対象ID / キー / 内容 / 状態 / 解決決定ID |
 | [キー別名](ledger/キー別名.yaml) | 20 | 列名・キー名の別名と正規名。 | 正規名 / 別名 / 対象テーブル / 説明 |
 | [ファイル配置](ledger/ファイル配置.yaml) | 39 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
 
@@ -88,9 +88,22 @@
 | G-TRM-03-plan | 斜めplan JSON | [docs/production/oblique-mocks/TRM-03-plan.json](production/oblique-mocks/TRM-03-plan.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
 | G-TRM-04-plan | 斜めplan JSON | [docs/production/oblique-mocks/TRM-04-plan.json](production/oblique-mocks/TRM-04-plan.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
 | G-TRM-05-plan | 斜めplan JSON | [docs/production/oblique-mocks/TRM-05-plan.json](production/oblique-mocks/TRM-05-plan.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
+| G-TRM-06-plan | 斜めplan JSON | [docs/production/oblique-mocks/TRM-06-plan.json](production/oblique-mocks/TRM-06-plan.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
+| G-TRM-07-plan | 斜めplan JSON | [docs/production/oblique-mocks/TRM-07-plan.json](production/oblique-mocks/TRM-07-plan.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
+| G-TRM-08-plan | 斜めplan JSON | [docs/production/oblique-mocks/TRM-08-plan.json](production/oblique-mocks/TRM-08-plan.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
+| G-TRM-09-plan | 斜めplan JSON | [docs/production/oblique-mocks/TRM-09-plan.json](production/oblique-mocks/TRM-09-plan.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
+| G-TRM-10-plan | 斜めplan JSON | [docs/production/oblique-mocks/TRM-10-plan.json](production/oblique-mocks/TRM-10-plan.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
+| G-TRM-11-plan | 斜めplan JSON | [docs/production/oblique-mocks/TRM-11-plan.json](production/oblique-mocks/TRM-11-plan.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
+| G-TRM-12-plan | 斜めplan JSON | [docs/production/oblique-mocks/TRM-12-plan.json](production/oblique-mocks/TRM-12-plan.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
+| G-TRM-13-plan | 斜めplan JSON | [docs/production/oblique-mocks/TRM-13-plan.json](production/oblique-mocks/TRM-13-plan.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
+| G-TRM-14-plan | 斜めplan JSON | [docs/production/oblique-mocks/TRM-14-plan.json](production/oblique-mocks/TRM-14-plan.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
+| G-TRM-15-plan | 斜めplan JSON | [docs/production/oblique-mocks/TRM-15-plan.json](production/oblique-mocks/TRM-15-plan.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
+| G-TRM-16-plan | 斜めplan JSON | [docs/production/oblique-mocks/TRM-16-plan.json](production/oblique-mocks/TRM-16-plan.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
+| G-TRM-17-plan | 斜めplan JSON | [docs/production/oblique-mocks/TRM-17-plan.json](production/oblique-mocks/TRM-17-plan.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
 | G-decor-pools | 装飾プールJSON | [docs/production/oblique-mocks/decor-pools.json](production/oblique-mocks/decor-pools.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
 | G-dependency-graph | 依存グラフJSON | [docs/production/oblique-mocks/dependency-graph.json](production/oblique-mocks/dependency-graph.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
 | G-connections | 接続図JSON | [docs/production/oblique-mocks/connections.json](production/oblique-mocks/connections.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
+| G-connections-teramachi | 接続図JSON | [docs/production/oblique-mocks/connections-teramachi.json](production/oblique-mocks/connections-teramachi.json) | `uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build` |
 
 ### ファイル配置規則
 
