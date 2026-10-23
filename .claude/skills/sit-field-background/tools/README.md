@@ -65,6 +65,19 @@ uv run --with opencv-python-headless --with numpy --with pillow python3 -I body_
 
 視点の定数（`oblique_mock.py` 先頭）: 土台の天面 1600×1270 平面単位、台形の4隅、見下ろし約42度、1キャラ=66単位・出入口132単位。オクルージョンのキャラ寸法 67×100px は既定（要確認）。スペックの書き方・戸口の相手・開口の既定は `docs/production/oblique-mocks/*-plan.json` を雛形にする。
 
+## 台帳（docs/ledger/<表名>.yaml）
+
+マスターは日本語キーの YAML（表ごと1ファイル、行のリスト、全スカラーは引用つき文字列）。派生物（plan・decor-pools・connections・dependency-graph の JSON）は `ledger_build.py` が台帳から作る。
+
+| ファイル | 役割 |
+|---|---|
+| `ledger_io.py` | 表定義 `SCHEMA` と読み書き（`read`/`write`。行は日本語キーの dict）。PyYAML はリポ直下 `pyproject.toml` で依存宣言 |
+| `ledger_build.py` | 派生 JSON の生成（`build`）と鮮度検査（`check`）、必須キー雛形（`template`） |
+| `ledger_query.py` | MAP 1枚分のプロンプト台帳節 |
+| `ledger_csv_to_yaml_once.py` | 一度きりの CSV→YAML 変換（変換済み。`--verify-only` は git HEAD の CSV との無損失突合） |
+
+検証は Ruby（`scripts/verify_ledger.rb` ほか。Homebrew の Ruby 4.x: `PATH=/opt/homebrew/opt/ruby/bin:$PATH`）。
+
 ## 次にやること（優先度順。今回は大規模リファクタをしない）
 
 1. **【高】`body_layout.py` の `SPECS` を JSON 仕様に外出し**。新エリアは JSON を書くだけで割付図・接続検査・幾何JSONが出る。`body_geometry_json.py`・`body_sheet.py`・`build_body_prompt.py`・`check_body_image.py` が `body_layout` を import（または ast で読む）しているので、まず JSON を読む薄い層を足し、既存 SPECS を JSON へ書き出して出力が不変（割付図の sha256 一致）なことを確認してから置き換える。

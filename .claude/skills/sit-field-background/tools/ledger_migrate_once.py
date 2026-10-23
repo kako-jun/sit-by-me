@@ -1,7 +1,7 @@
-"""一度きりの移行: 既存の plan.json・decor-pools.json・connections.json・md 台帳（寺町）→ docs/ledger/*.csv。
+"""一度きりの移行: 既存の plan.json・decor-pools.json・connections.json・md 台帳（寺町）→ docs/ledger/*.yaml。
 
-以降は CSV が正本。再実行すると手で足した行が消えるので、通常は実行しない（`--force` が要る）。
-意図的な修正（畳・化石の石・勝手口・渡り廊下棟など）はここでは入れず、移行後に CSV を直す
+以降は YAML が正本。再実行すると手で足した行が消えるので、通常は実行しない（`--force` が要る）。
+意図的な修正（畳・化石の石・勝手口・渡り廊下棟など）はここでは入れず、移行後に YAML を直す
 （移行の忠実性を ledger_build.py の再生成と元 JSON の比較で先に証明するため）。
 """
 import json
@@ -99,7 +99,7 @@ def window_rows(map_id, era, src, rows):
 
 def main():
     if os.path.exists(L.path("MAP")) and "--force" not in sys.argv:
-        sys.exit("docs/ledger/MAP.csv が既にある。移行は一度きり（上書きするなら --force）")
+        sys.exit("docs/ledger/MAP.yaml が既にある。移行は一度きり（上書きするなら --force）")
     rows = {t: [] for t in L.SCHEMA}
     spec = md_rows("map-specifications.md", r"^\| TRM-\d\d")
     # ---- plan

@@ -1,4 +1,4 @@
-"""台帳（docs/ledger/*.csv）から MAP 1枚分のプロンプト材料を JOIN して決定論で出す。
+"""台帳（docs/ledger/*.yaml）から MAP 1枚分のプロンプト材料を JOIN して決定論で出す。
 
 同じ表・同じ入力なら同じ出力（行は主キー・表の並び順で固定）。決定は status（ready か否か）に依存せず必ず入れる。
   uv run python3 ledger_query.py MAP_ID          # 台帳節（edit-prompt に入る文）を表示
@@ -113,7 +113,7 @@ def sections(map_id, depends=None):
         raise KeyError(f"{map_id}: MAP表に行が無い")
     L_ = []
     ar = led.area(map_id)
-    L_ += ["LEDGER（docs/ledger/*.csv が唯一のマスター。決定・建物・継承要素は status（ready か否か）に関係なく全件入れる）:", ""]
+    L_ += ["LEDGER（docs/ledger/*.yaml が唯一のマスター。決定・建物・継承要素は status（ready か否か）に関係なく全件入れる）:", ""]
     L_.append(f"AREA FIXED（エリア『{ar['名称']}』の必須キー。全MAP共通・変えない）:")
     for k in ("机の天面の材質", "台座の素材", "木の種類", "外周の装飾方針"):
         v = led.T["語彙"]

@@ -1,7 +1,7 @@
-"""台帳（docs/ledger/*.csv）→ 派生物（plan・decor-pools・connections の JSON）を決定論で生成する唯一の導出器。
+"""台帳（docs/ledger/*.yaml）→ 派生物（plan・decor-pools・connections の JSON）を決定論で生成する唯一の導出器。
 
 派生 JSON は手で編集しない（先頭の `_provenance` に入力ハッシュ・再生成コマンドを持つ）。
-  uv run python3 ledger_build.py build            # 派生 JSON を再生成し、生成物.csv のハッシュを更新
+  uv run python3 ledger_build.py build            # 派生 JSON を再生成し、生成物.yaml のハッシュを更新
   uv run python3 ledger_build.py check            # 再生成して手編集・古さを検出（書かない）
   uv run python3 ledger_build.py template area|map ID   # 必須キーの雛形行（空欄=未決として検出される）を出す
 """

@@ -620,7 +620,7 @@ def build_one(plan_path, outroot, variant=None, from_stage=None, force=False, lo
     tool_mock = src_sha("oblique_mock.py")
     tool_topo = src_sha("oblique_mock.py", "oblique_topology.py")
     man.update({"map_id": key, "plan": os.path.relpath(plan_path, REPO), "plan_sha256": plan_sha,
-                "ledger": {"tables": "docs/ledger/*.csv", "row_id": re.sub(r"-(kids|fire|burnt|wc)$", "", key), "era_suffix": variant,
+                "ledger": {"tables": "docs/ledger/*.yaml", "row_id": re.sub(r"-(kids|fire|burnt|wc)$", "", key), "era_suffix": variant,
                            "decisions": ledger_mat["decisions"], "inherits": ledger_mat["inherits"], "references": ledger_mat["refs"],
                            "input_sha": sha_bytes((ledger_text + json.dumps(ledger_mat, sort_keys=True)).encode())}})
     inputs = {"validate": sha_bytes((plan_sha + tool_mock + src_sha("oblique_build.py")).encode()),
