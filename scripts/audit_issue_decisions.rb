@@ -9,6 +9,7 @@
 #   ruby scripts/audit_issue_decisions.rb --fetch F             # gh の取得結果を F に保存して終わる（--from-json 用）
 #   ruby scripts/audit_issue_decisions.rb --write               # Issue点検.yaml を更新（【手動】と書いた行の分類は保つ）
 #   ruby scripts/audit_issue_decisions.rb --list 未反映(要取込み)  # 分類ごとの一覧
+#   ruby scripts/audit_issue_decisions.rb --check-quotes [--from-json F]  # 決定.逐語の各引用が 出典URL（; 区切り複数）のコメント本文に実在するか検査（違反があれば exit 1）
 #   LEDGER_ROOT=/path/to/root ...                               # root 差し替え（テスト用）
 #
 # 候補のヒューリスティック（README: tools/README.md にも同文）:
@@ -50,10 +51,80 @@ class IssueAudit
 
   def norm(s) = s.to_s.gsub(/\s+/, '')
 
+  # 出典URL → コメントID（文字列）／Issue 本文（"issue-N"）／どちらでもなければ nil
+  def self.source_id(url)
+    m = url.match(%r{/issues/(\d+)(?:#issuecomment-(\d+))?\z})
+    m ? (m[2] || "issue-#{m[1]}") : nil
+  end
+
+  # 逐語欄から「…」の引用を取り出す（入れ子の『…』は外側の引用の一部。括弧書きの注記など引用の外は無視）。
+  # 比較用に空白・markdown の強調（**）・バッククォートを除き、入れ子の括弧は「」にそろえる。4字未満は照合に使わない
+  def self.verbatim_quotes(text)
+    out = []
+    depth = 0
+    buf = +''
+    text.each_char do |ch|
+      if depth.zero?
+        if ch == '「'
+          depth = 1
+          buf = +''
+        end
+        next
+      end
+      if ['「', '『'].include?(ch)
+        depth += 1
+        buf << '「'
+      elsif ['」', '』'].include?(ch)
+        depth -= 1
+        if depth.zero?
+          out << buf
+        else
+          buf << '」'
+        end
+      else
+        buf << ch
+      end
+    end
+    out.map { |q| squash(q) }.select { |q| q.size >= 4 }
+  end
+
+  def self.squash(s) = s.to_s.gsub(/\s+/, '').delete('*`').tr('『』', '「」')
+
+  # 決定表の各決定について、逐語の各引用が出典URL群のどれかのコメント（または Issue 本文）の本文に実在することを検査する。
+  # 戻り値: エラー文のリスト（空なら合格）。候補（引用が実在する別コメント）も添える。
+  def check_quotes
+    bodies = {}
+    @issues.each_value { |i| bodies["issue-#{i['number']}"] = [self.class.squash(i['body']), i['html_url']] }
+    @comments.each { |c| bodies[c['id'].to_s] = [self.class.squash(c['body']), c['html_url']] }
+    errors = []
+    @t['決定'].each do |d|
+      id = d['決定ID']
+      qs = self.class.verbatim_quotes(d['逐語'])
+      next if qs.empty?
+
+      urls = d['出典URL'].split(';').map(&:strip).reject(&:empty?)
+      errors << "決定 #{id}: 逐語に引用があるのに出典URLが無い" && next if urls.empty?
+
+      srcs = urls.map { |u| [u, self.class.source_id(u)] }
+      srcs.select { |_, sid| sid.nil? }.each { |u, _| errors << "決定 #{id}: 出典URL『#{u}』が Issue のコメント（または本文）のURLでない" }
+      srcs.select { |_, sid| sid && !bodies.key?(sid) }.each { |u, _| errors << "決定 #{id}: 出典URL『#{u}』のコメントを取得結果に見つけられない" }
+      have = srcs.map { |_, sid| bodies[sid] }.compact
+      qs.each do |q|
+        next if have.any? { |b, _| b.include?(q) }
+
+        cands = bodies.values.select { |b, _| b.include?(q) }.map(&:last).first(3)
+        errors << "決定 #{id}: 逐語の引用「#{q[0, 30]}」が出典URL群のどのコメントにも実在しない" + (cands.empty? ? '（どのコメントにも無い）' : "（実在するコメント: #{cands.join(' ')}）")
+      end
+    end
+    errors
+  end
+
   # ---- 台帳側の参照
   def index_ledger
     @by_url = Hash.new { |h, k| h[k] = [] }
-    @t['決定'].each { |d| @by_url[d['出典URL'].sub(/\A.*issues\/(\d+)(#issuecomment-(\d+))?\z/) { $3 ? $3 : "issue-#{$1}" }] << d['決定ID'] unless d['出典URL'].empty? }
+    @t['決定'].each do |d|
+      d['出典URL'].split(';').map(&:strip).reject(&:empty?).each { |u| @by_url[self.class.source_id(u)] << d['決定ID'] }
+    end
     @ledger_text = @t['決定'].map { |d| [norm(d['逐語']), d['決定ID']] } + @t['決定'].map { |d| [norm(d['決定の要点']), d['決定ID']] }
   end
 
@@ -156,6 +227,12 @@ if $PROGRAM_NAME == __FILE__
   end
   data = (f = arg.call('--from-json')) ? JSON.parse(File.read(f, encoding: 'UTF-8')) : fetch_all
   audit = IssueAudit.new(data)
+  if ARGV.include?('--check-quotes')
+    errors = audit.check_quotes
+    errors.each { |e| warn "FAIL: #{e}" }
+    puts errors.empty? ? "PASS: 決定 #{audit.instance_variable_get(:@t)['決定'].size} 件の逐語の引用は全て出典URLのコメントに実在する" : "FAIL: 逐語の引用が出典に実在しない #{errors.size} 件"
+    exit(errors.empty? ? 0 : 1)
+  end
   puts "Issue #{data['issues'].size} 件・コメント #{data['comments'].size} 件を走査 → 候補 #{audit.rows.size} 件"
   IssueAudit::CLASSES.each { |c| puts format('  %-18s %d', c, audit.counts.fetch(c, 0)) }
   if (cls = arg.call('--list'))

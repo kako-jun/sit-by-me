@@ -640,8 +640,8 @@ class PromptReflectionTests(unittest.TestCase):
         self.assertIn("検査したMAP（1）: TRM-05", r.stdout)
 
 
-class IssueAuditTests(unittest.TestCase):
-    """audit_issue_decisions.rb: Issue の決定候補を決定表と突合して分類し、Issue点検.yaml の過不足を検出する（--from-json でオフライン）。"""
+class IssueAuditBase(unittest.TestCase):
+    """audit_issue_decisions.rb のテスト共通土台。audit_issue_decisions.rb: Issue の決定候補を決定表と突合して分類し、Issue点検.yaml の過不足を検出する（--from-json でオフライン）。"""
 
     URL = "https://github.com/kako-jun/sit-by-me/issues"
 
@@ -697,6 +697,8 @@ class IssueAuditTests(unittest.TestCase):
     def table(self):
         return {r["コメントURL"].rsplit("-", 1)[-1]: r for r in ledger_io.parse("Issue点検", (self.work / "docs/ledger/Issue点検.yaml").read_text(encoding="utf-8"))}
 
+
+class IssueAuditTests(IssueAuditBase):
     def test_classification(self):
         self.assertEqual(self.audit("--write").returncode, 0)
         t = self.table()
@@ -1049,3 +1051,135 @@ class ConnectionEndpointExistsTests(LedgerCopyBase):
 
     def test_virtual_port_of_the_connection_diagram_is_allowed(self):
         self.assertFalse(any("event-kiss" in ln for ln in self.end_errors()))
+
+
+class SourceQuoteTests(IssueAuditBase):
+    """audit_issue_decisions.rb --check-quotes: 決定.逐語の各引用が、出典URL（; 区切り複数）のどれかのコメント本文に実在する。
+    コメントは --from-json のキャッシュ JSON から読む（オフライン）。"""
+
+    def setUp(self):
+        super().setUp()
+        self.data = {"issues": [{"number": 7, "html_url": f"{self.URL}/7", "body": "Issue本文「本文にだけある発言です、ここ」", "created_at": "2026-10-01T00:00:00Z"}],
+                     "comments": [self.comment(201, 7, "## 決定\n逐語: 「机の材質など、必ず指定が必要なものは強制する」"),
+                                  self.comment(202, 7, "## 別の決定\n逐語: 「化石はゴツゴツした茶色と黒の石にしろ」（入れ子の『閉鎖』は **強調** 付き）"),
+                                  self.comment(203, 7, "## 何もない\nただの作業記録")]}
+
+    def decision(self, did, verbatim, urls):
+        dec = dict.fromkeys(ledger_io.SCHEMA["決定"], "")
+        return dict(dec, **{"決定ID": did, "決定の要点": "要点", "逐語": verbatim, "出典": "Issue #7", "出典URL": ";".join(urls), "状態": "有効"})
+
+    def check(self, *decisions):
+        self.write_table("決定", list(decisions))
+        return self.audit("--check-quotes")
+
+    def u(self, cid):
+        return f"{self.URL}/7#issuecomment-{cid}"
+
+    def test_quote_present_in_the_cited_comment_passes(self):
+        r = self.check(self.decision("D.ok", "「机の材質など、必ず指定が必要なものは強制する」", [self.u(201)]))
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("PASS", r.stdout)
+
+    def test_url_pointing_at_a_comment_without_the_quote_fails_and_names_the_real_one(self):
+        r = self.check(self.decision("D.wrong", "「机の材質など、必ず指定が必要なものは強制する」", [self.u(203)]))
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("決定 D.wrong", r.stderr)
+        self.assertIn("issuecomment-201", r.stderr)  # 実在するコメントの候補を示す
+
+    def test_altered_word_in_the_verbatim_fails(self):
+        r = self.check(self.decision("D.alt", "「机の材質とか、必ず指定が必要なものは強制する」", [self.u(201)]))
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("どのコメントにも無い", r.stderr)
+
+    def test_each_quote_may_live_in_a_different_comment_of_the_url_list(self):
+        v = "「机の材質など、必ず指定が必要なものは強制する」（2026-10-23）「化石はゴツゴツした茶色と黒の石にしろ」"
+        self.assertEqual(self.check(self.decision("D.two", v, [self.u(201), self.u(202)])).returncode, 0)
+        r = self.check(self.decision("D.one", v, [self.u(201)]))  # 2つ目の引用を含むコメントが URL に無い
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("化石はゴツゴツ", r.stderr)
+
+    def test_nested_brackets_and_emphasis_are_normalised(self):
+        v = "「入れ子の『閉鎖』は 強調 付き」"
+        self.assertEqual(self.check(self.decision("D.nest", "「化石はゴツゴツした茶色と黒の石にしろ」" + v, [self.u(202)])).returncode, 0)
+
+    def test_issue_body_url_is_accepted_as_a_source(self):
+        r = self.check(self.decision("D.body", "「本文にだけある発言です、ここ」", [f"{self.URL}/7"]))
+        self.assertEqual(r.returncode, 0, r.stderr)
+
+    def test_missing_url_and_non_issue_url_fail(self):
+        r = self.check(self.decision("D.nourl", "「机の材質など、必ず指定が必要なものは強制する」", []))
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("出典URLが無い", r.stderr)
+        r = self.check(self.decision("D.blob", "「机の材質など、必ず指定が必要なものは強制する」", ["https://github.com/kako-jun/sit-by-me/blob/main/README.md"]))
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("Issue のコメント", r.stderr)
+
+    def test_real_ledger_decisions_all_have_issue_source_urls(self):
+        # 実リポの決定表: 出典が Issue のものは全て Issue のコメント/本文の URL（; 区切り）で、出典の Issue 番号と一致する（verify_ledger.rb が検査）
+        rows = ledger_io.parse("決定", (ROOT / "docs/ledger/決定.yaml").read_text(encoding="utf-8"))
+        for d in rows:
+            if d["出典"].startswith("Issue"):
+                urls = [u for u in d["出典URL"].split(";") if u]
+                self.assertTrue(urls, d["決定ID"])
+                nums = sorted({n for n in __import__("re").findall(r"#(\d+)", d["出典"])})
+                self.assertEqual(nums, sorted({__import__("re").search(r"/issues/(\d+)", u).group(1) for u in urls}), d["決定ID"])
+
+
+class DecisionSourceTests(LedgerCopyBase):
+    """決定の出典URL（; 区切り複数）の形式検査（verify_ledger.rb）と、レビューで見つかった決定表の誤りの回帰。"""
+
+    def source_errors(self):
+        return [ln for ln in self.verify_ledger().stderr.splitlines() if ln.startswith("FAIL") and "決定" in ln and ("出典" in ln)]
+
+    def test_clean_sources_pass(self):
+        self.assertEqual(self.source_errors(), [])
+
+    def test_multiple_urls_across_issues_are_accepted(self):
+        self.edit_row("決定", "決定ID", "TRM.no-tatami", **{"出典": "Issue #51・#144", "出典URL": "https://github.com/kako-jun/sit-by-me/issues/144#issuecomment-6359895953;https://github.com/kako-jun/sit-by-me/issues/51#issuecomment-6306972440"})
+        self.assertEqual(self.source_errors(), [])
+
+    def test_issue_number_in_source_must_match_the_urls(self):
+        self.edit_row("決定", "決定ID", "TRM.no-tatami", **{"出典": "Issue #144"})  # URL に #51 が増えたのに出典が #144 のまま
+        self.edit_row("決定", "決定ID", "TRM.no-tatami", **{"出典URL": "https://github.com/kako-jun/sit-by-me/issues/144#issuecomment-6359895953;https://github.com/kako-jun/sit-by-me/issues/51#issuecomment-6306972440"})
+        self.assertTrue(any("食い違う" in ln and "TRM.no-tatami" in ln for ln in self.source_errors()))
+
+    def test_non_issue_url_for_an_issue_source_is_rejected(self):
+        self.edit_row("決定", "決定ID", "TRM.no-tatami", **{"出典URL": "https://github.com/kako-jun/sit-by-me/blob/main/docs/README.md"})
+        self.assertTrue(any("Issue のコメント" in ln and "TRM.no-tatami" in ln for ln in self.source_errors()))
+
+    # ---- 実リポの決定表の回帰（レビュー指摘）
+    def real(self, table):
+        return ledger_io.parse(table, (ROOT / f"docs/ledger/{table}.yaml").read_text(encoding="utf-8"))
+
+    def test_ledger_yaml_decision_exists_and_ledger_db_is_corrected(self):
+        dec = {d["決定ID"]: d for d in self.real("決定")}
+        y = dec["TRM.ledger-yaml"]
+        self.assertEqual(y["状態"], "有効")
+        self.assertIn("issuecomment-6360639772", y["出典URL"])
+        self.assertIn("「csvが本当にいいのか？yamlとかのほうが管理しやすいのではないのか」", y["逐語"])
+        db = dec["TRM.ledger-db"]
+        self.assertEqual((db["状態"], db["置換先"]), ("訂正済み", "TRM.ledger-yaml"))
+
+    def test_required_keys_verbatim_is_the_original_wording(self):
+        d = next(d for d in self.real("決定") if d["決定ID"] == "TRM.required-keys")
+        self.assertIn("机の材質など、", d["逐語"])
+        self.assertNotIn("机の材質とか、", d["逐語"])
+
+    def test_unconfirmed_mask_decision_is_an_open_item_not_a_decision(self):
+        self.assertNotIn("TRM-04.mask-confirmed", [d["決定ID"] for d in self.real("決定")])
+        self.assertTrue(any(u["対象ID"] == "TRM-04" and "歩行マスク・出口" in u["キー"] and u["状態"] == "未決" for u in self.real("未決")))
+
+    def test_decision_notes_have_no_leading_whitespace(self):
+        for d in self.real("決定"):
+            self.assertEqual(d["備考"], d["備考"].lstrip(), d["決定ID"])
+
+    def test_plan_input_hash_follows_the_referenced_decision_wording_only(self):
+        code = ("import ledger_build as B; T = B.tables(); print(B.input_hash(B.input_rows(T, 'TRM-05')))")
+        def h():
+            return subprocess.run([sys.executable, "-c", code], env=self.env(PYTHONPATH=str(self.work / ".claude/skills/sit-field-background/tools")), capture_output=True, text=True, cwd=self.work).stdout.strip()
+        base = h()
+        self.assertTrue(base)
+        self.edit_row("決定", "決定ID", "TRM-05.door-back", **{"出典URL": "https://github.com/kako-jun/sit-by-me/issues/144#issuecomment-6357220251"})
+        self.assertEqual(h(), base)  # メタデータを直しても変わらない
+        self.edit_row("決定", "決定ID", "TRM-05.door-back", **{"決定の要点": "別の要点"})
+        self.assertNotEqual(h(), base)  # 参照された決定の要点を直すと変わる

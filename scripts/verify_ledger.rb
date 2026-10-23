@@ -339,11 +339,27 @@ class LedgerVerifier
       d['必須語'].to_s.split(';').each { |w| err("決定 #{id}: 必須語『#{w}』が決定の要点に無い") unless d['決定の要点'].include?(w) }
       d['禁止語'].to_s.split(';').each { |w| err("決定 #{id}: 禁止語『#{w}』が決定の要点に無い") unless d['決定の要点'].include?(w) }
       err("決定 #{id}: 日付が YYYY-MM-DD でない") unless d['日付'].match?(/\A\d{4}-\d\d-\d\d\z/)
-      if d['出典'].start_with?('Issue') && !d['出典URL'].match?(%r{\Ahttps://github\.com/[^/]+/[^/]+/issues/\d+#issuecomment-\d+\z})
-        err("決定 #{id}: 出典URL が Issue コメントのURLでない")
-      end
-      err("決定 #{id}: 出典の Issue 番号と出典URLが食い違う") if d['出典'] =~ /#(\d+)/ && !d['出典URL'].to_s.empty? && !d['出典URL'].include?("/issues/#{$1}#")
+      check_source_urls(d)
     end
+  end
+
+  # 出典URL は ; 区切りで複数（逐語の引用ごとに、それが実在するコメントを指す）。Issue 由来（出典が『Issue』始まり）は全て Issue のコメントまたは
+  # 本文の URL で、出典の Issue 番号の集合と URL の Issue 番号の集合が一致する。引用が URL の先のコメントに実在することは
+  # audit_issue_decisions.rb --check-quotes が（gh かキャッシュ JSON で）検査する。
+  ISSUE_URL_RE = %r{\Ahttps://github\.com/[^/]+/[^/]+/issues/(\d+)(?:\#issuecomment-\d+)?\z}.freeze
+
+  def check_source_urls(d)
+    id = d['決定ID']
+    return unless d['出典'].start_with?('Issue')
+
+    urls = split_semi(d['出典URL'])
+    return err("決定 #{id}: 出典が Issue なのに出典URL が空") if urls.empty?
+
+    urls.each { |u| err("決定 #{id}: 出典URL『#{u}』が Issue のコメント（または本文）のURLでない") unless u.match?(ISSUE_URL_RE) }
+    err("決定 #{id}: 出典URL に重複がある") unless urls.uniq.size == urls.size
+    from_text = d['出典'].scan(/#(\d+)/).flatten.uniq.sort
+    from_urls = urls.map { |u| u[ISSUE_URL_RE, 1] }.compact.uniq.sort
+    err("決定 #{id}: 出典の Issue 番号 #{from_text.inspect} と出典URL の Issue 番号 #{from_urls.inspect} が食い違う") unless from_text == from_urls
   end
 
   def check_buildings

@@ -301,10 +301,10 @@ def targets(T):
     for m in T["MAP"]:
         if m["描画方式"] == "斜めモック" and any(r["MAP_ID"] == m["MAP_ID"] for r in T["要素"]):
             out.append((f"G-{m['MAP_ID']}-plan", "斜めplan JSON", f"docs/production/oblique-mocks/{m['MAP_ID']}-plan.json",
-                        f"MAP:{m['MAP_ID']}|要素|端|窓|既定値|時期差分|建物部位|建物窓列", lambda t, mid=m["MAP_ID"]: build_plan(t, mid),
+                        f"MAP:{m['MAP_ID']}|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)", lambda t, mid=m["MAP_ID"]: build_plan(t, mid),
                         lambda t, mid=m["MAP_ID"]: input_rows(t, mid)))
     out.append(("G-decor-pools", "装飾プールJSON", "docs/production/oblique-mocks/decor-pools.json", "装飾プール|エリア固定|決定", build_decor,
-                lambda t: {"装飾プール": t["装飾プール"], "エリア固定": t["エリア固定"], "決定": [d for d in t["決定"] if any(r["決定参照"] == d["決定ID"] for r in t["装飾プール"] + t["エリア固定"])]}))
+                lambda t: {"装飾プール": t["装飾プール"], "エリア固定": t["エリア固定"], "決定": used_decisions(t, t["装飾プール"] + t["エリア固定"])}))
     out.append(("G-dependency-graph", "依存グラフJSON", "docs/production/oblique-mocks/dependency-graph.json", "MAP.依存MAP|時期差分|接続図設定", build_deps,
                 lambda t: {"MAP": [(r["MAP_ID"], r["依存MAP"], r["依存の確度"], r["依存の根拠"]) for r in t["MAP"]], "時期差分": [r for r in t["時期差分"] if r["項目"].startswith("依存")],
                            "接続図設定": [r for r in t["接続図設定"] if r["図ID"] == "依存グラフ"]}))
@@ -328,12 +328,21 @@ def _trim(table, rows):
     return [{k: v for k, v in r.items() if not (k in NEW_COLS.get(table, ()) and v == "")} for r in rows]
 
 
+def used_decisions(T, rows):
+    """rows が決定参照で引いている決定の (決定ID, 決定の要点)。派生物に展開されるのは要点だけなので、出典URL・備考などの
+    メタデータを直しても入力ハッシュは変わらず、要点を直すと変わる（決定の変更で _provenance が更新される）。"""
+    refs = {i for r in rows for i in L.split_list(r.get("決定参照", ""))}
+    return [(d["決定ID"], d["決定の要点"]) for d in T["決定"] if d["決定ID"] in refs]
+
+
 def input_rows(T, mid):
     sel = {"MAP": _trim("MAP", [r for r in T["MAP"] if r["MAP_ID"] == mid])}
     for tb in ("要素", "端", "窓", "既定値", "時期差分"):
         sel[tb] = [r for r in T[tb] if r["MAP_ID"] == mid]
     sel["建物部位"] = T["建物部位"]
     sel["建物窓列"] = T["建物窓列"]
+    # 決定参照で展開される決定の要点（ref_text）も入力に含める（決定を直したら plan の _provenance が更新される）
+    sel["決定"] = used_decisions(T, [r for tb in ("要素", "端", "窓", "既定値", "時期差分", "建物部位") for r in sel[tb]])
     return sel
 
 
