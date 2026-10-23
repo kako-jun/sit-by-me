@@ -281,7 +281,7 @@
    "id": "TRM-07.top",
    "partner": "TRM-03.bottom",
    "status": "fixed",
-   "note": "TRM-03.bottom と同位置（x800・幅132。TRM-03 plan の既存値）"
+   "note": "TRM-03.bottom と同位置（x800・幅132。TRM-03 plan の既存値）（決定 TRM-08.top-closed）"
   },
   {
    "at": 860,
@@ -314,8 +314,8 @@
  ],
  "_provenance": {
   "source": "MAP:TRM-07|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "bb22abed23aa92d5ecf7452bdaf04722d31e3c8cdee31afd935a34b13064470b",
-  "generated_at": "2026-10-24T04:46",
+  "input_sha": "b10e60f6758cc1522b2f1970a05dd1726f5de83904b9b6cb8543ace2430670a8",
+  "generated_at": "2026-10-24T04:51",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-07-plan",
   "do_not_edit": true

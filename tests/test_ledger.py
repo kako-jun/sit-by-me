@@ -1213,3 +1213,30 @@ class TemplateOutputTests(LedgerCopyBase):
 
     def test_unknown_kind_is_an_error(self):
         self.assertNotEqual(self.py("ledger_build.py", "template", "building", "X-01").returncode, 0)
+
+
+class ConfirmedEdgeBasisTests(LedgerCopyBase):
+    """端の状態が『確定』なら根拠の決定（決定参照）が要る。接続.yaml の円環・勝手口の記述が現状に合っている。"""
+
+    def edge_errors(self):
+        return [ln for ln in self.verify_ledger().stderr.splitlines() if "状態が『確定』なのに決定参照が無い" in ln]
+
+    def test_confirmed_edges_all_have_a_decision_basis(self):
+        self.assertEqual(self.edge_errors(), [])
+
+    def test_confirmed_edge_without_decision_is_reported(self):
+        self.edit_row("端", "端ID", "TRM-04.door-south", **{"決定参照": ""})
+        errs = self.edge_errors()
+        self.assertTrue(any("TRM-04.door-south" in ln for ln in errs), errs)
+
+    def test_default_state_edge_does_not_need_a_decision(self):
+        self.edit_row("端", "端ID", "TRM-04.door-south", **{"決定参照": "", "状態": "既定(要確認)"})
+        self.assertEqual(self.edge_errors(), [])
+
+    def test_loop_connections_cite_the_loop_decision_and_back_door_note_is_current(self):
+        rows = {(r["端A"], r["端B"]): r for r in ledger_io.parse("接続", (ROOT / "docs/ledger/接続.yaml").read_text(encoding="utf-8"))}
+        for key in (("TRM-15.bottom", "TRM-06.top"), ("TRM-06.right", "TRM-16.left")):
+            self.assertIn("TRM-06.loop", rows[key]["決定参照"].split(";"))
+        note = rows[("TRM-06.right", "TRM-16.left")]["主路・状態"]
+        self.assertNotIn("台帳になくTBD", note)
+        self.assertIn("TRM-05.door-back⇄TRM-06.door-house", note)

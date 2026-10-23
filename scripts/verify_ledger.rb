@@ -44,6 +44,7 @@ class LedgerVerifier
     check_decisions
     check_buildings
     check_windows
+    check_confirmed_edges
     check_layout
     check_generated
     check_index_fresh
@@ -375,6 +376,13 @@ class LedgerVerifier
     @t['窓'].select { |w| !w['建物窓列ID'].to_s.empty? }.group_by { |w| [w['建物窓列ID'], w['MAP_ID'], w['適用時期'], w['壁']] }.each do |(wid, mid, era, wall), rows|
       n = @t['建物窓列'].find { |x| x['窓列ID'] == wid }&.fetch('個数', nil)
       err("窓 #{mid}#{era.empty? ? '' : "-#{era}"} の壁 #{wall}: 建物窓列 #{wid} の個数 #{n} と窓表の行数 #{rows.size} が違う") if n && n.to_i != rows.size
+    end
+  end
+
+  # 端の状態が『確定』なら、根拠の決定（決定参照）が要る。根拠が無いものは『既定(要確認)』にして未決へ回す
+  def check_confirmed_edges
+    @t['端'].each do |e|
+      err("端 #{e['端ID']}: 状態が『確定』なのに決定参照が無い（根拠の決定を書くか、既定(要確認)にして未決へ）") if e['状態'] == '確定' && e['決定参照'].to_s.strip.empty?
     end
   end
 

@@ -327,7 +327,7 @@
    "partner": "TRM-04.door-south",
    "width_class": "2people",
    "status": "fixed",
-   "note": "本堂の正面。建物の中央"
+   "note": "本堂の正面。建物の中央（決定 TRM.door-width, TRM.door-width-outside, TRM.mock-master）"
   },
   {
    "id": "TRM-03.door-residence",
@@ -588,8 +588,8 @@
  ],
  "_provenance": {
   "source": "MAP:TRM-03|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "0fa18daa010ad77ff9122c2fc7a26b26a94c86d680d1095ad33ccd2541253ca8",
-  "generated_at": "2026-10-24T04:46",
+  "input_sha": "20d44e4dfc46b2e5d6b0053c787160ed8cb16e897b7d22581362d85ab8eadd2b",
+  "generated_at": "2026-10-24T04:51",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-03-plan",
   "do_not_edit": true
