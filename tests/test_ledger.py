@@ -1183,3 +1183,20 @@ class DecisionSourceTests(LedgerCopyBase):
         self.assertEqual(h(), base)  # メタデータを直しても変わらない
         self.edit_row("決定", "決定ID", "TRM-05.door-back", **{"決定の要点": "別の要点"})
         self.assertNotEqual(h(), base)  # 参照された決定の要点を直すと変わる
+
+
+class TemplateOutputTests(LedgerCopyBase):
+    """ledger_build.py template は台帳と同じ YAML で出す（CSV でなく）。出力は台帳の表としてそのまま読める。"""
+
+    def test_template_is_yaml_that_the_ledger_reader_accepts(self):
+        for kind, table in (("map", "MAP"), ("area", "エリア")):
+            r = self.py("ledger_build.py", "template", kind, "X-01")
+            self.assertEqual(r.returncode, 0, r.stderr)
+            self.assertNotIn(",", r.stdout.splitlines()[0])  # CSV のヘッダ行ではない
+            rows = ledger_io.parse(table, r.stdout)
+            self.assertEqual(len(rows), 1)
+            self.assertEqual(rows[0][ledger_io.SCHEMA[table][0]], "X-01")
+            self.assertEqual(set(rows[0]), set(ledger_io.SCHEMA[table]))
+
+    def test_unknown_kind_is_an_error(self):
+        self.assertNotEqual(self.py("ledger_build.py", "template", "building", "X-01").returncode, 0)

@@ -3,7 +3,7 @@
 派生 JSON は手で編集しない（先頭の `_provenance` に入力ハッシュ・再生成コマンドを持つ）。
   uv run python3 ledger_build.py build            # 派生 JSON を再生成し、生成物.yaml のハッシュを更新
   uv run python3 ledger_build.py check            # 再生成して手編集・古さを検出（書かない）
-  uv run python3 ledger_build.py template area|map ID   # 必須キーの雛形行（空欄=未決として検出される）を出す
+  uv run python3 ledger_build.py template area|map ID   # 必須キーの雛形行（YAML。空欄=未決として検出される）を出す
 """
 import json
 import os
@@ -394,12 +394,15 @@ def run(write):
 
 
 def template(kind, ident):
-    """必須キーの雛形（空欄の行）。空欄は verify で『未決』として検出される。"""
-    cols = L.SCHEMA["エリア"] if kind == "area" else L.SCHEMA["MAP"]
-    row = {c: "" for c in cols}
-    row[cols[0]] = ident
-    print(",".join(cols))
-    print(",".join(row[c] for c in cols))
+    """必須キーの雛形（空欄の行）を、台帳と同じ YAML の1行として出す。空欄は verify で『未決』として検出される。
+    出力をそのまま docs/ledger/エリア.yaml／MAP.yaml のリストに足して埋める。"""
+    if kind not in ("area", "map"):
+        sys.exit("template の種別は area か map")
+    table = "エリア" if kind == "area" else "MAP"
+    row = {c: "" for c in L.SCHEMA[table]}
+    row[L.SCHEMA[table][0]] = ident
+    text = L.dumps(table, [row])
+    print("\n".join(ln for ln in text.splitlines() if not ln.startswith("#")))
 
 
 if __name__ == "__main__":
