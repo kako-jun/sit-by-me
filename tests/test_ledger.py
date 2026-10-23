@@ -412,6 +412,18 @@ class LegacyMdReaderTests(unittest.TestCase):
         self.assertNotIn("recreate-required-1920x1080 |", "\n".join(l for l in text.splitlines() if l.startswith("| TRM-")))
 
 
+class OperationRulesPresentTests(unittest.TestCase):
+    """運用（決定は先に台帳・必須キーと自由記述・画像生成の停止・生成画像は見ない）が入口の3文書から消えていないこと。"""
+
+    NEEDLES = ("決定IDを参照するだけ", "必須キー", "特徴(自由記述)", "再開指示", "Claude は見ない", "プロンプト文面")
+
+    def test_rules_are_stated_in_skill_readme_and_index(self):
+        for rel in (".claude/skills/sit-field-background/SKILL.md", ".claude/skills/sit-field-background/tools/README.md", "docs/INDEX.md"):
+            text = (ROOT / rel).read_text(encoding="utf-8")
+            for n in self.NEEDLES:
+                self.assertIn(n, text, f"{rel} に運用の記述『{n}』が無い")
+
+
 class PromptReflectionTests(unittest.TestCase):
     """verify_prompt_reflects_ledger.rb が、過去に漏れた事例（畳・化石の石・-fire の勝手口・火事版の上半分・渡り廊下の窓列）や
     自由記述・継承要素の漏れを、壊した fixture で実際に検出するか。プロンプトは fixture 内のツールで導出する（画像生成はしない）。"""
