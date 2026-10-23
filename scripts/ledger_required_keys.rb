@@ -11,6 +11,7 @@ module LedgerRequiredKeys
   NOT_APPLICABLE = %w[該当なし なし].freeze
   KEY_TABLE_ID = { 'エリア' => 'エリアID', 'MAP' => 'MAP_ID', '建物' => '建物ID', '端' => '端ID', '決定' => '決定ID', '採用要素' => '採用要素ID', '素材' => '素材ID', '生成物' => '生成物ID' }.freeze
 
+  ANNOTATED_GROUPS = %w[採用要素状態].freeze
   REQUIRED_DEGREES = %w[必須 条件付き必須].freeze
   # 必須キー表がこれを持っていなくても生成ゲートが開かないように、コード側に固定した最低限の必須キー（対象テーブル => キー）。
   # 必須キー表の行を消す・必須度を『任意』などに下げると、検査が黙って無効になる（行が無い=検査されない）のを防ぐ。
@@ -91,6 +92,8 @@ module LedgerRequiredKeys
 
         toks = %w[依存MAP 建物ID].include?(key) ? v.split(';') : [v]
         toks.each do |tok|
+          # 状態の語彙は『記録（採用画像の確定後に…）』のように（注記）を後ろに付けてよい。語彙の値そのものは（）の前
+          tok = tok.split('（').first if ANNOTATED_GROUPS.include?(g)
           ok = (voc[g] || []).include?(tok)
           ok ||= key == '依存MAP' && map_ids.include?(tok)
           ok ||= key == '装飾プールID' && pools.include?(tok)

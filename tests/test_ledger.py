@@ -1005,3 +1005,30 @@ class FreeTextAllTablesTests(LedgerCopyBase):
         self.assertIn(old, text)
         p.write_text(text.replace(old, old[:-1] + ', FREE]'), encoding="utf-8")
         self.assertFailsWith(self.verify_ledger(), "表 未決 に特徴(自由記述)の欄がある")
+
+
+class StatusVocabularyTests(LedgerCopyBase):
+    """決定・採用要素・素材の『状態』は語彙で検査する。語彙外（有効化 など）の値が、黙ってプロンプトから消える状態を許さない。"""
+
+    def vocab_errors(self):
+        # 最小 fixture には docs 全体が無いので、ファイル配置の入口などの別の失敗は混ざる。語彙の失敗だけを見る
+        return [ln for ln in self.verify_ledger().stderr.splitlines() if "語彙（" in ln]
+
+    def test_clean_ledger_has_no_vocabulary_errors(self):
+        self.assertEqual(self.vocab_errors(), [])
+
+    def test_decision_state_outside_vocabulary_is_reported(self):
+        self.edit_row("決定", "決定ID", "TRM.no-tatami", **{"状態": "有効化"})
+        self.assertFailsWith(self.verify_ledger(), "『状態』の値『有効化』が語彙（決定状態）に無い")
+
+    def test_adopted_element_state_outside_vocabulary_is_reported(self):
+        self.edit_row("採用要素", "採用要素ID", "TRM-04.door-design", **{"状態": "有効化"})
+        self.assertFailsWith(self.verify_ledger(), "『状態』の値『有効化』が語彙（採用要素状態）に無い")
+
+    def test_adopted_element_state_with_annotation_is_allowed(self):
+        self.edit_row("採用要素", "採用要素ID", "TRM-04.door-design", **{"状態": "記録（確定待ち）"})
+        self.assertEqual(self.vocab_errors(), [])
+
+    def test_material_state_outside_vocabulary_is_reported(self):
+        self.edit_row("素材", "素材ID", "A-001", **{"状態": "採用済み"})
+        self.assertFailsWith(self.verify_ledger(), "『状態』の値『採用済み』が語彙（素材状態）に無い")
