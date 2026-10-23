@@ -581,7 +581,7 @@ kako-jun 指摘（2026-10-15）: 「本堂・住居部分・幼稚園部分の�
 | TRM-04.door-west | TRM-05.door-hall | ドア（渡り廊下） | 本堂（中央）から西の住居。内部どうし |
 | TRM-04.door-east | TRM-02.door-west | ドア（屋内廊下） | 本堂から東の幼稚園・遊戯室 |
 
-→ 園庭は境内TRM-03の右の区画で、境内と園庭は1枚の絵（旧「隣り合う別々の絵」は2026-10-23に廃止。旧 TRM-03.door-kindergarten↔TRM-01.door-west と TRM-01.bottom→TRM-08.top の行は削除。TRM-08.top は閉じる＝決定済み、#51）。。
+→ 園庭は境内TRM-03の右の区画で、境内と園庭は1枚の絵（旧「隣り合う別々の絵」は2026-10-23に廃止。旧 TRM-03.door-kindergarten↔TRM-01.door-west と TRM-01.bottom→TRM-08.top の行は削除。TRM-08.top は閉じる＝決定済み、#51）。
 
 ## 7. 全エリアの目標枚数と印象の特徴づけ（先に表で管理）
 
