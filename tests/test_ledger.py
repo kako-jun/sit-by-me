@@ -1240,3 +1240,37 @@ class ConfirmedEdgeBasisTests(LedgerCopyBase):
         note = rows[("TRM-06.right", "TRM-16.left")]["主路・状態"]
         self.assertNotIn("台帳になくTBD", note)
         self.assertIn("TRM-05.door-back⇄TRM-06.door-house", note)
+
+
+class GatedMapsScopeTests(LedgerCopyBase):
+    """ゲートで止まる MAP（必須キー未決。現状は TRM-06〜17）はプロンプト反映検査の対象外。未決が解消してゲートが開いた MAP は自動で対象に入る。
+    対象外であることは INDEX と tools/README に明記されている。"""
+
+    def test_gated_maps_are_skipped_and_reported(self):
+        r = self.verify_prompt()
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("ゲートで停止（対象外）: TRM-15", r.stdout)
+        self.assertNotIn("TRM-15", r.stdout.split("検査したMAP")[1])
+
+    def test_a_map_whose_undecided_keys_are_resolved_enters_the_check_automatically(self):
+        # 生成済みの TRM-02 に必須キーの未決を作ってゲートを閉じ（対象外になる）、解消して開ける（自動で対象に戻る）。
+        # 屋外MAP（TRM-06〜17）で試せないのは、床が多角形のMAPは今の v4 プロンプト導出器が未対応でゲートが開いても導出に失敗するため（別件）
+        original = next(r for r in self.rows("MAP") if r["MAP_ID"] == "TRM-02")["壁材"]
+        self.edit_row("MAP", "MAP_ID", "TRM-02", **{"壁材": "未決(要確認)"})
+        closed = self.verify_prompt()
+        self.assertIn("ゲートで停止（対象外）: TRM-02", closed.stdout)
+        self.assertNotIn("TRM-02", closed.stdout.split("検査したMAP")[1].splitlines()[0])
+        # 回帰アンカーの対象MAPがゲートで止まったら、検査できないこと自体をエラーにする（黙って素通りさせない）
+        self.assertNotEqual(closed.returncode, 0)
+        self.assertIn("このMAPがゲートで止まっていて検査できない", closed.stderr)
+        self.edit_row("MAP", "MAP_ID", "TRM-02", **{"壁材": original})
+        opened = self.verify_prompt()
+        self.assertEqual(opened.returncode, 0, opened.stderr)
+        self.assertNotIn("ゲートで停止（対象外）: TRM-02", opened.stdout)
+        self.assertIn("TRM-02", opened.stdout.split("検査したMAP")[1])
+
+    def test_scope_is_stated_in_index_and_tools_readme(self):
+        for rel in (".claude/skills/sit-field-background/tools/README.md", "docs/INDEX.md"):
+            text = (ROOT / rel).read_text(encoding="utf-8")
+            self.assertIn("TRM-06〜17", text, rel)
+            self.assertIn("プロンプト反映検査の対象外", text, rel)

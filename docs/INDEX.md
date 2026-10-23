@@ -11,7 +11,7 @@
 
 表の一覧・行数・列は下の生成ビューを見る。関連:
 - 引き継ぎ（一時。第1段階の完了時に台帳へ吸収して削除）: [HANDOFF](ledger/handoff/HANDOFF.md)
-- 検証: `ruby scripts/verify_ledger.rb`（スキーマ・外部キー・鮮度）、`ruby scripts/audit_issue_decisions.rb`（Issue の決定候補と決定表の突合。結果は台帳の Issue点検.yaml）、`ruby scripts/verify_prompt_reflects_ledger.rb`（台帳の決定・採用要素・自由記述・窓列がプロンプトに漏れなく出るか。必須キー未決のMAPは『ゲートで停止』として対象外）、`ruby scripts/verify_index_reachable.rb`（INDEX 到達性）
+- 検証: `ruby scripts/verify_ledger.rb`（スキーマ・外部キー・鮮度）、`ruby scripts/audit_issue_decisions.rb`（Issue の決定候補と決定表の突合。結果は台帳の Issue点検.yaml）、`ruby scripts/verify_prompt_reflects_ledger.rb`（台帳の決定・採用要素・自由記述・窓列がプロンプトに漏れなく出るか。必須キー未決のMAP〔現状は TRM-06〜17〕は『ゲートで停止』としてプロンプト反映検査の対象外。未決が解消してゲートが開いたMAPは自動で対象に入る）、`ruby scripts/verify_index_reachable.rb`（INDEX 到達性）
 - ツール: [tools/README](../.claude/skills/sit-field-background/tools/README.md)
 - 人が読むビュー（台帳から生成。手編集禁止。`ledger_views.py build|check`）: [MAP 一覧](ledger-views/MAP.md)、[建物](ledger-views/建物.md)、[決定](ledger-views/決定.md)、[未決](ledger-views/未決.md)、[採用要素](ledger-views/採用要素.md)、[接続](ledger-views/接続.md)
 

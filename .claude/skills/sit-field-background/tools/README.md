@@ -4,6 +4,10 @@
 
 全て**画像を生成しない**。実行は `uv run ... python3 -I`（`python3` の直接実行は禁止）。どのツールも `-h` で使い方が出る（動作確認コマンド: 下）。体内で作ったため、現状は**全ツールが BDY（体内）前提のコードや定数を持つ**。新エリアで使えるかの区分は『引数と定数の差し替えで済む見込み（未検証）』と『体内専用』の2つで書く。**「そのまま動く」と実証済みのものはまだ無い**（新エリアの1枚目で確認し、この表を更新する）。
 
+## 既知の制約
+
+- `oblique_mock.py` の `FONT` は Linux のパス（`/usr/share/fonts/noto-cjk/...`）固定で、**macOS では mock 段（ラベル付きモック画像の生成）が動かない**（元からの制約。コード未変更）。macOS で斜めモックを作るときは `FONT` を環境のフォントに差し替えるか Linux で実行する。台帳の検証（`verify_ledger.rb` ほか）とプロンプト導出（`oblique_prompt_probe.py`）は画像描画を使わないので macOS でも動く。
+
 ## 動作確認（ヘルプ）
 
 ```
@@ -61,7 +65,7 @@ uv run --with opencv-python-headless --with numpy --with pillow python3 -I body_
 | `oblique_e2_schedule.py` | 依存グラフ（`dependency-graph.json`）と確定状態（manifest の adoption.canonical）から『今起動できるMAP』を出す。`list`・`check MAP`（親が未確定なら理由つきでエラー）・`refs MAP`（確定済みの親の正本画像）・`graph`（循環・存在しないID・自己参照・plan との不一致を検査）・`launch [--dry-run]`（起動可能なMAPを並列にバックグラウンド起動） | `uv run python3 -I oblique_e2_schedule.py list` |
 | `oblique_e2_measure.py` | 生成物の幾何保持を**画像を見ずに**測る（決定論）: 輪郭 recall@6px・Chamfer・ずらし基準との差、領域（戸口/窓/家具）ごとの最良ずれ、戸口のピンク残り、窓ガラス内の白/緑、床の輝度標準偏差、テイク間 Chamfer・ずれの標準偏差、本物確認。`metrics.json`/`metrics.md`/`overlay-takeN.png`（モック輪郭=赤を重ねる）を出す。GATES が合否基準。モック自身で自己較正（測れない領域は除外） | `uv run --with numpy --with opencv-python-headless --with pillow python3 -I oblique_e2_measure.py MAP [--round e2] [--takes 4] [--ref git:REV:PATH]`。`--ref`（元の採用画像）を付けると装飾量（領域のエッジ密度・色エントロピーの対 ref 比）・層の平均色と分離・建物の外の木/草/平坦白・元画像の構図コピー検出も出す（DECOR_GATES）。机の天面はエリア固定値（`areas.<area>.desk`）に対する ΔE≤15・板目の向き（横方向エネルギー比≥0.8）・テイク間の最大ペア差 ΔE≤8（超えたら幾何+装飾の合格を取り消す）。針葉の判定は暗い緑・青緑・オリーブ（G≥R+3・G≥B+3・輝度<125）で松も拾い、幹・枝は暗い茶（枯木の枝も同じ）。木の塊は針葉＋枝の連結成分（面積≥200px） |
 
-開口: 左右に行き来する開口（`openings[]`、または戸口に `passage: true`）は壁面を抜き、梁・鴨居・垂れ壁を描かない（クリーン版にも）。渡り廊下は壁 `kind: "roof-passage"`（床＋四隅の柱＋屋根の板だけの開放した通路）。edit-prompt に『開口の上に梁・鴨居・垂れ壁・壁を描かない。奥まで見通せる開放した通路』を出し、オクルージョンは開口部分で壁のシルエットが出ない。
+開口: 左右に行き来する開口（`openings[]`、または戸口に `passage: true`）は壁面を抜き、梁・鴨居・垂れ壁を描かない（クリーン版にも）。edit-prompt に『開口の上に梁・鴨居・垂れ壁・壁を描かない。奥まで見通せる通れる開口』を出し、オクルージョンは開口部分で壁のシルエットが出ない。渡り廊下棟（BLD-TRM-corridor-w／-e）そのものは開口ではなく、建物表の行から屋内（TRM-04）と外観（TRM-03）の両方へ導出する閉じた壁・南壁に腰高の連窓3つ・木の板張りの床・灰色の瓦の低い寄棟屋根の建物（決定 TRM.building-shared・TRM-03.corridor）。「柱と屋根だけの開放通路」は誤読で、決定 TRM-03.corridor-open は訂正済み（置換先 TRM.building-shared）。コードには壁 `kind: "roof-passage"` の描画が残るが、現行のどの plan も使っていない。
 
 窓: 平面スペックの `windows[]`（壁・中心・幅・窓台高さ・高さ・種別 floor/waist・status・along_ref）と各壁の `window_count` を検証（壁内に収まる・戸口/開口/他の窓/家具と重ならない・壁高以内・個数一致）。モック（クリーン含む）・ワイヤーに描き、edit-prompt に出し、`windows.md`（MAP×壁×個数×位置(中心・比)×種別×status）を生成する。窓は歩行・オクルージョンに影響しない。
 
@@ -95,7 +99,7 @@ uv run --with opencv-python-headless --with numpy --with pillow python3 -I body_
 
 ファイルの置き場所は台帳 `ファイル配置.yaml` が正本。`ruby scripts/verify_index_reachable.rb` が、全ファイルが配置規則にちょうど1つ一致し、到達=リンクのファイルが `docs/INDEX.md` からのリンクで辿れる（孤立・壊れたリンクはエラー）ことを検査する。新しいツール・スクリプト・ドキュメントを足したら INDEX から辿れるようにリンクを張る。
 
-`ruby scripts/verify_prompt_reflects_ledger.rb` が、台帳の決定（ID・要点・必須語・禁止語）・採用要素（参考画像とプロンプトの両方）・自由記述・建物窓列の窓が、導出したプロンプトに漏れなく現れるかを検査する（`--maps ID,ID`・`--from-json`。回帰アンカー=畳・化石の石・-fire の勝手口が北壁・火事版の上半分・渡り廊下の窓列はスクリプト内に期待を固定）。
+`ruby scripts/verify_prompt_reflects_ledger.rb` が、台帳の決定（ID・要点・必須語・禁止語）・採用要素（参考画像とプロンプトの両方）・自由記述・建物窓列の窓が、導出したプロンプトに漏れなく現れるかを検査する（`--maps ID,ID`・`--from-json`。回帰アンカー=畳・化石の石・-fire の勝手口が北壁・火事版の上半分・渡り廊下の窓列はスクリプト内に期待を固定）。**必須キー未決でゲートが止まる MAP（現状は TRM-06〜17）はプロンプト反映検査の対象外**（プロンプトが作れないので検査できない。実行結果に『ゲートで停止（対象外）』と出る）。未決が解消してゲートが開いた MAP は、台帳を直すだけで自動的に検査対象へ入る（テストで担保）。禁止語の漏れ検査は、否定（描かない 等）が**禁止語と同じ節**（。、区切り）にある場合だけ免除する（回帰アンカーの leak は否定でも免除しない）。特徴(自由記述)は、欄のある全表（エリア・MAP・建物・建物部位・建物窓列・建物関係・建物時期差分・端・接続・要素・窓・素材〔採用〕・採用要素）から `ledger_query.free_texts` が導出し、決定の特徴は DECISIONS 節の行末に入る。
 
 ### Issue の決定点検（`ruby scripts/audit_issue_decisions.rb`）
 
