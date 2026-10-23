@@ -53,8 +53,8 @@
     463,
     1050
    ],
-   "color": "#b8b8b0",
-   "label": "",
+   "color": "#46d67f",
+   "label": "敷居(通れる)",
    "walkable": true
   },
   {
@@ -77,8 +77,8 @@
     1167,
     1050
    ],
-   "color": "#b8b8b0",
-   "label": "",
+   "color": "#46d67f",
+   "label": "敷居(通れる)",
    "walkable": true
   }
  ],

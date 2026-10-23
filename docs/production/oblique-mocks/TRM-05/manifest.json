@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-05",
  "plan": "docs/production/oblique-mocks/TRM-05-plan.json",
- "plan_sha256": "20a7dcda03bdaf703aa6a6f9b1f4b8d7098652053d4d3ebc83c5c9251c001354",
+ "plan_sha256": "e3636c76457835819340085d2886d678ec80b21f3b53e774144961eb11e1a581",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -22,60 +22,60 @@
      1
     ]
    },
-   "input_sha": "63a6ad8900201afed66f7cc4bdbf428a6c789171a41af7b1cd7336ea92addc71",
+   "input_sha": "3d6925a3aa01dd527a68ff3a2804ef7e55f78922b9eb088da8f03f019f52349a",
    "outputs": {
-    "TRM-05-exits.png": "4d98107d05258d15b681b5700796cb769e9c265f50acaf96a5dcc4dec0f11d30",
-    "TRM-05-mask.json": "72172452ba8aeeaf5acaa7605ebbad6ae1c683142b217439e483d9063d9ce5dc",
-    "TRM-05-mask.png": "0019bce4b1a7a97e4056c78c7893d5260c3b1c74d647b8c4b7ec3d97a22618ba"
+    "TRM-05-exits.png": "b1dcba7ce6fc61e8fe1756ead43381a5f19dc39ece8823a5dd88a0d08859a9bd",
+    "TRM-05-mask.json": "4bf086c5496726029f653021014e6f91f35f9b7f8222e23ebc663acc85081c1b",
+    "TRM-05-mask.png": "3510ebf7b3479875c0b36d4bb18a26c32e26d64d6baa41b4da6c49b4992cc4a2"
    },
    "status": "ok",
    "white_components": 1
   },
   "mock": {
-   "input_sha": "63a6ad8900201afed66f7cc4bdbf428a6c789171a41af7b1cd7336ea92addc71",
+   "input_sha": "3d6925a3aa01dd527a68ff3a2804ef7e55f78922b9eb088da8f03f019f52349a",
    "outputs": {
-    "TRM-05-clean.png": "1b84d845bf750bfdbdabc4e8f93d530ca05424ec844d5f5e7a85337189aa8261",
-    "TRM-05-review.png": "0fed33bff55da88d52a2e69a68465ef45569a22ea3ecfb7c7786bc56f3df8d53"
+    "TRM-05-clean.png": "b0fafc77974a8c8c0bbf7b035a13ca3e4a9e12a2aaf94da525da372b54076fec",
+    "TRM-05-review.png": "5097d575836a0f5fd46d6ea58168b8822fe36e57609247eb502bfe216eace9c7"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "63a6ad8900201afed66f7cc4bdbf428a6c789171a41af7b1cd7336ea92addc71",
+   "input_sha": "3d6925a3aa01dd527a68ff3a2804ef7e55f78922b9eb088da8f03f019f52349a",
    "outputs": {
-    "TRM-05-occlusion-depth.png": "fab5745325c98c056360ab3ee1062658b6839ff00d1abcbe31aa476ab99d8d73",
-    "TRM-05-occlusion-edit.png": "7a679f10dac43052521c71abe74493ef2301af936916fa56a1214ef46399ede0",
-    "TRM-05-occlusion-overlay.png": "1a47a9e05e83b861a864d6bcfd99fa3cdbf5cbac6f67fc77ea01f0a1f4c39b7e",
-    "TRM-05-occlusion.json": "2248ffeeb298c3c8b9c1eb88965553d7a772224c93532fe5c0d44d88c3353c51",
-    "TRM-05-occlusion.png": "e0f3aefe273637569786c0cf45097c418721542311725987087b4de309e3c091"
+    "TRM-05-occlusion-depth.png": "0a416f25a7f1863ab99010c0a18fb22122724d0993c9f1adbb85bec081bccd15",
+    "TRM-05-occlusion-edit.png": "4fb4789fcb180154a79b332bbc8a1500278533fa6f6f448003af9d01c69b4fb2",
+    "TRM-05-occlusion-overlay.png": "0067a8c3b4c7f399a9859cf17588b9bc263cf42d29008af7f8490f49b1977475",
+    "TRM-05-occlusion.json": "1792251bf5175a4ebd65537df98794514522a447689a1a096e7c9bf0e6f502c9",
+    "TRM-05-occlusion.png": "a0ad04e999d13d28d049e00c22b425872d8b478fb26794c7e3d6e416afd9b821"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "fe025038276a0bdf6205d9ea3d9f214f2ff907746c42ad907b1210b42330b45e",
+   "input_sha": "5b6170b20a9437aa22a44e77bd3621470ae9428b78f9a891cb03c6ecccd3ba3f",
    "ledger_ready": false,
    "outputs": {
-    "TRM-05-edit-prompt.txt": "438cbb42856bc8f0ecd6a701ee1d501fc7cab6de6c36b9787b7b0514063fdd6d"
+    "TRM-05-edit-prompt.txt": "2dda13df9f983f5edfcacf85b13e388d07d5737839bb2a6b55e02c7e90860fce"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "e929dfe6c24241a7355daa2d829ae19a77a121dbf68c038710edd516bd4918fb",
+   "input_sha": "baeaf86bf9dccd892c351d4594c3e0d9dcb7a2579620ccf64f79d49d5879a113",
    "outputs": {},
    "status": "ok",
    "warnings": [
     "仕切りの開口（2か所）は設計未指定。既定: ダイニング↔北寝室（Y440）・ダイニング↔南寝室（Y841。本堂の戸口と一直線）。幅は2人分。",
     "本堂からの戸口（東壁・v=0.76）は南寝室の側に着く。採用画像の石の敷居は東壁の中ほど（v≈0.5）にあったが、決定は『上下の中央より下寄り』。",
     "家具の位置は採用画像 v12 から概略。",
-    "勝手口 TRM-05.door-back は kako-jun 決定（2026-10-23「台所の左端でいい」）で fixed。台所の西端（西壁の北端 Y280〜412）。戸口の前を空けるため、コンロ・流し・食器棚・冷蔵庫を東へ寄せ（各幅を少し詰めた）、並びの寸法は既定（要確認）。相手は TRM-06.door-house（寺町内・未制作MAP）。円環（TRM-16→TRM-15→TRM-06→TRM-16。map-topology #51）のため。",
+    "勝手口 TRM-05.door-back は kako-jun 決定（2026-10-23）で fixed。北壁（画面上辺）の左（西）端（x420〜552）。台所の並び（コンロ・流し・食器棚・冷蔵庫）は戸口の右隣（x560〜783）に続ける。仕切り（x785）までの幅が約220なので、各家具の幅を詰めた（コンロ55・流し80・食器棚50・冷蔵庫38。並びの寸法は既定・要確認）。西の棚（Y492〜735）・食卓は元の位置。相手は TRM-06.door-house（寺町内・未制作MAP）。",
     "既定（要確認）: open-dining-bed-n",
     "既定（要確認）: open-dining-bed-s"
    ]
   },
   "wire": {
-   "input_sha": "c66b3e1ed0e4e73b61e0e07b497e8b83314d6c71662d5af620c70a7d4a2098f1",
+   "input_sha": "8bc9a5188f854f8bdc11685cd1077c802cb6a17cb5c478f5b2bb50e6728d85be",
    "outputs": {
-    "wire-TRM-05.png": "a5ed6f5ea61052b2e0b5dbe87c916bd86ab50227e86fd03138f4ace6cc1f1014"
+    "wire-TRM-05.png": "cbf6e167d5bb43971579c0fca474520421063ed82391e6aa8b6aa59d7d8f5291"
    },
    "status": "ok"
   }

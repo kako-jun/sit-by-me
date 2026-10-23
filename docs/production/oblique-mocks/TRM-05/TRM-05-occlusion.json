@@ -15,21 +15,21 @@
    "id": "fridge",
    "kind": "box",
    "base_y": 238,
-   "area_px": 6225,
-   "body_overlap_px": 4258
+   "area_px": 4745,
+   "body_overlap_px": 1260
   },
   {
    "id": "stove",
    "kind": "box",
    "base_y": 241,
-   "area_px": 6004,
+   "area_px": 4438,
    "body_overlap_px": 2655
   },
   {
    "id": "sink",
    "kind": "box",
    "base_y": 241,
-   "area_px": 7409,
+   "area_px": 6681,
    "body_overlap_px": 2911
   },
   {

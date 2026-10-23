@@ -33,7 +33,7 @@ HM = cv2.getPerspectiveTransform(_SRC, _DST)
 HI = np.linalg.inv(HM)
 FONT = "/usr/share/fonts/noto-cjk/NotoSansCJK-Medium.ttc"
 DOOR_COLOR = "#ff2fa0"
-OPEN_COLOR = "#ffc400"
+OPEN_COLOR = "#2ee06a"  # 開口（通れる所）=明るい緑。仕切り=濃い灰。戸口=ピンク
 
 
 def proj(x, y, z=0.0):
@@ -227,8 +227,8 @@ def build_items(p, style):
         items.append((-900, "marker", [(rect_poly(marker_rect(m)), DOOR_COLOR, "marker")], m))
     for w in p["walls"]:
         kind = w.get("kind", "wall")
-        color = w.get("color") or ("#7fb3cc" if kind == "partition" else "#d8c9a6")
-        top = w.get("top_color") or ("#ffd23f" if kind == "partition" else None)
+        color = w.get("color") or ("#4a4f57" if kind == "partition" else "#d8c9a6")
+        top = w.get("top_color") or ("#262a30" if kind == "partition" else None)
         h = w["h"] * hs
         for rc in wall_pieces(p, w):
             items.append((rc[3], "wall", box_polys(rc, h, color, top), w))
@@ -343,7 +343,7 @@ def render(p, style="color", labels=False, ss=2):
                 elif tag == "box":
                     fill = blocked_gray if role == "top" else "#ffffff"
                 elif tag == "wall" and meta.get("kind") == "partition":
-                    fill = "#9a9a9a" if role == "top" else "#ffffff"
+                    fill = "#555555" if role == "top" else "#ffffff"
                 elif tag == "wall" and role == "top":
                     fill = "#ffffff"
             else:
@@ -353,6 +353,8 @@ def render(p, style="color", labels=False, ss=2):
                     ol = "#6a0036"
                 elif role == "floor":
                     ol = None
+                elif role == "opening":
+                    ol = "#0b6b2e"
             s.polygon(pts, fill=fill, outline=ol, width=(3 if role == "window" else lw))
             if role == "window":  # 引き違いの中桟
                 mx0 = ((pts[0][0] + pts[1][0]) / 2, (pts[0][1] + pts[1][1]) / 2)
@@ -360,7 +362,7 @@ def render(p, style="color", labels=False, ss=2):
                 s.line([mx0, mx1], "#000000" if wire else "#5a3a1a", 2)
         if wire and tag == "opening":
             pts = polys[0][0]
-            dashed(s, pts[0], pts[3], "#000000", 3); dashed(s, pts[1], pts[2], "#000000", 3)
+            dashed(s, pts[0], pts[3], "#000000", 5); dashed(s, pts[1], pts[2], "#000000", 5)
     if not wire:
         # 地面の着色の上に床の線（色モック）
         pass
@@ -384,7 +386,7 @@ def render(p, style="color", labels=False, ss=2):
             d.text((x * ss - tw / 2, y * ss - th / 2 - bb[1]), t, font=f, fill=fg)
         for key, tag, polys, meta in items:
             if tag == "box" and meta.get("label"):
-                cx, cy = center_of(polys[2][0])
+                cx, cy = proj(*meta["label_at"]) if meta.get("label_at") else center_of(polys[2][0])
                 text((cx, cy), meta["label"], f2, "#222222", "#fffbe6")
             elif tag == "floor" and meta.get("label"):
                 cx, cy = proj(*meta["label_at"]) if meta.get("label_at") else center_of(polys[0][0])
@@ -396,7 +398,7 @@ def render(p, style="color", labels=False, ss=2):
             if tag == "wall" and meta.get("kind") == "partition" and meta["id"] not in seen:
                 seen.add(meta["id"])
                 cx, cy = center_of(polys[2][0])
-                text((cx, cy), meta.get("label", "仕切り"), f2, "#003344", "#ffd23f")
+                text((cx, cy), meta.get("label", "仕切り"), f2, "#ffffff", "#4a4f57")
             if tag == "wall" and meta.get("kind") == "building" and meta["id"] not in seen:
                 seen.add(meta["id"])
                 cx, cy = center_of(polys[2][0])
@@ -413,6 +415,8 @@ def render(p, style="color", labels=False, ss=2):
         for an in p["annotations"]:
             ax, ay = proj(*an["at"])
             text((ax, ay), an["text"], f2, "#ffffff", "#c04000")
+        for i, (lab, colr, fg) in enumerate((("仕切り=壁（濃い灰）", "#4a4f57", "#ffffff"), ("開口=通れる所（緑）", OPEN_COLOR, "#003311"), ("戸口（ピンク）", DOOR_COLOR, "#ffffff"))):
+            text((130 + i * 230, H_IMG - 28), lab, f2, fg, colr)
         text((W / 2, 24), f"{p['map_id']} {p['name']} - {p.get('subtitle','')}   [レビュー用・ラベル付き]", f1, "#000000", "#fff6c8")
     return img.resize((W, H_IMG), Image.LANCZOS), anchors
 

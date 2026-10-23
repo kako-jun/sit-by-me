@@ -263,9 +263,10 @@ def build(conn_path, out):
         text_box(d, (x, y), t, f_xs, bg="#ffffee", anchor="lt")
     compass(d, CW - 100, 90, f_m)
     # 凡例・接続一覧
-    lx, ly = 60, 1290 + 0
-    lines = ["凡例と読み方", "・黒い丸と太線=戸口どうしの接続（点線矢印=一方向のイベント）", "・戸口の幅=キャラ2人分（132単位。手前縁で約134px）", "・方角: 図の上が北。住居=西・本堂=中央・幼稚園=東", "・位置整合: 相手MAPの戸口との辺・位置（比）が一致=OK", "・*既定（要確認）=台帳に位置が無く仮置きした戸口"] + ["・" + t_ for n in C.get("legend_notes", []) for t_ in [x + "。" for x in n.split("。") if x]]
-    text_box(d, (lx, ly), "\n".join(lines), f_s, bg="#ffffff", anchor="lt")
+    lx, ly = 60, 1290
+    gx, gy = 2440, 1700
+    lines = ["凡例と読み方", "・黒い丸と太線=戸口どうしの接続（点線矢印=一方向のイベント）", "・戸口の幅=キャラ2人分（132単位。手前縁で約134px）", "・方角: 図の上が北。住居=西・本堂=中央・幼稚園=東", "・位置整合: 相手MAPの戸口との辺・位置（比）が一致=OK", "・*既定（要確認）=台帳に位置が無く仮置きした戸口", "・色つきモック: 仕切り=濃い灰（壁）", "　開口=緑（通れる所）／戸口=ピンク"] + ["・" + t_ for n in C.get("legend_notes", []) for x in n.split("。") if x for t_ in [(x + "。")[i:i + 32] for i in range(0, len(x) + 1, 32)] if t_.strip("。")]
+    text_box(d, (gx, gy), "\n".join(lines), f_s, bg="#ffffff", anchor="lt")
     y0 = 1750
     d.text((lx, y0), "接続一覧（詳細は connections.md）", font=f_m, fill=K)
     for i, (e, info, verdict) in enumerate(rows):
@@ -348,7 +349,7 @@ def wire_single(p, path, plans):
     seen = set()
     for key, tag, polys, meta in M.build_items(p, "wire"):
         if tag == "box" and meta.get("label"):
-            cx, cy = (sum(q[0] for q in polys[2][0]) / 4, sum(q[1] for q in polys[2][0]) / 4)
+            cx, cy = M.proj(*meta["label_at"]) if meta.get("label_at") else (sum(q[0] for q in polys[2][0]) / 4, sum(q[1] for q in polys[2][0]) / 4)
             text_box(d, (cx, cy), meta["label"], f_xs, pad=2, outline=None)
         elif tag == "floor" and meta.get("label") and meta["id"] not in seen:
             seen.add(meta["id"])
