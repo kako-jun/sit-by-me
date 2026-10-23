@@ -328,8 +328,11 @@ def build(conn_path, out):
             for x in ws:
                 lo, hi = x.get("along_ref") or ((w["rect"][0], w["rect"][2]) if M.is_h(w) else (w["rect"][1], w["rect"][3]))
                 rowsw.append(f"| {mid} | {w['id']} | `{x['id']}` | {x['center']} | {(x['center']-lo)/(hi-lo):.2f} | {M.WINDOW_KINDS[x['kind']].split('（')[0]} | 窓台{x['sill']}・高さ{x['height']}・幅{x['width']} | {x['status']} | {x.get('note','')} |")
+    for mid, p in plans.items():
+        for nw in p.get("no_window_walls", []):
+            wl.append(f"| {mid} | {nw['wall']}（窓なし） | 0 | - | {nw['status']}（{nw['reason']}） |")
     wl += ["", "## 窓ごとの位置", "", "| MAP | 壁 | 窓ID | 中心（平面単位） | 比 | 種別 | 寸法 | status | 備考 |", "|---|---|---|---|---|---|---|---|---|"] + rowsw
-    wl += ["", "窓の無い壁（window_count=0）: 本堂の広間・本堂棟（設計未指定のため置かない）ほか。"]
+    wl += ["", "窓なしと確定した壁（no_window_walls）: 本堂（TRM-03 の本堂棟・TRM-04 の広間の壁）。kako-jun 決定 2026-10-23「本堂に窓はいらない」。"]
     with open(os.path.join(out, "windows.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(wl) + "\n")
     if problems:

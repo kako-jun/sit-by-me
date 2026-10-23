@@ -60,7 +60,7 @@
   },
   "validate": {
    "errors": [],
-   "input_sha": "933065aa5fabdf3c60296e44d5b6f5212204d9fbcf748ad9d0fc4b04d898b8f8",
+   "input_sha": "77861733f33065374f4b3b698639a0df02b0c10e4971917cf35822845c8803ce",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -74,7 +74,7 @@
    ]
   },
   "wire": {
-   "input_sha": "b01bb961fa69c6ff33da3c46dde95ba5419c9b70824bf7001b7dc4da019cdd10",
+   "input_sha": "b427fff2524449984f760fe4ff79d07fe394b0781b739fc9bc1f7d970ad9eadd",
    "outputs": {
     "wire-TRM-05.png": "2c51d2266c366f73b1d7c80f31fc40112866338109ea02ea05eef191fdb7c3f5"
    },

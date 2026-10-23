@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-04",
  "plan": "docs/production/oblique-mocks/TRM-04-plan.json",
- "plan_sha256": "51a3d33519ee7c6a0d712d2440455c985fd8c37ce19396128e948706d332d677",
+ "plan_sha256": "aaa439e2d07ef165d7aaaddc84ba2ab7da533de1784dba4bc4bf4d6b108ae75f",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -22,7 +22,7 @@
      1
     ]
    },
-   "input_sha": "f0e00206c5bb5aeaa781017e9021132dddbd62f1b42537f578a6c538d9ba9881",
+   "input_sha": "c4c4253cd1350d7df11c27c7566684170786ed6b2fb65b0c79875fcb47da36a7",
    "outputs": {
     "TRM-04-exits.png": "2c6e7b3107a32bd0263a6280623284c086646a2baa8f73027006da6804d080a2",
     "TRM-04-mask.json": "95fab560af2e4ea7c6caabfc7772a8acc8e5b34773cfe998e44509cd871ab3c8",
@@ -32,7 +32,7 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "f0e00206c5bb5aeaa781017e9021132dddbd62f1b42537f578a6c538d9ba9881",
+   "input_sha": "c4c4253cd1350d7df11c27c7566684170786ed6b2fb65b0c79875fcb47da36a7",
    "outputs": {
     "TRM-04-clean.png": "00acae9e95c32842691f54d5be5f9b8458b5c8837256c008ddc212d73e1905e1",
     "TRM-04-review.png": "91c6a8a095b8b9fda8a14001332ccdd3f73362688bca55a2248c1d6bc4ab573c"
@@ -40,7 +40,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "f0e00206c5bb5aeaa781017e9021132dddbd62f1b42537f578a6c538d9ba9881",
+   "input_sha": "c4c4253cd1350d7df11c27c7566684170786ed6b2fb65b0c79875fcb47da36a7",
    "outputs": {
     "TRM-04-occlusion-depth.png": "f91c0f468984810dabae3933f3cb413ac44ca4f4d5c0b8281a75bb619a7d34d6",
     "TRM-04-occlusion-edit.png": "1f6635af78d05b022619215919e7d8f7746c9cfaa0bab9abf49f6bf179e9efce",
@@ -51,26 +51,27 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "46c39d7375932fbae134002dc71817593699b1c00cd3d02a646f693f4aed836e",
+   "input_sha": "e699e0562a67908d552bc4922e85d17547fc9538095a0069be64f79d1d4f61eb",
    "ledger_ready": false,
    "outputs": {
-    "TRM-04-edit-prompt.txt": "58b4288a220ef70e6032293dca60fa55ad8b127f310abdf20000744318bcdd42"
+    "TRM-04-edit-prompt.txt": "f6757b5f6b40568d10706b854a028bb5912314fd7859cf58c2e0e2cc1aff56df"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "8fa6479f1edf0333a899ce2c36834f463e049403b44b71155ff2d71beb7b746d",
+   "input_sha": "fdb37ac8e827d6e216bb45118872130f9787c95eca328ea2cef0e4c60ff6e2ca",
    "outputs": {},
    "status": "ok",
    "warnings": [
     "廊下の外端（西は x76〜100・東は x1507〜1531）は閉じた壁。住居・幼稚園へは別 MAP の戸口（本堂の西壁・東壁の戸口）から入る（README の確定: 廊下の外端案は不採用）。",
     "廊下の奥行き Y810〜1050 と外壁の高さは採用画像 v11 から概略。",
-    "壁の飾り（芳名板・子どもの絵・灯籠・柱）は省略。"
+    "壁の飾り（芳名板・子どもの絵・灯籠・柱）は省略。",
+    "本堂に窓は置かない（確定。kako-jun 決定 2026-10-23）。本堂の壁は window_count=0 で、窓は描かない。"
    ]
   },
   "wire": {
-   "input_sha": "870d100b05683096379868e6bb5780b55415544cc5961a1796e1afc059e6f75c",
+   "input_sha": "a56137aefda5f8617dc170aafbd28e725a9cb535860900c2aae617ee10cdf776",
    "outputs": {
     "wire-TRM-04.png": "b931ab6d5066b361506414dcf31930841d97421e197a990361a465bd3e4716aa"
    },

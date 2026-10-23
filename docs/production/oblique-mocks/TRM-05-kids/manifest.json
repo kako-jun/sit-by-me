@@ -60,7 +60,7 @@
   },
   "validate": {
    "errors": [],
-   "input_sha": "67a13064bfeed4dc6df23aae22b9abf7fed503f689681879f8f1091bb955944d",
+   "input_sha": "4f62b73119464528b04418d28cc25f6626f2a5f7fe489703b97b51a535dcdd51",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -75,7 +75,7 @@
    ]
   },
   "wire": {
-   "input_sha": "1cb832d7f2d52acc4a7740d9f371ad1a235cd6357c91c61f2ef8220ba56eb8fc",
+   "input_sha": "b42923620c69e12ef6f3da886a206bbffc09a09ac0f20872c912ae6b79d0cf6d",
    "outputs": {
     "wire-TRM-05-kids.png": "580c0228e50398d77f1f04b07ef5929a54429b1240dddc152b42b441544e2f9c"
    },

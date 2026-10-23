@@ -181,6 +181,11 @@ def validate_plan(p):
         n = sum(1 for x in p["windows"] if x.get("wall") == w["id"])
         if w.get("window_count", 0) != n:
             E.append(f"壁 {w['id']}: window_count={w.get('window_count', 0)} と windows[] の実数 {n} が不一致")
+    for nw in p.get("no_window_walls", []):
+        if nw.get("wall") not in walls:
+            E.append(f"no_window_walls: wall {nw.get('wall')} が無い")
+        elif any(x.get("wall") == nw["wall"] for x in p["windows"]):
+            E.append(f"no_window_walls: 壁 {nw['wall']} は窓なしと確定しているのに windows[] がある")
     # 戸口の前（歩く側）を blocked の箱が塞いでいないか
     for d in p["doors"]:
         if d.get("wall") not in walls or d.get("face") not in ("north", "south", "west", "east"):
@@ -244,6 +249,8 @@ def build_prompt(p, key):
             lo, hi = ws[0].get("along_ref", [0, 1])
             pos = ", ".join(f"#{i+1} at {(x['center']-lo)/(hi-lo):.2f}" for i, x in enumerate(ws))
             L.append(f"- 壁 {w['id']}（{w.get('label') or w.get('kind','wall')}）: {len(ws)}枚の{'・'.join(sorted(kinds))}。{ax}: {pos}（壁沿いの比）。窓台高さ{ws[0]['sill']}・高さ{ws[0]['height']}・幅{ws[0]['width']}（平面単位）")
+    for nw in p.get("no_window_walls", []):
+        L.append(f"- 壁 {nw['wall']}: 窓は描かない（0枚・確定: {nw.get('reason','')}）。壁に窓・格子窓・採光窓を足さない")
     L += ["", "FLOORS:"] + [f"- {f['id']}（{f.get('label') or ''}）{'歩ける' if f.get('walkable', True) else '歩けない'}" for f in p["floors"]]
     L += ["", f"ASSUMPTIONS（既定・要確認）:"] + [f"- {a}" for a in p.get("assumptions", [])]
     return "\n".join(L) + "\n"
