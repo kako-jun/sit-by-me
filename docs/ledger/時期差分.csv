@@ -1,0 +1,13 @@
+MAP_ID,時期,項目,値,決定参照
+TRM-05,kids,名称,住居（庫裏）・幼稚園時代,
+TRM-05,kids,字幕,屋内・寝室1つ（父と同室）-kids,
+TRM-05,kids,削除,part-h,
+TRM-05,kids,削除,open-dining-bed-n,
+TRM-05,kids,削除,futon-s,
+TRM-05,kids,削除,chest,
+TRM-05,kids,削除,futon-n,
+TRM-05,kids,依存,TRM-05,
+TRM-05,fire,名称,住居（庫裏）・火事の時点,
+TRM-05,fire,字幕,屋内・上半分が燃える -fire,
+TRM-05,fire,削除,TRM-05.door-back,
+TRM-05,fire,依存,TRM-05,
