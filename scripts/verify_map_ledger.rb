@@ -40,11 +40,11 @@ references = read('map-reference-research.md')
 topology = read('map-topology.md')
 assets = read('map-asset-registry.md')
 
-contract_rows = MdTable.rows(checklist, 'ID', '状態', 'Ref', 'mask / 出力', '具体的TBD').filter_map do |r|
+contract_rows = MdTable.rows(checklist, 'ID', '状態', 'Ref', 'mask / 出力', '具体的TBD').map do |r|
   next unless r['ID'].to_s.match?(/\A#{MAP_ID_PATTERN}\z/)
 
   [r['ID'], r['状態'], r['Ref'], r['mask / 出力'], r['具体的TBD']]
-end
+end.compact
 
 contract_ids = contract_rows.map(&:first)
 fail!("契約行が登録件数ではない: #{contract_ids.length}") unless contract_ids.length == expected.length
@@ -80,11 +80,11 @@ end
 
 # 個別仕様の表は節ごとに見出しの名前が少し違う（接続／不変条件／接続／方位・主路・通行条件）。名前の候補から読む
 SPEC_ROUTE_COLUMNS = %w[不変条件／接続 方位・主路・通行条件 接続].freeze
-spec_rows = MdTable.rows(specifications, 'MAP', '時期', '一言特徴').filter_map do |r|
+spec_rows = MdTable.rows(specifications, 'MAP', '時期', '一言特徴').map do |r|
   next unless r['MAP'].to_s.match?(/\A#{MAP_ID_PATTERN}(?:\s|\z)/)
 
   [r['MAP'].split.first, r]
-end
+end.compact
 spec_ids = spec_rows.map(&:first).uniq
 fail!("個別仕様にないID: #{(expected - spec_ids).join(', ')}") unless (expected - spec_ids).empty?
 spec_rows.each do |id, r|
