@@ -54,7 +54,7 @@ For #51, measure the actual background before authoring: target 1920×1080; 16:9
 ## Generator contract
 
 The former generator `make_masks.py` (removed in the #68 prune; restore from git history `1bb09d0:verification/fields/legacy-masks/make_masks.py` if needed) treated the two edit PNGs as canonical; JSON
-holds background, size, links, and other metadata. It accepts legacy `walkable`
+holds background, size, links, and other metadata. A link's transition trigger is a range along the model's edge side (not a fixed position at the image edge); range values and runtime handling are TBD (kako-jun 2026-10-22). It accepts legacy `walkable`
 as `traversal.universal`, so an existing MAP remains valid without conversion.
 Optional `traversal.universal`, `traversal.assist`, `traversal.blocked`, and
 `foreground` polygon arrays are initial templates only. The generator writes:
@@ -79,3 +79,5 @@ replacing them from the JSON polygons.
 - Never make stairs, deep snow, water, rubble, or foreground-only cover white merely to connect the route.
 
 共通（#68運用）: 合格済みの正本を上書きする前に、現行がコミット済みか確認する。不合格テイクをコミット済みにしてしまった場合は `git revert <commit>`、または `git checkout <旧commit> -- <path>` で戻す。
+
+体内など小学校以降のMAPは2値（white=通れる／black=通れない）で作り、assist（#FF9D00）は使わない（kako-jun、#142）。

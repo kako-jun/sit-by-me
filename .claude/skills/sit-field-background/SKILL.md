@@ -309,6 +309,16 @@ BDY-02・BDY-09 の採用画像は旧プール（毛糸の渦・粘土玉・ボ�
 - **装飾**: `DECO_PICK` に4行を足した（隣接 BDY-02/03 と4枚どうしで主役族の重なり1種以下・配置・色味が全て違う。`check_deco_plan` 通過）。BDY-04=SKIN/CELL/GERM・spiral・pink、BDY-15=GERM/PLASTER/HAIR・corners・brown、BDY-16=PULSE/BONE/CELL・wallband・cream、BDY-17=THREAD/CELL/HAIR・diagonal・skin。装飾は部屋・通路の外側の地形（迷路の立体の小物は外周の枠・角の正方形・机。壁の面は彫り・点・平らな紙テープのみ）に置き、床は空ける。赤い折り紙は6枚の中心座標を本文に固定（地形の最遠点サンプリング＋床からの距離で寄せ直し）。
 - **検証**: `--verify-send`（docs/Issue の不一致0）・`leak_check`（ビルダーが出力のたびに実行）・別コードの再測定 `verification/body-layout/remeasure_body_rooms.py`（迷路: 本文の連なりだけから床を描き直して clean と比較・接続の数え直し・壁の厚み・行き止まりの丸い端／胃: 距離変換と列ごとの区間／心臓・肺: 円の最小二乗当てはめ・環の区間・島）。生成前に独立レビュー（opus）が要る。生画像では迷路の通路の接続（行き止まり11・T字10）を必ず目視で確認する（床IoUより優先）。
 
+### 体内の2値マスク・出口候補の出力（2026-10-23 追記。#142）
+
+採用画像（17枚）の床から2値マスク（white=床=通れる／black=それ以外。assist 不使用）と出口候補を出す。ready ではない（遷移の範囲値・ランタイム扱いは TBD）。
+
+- 手順: `body_register.py`（位置合わせ・床の切り出し・位相検査。MAP ごと）→ `body_mask_export.py`（マスク3種・links・register・export-report）。実行例と出力の置き場は `docs/production/20261022-body-mocks-and-registration.md` §5。`body_geometry_json.py` は `body_layout.py` の割付図を幾何JSONへ機械出力する。
+- 床の定義は**床色基準**（床の芯の色からのマハラノビス距離）。壁の帯・面取り・影・地形は black。出口の喉の延長は『床色の連続』に限る（影で暗い床 md<10 は縁の内側・出口の区間の幅の中だけ。縁の外の white は md<5 のみ。帯・壁の色の点〔md2>12〕と、床色の小さな穴の扱いは `finalize_cut`）。
+- 出口の範囲は縁から内側4pxの帯の white の連続区間。禁止辺の検査も同じ4px帯（『出口でない辺で、縁から内側4px以内と縁の外側に white が無い』）。床が縁に届かない出口だけ30px帯の検出区間（links の `range_definition` に明記）。縁を越えて white が出る出口は `edge_definitions` に rect の縁と前縁の両方を記録（どちらを採るかは TBD）。
+- rect（天面の矩形）を読めない辺は期待値へフォールバックし、register の `adoption.rect_fallback_sides` と note に明記する。通路幅・入口の幅の差は『画像の描画による差。マスクは画像に従う』として register に記録する（画像が正）。
+- 検査は17枚で自分で数える（寸法・{0,255}・traversal-edit=mask・可逆WebP の VP8L チャンク・白の連結成分1・md>15 の白0・禁止辺・出口の個数と辺・links と実測の一致・BDY-04 の迷路格子）。
+
 ## 記録
 
 - 採用したら、Issue #11（背景）に、保存先・見た目・使った参照画像を記録する。
