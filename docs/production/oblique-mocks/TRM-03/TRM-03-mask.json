@@ -143,36 +143,6 @@
     ]
    ],
    "status": "fixed"
-  },
-  {
-   "id": "TRM-03.door-kindergarten",
-   "partner": "TRM-01.door-west",
-   "wall_side": "east",
-   "plan_patch": [
-    1530,
-    734.0,
-    1600,
-    866.0
-   ],
-   "image_polygon": [
-    [
-     1526,
-     479
-    ],
-    [
-     1592,
-     479
-    ],
-    [
-     1605,
-     565
-    ],
-    [
-     1538,
-     565
-    ]
-   ],
-   "status": "default"
   }
  ],
  "exit_components": {
@@ -186,9 +156,6 @@
    1
   ],
   "TRM-03.bottom": [
-   1
-  ],
-  "TRM-03.door-kindergarten": [
    1
   ]
  },

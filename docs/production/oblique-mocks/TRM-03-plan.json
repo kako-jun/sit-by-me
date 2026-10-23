@@ -5,34 +5,212 @@
  "subtitle": "屋外・本堂中心。左=住居・右=幼稚園",
  "source": "建物の位置は採用外観 v7 を逆射影して丸めた値。住居・幼稚園の戸口は建物の幅に対する位置を内部 MAP（TRM-05/TRM-02）の外への戸口と揃えた。",
  "floors": [
-  {"id": "grounds", "rect": [24, 425, 1590, 1250], "color": "#e8eef4", "label": "境内の雪面", "walkable": true},
-  {"id": "grave", "rect": [40, 470, 700, 1230], "color": "#d4d8dc", "label": "墓地（墓石多数）", "walkable": true},
-  {"id": "playground", "rect": [900, 470, 1560, 1230], "color": "#f0f4f8", "label": "園庭の遊具", "walkable": true},
-  {"id": "path", "rect": [722, 425, 878, 1270], "color": "#4a4d52", "label": "石畳の参道", "walkable": true}
+  {
+   "id": "grounds",
+   "rect": [
+    24,
+    425,
+    1590,
+    1250
+   ],
+   "color": "#e8eef4",
+   "label": "境内の雪面",
+   "walkable": true
+  },
+  {
+   "id": "grave",
+   "rect": [
+    40,
+    470,
+    700,
+    1230
+   ],
+   "color": "#d4d8dc",
+   "label": "墓地（墓石多数）",
+   "walkable": true
+  },
+  {
+   "id": "playground",
+   "rect": [
+    900,
+    470,
+    1560,
+    1230
+   ],
+   "color": "#f0f4f8",
+   "label": "園庭（幼稚園の前）",
+   "walkable": true
+  },
+  {
+   "id": "path",
+   "rect": [
+    722,
+    425,
+    878,
+    1270
+   ],
+   "color": "#4a4d52",
+   "label": "石畳の参道",
+   "walkable": true
+  }
  ],
  "walls": [
-  {"id": "residence", "rect": [94, 150, 379, 399], "h": 140, "kind": "building", "color": "#e6d8b8", "top_color": "#6c7077", "label": "住居（庫裏）"},
-  {"id": "conn-w", "rect": [379, 280, 596, 399], "h": 70, "kind": "building", "color": "#c9b890", "top_color": "#6c7077", "label": "渡り廊下"},
-  {"id": "main-hall", "rect": [596, 110, 959, 399], "h": 170, "kind": "building", "color": "#e6d8b8", "top_color": "#6c7077", "label": "本堂"},
-  {"id": "conn-e", "rect": [959, 280, 1142, 399], "h": 70, "kind": "building", "color": "#c9b890", "top_color": "#6c7077", "label": "渡り廊下"},
-  {"id": "kindergarten", "rect": [1142, 170, 1565, 425], "h": 140, "kind": "building", "color": "#e6d8b8", "top_color": "#6c7077", "label": "幼稚園（遊戯室）"}
+  {
+   "id": "residence",
+   "rect": [
+    94,
+    150,
+    379,
+    399
+   ],
+   "h": 140,
+   "kind": "building",
+   "color": "#e6d8b8",
+   "top_color": "#6c7077",
+   "label": "住居（庫裏）"
+  },
+  {
+   "id": "conn-w",
+   "rect": [
+    379,
+    280,
+    596,
+    399
+   ],
+   "h": 70,
+   "kind": "building",
+   "color": "#c9b890",
+   "top_color": "#6c7077",
+   "label": "渡り廊下"
+  },
+  {
+   "id": "main-hall",
+   "rect": [
+    596,
+    110,
+    959,
+    399
+   ],
+   "h": 170,
+   "kind": "building",
+   "color": "#e6d8b8",
+   "top_color": "#6c7077",
+   "label": "本堂"
+  },
+  {
+   "id": "conn-e",
+   "rect": [
+    959,
+    280,
+    1142,
+    399
+   ],
+   "h": 70,
+   "kind": "building",
+   "color": "#c9b890",
+   "top_color": "#6c7077",
+   "label": "渡り廊下"
+  },
+  {
+   "id": "kindergarten",
+   "rect": [
+    1142,
+    170,
+    1565,
+    425
+   ],
+   "h": 140,
+   "kind": "building",
+   "color": "#e6d8b8",
+   "top_color": "#6c7077",
+   "label": "幼稚園（遊戯室）"
+  }
  ],
  "doors": [
-  {"id": "TRM-03.door-main", "wall": "main-hall", "wall_side": "south", "face": "south", "center": 778, "along_ref": [596, 959], "partner": "TRM-04.door-south", "status": "fixed", "note": "本堂の正面。建物の中央"},
-  {"id": "TRM-03.door-residence", "wall": "residence", "wall_side": "south", "face": "south", "center": 177, "along_ref": [94, 379], "partner": "TRM-05.door-outside", "status": "default", "note": "住居の外への戸口。建物幅の0.29（内部の戸口と揃える）。境内側の位置は台帳TBD"},
-  {"id": "TRM-03.door-playroom", "wall": "kindergarten", "wall_side": "south", "face": "south", "center": 1497, "along_ref": [1142, 1565], "partner": "TRM-02.door-outside", "status": "default", "note": "幼稚園の外への戸口。建物幅の0.84（内部の戸口と揃える）。境内側の位置は台帳TBD"}
+  {
+   "id": "TRM-03.door-main",
+   "wall": "main-hall",
+   "wall_side": "south",
+   "face": "south",
+   "center": 778,
+   "along_ref": [
+    596,
+    959
+   ],
+   "partner": "TRM-04.door-south",
+   "status": "fixed",
+   "note": "本堂の正面。建物の中央"
+  },
+  {
+   "id": "TRM-03.door-residence",
+   "wall": "residence",
+   "wall_side": "south",
+   "face": "south",
+   "center": 177,
+   "along_ref": [
+    94,
+    379
+   ],
+   "partner": "TRM-05.door-outside",
+   "status": "default",
+   "note": "住居の外への戸口。建物幅の0.29（内部の戸口と揃える）。境内側の位置は台帳TBD"
+  },
+  {
+   "id": "TRM-03.door-playroom",
+   "wall": "kindergarten",
+   "wall_side": "south",
+   "face": "south",
+   "center": 1497,
+   "along_ref": [
+    1142,
+    1565
+   ],
+   "partner": "TRM-02.door-outside",
+   "status": "default",
+   "note": "幼稚園の外への戸口。建物幅の0.84（内部の戸口と揃える）。境内側の位置は台帳TBD"
+  }
  ],
  "markers": [
-  {"id": "TRM-03.bottom", "edge": "south", "at": 800, "partner": "TRM-07.top", "label": "山門・南（TRM-07へ）", "status": "fixed"},
-  {"id": "TRM-03.door-kindergarten", "edge": "east", "at": 800, "partner": "TRM-01.door-west", "label": "東の通用門（園庭へ）", "status": "default", "note": "位置は台帳TBD。既定 Y800"}
+  {
+   "id": "TRM-03.bottom",
+   "edge": "south",
+   "at": 800,
+   "partner": "TRM-07.top",
+   "label": "山門・南（TRM-07へ）",
+   "status": "fixed"
+  }
  ],
  "boxes": [
-  {"id": "bell", "rect": [400, 480, 500, 570], "h": 170, "color": "#8a7a5a", "label": "鐘楼", "blocked": true},
-  {"id": "statue", "rect": [640, 740, 700, 800], "h": 90, "color": "#9a9a9a", "label": "親鸞像", "blocked": true}
+  {
+   "id": "bell",
+   "rect": [
+    400,
+    480,
+    500,
+    570
+   ],
+   "h": 170,
+   "color": "#8a7a5a",
+   "label": "鐘楼",
+   "blocked": true
+  },
+  {
+   "id": "statue",
+   "rect": [
+    640,
+    740,
+    700,
+    800
+   ],
+   "h": 90,
+   "color": "#9a9a9a",
+   "label": "親鸞像",
+   "blocked": true
+  }
  ],
  "assumptions": [
   "屋根は箱の天面色で表した（形は省略。高さは画面に収めるため低め: 住居・幼稚園110・本堂150・渡り廊下70）。墓石・遊具は個別に置かず区画ラベルのみ。鐘楼・親鸞像は採用外観から概略。",
-  "境内側の戸口位置（住居・幼稚園・東の通用門）は台帳でTBD。既定を置いた（要確認）。",
-  "参道の幅156は台帳に無く採用外観の測定。"
+  "参道の幅156は台帳に無く採用外観の測定。",
+  "境内側の戸口位置（住居・幼稚園）は台帳でTBD。既定を置いた（要確認）。園庭＝境内の右の区画（幼稚園の前）。東の通用門・TRM-01 への接続は無い（kako-jun 指摘、Issue #144）。"
  ]
 }
