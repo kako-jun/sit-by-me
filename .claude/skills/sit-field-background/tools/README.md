@@ -76,6 +76,7 @@ uv run --with opencv-python-headless --with numpy --with pillow python3 -I body_
 | `ledger_query.py` | MAP 1枚分のプロンプト台帳節 |
 | `ledger_index.py` | `docs/INDEX.md` の生成ビュー（台帳の表一覧・派生物・ファイル配置規則）の生成（`build`）と鮮度検査（`check`）。`verify_ledger.rb` が `check` を実行する。root は `LEDGER_ROOT` で差し替え可（`ledger_io.py` も同じ） |
 | `oblique_prompt_probe.py` | 全MAPの imagegen 編集プロンプトをファイルに書かず JSON で出す（ゲート停止MAPは `gated` に欠落一覧）。`scripts/verify_prompt_reflects_ledger.rb` が使う。`uv run --with numpy --with opencv-python-headless --with pillow python3 oblique_prompt_probe.py`。画像生成 API は呼ばない |
+| `ledger_write_rows.py` | 標準入力の JSON（行の配列）を台帳の1表として書く（YAML の書き出しは Python の `ledger_io` だけ）。`audit_issue_decisions.rb --write` が使う |
 | `ledger_csv_to_yaml_once.py` | 一度きりの CSV→YAML 変換（変換済み。`--verify-only` は コミット 40bf95d の CSV との無損失突合） |
 
 接続表の `図` は `;` 区切りで複数の接続図に属せる。`属性JSON` は `{図ID: {辺の出力キー: 値}}`（null=その図では出さない）で図ごとの上書きを持つ。MAP の `設計意図` は plan の `design`、`plan追加JSON` は plan 最上位の追加キー（例 `indoor`）、要素の種別 `閉鎖辺` は plan の `closed_edges`（屋外MAPの閉鎖した辺と理由）。
@@ -83,6 +84,14 @@ uv run --with opencv-python-headless --with numpy --with pillow python3 -I body_
 ファイルの置き場所は台帳 `ファイル配置.yaml` が正本。`ruby scripts/verify_index_reachable.rb` が、全ファイルが配置規則にちょうど1つ一致し、到達=リンクのファイルが `docs/INDEX.md` からのリンクで辿れる（孤立・壊れたリンクはエラー）ことを検査する。新しいツール・スクリプト・ドキュメントを足したら INDEX から辿れるようにリンクを張る。
 
 `ruby scripts/verify_prompt_reflects_ledger.rb` が、台帳の決定（ID・要点・必須語・禁止語）・採用要素（参考画像とプロンプトの両方）・自由記述・建物窓列の窓が、導出したプロンプトに漏れなく現れるかを検査する（`--maps ID,ID`・`--from-json`。回帰アンカー=畳・化石の石・-fire の勝手口が北壁・火事版の上半分・渡り廊下の窓列はスクリプト内に期待を固定）。
+
+### Issue の決定点検（`ruby scripts/audit_issue_decisions.rb`）
+
+Issue 本文・コメントから『kako-jun の決定』と読める候補を全件走査し、決定表と突合して `docs/ledger/Issue点検.yaml`（列: Issue番号・コメントURL・候補の要約・分類・決定ID・備考）に載せる。`gh` が要る（オフラインは `--fetch F` で保存した JSON を `--from-json F` で読む）。`--write` で表を更新、無指定は表との過不足検査（未点検の候補・自動判定とずれた分類があれば exit 1）、`--list 分類` で一覧。`verify_ledger.rb` は表の外部キー（決定ID）・分類の語彙（語彙表の『Issue点検分類』）・URL と Issue番号の整合を検査する。
+
+- 候補のヒューリスティック（誤検出より漏れ検出を優先）: 投稿者では絞らない（Claude が kako-jun のアカウントで投稿するため全コメントが本人投稿）。見出し（# 行に 決定|確定|承認|合意|指示|発言|指摘|判定|回答|方針|訂正）／本文に『逐語』／kako-jun・本人・ユーザー・発言・原文・指示・回答・承認 を含む行の「…」引用／kako-jun の直後に 指示|決定|承認|OK|まかせ|よい|判断、のいずれか。
+- 分類（上から順）: 対象外=プルリクエストの会話／決定表に反映済み=コメントURLが 決定.出典URL にある、または逐語に抽出した引用（10字以上）が全て 決定.逐語・決定の要点 に含まれる（決定ID を付ける）／決定でない=先頭の見出しが作業記録（結果・これからやること・実施記録・進捗 等）で引用が1つも無い／それ以外は未反映(要取込み)。未反映の中で決定表へ取り込む根拠にできるのは備考が『逐語あり』のものだけ（『逐語の引用なし』は要確認）。
+- 自動判定を人が覆すときは、表の行の備考に `【手動】` を付けて分類を直す（`--write` で保たれ、検査でもずれと数えない）。
 
 検証は Ruby（`scripts/verify_ledger.rb` ほか。Homebrew の Ruby 4.x: `PATH=/opt/homebrew/opt/ruby/bin:$PATH`）。
 

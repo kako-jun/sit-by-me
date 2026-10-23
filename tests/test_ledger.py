@@ -468,7 +468,9 @@ class IssueAuditTests(unittest.TestCase):
             self.comment(113, 7, "## 決定\n逐語: 「廊下の端の扉は外へ開く向きにしろ、内開きは不可」"),
             self.comment(114, 7, "## これからやること\nkako-jun 指示どおりに台帳を直す"),
             self.comment(115, 8, "## 決定 レビュー指摘\n直した"),
-            self.comment(116, 7, "ふつうの雑談")]}
+            self.comment(116, 7, "ふつうの雑談"),
+            self.comment(117, 7, "## 決定\nkako-jun「畳がすごく不自然だ。苦手なら板張りにしろ」「窓は全部やめて壁だけにしろ、とにかく全部だ」"),
+            self.comment(118, 7, "## これからやること\nkako-jun「板張りにしろ」を台帳へ")]}
 
     def comment(self, cid, num, body):
         return {"id": cid, "issue_url": f"https://api.github.com/repos/kako-jun/sit-by-me/issues/{num}", "html_url": f"{self.URL}/{num}#issuecomment-{cid}",
@@ -494,6 +496,9 @@ class IssueAuditTests(unittest.TestCase):
         self.assertEqual(t["113"]["分類"], "未反映(要取込み)")
         self.assertIn("逐語あり", t["113"]["備考"])
         self.assertEqual(t["114"]["分類"], "決定でない")
+        self.assertEqual(t["117"]["分類"], "未反映(要取込み)")  # 逐語の一部しか決定表に無い
+        self.assertIn("うち決定表に含まれる 1件", t["117"]["備考"])
+        self.assertEqual(t["118"]["分類"], "未反映(要取込み)")  # 作業記録の見出しでも kako-jun の引用があれば決定でないにしない
         self.assertEqual(t["115"]["分類"], "対象外")
         self.assertNotIn("116", t)  # 候補でない雑談
         self.assertNotIn("issue-7", t)
