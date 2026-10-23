@@ -465,8 +465,8 @@ class LegacyMdReaderTests(unittest.TestCase):
     def test_verify_map_ledger_reads_md_from_ledger_root(self):
         root = self.make_root(self.CHECKLIST, self.SPEC, self.TOPO)
         r = subprocess.run([RUBY, str(ROOT / "scripts/verify_map_ledger.rb")], env=env_for(root), capture_output=True, text=True)
-        self.assertNotEqual(r.returncode, 0)  # fixture には map-ids.json が無い → 本物の docs を読んで PASS してはならない
-        self.assertNotIn("PASS", r.stdout)
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn(str(root), r.stderr)  # fixture に無い docs/topology/map-ids.json を fixture の root から読もうとして失敗する（本物の docs を読まない）
 
     def test_blocked_status_still_blocks(self):
         root = self.make_root(self.CHECKLIST.replace("ready", "blocked"), self.SPEC, self.TOPO)
