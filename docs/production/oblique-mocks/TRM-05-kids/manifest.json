@@ -7,7 +7,7 @@
  },
  "map_id": "TRM-05-kids",
  "plan": "docs/production/oblique-mocks/TRM-05-plan.json",
- "plan_sha256": "e3636c76457835819340085d2886d678ec80b21f3b53e774144961eb11e1a581+kids",
+ "plan_sha256": "de941374bb7817d742482246cccbe9e2438081831b7aa80b5919ec790e40b207+kids",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -22,45 +22,45 @@
      1
     ]
    },
-   "input_sha": "217417a5c6232e6112d3318f084f2727cf31b45ba993e6fec4d0b16898882ba1",
+   "input_sha": "9be36abe21ce2dedac714d213ff69d1242fa135020d5f24e304a1fa4016f0638",
    "outputs": {
-    "TRM-05-kids-exits.png": "35a85708c8a7255c104ca1b3262a05bd3ec3b644118dfb01556bc93c32bdbd98",
+    "TRM-05-kids-exits.png": "43a80d752c53656bd8a0065d30343db03f68a15944b0a227d01716ba37db9316",
     "TRM-05-kids-mask.json": "9a340cfabdd8b5830623cf73d66963ff889f793e3e20e887940e542f64973bfa",
-    "TRM-05-kids-mask.png": "f8f5aff93a28fe9d1fcf6dfd26c6e282ff84bda155671b015710bc4f3730684d"
+    "TRM-05-kids-mask.png": "ba53b03d7bd277739529ad02c52c5e6c1d7c0d356b1463733085485d0d59562f"
    },
    "status": "ok",
    "white_components": 2
   },
   "mock": {
-   "input_sha": "217417a5c6232e6112d3318f084f2727cf31b45ba993e6fec4d0b16898882ba1",
+   "input_sha": "9be36abe21ce2dedac714d213ff69d1242fa135020d5f24e304a1fa4016f0638",
    "outputs": {
-    "TRM-05-kids-clean.png": "16aff123619ae320df2d4755f49ba48f5675c69cda271f41a27e970b055a058c",
-    "TRM-05-kids-review.png": "ce6ea05dc5bb7944ad372ef25465b6e24ffe19fb748c968aab66656eec30f4ed"
+    "TRM-05-kids-clean.png": "fbe1c6fb8fb0d95521962f7fa49cf83357e9a731b20bb7b4797feca171a9fdff",
+    "TRM-05-kids-review.png": "c203bdbab58ecd37d62731bcac630362707dcbdb6e034e4b7fb5f45f9d82e0a5"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "217417a5c6232e6112d3318f084f2727cf31b45ba993e6fec4d0b16898882ba1",
+   "input_sha": "9be36abe21ce2dedac714d213ff69d1242fa135020d5f24e304a1fa4016f0638",
    "outputs": {
-    "TRM-05-kids-occlusion-depth.png": "c74c38d7f7935ac31863ffdec64bd1eb25dc82d18e55993b0efaab4fb82fca74",
-    "TRM-05-kids-occlusion-edit.png": "40a7733ba8a35ad251471f5ca27ae4fe236406f7739e9a9d021e6c265f3367f2",
-    "TRM-05-kids-occlusion-overlay.png": "7940fa5599b5fce1cc6056e1edaceb7e5b3a4032ef03b0d947a4582f7480aaea",
-    "TRM-05-kids-occlusion.json": "76f0922eddd6a6da4f5e81ff666dd0d15433cd0d4800be3352cf6dab62d93020",
-    "TRM-05-kids-occlusion.png": "9791899d8b57bbab878faec75eb50adc5c3c6b2570dad7e1738643ececfa3135"
+    "TRM-05-kids-occlusion-depth.png": "57b76dceb6b4cc33e505e95a188a53e1d0913442a352b538cd0a0cb7db9717e0",
+    "TRM-05-kids-occlusion-edit.png": "34f93d1fc14ec437453b1293b808986fe419339c9de78e564486e9ef3d74948e",
+    "TRM-05-kids-occlusion-overlay.png": "d975f1315abd5413e08b7cb0b9c9683d9ac33da598b212c948c635f27e27168e",
+    "TRM-05-kids-occlusion.json": "af78707db0991eacbaa3e7f07840adedb000cd2fe9391d2da814c653833242ad",
+    "TRM-05-kids-occlusion.png": "e2394e66c70dea0ae2bc8309aed3cfd1d2a30bae8391b6cba5f6b97c405e2713"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "1213fd4cf81a1d90cb445f19854ed48e4319dddc7794876491594391fb3d5af4",
+   "input_sha": "9d953fcb9f34f6d63b4b1f1abe9ab440b07e769a93c255006b264a022719b12e",
    "ledger_ready": false,
    "outputs": {
-    "TRM-05-kids-edit-prompt.txt": "7a6dfff84b5b64350ca44324743ab417c9cab52a711c1f4cf394cbd7f02278ed"
+    "TRM-05-kids-edit-prompt.txt": "d578d207b23b46c42a20a7b9a265c7042d03699a5d77eede5a6f4ac662ee8244"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "7e64b4cd832f8c93a50f9b12af94be1047bb4d2b488b56c9ed285d5662c1392b",
+   "input_sha": "72a71ac22eec650482640ee1e303026ec331c8d6ebe00a616494512a96387b48",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -68,14 +68,15 @@
     "本堂からの戸口（東壁・v=0.76）は南寝室の側に着く。採用画像の石の敷居は東壁の中ほど（v≈0.5）にあったが、決定は『上下の中央より下寄り』。",
     "家具の位置は採用画像 v12 から概略。",
     "勝手口 TRM-05.door-back は kako-jun 決定（2026-10-23）で fixed。北壁（画面上辺）の左（西）端（x420〜552）。台所の並び（コンロ・流し・食器棚・冷蔵庫）は戸口の右隣（x560〜783）に続ける。仕切り（x785）までの幅が約220なので、各家具の幅を詰めた（コンロ55・流し80・食器棚50・冷蔵庫38。並びの寸法は既定・要確認）。西の棚（Y492〜735）・食卓は元の位置。相手は TRM-06.door-house（寺町内・未制作MAP）。",
+    "石は北東の隅（北壁と東壁の内側の角。x1125〜1170・Y280〜350）に移した（kako-jun 2026-10-23）。石のすぐ左の北壁に腰高窓1つ（中心x1070・幅80・窓台50・高さ55）。窓の種別・寸法は既定（要確認）。箪笥・台所・勝手口とは重ならないため家具は動かしていない。",
     "幼稚園時代＝父と同じ寝室1つ（kako-jun 2026-10-23）。仕切りの下半分を取り、寝室を1室にした。開口は南側の1か所のみ（既定・要確認）。寝室内の家具の再配置は仮。",
     "既定（要確認）: open-dining-bed-s"
    ]
   },
   "wire": {
-   "input_sha": "02992105da4fb32847c1cdee6bab33a7ff740fde5bfd0571d08f322777519824",
+   "input_sha": "602236397a3f51b66044a89ad5b694d369206bdba2e38447fbe6755c5f097464",
    "outputs": {
-    "wire-TRM-05-kids.png": "f13325eea5be0a0a171b172fd0cdbb4454ca9b732a0d466a669cdf92e85b1776"
+    "wire-TRM-05-kids.png": "d2bdc9f3da484c86c8051103380f1c40edac4c24252b28ae55348f343bd0c42f"
    },
    "status": "ok"
   }

@@ -40,11 +40,11 @@
    "body_overlap_px": 6515
   },
   {
-   "id": "wall-e",
-   "kind": "wall",
-   "base_y": 250,
-   "area_px": 3802,
-   "body_overlap_px": 3423
+   "id": "rock",
+   "kind": "box",
+   "base_y": 247,
+   "area_px": 2801,
+   "body_overlap_px": 2140
   },
   {
    "id": "part-v",
@@ -59,13 +59,6 @@
    "base_y": 308,
    "area_px": 3904,
    "body_overlap_px": 3789
-  },
-  {
-   "id": "rock",
-   "kind": "box",
-   "base_y": 317,
-   "area_px": 2904,
-   "body_overlap_px": 2694
   },
   {
    "id": "wall-e",
