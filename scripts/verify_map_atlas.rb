@@ -56,7 +56,8 @@ module MapAtlasVerification
     g=MapGraph::Graph.new(root)
     all=g.areas.flat_map { |a|a['maps'] }
     ids=g.areas.map { |a|a['id'] }
-    assert(all.length==130 && all.uniq.length==130,'atlas membership must contain all 130 MAPs exactly once')
+    expected_total=JSON.parse(File.read(File.join(root,'docs/topology/map-ids.json'))).fetch('expected_count')
+    assert(all.length==expected_total && all.uniq.length==expected_total,"atlas membership must contain all #{expected_total} MAPs exactly once")
     assert(ids.length==15 && ids.uniq.length==15,'atlas must cover all 15 areas')
     check(root,'atlas.svg',all,g.edges,ids)
     check(root,'overview.svg',[],g.cross,ids)
@@ -73,7 +74,8 @@ end
 if $PROGRAM_NAME==__FILE__
   begin
     MapAtlasVerification.verify!(File.expand_path('..',__dir__))
-    puts 'PASS: full atlas 130 MAPs / 138 connections, 15 areas, overview cross-area ports and directed events'
+    g=MapGraph::Graph.new(File.expand_path('..',__dir__))
+    puts "PASS: full atlas #{g.areas.sum { |a| a['maps'].length }} MAPs / #{g.edges.length} connections, 15 areas, overview cross-area ports and directed events"
   rescue StandardError => e
     warn "FAIL: atlas: #{e.message}"
     exit 1

@@ -37,7 +37,7 @@ class BodyTopologyTests(unittest.TestCase):
         mutate(data)
         path.write_text(json.dumps(data, ensure_ascii=False))
 
-    def test_all_130_maps_have_one_area_membership(self):
+    def test_all_registered_maps_have_one_area_membership(self):
         members = [ident for area in self.registry()["areas"] for ident in area["maps"]]
         self.assertEqual(set(members), topology_tests.EXPECTED_IDS)
         self.assertEqual(len(members), len(set(members)))
@@ -118,7 +118,7 @@ class BodyTopologyTests(unittest.TestCase):
         rows = [row for row in self.connection_rows() if "event-kiss" in row]
         self.assertEqual(len(rows), 1)
         cells = [cell.strip() for cell in rows[0].split("|")]
-        self.assertEqual(cells[1:4], ["TRM-01.event-kiss", "BDY-01.event-mouth", "event"])
+        self.assertEqual(cells[1:4], ["TRM-03.event-kiss", "BDY-01.event-mouth", "event"])
 
     def test_body_mouth_must_connect_to_upper_torso(self):
         self.remove_pair("BDY-01", "BDY-02")
@@ -154,22 +154,22 @@ class BodyTopologyTests(unittest.TestCase):
         self.reject()
 
     def test_body_event_cannot_originate_at_hospital(self):
-        self.topology("TRM-01.event-kiss", "KRB-13.event-kiss")
+        self.topology("TRM-03.event-kiss", "KRB-13.event-kiss")
         self.reject()
 
     def test_body_event_cannot_originate_overseas(self):
-        self.topology("TRM-01.event-kiss", "OVS-04.event-kiss")
+        self.topology("TRM-03.event-kiss", "OVS-04.event-kiss")
         self.reject()
 
     def test_body_event_cannot_be_reversed(self):
-        row = self.pair_row("TRM-01", "BDY-01")
+        row = self.pair_row("TRM-03", "BDY-01")
         cells = row.split("|")
         cells[1], cells[2] = cells[2], cells[1]
         self.topology(row, "|".join(cells))
         self.reject()
 
     def test_body_event_cannot_be_persistent_walking_door(self):
-        row = self.pair_row("TRM-01", "BDY-01")
+        row = self.pair_row("TRM-03", "BDY-01")
         changed = row.replace(".event-kiss", ".door-kiss").replace(".event-mouth", ".door-mouth")
         self.topology(row, changed.replace("| event |", "| door |"))
         self.reject()

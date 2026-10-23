@@ -51,9 +51,9 @@
 <circle class="node" data-map="BDY-17" cx="440" cy="650" r="34"/><text class="id" x="440" y="655">BDY-17</text>
 <text x="440" y="703" class="label">肺・分岐室</text>
 <text x="25" y="1435" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
-<circle class="ref" data-reference-map="TRM-01" data-reference="TRM-01" cx="40" cy="1465" r="13"/>
-<text x="65" y="1470" class="small">TRM-01.event-kiss → BDY-01.event-mouth  [外部: teramachi]</text>
-<path class="event" data-edge-id="TRM-01.event-kiss&gt;BDY-01.event-mouth:event" data-kind="event" data-from="TRM-01" data-to="BDY-01" data-from-port="event-kiss" data-to-port="event-mouth" d="M940 1463 L1055 1463" marker-end="url(#directed-arrow)"/>
+<circle class="ref" data-reference-map="TRM-03" data-reference="TRM-03" cx="40" cy="1465" r="13"/>
+<text x="65" y="1470" class="small">TRM-03.event-kiss → BDY-01.event-mouth  [外部: teramachi]</text>
+<path class="event" data-edge-id="TRM-03.event-kiss&gt;BDY-01.event-mouth:event" data-kind="event" data-from="TRM-03" data-to="BDY-01" data-from-port="event-kiss" data-to-port="event-mouth" d="M940 1463 L1055 1463" marker-end="url(#directed-arrow)"/>
 <text x="25" y="1512" class="small">BDY-01.door-passage-torso ↔ BDY-02.door-passage-mouth</text>
 <text x="25" y="1554" class="small">BDY-02.door-passage-lower ↔ BDY-03.door-passage-upper</text>
 <text x="25" y="1596" class="small">BDY-02.door-passage-head ↔ BDY-04.door-passage-torso</text>

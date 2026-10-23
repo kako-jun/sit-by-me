@@ -113,7 +113,7 @@ class MapAtlasTests(unittest.TestCase):
                 self.assertEqual(sorted(references), sorted(remote))
         self.assertEqual(sorted(all_owned), sorted(topology_tests.EXPECTED_IDS))
 
-    def test_all_130_maps_have_exactly_one_area(self):
+    def test_all_registered_maps_have_exactly_one_area(self):
         areas = self.registry()["areas"]
         members = [ident for area in areas for ident in area["maps"]]
         self.assertEqual(set(members), topology_tests.EXPECTED_IDS)
@@ -136,7 +136,7 @@ class MapAtlasTests(unittest.TestCase):
         self.mutate_registry(lambda data: data["areas"][1].update(id=data["areas"][0]["id"]))
         self.reject()
 
-    def test_atlas_has_130_distinct_owned_visible_nodes(self):
+    def test_atlas_has_all_registered_distinct_owned_visible_nodes(self):
         tree = ET.parse(self.diagram())
         owned = [node.get("data-map") for node in tree.iter() if node.get("data-map")]
         self.assertEqual(set(owned), topology_tests.EXPECTED_IDS)
@@ -235,30 +235,30 @@ class MapAtlasTests(unittest.TestCase):
 
     def test_area_remote_reference_cannot_point_to_hospital(self):
         def mutate(tree):
-            node = next(n for n in tree.iter() if n.get("data-reference-map") == "TRM-01")
+            node = next(n for n in tree.iter() if n.get("data-reference-map") == "TRM-03")
             node.set("data-reference-map", "KRB-13")
         self.mutate_svg("areas/body.svg", mutate)
         self.reject()
 
     def test_body_entry_must_start_at_kindergarten_even_after_render(self):
-        self.topology("TRM-01.event-kiss", "KRB-13.event-kiss")
+        self.topology("TRM-03.event-kiss", "KRB-13.event-kiss")
         self.render()
         self.reject()
 
     def test_body_entry_must_not_start_overseas_even_after_render(self):
-        self.topology("TRM-01.event-kiss", "OVS-04.event-kiss")
+        self.topology("TRM-03.event-kiss", "OVS-04.event-kiss")
         self.render()
         self.reject()
 
     def test_body_event_must_not_be_walking_door_even_after_render(self):
-        row = self.pair_row("TRM-01", "BDY-01")
+        row = self.pair_row("TRM-03", "BDY-01")
         self.topology(row, row.replace(".event-kiss", ".door-kiss")
                       .replace(".event-mouth", ".door-mouth").replace("| event |", "| door |"))
         self.render()
         self.reject()
 
     def test_body_event_reversal_rejected_even_after_render(self):
-        row = self.pair_row("TRM-01", "BDY-01")
+        row = self.pair_row("TRM-03", "BDY-01")
         cells = row.split("|")
         cells[1], cells[2] = cells[2], cells[1]
         self.topology(row, "|".join(cells))

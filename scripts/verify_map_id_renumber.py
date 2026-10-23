@@ -1,6 +1,6 @@
 """Verify the MAP ID renumbering table (old ID -> area code + sequence) against the registries.
 
-Checks docs/production/20261019-map-id-renumber.json is a complete one-to-one table for the 130 MAPs,
+Checks docs/production/20261019-map-id-renumber.json is a complete one-to-one table for the 130 historical MAP rows (129 active; retired IDs such as TRM-01 stay as gaps),
 matches docs/topology/areas.json (area membership, order, names) and map-ids.json, and that no
 unregistered new-style ID or leftover old ID appears in the MAP documents.
 """
@@ -42,6 +42,7 @@ def verify(root):
     news = [m['new_id'] for m in maps]
     assert len(set(olds)) == 130, 'duplicate old ID'
     assert len(set(news)) == 130, 'duplicate new ID'
+    retired = {m['new_id'] for m in maps if m.get('retired')}
     assert set(olds) == OLD_IDS, f'old ID set differs: {sorted(set(olds) ^ OLD_IDS)}'
     assert not (set(olds) & set(news)), 'old and new ID spaces overlap'
 
@@ -67,13 +68,14 @@ def verify(root):
     assert [a['id'] for a in areas] == [code_to_area[c] for c in table['area_order']], \
         'areas.json order differs from area_order'
     for area in areas:
-        expected = sorted(m['new_id'] for m in maps if m['area_id'] == area['id'])
+        expected = sorted(m['new_id'] for m in maps if m['area_id'] == area['id'] and m['new_id'] not in retired)
         assert sorted(area['maps']) == expected, f'areas.json maps differ for {area["id"]}'
         assert sorted(area['layout']) == expected, f'areas.json layout differs for {area["id"]}'
         names = {m['area_name'] for m in maps if m['area_id'] == area['id']}
         assert names == {area['name']}, f'area name differs for {area["id"]}'
     register = json.loads((root / 'docs/topology/map-ids.json').read_text(encoding='utf-8'))
-    assert register['expected_count'] == 130
+    assert register['expected_count'] == 130 - len(retired)
+    assert set(register.get('retired', {})) == retired, 'map-ids.json retired differs'
     assert register['areas'] == {c: len(by_area[c]) for c in table['area_order']}, 'map-ids.json differs'
 
     valid = set(news)
@@ -114,7 +116,7 @@ def verify(root):
                     if found[0] == 'N1' and line[found.end():found.end() + 1] == 'b':
                         continue  # 決定ラベルN1b
                     assert old_key(found[0]) not in OLD_IDS, f'{relative}: old ID {found[0]} remains'
-    print(f'PASS: 130 MAPs one-to-one, {len(by_area)} areas, areas.json/map-ids.json match, no unregistered or leftover IDs')
+    print(f'PASS: 130 MAP rows one-to-one ({130 - len(retired)} active, retired {sorted(retired)}), {len(by_area)} areas, areas.json/map-ids.json match, no unregistered or leftover IDs')
 
 
 if __name__ == '__main__':

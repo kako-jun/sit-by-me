@@ -79,7 +79,7 @@
    "id": "BDY-01.event-mouth",
    "note": "到着位置・向きは原文に無い(TBD)",
    "range": null,
-   "source": "TRM-01.event-kiss → BDY-01.event-mouth（一方向の物語イベント）。位置・範囲は原文に無く TBD"
+   "source": "TRM-03.event-kiss → BDY-01.event-mouth（一方向の物語イベント）。位置・範囲は原文に無く TBD"
   }
  ],
  "forbidden_edge_check": {
