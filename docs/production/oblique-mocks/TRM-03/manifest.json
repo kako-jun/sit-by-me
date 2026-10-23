@@ -1,0 +1,88 @@
+{
+ "ledger": {
+  "checklist": "docs/map-contract-checklist.md",
+  "era_suffix": null,
+  "registry": "docs/map-asset-registry.md",
+  "row_id": "TRM-03"
+ },
+ "map_id": "TRM-03",
+ "plan": "docs/production/oblique-mocks/TRM-03-plan.json",
+ "plan_sha256": "8a449c4decd0d58243dbb855acb6665e6ab32d849fd3724c01ba7508e4e98b88",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-03.bottom": [
+     1
+    ],
+    "TRM-03.door-kindergarten": [
+     1
+    ],
+    "TRM-03.door-main": [
+     1
+    ],
+    "TRM-03.door-playroom": [
+     1
+    ],
+    "TRM-03.door-residence": [
+     1
+    ]
+   },
+   "input_sha": "b9b0105e9fd926088be79ef8ffd9844eeddf3610b1bd12aba17e3aec89f4a516",
+   "outputs": {
+    "TRM-03-exits.png": "489909af510c6d169686a66f9855ae932dff2ca751ede0dc394cbdce935f1bca",
+    "TRM-03-mask.json": "df71ab9c8cad020264577a1bc9944fac066cb36bc7ed7726f93bb1e81d6c72c6",
+    "TRM-03-mask.png": "67f70c856936fbef456831b81adf1547174dc151782a50015551eea05f8c79e4"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "b9b0105e9fd926088be79ef8ffd9844eeddf3610b1bd12aba17e3aec89f4a516",
+   "outputs": {
+    "TRM-03-clean.png": "01d2a24451b96421796659eba402aa0c663ec7ef732925431163cf1b7bfbb670",
+    "TRM-03-review.png": "7131c8756b3ad438c0d60dc5d8cdc4dc31b0aa59bd968861564c326fcc20ab38"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "b9b0105e9fd926088be79ef8ffd9844eeddf3610b1bd12aba17e3aec89f4a516",
+   "outputs": {
+    "TRM-03-occlusion-depth.png": "c9476aebdc742cd1b4475f91c08ecb8b37ea57767330e03dbe106c70b867b7e9",
+    "TRM-03-occlusion-edit.png": "7ae82929e396641c258f1a4310b8a0381f1ea4325034169b7ba6077204d70038",
+    "TRM-03-occlusion-overlay.png": "7a6b3fd8deae77eddb108bc5b186dd4ac7fcb9bb41951ca68d206a9332814711",
+    "TRM-03-occlusion.json": "11589b18d915c285dbc590361f2d6bdc531c8eafff8a234104fe91d5974e6260",
+    "TRM-03-occlusion.png": "89ad69e29f51cd32cf568425abe87f70b64dda20295a7383b9a16b21f019bae3"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "1fcfd298ca4c454e65a593e496075387330d4b061dd14f9ed422bbac002d1515",
+   "ledger_ready": false,
+   "outputs": {
+    "TRM-03-edit-prompt.txt": "7ef8ef3fbac8521dd571e04ef3333a93fb0feb038f03c6d645b14f68714929bd"
+   },
+   "status": "blocked"
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "9bb85acf529b285d4826554b2897065dbcf794a5451f5993830acf3142429d6b",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "屋根は箱の天面色で表した（形は省略。高さは画面に収めるため低め: 住居・幼稚園110・本堂150・渡り廊下70）。墓石・遊具は個別に置かず区画ラベルのみ。鐘楼・親鸞像は採用外観から概略。",
+    "境内側の戸口位置（住居・幼稚園・東の通用門）は台帳でTBD。既定を置いた（要確認）。",
+    "参道の幅156は台帳に無く採用外観の測定。",
+    "既定（要確認）: TRM-03.door-residence",
+    "既定（要確認）: TRM-03.door-playroom"
+   ]
+  },
+  "wire": {
+   "input_sha": "95bf84d5aca99f31fc265882523a91164102f7d8a2c8a65fc03fc981662ccd97",
+   "outputs": {
+    "wire-TRM-03.png": "244c4b55b1c58d30afe98615b5af12298ce5f3b7db877da00a0ad454a3abae38"
+   },
+   "status": "ok"
+  }
+ }
+}

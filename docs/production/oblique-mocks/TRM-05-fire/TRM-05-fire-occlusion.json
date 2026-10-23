@@ -1,0 +1,148 @@
+{
+ "schema": "sit-oblique-mock-occlusion/1",
+ "map_id": "TRM-05-fire",
+ "size": [
+  1672,
+  941
+ ],
+ "rule": "スプライトの足元y < depth[画素] の画素だけ、occlusion の白で隠す。奥壁・キャラの体が重ならない物は出さない。戸口の開口は抜く。歩行マスクとは別レイヤー（前景に隠れる床を通行不能にしない）。",
+ "char_px": [
+  67,
+  100
+ ],
+ "occluders": [
+  {
+   "id": "part-v",
+   "kind": "wall",
+   "base_y": 383,
+   "area_px": 2438,
+   "body_overlap_px": 1403
+  },
+  {
+   "id": "part-h",
+   "kind": "wall",
+   "base_y": 404,
+   "area_px": 25787,
+   "body_overlap_px": 407
+  },
+  {
+   "id": "wall-e",
+   "kind": "wall",
+   "base_y": 430,
+   "area_px": 4311,
+   "body_overlap_px": 2833
+  },
+  {
+   "id": "part-v",
+   "kind": "wall",
+   "base_y": 445,
+   "area_px": 2913,
+   "body_overlap_px": 2798
+  },
+  {
+   "id": "shelf-w",
+   "kind": "box",
+   "base_y": 480,
+   "area_px": 11138,
+   "body_overlap_px": 5988
+  },
+  {
+   "id": "wall-w",
+   "kind": "wall",
+   "base_y": 493,
+   "area_px": 4629,
+   "body_overlap_px": 3075
+  },
+  {
+   "id": "wall-e",
+   "kind": "wall",
+   "base_y": 493,
+   "area_px": 4390,
+   "body_overlap_px": 3362
+  },
+  {
+   "id": "bench-l",
+   "kind": "box",
+   "base_y": 496,
+   "area_px": 4660,
+   "body_overlap_px": 4490
+  },
+  {
+   "id": "bench-r",
+   "kind": "box",
+   "base_y": 496,
+   "area_px": 4508,
+   "body_overlap_px": 4338
+  },
+  {
+   "id": "part-v",
+   "kind": "wall",
+   "base_y": 506,
+   "area_px": 2915,
+   "body_overlap_px": 2800
+  },
+  {
+   "id": "chest",
+   "kind": "box",
+   "base_y": 518,
+   "area_px": 6645,
+   "body_overlap_px": 6325
+  },
+  {
+   "id": "table",
+   "kind": "box",
+   "base_y": 520,
+   "area_px": 17367,
+   "body_overlap_px": 12719
+  },
+  {
+   "id": "wall-w",
+   "kind": "wall",
+   "base_y": 558,
+   "area_px": 4710,
+   "body_overlap_px": 4590
+  },
+  {
+   "id": "wall-e",
+   "kind": "wall",
+   "base_y": 558,
+   "area_px": 4468,
+   "body_overlap_px": 1470
+  },
+  {
+   "id": "wall-w",
+   "kind": "wall",
+   "base_y": 626,
+   "area_px": 4841,
+   "body_overlap_px": 3039
+  },
+  {
+   "id": "part-v",
+   "kind": "wall",
+   "base_y": 642,
+   "area_px": 2849,
+   "body_overlap_px": 1625
+  },
+  {
+   "id": "part-v",
+   "kind": "wall",
+   "base_y": 668,
+   "area_px": 2287,
+   "body_overlap_px": 387
+  },
+  {
+   "id": "wall-s",
+   "kind": "wall",
+   "base_y": 685,
+   "area_px": 98893,
+   "body_overlap_px": 3102
+  },
+  {
+   "id": "wall-w",
+   "kind": "wall",
+   "base_y": 685,
+   "area_px": 4683,
+   "body_overlap_px": 1089
+  }
+ ]
+}

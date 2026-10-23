@@ -1,0 +1,27 @@
+{
+ "schema": "sit-oblique-connections/1",
+ "title": "寺町 幼稚園一式の接続図（TRM-02〜05）",
+ "plans": ["TRM-05-plan.json", "TRM-04-plan.json", "TRM-02-plan.json", "TRM-03-plan.json"],
+ "canvas": [3300, 2700],
+ "cells": {
+  "TRM-05": {"pos": [60, 270], "width": 860},
+  "TRM-04": {"pos": [1170, 270], "width": 980},
+  "TRM-02": {"pos": [2400, 270], "width": 860},
+  "TRM-03": {"pos": [900, 1400], "width": 1500}
+ },
+ "externals": [
+  {"id": "TRM-07", "label": "TRM-07 山門の通り（寺町の外・広い道）", "box": [1450, 2380, 850, 110], "ports": {"TRM-07.top": ["top", 0.5]}},
+  {"id": "TRM-01", "label": "TRM-01 幼稚園の園庭（寺町の外・屋外）", "box": [2700, 1700, 540, 110], "ports": {"TRM-01.door-west": ["left", 0.5], "TRM-01.event-kiss": ["bottom", 0.5]}},
+  {"id": "BDY-01", "label": "BDY-01 体内・口（一方向のイベント）", "box": [2700, 2150, 540, 110], "ports": {"BDY-01.event-mouth": ["top", 0.5]}}
+ ],
+ "edges": [
+  {"a": "TRM-05.door-hall", "b": "TRM-04.door-west", "kind": "door", "expect": "opposite", "label": "住居↔本堂"},
+  {"a": "TRM-04.door-east", "b": "TRM-02.door-west", "kind": "door", "expect": "opposite", "label": "本堂↔幼稚園"},
+  {"a": "TRM-05.door-outside", "b": "TRM-03.door-residence", "kind": "door", "expect": "same", "label": "住居↔境内", "a_dir": "south", "b_dir": "north"},
+  {"a": "TRM-02.door-outside", "b": "TRM-03.door-playroom", "kind": "door", "expect": "same", "label": "幼稚園↔境内", "a_dir": "south", "b_dir": "north"},
+  {"a": "TRM-04.door-south", "b": "TRM-03.door-main", "kind": "door", "expect": "same", "label": "本堂↔境内（正面）", "a_dir": "south", "b_dir": "north"},
+  {"a": "TRM-03.bottom", "b": "TRM-07.top", "kind": "edge", "external": true, "label": "境内の南端↔山門の通り", "a_dir": "south", "b_dir": "north"},
+  {"a": "TRM-03.door-kindergarten", "b": "TRM-01.door-west", "kind": "door", "external": true, "label": "東の通用門↔園庭", "a_dir": "east", "b_dir": "west"},
+  {"a": "TRM-01.event-kiss", "b": "BDY-01.event-mouth", "kind": "event", "external": true, "label": "キスのイベント（一方向）", "a_dir": "south", "b_dir": "north"}
+ ]
+}

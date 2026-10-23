@@ -1,0 +1,80 @@
+{
+ "ledger": {
+  "checklist": "docs/map-contract-checklist.md",
+  "era_suffix": "fire",
+  "registry": "docs/map-asset-registry.md",
+  "row_id": "TRM-05"
+ },
+ "map_id": "TRM-05-fire",
+ "plan": "docs/production/oblique-mocks/TRM-05-plan.json",
+ "plan_sha256": "b2eb5d84c58a5218d1cc7e26c2c8739254da6115f0e21b349675d548c3df1eb1+fire",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-05.door-hall": [
+     2
+    ],
+    "TRM-05.door-outside": [
+     2
+    ]
+   },
+   "input_sha": "743632682e1d8d5fd6fc7f9c9d1167eb18ceee4553410bb4797dc893a67265f8",
+   "outputs": {
+    "TRM-05-fire-exits.png": "df4057bbae4b7fe92d9a13575d5dbf7c6ef9dbb5e8d8715fe2f2f7c533e91732",
+    "TRM-05-fire-mask.json": "6940bb8712cf065f763355cb63d913b1a9e3132932c950389423c05c390032bb",
+    "TRM-05-fire-mask.png": "aee406c23e01443d73c36a802ab69e9975087f710a2d6dc77a71b6723ac0201a"
+   },
+   "status": "ok",
+   "white_components": 2
+  },
+  "mock": {
+   "input_sha": "743632682e1d8d5fd6fc7f9c9d1167eb18ceee4553410bb4797dc893a67265f8",
+   "outputs": {
+    "TRM-05-fire-clean.png": "ea7fdb83c305145c1a918dd33bc8123a7401ce8871432b2aac10ebe121074fec",
+    "TRM-05-fire-review.png": "56923e04455961460ba13aa7900bd047d938a79455adac359ed0089aa53f341c"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "743632682e1d8d5fd6fc7f9c9d1167eb18ceee4553410bb4797dc893a67265f8",
+   "outputs": {
+    "TRM-05-fire-occlusion-depth.png": "27799d43cf50701afa12f137d528c56bfe5f38610e0491cd784005707c1859e7",
+    "TRM-05-fire-occlusion-edit.png": "1f2501e449e972af23b5e3b6c0af5d23ca6f081f62559d646c877ad161f0b471",
+    "TRM-05-fire-occlusion-overlay.png": "2a0d9bee77af48d13fb40990bf4678f76d8be81bf3cd2e0d749e985c217427bf",
+    "TRM-05-fire-occlusion.json": "456ec0dfd8b8ffc60cb545c3210bda8a1834a97e334ef078a9896d3ef38ca0d1",
+    "TRM-05-fire-occlusion.png": "5fa8d4405d79d27a9f9bf9c029d79bc316de359fa759d76ed823f9d6defc56b7"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "2927b134d8e658a637bbee0d491f8228a5c147dfba3b2c6a7892975c9a4b7685",
+   "ledger_ready": false,
+   "outputs": {
+    "TRM-05-fire-edit-prompt.txt": "d75fa50441628f357b55aee7b1f02c0ee0602d16a8562918402d87251ff78523"
+   },
+   "status": "blocked"
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "4ff40dd5b5566c3abc07879878aaee43085659d6679d15d0d2b71336723cb0b0",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "仕切りの開口（2か所）は設計未指定。既定: ダイニング↔北寝室（Y440）・ダイニング↔南寝室（Y841。本堂の戸口と一直線）。幅は2人分。",
+    "本堂からの戸口（東壁・v=0.76）は南寝室の側に着く。採用画像の石の敷居は東壁の中ほど（v≈0.5）にあったが、決定は『上下の中央より下寄り』。",
+    "家具の位置は採用画像 v12 から概略。",
+    "火事の時点＝上半分が燃える（kako-jun 2026-10-23）。範囲 Y280〜640 は『上半分』の既定（要確認）。燃えた所は blocked。",
+    "既定（要確認）: open-dining-bed-n",
+    "既定（要確認）: open-dining-bed-s"
+   ]
+  },
+  "wire": {
+   "input_sha": "0f788b655d0ee27c9902b400745e94b8d36e38f277e470f5cf98e4a3b8dd9e3b",
+   "outputs": {
+    "wire-TRM-05-fire.png": "799412eff97334f0e1bb6659a90079d497c61b1ce16918228d14f0d883f8b307"
+   },
+   "status": "ok"
+  }
+ }
+}

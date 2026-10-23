@@ -1,0 +1,41 @@
+{
+ "schema": "sit-oblique-plan/1",
+ "map_id": "TRM-04",
+ "name": "本堂",
+ "subtitle": "屋内・中央の分岐",
+ "source": "寸法は採用画像 v11 を逆射影して丸めた値。戸口は TRM-04-input.json の確定値（西・東 v=0.76、正面扉は南壁中央）。",
+ "floors": [
+  {"id": "hall-floor", "rect": [487, 694, 1120, 1050], "color": "#6b4a30", "label": "広間", "walkable": true},
+  {"id": "hall-step-zone", "rect": [487, 440, 1120, 694], "color": "#4a3a30", "label": "", "walkable": false},
+  {"id": "corr-w", "rect": [100, 810, 463, 1050], "color": "#7a5636", "label": "西廊下", "walkable": true},
+  {"id": "sill-w", "rect": [440, 810, 463, 1050], "color": "#b8b8b0", "label": "", "walkable": true},
+  {"id": "corr-e", "rect": [1144, 810, 1507, 1050], "color": "#7a5636", "label": "東廊下", "walkable": true},
+  {"id": "sill-e", "rect": [1144, 810, 1167, 1050], "color": "#b8b8b0", "label": "", "walkable": true}
+ ],
+ "walls": [
+  {"id": "hall-n", "rect": [463, 416, 1144, 440], "h": 170, "kind": "wall"},
+  {"id": "hall-w", "rect": [463, 416, 487, 1074], "h": 150, "kind": "wall"},
+  {"id": "hall-e", "rect": [1120, 416, 1144, 1074], "h": 150, "kind": "wall"},
+  {"id": "hall-s", "rect": [463, 1050, 1144, 1074], "h": 150, "kind": "wall"},
+  {"id": "corr-w-n", "rect": [76, 786, 463, 810], "h": 120, "kind": "wall"},
+  {"id": "corr-w-s", "rect": [76, 1050, 463, 1074], "h": 110, "kind": "wall"},
+  {"id": "corr-w-end", "rect": [76, 786, 100, 1074], "h": 120, "kind": "wall"},
+  {"id": "corr-e-n", "rect": [1144, 786, 1531, 810], "h": 120, "kind": "wall"},
+  {"id": "corr-e-s", "rect": [1144, 1050, 1531, 1074], "h": 110, "kind": "wall"},
+  {"id": "corr-e-end", "rect": [1507, 786, 1531, 1074], "h": 120, "kind": "wall"}
+ ],
+ "doors": [
+  {"id": "TRM-04.door-west", "wall": "hall-w", "wall_side": "west", "face": "east", "center": 965, "along_ref": [694, 1050], "partner": "TRM-05.door-hall", "status": "fixed", "note": "住居へ。西壁・下寄り（v=0.76）。先は西廊下"},
+  {"id": "TRM-04.door-east", "wall": "hall-e", "wall_side": "east", "face": "west", "center": 965, "along_ref": [694, 1050], "partner": "TRM-02.door-west", "status": "fixed", "note": "幼稚園へ。東壁・下寄り（v=0.76）。先は東廊下"},
+  {"id": "TRM-04.door-south", "wall": "hall-s", "wall_side": "south", "face": "north", "center": 803, "along_ref": [487, 1120], "partner": "TRM-03.door-main", "status": "fixed", "note": "正面扉。南壁中央（台帳 ID は door-south）"}
+ ],
+ "boxes": [
+  {"id": "step", "rect": [487, 440, 1120, 694], "h": 18, "color": "#3d2f28", "label": "須弥壇の段（登れない）", "blocked": true},
+  {"id": "dais", "rect": [690, 442, 900, 627], "h": 60, "color": "#7a4f9a", "label": "須弥壇", "blocked": true}
+ ],
+ "assumptions": [
+  "廊下の外端（西は x76〜100・東は x1507〜1531）は閉じた壁。住居・幼稚園へは別 MAP の戸口（本堂の西壁・東壁の戸口）から入る（README の確定: 廊下の外端案は不採用）。",
+  "廊下の奥行き Y810〜1050 と外壁の高さは採用画像 v11 から概略。",
+  "壁の飾り（芳名板・子どもの絵・灯籠・柱）は省略。"
+ ]
+}

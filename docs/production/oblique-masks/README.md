@@ -1,5 +1,7 @@
 # 斜め視点マスクの入力・結果（寺町 TRM-02〜05。#144）
 
+> 2026-10-23 の方針転換（採用4枚はモックから作り直す）により、**新規の標準は `docs/production/oblique-mocks/`（平面スペック→モック→マスク・オクルージョン・接続図を決定論で生成）**。このディレクトリは採用画像から逆算した旧方式の記録（検証用）。
+
 ツール: `.claude/skills/sit-field-background/tools/oblique_register.py`・`oblique_mask.py`（使い方は同ディレクトリの README 区分C）。決定は `.claude/skills/sit-field-mask/SKILL.md` の「斜め視点のエリア」。
 
 | ファイル | 内容 |

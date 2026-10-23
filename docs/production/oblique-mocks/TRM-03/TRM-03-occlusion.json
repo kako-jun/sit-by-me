@@ -1,0 +1,29 @@
+{
+ "schema": "sit-oblique-mock-occlusion/1",
+ "map_id": "TRM-03",
+ "size": [
+  1672,
+  941
+ ],
+ "rule": "スプライトの足元y < depth[画素] の画素だけ、occlusion の白で隠す。奥壁・キャラの体が重ならない物は出さない。戸口の開口は抜く。歩行マスクとは別レイヤー（前景に隠れる床を通行不能にしない）。",
+ "char_px": [
+  67,
+  100
+ ],
+ "occluders": [
+  {
+   "id": "bell",
+   "kind": "box",
+   "base_y": 377,
+   "area_px": 16151,
+   "body_overlap_px": 11092
+  },
+  {
+   "id": "statue",
+   "kind": "box",
+   "base_y": 522,
+   "area_px": 6017,
+   "body_overlap_px": 5727
+  }
+ ]
+}

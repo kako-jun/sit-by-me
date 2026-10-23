@@ -1,0 +1,127 @@
+{
+ "schema": "sit-oblique-mock-occlusion/1",
+ "map_id": "TRM-04",
+ "size": [
+  1672,
+  941
+ ],
+ "rule": "スプライトの足元y < depth[画素] の画素だけ、occlusion の白で隠す。奥壁・キャラの体が重ならない物は出さない。戸口の開口は抜く。歩行マスクとは別レイヤー（前景に隠れる床を通行不能にしない）。",
+ "char_px": [
+  67,
+  100
+ ],
+ "occluders": [
+  {
+   "id": "hall-w",
+   "kind": "wall",
+   "base_y": 468,
+   "area_px": 4333,
+   "body_overlap_px": 2914
+  },
+  {
+   "id": "hall-e",
+   "kind": "wall",
+   "base_y": 468,
+   "area_px": 4262,
+   "body_overlap_px": 2860
+  },
+  {
+   "id": "corr-w-n",
+   "kind": "wall",
+   "base_y": 528,
+   "area_px": 36968,
+   "body_overlap_px": 824
+  },
+  {
+   "id": "corr-e-n",
+   "kind": "wall",
+   "base_y": 528,
+   "area_px": 36976,
+   "body_overlap_px": 807
+  },
+  {
+   "id": "hall-w",
+   "kind": "wall",
+   "base_y": 532,
+   "area_px": 4546,
+   "body_overlap_px": 4370
+  },
+  {
+   "id": "hall-e",
+   "kind": "wall",
+   "base_y": 532,
+   "area_px": 4476,
+   "body_overlap_px": 4286
+  },
+  {
+   "id": "corr-w-end",
+   "kind": "wall",
+   "base_y": 578,
+   "area_px": 4413,
+   "body_overlap_px": 4292
+  },
+  {
+   "id": "corr-e-end",
+   "kind": "wall",
+   "base_y": 578,
+   "area_px": 4360,
+   "body_overlap_px": 4239
+  },
+  {
+   "id": "hall-w",
+   "kind": "wall",
+   "base_y": 599,
+   "area_px": 4685,
+   "body_overlap_px": 3318
+  },
+  {
+   "id": "hall-e",
+   "kind": "wall",
+   "base_y": 599,
+   "area_px": 4610,
+   "body_overlap_px": 3230
+  },
+  {
+   "id": "corr-w-end",
+   "kind": "wall",
+   "base_y": 646,
+   "area_px": 4636,
+   "body_overlap_px": 3641
+  },
+  {
+   "id": "corr-e-end",
+   "kind": "wall",
+   "base_y": 646,
+   "area_px": 4586,
+   "body_overlap_px": 3572
+  },
+  {
+   "id": "hall-w",
+   "kind": "wall",
+   "base_y": 667,
+   "area_px": 4933,
+   "body_overlap_px": 1575
+  },
+  {
+   "id": "hall-e",
+   "kind": "wall",
+   "base_y": 667,
+   "area_px": 4859,
+   "body_overlap_px": 1550
+  },
+  {
+   "id": "corr-w-end",
+   "kind": "wall",
+   "base_y": 707,
+   "area_px": 4422,
+   "body_overlap_px": 1323
+  },
+  {
+   "id": "corr-e-end",
+   "kind": "wall",
+   "base_y": 707,
+   "area_px": 4361,
+   "body_overlap_px": 1365
+  }
+ ]
+}

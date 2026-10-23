@@ -45,6 +45,18 @@ uv run --with opencv-python-headless --with numpy --with pillow python3 -I body_
 
 動作確認（ヘルプ）: `uv run --with numpy --with scipy --with opencv-python-headless --with pillow python3 -I oblique_register.py -h`（`oblique_mask.py` も同様）。同じ入力から同じ画素が出る（TRM-02 で2回実行し cmp 一致を確認）。
 
+## 区分D: 斜めモック一式（寺町 TRM-02〜05 ほか。#144。画像生成なし・決定論）
+
+平面スペック JSON（`docs/production/oblique-mocks/<MAP>-plan.json`）から、斜めモック・歩行マスク・手前オクルージョン・白黒ワイヤー接続図・imagegen 編集用プロンプトを機械生成する。**絵の認識・LLM は使わない**。標準手順は `../SKILL.md`「斜め視点のエリア」。実行は `uv run --with numpy --with opencv-python-headless --with pillow python3 -I <tool>.py`。
+
+| ツール | 内容 | 使い方 |
+|---|---|---|
+| `oblique_build.py` | Make 風の一括ビルド。段階 validate→mock→wire→mask→occlusion→prompt（→承認ゲート→adopt→verify）。段ごとの入力 hash を MAP ごとの `manifest.json` に記録し、変わらない段はスキップ | `oblique_build.py PLAN.json [--variant kids] [--from STAGE] [--force]`／`--all connections.json`（全MAP＋接続図）／`--status connections.json`／`PLAN.json --adopt IMG --take N` |
+| `oblique_mock.py` | 射影・描画・マスク・オクルージョン。クリーン版（ラベルなし・imagegen 編集元）・ラベル付き版・歩行マスク（床=白・blocked=黒・戸口=出口範囲）・オクルージョン（隠す領域・深度・黒シアン編集地図・重ね確認画像） | 単体でも `oblique_mock.py PLAN.json --out DIR` |
+| `oblique_topology.py` | 接続図 `connection-diagram.png`（白背景・黒線のワイヤーで各MAPと戸口の線・door ID・幅・方角・寺町外の端点）・`overview.png`（カラー一覧）・`connections.md`（接続表。位置整合を検査）・個別ワイヤー図 | `oblique_build.py --all` が呼ぶ |
+
+視点の定数（`oblique_mock.py` 先頭）: 土台の天面 1600×1270 平面単位、台形の4隅、見下ろし約42度、1キャラ=66単位・出入口132単位。オクルージョンのキャラ寸法 67×100px は既定（要確認）。スペックの書き方・戸口の相手・開口の既定は `docs/production/oblique-mocks/*-plan.json` を雛形にする。
+
 ## 次にやること（優先度順。今回は大規模リファクタをしない）
 
 1. **【高】`body_layout.py` の `SPECS` を JSON 仕様に外出し**。新エリアは JSON を書くだけで割付図・接続検査・幾何JSONが出る。`body_geometry_json.py`・`body_sheet.py`・`build_body_prompt.py`・`check_body_image.py` が `body_layout` を import（または ast で読む）しているので、まず JSON を読む薄い層を足し、既存 SPECS を JSON へ書き出して出力が不変（割付図の sha256 一致）なことを確認してから置き換える。

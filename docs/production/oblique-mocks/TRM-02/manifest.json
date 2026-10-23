@@ -1,0 +1,77 @@
+{
+ "ledger": {
+  "checklist": "docs/map-contract-checklist.md",
+  "era_suffix": null,
+  "registry": "docs/map-asset-registry.md",
+  "row_id": "TRM-02"
+ },
+ "map_id": "TRM-02",
+ "plan": "docs/production/oblique-mocks/TRM-02-plan.json",
+ "plan_sha256": "b19025606b4dc0a71c3b3cdc676a866ed3233c172fec37d93c9c8d6a3d77388e",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-02.door-outside": [
+     2
+    ],
+    "TRM-02.door-west": [
+     2
+    ]
+   },
+   "input_sha": "125b2e87de976252e852afb4efb9bfb24b185fcbc7d0c8eea32f78d49ce970e5",
+   "outputs": {
+    "TRM-02-exits.png": "c0bf812b206e0c26a7a1e46e80ea81daefa0d0d9f98da9c16fa21363b7c5a6d9",
+    "TRM-02-mask.json": "6e5e28fdd2a6071cec5c7b4cd698d808abbb111aeccdcfb101dda489e884e645",
+    "TRM-02-mask.png": "5e484669c0973ad0fe6ece296ae8a602753c4cbe6f989ca75ca293e75bd042df"
+   },
+   "status": "ok",
+   "white_components": 4
+  },
+  "mock": {
+   "input_sha": "125b2e87de976252e852afb4efb9bfb24b185fcbc7d0c8eea32f78d49ce970e5",
+   "outputs": {
+    "TRM-02-clean.png": "067b5ed90a8785b0a52c44f1d8bd1194ad3fe13f1711d1837ff17a082a2deb54",
+    "TRM-02-review.png": "918443689c1465b684bb1924f291d5f6e0864be7ca1f062775a26f3d38d7215b"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "125b2e87de976252e852afb4efb9bfb24b185fcbc7d0c8eea32f78d49ce970e5",
+   "outputs": {
+    "TRM-02-occlusion-depth.png": "7b1c6aa0f37567e35c9acbf224ae73fa333b074290963c389661ff8d4565d330",
+    "TRM-02-occlusion-edit.png": "3cf4489009d70a1d848b9b5a5b4ac68ce9f19f607241ef90e98cffb657a6c450",
+    "TRM-02-occlusion-overlay.png": "9387205e4e86252cb0673d389f711d678302dd3d9fa27f7d280d17f1791c7fe7",
+    "TRM-02-occlusion.json": "30ef9ef45c2ea6d3207864711362a7d6e8ed3c48079ba68a599d207bc17e660e",
+    "TRM-02-occlusion.png": "954bffc9f45ce7c67ef6f1126f7802c309ee8982c6de73f59e0c945cb18a552b"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "b2e537078f31e215fe6fe416b58083230eff0ba860ac41ed6f5e6074150e98de",
+   "ledger_ready": false,
+   "outputs": {
+    "TRM-02-edit-prompt.txt": "d729cb11194d651cebd6713d3f030e88226e1a938ce37164e565f9d1740bfb41"
+   },
+   "status": "blocked"
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "dd7282aa29a28ab69fd99847b7c2f0f88d0c8fbea04a13298428bcd7a51dd6ac",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "家具の位置・大きさは採用画像 v3 から概略で拾った（設計書に家具の寸法は無い）。",
+    "壁の高さ 150（前壁・側壁）・160（奥壁）。戸口の高さ134（2人分）に対する余裕。前壁を戸口高に合わせたため手前の床が約30px 隠れる。",
+    "丸テーブルの椅子・テーブルの椅子は省略。"
+   ]
+  },
+  "wire": {
+   "input_sha": "632e92663dc76866a2a1254a92b2862bb96eb3ccdf35a807c3f76f3e01f8c3e6",
+   "outputs": {
+    "wire-TRM-02.png": "f27a9bbadcf4cb07fe06206b6cdae4deff7639631c442201ab773579473e1fd6"
+   },
+   "status": "ok"
+  }
+ }
+}

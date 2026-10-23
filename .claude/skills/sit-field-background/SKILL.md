@@ -172,6 +172,22 @@ kako-jun 指示（2026-10-22、逐語）: 『モックを見せずに作るこ�
 
 共通（#68運用）: 合格済みの正本を上書きする前に、現行がコミット済みか確認する。不合格テイクをコミット済みにしてしまった場合は `git revert <commit>`、または `git checkout <旧commit> -- <path>` で戻す。
 
-## 斜め視点のエリア（寺町 TRM-02〜05。#144）
+## 斜め視点のエリア（寺町 TRM-02〜05 ほか。#144。kako-jun 2026-10-23 決定で作り直し方式に転換）
 
-体内（真上）と違う斜めの採用画像は、絵を作り直さず**床の4点から平面図を逆算**（3×3ホモグラフィ）してマスク・NPC・出口の種を作る。ツールは `tools/oblique_register.py`・`tools/oblique_mask.py`（`tools/README.md` 区分C）、入力JSONは `docs/production/oblique-masks/`。決定（kako-jun、2026-10-23）: 舞台は登れない（blocked）／通路・出口の位置は設計書が正本（絵から読まない。TBD は聞く）／assist は通学路など最小限・室内はこだわらず基本 white／車椅子になる前にしか取れない宝箱用に assist を少数残せる作り。縦横比の検証は循環に注意（`pitfalls.md` F）。
+**方針: モックが設計の正本。** 平面スペック JSON を書くと、斜めモック・マスク・出口・オクルージョン・接続図・imagegen 編集用プロンプトまで**全部スクリプトが決定論で出す**（絵の認識・LLM は使わない。使うのは承認後の imagegen だけ）。マスクは絵から逆算せず、モック（平面図）から直接導く。生成した絵がモックの幾何を保つ限り、マスクと絵は食い違わない。旧方式（採用画像から逆算: `oblique_register.py`・`oblique_mask.py`・`docs/production/oblique-masks/`）は既存の採用画像の検証用に残す。
+
+### 標準手順（1コマンド）
+
+1. `docs/production/oblique-mocks/<MAP>-plan.json`（`sit-oblique-plan/1`）を書く。部屋の床・壁（高さつき）・戸口（壁・辺・位置・歩く側・相手の door ID）・家具の箱（高さ・blocked）・内部仕切りと開口。寸法は台帳・kako-jun の決定から。**設計に無い所は発明せず、`status:"default"` と `assumptions` に『既定（要確認）』と書く**。時期別（-kids/-fire/-burnt）は `variants` の差分で書く。
+2. `connections.json` に MAP と接続を足す（外部の端点＝TRM-07・TRM-01・体内も）。
+3. `uv run --with numpy --with opencv-python-headless --with pillow python3 -I .claude/skills/sit-field-background/tools/oblique_build.py --all docs/production/oblique-mocks/connections.json`
+
+段階（`tools/oblique_build.py`）: validate（スキーマ・戸口の相手不一致・幅不足・戸口の前の障害物・到達不能をエラー）→ mock（クリーン／ラベル付き）→ wire（個別の白黒ワイヤー図）→ mask（歩行マスク）→ occlusion（手前オクルージョン）→ prompt（imagegen 編集用。台帳 `build_map_prompt.rb` が ready でなければ blocked と記録）→ **承認ゲート** → adopt（`--adopt IMAGE --take N`。寸法・sha256・プロンプト hash・モック hash を記録）→ verify（`--status`。採用後にスペックが変われば「再生成が要る」）。各段の入力 hash・出力 sha256 は `docs/production/oblique-mocks/<MAP>/manifest.json`。入力が変わらない段はスキップ、変わった段以降だけ再実行（`--from STAGE`・`--force`）。接続図・一覧・接続表は `--all` で横断生成（`connection-diagram.png`・`overview.png`・`connections.md`）。
+
+### 決定（kako-jun、2026-10-23）
+
+- **全体レビューが承認ゲートの核**: 各戸口の位置・向き・幅（キャラ2人分）・相手 MAP の戸口との位置整合・寺町外への端点を載せた接続図（白黒ワイヤー。昔の攻略本流）と全MAP一覧を見せ、通ってから生成する。生成後の修正より、モック段階の接続修正を優先する。
+- **視点**（採用4枚の測定）: 見下ろし約42度・側辺の開き約10度・奥幅/手前幅0.835・手前の土台前面35px・机の小物は手前に固定・1672×941・1キャラ=67px。出入口は幅・高さともキャラ2人分（132平面単位＝土台の手前縁で約134px。奥は遠近で縮む）。
+- 舞台は登れない（blocked）／戸口・仕切りの開口の位置は設計が正本（絵から読まない。TBD は既定を置いて聞く）／assist は最小限。
+- **歩行マスクとオクルージョンは別レイヤー**。体内以外は斜めなので、手前の壁・背の高い家具がキャラを隠す。これをモックの幾何から自動で出す（`<MAP>-occlusion.png`＝隠す領域、`-occlusion-depth.png`＝その画素の物の接地線の画像 y、`-occlusion-edit.png`＝黒/シアンの編集地図（sit-field-mask の `*-foreground-edit` 規約）。**ルール: スプライトの足元 y < depth の画素だけ隠す**。奥壁・キャラの体（67×100px）が重ならない物は出さず、戸口の開口は抜く）。前景に隠れる床は通行不能にしない。深度つきの実行時適用は未実装（要確認）。
+- 縦横比の検証は循環に注意（`pitfalls.md` F）。

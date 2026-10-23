@@ -1,0 +1,79 @@
+{
+ "ledger": {
+  "checklist": "docs/map-contract-checklist.md",
+  "era_suffix": null,
+  "registry": "docs/map-asset-registry.md",
+  "row_id": "TRM-05"
+ },
+ "map_id": "TRM-05",
+ "plan": "docs/production/oblique-mocks/TRM-05-plan.json",
+ "plan_sha256": "b2eb5d84c58a5218d1cc7e26c2c8739254da6115f0e21b349675d548c3df1eb1",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-05.door-hall": [
+     1
+    ],
+    "TRM-05.door-outside": [
+     1
+    ]
+   },
+   "input_sha": "363b8898062aa7a5695cfcbcb532842dda4a77d7071b7a3cf871f7e372613104",
+   "outputs": {
+    "TRM-05-exits.png": "65f6eaac3a0bd3858efafadd96df0247c8b95e3f6e0a9edef36f93d8a848252a",
+    "TRM-05-mask.json": "76b5613ac1335e179d57c3b5356fc22464544e6ad71c80d9a17ed43b15e35f12",
+    "TRM-05-mask.png": "549ee94f31e662a409c5b0535f67bedfcfcede506e36725a9dd586a4e45e779d"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "363b8898062aa7a5695cfcbcb532842dda4a77d7071b7a3cf871f7e372613104",
+   "outputs": {
+    "TRM-05-clean.png": "99ca61f376b5cc251fc1d2f05e355b4ebe2a81ba739ff4c7013314d4d648af36",
+    "TRM-05-review.png": "e7b02c4eda77adcb6e88ee3269a07b1561fb42be4a72af45a6bcffdf775292de"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "363b8898062aa7a5695cfcbcb532842dda4a77d7071b7a3cf871f7e372613104",
+   "outputs": {
+    "TRM-05-occlusion-depth.png": "5402ae1c38e9cf85814315f46d9a4b5a2d37f37033f84d0a337d41c91bbf9b90",
+    "TRM-05-occlusion-edit.png": "0103b5f3fa3d99eaedaa902750093f82aa40249ddc4268f0ebb80b272e434530",
+    "TRM-05-occlusion-overlay.png": "9b129318ea8f68fecbfd36bbd67f7ea773ddf524d85d76fa8fc231c4a3bd844f",
+    "TRM-05-occlusion.json": "66fb1a0817a27114455462e203f53ef017b083767fc46b146a589191149e2195",
+    "TRM-05-occlusion.png": "0c845b04639951109295010fe941de92b270c35a632b278a82fea4b297ea962f"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "aad07ccd2e0a94bd2ebcfe9630093fe7ebbf70bc4a0e26434534657fccb011ef",
+   "ledger_ready": false,
+   "outputs": {
+    "TRM-05-edit-prompt.txt": "e245a0d7e8beb0de3d0b9d3dfe4f6ea68abb8da0b162ee90c6f4729e91a4190a"
+   },
+   "status": "blocked"
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "0ad5bdcb2a6f662ee15cdb273526a68033fce67adecd8aa290e03a773915195b",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "仕切りの開口（2か所）は設計未指定。既定: ダイニング↔北寝室（Y440）・ダイニング↔南寝室（Y841。本堂の戸口と一直線）。幅は2人分。",
+    "本堂からの戸口（東壁・v=0.76）は南寝室の側に着く。採用画像の石の敷居は東壁の中ほど（v≈0.5）にあったが、決定は『上下の中央より下寄り』。",
+    "家具の位置は採用画像 v12 から概略。",
+    "既定（要確認）: open-dining-bed-n",
+    "既定（要確認）: open-dining-bed-s"
+   ]
+  },
+  "wire": {
+   "input_sha": "d860c47c172dcf7ba8c2a50aade0c37758505cbc3091f809e52f783842a72509",
+   "outputs": {
+    "wire-TRM-05.png": "31a177502fd2c84993f0150745c63a521cba91659af8307e469802d84971f217"
+   },
+   "status": "ok"
+  }
+ }
+}
