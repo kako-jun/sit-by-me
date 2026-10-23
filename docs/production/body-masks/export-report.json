@@ -1,0 +1,1277 @@
+{
+ "BDY-01": {
+  "model": "S",
+  "transform": {
+   "scale_x": 0.85022,
+   "scale_y": 0.83268,
+   "rot_deg": 0.0,
+   "tx": 50.47,
+   "ty": 15.9
+  },
+  "inlier": 0.6636,
+  "mean_px": 4.05,
+  "max_px": 10.3,
+  "confidence": "MID",
+  "iou": 0.8188,
+  "only_image_pct": 11.45,
+  "only_mock_pct": 8.74,
+  "components": 1,
+  "exits_match": {
+   "N": [
+    0,
+    0,
+    0
+   ],
+   "E": [
+    0,
+    0,
+    0
+   ],
+   "S": [
+    1,
+    1,
+    1
+   ],
+   "W": [
+    0,
+    0,
+    0
+   ]
+  },
+  "exits_detected": 1,
+  "exits_spec": 1,
+  "unexpected": 1,
+  "bends": {
+   "image": 0,
+   "image_turn_deg": [],
+   "mock": 0,
+   "mock_turn_deg": [],
+   "spec": 0,
+   "centerline_len_image_px": 496,
+   "centerline_len_mock_px": 517
+  },
+  "maze": null,
+  "rooms": null,
+  "holes": [
+   0,
+   null
+  ],
+  "slice_mismatch": {
+   "h": [],
+   "v": [],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "white_px": 91766,
+  "forbidden_edge_ok": true,
+  "forbidden_edge_definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い"
+ },
+ "BDY-02": {
+  "model": "S",
+  "transform": {
+   "scale_x": 0.8377,
+   "scale_y": 0.82049,
+   "rot_deg": 0.0,
+   "tx": 30.43,
+   "ty": 28.9
+  },
+  "inlier": 0.6078,
+  "mean_px": 6.2,
+  "max_px": 10.45,
+  "confidence": "MID",
+  "iou": 0.9025,
+  "only_image_pct": 2.51,
+  "only_mock_pct": 7.49,
+  "components": 1,
+  "exits_match": {
+   "N": [
+    2,
+    2,
+    2
+   ],
+   "E": [
+    1,
+    1,
+    1
+   ],
+   "S": [
+    3,
+    3,
+    3
+   ],
+   "W": [
+    1,
+    1,
+    1
+   ]
+  },
+  "exits_detected": 7,
+  "exits_spec": 7,
+  "unexpected": 6,
+  "bends": null,
+  "maze": null,
+  "rooms": null,
+  "holes": [
+   0,
+   null
+  ],
+  "slice_mismatch": {
+   "h": [
+    7,
+    9
+   ],
+   "v": [],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "white_px": 495993,
+  "forbidden_edge_ok": true,
+  "forbidden_edge_definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い"
+ },
+ "BDY-03": {
+  "model": "S",
+  "transform": {
+   "scale_x": 0.85861,
+   "scale_y": 0.85822,
+   "rot_deg": 0.0,
+   "tx": 21.47,
+   "ty": 10.75
+  },
+  "inlier": 0.6633,
+  "mean_px": 3.8,
+  "max_px": 10.43,
+  "confidence": "MID",
+  "iou": 0.9154,
+  "only_image_pct": 1.18,
+  "only_mock_pct": 7.38,
+  "components": 1,
+  "exits_match": {
+   "N": [
+    1,
+    1,
+    1
+   ],
+   "E": [
+    2,
+    2,
+    2
+   ],
+   "S": [
+    0,
+    0,
+    0
+   ],
+   "W": [
+    1,
+    1,
+    1
+   ]
+  },
+  "exits_detected": 4,
+  "exits_spec": 4,
+  "unexpected": 3,
+  "bends": null,
+  "maze": null,
+  "rooms": null,
+  "holes": [
+   0,
+   null
+  ],
+  "slice_mismatch": {
+   "h": [],
+   "v": [],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "white_px": 424906,
+  "forbidden_edge_ok": true,
+  "forbidden_edge_definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い"
+ },
+ "BDY-04": {
+  "model": "T",
+  "transform": {
+   "scale_x": 0.86131,
+   "scale_y": 0.87313,
+   "rot_deg": 0.0,
+   "tx": 9.88,
+   "ty": -5.61
+  },
+  "inlier": 0.7689,
+  "mean_px": 2.93,
+  "max_px": 10.45,
+  "confidence": "MID",
+  "iou": 0.8318,
+  "only_image_pct": 0.0,
+  "only_mock_pct": 16.81,
+  "components": 1,
+  "exits_match": {
+   "N": [
+    0,
+    0,
+    0
+   ],
+   "E": [
+    0,
+    0,
+    0
+   ],
+   "S": [
+    1,
+    1,
+    1
+   ],
+   "W": [
+    0,
+    0,
+    0
+   ]
+  },
+  "exits_detected": 1,
+  "exits_spec": 1,
+  "unexpected": 1,
+  "bends": null,
+  "maze": {
+   "passages": 77,
+   "mock_passages": 77,
+   "dead_ends": 11,
+   "t_junctions": 10,
+   "corners": 38,
+   "components": 1,
+   "loops": 0
+  },
+  "rooms": null,
+  "holes": [
+   0,
+   null
+  ],
+  "slice_mismatch": {
+   "h": [
+    1,
+    4,
+    7
+   ],
+   "v": [
+    3
+   ],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "white_px": 445213,
+  "forbidden_edge_ok": true,
+  "forbidden_edge_definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い"
+ },
+ "BDY-05": {
+  "model": "T",
+  "transform": {
+   "scale_x": 0.87105,
+   "scale_y": 0.87065,
+   "rot_deg": 0.0,
+   "tx": -4.15,
+   "ty": 2.08
+  },
+  "inlier": 0.6596,
+  "mean_px": 1.37,
+  "max_px": 9.96,
+  "confidence": "MID",
+  "iou": 0.8248,
+  "only_image_pct": 0.14,
+  "only_mock_pct": 17.4,
+  "components": 1,
+  "exits_match": {
+   "N": [
+    1,
+    1,
+    1
+   ],
+   "E": [
+    0,
+    0,
+    0
+   ],
+   "S": [
+    0,
+    0,
+    0
+   ],
+   "W": [
+    1,
+    1,
+    1
+   ]
+  },
+  "exits_detected": 2,
+  "exits_spec": 2,
+  "unexpected": 2,
+  "bends": {
+   "image": 0,
+   "image_turn_deg": [],
+   "mock": 1,
+   "mock_turn_deg": [
+    -17.8
+   ],
+   "spec": 0,
+   "centerline_len_image_px": 928,
+   "centerline_len_mock_px": 986
+  },
+  "maze": null,
+  "rooms": null,
+  "holes": [
+   0,
+   null
+  ],
+  "slice_mismatch": {
+   "h": [],
+   "v": [],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "white_px": 109329,
+  "forbidden_edge_ok": true,
+  "forbidden_edge_definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い"
+ },
+ "BDY-06": {
+  "model": "S",
+  "transform": {
+   "scale_x": 0.84247,
+   "scale_y": 0.83146,
+   "rot_deg": 0.0,
+   "tx": 56.61,
+   "ty": 32.51
+  },
+  "inlier": 0.561,
+  "mean_px": 3.25,
+  "max_px": 10.32,
+  "confidence": "MID",
+  "iou": 0.8755,
+  "only_image_pct": 3.33,
+  "only_mock_pct": 9.54,
+  "components": 1,
+  "exits_match": {
+   "N": [
+    0,
+    0,
+    0
+   ],
+   "E": [
+    0,
+    0,
+    0
+   ],
+   "S": [
+    1,
+    1,
+    1
+   ],
+   "W": [
+    0,
+    0,
+    0
+   ]
+  },
+  "exits_detected": 1,
+  "exits_spec": 1,
+  "unexpected": 1,
+  "bends": {
+   "image": 0,
+   "image_turn_deg": [],
+   "mock": 0,
+   "mock_turn_deg": [],
+   "spec": 0,
+   "centerline_len_image_px": 669,
+   "centerline_len_mock_px": 672
+  },
+  "maze": null,
+  "rooms": null,
+  "holes": [
+   0,
+   null
+  ],
+  "slice_mismatch": {
+   "h": [
+    4
+   ],
+   "v": [],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "white_px": 105828,
+  "forbidden_edge_ok": true,
+  "forbidden_edge_definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い"
+ },
+ "BDY-07": {
+  "model": "T",
+  "transform": {
+   "scale_x": 0.85949,
+   "scale_y": 0.83582,
+   "rot_deg": 0.0,
+   "tx": 14.25,
+   "ty": 11.82
+  },
+  "inlier": 0.1878,
+  "mean_px": 5.37,
+  "max_px": 10.42,
+  "confidence": "LOW",
+  "iou": 0.6452,
+  "only_image_pct": 12.58,
+  "only_mock_pct": 27.37,
+  "components": 1,
+  "exits_match": {
+   "N": [
+    1,
+    1,
+    1
+   ],
+   "E": [
+    1,
+    1,
+    1
+   ],
+   "S": [
+    0,
+    0,
+    0
+   ],
+   "W": [
+    0,
+    0,
+    0
+   ]
+  },
+  "exits_detected": 2,
+  "exits_spec": 2,
+  "unexpected": 2,
+  "bends": {
+   "image": 0,
+   "image_turn_deg": [],
+   "mock": 1,
+   "mock_turn_deg": [
+    16.9
+   ],
+   "spec": 0,
+   "centerline_len_image_px": 904,
+   "centerline_len_mock_px": 959
+  },
+  "maze": null,
+  "rooms": null,
+  "holes": [
+   0,
+   null
+  ],
+  "slice_mismatch": {
+   "h": [
+    7
+   ],
+   "v": [
+    5
+   ],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "white_px": 107325,
+  "forbidden_edge_ok": true,
+  "forbidden_edge_definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い"
+ },
+ "BDY-08": {
+  "model": "S",
+  "transform": {
+   "scale_x": 0.85499,
+   "scale_y": 0.83878,
+   "rot_deg": 0.0,
+   "tx": 10.32,
+   "ty": 20.71
+  },
+  "inlier": 0.7394,
+  "mean_px": 4.75,
+  "max_px": 10.33,
+  "confidence": "MID",
+  "iou": 0.917,
+  "only_image_pct": 0.84,
+  "only_mock_pct": 7.53,
+  "components": 1,
+  "exits_match": {
+   "N": [
+    0,
+    0,
+    0
+   ],
+   "E": [
+    0,
+    0,
+    0
+   ],
+   "S": [
+    1,
+    1,
+    1
+   ],
+   "W": [
+    0,
+    0,
+    0
+   ]
+  },
+  "exits_detected": 1,
+  "exits_spec": 1,
+  "unexpected": 1,
+  "bends": {
+   "image": 0,
+   "image_turn_deg": [],
+   "mock": 0,
+   "mock_turn_deg": [],
+   "spec": 0,
+   "centerline_len_image_px": 661,
+   "centerline_len_mock_px": 695
+  },
+  "maze": null,
+  "rooms": null,
+  "holes": [
+   0,
+   null
+  ],
+  "slice_mismatch": {
+   "h": [],
+   "v": [
+    7
+   ],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "white_px": 108533,
+  "forbidden_edge_ok": true,
+  "forbidden_edge_definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い"
+ },
+ "BDY-09": {
+  "model": "T",
+  "transform": {
+   "scale_x": 0.86071,
+   "scale_y": 0.87189,
+   "rot_deg": 0.0,
+   "tx": 20.7,
+   "ty": 18.26
+  },
+  "inlier": 0.5911,
+  "mean_px": 1.05,
+  "max_px": 9.87,
+  "confidence": "MID",
+  "iou": 0.7857,
+  "only_image_pct": 4.99,
+  "only_mock_pct": 17.51,
+  "components": 1,
+  "exits_match": {
+   "N": [
+    0,
+    0,
+    0
+   ],
+   "E": [
+    0,
+    0,
+    0
+   ],
+   "S": [
+    1,
+    1,
+    1
+   ],
+   "W": [
+    1,
+    1,
+    1
+   ]
+  },
+  "exits_detected": 2,
+  "exits_spec": 2,
+  "unexpected": 2,
+  "bends": {
+   "image": 1,
+   "image_turn_deg": [
+    30.7
+   ],
+   "mock": 1,
+   "mock_turn_deg": [
+    33.6
+   ],
+   "spec": 1,
+   "centerline_len_image_px": 983,
+   "centerline_len_mock_px": 824
+  },
+  "maze": null,
+  "rooms": null,
+  "holes": [
+   0,
+   null
+  ],
+  "slice_mismatch": {
+   "h": [],
+   "v": [],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "white_px": 132672,
+  "forbidden_edge_ok": true,
+  "forbidden_edge_definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い"
+ },
+ "BDY-10": {
+  "model": "S",
+  "transform": {
+   "scale_x": 0.85023,
+   "scale_y": 0.85097,
+   "rot_deg": 0.0,
+   "tx": 18.61,
+   "ty": 12.1
+  },
+  "inlier": 1.0,
+  "mean_px": 2.28,
+  "max_px": 6.52,
+  "confidence": "HIGH",
+  "iou": 0.9693,
+  "only_image_pct": 0.64,
+  "only_mock_pct": 2.44,
+  "components": 1,
+  "exits_match": {
+   "N": [
+    1,
+    1,
+    1
+   ],
+   "E": [
+    0,
+    0,
+    0
+   ],
+   "S": [
+    1,
+    1,
+    1
+   ],
+   "W": [
+    0,
+    0,
+    0
+   ]
+  },
+  "exits_detected": 2,
+  "exits_spec": 2,
+  "unexpected": 2,
+  "bends": {
+   "image": 0,
+   "image_turn_deg": [],
+   "mock": 0,
+   "mock_turn_deg": [],
+   "spec": 0,
+   "centerline_len_image_px": 1032,
+   "centerline_len_mock_px": 1043
+  },
+  "maze": null,
+  "rooms": null,
+  "holes": [
+   0,
+   null
+  ],
+  "slice_mismatch": {
+   "h": [],
+   "v": [],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "white_px": 155901,
+  "forbidden_edge_ok": true,
+  "forbidden_edge_definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い"
+ },
+ "BDY-11": {
+  "model": "S",
+  "transform": {
+   "scale_x": 0.8538,
+   "scale_y": 0.85341,
+   "rot_deg": 0.0,
+   "tx": 28.26,
+   "ty": 12.42
+  },
+  "inlier": 0.6674,
+  "mean_px": 1.95,
+  "max_px": 10.29,
+  "confidence": "MID",
+  "iou": 0.8834,
+  "only_image_pct": 0.9,
+  "only_mock_pct": 10.87,
+  "components": 1,
+  "exits_match": {
+   "N": [
+    1,
+    1,
+    1
+   ],
+   "E": [
+    0,
+    0,
+    0
+   ],
+   "S": [
+    0,
+    0,
+    0
+   ],
+   "W": [
+    0,
+    0,
+    0
+   ]
+  },
+  "exits_detected": 1,
+  "exits_spec": 1,
+  "unexpected": 1,
+  "bends": {
+   "image": 0,
+   "image_turn_deg": [],
+   "mock": 0,
+   "mock_turn_deg": [],
+   "spec": 0,
+   "centerline_len_image_px": 593,
+   "centerline_len_mock_px": 622
+  },
+  "maze": null,
+  "rooms": null,
+  "holes": [
+   0,
+   null
+  ],
+  "slice_mismatch": {
+   "h": [
+    1
+   ],
+   "v": [],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "white_px": 103205,
+  "forbidden_edge_ok": true,
+  "forbidden_edge_definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い"
+ },
+ "BDY-12": {
+  "model": "S",
+  "transform": {
+   "scale_x": 0.8538,
+   "scale_y": 0.85341,
+   "rot_deg": 0.0,
+   "tx": 26.57,
+   "ty": 25.76
+  },
+  "inlier": 0.6015,
+  "mean_px": 1.06,
+  "max_px": 7.52,
+  "confidence": "MID",
+  "iou": 0.8736,
+  "only_image_pct": 1.06,
+  "only_mock_pct": 11.71,
+  "components": 1,
+  "exits_match": {
+   "N": [
+    0,
+    0,
+    0
+   ],
+   "E": [
+    1,
+    1,
+    1
+   ],
+   "S": [
+    1,
+    1,
+    1
+   ],
+   "W": [
+    0,
+    0,
+    0
+   ]
+  },
+  "exits_detected": 2,
+  "exits_spec": 2,
+  "unexpected": 2,
+  "bends": {
+   "image": 1,
+   "image_turn_deg": [
+    -31.9
+   ],
+   "mock": 1,
+   "mock_turn_deg": [
+    -33.1
+   ],
+   "spec": 1,
+   "centerline_len_image_px": 978,
+   "centerline_len_mock_px": 1000
+  },
+  "maze": null,
+  "rooms": null,
+  "holes": [
+   0,
+   null
+  ],
+  "slice_mismatch": {
+   "h": [],
+   "v": [],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "white_px": 135830,
+  "forbidden_edge_ok": true,
+  "forbidden_edge_definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い"
+ },
+ "BDY-13": {
+  "model": "S",
+  "transform": {
+   "scale_x": 0.85499,
+   "scale_y": 0.84609,
+   "rot_deg": 0.0,
+   "tx": 29.28,
+   "ty": 16.54
+  },
+  "inlier": 0.5,
+  "mean_px": 1.78,
+  "max_px": 5.67,
+  "confidence": "MID",
+  "iou": 0.8848,
+  "only_image_pct": 2.63,
+  "only_mock_pct": 9.2,
+  "components": 1,
+  "exits_match": {
+   "N": [
+    1,
+    1,
+    1
+   ],
+   "E": [
+    0,
+    0,
+    0
+   ],
+   "S": [
+    1,
+    1,
+    1
+   ],
+   "W": [
+    0,
+    0,
+    0
+   ]
+  },
+  "exits_detected": 2,
+  "exits_spec": 2,
+  "unexpected": 1,
+  "bends": {
+   "image": 0,
+   "image_turn_deg": [],
+   "mock": 0,
+   "mock_turn_deg": [],
+   "spec": 0,
+   "centerline_len_image_px": 1024,
+   "centerline_len_mock_px": 1050
+  },
+  "maze": null,
+  "rooms": null,
+  "holes": [
+   0,
+   null
+  ],
+  "slice_mismatch": {
+   "h": [],
+   "v": [],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "white_px": 148501,
+  "forbidden_edge_ok": true,
+  "forbidden_edge_definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い"
+ },
+ "BDY-14": {
+  "model": "T",
+  "transform": {
+   "scale_x": 0.87105,
+   "scale_y": 0.87065,
+   "rot_deg": 0.0,
+   "tx": 2.05,
+   "ty": 0.61
+  },
+  "inlier": 0.6557,
+  "mean_px": 1.42,
+  "max_px": 10.18,
+  "confidence": "MID",
+  "iou": 0.8791,
+  "only_image_pct": 1.54,
+  "only_mock_pct": 10.73,
+  "components": 1,
+  "exits_match": {
+   "N": [
+    1,
+    1,
+    1
+   ],
+   "E": [
+    0,
+    0,
+    0
+   ],
+   "S": [
+    0,
+    0,
+    0
+   ],
+   "W": [
+    0,
+    0,
+    0
+   ]
+  },
+  "exits_detected": 1,
+  "exits_spec": 1,
+  "unexpected": 1,
+  "bends": {
+   "image": 0,
+   "image_turn_deg": [],
+   "mock": 0,
+   "mock_turn_deg": [],
+   "spec": 0,
+   "centerline_len_image_px": 667,
+   "centerline_len_mock_px": 640
+  },
+  "maze": null,
+  "rooms": null,
+  "holes": [
+   0,
+   null
+  ],
+  "slice_mismatch": {
+   "h": [],
+   "v": [],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "white_px": 108148,
+  "forbidden_edge_ok": true,
+  "forbidden_edge_definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い"
+ },
+ "BDY-15": {
+  "model": "S",
+  "transform": {
+   "scale_x": 0.86166,
+   "scale_y": 0.86127,
+   "rot_deg": 0.0,
+   "tx": 4.38,
+   "ty": -4.64
+  },
+  "inlier": 0.4415,
+  "mean_px": 3.28,
+  "max_px": 10.4,
+  "confidence": "LOW",
+  "iou": 0.9033,
+  "only_image_pct": 0.45,
+  "only_mock_pct": 9.26,
+  "components": 1,
+  "exits_match": {
+   "N": [
+    0,
+    1,
+    0
+   ],
+   "E": [
+    0,
+    0,
+    0
+   ],
+   "S": [
+    0,
+    0,
+    0
+   ],
+   "W": [
+    1,
+    1,
+    1
+   ]
+  },
+  "exits_detected": 1,
+  "exits_spec": 1,
+  "unexpected": 1,
+  "bends": null,
+  "maze": null,
+  "rooms": {
+   "count_expected": 4,
+   "count_present": 3
+  },
+  "holes": [
+   0,
+   0
+  ],
+  "slice_mismatch": {
+   "h": [
+    5
+   ],
+   "v": [],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "white_px": 391772,
+  "forbidden_edge_ok": true,
+  "forbidden_edge_definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い"
+ },
+ "BDY-16": {
+  "model": "T",
+  "transform": {
+   "scale_x": 0.85341,
+   "scale_y": 0.85572,
+   "rot_deg": 0.0,
+   "tx": 11.4,
+   "ty": -4.08
+  },
+  "inlier": 0.4644,
+  "mean_px": 4.05,
+  "max_px": 10.41,
+  "confidence": "LOW",
+  "iou": 0.8695,
+  "only_image_pct": 1.34,
+  "only_mock_pct": 11.88,
+  "components": 1,
+  "exits_match": {
+   "N": [
+    1,
+    1,
+    1
+   ],
+   "E": [
+    0,
+    0,
+    0
+   ],
+   "S": [
+    0,
+    0,
+    0
+   ],
+   "W": [
+    0,
+    0,
+    0
+   ]
+  },
+  "exits_detected": 1,
+  "exits_spec": 1,
+  "unexpected": 1,
+  "bends": null,
+  "maze": null,
+  "rooms": {
+   "count_expected": 4,
+   "count_present": 4
+  },
+  "holes": [
+   1,
+   1
+  ],
+  "slice_mismatch": {
+   "h": [
+    1,
+    9
+   ],
+   "v": [
+    2
+   ],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "white_px": 408732,
+  "forbidden_edge_ok": true,
+  "forbidden_edge_definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い"
+ },
+ "BDY-17": {
+  "model": "S",
+  "transform": {
+   "scale_x": 0.86579,
+   "scale_y": 0.8654,
+   "rot_deg": 0.0,
+   "tx": 5.05,
+   "ty": 0.37
+  },
+  "inlier": 0.7129,
+  "mean_px": 2.79,
+  "max_px": 10.27,
+  "confidence": "MID",
+  "iou": 0.8558,
+  "only_image_pct": 0.27,
+  "only_mock_pct": 14.18,
+  "components": 1,
+  "exits_match": {
+   "N": [
+    1,
+    1,
+    1
+   ],
+   "E": [
+    0,
+    0,
+    0
+   ],
+   "S": [
+    0,
+    0,
+    0
+   ],
+   "W": [
+    0,
+    0,
+    0
+   ]
+  },
+  "exits_detected": 1,
+  "exits_spec": 1,
+  "unexpected": 0,
+  "bends": null,
+  "maze": null,
+  "rooms": {
+   "count_expected": 5,
+   "count_present": 5
+  },
+  "holes": [
+   1,
+   1
+  ],
+  "slice_mismatch": {
+   "h": [],
+   "v": [],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "white_px": 262970,
+  "forbidden_edge_ok": true,
+  "forbidden_edge_definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い"
+ },
+ "_connections": [
+  {
+   "a": "BDY-01.door-passage-torso",
+   "a_side": "S",
+   "b": "BDY-02.door-passage-mouth",
+   "b_side": "N",
+   "opposite": true,
+   "a_detected": true,
+   "b_detected": true
+  },
+  {
+   "a": "BDY-02.door-passage-head",
+   "a_side": "N",
+   "b": "BDY-04.door-passage-torso",
+   "b_side": "S",
+   "opposite": true,
+   "a_detected": true,
+   "b_detected": true
+  },
+  {
+   "a": "BDY-02.door-passage-left-arm",
+   "a_side": "E",
+   "b": "BDY-05.door-passage-torso",
+   "b_side": "W",
+   "opposite": true,
+   "a_detected": true,
+   "b_detected": true
+  },
+  {
+   "a": "BDY-02.door-passage-lung",
+   "a_side": "S",
+   "b": "BDY-17.door-passage-torso",
+   "b_side": "N",
+   "opposite": true,
+   "a_detected": true,
+   "b_detected": true
+  },
+  {
+   "a": "BDY-02.door-passage-lower",
+   "a_side": "S",
+   "b": "BDY-03.door-passage-upper",
+   "b_side": "N",
+   "opposite": true,
+   "a_detected": true,
+   "b_detected": true
+  },
+  {
+   "a": "BDY-02.door-passage-heart",
+   "a_side": "S",
+   "b": "BDY-16.door-passage-torso",
+   "b_side": "N",
+   "opposite": true,
+   "a_detected": true,
+   "b_detected": true
+  },
+  {
+   "a": "BDY-02.door-passage-right-arm",
+   "a_side": "W",
+   "b": "BDY-07.door-passage-torso",
+   "b_side": "E",
+   "opposite": true,
+   "a_detected": true,
+   "b_detected": true
+  },
+  {
+   "a": "BDY-03.door-passage-stomach",
+   "a_side": "E",
+   "b": "BDY-15.door-passage-torso",
+   "b_side": "W",
+   "opposite": true,
+   "a_detected": true,
+   "b_detected": true
+  },
+  {
+   "a": "BDY-03.door-passage-left-leg",
+   "a_side": "E",
+   "b": "BDY-09.door-passage-torso",
+   "b_side": "W",
+   "opposite": true,
+   "a_detected": true,
+   "b_detected": true
+  },
+  {
+   "a": "BDY-03.door-passage-right-leg",
+   "a_side": "W",
+   "b": "BDY-12.door-passage-torso",
+   "b_side": "E",
+   "opposite": true,
+   "a_detected": true,
+   "b_detected": true
+  },
+  {
+   "a": "BDY-05.door-passage-tip",
+   "a_side": "N",
+   "b": "BDY-06.door-passage-base",
+   "b_side": "S",
+   "opposite": true,
+   "a_detected": true,
+   "b_detected": true
+  },
+  {
+   "a": "BDY-07.door-passage-tip",
+   "a_side": "N",
+   "b": "BDY-08.door-passage-base",
+   "b_side": "S",
+   "opposite": true,
+   "a_detected": true,
+   "b_detected": true
+  },
+  {
+   "a": "BDY-09.door-passage-middle",
+   "a_side": "S",
+   "b": "BDY-10.door-passage-base",
+   "b_side": "N",
+   "opposite": true,
+   "a_detected": true,
+   "b_detected": true
+  },
+  {
+   "a": "BDY-10.door-passage-tip",
+   "a_side": "S",
+   "b": "BDY-11.door-passage-base",
+   "b_side": "N",
+   "opposite": true,
+   "a_detected": true,
+   "b_detected": true
+  },
+  {
+   "a": "BDY-12.door-passage-middle",
+   "a_side": "S",
+   "b": "BDY-13.door-passage-base",
+   "b_side": "N",
+   "opposite": true,
+   "a_detected": true,
+   "b_detected": true
+  },
+  {
+   "a": "BDY-13.door-passage-tip",
+   "a_side": "S",
+   "b": "BDY-14.door-passage-base",
+   "b_side": "N",
+   "opposite": true,
+   "a_detected": true,
+   "b_detected": true
+  }
+ ]
+}

@@ -1,0 +1,576 @@
+{
+ "map": "BDY-03",
+ "image": "assets/images/fields/reference/body-lower-torso-bdy03-adopted.webp",
+ "size": [
+  1672,
+  941
+ ],
+ "scale_vs_1920": 0.87083,
+ "image_measure": {
+  "rect_measured": [
+   0,
+   0,
+   1672,
+   810
+  ],
+  "rect_expected_scaled": [
+   120,
+   120,
+   1552,
+   820
+  ],
+  "rect_used": [
+   120,
+   120,
+   1552,
+   810
+  ],
+  "rect_used_for_registration": [
+   120,
+   120,
+   1552,
+   820
+  ],
+  "layers_ok": false,
+  "rect_ok": false,
+  "edge_dev_px": 120,
+  "side_measured_ok": {
+   "N": false,
+   "E": false,
+   "S": true,
+   "W": false
+  },
+  "side_fallback_reasons": {
+   "N": "層が読めない(foam=0px, corr=0px, 机=0px) → 期待値 120px を使用",
+   "E": "層が読めない(foam=0px, corr=0px, 机=0px) → 期待値 120px を使用",
+   "W": "層が読めない(foam=0px, corr=0px, 机=0px) → 期待値 120px を使用"
+  },
+  "desk_depth_px": {
+   "N": 0,
+   "E": 0,
+   "S": 87,
+   "W": 0
+  },
+  "floor_color": [
+   230,
+   195,
+   156
+  ],
+  "floor_color_source": "estimate",
+  "floor_color_checker_estimate": [
+   230,
+   195,
+   156
+  ],
+  "floor_color_estimated_ok": true,
+  "floor_px_color_only": 424834
+ },
+ "registration": {
+  "chosen_model": "S",
+  "models": {
+   "init": {
+    "params": {
+     "dx": 0.0,
+     "dy": 0.0,
+     "dlogs": 0.0,
+     "drot_deg": 0.0,
+     "dlog_aniso": 0.0
+    },
+    "cost_px_incl_endpoint_term": 16.21,
+    "points": 1494,
+    "inlier_frac": 0.5201,
+    "inlier_mean_px": 5.64,
+    "inlier_max_px": 10.45,
+    "all_mean_px": 9.57,
+    "p90_px": 15.71
+   },
+   "T": {
+    "params": {
+     "dx": 7.8443,
+     "dy": 5.429,
+     "dlogs": 0.0,
+     "drot_deg": 0.0,
+     "dlog_aniso": 0.0
+    },
+    "cost_px_incl_endpoint_term": 15.02,
+    "points": 1494,
+    "inlier_frac": 0.6031,
+    "inlier_mean_px": 4.41,
+    "inlier_max_px": 10.44,
+    "all_mean_px": 8.63,
+    "p90_px": 17.42
+   },
+   "S": {
+    "params": {
+     "dx": 9.7407,
+     "dy": 4.1904,
+     "dlogs": -0.0144,
+     "drot_deg": 0.0,
+     "dlog_aniso": 0.0
+    },
+    "cost_px_incl_endpoint_term": 13.46,
+    "points": 1494,
+    "inlier_frac": 0.6633,
+    "inlier_mean_px": 3.8,
+    "inlier_max_px": 10.43,
+    "all_mean_px": 7.57,
+    "p90_px": 17.42
+   },
+   "SR": {
+    "params": {
+     "dx": 9.3371,
+     "dy": 1.4786,
+     "dlogs": -0.0125,
+     "drot_deg": 0.2961,
+     "dlog_aniso": 0.0
+    },
+    "cost_px_incl_endpoint_term": 13.25,
+    "points": 1494,
+    "inlier_frac": 0.6499,
+    "inlier_mean_px": 3.75,
+    "inlier_max_px": 10.43,
+    "all_mean_px": 7.58,
+    "p90_px": 17.42
+   },
+   "A": {
+    "params": {
+     "dx": 9.3395,
+     "dy": 1.4615,
+     "dlogs": -0.0128,
+     "drot_deg": 0.2936,
+     "dlog_aniso": 0.0005
+    },
+    "cost_px_incl_endpoint_term": 13.25,
+    "points": 1494,
+    "inlier_frac": 0.6506,
+    "inlier_mean_px": 3.73,
+    "inlier_max_px": 10.45,
+    "all_mean_px": 7.56,
+    "p90_px": 17.42
+   }
+  },
+  "transform": {
+   "scale_x": 0.85861,
+   "scale_y": 0.85822,
+   "rot_deg": 0.0,
+   "tx": 21.47,
+   "ty": 10.75
+  },
+  "matrix_mock_to_image": [
+   [
+    0.858613,
+    0.0,
+    21.47246
+   ],
+   [
+    0.0,
+    0.858219,
+    10.752154
+   ]
+  ],
+  "residual": {
+   "points": 1494,
+   "inlier_frac": 0.6633,
+   "inlier_mean_px": 3.8,
+   "inlier_max_px": 10.43,
+   "all_mean_px": 7.57,
+   "p90_px": 17.42
+  },
+  "confidence": "MID",
+  "confidence_note": "residual=モック床境界点→画像の床（色だけで抽出）の境界までの距離。inlier=12px(x倍率)以内の割合。HIGH: inlier>=0.80 かつ平均<=4px(x倍率) / MID: >=0.5 / LOW: それ未満"
+ },
+ "floor_cut": {
+  "info": {
+   "color_floor_core_median": [
+    230,
+    195,
+    156
+   ],
+   "color_floor_thr": 5.0,
+   "color_floor_erode_px": 1,
+   "color_strict_removed_from_grabcut_px": 12247,
+   "grabcut_iters": 5,
+   "grabcut_after_sliver_px": 435347,
+   "seed_deep_px": 379545,
+   "grabcut_floor_px": 441544,
+   "isolated_floorlike_components_dropped": 0,
+   "wall_bevel_sliver_removed_px": 6060,
+   "cut_before_sliver_px": 441407,
+   "exit_throat_extension": {
+    "sides": [
+     "E",
+     "N",
+     "W"
+    ],
+    "added_px": 1806,
+    "exits": [
+     {
+      "side": "E",
+      "run": [
+       141,
+       330
+      ],
+      "md_thr": 5.0,
+      "added_px": 353,
+      "added_beyond_edge_px": 5,
+      "clipped_at_edge_because_floor_color_reaches_desk": false
+     },
+     {
+      "side": "E",
+      "run": [
+       602,
+       795
+      ],
+      "md_thr": 5.0,
+      "added_px": 732,
+      "added_beyond_edge_px": 228,
+      "clipped_at_edge_because_floor_color_reaches_desk": false
+     },
+     {
+      "side": "N",
+      "run": [
+       748,
+       921
+      ],
+      "md_thr": 5.0,
+      "added_px": 440,
+      "added_beyond_edge_px": 188,
+      "clipped_at_edge_because_floor_color_reaches_desk": false
+     },
+     {
+      "side": "W",
+      "run": [
+       599,
+       796
+      ],
+      "md_thr": 5.0,
+      "added_px": 349,
+      "added_beyond_edge_px": 72,
+      "clipped_at_edge_because_floor_color_reaches_desk": false
+     }
+    ],
+    "finalize": {
+     "edge_spur_removed_px": 42,
+     "nonfloor_md2_removed_px": 0,
+     "nonfloor_md2_removed_from_pre_throat_white_px": 0,
+     "nonfloor_removed_beyond_rect_px": 26,
+     "disconnected_dropped_px": 0,
+     "holes_filled": [],
+     "holes_kept_area_px": [],
+     "rule": "縁の外の white は md<5 のみ / 小さな穴は床色（md中央値<10）のときだけ埋める"
+    }
+   }
+  },
+  "color_only_px": 424834
+ },
+ "floor_diff_vs_mock": {
+  "mock_floor_px": 453011,
+  "cut_floor_px": 424906,
+  "both_px": 419560,
+  "iou": 0.9154,
+  "only_image_px": 5346,
+  "only_mock_px": 33451,
+  "only_image_pct_of_mock": 1.18,
+  "only_mock_pct_of_mock": 7.38,
+  "structural_only_image_px": 2929,
+  "structural_only_mock_px": 16337,
+  "structural_only_image": [
+   {
+    "area_px": 2929,
+    "bbox": [
+     123,
+     607,
+     139,
+     794
+    ],
+    "centroid": [
+     131,
+     700
+    ]
+   }
+  ],
+  "structural_only_mock": [
+   {
+    "area_px": 8336,
+    "bbox": [
+     1148,
+     328,
+     1551,
+     476
+    ],
+    "centroid": [
+     1351,
+     400
+    ]
+   },
+   {
+    "area_px": 4809,
+    "bbox": [
+     921,
+     129,
+     944,
+     339
+    ],
+    "centroid": [
+     933,
+     233
+    ]
+   },
+   {
+    "area_px": 1463,
+    "bbox": [
+     758,
+     561,
+     851,
+     599
+    ],
+    "centroid": [
+     805,
+     579
+    ]
+   },
+   {
+    "area_px": 991,
+    "bbox": [
+     1491,
+     576,
+     1551,
+     605
+    ],
+    "centroid": [
+     1521,
+     590
+    ]
+   }
+  ]
+ },
+ "edge_bias_signed_px": {
+  "S(下向きの縁)": {
+   "n": 1793,
+   "mean_px": 9.75
+  },
+  "N(上向きの縁)": {
+   "n": 1787,
+   "mean_px": 3.3
+  },
+  "E(右向きの縁)": {
+   "n": 456,
+   "mean_px": 1.93
+  },
+  "W(左向きの縁)": {
+   "n": 478,
+   "mean_px": -5.24
+  }
+ },
+ "topology": {
+  "components": {
+   "count": 1,
+   "big_count": 1,
+   "sizes_top": [
+    424906
+   ]
+  },
+  "mock_components": {
+   "count": 1,
+   "big_count": 1,
+   "sizes_top": [
+    453011
+   ]
+  },
+  "exits": {
+   "N": {
+    "image_count": 1,
+    "mock_count": 1,
+    "spec_count": 1,
+    "match": true,
+    "pairs": [
+     {
+      "image": [
+       747,
+       922
+      ],
+      "mock": [
+       747,
+       944
+      ],
+      "center_shift_px": -11.0,
+      "width_image": 176,
+      "width_mock": 198
+     }
+    ],
+    "mock_only": []
+   },
+   "E": {
+    "image_count": 2,
+    "mock_count": 2,
+    "spec_count": 2,
+    "match": true,
+    "pairs": [
+     {
+      "image": [
+       138,
+       330
+      ],
+      "mock": [
+       138,
+       352
+      ],
+      "center_shift_px": -11.0,
+      "width_image": 193,
+      "width_mock": 215
+     },
+     {
+      "image": [
+       601,
+       801
+      ],
+      "mock": [
+       584,
+       798
+      ],
+      "center_shift_px": 10.0,
+      "width_image": 201,
+      "width_mock": 215
+     }
+    ],
+    "mock_only": []
+   },
+   "S": {
+    "image_count": 0,
+    "mock_count": 0,
+    "spec_count": 0,
+    "match": true,
+    "pairs": [],
+    "mock_only": []
+   },
+   "W": {
+    "image_count": 1,
+    "mock_count": 1,
+    "spec_count": 1,
+    "match": true,
+    "pairs": [
+     {
+      "image": [
+       598,
+       797
+      ],
+      "mock": [
+       590,
+       798
+      ],
+      "center_shift_px": 3.5,
+      "width_image": 200,
+      "width_mock": 209
+     }
+    ],
+    "mock_only": []
+   }
+  },
+  "slice_profile_image": {
+   "h": [
+    2,
+    2,
+    2,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2
+   ],
+   "v": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2
+   ]
+  },
+  "slice_profile_mock": {
+   "h": [
+    2,
+    2,
+    2,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2
+   ],
+   "v": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2
+   ]
+  },
+  "slice_profile_mismatch": {
+   "h": [],
+   "v": [],
+   "note": "断面 i/10 の位置（h=水平線のi/10の高さ, v=垂直線のi/10の幅）で床の区間数がモックと違う所"
+  },
+  "holes": 0,
+  "holes_spec": null
+ },
+ "adoption": {
+  "floor_source": "採用画像の床の見え（床色クラスタ基準の切り出し）を正とした。モックは位置合わせと位相検査の基準であり、床の正解ではない",
+  "mask_classes": "2値（white=床=通れる / black=それ以外）。assist(#FF9D00) 不使用",
+  "wall_foot_definition": "床（クリーム）の領域だけが white。壁の帯（段ボール・毛糸）・面取りの斜面・影・地形・土台縁・机は black",
+  "rect_measurement": {
+   "method": "check_body_image.measure_layers（机→縁取り→波形→天面の4層の構造測定）を辺ごとに判定。層が読め期待から60px以内の辺は測定値、それ以外の辺は期待値へフォールバック",
+   "rect_used": [
+    120,
+    120,
+    1552,
+    810
+   ],
+   "side_measured_ok": {
+    "N": false,
+    "E": false,
+    "S": true,
+    "W": false
+   },
+   "side_fallback_reasons": {
+    "N": "層が読めない(foam=0px, corr=0px, 机=0px) → 期待値 120px を使用",
+    "E": "層が読めない(foam=0px, corr=0px, 机=0px) → 期待値 120px を使用",
+    "W": "層が読めない(foam=0px, corr=0px, 机=0px) → 期待値 120px を使用"
+   },
+   "rect_used_for_registration": [
+    120,
+    120,
+    1552,
+    820
+   ]
+  },
+  "lossless_readback_equals_floor_cut_array": true,
+  "rect_fallback_sides": [
+   "E",
+   "N",
+   "W"
+  ],
+  "forbidden_edge_check": {
+   "definition": "出口でない辺で、縁（rect）から内側 4px 以内と縁の外側に white が無い",
+   "sides": {
+    "S": {
+     "white_px_inside_band": 0,
+     "white_px_outside_edge": 0,
+     "ok": true
+    }
+   },
+   "ok": true
+  },
+  "note": "【rect の測定】辺 ENW は期待値のフォールバック（測定できなかった。直せない理由: 縁の層〔縁取り・波形〕が画像に読めず、期待値より良い根拠が画像に無い）。内訳: N=層が読めない(foam=0px, corr=0px, 机=0px) → 期待値 120px を使用; E=層が読めない(foam=0px, corr=0px, 机=0px) → 期待値 120px を使用; W=層が読めない(foam=0px, corr=0px, 机=0px) → 期待値 120px を使用。 【床色基準の統一・喉】床=床の芯の色からのマハラノビス距離 md<5 が続く所まで white。壁の帯・面取り・影・地形・毛糸は black（影の帯を床の内側へ削り込まない）。出口の喉は、縁の内側で床色が続く所まで、縁の外側は波形の帯の切れ目を床色が途切れず通る列だけ white（出口の幅=切れ目の幅、模型の外の机へは出さない。床色が机まで続く辺は縁で止める）。縁際の影で暗い床は測定済みの辺の出口だけ、縁の内側・出口の区間の幅の中に限り md<10 まで許す（縁の外・区間の外へは延ばさない）。縁の外の white は床の芯の色（md<5）のみ（テープ・縁取り・帯の色は除く）。white に囲まれた床色の小さな穴は埋める。壁の面取り上面（幅<約7px）の捨て処理は幅を絞った（旧は約14px）。禁止辺の検査: 出口でない辺で、縁から内側4px以内と縁の外側に white が無いこと。出口の範囲（links）は縁から内側4pxの帯の white の連続区間 喉の延長で足した床 1806px（出口のある辺 ENW）。",
+  "registration_confidence": "MID",
+  "runtime_status": "ready ではない（遷移の範囲値・ランタイムの扱いが TBD。red-team 済み・kako-jun の逸脱承認済み 2026-10-23）"
+ }
+}
