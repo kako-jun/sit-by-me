@@ -36,8 +36,9 @@
 
 | 種別 | 正本配置 | 状態・対応 |
 |---|---|---|
-| 敵 | `assets/images/enemies/Mxxx.webp` | monsters.mdの既存ID。M001も同じroot。既存の採用／採否待ちを継承し、新品質規約を満たすとは判定しない |
-| 召喚獣 | `assets/images/summons/Sxxx.webp` | S002〜S007の6種のみ現存。S001は未生成、S008は同じ存在の設計だが現存画像なし。架空のファイルを作らない |
+| 敵の戦闘絵 | `assets/images/enemies/Mxxx.webp` | monsters.mdの既存ID。M001も同じroot。既存の採用／採否待ちを継承し、新品質規約を満たすとは判定しない |
+| 敵のフィールド絵 | `assets/images/enemies/Mxxx-field.webp` | マップ上で姿を見せる敵の正面向き絵。戦闘絵を保持したまま別ファイルで管理する。非可逆WebP品質85・alpha保持。採用状態は `docs/monsters.md` で管理する |
+| 召喚獣 | 戦闘用 `assets/images/summons/Sxxx.webp`、S004フィールド専用 `assets/images/summons/S004-field.webp` | S002〜S007の戦闘画像が現存。S004-field は子猫風マスコットのフィールド専用形態として採用。S001は未生成、S008は同じ存在の設計だが現存画像なし。架空のファイルを作らない |
 | 人物 | `assets/images/characters/Cxxx/{masters,poses,walk}/Cxxx-<suffix>.webp` | 下表のC管理ID。旧人名prefixをIDへ置換し、年齢・衣装・pose・方向・コマを全て保持 |
 | MAP（旧素材・現存のみ） | `assets/images/fields/legacy/<MAP ID>[-variant].webp`（MAP IDは区域コード3字＋2桁連番。例 `TRM-01`。[対応表](20261019-map-id-renumber.json)） | 33MAP＋12旧差分。非可逆WebP（品質85）。新規生成先ではない。寺町再作成候補の代わりに採用するものではない。PNGは置かない |
 | legacy mask | `assets/images/fields/legacy/masks/<MAP ID>-*.webp` | 旧接続を変更しない検証専用。**可逆WebP**（元PNGと画素が完全一致）。JSON・生成補助（make_masks.py）は削除済み |
@@ -45,6 +46,8 @@
 | 体内マスク（runtime切替前） | `assets/images/fields/masks/BDY-NN-{mask,traversal-edit,mask-overlay}.webp`（17箇所×3=51ファイル） | `mask`・`traversal-edit` は**可逆WebP（VP8L）**、`mask-overlay` は確認用の**非可逆WebP**。体内17MAPのマスク（#142）。台帳は blocked 維持で runtime 未切替 |
 | 戦闘背景 | `assets/images/battle-backgrounds/BGxxx.webp`（現存はBG001・BG005のみ。BG002〜004・006〜009は削除済みで、復元は git 履歴 `1bb09d0` から。戦闘背景の新規作成は別件） | 下表 |
 | ブランド | `assets/images/brand/logo.svg`（正本）、`logo.png`（SVG派生、WebP化しない） | 暫定の文字ロゴ（SIT BY ME）。ゲームIDではない。のち差し替え予定 |
+
+2026-10-23、kako-jun 承認により敵のフィールド絵16点を正本化した。ID、寸法、形式、alpha、SHA-256 は[採用記録](../reviews/artifact-redteam/20261023-map-boss-field-adoption.md)と `docs/monsters.md` を参照。M014 三闘神のフィールド絵は作らない。
 
 | C ID | 元人名prefix | 登場人物 |
 |---|---|---|

@@ -33,7 +33,7 @@
 1. この目次から対象の種別・IDを確定する。
 2. 対象台帳の1行から、時期・場所・目的・接続／向き・必須／禁止・相互参照を取得する。
 3. [assets-policy.md](assets-policy.md) と [art-direction.md](art-direction.md) から全体の画風・時代・禁止事項を取得する。
-4. 対象別スキル（フィールド背景は `sit-field-background`、敵スプライトは `sit-enemy-sprite`、召喚獣スプライトは `sit-summon-sprite`、人物スプライトは `sit-character-sprite`、戦闘背景は `sit-battle-background`、歩行マスクは `sit-field-mask`）から、材料・構図・出力・検査項目を取得する。
+4. 対象別スキル（フィールド背景は `sit-field-background`、戦闘用敵スプライトは `sit-enemy-sprite`、マップ上の敵は `sit-map-enemy-sprite`、召喚獣の戦闘絵は `sit-summon-sprite`、S004のフィールド用マスコットは `sit-map-enemy-sprite` の例外規則、人物スプライトは `sit-character-sprite`、戦闘背景は `sit-battle-background`、歩行マスクは `sit-field-mask`）から、材料・構図・出力・検査項目を取得する。
 5. 以上に無い要素は追加しない。TBDまたは欠けた項目があれば台帳を `blocked` にして、先に決定を記録する。
 
 `ruby scripts/build_map_prompt.rb MAP_ID` は **legacy・非正本** であり、現状の出力を生成許可や完全promptとして使わない。原文の採否ゲート、対象へ入るincoming接続、実ツールの寸法指定・寸法保証条件（目標1920×1080、返せない場合は16:9の1672×941、それ以外は不合格）が欠落するためである。修正・検証されるまでは原文行、双方向接続、未解決TBD、参照画像、寸法条件を手動で束ね、`sit-field-background` の前後検査と独立レビューを通す。寺町の現行束は [20261018-teramachi-preflight.md](production/20261018-teramachi-preflight.md)。同スクリプトが成功しても `blocked` は解除されない。

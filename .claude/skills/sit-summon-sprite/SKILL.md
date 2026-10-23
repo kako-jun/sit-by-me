@@ -23,7 +23,7 @@ description: Sit by Me の召喚獣スプライトを、召喚獣台帳のID・�
 
 ## 生成・検査
 
-生成前に完全prompt・台帳原文・参照画像と用途を `sit-artifact-redteam` のpromptレビューへ渡す。利用可能な `imagegen` スキルと組み込み `image_gen` を使い、透過をツール設定でも要求する。実寸、alpha=0画素の存在、alpha>0の最小外接矩形 `(x,y,width,height)` と幅/高さ比率を測定して保存する。RGBA形式名・prompt指定だけでは透過を証明しない。**表示UIの黒・白・市松背景を透過の失敗と目視断定しない。採否報告前に実ファイルの四隅のalpha値とalpha最小値を測る。四隅がalpha=0なら、表示UIに見える背景は透明として扱う。** 頭部・胴体の正面面と右側面を個別に確認する。失敗は完全prompt・参照一覧・測定値・判定をIssueまたはレビュー文書に記録する。自動再生成や引伸ばしで通過させない。
+生成前に完全prompt・台帳原文・参照画像と用途を `sit-artifact-redteam` のpromptレビューへ渡す。利用可能な `imagegen` スキルと組み込み `image_gen` を使い、呼び出しに `transparent_background: true` を明示する。実寸、alpha=0画素の存在、alpha>0の最小外接矩形 `(x,y,width,height)` と幅/高さ比率を測定して保存する。RGBA形式名・prompt指定だけでは透過を証明しない。**表示UIの黒・白・市松背景を透過の失敗と目視断定しない。採否報告前に実ファイルの四隅のalpha値とalpha最小値を測る。四隅がalpha=0なら、表示UIに見える背景は透明として扱う。** RGBに市松が焼き込まれた出力は不合格。背景だけの再編集後もalphaが無い場合は、召喚獣の色に含まれない一様な緑またはマゼンタ背景で生成し、`verification/characters/tools/key_single.py` のクロマキー処理で透過化する。キー色の本体混入、背景むら、縁の残色があれば不合格とし、alpha実測後に進める。頭部・胴体の正面面と右側面を個別に確認する。失敗は完全prompt・参照一覧・測定値・判定をIssueまたはレビュー文書に記録する。自動再生成や引伸ばしで通過させない。
 
 透過背景で1候補だけ生成する。候補の採否は人間が目視して決めるまで保留し、削除・Trash移動・正本上書きは行わない。採用後だけ、正本 `assets/images/summons/Sxxx.webp` へWebP（品質85・alpha保持）で保存する。原寸では台帳原文との一致、45°の頭部・胴体、gridClass、透明背景、文字・ロゴ・台座・接地影なしを確認する。採用前に `sit-artifact-redteam` の独立レビューへ渡す。
 
