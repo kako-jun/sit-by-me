@@ -48,16 +48,16 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "0ce311a8fc4980fd17575f6867aa1b8c5da5a55dce5094bd61f3fbb983be6714",
+   "input_sha": "a7053b102de269551d4a8b480d7ec212804482d86a01fbfc1d6c239e067b2b5d",
    "ledger_ready": false,
    "outputs": {
-    "TRM-02-edit-prompt.txt": "169c90ba232774a89911d6145822fa6dca796570161001f7c481891a914ad95d"
+    "TRM-02-edit-prompt.txt": "2088eb6b26cc7f6b37e0070ca6ef8c9e56d205862c8370db4e6da8bac4dbe1d3"
    },
    "status": "blocked"
   },
   "validate": {
    "errors": [],
-   "input_sha": "4b221730314e5e74d1012f122f276b06380d7413cb9246453772f97ac0c1813f",
+   "input_sha": "d1576afcbddb585d0b5ba924de26629ea3c0657b346443197e537b0bb102fde6",
    "outputs": {},
    "status": "ok",
    "warnings": [

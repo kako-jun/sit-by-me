@@ -31,3 +31,10 @@ $(cat prompt-base.txt)" -i TRM-02-clean.png -i swatch.png
 - コマンド: A案 `REF_IMAGE=git:9652459:assets/images/fields/reference/teramachi-kindergarten-interior-adopted.webp oblique_e2_run.sh TRM-02 4 e2/round2a`／B案 `STYLE_REF=git:9652459:assets/images/fields/reference/teramachi-kindergarten-interior-adopted.webp oblique_e2_run.sh TRM-02 4 e2/round2b`（8本並列）。モデル・経路・参照の渡し方は round1 と同じ（`$imagegen` 明示・品質 high・codex exec）。
 - プロンプト全文: `round2a/prompt.txt`（参照2枚）・`round2b/prompt.txt`（参照3枚。3枚目=元の採用画像 `round2b/style-ref.png`。様式・質感のみ・構図コピー禁止と明記）。A/B の差は参照3枚目の有無とその説明節のみ。
 - 本物確認: 8枚とも sha256 が本ラン中の codex generated_images の生成物と一致・偽造ツール呼び出し0（`metrics.json` の provenance）。
+
+---
+
+# round3（2026-10-23）案1: 座標つきの幾何固定文＋木の本数指定（A案 4テイク）
+- コマンド: `REF_IMAGE=git:9652459:assets/images/fields/reference/teramachi-kindergarten-interior-adopted.webp oblique_e2_run.sh TRM-02 4 e2/round3`（参照=クリーンモック＋素材見本の2枚のみ。モデル・経路・品質・`$imagegen` 明示は round1/2 と同じ）。
+- プロンプト全文: `round3/prompt.txt`（edit-prompt v4＋参照・出力の節）。round2a との差は COORDINATES 節・FILL/GEOMETRY の文言・TREE PLACEMENT 節のみ（プールの area_fixed〔机・松＋枯木・台座〕は round2 後に追加済みで、round3 の文面に含まれる）。
+- 本物確認: 4枚とも sha256 が本ラン中の codex generated_images の生成物と一致・偽造ツール呼び出し0（`round3/metrics.json`）。

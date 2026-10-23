@@ -36,7 +36,7 @@ STAGES = ["validate", "mock", "wire", "mask", "occlusion", "prompt"]
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 ID_RE = re.compile(r"^[A-Z]{3}-\d{2}\.[A-Za-z0-9-]+$")
-PROMPT_VERSION = "oblique-edit-prompt/3"
+PROMPT_VERSION = "oblique-edit-prompt/4"
 DECOR_FILE = os.path.join(REPO, "docs", "production", "oblique-mocks", "decor-pools.json")
 DECOR_LAYER_KEYS = ("desk", "slab_edge", "outside", "building")
 DECOR_REQUIRED = ("geometry_fixed", "fill_rule", "layers", "surfaces", "kinds", "allow", "forbid", "trees")
@@ -425,6 +425,54 @@ def validate_plan(p):
 
 
 # ---------------------------------------------------------------- プロンプト
+def _bbox(polys):
+    xs = [q[0] for poly in polys for q in poly]; ys = [q[1] for poly in polys for q in poly]
+    return [round(min(xs)), round(min(ys)), round(max(xs)), round(max(ys))]
+
+
+def _pts(poly):
+    return " ".join(f"({round(x)},{round(y)})" for x, y in poly)
+
+
+def coord_section(p, pool):
+    """幾何を画素座標で固定する節（plan とモックの射影から機械的に出す。手書き禁止）。画像 M.W x M.H_IMG・左上原点・x右・y下。"""
+    tl, tr, br, bl = [tuple(map(float, q)) for q in M._DST]
+    L = ["", f"COORDINATES（画素座標。画像 {M.W}×{M.H_IMG}・左上原点・x は右・y は下。plan とモックの射影から機械的に出した値。これらの位置・大きさは1画素も動かさない。建物全体を上下左右へずらさない。装飾は面の内側だけ）:",
+         f"- 台座の上面の台形（四隅 左上→右上→右下→左下）: {_pts([tl, tr, br, bl])}",
+         f"- 台座の前縁（手前の厚み帯）: {_pts([bl, br, (br[0], br[1] + M.SLAB), (bl[0], bl[1] + M.SLAB)])}"]
+    ws = p["walls"]
+    x0 = min(w["rect"][0] for w in ws); y0 = min(w["rect"][1] for w in ws); x1 = max(w["rect"][2] for w in ws); y1 = max(w["rect"][3] for w in ws)
+    ground = [M.proj(x0, y0), M.proj(x1, y0), M.proj(x1, y1), M.proj(x0, y1)]
+    hb = max(w["h"] for w in ws if M.is_h(w) and w["rect"][1] == y0); hf = max(w["h"] for w in ws if M.is_h(w) and w["rect"][3] == y1)
+    top = [M.proj(x0, y0, hb), M.proj(x1, y0, hb), M.proj(x1, y1, hf), M.proj(x0, y1, hf)]
+    L.append(f"- 建物の外壁の外形の接地線（左奥→右奥→右手前→左手前）: {_pts(ground)}")
+    L.append(f"- 建物の外壁の上端（同順。奥壁の高さ{hb}・手前壁の高さ{hf}）: {_pts(top)}")
+    L.append(f"- 建物の外壁全体の外接矩形: {_bbox([ground, top])}（[x0,y0,x1,y1]）")
+    for f in p["floors"]:
+        L.append(f"- 床 {f['id']}（四隅）: {_pts(M.rect_poly(f['rect']))}")
+    for d in p["doors"]:
+        _, panel, _ = M.door_geom(p, d)
+        L.append(f"- 戸口 {d['id']}（扉面の四隅）: {_pts(panel)}・外接矩形 {_bbox([panel])}")
+    for w in p["windows"]:
+        q = M.window_geom(p, w)
+        L.append(f"- 窓 {w.get('id', '')}（ガラスの四隅）: {_pts(q)}・外接矩形 {_bbox([q])}")
+    for b in p["boxes"]:
+        polys = [q for q, _, _ in M.box_polys(b["rect"], b["h"], b["color"])]
+        L.append(f"- 家具箱 {b['id']}（{b.get('label') or ''}）: 外接矩形 {_bbox(polys)}")
+    tr_ = pool["trees"]
+    n_lo, n_hi = -(-tr_["total"][0] // 4), -(-tr_["total"][1] // 4)
+    bx0, by0, bx1, by1 = _bbox([ground, top])
+    sx0, sy0 = int(min(tl[0], bl[0])), int(tl[1]); sx1, sy1 = int(max(tr[0], br[0])), int(bl[1])
+    L += ["", f"TREE PLACEMENT（建物の外の木の配置の目安。台座の上面で建物の外壁の外側。合計{tr_['total'][0]}〜{tr_['total'][1]}本＝松{tr_['pine']['count'][0]}〜{tr_['pine']['count'][1]}本＋枯木{tr_['deadtree']['count'][0]}〜{tr_['deadtree']['count'][1]}本。各辺に{n_lo}〜{n_hi}本ずつ、松多め）:",
+          f"- 奥の帯: y {sy0}〜{by0}（x {sx0}〜{sx1}）／手前の帯: y {by1}〜{sy1}／左の帯: x {sx0}〜{bx0}／右の帯: x {bx1}〜{sx1}（いずれも台形の内側に収め、建物の外壁・外接矩形に重ねない）"]
+    pats = []
+    for d in p["doors"]:
+        patch, _, _ = M.door_geom(p, d)
+        pats.append(f"{d['id']}: {_pts(M.rect_poly(patch))}")
+    L.append("- 木・小物を置かない範囲（戸口の前の床パッチ。雪の地面として低く保つ）: " + "／".join(pats))
+    return L
+
+
 def build_prompt(p, key):
     """imagegen 編集用プロンプト（決定論）。モック=編集元1枚。原文束は台帳（build_map_prompt.rb）に依存するので別セクション。"""
     pool = load_decor(p)
@@ -436,6 +484,7 @@ def build_prompt(p, key):
              "DOORS: 濃いピンクの四角は戸口。その位置・幅・高さのまま、木の板戸または開口として描く（高さはキャラ2人分。幅は戸口ごとに下記）。ピンクの色は残さない。",
              "NO TEXT: 画像に文字・数字・矢印・ラベルを入れない。人物は入れない。", "",
              "LAYERS（外から内へ。層の境界の位置・形はモックのまま。質感と装飾で埋める）:"]
+        L = L[:-1] + coord_section(p, pool) + ["", L[-1]]  # LAYERS 見出しの直前に座標節
         for k in DECOR_LAYER_KEYS:
             ly = pool["layers"][k]
             L.append(f"- {ly.get('label', k)}: {ly['look']} 固定: {ly['fixed']}" + (f" 【エリア固定（{pool['area']}）: 全MAP共通。変えない】" if k in ("desk", "slab_edge") else ""))
