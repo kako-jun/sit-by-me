@@ -92,7 +92,7 @@
 
 ## event（辺ではない）
 
-| TRM-01.event-kiss | BDY-01.event-mouth | 一方向。到着位置・向きは原文に無い(TBD)。BDY-01 の図には印だけ |
+| TRM-03.event-kiss | BDY-01.event-mouth | 一方向。到着位置・向きは原文に無い(TBD)。BDY-01 の図には印だけ |
 
 ## MAPごとの通路
 

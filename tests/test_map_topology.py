@@ -10,9 +10,10 @@ import xml.etree.ElementTree as ET
 
 
 ROOT = Path(__file__).resolve().parents[1]
+_REGISTER = json.loads((ROOT / "docs/topology/map-ids.json").read_text())
 EXPECTED_IDS = {f"{code}-{n:02}"
-                for code, count in json.loads((ROOT / "docs/topology/map-ids.json").read_text())["areas"].items()
-                for n in range(1, count + 1)}
+                for code, count in _REGISTER["areas"].items()
+                for n in range(1, count + 1)} - set(_REGISTER.get("retired", {}))
 
 
 class MapTopologyTests(unittest.TestCase):
@@ -144,13 +145,13 @@ class MapTopologyTests(unittest.TestCase):
         self.reject("欄不足")
 
     def test_missing_door_identifier_rejected(self):
-        self.topology("| TRM-01.door-west | TRM-03.door-kindergarten | door |",
-                      "| TRM-01. | TRM-03.door-kindergarten | door |")
+        self.topology("| TRM-04.door-west | TRM-05.door-hall | door |",
+                      "| TRM-04. | TRM-05.door-hall | door |")
         self.reject()
 
     def test_reused_door_endpoint_rejected(self):
-        self.append_connection("| TRM-01.door-west | TRM-06.door-extra | door | 扉端の再利用 |")
-        self.reject("TRM-01.door-west")
+        self.append_connection("| TRM-04.door-west | TRM-06.door-extra | door | 扉端の再利用 |")
+        self.reject("TRM-04.door-west")
 
     def test_unknown_connection_kind_rejected(self):
         self.topology("| TRM-16.right | TRM-15.left | edge |", "| TRM-16.right | TRM-15.left | teleport |")
@@ -239,7 +240,7 @@ class MapTopologyTests(unittest.TestCase):
         self.reject()
 
     def test_pending_requires_utf8_reason(self):
-        self.append_connection("| TRM-01.door-future | TRM-06.door-future | pending |  |")
+        self.append_connection("| TRM-03.door-future | TRM-06.door-future | pending |  |")
         self.reject("保留理由")
 
     def test_optional_otter_has_two_distinct_ports(self):

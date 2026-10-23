@@ -2,25 +2,24 @@
 
 2026-10-18: サニーランドは口述と創作の円環接続へ更新。旧pending6接続は削除済み。
 
-`map-asset-registry.md` の130行を、生成可能にするまで追跡する行単位チェックリスト。接続の正本は `map-topology.md` の「MAP相互接続台帳 v2」、画面主役と主路は `map-specifications.md`、マスク形式は `sit-field-mask` である。全行は `blocked` または `legacy-needs-review` で始める。`TBD` が空でない限り `ready` にしない。台帳整合の独立再監査は [第3周レビュー](reviews/artifact-redteam/20261016-map-ledger-round3.md) を参照。
+`map-asset-registry.md` の129行（欠番TRM-01を除く）を、生成可能にするまで追跡する行単位チェックリスト。接続の正本は `map-topology.md` の「MAP相互接続台帳 v2」、画面主役と主路は `map-specifications.md`、マスク形式は `sit-field-mask` である。全行は `blocked` または `legacy-needs-review` で始める。`TBD` が空でない限り `ready` にしない。台帳整合の独立再監査は [第3周レビュー](reviews/artifact-redteam/20261016-map-ledger-round3.md) を参照。
 
 **注記**: ステータス名 `recreate-required-1920x1080` は名前は1920×1080だが1672×941（16:9）も許容する（改名は別件）。
 
-**2026-10-18 / #51**: TRM-01〜TRM-16は全て `recreate-required-1920x1080`、生成契約は `blocked`。以下の旧画像パスは参照専用で、旧mask・旧passは新候補の採用根拠にならない。現行再作成状態は [候補台帳](teramachi-rebuild-candidates.md)、建物群の生成前入力は [制作前確認](production/20261018-teramachi-preflight.md) を参照する。
+**2026-10-18 / #51**: TRM-02〜TRM-16は全て `recreate-required-1920x1080`（旧TRM-01は2026-10-23にTRM-03の右の区画＝園庭へ統合して廃止し、行を削除。旧legacy画像 `assets/images/fields/legacy/TRM-01.webp` は参照専用の現存素材としてのみ残る）、生成契約は `blocked`。以下の旧画像パスは参照専用で、旧mask・旧passは新候補の採用根拠にならない。現行再作成状態は [候補台帳](teramachi-rebuild-candidates.md)、建物群の生成前入力は [制作前確認](production/20261018-teramachi-preflight.md) を参照する。
 
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
-| TRM-01 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-01.webp`; mask未記録 | 園庭の既存画像におけるTRM-08(bottom)/TRM-03(door-west)の実端、幼稚園期のtraversalを採寸する。TRM-16との接続は#51で廃止 |
-| TRM-16 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-16.webp`; mask未記録 | TRM-01/TRM-15/TRM-17の三端と用水のblocked域を実画像から記録する |
+| TRM-16 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-16.webp`; mask未記録 | TRM-06/TRM-15/TRM-17の三端と用水のblocked域を実画像から記録する |
 | TRM-15 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-15.webp`; mask未記録 | TRM-16/TRM-07/TRM-06端、火の見櫓周囲のblocked域を記録する |
 | TRM-07 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-07.webp`; mask未記録 | TRM-15/TRM-08/TRM-03端と山門のforeground域を記録する |
-| TRM-08 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-08.webp`; mask未記録 | 用水・井戸のblocked域とTRM-07/TRM-09端、top側のTRM-01正門(#51)を記録する |
+| TRM-08 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-08.webp`; mask未記録 | 用水・井戸のblocked域とTRM-07/TRM-09端、top側は旧TRM-01正門が廃止され接続未決（要確認）。決定後に記録する |
 | TRM-09 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-09.webp`; mask未記録 | TRM-08/TRM-10端、銭湯煙突・雪山のforeground/blockedを記録する |
 | TRM-10 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-10.webp`; mask未記録 | TRM-09/TRM-11を結ぶuniversalスロープの幅・折返しを記録する |
 | TRM-11 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-11.webp`; mask未記録 | TRM-10/TRM-13端、TRM-12ドア、団地棟のforegroundを記録する |
 | TRM-13 | recreate-required-1920x1080 | R006,R011,R025 | 1254×1254のv6候補・maskは参照専用。新規出力は1920×1080（返せない場合は16:9の1672×941）、prompt・参照画像・mask・red-teamを新たに記録する | v6のleft→top石段・assist-only設計を参照し、16:9版を再生成する |
 | TRM-06 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-06.webp`; mask未記録 | TRM-15.top入口とTRM-16.leftへのright出口以外を禁止辺とする（#51ループ化。TRM-05への勝手口の扉はTBD） |
-| TRM-03 | recreate-required-1920x1080 | R006,R011,R024 | 旧境内画像は参照専用。新背景・mask未作成 | #60の屋外境内。TRM-07端、TRM-01.door-west通用門（境内の右＝東側）、TRM-04正面扉、池・墓地のblocked域を記録。TRM-05/TRM-02屋外doorなし。共通外観参照未通過 |
+| TRM-03 | recreate-required-1920x1080 | R006,R011,R024 | 旧境内画像は参照専用。新背景・mask未作成 | #60の屋外境内。TRM-07端、右の区画の園庭（幼稚園の前。旧TRM-01を統合・東の通用門なし）、園庭でのキスのevent-kiss（→BDY-01）、TRM-04正面扉、池・墓地のblocked域を記録。TRM-05/TRM-02屋外doorなし。共通外観参照未通過 |
 | TRM-05 | recreate-required-1920x1080 | R006,R011,R021,R024 | 旧庫裏画像は参照専用。新背景・mask未作成 | #60/#51の西（本堂から見て左）の屋内住居。TRM-04.door-west↔door-hallのみ。内部廊下の扉位置、幅・段差・回転域、火事時遮断範囲がTBD。TRM-02直結なし |
 | TRM-14 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-14.webp`; mask未記録 | TRM-13石段とSCH-01車椅子坂の端・通行クラスを記録する |
 | KRB-01 | legacy-needs-review | R005,R011 | `assets/images/fields/legacy/KRB-01.webp`; mask未記録 | KRB-07/KRB-11/KRB-12端、百貨店door（相手はKRB-02.door-street）、封鎖期のKRB-12遷移を記録する |

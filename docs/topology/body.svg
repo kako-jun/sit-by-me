@@ -4,8 +4,8 @@
 <style>text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#503c39}.door{stroke:#98725c;stroke-width:5;fill:none}.event{stroke:#a44362;stroke-width:4;fill:none;stroke-dasharray:10 7}.node{fill:#fff8ef;stroke:#9b735f;stroke-width:3}.label{font-size:19px;text-anchor:middle}.id{font-size:15px;font-weight:bold;text-anchor:middle}.note{font-size:18px}</style>
 <rect width="1180" height="1950" fill="#f8e9dd"/><text x="30" y="40" font-size="29" font-weight="bold">架空の体内：胴体2MAP・手は各2MAP・足は各3MAP</text>
 <text x="30" y="78" class="note">現実離れした幼稚園児の想像。肌色寄りの抽象概念。解剖図・写実的な臓器ではない。</text>
-<rect x="940" y="105" width="210" height="64" rx="8" fill="#fff8ef" stroke="#a44362" data-reference="TRM-01"/><text x="1045" y="143" class="label">TRM-01 幼稚園の園庭</text>
-<path class="event" data-kind="event" data-edge-id="TRM-01.event-kiss&gt;BDY-01.event-mouth:event" data-from="TRM-01" data-to="BDY-01" data-from-port="event-kiss" data-to-port="event-mouth" d="M1030 140 L790 410" marker-end="url(#event-arrow)"/>
+<rect x="940" y="105" width="210" height="64" rx="8" fill="#fff8ef" stroke="#a44362" data-reference="TRM-03"/><text x="1045" y="143" class="label">TRM-03 境内（幼稚園前の園庭）</text>
+<path class="event" data-kind="event" data-edge-id="TRM-03.event-kiss&gt;BDY-01.event-mouth:event" data-from="TRM-03" data-to="BDY-01" data-from-port="event-kiss" data-to-port="event-mouth" d="M1030 140 L790 410" marker-end="url(#event-arrow)"/>
 <path class="door" data-kind="door" data-edge-id="BDY-01.door-passage-torso&gt;BDY-02.door-passage-mouth:door" data-from="BDY-01" data-to="BDY-02" data-from-port="door-passage-torso" data-to-port="door-passage-mouth" d="M790 410 L600 600"/>
 <path class="door" data-kind="door" data-edge-id="BDY-02.door-passage-lower&gt;BDY-03.door-passage-upper:door" data-from="BDY-02" data-to="BDY-03" data-from-port="door-passage-lower" data-to-port="door-passage-upper" d="M600 600 L600 850"/>
 <path class="door" data-kind="door" data-edge-id="BDY-02.door-passage-head&gt;BDY-04.door-passage-torso:door" data-from="BDY-02" data-to="BDY-04" data-from-port="door-passage-head" data-to-port="door-passage-torso" d="M600 600 L600 200"/>
@@ -40,7 +40,7 @@
 <circle class="node" data-map="BDY-16" cx="780" cy="720" r="34"/><text class="id" x="780" y="725">BDY-16</text><text class="label" x="780" y="778">心臓・分岐室</text>
 <circle class="node" data-map="BDY-17" cx="500" cy="690" r="34"/><text class="id" x="500" y="695">BDY-17</text><text class="label" x="500" y="748">肺・分岐室</text>
 <text x="30" y="1455" class="note">抽象通路の接続（door-passageは物理的な扉ではない）</text>
-<text x="30" y="1490" font-size="15">TRM-01.event-kiss → BDY-01.event-mouth</text>
+<text x="30" y="1490" font-size="15">TRM-03.event-kiss → BDY-01.event-mouth</text>
 <text x="30" y="1514" font-size="15">BDY-01.door-passage-torso ↔ BDY-02.door-passage-mouth</text>
 <text x="30" y="1538" font-size="15">BDY-02.door-passage-lower ↔ BDY-03.door-passage-upper</text>
 <text x="30" y="1562" font-size="15">BDY-02.door-passage-head ↔ BDY-04.door-passage-torso</text>

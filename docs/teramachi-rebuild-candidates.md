@@ -1,6 +1,6 @@
 # 寺町背景・再構築候補台帳（2026-10-16）
 
-旧再構築候補は#68の整理で削除した。以下の旧ファイル名は削除記録であり、現存する入力画像ではない。[移行manifest](production/20261018-asset-migration.json)のold／base_commitで復元元を追跡する。新候補の保存先は `assets/images/fields/candidates/<MAP-ID>.png`。旧legacyは一枚も採用しない。TRM-01〜TRM-16の16枚すべてで `map-topology.md` §3.0 と各MAP契約、walk mask、独立red-teamがそろった後だけ、一括でruntimeへ差し替える。
+旧再構築候補は#68の整理で削除した。以下の旧ファイル名は削除記録であり、現存する入力画像ではない。[移行manifest](production/20261018-asset-migration.json)のold／base_commitで復元元を追跡する。新候補の保存先は `assets/images/fields/candidates/<MAP-ID>.png`。旧legacyは一枚も採用しない。TRM-02〜TRM-16の15枚すべて（旧TRM-01は2026-10-23にTRM-03へ統合して廃止）で `map-topology.md` §3.0 と各MAP契約、walk mask、独立red-teamがそろった後だけ、一括でruntimeへ差し替える。
 
 共通条件: **新規候補の寸法は目標1920×1080。画像生成ツールが返せない場合は16:9の1672×941を許容。それ以外の寸法は不合格。リサイズで通さない**。既存候補（正方形・3:2・その他寸法）は採用不可で、主役・配置・接続意図を引き継ぐ入力参照画像としてのみ使う。北=上、現代K県の雪国、手作り模型の真上寄り俯瞰、人物・文字なし、生活の雪汚れ、必須路を先に確保し、宝箱枝を主路に混ぜない。寺町は河岸段丘であり、犀川側の団地へは石段とは別に車椅子スロープを設ける。
 
@@ -10,17 +10,16 @@
 
 | ID | 旧参照画像 | 現行の必須接続 | 禁止・固有条件 | 現状態 |
 |---|---|---|---|---|
-| TRM-01 | `TRM-01-teramachi-kindergarten-rebuild-candidate.png` | bottom→TRM-08.top、door-west→TRM-03 | 屋外園庭（境内の右＝東隣）。通用門は園庭主路と分離 | recreate-required-1920x1080 |
 | TRM-16 | `TRM-16-teramachi-connector-rebuild-candidate.png` | left←TRM-06.right、right→TRM-15、top→TRM-17 | 用水と寺門、bottomは閉鎖 | recreate-required-1920x1080 |
 | TRM-15 | `TRM-15-teramachi-hinomi-bend-rebuild-candidate.png` | left→TRM-16、right→TRM-07、bottom→TRM-06 | 火の見櫓、topは閉鎖 | recreate-required-1920x1080 |
 | TRM-07 | `TRM-07-teramachi-wide-road-rebuild-v2-candidate.png` | left→TRM-15、right→TRM-08、top→TRM-03 | 消雪パイプと寺の長塀、bottomは閉鎖 | recreate-required-1920x1080 |
-| TRM-08 | `TRM-08-teramachi-well-merge-rebuild-candidate.png` | left→TRM-07、right→TRM-09、top→TRM-01.bottom | 井戸と用水は主路外、bottom閉鎖。topは園庭の正門(#51) | recreate-required-1920x1080 |
+| TRM-08 | `TRM-08-teramachi-well-merge-rebuild-candidate.png` | left→TRM-07、right→TRM-09、top（旧TRM-01正門は廃止。行方は未決・要確認） | 井戸と用水は主路外、bottom閉鎖。topは旧園庭の正門で、扱いは未決(#51) | recreate-required-1920x1080 |
 | TRM-09 | `TRM-09-teramachi-sento-rebuild-v2-candidate.png` | left→TRM-08、bottom→TRM-10 | 銭湯煙突、top/right閉鎖 | recreate-required-1920x1080 |
 | TRM-10 | `TRM-10-teramachi-barrier-free-ramp-rebuild-v2-candidate.png` | top→TRM-09、bottom→TRM-11 | 犀川側へ蛇行する車椅子主路。石段なし | recreate-required-1920x1080 |
 | TRM-11 | `TRM-11-teramachi-danchi-court-rebuild-v2-candidate.png` | top→TRM-10、right→TRM-13、door→TRM-12 | 県営住宅中庭。石段は立位期のみ | recreate-required-1920x1080 |
 | TRM-13 | `TRM-13-teramachi-old-slope-foot-rebuild-v6-candidate.png` | left→TRM-11、top→TRM-14 | 石段下、車椅子不可 | recreate-required-1920x1080 |
 | TRM-06 | `TRM-06-teramachi-narrow-lane-rebuild-candidate.png` | top→TRM-15、right→TRM-16.left | 住居の裏の道。TRM-16→TRM-15→TRM-06→TRM-16のループ。他辺閉鎖。勝手口の扉TBD | recreate-required-1920x1080 |
-| TRM-03 | `TRM-03-temple-grounds-rebuild-v4-candidate.png` | bottom→TRM-07、door-main→TRM-04、door-kindergarten→TRM-01.door-west | 屋外境内。住居・遊戯室への屋外doorなし | recreate-required-1920x1080 |
+| TRM-03 | `TRM-03-temple-grounds-rebuild-v4-candidate.png` | bottom→TRM-07、door-main→TRM-04（園庭のキスevent→BDY-01） | 屋外境内。右の区画が園庭（旧TRM-01を統合）で東の通用門なし。住居・遊戯室への屋外doorなし | recreate-required-1920x1080 |
 | TRM-05 | `TRM-05-temple-residence-rebuild-v3-candidate.png` | door-hall→TRM-04.door-west | 屋内庫裏。本堂の西（左）。TRM-02直結なし | recreate-required-1920x1080 |
 | TRM-14 | `TRM-14-teramachi-slope-top-rebuild-v2-candidate.png` | bottom→TRM-13、right→SCH-01 | 段丘上。学校側車椅子坂と石段を混同しない | recreate-required-1920x1080 |
 | TRM-04 | `TRM-04-temple-main-hall-rebuild-v2-candidate.png` | door-south→TRM-03、door-west→TRM-05.door-hall、door-east→TRM-02.door-west | 中央の屋内本堂。扉前の段差なし・回転余地 | recreate-required-1920x1080 |
@@ -31,15 +30,15 @@
 
 1. 独立red-teamが生画像を確認し、各候補を採用可／再生成に判定する。
 2. 採用可候補にのみ、輪郭のない編集用 traversal map と前景用マスクを作成する。
-3. `links`、三値traversal、扉IDを相手MAPと往復照合する。TRM-01/TRM-03/TRM-05/TRM-04/TRM-02 は屋外・屋内の遷移不変条件も満たす。
+3. `links`、三値traversal、扉IDを相手MAPと往復照合する。TRM-03/TRM-05/TRM-04/TRM-02 は屋外・屋内の遷移不変条件も満たす。
 4. 16枚すべてを通過させた後にだけ、旧legacyゼロの一括runtime差替え判断を行う。red-teamは画像を採用しない。
 
 ## 2026-10-16の旧進捗履歴（以下の通過は現行採用根拠にしない）
 
 - v2 の TRM-07/TRM-09/TRM-10/TRM-11/TRM-14/TRM-04/TRM-12 は、画像契約を独立red-teamが通過し、候補用マスク一式を生成済み。ただしマスク込みの独立再監査と、相手MAPとの往復リンク照合が未完のため、採用不可。
-- TRM-03 v4 と TRM-05 v3 は画像契約のみ通過。三値マスク、foreground、door `links`、TRM-01/TRM-04/TRM-02との往復照合が未作成。
+- TRM-03 v4 と TRM-05 v3 は画像契約のみ通過。三値マスク、foreground、door `links`、TRM-04/TRM-02との往復照合が未作成。
 - TRM-13 v6 は接続・mask監査を通過したが1254×1254のため採用不可。石段の主役・left→top接続・assist-onlyの設計だけを、1920×1080再生成の参照として引き継ぐ。
-- TRM-01/TRM-16/TRM-15/TRM-08/TRM-06/TRM-02 は初回候補のまま。画像・mask・prompt記録・独立採否レビューが未完。
+- （旧）TRM-01/TRM-16/TRM-15/TRM-08/TRM-06/TRM-02 は初回候補のまま（TRM-01は2026-10-23に廃止、TRM-03へ統合）。画像・mask・prompt記録・独立採否レビューが未完。
 - すべての候補で、生成時の完全なprompt本文と候補ごとの参照Refの記録が未完。記録なしに採用してはならない。
 
 ## TRM-13 v6 旧候補記録（2026-10-16、参照専用）

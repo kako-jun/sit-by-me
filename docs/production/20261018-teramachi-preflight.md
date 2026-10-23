@@ -25,49 +25,41 @@ TRM-03 境内（外部）
 
 ```text
 SOURCE docs/map-asset-registry.md
-| TRM-01 | `assets/images/fields/legacy/TRM-01.webp` | 寺町 | retired-replacement-required |
 | TRM-03 | `assets/images/fields/legacy/TRM-03.webp` | 寺町 | retired-replacement-required |
 | TRM-05 | `assets/images/fields/legacy/TRM-05.webp` | 寺町 | retired-replacement-required |
 | TRM-04 | `teramachi-main-hall-interior` | 寺町 | ドア接続・時期・室内通路 |
 | TRM-02 | `teramachi-kindergarten-hall` | 寺町 | ドア接続・舞台と通路 |
 SOURCE docs/map-specifications.md
-| TRM-01 kindergarten | 幼稚園前半〜終幕 | 本堂の裏で雪遊びをする私立幼稚園の園庭（屋外） | 段丘上。bottom→TRM-08.top（正門）、door-west→TRM-03.door-kindergarten（境内の右隣の通用門） | TRM-02は同じ幼稚園の屋内。TRM-01↔TRM-02の直結doorは未契約のため描かない |
-| TRM-03 temple-grounds | 全時期 | 親鸞像のある浄土真宗の境内（屋外） | bottom→TRM-07、door-main→TRM-04、door-kindergarten→TRM-01.door-west | #60/#51。本堂中心・境内から見て左（西）住居・右（東）幼稚園の同じ建物群。TRM-01は境内の右隣。住居／遊戯室への屋外doorなし |
+| TRM-03 temple-grounds | 全時期 | 親鸞像のある浄土真宗の境内（屋外） | bottom→TRM-07、door-main→TRM-04、event-kiss→BDY-01.event-mouth（園庭でのキス・一方向） | #60/#51。本堂中心・境内から見て左（西）住居・右（東）幼稚園の同じ建物群。**右の区画＝園庭（幼稚園の前。旧TRM-01を2026-10-23に統合。本堂の裏で雪遊びをする私立幼稚園の園庭）**。東の通用門・別マップへの出口なし。住居／遊戯室への屋外doorなし |
 | TRM-05 residence | 全時期 | 庫裏の台所と幼馴染の部屋（屋内） | door-hall→中央TRM-04のdoor-west。TRM-02直結なし | #60/#51。本堂の西（左）。台所は火事イベントの場所 |
 | TRM-04 | 全時期 | 仏具の鈍い金と畳が対照になる本堂（屋内） | door-south→TRM-03、door-west→TRM-05.door-hall、door-east→TRM-02.door-west。参拝域は端へ出ない | #60。中央の屋内分岐。住居・幼稚園へ外に出ず移動 |
-| TRM-02 | 幼稚園期・火事後 | 舞台幕と小さな椅子が残る遊戯室（屋内） | door-west→TRM-04.door-east（本堂側＝西から入る）。扉位置・廊下長はTBD。舞台袖は画面内終端。TRM-05直結なし | #60/#51。本堂の東（右）。劇の自動イベント用。TRM-01と同じ幼稚園で、園庭直結は未契約 |
+| TRM-02 | 幼稚園期・火事後 | 舞台幕と小さな椅子が残る遊戯室（屋内） | door-west→TRM-04.door-east（本堂側＝西から入る）。扉位置・廊下長はTBD。舞台袖は画面内終端。TRM-05直結なし | #60/#51。本堂の東（右）。劇の自動イベント用。旧TRM-01園庭（現・TRM-03の右の区画）と同じ幼稚園で、園庭直結は未契約 |
 SOURCE docs/map-topology.md
-| TRM-01.bottom | TRM-08.top | edge | 幼稚園正門から南の主路（TRM-08）へ出る。#51の決定（園庭は境内の右隣・入口のそば）による。旧TRM-01.right→TRM-16.leftは廃止。TRM-16.leftは住居裏の勝手口の細道TRM-06.rightへ続く通路（ループ化で行き止まりなし） |
-| TRM-01.door-west | TRM-03.door-kindergarten | door | 境内（TRM-03）の右（東）隣の園庭へ入る通用門。扉の位置・形はTBD |
 | TRM-07.top | TRM-03.bottom | edge | 山門から境内へ |
 | TRM-03.door-main | TRM-04.door-south | door | 本堂内部 |
 | TRM-04.door-west | TRM-05.door-hall | door | 本堂から西（境内から北を見て左）の庫裏（住居）への渡り廊下 |
 | TRM-04.door-east | TRM-02.door-west | door | 本堂から東（境内から北を見て右）の幼稚園への屋内廊下。TRM-02側は本堂側（西）から入るので既存IDのwestと整合。扉の位置・廊下長はTBD |
-| `TRM-01.door-west` | `TRM-03.door-kindergarten` | 園庭の西側（境内側）通用門。境内の右（東）脇の同じ門へ入る。園庭主路（TRM-01.bottom→TRM-08.top）とは分離する。 |
 | `TRM-03.door-main` | `TRM-04.door-south` | 境内から本堂へ。段差を主路にせず、扉前に回転余地を残す。 |
 | `TRM-04.door-west` | `TRM-05.door-hall` | 本堂から西（左）の庫裏へ渡る廊下。畳廊下の方位と扉位置を一致させる。扉位置TBD。 |
 | `TRM-04.door-east` | `TRM-02.door-west` | 中央の本堂から東（右）の幼稚園へ屋内廊下で移動。TRM-02は本堂側（西面）から入る。扉位置・廊下長TBD。舞台袖は画面内終端。 |
 SOURCE docs/map-topology.md 寺町地形不変条件（L565-568）
-- **主路との整合（組み替えの要点）**: 主路 TRM-16→TRM-15→TRM-07→TRM-08→TRM-09 は西→東のまま変えない。TRM-03はTRM-07の真上（境内）、TRM-01はその右（東）隣でTRM-08の真上に置く。TRM-01の正門は南の主路（TRM-01.bottom↔TRM-08.top）。旧TRM-01.right↔TRM-16.leftは廃止し、TRM-16.leftは住居裏の細道TRM-06.rightへ続く（TRM-16→TRM-15→TRM-06→TRM-16のループ）。
+- **主路との整合（組み替えの要点）**: 主路 TRM-16→TRM-15→TRM-07→TRM-08→TRM-09 は西→東のまま変えない。TRM-03はTRM-07の真上（境内）。旧TRM-01.right↔TRM-16.leftは廃止し、TRM-16.leftは住居裏の細道TRM-06.rightへ続く（TRM-16→TRM-15→TRM-06→TRM-16のループ）。
+- **要確認（#51、2026-10-23）**: 旧 `TRM-01.bottom → TRM-08.top`（幼稚園の正門から南の主路へ出る）の行方は未決。TRM-01 廃止により TRM-08.top は現在どこにも接続していない。正門を TRM-03 に付けるか、TRM-08.top を閉じるか、別の接続かは kako-jun の決定待ち（推測で足さない）。
 - **境内（`temple-grounds` / TRM-03）**: 山門（南）から本堂（北）へ石畳。境内から見て左（西）に住居側、右（東）に幼稚園側の建物が続く。屋外から住居・幼稚園へのdoorは作らない（屋内でTRM-04経由）。
-- **幼稚園（TRM-01園庭／TRM-02遊戯室）**: 園庭TRM-01は境内TRM-03の右（東）隣で寺の入口のそば。TRM-03↔TRM-01は境内東脇の通用門（door）。TRM-02は本堂TRM-04の東（右）の屋内。TRM-01↔TRM-02の直結は未契約。
+- **幼稚園（園庭／TRM-02遊戯室）**: 園庭は境内TRM-03の右（東）の区画で、幼稚園の前にあたる（別MAPではない。2026-10-23決定）。TRM-02は本堂TRM-04の東（右）の屋内。園庭↔TRM-02の直結は未契約。
 - **庫裏（TRM-05）**: 本堂の西（左）。渡り廊下TRM-04.door-west↔TRM-05.door-hall。幼稚園職員室への廊下は#60で廃止（住居↔幼稚園は直結しない）。
 SOURCE docs/map-topology.md 6.2 屋外・屋内の接続表の行（L575-580。見出し・区切り行は省く）
 | TRM-07.top | TRM-03.bottom | 辺（縦の石畳） | 山門から境内へ |
 | TRM-03.door-main | TRM-04.door-south | ドア（本堂の正面） | 境内から本堂 |
 | TRM-04.door-west | TRM-05.door-hall | ドア（渡り廊下） | 本堂（中央）から西の住居。内部どうし |
 | TRM-04.door-east | TRM-02.door-west | ドア（屋内廊下） | 本堂から東の幼稚園・遊戯室 |
-| TRM-03.door-kindergarten | TRM-01.door-west | ドア（通用門） | 境内の東脇から右隣の園庭へ。扉位置TBD |
-| TRM-01.bottom | TRM-08.top | 辺 | 園庭の正門から主路TRM-08へ |
 SOURCE docs/map-contract-checklist.md
-| TRM-01 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-01.webp`; mask未記録 | 園庭の既存画像におけるTRM-08(bottom)/TRM-03(door-west)の実端、幼稚園期のtraversalを採寸する。TRM-16との接続は#51で廃止 |
-| TRM-03 | recreate-required-1920x1080 | R006,R011,R024 | 旧境内画像は参照専用。新背景・mask未作成 | #60の屋外境内。TRM-07端、TRM-01.door-west通用門（境内の右＝東側）、TRM-04正面扉、池・墓地のblocked域を記録。TRM-05/TRM-02屋外doorなし。共通外観参照未通過 |
+| TRM-03 | recreate-required-1920x1080 | R006,R011,R024 | 旧境内画像は参照専用。新背景・mask未作成 | #60の屋外境内。TRM-07端、右の区画の園庭（幼稚園の前。旧TRM-01を統合・東の通用門なし）、園庭でのキスのevent-kiss（→BDY-01）、TRM-04正面扉、池・墓地のblocked域を記録。TRM-05/TRM-02屋外doorなし。共通外観参照未通過 |
 | TRM-05 | recreate-required-1920x1080 | R006,R011,R021,R024 | 旧庫裏画像は参照専用。新背景・mask未作成 | #60/#51の西（本堂から見て左）の屋内住居。TRM-04.door-west↔door-hallのみ。内部廊下の扉位置、幅・段差・回転域、火事時遮断範囲がTBD。TRM-02直結なし |
 | TRM-04 | recreate-required-1920x1080 | R021,R024 | 旧本堂画像は参照専用。新背景・mask未作成 | #60の中央屋内本堂。TRM-03南、TRM-05西、TRM-02東の扉位置、畳・仏具と主路、段差・幅・回転域を記録する |
 | TRM-02 | recreate-required-1920x1080 | R021,R024 | 旧遊戯室画像は参照専用。新背景・mask未作成 | #60/#51の東（右）の屋内幼稚園。TRM-04.door-east↔TRM-02.door-west（本堂側＝西から入る）の扉位置・廊下長、舞台袖・椅子・主路の分離、段差・幅・回転域を記録する。TRM-05直結なし |
 SOURCE docs/teramachi-rebuild-candidates.md
-| TRM-01 | `TRM-01-teramachi-kindergarten-rebuild-candidate.png` | bottom→TRM-08.top、door-west→TRM-03 | 屋外園庭（境内の右＝東隣）。通用門は園庭主路と分離 | recreate-required-1920x1080 |
-| TRM-03 | `TRM-03-temple-grounds-rebuild-v4-candidate.png` | bottom→TRM-07、door-main→TRM-04、door-kindergarten→TRM-01.door-west | 屋外境内。住居・遊戯室への屋外doorなし | recreate-required-1920x1080 |
+| TRM-03 | `TRM-03-temple-grounds-rebuild-v4-candidate.png` | bottom→TRM-07、door-main→TRM-04（園庭のキスevent→BDY-01） | 屋外境内。右の区画が園庭（旧TRM-01を統合）で東の通用門なし。住居・遊戯室への屋外doorなし | recreate-required-1920x1080 |
 | TRM-05 | `TRM-05-temple-residence-rebuild-v3-candidate.png` | door-hall→TRM-04.door-west | 屋内庫裏。本堂の西（左）。TRM-02直結なし | recreate-required-1920x1080 |
 | TRM-04 | `TRM-04-temple-main-hall-rebuild-v2-candidate.png` | door-south→TRM-03、door-west→TRM-05.door-hall、door-east→TRM-02.door-west | 中央の屋内本堂。扉前の段差なし・回転余地 | recreate-required-1920x1080 |
 | TRM-02 | `TRM-02-kindergarten-playroom-rebuild-candidate.png` | door-west→TRM-04.door-east | 本堂の東（右）の屋内遊戯室。扉位置TBD。舞台袖は画面内終端 | recreate-required-1920x1080 |
@@ -80,7 +72,7 @@ SOURCE docs/teramachi-rebuild-candidates.md
 | ヒロインの住居、幼稚園、本堂は外へ出ずに屋内廊下でつながる。本堂を中央に置き、幼稚園と住居を直接接続しない。 | 屋根・外壁を保ち、本堂中央・境内から見て左（西）が住居・右（東）が幼稚園（#51 2026-10-19で左右反転。上の#60原文のdoor-east/westは旧配置の記述）。別棟や外部渡り廊下で代替しない |
 | 本堂（中央）・住居（西）・幼稚園（東）は、屋根と壁のある廊下棟で外観上もつながり一つの連続した建物群に見える（根拠 docs/map-topology.md の TRM-04.door-west↔TRM-05.door-hall 渡り廊下、TRM-04.door-east↔TRM-02.door-west 屋内廊下）。 | 住居と幼稚園は直接つながない（本堂経由のみ）。吹きさらしの外部渡り廊下は不可、屋根と壁のある廊下棟は必須。屋外通路・離れた独立棟も不可。審査基準: 本堂の左右の壁面に屋根付き廊下棟が接し、棟の屋根が本堂・住居・幼稚園の屋根へ切れ目なく続く。廊下棟の両端が壁に接し、地面の隙間・雪原が屋根と屋根の間に通らない。住居と幼稚園の間に直接の廊下がない。廊下の長さ・幅・扉位置はTBDで、描き込んで確定させない |
 | TRM-03 境内（外部） | 屋外境内。屋根を外した室内・家具を見せない |
-| TRM-01の正本行「私立幼稚園の園庭（屋外）」／TRM-02の正本行「遊戯室（屋内）」 | 園庭と遊戯室は同じ幼稚園の外部／内部。TRM-01を室内にしない。未契約の園庭直結doorを足さない |
+| TRM-03の正本行（右の区画＝園庭。旧TRM-01を2026-10-23に統合）／TRM-02の正本行「遊戯室（屋内）」 | 園庭と遊戯室は同じ幼稚園の外部／内部。園庭を室内にしない。未契約の園庭直結doorを足さない |
 | TRM-04.door-west ↔ TRM-05.door-hall | 西の住居まで屋内で連続。具体的廊下形状は未確定 |
 | TRM-04.door-east ↔ TRM-02.door-west | 東の幼稚園まで屋内で連続（TRM-02は本堂側の西面から入る）。扉位置・廊下長は推測しない |
 | TRM-03から住居・幼稚園へ屋外を経由する新規doorは作らない。 | 境内の正面入口はTRM-04へ。住居・遊戯室の外部入口を発明しない |
@@ -88,7 +80,7 @@ SOURCE docs/teramachi-rebuild-candidates.md
 ## 参照入力と失敗記録
 
 - 材料の既存見本: `assets/images/fields/legacy/TRM-07.webp`。建物配置の正本には使わない。
-- #68で失敗したrebuild画像を削除した。生成時の現存参照は `assets/images/fields/legacy/TRM-01.webp`、`TRM-03.png`、`TRM-05.png`（同じディレクトリ）を題材・工作材料の補助として入力し、#60と衝突する配置・旧扉・比率を継承しない。TRM-04/TRM-02に現存する旧完成画像はない。削除画像を必須添付にしない。
+- #68で失敗したrebuild画像を削除した。生成時の現存参照は `assets/images/fields/legacy/TRM-01.webp`（旧園庭。2026-10-23にTRM-03へ統合したため、TRM-03の右の区画の見た目の参考に限る）、`TRM-03.png`、`TRM-05.png`（同じディレクトリ）を題材・工作材料の補助として入力し、#60と衝突する配置・旧扉・比率を継承しない。TRM-04/TRM-02に現存する旧完成画像はない。削除画像を必須添付にしない。
 - 削除済み旧 `teramachi-temple-compound-master-plan-v2-connected.png` は屋根の切断・室内露出、分離した量塊／外部通路に見える失敗例。**外観共通参照として不合格**。名前のconnectedを建築成立の証拠にしない。生成入力の配置正本として使わない。削除対象・SHA-256・元commit・失敗理由は [移行manifest](20261018-asset-migration.json) に記録した。失敗画像自体を恒久保持しない。
 - Ref R006/R011/R024: `docs/map-reference-research.md` の地域・土塀・地理資料。特定寺院の平面や室内を保証しない。
 - Ref R021: 後のruntimeの幅・回転域換算用。外観参照の建物寸法を決める根拠には使わない。
@@ -96,13 +88,13 @@ SOURCE docs/teramachi-rebuild-candidates.md
 ## 最初の1枚への具体的入力案（実行前ドラフト）
 
 ```text
-対象: 寺町共通外観参照。TRM-03/TRM-05/TRM-04/TRM-02/TRM-01の同じ建物群を確認する1枚。
+対象: 寺町共通外観参照。TRM-03/TRM-05/TRM-04/TRM-02の同じ建物群（園庭はTRM-03の右の区画）を確認する1枚。
 納品: 外観参照のため16:9・解像度不問のPNG、非透過。北＝上。カメラ角は45°より急な、できるだけ真上寄り（数値は要確認）。斜めは許容し、手前に出る物はレイヤー分離せず後工程のマスクで処理する。
 添付: 本文のIssue #60原文、5ファイルの原文行束、建築不変表を省略せず添付する。注意: #60原文のdoor-east/west記述は旧配置（door-east→TRM-05住居、door-west→TRM-02幼稚園）。現行（TRM-04.door-west→TRM-05住居、TRM-04.door-east→TRM-02幼稚園）は原文行束を優先する。
-西の住居—中央の本堂—東の幼稚園（境内から北を見て左から右）。住居と本堂、本堂と幼稚園は、それぞれ屋根と壁のある廊下棟で外観上もつながり、三棟で一つの連続した建物群に見える。住居と幼稚園は直接つながず、本堂だけが両者の間にある。園庭TRM-01は境内TRM-03の右（東）隣。
+西の住居—中央の本堂—東の幼稚園（境内から北を見て左から右）。住居と本堂、本堂と幼稚園は、それぞれ屋根と壁のある廊下棟で外観上もつながり、三棟で一つの連続した建物群に見える。住居と幼稚園は直接つながず、本堂だけが両者の間にある。園庭は境内TRM-03の右（東）の区画（幼稚園の前）。
 外観は屋根と外壁を保持する。室内、家具、断面、屋根の切欠きを見せない。
 三棟はすべて同じ屋根の連なりとして描き、廊下棟の長さ・幅・扉位置は描き込んで確定させない。建物群の周囲は園庭と境内の外構だけにする。
-TRM-01は幼稚園の屋外園庭、TRM-03は屋外境内。未契約の出入口や道を追加しない。
+TRM-03は屋外境内で、その右の区画が幼稚園の屋外園庭。未契約の出入口や道を追加しない。
 材料: 土台5 mm foamboardと露出したcorrugated cardboard断面。
 壁paper clayを爪楊枝で刻む。屋根corrugated cardboardをカッターで切る。
 雪cotton battingを白いPVA接着剤で固定。柱wooden toothpick。
@@ -128,7 +120,7 @@ TRM-01は幼稚園の屋外園庭、TRM-03は屋外境内。未契約の出入�
 | 中央TRM-04・西TRM-05・東TRM-02、屋内限定、直結廃止 | #60で確定。追加の配置決定を求めない | 同じ事実を継承 |
 | 屋根形状・外壁外形・園庭／境内との具体配置 | スキルの外観参照スコープ内で順序・包含関係だけを検証する。候補の造形を新たな建築契約と見なさない。runtime配置の採寸は後工程 | 参照通過後に対象行へ必要な配置を契約 |
 | TRM-02.door-westの実扉位置、各廊下幅／曲がり／段差・回転域 | 描かず検証対象外。runtime TBDだけを理由に外観参照全体を止めない | TBD。既存IDを勝手に改名しない |
-| TRM-01/TRM-03の接続端、屋外主路／池／墓地、TRM-05火事遮断域 | 描画で新規確定しない | TBD。個別MAPの原文・参照・mask契約が必要 |
+| TRM-03（園庭の区画を含む）の接続端、屋外主路／池／墓地、TRM-05火事遮断域 | 描画で新規確定しない | TBD。個別MAPの原文・参照・mask契約が必要 |
 | 利用する実ツールの寸法出力指定・出力検査 | 外観参照は寸法不問。最終MAPはpromptに1920×1080を明記して1回だけ直接生成し、返せない場合は16:9の1672×941を許容。APIにsize引数がなくても不可能とは判定しない。実出力を計測し、許容外なら後工程へ進めない。リサイズで通過させない | 同じゲート |
 | 原文束・スキルの独立事前レビュー | 未通過。通過後に共通外観参照1枚へ進む | 外観参照通過までBLOCKED |
 

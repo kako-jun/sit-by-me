@@ -368,7 +368,7 @@ def parse_topology():
     rows = re.findall(
         r"^\|\s*(BDY-\d\d)\.(door-passage-[a-z-]+)\s*\|\s*(BDY-\d\d)\.(door-passage-[a-z-]+)\s*\|\s*door\s*\|",
         text, re.M)
-    ev = re.findall(r"^\|\s*(TRM-01)\.(event-kiss)\s*\|\s*(BDY-01)\.(event-mouth)\s*\|\s*event\s*\|", text, re.M)
+    ev = re.findall(r"^\|\s*(TRM-03)\.(event-kiss)\s*\|\s*(BDY-01)\.(event-mouth)\s*\|\s*event\s*\|", text, re.M)
     return rows, ev
 
 
@@ -841,7 +841,7 @@ def render(m, rows, ev, nodes, ports, outdir, ratio, maze_tbd, clean=False, fnam
         notes[1] = ("南辺の心臓=右寄り(x≈1239–1469)・肺=左寄り(x≈450–680): 心臓は本人の左側=画面右。心臓=右寄り・肺=左寄りは確定（kako-jun 2026-10-22）。左右は身体の本人から見る(西辺=右腕・東辺=左腕)")
         notes.append(f"BDY-02: 広間(壁で縁取った横長の楕円の床。横半径{BDY02_HALL_RX}px・縦半径{hall[1]}px・壁厚{WALL_T}px、台座なし)から首が1本北へ伸び、上で頭(真北)と口(右上へ斜め)に分かれる")
     if m == "BDY-01":
-        notes.append("event-mouth: TRM-01.event-kiss からの一方向イベント到着。到着位置・向きは原文に無い(TBD)。辺ではない")
+        notes.append("event-mouth: TRM-03.event-kiss からの一方向イベント到着。到着位置・向きは原文に無い(TBD)。辺ではない")
         ex, ey = paths[0][1][-1]
         d.ellipse([ex - 30, ey - 30, ex + 30, ey + 30], outline=(150, 40, 80), width=5)
         d.text((ex, ey + 60), "event-mouth 到着点 TBD", font=F(22), fill=(235, 235, 235), anchor="mm",
@@ -1237,7 +1237,7 @@ def main():
            "| 出る側 | 出る辺 | 入る側 | 入る辺 | 反対か |", "|---|---|---|---|---|"]
     for l in lines:
         md.append(f"| {l[0]} | {l[1]} | {l[2]} | {l[3]} | {'OK' if l[4] else 'NG'} |")
-    md += ["", "## event（辺ではない）", "", "| TRM-01.event-kiss | BDY-01.event-mouth | 一方向。到着位置・向きは原文に無い(TBD)。BDY-01 の図には印だけ |", "",
+    md += ["", "## event（辺ではない）", "", "| TRM-03.event-kiss | BDY-01.event-mouth | 一方向。到着位置・向きは原文に無い(TBD)。BDY-01 の図には印だけ |", "",
            "## MAPごとの通路", "", "| MAP | 辺 | port | 相手 | 辺上の位置(提案、模型の辺に対する比) |", "|---|---|---|---|---|"]
     for mm in sorted(portals):
         for p, dd in sorted(portals[mm].items(), key=lambda kv: ("NESW".index(kv[1]["side"]), kv[1]["slot"])):
