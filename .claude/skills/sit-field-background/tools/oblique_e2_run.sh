@@ -1,30 +1,48 @@
 #!/usr/bin/env bash
-# E2: クリーンモック編集元の imagegen を N テイク並列生成 → 本物確認 → 測定 → report 材料まで1コマンド。
-# 使い方: oblique_e2_run.sh MAP N [ROUND(既定 e2)] [PROMPT_FILE(既定 <MAP>/e2/prompt-base.txt)]
-#  例: oblique_e2_run.sh TRM-02 4          -> docs/production/oblique-mocks/TRM-02/e2/take1..4.png
-#      oblique_e2_run.sh TRM-02 2 e2/round2 docs/production/oblique-mocks/TRM-02/e2/prompt-round2.txt
-# 前提: プロンプト先頭で $imagegen を明示起動（しないと ImageMagick 偽造PNGを掴む）。画像は目視しない（数値のみ）。
+# E2: クリーンモック編集元の imagegen を N テイク並列生成 → 本物確認 → 測定 → ログ縮約まで1コマンド。
+# 使い方: [STYLE_REF=git:REV:PATH] oblique_e2_run.sh MAP N [ROUND(既定 e2)] [PROMPT_FILE]
+#  例 A案（文章のみ。参照=クリーンモック＋素材見本）:
+#       oblique_e2_run.sh TRM-02 4 e2/round2a
+#     B案（A案＋元の採用画像を様式・質感の参照のみとして添付）:
+#       STYLE_REF=git:9652459:assets/images/fields/reference/teramachi-kindergarten-interior-adopted.webp oblique_e2_run.sh TRM-02 4 e2/round2b
+# プロンプト既定: <MAP>-edit-prompt.txt（台帳ゲート行より前。見た目と許す/禁じる装飾を含む。oblique_build.py が生成）＋参照・出力の節。
+# 前提: プロンプト先頭で $imagegen を明示起動（しないと ImageMagick 偽造PNGを掴む）。生成画像は目視しない（数値のみ）。
+# 測定の基準画像: REF_IMAGE（既定は STYLE_REF と同じ）。装飾量・層の測定は基準画像があるときだけ出る。
 set -u
 MAP=${1:?MAP}; N=${2:?N}; ROUND=${3:-e2}
 ROOT=$(git rev-parse --show-toplevel); cd "$ROOT"
 M=docs/production/oblique-mocks/$MAP
-OUT=$M/$ROUND; mkdir -p "$OUT"
-PROMPT=${4:-$M/e2/prompt-base.txt}
+OUT=$M/$ROUND; mkdir -p "$OUT" "$M/e2"
+PROMPT=${4:-$OUT/prompt.txt}
 SW=$M/e2/swatch.png
 GI=$HOME/.codex/generated_images
-mkdir -p "$M/e2"
 [ -f "$SW" ] || cp verification/body-layout/BDY-material-swatch-corrugated-edge.png "$SW"
-if [ ! -f "$PROMPT" ]; then  # 既定プロンプト: edit-prompt（台帳ゲート行より前）＋参照画像・出力の節
+REFS=(-i "$M/$MAP-clean.png" -i "$SW")
+NREF=2
+STYLE_TXT=""
+if [ -n "${STYLE_REF:-}" ]; then
+  case "$STYLE_REF" in
+    git:*) SPEC=${STYLE_REF#git:}; uv run --with pillow python3 -I -c "
+import subprocess,sys,io
+from PIL import Image
+b=subprocess.check_output(['git','show',sys.argv[1]]); Image.open(io.BytesIO(b)).convert('RGB').save(sys.argv[2])" "$SPEC" "$OUT/style-ref.png"; STYLE_FILE=$OUT/style-ref.png;;
+    *) STYLE_FILE=$STYLE_REF;;
+  esac
+  REFS+=(-i "$STYLE_FILE"); NREF=3
+fi
+if [ ! -f "$PROMPT" ]; then
   sed '/^# ---- 台帳ゲート/,$d' "$M/$MAP-edit-prompt.txt" > "$PROMPT"
-  cat >> "$PROMPT" <<'EOP'
-
-REFERENCE IMAGES (exactly two):
-1. First image = the EDIT TARGET: the colored-box mock of the room. Keep its canvas, camera, every wall/door/window/furniture position and size exactly. Repaint its surfaces only.
-2. Second image = a thin MATERIAL SWATCH strip (corrugated cardboard edge, masking tape, torn paper). Use it only for the feel of the cardboard base edge and paper materials. Do not copy its colors literally and do not bring snow into the room.
-No other style reference is given; the style is described in the text above (handmade miniature diorama: cardboard base, wood, paper).
-
-OUTPUT: one image, 1672x941 landscape (if exactly that size is impossible, the nearest allowed size with the same aspect ratio). Do not crop, rotate, zoom or re-frame the mock.
-EOP
+  {
+  echo; echo "REFERENCE IMAGES (exactly $NREF):"
+  echo "1. First image = the EDIT TARGET: the colored-box mock of the room. Positions and sizes of everything listed under GEOMETRY follow this image exactly (canvas, camera, layer boundaries, walls, doors, windows, furniture boxes). Repaint all surfaces with rich handmade-craft detail as described above."
+  echo "2. Second image = a thin MATERIAL SWATCH strip (corrugated cardboard edge, masking tape, torn paper). Use it only for the feel of the cardboard slab edge and paper materials. Do not copy its colors literally."
+  if [ "$NREF" = 3 ]; then
+    echo "3. Third image = a STYLE AND TEXTURE reference only (the level of craft detail: materials, surface texture, props, snow, trees). Do NOT copy its composition, positions, sizes, object arrangement or layout; geometry comes only from image 1."
+  else
+    echo "No other style reference is given; the style is described in the text above."
+  fi
+  echo; echo "OUTPUT: one image, 1672x941 landscape (if exactly that size is impossible, the nearest allowed size with the same aspect ratio). Do not crop, rotate, zoom or re-frame the mock."
+  } >> "$PROMPT"
 fi
 ls "$GI" > "$OUT/.gi-before.txt"
 date -Iseconds > "$OUT/.started"
@@ -32,15 +50,17 @@ for i in $(seq 1 "$N"); do
   [ -e "$OUT/take$i.png" ] && { echo "skip take$i (exists)"; continue; }
   BODY=$(cat "$PROMPT")
   codex exec -s workspace-write --skip-git-repo-check -c model_reasoning_effort="high" \
-"Invoke the \$imagegen skill and use the built-in image_gen tool at the HIGHEST quality (quality: high), edit-mode with the two attached reference images (image 1 = edit target mock, image 2 = material swatch), size 1672x941, then save the REAL generated PNG (decode the tool result, do not resize or modify it) into the current workspace at $OUT/take$i.png. You are STRICTLY FORBIDDEN from fabricating/drawing the image with magick/ImageMagick/PIL/Pillow/numpy/SVG/canvas/any code; only the image_gen tool. If the image_gen tool is genuinely not in your toolset, do NOT fabricate — output exactly: IMAGE_GEN_TOOL_UNAVAILABLE. Do not use files already present in ~/.codex/generated_images made by other runs; copy only the image generated by this call. Report the saved file path.
+"Invoke the \$imagegen skill and use the built-in image_gen tool at the HIGHEST quality (quality: high), edit-mode with the $NREF attached reference images in the order described below, size 1672x941, then save the REAL generated PNG (decode the tool result, do not resize or modify it) into the current workspace at $OUT/take$i.png. You are STRICTLY FORBIDDEN from fabricating/drawing the image with magick/ImageMagick/PIL/Pillow/numpy/SVG/canvas/any code; only the image_gen tool. If the image_gen tool is genuinely not in your toolset, do NOT fabricate — output exactly: IMAGE_GEN_TOOL_UNAVAILABLE. Do not use files already present in ~/.codex/generated_images made by other runs; copy only the image generated by this call. Report the saved file path.
 
-$BODY" -i "$M/$MAP-clean.png" -i "$SW" < /dev/null > "$OUT/codex-take$i.log" 2>&1 &
+$BODY" "${REFS[@]}" < /dev/null > "$OUT/codex-take$i.log" 2>&1 &
 done
 wait
 ls "$GI" > "$OUT/.gi-after.txt"
 date -Iseconds > "$OUT/.finished"
+REFARG=()
+[ -n "${REF_IMAGE:-${STYLE_REF:-}}" ] && REFARG=(--ref "${REF_IMAGE:-$STYLE_REF}")
 uv run --with numpy --with opencv-python-headless --with pillow python3 -I \
-  .claude/skills/sit-field-background/tools/oblique_e2_measure.py "$MAP" --round "$ROUND" --takes "$N"
+  .claude/skills/sit-field-background/tools/oblique_e2_measure.py "$MAP" --round "$ROUND" --takes "$N" "${REFARG[@]}"
 # 生ログは base64 画像で数MBになる。先頭だけ残して置き換える（測定後。偽造ツール使用の有無は metrics.json に記録済み）
 for i in $(seq 1 "$N"); do
   [ -f "$OUT/codex-take$i.log" ] && { cut -c1-240 "$OUT/codex-take$i.log" | grep -v '^[A-Za-z0-9+/=]\{200,\}' | head -60 > "$OUT/codex-take$i.log.txt"; rm "$OUT/codex-take$i.log"; }

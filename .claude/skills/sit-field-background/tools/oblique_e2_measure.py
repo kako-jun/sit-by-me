@@ -13,7 +13,9 @@
       ＋ 戸口のピンク残り・窓ガラス内の白/緑の割合・床の模様量
   (c) テイク間: 輪郭のペアごとの Chamfer・領域ずれの標準偏差
   (d) 本物確認: sha256 が codex generated_images の新規ファイルと一致するか・色数・ログ中の偽造ツール使用
-合否基準は GATES（先に決めた値）。画像の内容は人が見る項目（HUMAN_ITEMS）として別掲する。
+  (e) 装飾量と層構造（--ref に元の採用画像を渡したとき。git:REV:PATH 可）: 領域（壁・床・家具・作業机・台座の前縁・建物の外）ごとの
+      エッジ密度・色エントロピーの対元画像比、層の平均色（Lab ΔE）と層の分離、建物の外の木（常緑樹・枯木の塊）・草の量と四辺への分布、白いのっぺり面の割合
+合否基準は GATES / DECOR_GATES（先に決めた値）。画像の内容は人が見る項目（HUMAN_ITEMS）として別掲する。
 """
 import argparse, glob, hashlib, itertools, json, os, re, sys
 from pathlib import Path
@@ -34,6 +36,16 @@ GATES = {
     "door_pink_residual_max": 0.02,    # 戸口パネル内のピンク残り
     "window_white_green_max": 0.05,    # 窓ガラス内の 白（空・雪）/緑（木）の割合
     "aspect_tol": 0.005,
+}
+# 装飾量・層構造のゲート（E2 round2 の生成前に決定。元の採用画像=ref に対する比）
+DECOR_GATES = {
+    "density_ratio_min": 0.60,         # 領域のエッジ密度・色エントロピーが ref の 60% 以上（モックは単色で≈0）
+    "layer_color_dE_max": 30.0,        # 層（作業机・台座の前縁・建物の外・室内の床）の平均色が ref から Lab ΔE76 で 30 以内
+    "layer_sep_ratio_min": 0.60,       # 作業机と建物の外の色差が ref の 60% 以上（層が混ざらない）
+    "outside_flat_white_max": 0.15,    # 建物の外で「明るく平坦な白」（白い素地）の割合の上限
+    "outside_tree_blobs_min": 6,       # 建物の外の木（常緑樹・枯木）の塊の数
+    "outside_tree_sides_min": 3,       # 木が奥・手前・左・右のうち何辺にあるか
+    "outside_evergreen_ratio_min": 0.30, "outside_branch_ratio_min": 0.30, "outside_grass_ratio_min": 0.20,
 }
 ROUND2_IF_PASS_LT = 2  # 合格テイクがこの数未満なら追加ラウンド
 
@@ -141,6 +153,100 @@ def pink_frac(rgb, mask):
     return round(float(pink.mean()), 4) if len(px) else 0.0
 
 
+# ---------------------------------------------------------------- 装飾量・層構造（元の採用画像との比）
+def layer_masks(plan, size, R, floor, room):
+    W, H = size
+    tl, tr, br, bl = [tuple(map(float, q)) for q in om._DST]
+    top = poly_mask([[tl, tr, br, bl]], size)
+    front = poly_mask([[bl, br, (br[0], br[1] + om.SLAB), (bl[0], bl[1] + om.SLAB)]], size)
+    k = lambda m, n: cv2.erode(m.astype(np.uint8), np.ones((n, n), np.uint8)) > 0  # noqa: E731
+    boxes = np.zeros((H, W), bool)
+    for (kind, _), m in R.items():
+        if kind == "box":
+            boxes |= m
+    other = np.zeros((H, W), bool)
+    for (kind, _), m in R.items():
+        if kind in ("door", "window"):
+            other |= m
+    hull = cv2.dilate(room.astype(np.uint8), np.ones((11, 11), np.uint8)) > 0
+    fcol = plan["floors"][0].get("color", "#8f6a43").lstrip("#")
+    return {
+        "desk": k(~(top | front), 9),
+        "slab_front": k(front, 7),
+        "outside": k(top & ~hull, 9),
+        "floor": k(floor & ~boxes & ~other, 7),
+        "wall": k(room & ~floor & ~boxes & ~other, 5),
+        "objects": k(boxes, 5),
+    }, hull
+
+
+def region_stats(rgb, m, ge):
+    px = rgb[m]
+    q = (px >> 4).astype(np.int32)
+    idx = q[:, 0] * 256 + q[:, 1] * 16 + q[:, 2]
+    h = np.bincount(idx, minlength=4096).astype(np.float64)
+    h = h[h > 0] / h.sum()
+    ent = float(-(h * np.log2(h)).sum())
+    lab = cv2.cvtColor((rgb.astype(np.float32) / 255.0), cv2.COLOR_RGB2LAB)[m].mean(0)
+    return {"edge_density": round(float(ge[m].mean()), 4), "color_entropy": round(ent, 3), "lab": [round(float(v), 1) for v in lab], "px": int(m.sum())}
+
+
+def outside_objects(rgb, m, hull_box):
+    f = rgb.astype(np.int32)
+    lum = (0.299 * f[..., 0] + 0.587 * f[..., 1] + 0.114 * f[..., 2])
+    r, g, b = f[..., 0], f[..., 1], f[..., 2]
+    green = (g > r + 6) & (g > b + 6) & (lum < 115) & m
+    branch = (r > g + 8) & (g > b + 5) & (lum < 120) & (r < 150) & m
+    grass = (g > b + 25) & (r > b + 20) & (lum > 70) & (lum < 190) & ~green & m
+    tree = (green | branch).astype(np.uint8)
+    tree = cv2.morphologyEx(tree, cv2.MORPH_CLOSE, np.ones((7, 7), np.uint8))
+    n, lab, st, cen = cv2.connectedComponentsWithStats(tree)
+    x0, y0, x1, y1 = hull_box
+    sides, blobs = set(), 0
+    for i in range(1, n):
+        if st[i, cv2.CC_STAT_AREA] < 200:
+            continue
+        blobs += 1
+        cx, cy = cen[i]
+        if cy < y0: sides.add("N")
+        elif cy > y1: sides.add("S")
+        elif cx < x0: sides.add("W")
+        elif cx > x1: sides.add("E")
+    gray = cv2.cvtColor(rgb, cv2.COLOR_RGB2GRAY).astype(np.float32)
+    mean = cv2.blur(gray, (7, 7)); sq = cv2.blur(gray * gray, (7, 7))
+    sd = np.sqrt(np.maximum(sq - mean * mean, 0))
+    flat_white = (lum > 225) & (sd < 1.5) & m
+    a = float(m.sum())
+    return {"evergreen_frac": round(float(green.sum() / a), 4), "branch_frac": round(float(branch.sum() / a), 4), "grass_frac": round(float(grass.sum() / a), 4),
+            "tree_blobs": blobs, "tree_sides": sorted(sides), "flat_white_frac": round(float(flat_white.sum() / a), 4)}
+
+
+def decor_eval(rgb, ge, masks, hull_box, ref):
+    d = {"regions": {k: region_stats(rgb, m, ge) for k, m in masks.items()}, "outside_objects": outside_objects(rgb, masks["outside"], hull_box)}
+    G = DECOR_GATES
+    g = {}
+    for k, v in d["regions"].items():
+        rv = ref["regions"][k]
+        d["regions"][k]["edge_ratio_vs_ref"] = round(v["edge_density"] / max(rv["edge_density"], 1e-6), 2)
+        d["regions"][k]["entropy_ratio_vs_ref"] = round(v["color_entropy"] / max(rv["color_entropy"], 1e-6), 2)
+        g[f"density:{k}"] = d["regions"][k]["edge_ratio_vs_ref"] >= G["density_ratio_min"] and d["regions"][k]["entropy_ratio_vs_ref"] >= G["density_ratio_min"]
+    dE = lambda a, b: float(np.linalg.norm(np.array(a) - np.array(b)))  # noqa: E731
+    for k in ("desk", "slab_front", "outside", "floor"):
+        d["regions"][k]["dE_vs_ref"] = round(dE(d["regions"][k]["lab"], ref["regions"][k]["lab"]), 1)
+        g[f"layer_color:{k}"] = d["regions"][k]["dE_vs_ref"] <= G["layer_color_dE_max"]
+    sep = dE(d["regions"]["desk"]["lab"], d["regions"]["outside"]["lab"])
+    rsep = dE(ref["regions"]["desk"]["lab"], ref["regions"]["outside"]["lab"])
+    d["layer_sep_desk_outside"] = round(sep, 1); d["layer_sep_ratio_vs_ref"] = round(sep / max(rsep, 1e-6), 2)
+    g["layer_separation"] = d["layer_sep_ratio_vs_ref"] >= G["layer_sep_ratio_min"]
+    o, ro = d["outside_objects"], ref["outside_objects"]
+    g["outside_flat_white"] = o["flat_white_frac"] <= G["outside_flat_white_max"]
+    g["outside_trees"] = o["tree_blobs"] >= G["outside_tree_blobs_min"] and len(o["tree_sides"]) >= G["outside_tree_sides_min"]
+    g["outside_evergreen"] = o["evergreen_frac"] >= G["outside_evergreen_ratio_min"] * ro["evergreen_frac"]
+    g["outside_branch"] = o["branch_frac"] >= G["outside_branch_ratio_min"] * ro["branch_frac"]
+    g["outside_grass"] = o["grass_frac"] >= G["outside_grass_ratio_min"] * ro["grass_frac"]
+    return d, g
+
+
 def provenance(path, out_dir, n):
     r = {"sha256": sha(path), "bytes": os.path.getsize(path)}
     im = Image.open(path)
@@ -174,6 +280,7 @@ def main():
     ap.add_argument("--takes", type=int, default=4)
     ap.add_argument("--files", nargs="*")
     ap.add_argument("--root", default=None)
+    ap.add_argument("--ref", default=None, help="元の採用画像（装飾量・層の基準）。ファイル、または git:REV:PATH")
     a = ap.parse_args()
     root = Path(a.root or os.popen("git rev-parse --show-toplevel").read().strip())
     M = root / "docs/production/oblique-mocks"
@@ -197,6 +304,18 @@ def main():
     cv2.fillConvexPoly(room, cv2.convexHull(pts), 1)
     room = room > 0
     me_room = me & room
+    ref = None
+    if a.ref:
+        if a.ref.startswith("git:"):
+            import io, subprocess
+            blob = subprocess.check_output(["git", "-C", str(root), "show", a.ref[4:]])
+            refrgb = np.array(Image.open(io.BytesIO(blob)).convert("RGB").resize(size, Image.LANCZOS))
+        else:
+            refrgb = np.array(Image.open(a.ref).convert("RGB").resize(size, Image.LANCZOS))
+        dmasks, _hull = layer_masks(plan, size, R, floor, room)
+        ys_, xs2 = np.nonzero(room)
+        hull_box = (int(xs2.min()), int(ys_.min()), int(xs2.max()), int(ys_.max()))
+        ref = {"regions": {k: region_stats(refrgb, m, edges_gen(refrgb)) for k, m in dmasks.items()}, "outside_objects": outside_objects(refrgb, dmasks["outside"], hull_box), "edges": edges_gen(refrgb)}
     # 自己較正: モック自身の輪郭で同じ領域ずれ探索をし、自分自身でもずれる領域（隣の同形状と取り違える椅子・細い戸口など）は
     # 測定不能（unreliable）として領域ずれの合否から除く（生成画像のせいにしない）
     dmock = dist_to(edges_gen(mock))
@@ -265,6 +384,15 @@ def main():
         }
         r["gates"] = g
         r["pass"] = all(g.values())
+        if ref:
+            r["decor"], r["decor_gates"] = decor_eval(rgb, ge, dmasks, hull_box, ref)
+            # 元画像の構図コピー検出: 生成輪郭が『モック』と『元画像』のどちらに近いか（室内。小さい方に寄っている）
+            yy, xx = np.nonzero(ref["edges"] & room)
+            r["decor"]["chamfer_to_ref_edges_px"] = round(float(dg[yy, xx].mean()), 2)
+            r["decor"]["chamfer_to_mock_edges_px"] = r["edge"]["chamfer_room_px"]
+            r["decor"]["composition_copy_suspect"] = r["decor"]["chamfer_to_ref_edges_px"] < r["decor"]["chamfer_to_mock_edges_px"]
+            r["pass_decor"] = all(r["decor_gates"].values())
+            r["pass_all"] = r["pass"] and r["pass_decor"]
         res.append(r)
         gens.append((n, rgb, ge, dg))
         ov = rgb.copy()
@@ -294,6 +422,8 @@ def main():
         inter["region_shift_sd_mean_px"] = round(float(np.mean([v["dx_sd"] + v["dy_sd"] for v in sd.values()]) / 2), 2) if sd else None
     summary = {"map": a.map_id, "round": a.round, "gates": GATES, "takes_measured": len(res), "unreliable_regions": sorted(unreliable),
                "takes_pass": [r["take"] for r in res if r["pass"]],
+               "ref": a.ref, "ref_stats": {k: v for k, v in (ref or {}).items() if k != "edges"}, "takes_pass_decor": [r["take"] for r in res if r.get("pass_decor")], "takes_pass_all": [r["take"] for r in res if r.get("pass_all")],
+               "decor_gates": DECOR_GATES if ref else None,
                "round2_needed": sum(r["pass"] for r in res) < ROUND2_IF_PASS_LT,
                "human_items": HUMAN_ITEMS, "takes": res, "inter_take": inter}
     (out / "metrics.json").write_text(json.dumps(summary, ensure_ascii=False, indent=1))
@@ -302,6 +432,18 @@ def main():
     for r in res:
         bad = [k for k, v in r["gates"].items() if not v]
         L.append(f"| {r['take']} | {'PASS' if r['pass'] else 'FAIL'} | {r['edge']['recall6_room']} | {r['edge']['margin']} | {r['edge']['chamfer_room_px']} | {r['region_ok_ratio']} | {','.join(bad) or '-'} | {r['provenance'].get('matches_codex_generated_image') not in (None, False)} |")
+    if ref:
+        L += ["", "## 装飾量・層構造（元の採用画像=ref との比）", "", "DECOR_GATES: " + json.dumps(DECOR_GATES, ensure_ascii=False), "",
+              "| take | PASS(装飾) | PASS(幾何+装飾) | 失敗ゲート | 層の分離比 | 外: 木の塊/辺 | 常緑/枝/草 (frac) | 平坦白 |", "|---|---|---|---|---|---|---|---|"]
+        for r in res:
+            bad = [k for k, v in r["decor_gates"].items() if not v]
+            o = r["decor"]["outside_objects"]
+            L.append(f"| {r['take']} | {'PASS' if r['pass_decor'] else 'FAIL'} | {'PASS' if r['pass_all'] else 'FAIL'} | {','.join(bad) or '-'} | {r['decor']['layer_sep_ratio_vs_ref']} | {o['tree_blobs']}/{''.join(o['tree_sides'])} | {o['evergreen_frac']}/{o['branch_frac']}/{o['grass_frac']} | {o['flat_white_frac']} |")
+        ro = ref["outside_objects"]
+        L.append(f"| ref | - | - | - | 1.0 | {ro['tree_blobs']}/{''.join(ro['tree_sides'])} | {ro['evergreen_frac']}/{ro['branch_frac']}/{ro['grass_frac']} | {ro['flat_white_frac']} |")
+        L += ["", "領域ごとの エッジ密度比 / 色エントロピー比 / 平均色ΔE（対 ref）", "", "| region | " + " | ".join(f"take{r['take']}" for r in res) + " | ref(エッジ密度,エントロピー) |", "|---|" + "---|" * (len(res) + 1)]
+        for k in ref["regions"]:
+            L.append(f"| {k} | " + " | ".join(f"{r['decor']['regions'][k]['edge_ratio_vs_ref']} / {r['decor']['regions'][k]['entropy_ratio_vs_ref']}" + (f" / dE{r['decor']['regions'][k]['dE_vs_ref']}" if 'dE_vs_ref' in r['decor']['regions'][k] else "") for r in res) + f" | {ref['regions'][k]['edge_density']}, {ref['regions'][k]['color_entropy']} |")
     L += ["", "## 領域ごとの最良ずれ (dx,dy) px", "", "| region | " + " | ".join(f"take{r['take']}" for r in res) + " |", "|---|" + "---|" * len(res)]
     for k in (res[0]["regions"] if res else []):
         L.append(f"| {k}{' (測定不能)' if k in unreliable else ''} | " + " | ".join(f"({r['regions'][k]['shift']['dx']},{r['regions'][k]['shift']['dy']})" if r["regions"][k]["shift"] else "-" for r in res) + " |")
@@ -315,10 +457,10 @@ def main():
                 parts.append(f"{k} pink{v['pink_residual']}")
         L.append(f"- take{r['take']}: " + "; ".join(parts) + f"; 床lum_std {r['floor']['lum_std']}; 全体ピンク残り {r['pink_residual_whole_image']}")
     L += ["", "## テイク間", "", "```", json.dumps(inter, ensure_ascii=False, indent=1)[:3000], "```", "",
-          f"合格テイク: {summary['takes_pass']} / 追加ラウンド: {'要' if summary['round2_needed'] else '不要'}", "", "## kako-jun の目視確認項目", ""]
+          f"合格テイク（幾何）: {summary['takes_pass']} / 合格（装飾）: {summary['takes_pass_decor']} / 合格（幾何+装飾）: {summary['takes_pass_all']} / 追加ラウンド: {'要' if summary['round2_needed'] else '不要'}", "", "## kako-jun の目視確認項目", ""]
     L += [f"- {h}" for h in HUMAN_ITEMS]
     (out / "metrics.md").write_text("\n".join(L) + "\n")
-    print("\n".join(L[:14 + len(res)]))
+    print("\n".join(L[:40 + 3 * len(res)]))
     print(f"wrote {out}/metrics.json, metrics.md, overlay-take*.png")
 
 

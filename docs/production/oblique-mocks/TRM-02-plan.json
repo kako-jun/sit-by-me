@@ -15,7 +15,8 @@
    ],
    "color": "#8f6a43",
    "label": "遊戯室の床",
-   "walkable": true
+   "walkable": true,
+   "look": "濃い茶色の木の板張り（横板・継ぎ目・節・汚れ）。出口の床パッチ（ピンク）も同じ板張りで描き、ピンクは残さない。"
   }
  ],
  "walls": [
@@ -29,7 +30,8 @@
    ],
    "h": 160,
    "kind": "wall",
-   "window_count": 0
+   "window_count": 0,
+   "look": "舞台の背景画の左右は漆喰の壁と柱・梁。壁の内側（室内側）は歩く床より少し暗い影を落としてよい。"
   },
   {
    "id": "wall-s",
@@ -112,7 +114,9 @@
    "h": 30,
    "color": "#5a3a25",
    "label": "舞台（登れない）",
-   "blocked": true
+   "blocked": true,
+   "kind": "stage",
+   "look": "舞台の奥の壁（北壁）の前に、緑の緞帳を左右に束ねて垂らし、上に金色の縁の緑の飾り幕。中央に背景画（青い空・雪山・赤い屋根の白い城）、左右に雪をかぶった小さな常緑樹の書割。緞帳と背景画は北壁に貼る飾りで、舞台の箱の高さ・範囲は変えない。"
   },
   {
    "id": "shelf-nw",
@@ -125,7 +129,9 @@
    "h": 110,
    "color": "#c99a52",
    "label": "棚(北西)",
-   "blocked": true
+   "blocked": true,
+   "kind": "shelf",
+   "look": "棚の天板に黄色い箱（中にボール）・色分けした絵本の列、段に積み木・小さな玩具・太鼓。"
   },
   {
    "id": "shelf-ne",
@@ -138,7 +144,9 @@
    "h": 110,
    "color": "#c99a52",
    "label": "棚(北東)",
-   "blocked": true
+   "blocked": true,
+   "kind": "shelf",
+   "look": "棚の天板にクマのぬいぐるみ・積み木の箱、段に積み木・丸い玩具・缶。"
   },
   {
    "id": "chair-w1",
@@ -151,7 +159,8 @@
    "h": 50,
    "color": "#d9b77a",
    "label": "椅子",
-   "blocked": true
+   "blocked": true,
+   "kind": "chair"
   },
   {
    "id": "chair-w2",
@@ -164,7 +173,8 @@
    "h": 50,
    "color": "#d9b77a",
    "label": "椅子",
-   "blocked": true
+   "blocked": true,
+   "kind": "chair"
   },
   {
    "id": "chair-w3",
@@ -177,7 +187,8 @@
    "h": 50,
    "color": "#d9b77a",
    "label": "椅子",
-   "blocked": true
+   "blocked": true,
+   "kind": "chair"
   },
   {
    "id": "table-small",
@@ -190,7 +201,9 @@
    "h": 55,
    "color": "#d6a05a",
    "label": "小机",
-   "blocked": true
+   "blocked": true,
+   "kind": "table",
+   "look": "天板に赤・青・黄のカラフルな積み木。机に寄せた小さな椅子を描いてよい（床の占有はほぼ変えない）。"
   },
   {
    "id": "toy-rack",
@@ -203,7 +216,9 @@
    "h": 120,
    "color": "#7fa85a",
    "label": "おもちゃ棚",
-   "blocked": true
+   "blocked": true,
+   "kind": "toy-rack",
+   "look": "縦長の木枠にボール・積み木・形合わせの玩具が詰まる。"
   },
   {
    "id": "round-table",
@@ -216,13 +231,15 @@
    "h": 55,
    "color": "#d6a05a",
    "label": "丸テーブル",
-   "blocked": true
+   "blocked": true,
+   "kind": "round-table",
+   "look": "天板に赤・青・黄・緑の積み木。机に寄せた小さな椅子を描いてよい（床の占有はほぼ変えない）。"
   }
  ],
  "assumptions": [
   "家具の位置・大きさは採用画像 v3 から概略で拾った（設計書に家具の寸法は無い）。",
   "壁の高さ 150（前壁・側壁）・160（奥壁）。戸口の高さ134（2人分）に対する余裕。前壁を戸口高に合わせたため手前の床が約30px 隠れる。",
-  "丸テーブルの椅子・テーブルの椅子は省略。",
+  "丸テーブルの椅子・テーブルの椅子はモックに箱が無い（装飾として机に寄せて描くのは可。床の占有は変えない）。",
   "住居・幼稚園の外への戸口（TRM-03.door-residence/door-playroom、TRM-05.door-outside、TRM-02.door-outside）の幅をキャラ約1.5人分（100単位）に狭めた（既定・要確認。kako-jun 2026-10-23）。戸口の高さは2人分のまま。扉の左右の壁が増えたが、窓・家具との重なりは無い（検証済み）。"
  ],
  "windows": [
@@ -290,5 +307,6 @@
    ],
    "note": "南面の掃き出し窓（床まで届く引き違い・扉ではない）。枚数4は仮（#51）。位置は採用v3の窓の帯に合わせた既定（要確認）。窓から見えるのは室内の床で外の景色ではない"
   }
- ]
+ ],
+ "decor_pool": "teramachi-winter"
 }

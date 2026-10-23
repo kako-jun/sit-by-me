@@ -24,3 +24,10 @@ $(cat prompt-base.txt)" -i TRM-02-clean.png -i swatch.png
 | 4 | 402a303aae38360306ff541c6ad406ced45acddb57039f544a28f44e08dc4c2f | 5af93af7-240c-4ded-959d-afb76dd8c530.png |
 
 返却寸法はすべて 1672×941（リサイズなし）。
+
+---
+
+# round2（2026-10-23）A案・B案 各4テイク
+- コマンド: A案 `REF_IMAGE=git:9652459:assets/images/fields/reference/teramachi-kindergarten-interior-adopted.webp oblique_e2_run.sh TRM-02 4 e2/round2a`／B案 `STYLE_REF=git:9652459:assets/images/fields/reference/teramachi-kindergarten-interior-adopted.webp oblique_e2_run.sh TRM-02 4 e2/round2b`（8本並列）。モデル・経路・参照の渡し方は round1 と同じ（`$imagegen` 明示・品質 high・codex exec）。
+- プロンプト全文: `round2a/prompt.txt`（参照2枚）・`round2b/prompt.txt`（参照3枚。3枚目=元の採用画像 `round2b/style-ref.png`。様式・質感のみ・構図コピー禁止と明記）。A/B の差は参照3枚目の有無とその説明節のみ。
+- 本物確認: 8枚とも sha256 が本ラン中の codex generated_images の生成物と一致・偽造ツール呼び出し0（`metrics.json` の provenance）。

@@ -36,7 +36,55 @@ STAGES = ["validate", "mock", "wire", "mask", "occlusion", "prompt"]
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 ID_RE = re.compile(r"^[A-Z]{3}-\d{2}\.[A-Za-z0-9-]+$")
-PROMPT_VERSION = "oblique-edit-prompt/2"
+PROMPT_VERSION = "oblique-edit-prompt/3"
+DECOR_FILE = os.path.join(REPO, "docs", "production", "oblique-mocks", "decor-pools.json")
+DECOR_LAYER_KEYS = ("desk", "slab_edge", "outside", "building")
+DECOR_REQUIRED = ("geometry_fixed", "fill_rule", "layers", "surfaces", "kinds", "allow", "forbid")
+
+
+def load_decor(p):
+    """plan の decor_pool が指す装飾プール（sit-oblique-decor/1）を返す。無ければ None。"""
+    pid = p.get("decor_pool")
+    if not pid:
+        return None
+    with open(DECOR_FILE, encoding="utf-8") as f:
+        doc = json.load(f)
+    return doc["pools"].get(pid) if doc.get("schema") == "sit-oblique-decor/1" else None
+
+
+def box_look(b, pool):
+    return b.get("look") or ((pool or {}).get("kinds", {}).get(b.get("kind", "")) or "")
+
+
+def validate_decor(p, E, Wn):
+    pid = p.get("decor_pool")
+    if not pid:
+        Wn.append("decor_pool 未指定: edit-prompt に見た目（look）と許す/禁じる装飾が出ない（簡素な絵になりやすい。E2 round1 の失敗）")
+        return
+    try:
+        with open(DECOR_FILE, encoding="utf-8") as f:
+            doc = json.load(f)
+    except Exception as ex:  # noqa: BLE001
+        E.append(f"decor-pools.json を読めない: {ex}"); return
+    if doc.get("schema") != "sit-oblique-decor/1":
+        E.append("decor-pools.json の schema が sit-oblique-decor/1 でない"); return
+    pool = doc.get("pools", {}).get(pid)
+    if pool is None:
+        E.append(f"decor_pool {pid} が decor-pools.json に無い"); return
+    for k in DECOR_REQUIRED:
+        if not pool.get(k):
+            E.append(f"decor_pool {pid}: {k} が必要")
+    for lk in DECOR_LAYER_KEYS:
+        ly = (pool.get("layers") or {}).get(lk)
+        if not (isinstance(ly, dict) and ly.get("look") and ly.get("fixed")):
+            E.append(f"decor_pool {pid}: layers.{lk} に look と fixed が必要")
+    for sk in ("wall", "floor", "door", "window"):
+        if not (pool.get("surfaces") or {}).get(sk):
+            E.append(f"decor_pool {pid}: surfaces.{sk} が必要")
+    for b in p["boxes"]:
+        if not box_look(b, pool):
+            E.append(f"boxes {b['id']}: look（または pool.kinds に載る kind）が必要")
+
 
 
 def sha_bytes(b):
@@ -292,20 +340,41 @@ def validate_plan(p):
     for d in p["doors"] + p["openings"]:
         if d.get("status") == "default":
             Wn.append(f"既定（要確認）: {d['id']}")
+    validate_decor(p, E, Wn)
     return E, Wn
 
 
 # ---------------------------------------------------------------- プロンプト
 def build_prompt(p, key):
     """imagegen 編集用プロンプト（決定論）。モック=編集元1枚。原文束は台帳（build_map_prompt.rb）に依存するので別セクション。"""
-    L = [f"# {PROMPT_VERSION} {key}", "",
-         "ROLE: 添付のモック画像（色付きの箱で作った間取りの斜め見下ろし図）を編集して、手作りミニチュア（段ボールの土台・雪・木の質感）の一枚絵に仕上げる。",
-         "GEOMETRY (必ず保つ): 画像の寸法・視点・土台の台形・壁の位置と高さ・箱の位置と大きさ・戸口の位置と大きさを一切動かさない。足さない・消さない・ずらさない。",
-         "DOORS: 濃いピンクの四角は戸口。その位置・幅・高さのまま、木の扉または開口として描く（高さはキャラ2人分。幅は戸口ごとに下記）。ピンクの色は残さない。",
-         "NO TEXT: 画像に文字・矢印・ラベルを入れない。人物は入れない。", "",
-         "OBJECTS (色付きの箱 → 実物。位置・大きさは箱のまま):"]
-    for b in p["boxes"]:
-        L.append(f"- {b['id']}（{b.get('label') or '箱'}）: 高さ{b['h']}。{'登れない・通れない物' if b.get('blocked') else '歩ける物'}" + (f"。{b['prompt']}" if b.get("prompt") else ""))
+    pool = load_decor(p)
+    if pool:
+        L = [f"# {PROMPT_VERSION} {key}", "",
+             "ROLE: 添付のモック画像（色付きの箱で作った間取りの斜め見下ろし図）を編集して、手作りミニチュア（段ボールの台座・綿の雪・紙粘土の木・木目の床の工作）の一枚絵に仕上げる。モックは**位置と大きさを正確にするための型**で、見た目の完成形ではない。",
+             f"GEOMETRY（固定。ここだけが『足さない・消さない・ずらさない』）: {pool['geometry_fixed']}",
+             f"FILL（装飾。簡素にしない）: {pool['fill_rule']}",
+             "DOORS: 濃いピンクの四角は戸口。その位置・幅・高さのまま、木の板戸または開口として描く（高さはキャラ2人分。幅は戸口ごとに下記）。ピンクの色は残さない。",
+             "NO TEXT: 画像に文字・数字・矢印・ラベルを入れない。人物は入れない。", "",
+             "LAYERS（外から内へ。層の境界の位置・形はモックのまま。質感と装飾で埋める）:"]
+        for k in DECOR_LAYER_KEYS:
+            ly = pool["layers"][k]
+            L.append(f"- {ly.get('label', k)}: {ly['look']} 固定: {ly['fixed']}")
+        L += ["", "SURFACES（建物の面）:"] + [f"- {k}: {v}" for k, v in pool["surfaces"].items()]
+        for w in p["walls"]:
+            if w.get("look"):
+                L.append(f"- 壁 {w['id']}: {w['look']}")
+        L += ["", "OBJECTS (色付きの箱 → 実物。位置・大きさ・高さは箱のまま。見た目で十分に作り込む):"]
+        for b in p["boxes"]:
+            L.append(f"- {b['id']}（{b.get('label') or '箱'}）: 高さ{b['h']}。{'登れない・通れない物' if b.get('blocked') else '歩ける物'}。見た目: {box_look(b, pool)}" + (f"。{b['prompt']}" if b.get("prompt") else ""))
+    else:
+        L = [f"# {PROMPT_VERSION} {key}", "",
+             "ROLE: 添付のモック画像（色付きの箱で作った間取りの斜め見下ろし図）を編集して、手作りミニチュア（段ボールの土台・雪・木の質感）の一枚絵に仕上げる。",
+             "GEOMETRY (必ず保つ): 画像の寸法・視点・土台の台形・壁の位置と高さ・箱の位置と大きさ・戸口の位置と大きさを一切動かさない。足さない・消さない・ずらさない。",
+             "DOORS: 濃いピンクの四角は戸口。その位置・幅・高さのまま、木の扉または開口として描く（高さはキャラ2人分。幅は戸口ごとに下記）。ピンクの色は残さない。",
+             "NO TEXT: 画像に文字・矢印・ラベルを入れない。人物は入れない。", "",
+             "OBJECTS (色付きの箱 → 実物。位置・大きさは箱のまま):"]
+        for b in p["boxes"]:
+            L.append(f"- {b['id']}（{b.get('label') or '箱'}）: 高さ{b['h']}。{'登れない・通れない物' if b.get('blocked') else '歩ける物'}" + (f"。{b['prompt']}" if b.get("prompt") else ""))
     for w in p["walls"]:
         if w.get("kind") == "partition":
             L.append(f"- {w['id']}: 仕切り（壁より低い。壁と区別できる別素材で描く）。開口は箱の切れ目のまま")
@@ -321,7 +390,7 @@ def build_prompt(p, key):
         WN = {"1person": "キャラ1人分（細い裏口）", "1.5people": "キャラ1.5人分", "2people": "キャラ2人分"}
         L += ["", "DOOR WIDTHS:"] + [f"- {d['id']}: 幅{WN[d.get('width_class', '2people')]}（{M.door_w(d):.0f}平面単位）・{d['wall_side']}壁" for d in p["doors"]]
     if p["windows"]:
-        L += ["", "WINDOWS（個数・位置・種別を固定。ずらさない・増減しない・扉にしない。ガラス越しに見えるのは室内の床で、窓の中に雪や木を描かない）:"]
+        L += ["", "WINDOWS（個数・位置・種別を固定。ずらさない・増減しない・扉にしない。ガラス越しに見えるのは室内の床で、窓の中に雪や木・外の景色を描かない）:"]
         for w in p["walls"]:
             ws = sorted([x for x in p["windows"] if x["wall"] == w["id"]], key=lambda x: x["center"])
             if not ws:
@@ -333,7 +402,10 @@ def build_prompt(p, key):
             L.append(f"- 壁 {w['id']}（{w.get('label') or w.get('kind','wall')}）: {len(ws)}枚の{'・'.join(sorted(kinds))}。{ax}: {pos}（壁沿いの比）。窓台高さ{ws[0]['sill']}・高さ{ws[0]['height']}・幅{ws[0]['width']}（平面単位）")
     for nw in p.get("no_window_walls", []):
         L.append(f"- 壁 {nw['wall']}: 窓は描かない（0枚・確定: {nw.get('reason','')}）。壁に窓・格子窓・採光窓を足さない")
-    L += ["", "FLOORS:"] + [f"- {f['id']}（{f.get('label') or ''}）{'歩ける' if f.get('walkable', True) else '歩けない'}" for f in p["floors"]]
+    L += ["", "FLOORS:"] + [f"- {f['id']}（{f.get('label') or ''}）{'歩ける' if f.get('walkable', True) else '歩けない'}" + (f"。見た目: {f['look']}" if f.get("look") else "") for f in p["floors"]]
+    if pool:
+        L += ["", "ALLOWED DECORATION（許す。積極的に使って面を埋める）:"] + [f"- {a}" for a in pool["allow"]]
+        L += ["", "FORBIDDEN（禁じる。これだけは守る）:"] + [f"- {a}" for a in pool["forbid"]]
     L += ["", f"ASSUMPTIONS（既定・要確認）:"] + [f"- {a}" for a in p.get("assumptions", [])]
     return "\n".join(L) + "\n"
 
@@ -381,7 +453,7 @@ def build_one(plan_path, outroot, variant=None, from_stage=None, force=False, lo
     inputs = {"validate": sha_bytes((plan_sha + tool_mock + src_sha("oblique_build.py")).encode()),
               "mock": sha_bytes((plan_sha + tool_mock).encode()), "wire": sha_bytes((plan_sha + tool_topo).encode()),
               "mask": sha_bytes((plan_sha + tool_mock).encode()), "occlusion": sha_bytes((plan_sha + tool_mock).encode()),
-              "prompt": sha_bytes((plan_sha + PROMPT_VERSION + tool_mock).encode())}
+              "prompt": sha_bytes((plan_sha + PROMPT_VERSION + tool_mock + (sha_file(DECOR_FILE) if os.path.exists(DECOR_FILE) else "")).encode())}
     dirty = bool(force)
     errors = []
     for st in STAGES:
