@@ -51,6 +51,16 @@ For miniature materials, cite original-size pixel coordinates for at least three
 4. Search for silent omissions: a generic road with no landmark; a shared condition stated only at area level but absent from its MAP contract; a created image without a reference ID, output path, adoption state, or walk-mask result; a `ready` item with a remaining question.
 5. Treat contradictions between documents as failures, not as permission to choose a convenient version. Historic/legacy notes cannot override the current canonical ledger.
 
+## 運用の型（体内マスク red-team 2回で確立。2026-10-23）
+
+- **作成者でない担当**に出す（サブエージェントはメイン以下のモデル）。渡すのは生の成果物（画像・マスク・links）と正本の記録で、作成者の結論や register の判定は渡さない／信用しない。
+- **ステージを宣言**する（`contract/prompt`・`raw-image`・`mask/adoption`）。合格はそのステージ・その版に限る。
+- **版を sha256 で固定**する。検査した全ファイル（画像・マスク・overlay）の sha256 を表にし、未コミットなら『未追跡・コミット無し』と明記して作業ツリーの現物を検査したと書く。
+- **証拠は原寸のクロップ画像**（例 `crop_01_S_exit.png`）と、画素数・座標・個数。『見た目がよい』は証拠にならない。作業物は自分の scratchpad に置き、プロジェクトに残さない。
+- 指摘は blocker／major／minor／note に分類し、各指摘に MAP・座標・画素数・クロップ・修正先を付ける。契約と画像の食い違いのうち、画像が正と kako-jun が決めたものは『承認待ち』として維持し、勝手に pass にしない。
+- **第2回**: 作成者が全指摘を修正したあと、同じ担当（または別担当）が修正確認＋**退行検査**（前回合格の全項目を全MAPで再計測）を行う。小さな修正でも省かない。第2回の文書名は `-r2`。
+- 実例: `docs/reviews/artifact-redteam/20261023-body-masks-redteam-01-06.md`（と `-r2`、07-12、13-17）。
+
 ## Findings and disposition
 
 Classify each finding with evidence and an exact corrective destination:

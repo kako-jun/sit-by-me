@@ -72,6 +72,17 @@ The first run creates the two edit PNGs from JSON. Later runs read those PNGs,
 so Photoshop changes survive; pass `--refresh-edit` only when deliberately
 replacing them from the JSON polygons.
 
+## 位置合わせから採用までの共通手順（屋外・屋内とも。体内 2026-10-22〜23 で確立）
+
+エリアの全MAPに同じ手順を適用する。体内固有の値（寸法・定義の数値・MAP別の例外）は `../sit-field-background/body-appendix.md` の『体内の2値マスク・出口候補の出力』。ツール一覧は `../sit-field-background/tools/README.md`。
+
+1. **位置合わせ**: 承認済みモック（clean 割付図と幾何JSON。座標は模型の天面の矩形に対する比率0〜1）と採用画像の床を重ね、拡大・平行移動（必要なら回転）を最小の自由度で求める。変換パラメータ・残差・信頼度・重ね画像を register に記録する。モックは意味づけ（出口・部屋）とノイズ除去に使い、**マスクの真実は採用画像の床の見え**とする。モックと画像のズレは『画像の描画による差。マスクは画像に従う』と記録する。
+2. **床色基準の切り出し**: 床の芯の色からの距離で床を決める（壁の帯・面取り・影・地形・土台縁・机・装飾は black）。床色は画像から推定し、固定値にしない。2値のエリアは white=通れる／black=通れないだけ（assist を使わない）。
+3. **出口の喉の定義**: 出口の喉（床が模型の縁へ出る部分）は『床色の連続』を white にする。影で暗い床・帯の切れ目を黙って black にしない（床の欠けは red-team で major になる）。縁を越えて white が出る出口は rect の縁と前縁の両方を `edge_definitions` に記録し、どちらを採るかは TBD として残す。rect を読めない辺は期待値にフォールバックし、register に明記する。
+4. **links と禁止辺**: 出口の範囲＝縁から内側4pxの帯の white の連続区間（辺上の範囲指定。遷移の範囲値・ランタイム扱いは TBD）。禁止辺（出口でない辺）は『縁から内側4px以内と縁の外側に white が無い』を機械検査する。
+5. **自前の検査**（作成者が全MAPで数える）: 寸法・値が {0,255}・traversal-edit = mask・可逆WebP（VP8L チャンク）・白の連結成分1・床色から遠い点（md>15）の白0・禁止辺・出口の個数と辺・links と実測の一致・特殊構造（迷路の格子・環の部屋）の数え直し。
+6. **red-team 2回**: `sit-artifact-redteam` で第1回（mask/adoption）→ 指摘（床の欠け・喉・定義の食い違い）を全件修正 → 第2回で退行確認。承認済みの逸脱（寸法の例外など）は台帳・register・採用記録・Issue に同じ文で記録してから第2回へ。
+
 ## Hard stops
 
 - Missing background, missing reciprocal edge, missing era/assist condition, or a map without an approved connection contract: keep the mask `blocked`.

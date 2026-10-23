@@ -46,6 +46,9 @@ def scan(path):
 
 
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] in ("-h", "--help"):
+        print(__doc__)
+        return
     d = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).resolve().parents[4] / "verification/body-layout/clean"
     tot = 0
     for f in sorted(d.glob("BDY-*.png")):
