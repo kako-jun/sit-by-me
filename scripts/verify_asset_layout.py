@@ -1,4 +1,6 @@
-"""Verify #68 asset paths (manifest, bytes, ID names) without scanning historical prose."""
+"""Verify #68 asset paths (manifest, bytes, ID names) without scanning historical prose.
+
+ID 名の規則は台帳 docs/ledger/ファイル配置.yaml が正本（ここに正規表現を重複して持たない）。"""
 import argparse
 import hashlib
 import json
@@ -6,6 +8,29 @@ from pathlib import Path
 import re
 
 MAP_ID = r'(?:TRM|KRB|STN|NTR|NTB|UTS|SNL|SCH|NTA|UCH|BDY|APT|OVS|GRD|CST)-\d{2}'
+LAYOUT = 'docs/ledger/ファイル配置.yaml'
+
+
+def image_name_patterns(root):
+    """画像の ID 名規則の正本は台帳 docs/ledger/ファイル配置.yaml（検査=画像ID規則 の行のパターン。{MAP_ID} を展開）。"""
+    import sys
+    repo = Path(__file__).resolve().parents[1]
+    sys.path.insert(0, str(repo / '.claude/skills/sit-field-background/tools'))
+    import ledger_io
+    # 検証対象 root に配置表が無い（最小 fixture）なら、このスクリプトのリポの表を使う
+    table = root / LAYOUT if (root / LAYOUT).is_file() else repo / LAYOUT
+    rows = ledger_io.parse('ファイル配置', table.read_text(encoding='utf-8'))
+    patterns = [r['パターン'].replace('{MAP_ID}', MAP_ID) for r in rows if r['検査'] == '画像ID規則']
+    assert patterns, f'{LAYOUT} に 検査=画像ID規則 の行が無い'
+    return patterns
+
+
+def check_image_names(root):
+    patterns = image_name_patterns(root)
+    for image in (path for path in (root / 'assets/images').rglob('*') if path.suffix in {'.png', '.webp'}):
+        relative = image.relative_to(root).as_posix()
+        assert any(re.fullmatch(p, relative) for p in patterns), f'Non-ID image: {relative}'
+
 
 def verify(root):
     root = root.resolve()
@@ -33,23 +58,7 @@ def verify(root):
             assert actual == row['sha256'], f'Image bytes changed: {row["new"]}'
 
     image_root = root / 'assets/images'
-    for image in (path for path in image_root.rglob('*') if path.suffix in {'.png', '.webp'}):
-        relative = image.relative_to(image_root).as_posix()
-        patterns = (
-            r'enemies/M\d{3}\.webp',
-            r'summons/S\d{3}\.webp',
-            r'characters/(C00[1-4])/(?:masters|poses|walk)/\1-[^/]+\.webp',
-            # MAP画像は区域コード+連番(docs/production/20261019-map-id-renumber.json)。背景は非可逆WebP(品質85)、マスクは可逆WebP
-            rf'fields/legacy/{MAP_ID}(?:-[\w-]+)?\.webp',
-            rf'fields/legacy/masks/{MAP_ID}[-\w]+\.webp',
-            # 外観参照は非可逆WebP(品質85)
-            r'fields/reference/[a-z0-9]+(?:-[a-z0-9]+)*\.webp',
-            # 体内マスク(#142、runtime切替前)。mask・traversal-editは可逆WebP、mask-overlayは確認用の非可逆WebP
-            r'fields/masks/BDY-\d{2}-(?:mask|traversal-edit|mask-overlay)\.webp',
-            r'battle-backgrounds/BG\d{3}\.webp',
-            r'brand/logo\.(?:svg|png)',
-        )
-        assert any(re.fullmatch(p, relative) for p in patterns), f'Non-ID image: {relative}'
+    check_image_names(root)
     remaining_sample_files = [
         path for path in (root / 'sample').rglob('*')
         if path.is_file() and path.name != '.DS_Store'

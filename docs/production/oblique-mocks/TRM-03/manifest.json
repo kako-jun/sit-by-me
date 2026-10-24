@@ -1,0 +1,138 @@
+{
+ "ledger": {
+  "decisions": [
+   "TRM.left-right",
+   "TRM-03.garden",
+   "TRM-03.grounds-roles",
+   "TRM-03.no-pond",
+   "TRM-03.cemetery-statue",
+   "TRM-03.garden-play",
+   "TRM-03.kindergarten-bigger",
+   "TRM.entrances",
+   "TRM-03.corridor",
+   "TRM-03.standing",
+   "TRM.era-variants",
+   "TRM.no-tatami",
+   "TRM.hall-no-window",
+   "TRM.windows-spec",
+   "TRM.window-glass",
+   "TRM.outside-view",
+   "TRM.trees-draw",
+   "TRM.trees-pine",
+   "TRM.desk",
+   "TRM.decor-fill",
+   "TRM.door-width",
+   "TRM.door-width-outside",
+   "TRM-08.top-closed",
+   "TRM.building-shared"
+  ],
+  "era_suffix": null,
+  "inherits": [
+   "TRM-04.door-design",
+   "TRM-04.wall-material",
+   "TRM-04.corridor-windows",
+   "TRM-04.outer-trees"
+  ],
+  "input_sha": "6f7075d6c028174277fd110750cc9ce8f6c85fca2aae5e13d0921d03e14a43e3",
+  "references": [
+   [
+    "TRM-04",
+    "46027605e2631821ab653cab27c147b8bb5eb5e3dff002130dbb90e634efa81d"
+   ],
+   [
+    "TRM-05",
+    null
+   ],
+   [
+    "TRM-02",
+    null
+   ]
+  ],
+  "row_id": "TRM-03",
+  "tables": "docs/ledger/*.csv"
+ },
+ "map_id": "TRM-03",
+ "plan": "docs/production/oblique-mocks/TRM-03-plan.json",
+ "plan_sha256": "7e3611e9037ca6e650880ce5fac3ebf9a568dc22e1fb8db776c7f47bc37f914f",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-03.bottom": [
+     1
+    ],
+    "TRM-03.door-main": [
+     1
+    ],
+    "TRM-03.door-playroom": [
+     1
+    ],
+    "TRM-03.door-residence": [
+     1
+    ]
+   },
+   "input_sha": "2860b1f4c4180e339cbe951760f501d23c5590b91edf1c48d9a8a827ec76008f",
+   "outputs": {
+    "TRM-03-exits.png": "ca752bbda523d004ca92bea85895612ade9fbfe53c0471fea188c228f656a79b",
+    "TRM-03-mask.json": "1b2800f991f5197fc4f555efb6f95ddee0b6c545d1dd6b437f5059e4bd8234b5",
+    "TRM-03-mask.png": "2b15b38c65d41426c60d347d2eeac2c5e817f7de5eb914dbaa5b0ea6f11b7c8b"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "2860b1f4c4180e339cbe951760f501d23c5590b91edf1c48d9a8a827ec76008f",
+   "outputs": {
+    "TRM-03-clean.png": "a71691ce5a9d6be2d845046dd48324c3b9916f2f07b24368e2029755306a0383",
+    "TRM-03-review.png": "50d547cbba87211c02d5174db51f30bef777d583da06cce39e644e5536e3cdf9"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "2860b1f4c4180e339cbe951760f501d23c5590b91edf1c48d9a8a827ec76008f",
+   "outputs": {
+    "TRM-03-occlusion-depth.png": "98e22144366b8565735eab2e7968c1e4c8d6de060e86696a11cc664ae2012c07",
+    "TRM-03-occlusion-edit.png": "2d5be0a21b71a574588e12d1f444fbdef1d0f5b6094c30b8952bcd7d3713d72d",
+    "TRM-03-occlusion-overlay.png": "e80ce38434c2a2ebfed8a4f9fb9e0a65be03428d7ec0106550b598970ba0f77f",
+    "TRM-03-occlusion.json": "c7edd0ad4707c76cc8758a05028d428b463ccfd070ed35a8cd76231b8dbe471b",
+    "TRM-03-occlusion.png": "394a0ede6981cbc3866812e0be2c0fbc22d10091c666b6e9991416fe76fdc3ed"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "0cc1979ceffb3fc7528e8326c91617c06bd9049b67b75d2bf1bc3d5c2db2f735",
+   "outputs": {
+    "TRM-03-edit-prompt.txt": "515d1d8a6707914ce2be726e29f29433205074b5d59a693ab0ae2ddb97c91315"
+   },
+   "status": "blocked",
+   "unadopted_dependencies": [
+    "TRM-05",
+    "TRM-02"
+   ]
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "a606b1069502fb017ffa42be2116975cb1f6646fbf4307131d971f1e62c2cb89",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "屋根は箱の天面色で表した（形は省略。高さは画面に収めるため低め: 住居・幼稚園110・本堂150・渡り廊下70）。墓石・遊具は個別に置かず区画ラベルのみ。鐘楼・親鸞像は採用外観から概略。",
+    "参道の幅156は台帳に無く採用外観の測定。",
+    "境内側の戸口位置（住居・幼稚園）は既定を置いた（要確認）。園庭＝境内の右の区画（幼稚園の前）。東の通用門・TRM-01 への接続は無い。（決定 TRM-03.garden）",
+    "園庭の遊具（滑り台1・ブランコ1・半円アーチ4=赤青黄青・動物型1）の位置と大きさは既定（要確認）。幼稚園の掃き出し窓の前（Y425〜600）と、参道・door-playroom 前の通路は空けた。歩行マスクでは遊具=blocked。（決定 TRM-03.garden-play）",
+    "本堂の壁は window_count=0 で、窓は描かない。（決定 TRM.hall-no-window）",
+    "渡り廊下棟（conn-w/conn-e）は屋内（TRM-04）の廊下と同じ建物行から導出する（閉じた壁・南壁に連窓3・木の板張りの床・低い瓦屋根）。屋根は箱の天面色で表し高さ70。柱・屋根の寸法は既定（要確認）。（決定 TRM.building-shared, TRM-03.corridor）",
+    "住居・幼稚園の外への戸口（door-residence/door-playroom）の幅は100単位。内部側（TRM-05/TRM-02 の door-outside）も同幅。窓の位置は変えていない（重ならない）。（決定 TRM.door-width-outside）",
+    "既定（要確認）: TRM-03.door-residence",
+    "既定（要確認）: TRM-03.door-playroom"
+   ]
+  },
+  "wire": {
+   "input_sha": "fd1d5c5b602092382b3dca75f0e470d35fa5b954cb700c18dd0aeb99ccbcaeb4",
+   "outputs": {
+    "wire-TRM-03.png": "c80f78d87fd5d357c6aec780211110ec6f67a8e62057e4709b88223867bc08d5"
+   },
+   "status": "ok"
+  }
+ }
+}

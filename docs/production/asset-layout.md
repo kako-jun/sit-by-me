@@ -2,6 +2,8 @@
 
 本制作の画像正本は `assets/images/`。配置変更は採用判定ではない。
 
+**置き場所の規則（パターン・種別・用途・許可リスト理由）の正本は台帳 [ファイル配置.yaml](../ledger/ファイル配置.yaml)**（検査は `scripts/verify_asset_layout.py`（画像ID規則）と `scripts/verify_index_reachable.rb`（全ファイルが配置規則に一致・INDEX から到達））。下の表は人向けの解説で、パターンは配置IDで表を引く。全体の入口は [INDEX](../INDEX.md)。
+
 ## 保存運用（#68決定、2026-10-19）
 
 - **サンプル・候補の置き場を作らない**。`candidates/`、版suffix、`verification/` 配下の検証画像置き場は作らない。生成画像は、ゲームで使う正本パス（上表のID別パス）へ**直接上書き保存**する。
@@ -34,17 +36,18 @@
 
 全712ファイルの旧→新／削除、SHA-256、理由は [移行manifest](20261018-asset-migration.json)。全行の復元元はmanifestの `base_commit` で、`git show <base_commit>:<old>` が元データを返す。元promptは既存の記録以外から復元・創作しない。過去レビューのパスは当時の記録として残す。
 
-| 種別 | 正本配置 | 状態・対応 |
+| 種別 | 配置ID | 状態・対応 |
 |---|---|---|
-| 敵 | `assets/images/enemies/Mxxx.webp` | monsters.mdの既存ID。M001も同じroot。既存の採用／採否待ちを継承し、新品質規約を満たすとは判定しない |
-| 召喚獣 | `assets/images/summons/Sxxx.webp` | S002〜S007の6種のみ現存。S001は未生成、S008は同じ存在の設計だが現存画像なし。架空のファイルを作らない |
-| 人物 | `assets/images/characters/Cxxx/{masters,poses,walk}/Cxxx-<suffix>.webp` | 下表のC管理ID。旧人名prefixをIDへ置換し、年齢・衣装・pose・方向・コマを全て保持 |
-| MAP（旧素材・現存のみ） | `assets/images/fields/legacy/<MAP ID>[-variant].webp`（MAP IDは区域コード3字＋2桁連番。例 `TRM-03`。[対応表](20261019-map-id-renumber.json)） | 33MAP＋12旧差分。非可逆WebP（品質85）。新規生成先ではない。寺町再作成候補の代わりに採用するものではない。PNGは置かない |
-| legacy mask | `assets/images/fields/legacy/masks/<MAP ID>-*.webp` | 旧接続を変更しない検証専用。**可逆WebP**（元PNGと画素が完全一致）。JSON・生成補助（make_masks.py）は削除済み |
-| 外観参照 | `assets/images/fields/reference/<kebab-case>.webp` | 外観参照専用（平置き・小文字英数とハイフンのみ）。mapの「実行時参照」には使わない |
-| 体内マスク（runtime切替前） | `assets/images/fields/masks/BDY-NN-{mask,traversal-edit,mask-overlay}.webp`（17箇所×3=51ファイル） | `mask`・`traversal-edit` は**可逆WebP（VP8L）**、`mask-overlay` は確認用の**非可逆WebP**。体内17MAPのマスク（#142）。台帳は blocked 維持で runtime 未切替 |
-| 戦闘背景 | `assets/images/battle-backgrounds/BGxxx.webp`（現存はBG001・BG005のみ。BG002〜004・006〜009は削除済みで、復元は git 履歴 `1bb09d0` から。戦闘背景の新規作成は別件） | 下表 |
-| ブランド | `assets/images/brand/logo.svg`（正本）、`logo.png`（SVG派生、WebP化しない） | 暫定の文字ロゴ（SIT BY ME）。ゲームIDではない。のち差し替え予定 |
+| 敵 | 配置ID `asset-enemies` | 実在パス例: `assets/images/enemies/Mxxx.webp`。monsters.mdの既存ID。M001も同じroot。既存の採用／採否待ちを継承し、新品質規約を満たすとは判定しない |
+| 召喚獣 | 配置ID `asset-summons` | 実在パス例: `assets/images/summons/Sxxx.webp`。S002〜S007の6種のみ現存。S001は未生成、S008は同じ存在の設計だが現存画像なし。架空のファイルを作らない |
+| 人物 | 配置ID `asset-characters` | 実在パス例: `assets/images/characters/Cxxx/{masters,poses,walk}/Cxxx-<suffix>.webp`。下表のC管理ID。旧人名prefixをIDへ置換し、年齢・衣装・pose・方向・コマを全て保持 |
+| MAP（旧素材・現存のみ） | 配置ID `asset-field-legacy` | 実在パス例: `assets/images/fields/legacy/<MAP ID>[-variant].webp`（MAP IDは区域コード3字＋2桁連番。例 `TRM-03`。[対応表](20261019-map-id-renumber.json)）。33MAP＋12旧差分。非可逆WebP（品質85）。新規生成先ではない。寺町再作成候補の代わりに採用するものではない。PNGは置かない |
+| legacy mask | 配置ID `asset-field-legacy-masks` | 実在パス例: `assets/images/fields/legacy/masks/<MAP ID>-*.webp`。旧接続を変更しない検証専用。**可逆WebP**（元PNGと画素が完全一致）。JSON・生成補助（make_masks.py）は削除済み |
+| 外観参照 | 配置ID `asset-field-reference` | 実在パス例: `assets/images/fields/reference/<kebab-case>.webp`。外観参照専用（平置き・小文字英数とハイフンのみ）。mapの「実行時参照」には使わない |
+| 体内マスク（runtime切替前） | 配置ID `asset-field-masks` | 実在パス例: `assets/images/fields/masks/BDY-NN-{mask,traversal-edit,mask-overlay}.webp`（17箇所×3=51ファイル）。`mask`・`traversal-edit` は**可逆WebP（VP8L）**、`mask-overlay` は確認用の**非可逆WebP**。体内17MAPのマスク（#142）。台帳は blocked 維持で runtime 未切替 |
+| 斜め視点マスク（runtime切替前） | 配置ID `asset-field-masks` | 実在パス例: `assets/images/fields/masks/TRM-02-{mask,traversal-edit,mask-overlay}.webp`。寺町の斜め視点（#144）。形式は体内マスクと同じ（mask・edit は可逆WebP、overlay は非可逆）。入力JSON・結果は `docs/production/oblique-masks/`。台帳は blocked 維持（ready にしない） |
+| 戦闘背景 | 配置ID `asset-battle-backgrounds` | 実在パス例: `assets/images/battle-backgrounds/BGxxx.webp`（現存はBG001・BG005のみ。BG002〜004・006〜009は削除済みで、復元は git 履歴 `1bb09d0` から。戦闘背景の新規作成は別件）。下表 |
+| ブランド | 配置ID `asset-brand` | 実在パス例: `assets/images/brand/logo.svg`（正本）、`logo.png`（SVG派生、WebP化しない）。暫定の文字ロゴ（SIT BY ME）。ゲームIDではない。のち差し替え予定 |
 
 | C ID | 元人名prefix | 登場人物 |
 |---|---|---|

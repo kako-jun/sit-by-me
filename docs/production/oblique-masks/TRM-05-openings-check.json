@@ -1,0 +1,76 @@
+{
+ "schema": "sit-oblique-openings-check/1",
+ "map_id": "TRM-05",
+ "note": "仕切りの開口は候補のみ（決め打ちしない）。両側＝仕切りの西（ダイニング）側と東（寝室）側の幅0.03の帯の床マスク白の割合。要 carve＝絵では壁で塞がれている",
+ "candidates": [
+  {
+   "id": "P-N1",
+   "between": "ダイニング↔北寝室",
+   "partition": "縦の仕切り（建物床 u 0.456〜0.504）",
+   "building_plan_box": [
+    0.456,
+    0.504,
+    0.05,
+    0.337
+   ],
+   "width_persons": 2,
+   "needs": "要 carve（絵では壁と区別がつかず塞がれている）",
+   "white_ratio_west_side": 0.31,
+   "white_ratio_east_side": 0.772,
+   "both_sides_floor": false
+  },
+  {
+   "id": "P-N2",
+   "between": "ダイニング↔北寝室",
+   "partition": "縦の仕切り（建物床 u 0.456〜0.504）",
+   "building_plan_box": [
+    0.456,
+    0.504,
+    0.29,
+    0.577
+   ],
+   "width_persons": 2,
+   "needs": "要 carve（絵では壁と区別がつかず塞がれている）",
+   "white_ratio_west_side": 0.727,
+   "white_ratio_east_side": 0.48,
+   "both_sides_floor": false
+  },
+  {
+   "id": "P-S1",
+   "between": "ダイニング↔南寝室",
+   "partition": "縦の仕切り（建物床 u 0.456〜0.504）",
+   "building_plan_box": [
+    0.456,
+    0.504,
+    0.62,
+    0.892
+   ],
+   "width_persons": 2,
+   "needs": "要 carve（絵では壁と区別がつかず塞がれている）",
+   "white_ratio_west_side": 0.754,
+   "white_ratio_east_side": 0.8,
+   "both_sides_floor": true
+  },
+  {
+   "id": "P-S2",
+   "between": "ダイニング↔南寝室",
+   "partition": "縦の仕切り（建物床 u 0.456〜0.504）",
+   "building_plan_box": [
+    0.456,
+    0.504,
+    0.72,
+    0.992
+   ],
+   "width_persons": 2,
+   "needs": "要 carve（絵では壁と区別がつかず塞がれている）",
+   "white_ratio_west_side": 0.929,
+   "white_ratio_east_side": 0.966,
+   "both_sides_floor": true
+  }
+ ],
+ "white_components_px": [
+  22105,
+  75171,
+  20847
+ ]
+}

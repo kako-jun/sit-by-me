@@ -6,6 +6,7 @@
 
 ## ドキュメント
 
+- **[ドキュメント入口（INDEX）](docs/INDEX.md)**: 全ドキュメント・台帳・ツール・スキルへの入口
 - [企画メモ](docs/concept.md)
 - [物語](docs/story.md)
 - [ゲームシステム](docs/systems.md)

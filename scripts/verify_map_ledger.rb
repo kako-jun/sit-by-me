@@ -3,10 +3,14 @@
 
 # MAP生成台帳の構造検査。Markdownを正本のまま読み、生成可能性を
 # "見た目の印象" ではなく 登録された全行・参照・接続端の不変条件で検査する。
+# 表は見出し行の列名で読む（md_table.rb。列の位置に依存しない）。台帳（docs/ledger）に行がある寺町のMAPは、
+# 契約チェックリストの状態列を『台帳』とし、状態・未決・既定は台帳（verify_ledger.rb）が検査する。
 
-ROOT = File.expand_path('..', __dir__)
+ROOT = ENV['LEDGER_ROOT'] || File.expand_path('..', __dir__) # LEDGER_ROOT で md の読み先も差し替える（ledger_yaml.rb と同じ環境変数）
 require 'rexml/document'
 require 'json'
+require_relative 'md_table'
+require_relative 'ledger_yaml'
 require_relative 'verify_overseas_progression'
 require_relative 'verify_map_atlas'
 
@@ -36,11 +40,10 @@ references = read('map-reference-research.md')
 topology = read('map-topology.md')
 assets = read('map-asset-registry.md')
 
-contract_rows = checklist.lines.map do |line|
-  next unless line.match?(/^\| #{MAP_ID_PATTERN} \|/)
+contract_rows = MdTable.rows(checklist, 'ID', '状態', 'Ref', 'mask / 出力', '具体的TBD').map do |r|
+  next unless r['ID'].to_s.match?(/\A#{MAP_ID_PATTERN}\z/)
 
-  cells = line.split('|').map(&:strip)
-  [cells[1], cells[2], cells[3], cells[4], cells[5]]
+  [r['ID'], r['状態'], r['Ref'], r['mask / 出力'], r['具体的TBD']]
 end.compact
 
 contract_ids = contract_rows.map(&:first)
@@ -49,9 +52,13 @@ fail!("契約ID重複: #{contract_ids.group_by(&:itself).select { |_, v| v.lengt
 fail!("契約ID不足: #{(expected - contract_ids).join(', ')}") unless (expected - contract_ids).empty?
 fail!("未知の契約ID: #{(contract_ids - expected).join(', ')}") unless (contract_ids - expected).empty?
 
-valid_status = %w[blocked legacy-needs-review ready recreate-required-1920x1080]
+valid_status = %w[blocked legacy-needs-review ready recreate-required-1920x1080 台帳]
+# 台帳に行がある（廃止でない）MAP。旧 status（blocked／recreate-required…）は寺町だけ廃止し、状態列は『台帳』にする
+ledger_maps = LedgerYaml.read('MAP').reject { |r| r['状態'] == '廃止' }.map { |r| r['MAP_ID'] }
 contract_rows.each do |id, status, refs, mask, tbd|
   fail!("#{id}: 不正な状態 #{status}") unless valid_status.include?(status)
+  fail!("#{id}: 状態が『台帳』なのに台帳（docs/ledger/MAP.yaml）に行が無い") if status == '台帳' && !ledger_maps.include?(id)
+  fail!("#{id}: 台帳（docs/ledger/MAP.yaml）に行があるMAPの状態は『台帳』にする（旧 status #{status} は寺町だけ廃止）") if status != '台帳' && ledger_maps.include?(id)
   fail!("#{id}: Refがない") if refs.nil? || refs.empty?
   fail!("#{id}: mask/output欄がない") if mask.nil? || mask.empty?
   fail!("#{id}: 具体的TBDがない") if tbd.nil? || tbd.empty?
@@ -71,18 +78,20 @@ contract_rows.each do |id, _, refs, _, _|
   end
 end
 
-spec_rows = specifications.lines.map do |line|
-  next unless line.match?(/^\| #{MAP_ID_PATTERN}(?:\s|\|)/)
+# 個別仕様の表は節ごとに見出しの名前が少し違う（接続／不変条件／接続／方位・主路・通行条件）。名前の候補から読む
+SPEC_ROUTE_COLUMNS = %w[不変条件／接続 方位・主路・通行条件 接続].freeze
+spec_rows = MdTable.rows(specifications, 'MAP', '時期', '一言特徴').map do |r|
+  next unless r['MAP'].to_s.match?(/\A#{MAP_ID_PATTERN}(?:\s|\z)/)
 
-  cells = line.split('|').map(&:strip)
-  [cells[1].split.first, cells]
+  [r['MAP'].split.first, r]
 end.compact
 spec_ids = spec_rows.map(&:first).uniq
 fail!("個別仕様にないID: #{(expected - spec_ids).join(', ')}") unless (expected - spec_ids).empty?
-spec_rows.each do |id, cells|
-  fail!("#{id}: 個別仕様の欄不足") unless cells.length >= 6
-  fail!("#{id}: 一言特徴がない") if cells[3].nil? || cells[3].empty?
-  fail!("#{id}: 接続・通行条件がない") if cells[4].nil? || cells[4].empty?
+spec_rows.each do |id, r|
+  fail!("#{id}: 個別仕様の欄不足") unless r[:cells].length >= r.keys.count { |k| k.is_a?(String) }
+  fail!("#{id}: 一言特徴がない") if r['一言特徴'].nil? || r['一言特徴'].empty?
+  route = MdTable.pick(r, *SPEC_ROUTE_COLUMNS)
+  fail!("#{id}: 接続・通行条件がない") if route.nil? || route.empty?
 end
 
 asset_ids = assets.scan(/^\| (#{MAP_ID_PATTERN}) \|/).flatten.uniq
@@ -91,13 +100,10 @@ fail!("画像台帳にないID: #{(expected - asset_ids).join(', ')}") unless (e
 start = topology.index('#### MAP相互接続台帳 v2')
 finish = topology.index('#### 寺町の地形不変条件', start)
 fail!('v2接続台帳の範囲を取得できない') unless start && finish
-topology_rows = topology[start...finish].lines.map do |line|
-  next unless line.start_with?('|')
-  cells = line.split('|').map(&:strip)
-  next if cells[1] == 'From' || cells[1].match?(/\A-+\z/)
-  fail!("v2接続行の欄不足: #{line.strip}") unless cells.length == 6
-  [cells[1], cells[2], cells[3], cells[4]]
-end.compact
+topology_rows = MdTable.section_rows(topology[start...finish], 'From', 'To', '種別', '主路・状態').map do |r|
+  fail!("v2接続行の欄不足: #{r[:cells].join(' | ')}") unless r[:cells].length == 4 && r.values_at('From', 'To', '種別', '主路・状態').none?(&:nil?)
+  [r['From'], r['To'], r['種別'], r['主路・状態']]
+end
 fail!('v2接続台帳が空') if topology_rows.empty?
 
 edge_ends = Hash.new { |h, k| h[k] = [] }
@@ -136,13 +142,10 @@ topology_ids = topology_rows.flat_map { |from, to, _| [from.split('.').first, to
 # デパートのエレベーターは接続台帳の外の別枠表（階選択遷移）。MAPを持たず、各階MAPが door-elevator を1つ持つ。
 elevator_start = topology.index('#### 階選択遷移')
 fail!('階選択遷移の表がない') unless elevator_start && elevator_start < start
-elevator_rows = topology[elevator_start...start].lines.map do |line|
-  next unless line.start_with?('|')
-  cells = line.split('|').map(&:strip)
-  next if cells[1] == '階' || cells[1].match?(/\A-+\z/)
-  fail!("階選択遷移行の欄不足: #{line.strip}") unless cells.length == 7
-  cells[1..5]
-end.compact
+elevator_rows = MdTable.section_rows(topology[elevator_start...start], '階', 'MAP', 'エレベーター扉', '選べる行き先', '出現・解放').map do |r|
+  fail!("階選択遷移行の欄不足: #{r[:cells].join(' | ')}") unless r[:cells].length == 5 && r.values_at('階', 'MAP', 'エレベーター扉', '選べる行き先', '出現・解放').none?(&:nil?)
+  r.values_at('階', 'MAP', 'エレベーター扉', '選べる行き先', '出現・解放')
+end
 fail!("階選択遷移の階とMAPが不正: #{elevator_rows.map { |r| r[0..1] }}") unless elevator_rows.map { |r| r[0..1] } == [%w[1階 KRB-02], %w[2階 KRB-03], %w[3階 KRB-04], %w[4階 KRB-05], %w[5階 KRB-06]]
 elevator_rows.each { |r| fail!("エレベーター扉IDが不正 #{r[1]}") unless r[2] == "#{r[1]}.door-elevator" }
 elevator_ids = elevator_rows.map { |r| r[1] }

@@ -1,0 +1,197 @@
+{
+ "schema": "sit-oblique-mock-occlusion/1",
+ "map_id": "TRM-05",
+ "size": [
+  1672,
+  941
+ ],
+ "rule": "スプライトの足元y < depth[画素] の画素だけ、occlusion の白で隠す。奥壁・キャラの体が重ならない物は出さない。戸口の開口は抜く。歩行マスクとは別レイヤー（前景に隠れる床を通行不能にしない）。",
+ "char_px": [
+  67,
+  100
+ ],
+ "occluders": [
+  {
+   "id": "fridge",
+   "kind": "box",
+   "base_y": 238,
+   "area_px": 6528,
+   "body_overlap_px": 1512
+  },
+  {
+   "id": "sink",
+   "kind": "box",
+   "base_y": 241,
+   "area_px": 7938,
+   "body_overlap_px": 2985
+  },
+  {
+   "id": "dresser",
+   "kind": "box",
+   "base_y": 245,
+   "area_px": 8509,
+   "body_overlap_px": 6515
+  },
+  {
+   "id": "rock",
+   "kind": "box",
+   "base_y": 247,
+   "area_px": 2801,
+   "body_overlap_px": 2140
+  },
+  {
+   "id": "part-v",
+   "kind": "wall",
+   "base_y": 261,
+   "area_px": 2595,
+   "body_overlap_px": 2480
+  },
+  {
+   "id": "wall-e",
+   "kind": "wall",
+   "base_y": 308,
+   "area_px": 3904,
+   "body_overlap_px": 3789
+  },
+  {
+   "id": "wall-e",
+   "kind": "wall",
+   "base_y": 368,
+   "area_px": 4105,
+   "body_overlap_px": 3108
+  },
+  {
+   "id": "part-v",
+   "kind": "wall",
+   "base_y": 383,
+   "area_px": 2438,
+   "body_overlap_px": 2323
+  },
+  {
+   "id": "part-h",
+   "kind": "wall",
+   "base_y": 404,
+   "area_px": 25787,
+   "body_overlap_px": 1092
+  },
+  {
+   "id": "wall-e",
+   "kind": "wall",
+   "base_y": 430,
+   "area_px": 4311,
+   "body_overlap_px": 1553
+  },
+  {
+   "id": "part-v",
+   "kind": "wall",
+   "base_y": 445,
+   "area_px": 2913,
+   "body_overlap_px": 2798
+  },
+  {
+   "id": "chest",
+   "kind": "box",
+   "base_y": 463,
+   "area_px": 6456,
+   "body_overlap_px": 3381
+  },
+  {
+   "id": "shelf-w",
+   "kind": "box",
+   "base_y": 480,
+   "area_px": 11138,
+   "body_overlap_px": 8188
+  },
+  {
+   "id": "wall-w",
+   "kind": "wall",
+   "base_y": 493,
+   "area_px": 4629,
+   "body_overlap_px": 3075
+  },
+  {
+   "id": "wall-e",
+   "kind": "wall",
+   "base_y": 493,
+   "area_px": 4390,
+   "body_overlap_px": 801
+  },
+  {
+   "id": "bench-l",
+   "kind": "box",
+   "base_y": 496,
+   "area_px": 4660,
+   "body_overlap_px": 4490
+  },
+  {
+   "id": "bench-r",
+   "kind": "box",
+   "base_y": 496,
+   "area_px": 4508,
+   "body_overlap_px": 4338
+  },
+  {
+   "id": "part-v",
+   "kind": "wall",
+   "base_y": 506,
+   "area_px": 2915,
+   "body_overlap_px": 2800
+  },
+  {
+   "id": "table",
+   "kind": "box",
+   "base_y": 520,
+   "area_px": 17367,
+   "body_overlap_px": 12934
+  },
+  {
+   "id": "wall-w",
+   "kind": "wall",
+   "base_y": 558,
+   "area_px": 4710,
+   "body_overlap_px": 4590
+  },
+  {
+   "id": "wall-e",
+   "kind": "wall",
+   "base_y": 558,
+   "area_px": 4468,
+   "body_overlap_px": 233
+  },
+  {
+   "id": "wall-w",
+   "kind": "wall",
+   "base_y": 626,
+   "area_px": 4841,
+   "body_overlap_px": 3039
+  },
+  {
+   "id": "part-v",
+   "kind": "wall",
+   "base_y": 642,
+   "area_px": 2849,
+   "body_overlap_px": 1625
+  },
+  {
+   "id": "part-v",
+   "kind": "wall",
+   "base_y": 668,
+   "area_px": 2287,
+   "body_overlap_px": 387
+  },
+  {
+   "id": "wall-s",
+   "kind": "wall",
+   "base_y": 685,
+   "area_px": 98893,
+   "body_overlap_px": 3102
+  },
+  {
+   "id": "wall-w",
+   "kind": "wall",
+   "base_y": 685,
+   "area_px": 4683,
+   "body_overlap_px": 1089
+  }
+ ]
+}

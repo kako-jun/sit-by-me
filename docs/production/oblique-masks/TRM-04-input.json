@@ -1,0 +1,458 @@
+{
+ "schema": "sit-oblique-input/1",
+ "map_id": "TRM-04",
+ "slug": "teramachi-main-hall-interior",
+ "image": {
+  "source": "採用画像 TRM-04 v11（git fbe876a の assets/images/fields/reference/teramachi-main-hall-interior-adopted.webp。作業ツリーには無く、履歴から取り出して --image に渡す）",
+  "expected_size": [
+   1672,
+   940
+  ]
+ },
+ "rooms": [
+  {
+   "id": "hall",
+   "quad": [
+    [
+     548,
+     454
+    ],
+    [
+     1130,
+     454
+    ],
+    [
+     1150,
+     620
+    ],
+    [
+     528,
+     620
+    ]
+   ],
+   "quad_note": "本堂の広間の床。上辺=須弥壇の段（黒い縁）の手前、下辺=南壁の内側の足元、左右=東西の側壁の足元。左上・右上・右下・左下",
+   "plan_width": 1600,
+   "plan_aspect": {
+    "w_over_h": 1.9,
+    "source": "circle:censer-rim",
+    "note": "台帳・設計書に本堂の奥行きの寸法は無い（割付図は南面幅640・西廊下340・東廊下250のみ）。須弥壇上の香炉の口縁の縁8点が真円になる値（1.9）を採用。香炉は須弥壇の机の上で床より高いが、斜め角度は同じなので縦横比の判定に使える。よって香炉の真円度は循環検証（独立検証ではない）。須弥壇の段は blocked（kako-jun 2026-10-23 B）"
+   },
+   "circles": [
+    {
+     "id": "censer-rim",
+     "note": "香炉の口縁（楕円）の8点。原寸10倍の切り抜きから人が拾った。点が少なく粗い（楕円の幅26px×高さ13px）。広間の行列を外挿して検査する",
+     "outline": [
+      [
+       837,
+       346.8
+      ],
+      [
+       846.5,
+       348.5
+      ],
+      [
+       851,
+       353
+      ],
+      [
+       846.5,
+       358
+      ],
+      [
+       837,
+       359.5
+      ],
+      [
+       828.5,
+       357.8
+      ],
+      [
+       825,
+       353
+      ],
+      [
+       828,
+       348.5
+      ]
+     ]
+    }
+   ],
+   "lines": [],
+   "floor_lines_auto": true
+  },
+  {
+   "id": "west-corridor",
+   "quad": [
+    [
+     163,
+     528
+    ],
+    [
+     486,
+     528
+    ],
+    [
+     486,
+     599
+    ],
+    [
+     153,
+     599
+    ]
+   ],
+   "quad_note": "西廊下（住居側）の床。上辺=芳名板の壁の足元、下辺=南の低い壁の内側、右=本堂との境の石の敷居の手前",
+   "plan_width": 1600,
+   "plan_aspect": {
+    "w_over_h": null,
+    "source": "from_room:hall",
+    "note": "広間の行列を、この廊下の4点へ外挿して得た平面寸法の比（oblique_common.resolve_aspects）。独立検証なし。割付図の幅比（西0.531）とは横の比で一致するが縦横比の検証ではない"
+   },
+   "circles": [],
+   "lines": [],
+   "floor_lines_auto": true
+  },
+  {
+   "id": "east-corridor",
+   "quad": [
+    [
+     1186,
+     528
+    ],
+    [
+     1512,
+     528
+    ],
+    [
+     1522,
+     599
+    ],
+    [
+     1200,
+     599
+    ]
+   ],
+   "quad_note": "東廊下（幼稚園側）の床。上辺=子どもの絵の壁の足元、下辺=南の低い壁の内側、左=本堂との境の敷居の外",
+   "plan_width": 1600,
+   "plan_aspect": {
+    "w_over_h": null,
+    "source": "from_room:hall",
+    "note": "広間の行列を、この廊下の4点へ外挿して得た平面寸法の比（oblique_common.resolve_aspects）。独立検証なし。割付図の幅比（西0.531）とは横の比で一致するが縦横比の検証ではない"
+   },
+   "circles": [],
+   "lines": [],
+   "floor_lines_auto": true
+  }
+ ],
+ "floor": {
+  "thr": 5.0,
+  "reg": 2.0,
+  "core_erode": 12,
+  "min_component": 1500,
+  "hole_fill_max": 300,
+  "furniture_close": 15,
+  "furniture_dilate": 7,
+  "core_hsv": {
+   "h": [
+    3,
+    16
+   ],
+   "s_min": 55,
+   "v": [
+    35,
+    135
+   ]
+  }
+ },
+ "blocked": [
+  {
+   "id": "sanctuary-dais",
+   "polygon": [
+    [
+     548,
+     300
+    ],
+    [
+     1135,
+     300
+    ],
+    [
+     1135,
+     448
+    ],
+    [
+     548,
+     448
+    ]
+   ],
+   "reason": "須弥壇（内陣）の段。黒い縁で一段高い。登れない段差は blocked（kako-jun 決定 #144）。段より奥は本尊・仏壇・金の柱・香炉・仏花・燭台・紫の打敷の机があり、通行の対象でもない。床の色の判定の外（どの部屋にも入れない）で、重ね画像に青く出すための多角形"
+  },
+  {
+   "id": "front-wall-and-door",
+   "polygon": [
+    [
+     490,
+     622
+    ],
+    [
+     1170,
+     622
+    ],
+    [
+     1170,
+     740
+    ],
+    [
+     490,
+     740
+    ]
+   ],
+   "reason": "南壁（正面扉・石段を含む）。床の外。TRM-04.door-front の出口位置の候補は別（exits）。blocked として記録のみ"
+  }
+ ],
+ "assist": [],
+ "assist_note": "室内は基本すべて white（kako-jun 決定 #144）。assist は0画素",
+ "exits": [
+  {
+   "id": "door-west",
+   "room": "hall",
+   "edge": "west",
+   "partner": "TRM-05.door-hall",
+   "design_source": [
+    {
+     "file": "docs/map-topology.md",
+     "line": 140,
+     "quote": "TRM-04.door-west | TRM-05.door-hall | door | 本堂から西（境内から北を見て左）の庫裏（住居）への渡り廊下"
+    },
+    {
+     "file": "docs/map-topology.md",
+     "line": 286,
+     "quote": "本堂から西（左）の庫裏へ渡る廊下。畳廊下の方位と扉位置を一致させる。扉位置TBD。"
+    },
+    {
+     "file": "docs/map-contract-checklist.md",
+     "line": 57,
+     "quote": "TRM-03南、TRM-05西、TRM-02東の扉位置、…を記録する"
+    }
+   ],
+   "position": {
+    "status": "fixed",
+    "plan_box": [
+     0.0,
+     0.05,
+     0.552,
+     0.968
+    ],
+    "width_chars": 2,
+    "basis": "kako-jun 2026-10-23（#144）: 側壁の上下中央より下寄りの範囲の中央付近・幅はキャラ2人幅。設計優先の既定位置（絵の戸口の位置は読まない）。幅は char_unit で換算"
+   },
+   "candidates": [],
+   "alternatives_not_adopted": [
+    {
+     "id": "A-lower-mid",
+     "plan_box": [
+      0.0,
+      0.05,
+      0.5,
+      0.918
+     ]
+    },
+    {
+     "id": "C-bottom",
+     "plan_box": [
+      0.0,
+      0.05,
+      0.582,
+      0.998
+     ]
+    }
+   ],
+   "design_note": "廊下の外端案（door-west@west-corridor-outer-end）は不採用（kako-jun 2026-10-23 D）"
+  },
+  {
+   "id": "door-east",
+   "room": "hall",
+   "edge": "east",
+   "partner": "TRM-02.door-west",
+   "design_source": [
+    {
+     "file": "docs/map-topology.md",
+     "line": 141,
+     "quote": "TRM-04.door-east | TRM-02.door-west | door | 本堂から東（境内から北を見て右）の幼稚園への屋内廊下。TRM-02側は本堂側（西）から入る… 扉の位置・廊下長はTBD"
+    },
+    {
+     "file": "docs/map-topology.md",
+     "line": 287,
+     "quote": "中央の本堂から東（右）の幼稚園へ屋内廊下で移動。TRM-02は本堂側（西面）から入る。扉位置・廊下長TBD。舞台袖は画面内終端。"
+    }
+   ],
+   "position": {
+    "status": "fixed",
+    "plan_box": [
+     0.95,
+     1.0,
+     0.552,
+     0.968
+    ],
+    "width_chars": 2,
+    "basis": "kako-jun 2026-10-23（#144）: 側壁の上下中央より下寄りの範囲の中央付近・幅はキャラ2人幅。設計優先の既定位置（絵の戸口の位置は読まない）。幅は char_unit で換算"
+   },
+   "candidates": [],
+   "alternatives_not_adopted": [
+    {
+     "id": "A-lower-mid",
+     "plan_box": [
+      0.95,
+      1.0,
+      0.5,
+      0.918
+     ]
+    },
+    {
+     "id": "C-bottom",
+     "plan_box": [
+      0.95,
+      1.0,
+      0.582,
+      0.998
+     ]
+    }
+   ]
+  },
+  {
+   "id": "door-front",
+   "room": "hall",
+   "edge": "south",
+   "partner": "TRM-03.door-main",
+   "design_source": [
+    {
+     "file": "docs/map-topology.md",
+     "line": 139,
+     "quote": "TRM-03.door-main | TRM-04.door-south | door | 本堂内部"
+    },
+    {
+     "file": "docs/map-topology.md",
+     "line": 285,
+     "quote": "境内から本堂へ。段差を主路にせず、扉前に回転余地を残す。"
+    }
+   ],
+   "position": {
+    "status": "fixed",
+    "plan_box": [
+     0.392,
+     0.608,
+     0.95,
+     1.0
+    ],
+    "width_chars": 2,
+    "basis": "kako-jun 2026-10-23（#144）: 南壁の中央・幅はキャラ2人幅。設計優先の既定位置（絵の戸口の位置は読まない）。幅は char_unit で換算"
+   },
+   "candidates": [],
+   "alternatives_not_adopted": [
+    {
+     "id": "S-west",
+     "plan_box": [
+      0.192,
+      0.408,
+      0.95,
+      1.0
+     ]
+    },
+    {
+     "id": "S-east",
+     "plan_box": [
+      0.592,
+      0.808,
+      0.95,
+      1.0
+     ]
+    }
+   ]
+  }
+ ],
+ "npcs": [
+  {
+   "id": "hall-center",
+   "room": "hall",
+   "uv": [
+    0.5,
+    0.5
+   ],
+   "note": "本堂の広間の中央"
+  },
+  {
+   "id": "west-corridor",
+   "room": "west-corridor",
+   "uv": [
+    0.45,
+    0.5
+   ],
+   "note": "西廊下の中ほど（芳名板の壁の前）"
+  },
+  {
+   "id": "east-corridor",
+   "room": "east-corridor",
+   "uv": [
+    0.45,
+    0.5
+   ],
+   "note": "東廊下の中ほど（子どもの絵の壁の前）"
+  }
+ ],
+ "char_unit": {
+  "one_char_px_1920": 77,
+  "one_char_px_1672": 67.1,
+  "two_chars_px_1672": 134.1,
+  "basis": "体内マップの『通路幅=キャラクター1人分（約77px、1920×1080画面）』（docs/map-specifications.md BDY-04・map-topology.md:692）を1672幅へ ×1672/1920 で換算。assets/images/characters/ のスプライト寸法と画面設計docからは1人幅の別根拠を確認できていない（C001 は masters/poses/walk の3フォルダ）",
+  "method": "各出口の中心位置で、その room のホモグラフィの局所の水平スケール（水平1画素＝平面の何単位か）を求め、2人幅=134.1px を平面長へ換算。壁沿い（西・東）は v 方向、南壁は u 方向の幅にした。奥の縁ほど遠近で画素が小さい点は局所スケールで補正済み",
+  "note": "出口範囲の奥行き（壁から床へ入る方向）は 0.05 のまま（幅の基準は壁沿いの長さ）。『高さ』に当たる奥行きも2人分にするかは未確認"
+ },
+ "bridges": [
+  {
+   "id": "west-sill",
+   "room": "hall",
+   "plan_uv_polygon": [
+    [
+     -0.075,
+     0.46
+    ],
+    [
+     0.0,
+     0.46
+    ],
+    [
+     0.0,
+     0.88
+    ],
+    [
+     -0.075,
+     0.88
+    ]
+   ],
+   "reason": "西の石の敷居（灰色の小さな段）。通れる（kako-jun 2026-10-23 A）。広間と西廊下の間の約42px の隙間（敷居・壁の厚み・柱）を white で結ぶ。広間の平面座標の u<0 へ外挿"
+  },
+  {
+   "id": "east-sill",
+   "room": "hall",
+   "plan_uv_polygon": [
+    [
+     1.0,
+     0.46
+    ],
+    [
+     1.085,
+     0.46
+    ],
+    [
+     1.085,
+     0.88
+    ],
+    [
+     1.0,
+     0.88
+    ]
+   ],
+   "reason": "東の石の敷居と壁の厚み（木の手すりの柱を含む）。通れる（同 A）。広間と東廊下の間の約36px の隙間を結ぶ。広間の u>1 へ外挿"
+  }
+ ],
+ "carves": []
+}

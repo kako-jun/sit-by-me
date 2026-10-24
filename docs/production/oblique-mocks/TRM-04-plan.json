@@ -1,0 +1,437 @@
+{
+ "schema": "sit-oblique-plan/1",
+ "map_id": "TRM-04",
+ "name": "本堂",
+ "subtitle": "屋内・中央の分岐",
+ "source": "寸法は採用画像 v11 を逆射影して丸めた値。戸口は TRM-04-input.json の確定値（西・東 v=0.76、正面扉は南壁中央）。",
+ "floors": [
+  {
+   "color": "#6b4a30",
+   "label_at": [
+    640,
+    880
+   ],
+   "rect": [
+    487,
+    694,
+    1120,
+    1050
+   ],
+   "walkable": true,
+   "id": "hall-floor",
+   "label": "広間",
+   "look": "濃い茶色の木の板張り（横板・継ぎ目・節・使い込んだ艶）。敷居は板の段。出口の床パッチ（ピンク）も同じ板張りで描き、ピンクは残さない。"
+  },
+  {
+   "color": "#4a3a30",
+   "label": "",
+   "rect": [
+    487,
+    440,
+    1120,
+    694
+   ],
+   "walkable": false,
+   "id": "hall-step-zone",
+   "look": "濃い茶色の木の板張り（横板・継ぎ目・節・使い込んだ艶）。敷居は板の段。出口の床パッチ（ピンク）も同じ板張りで描き、ピンクは残さない。"
+  },
+  {
+   "color": "#7a5636",
+   "rect": [
+    100,
+    810,
+    463,
+    1050
+   ],
+   "walkable": true,
+   "id": "corr-w",
+   "label": "西廊下",
+   "look": "濃い茶色の木の板張り（横板・継ぎ目・節・使い込んだ艶）。敷居は板の段。出口の床パッチ（ピンク）も同じ板張りで描き、ピンクは残さない。"
+  },
+  {
+   "color": "#46d67f",
+   "rect": [
+    440,
+    810,
+    463,
+    1050
+   ],
+   "walkable": true,
+   "id": "sill-w",
+   "label": "敷居(通れる)",
+   "look": "濃い茶色の木の板張り（横板・継ぎ目・節・使い込んだ艶）。敷居は板の段。出口の床パッチ（ピンク）も同じ板張りで描き、ピンクは残さない。"
+  },
+  {
+   "color": "#7a5636",
+   "rect": [
+    1144,
+    810,
+    1507,
+    1050
+   ],
+   "walkable": true,
+   "id": "corr-e",
+   "label": "東廊下",
+   "look": "濃い茶色の木の板張り（横板・継ぎ目・節・使い込んだ艶）。敷居は板の段。出口の床パッチ（ピンク）も同じ板張りで描き、ピンクは残さない。"
+  },
+  {
+   "color": "#46d67f",
+   "rect": [
+    1144,
+    810,
+    1167,
+    1050
+   ],
+   "walkable": true,
+   "id": "sill-e",
+   "label": "敷居(通れる)",
+   "look": "濃い茶色の木の板張り（横板・継ぎ目・節・使い込んだ艶）。敷居は板の段。出口の床パッチ（ピンク）も同じ板張りで描き、ピンクは残さない。"
+  }
+ ],
+ "walls": [
+  {
+   "h": 170,
+   "kind": "wall",
+   "rect": [
+    463,
+    416,
+    1144,
+    440
+   ],
+   "window_count": 0,
+   "id": "hall-n",
+   "look": "奥壁（北壁）: 須弥壇の左右に高僧の絵像の掛軸（人物画）が2幅ずつ、金色の装飾柱が2本。漆喰の壁と柱・梁。文字は入れない。"
+  },
+  {
+   "h": 150,
+   "kind": "wall",
+   "rect": [
+    463,
+    416,
+    487,
+    1074
+   ],
+   "window_count": 0,
+   "id": "hall-w"
+  },
+  {
+   "h": 150,
+   "kind": "wall",
+   "rect": [
+    1120,
+    416,
+    1144,
+    1074
+   ],
+   "window_count": 0,
+   "id": "hall-e"
+  },
+  {
+   "h": 150,
+   "kind": "wall",
+   "rect": [
+    463,
+    1050,
+    1144,
+    1074
+   ],
+   "window_count": 0,
+   "id": "hall-s",
+   "look": "南壁の中央は格子戸の引き戸（上半分が細かい格子、下半分が縦板）。戸の前に石の踏み段。"
+  },
+  {
+   "h": 120,
+   "kind": "wall",
+   "rect": [
+    76,
+    786,
+    463,
+    810
+   ],
+   "window_count": 0,
+   "id": "corr-w-n",
+   "look": "西廊下の北壁: 芳名板（細い縦長の白木の札を横一列に並べる。札に文字は書かない・無地の木札）。"
+  },
+  {
+   "h": 110,
+   "kind": "wall",
+   "rect": [
+    76,
+    1050,
+    463,
+    1074
+   ],
+   "window_count": 3,
+   "id": "corr-w-s",
+   "look": "西廊下の南壁: 窓の下は縦板の腰壁、漆喰の壁。窓は細い木の桟の腰高ガラス窓（外景は描かない）。"
+  },
+  {
+   "h": 120,
+   "kind": "wall",
+   "rect": [
+    76,
+    786,
+    100,
+    1074
+   ],
+   "window_count": 0,
+   "id": "corr-w-end"
+  },
+  {
+   "h": 120,
+   "kind": "wall",
+   "rect": [
+    1144,
+    786,
+    1531,
+    810
+   ],
+   "window_count": 0,
+   "id": "corr-e-n",
+   "look": "東廊下の北壁: 子どもの絵（3枚: 花・人物・虹の色鉛筆画をマスキングテープで貼る）。文字は入れない。"
+  },
+  {
+   "h": 110,
+   "kind": "wall",
+   "rect": [
+    1144,
+    1050,
+    1531,
+    1074
+   ],
+   "window_count": 3,
+   "id": "corr-e-s",
+   "look": "東廊下の南壁: 窓の下は縦板の腰壁、漆喰の壁。窓は細い木の桟の腰高ガラス窓（外景は描かない）。"
+  },
+  {
+   "h": 120,
+   "kind": "wall",
+   "rect": [
+    1507,
+    786,
+    1531,
+    1074
+   ],
+   "window_count": 0,
+   "id": "corr-e-end"
+  }
+ ],
+ "boxes": [
+  {
+   "blocked": true,
+   "color": "#3d2f28",
+   "h": 18,
+   "kind": "step",
+   "rect": [
+    487,
+    440,
+    1120,
+    694
+   ],
+   "id": "step",
+   "label": "須弥壇の段（登れない）",
+   "look": "須弥壇の前の一段の段。暗い木の框で縁取る（柵・手すりは付けない）。"
+  },
+  {
+   "blocked": true,
+   "color": "#7a4f9a",
+   "h": 60,
+   "kind": "dais",
+   "rect": [
+    690,
+    442,
+    900,
+    627
+   ],
+   "id": "dais",
+   "label": "須弥壇",
+   "look": "須弥壇。黒漆と金の段を重ねた壇の上に、光背のある金色の仏像。上に金色の屋根の宮殿（くうでん）、左右に金色の吊り灯籠。壇の前に紫の金襴の打敷、供花・香炉・ろうそくの供物。箱の高さ・範囲は変えない。"
+  }
+ ],
+ "doors": [
+  {
+   "id": "TRM-04.door-west",
+   "wall": "hall-w",
+   "wall_side": "west",
+   "face": "east",
+   "center": 965,
+   "along_ref": [
+    694,
+    1050
+   ],
+   "partner": "TRM-05.door-hall",
+   "width_class": "2people",
+   "status": "fixed",
+   "passage": true,
+   "note": "住居へ。西壁・下寄り（v=0.76）。先は西廊下（決定 TRM.open-passage）"
+  },
+  {
+   "id": "TRM-04.door-east",
+   "wall": "hall-e",
+   "wall_side": "east",
+   "face": "west",
+   "center": 965,
+   "along_ref": [
+    694,
+    1050
+   ],
+   "partner": "TRM-02.door-west",
+   "width_class": "2people",
+   "status": "fixed",
+   "passage": true,
+   "note": "幼稚園へ。東壁・下寄り（v=0.76）。先は東廊下（決定 TRM.open-passage）"
+  },
+  {
+   "id": "TRM-04.door-south",
+   "wall": "hall-s",
+   "wall_side": "south",
+   "face": "north",
+   "center": 803,
+   "along_ref": [
+    487,
+    1120
+   ],
+   "partner": "TRM-03.door-main",
+   "width_class": "2people",
+   "status": "default",
+   "note": "正面扉。南壁中央（台帳 ID は door-south）。位置（南壁の中央）は kako-jun の発言ではなく司令塔の既定（#144 コメント 6355539302）で、kako-jun の確認待ち（未決 U-050）。幅は決定参照のとおり（決定 TRM.door-width, TRM.door-width-outside, TRM.mock-master）"
+  }
+ ],
+ "windows": [
+  {
+   "id": "TRM-04.win-cw1",
+   "wall": "corr-w-s",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    100,
+    463
+   ],
+   "note": "西廊下の南壁の連窓（腰高）。外は見えない。屋内と外観で同じ窓列（建物窓列から導出）（決定 TRM.building-shared）",
+   "center": 160,
+   "width": 70,
+   "kind": "waist",
+   "sill": 20,
+   "height": 50
+  },
+  {
+   "id": "TRM-04.win-cw2",
+   "wall": "corr-w-s",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    100,
+    463
+   ],
+   "note": "西廊下の南壁の連窓（腰高）。外は見えない。屋内と外観で同じ窓列（建物窓列から導出）（決定 TRM.building-shared）",
+   "center": 270,
+   "width": 70,
+   "kind": "waist",
+   "sill": 20,
+   "height": 50
+  },
+  {
+   "id": "TRM-04.win-cw3",
+   "wall": "corr-w-s",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    100,
+    463
+   ],
+   "note": "西廊下の南壁の連窓（腰高）。外は見えない。屋内と外観で同じ窓列（建物窓列から導出）（決定 TRM.building-shared）",
+   "center": 380,
+   "width": 70,
+   "kind": "waist",
+   "sill": 20,
+   "height": 50
+  },
+  {
+   "id": "TRM-04.win-ce1",
+   "wall": "corr-e-s",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    1144,
+    1507
+   ],
+   "note": "東廊下の南壁の連窓（腰高）。外は見えない。屋内と外観で同じ窓列（建物窓列から導出）（決定 TRM.building-shared）",
+   "center": 1230,
+   "width": 70,
+   "kind": "waist",
+   "sill": 20,
+   "height": 50
+  },
+  {
+   "id": "TRM-04.win-ce2",
+   "wall": "corr-e-s",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    1144,
+    1507
+   ],
+   "note": "東廊下の南壁の連窓（腰高）。外は見えない。屋内と外観で同じ窓列（建物窓列から導出）（決定 TRM.building-shared）",
+   "center": 1340,
+   "width": 70,
+   "kind": "waist",
+   "sill": 20,
+   "height": 50
+  },
+  {
+   "id": "TRM-04.win-ce3",
+   "wall": "corr-e-s",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    1144,
+    1507
+   ],
+   "note": "東廊下の南壁の連窓（腰高）。外は見えない。屋内と外観で同じ窓列（建物窓列から導出）（決定 TRM.building-shared）",
+   "center": 1450,
+   "width": 70,
+   "kind": "waist",
+   "sill": 20,
+   "height": 50
+  }
+ ],
+ "no_window_walls": [
+  {
+   "wall": "hall-n",
+   "status": "fixed",
+   "reason": "本堂に窓は置かない（決定 TRM.hall-no-window）"
+  },
+  {
+   "wall": "hall-w",
+   "status": "fixed",
+   "reason": "本堂に窓は置かない（決定 TRM.hall-no-window）"
+  },
+  {
+   "wall": "hall-e",
+   "status": "fixed",
+   "reason": "本堂に窓は置かない（決定 TRM.hall-no-window）"
+  },
+  {
+   "wall": "hall-s",
+   "status": "fixed",
+   "reason": "本堂に窓は置かない（決定 TRM.hall-no-window）"
+  }
+ ],
+ "assumptions": [
+  "廊下の外端（西は x76〜100・東は x1507〜1531）は閉じた壁。住居・幼稚園へは別 MAP の戸口（本堂の西壁・東壁の戸口）から入る（README の確定: 廊下の外端案は不採用）。",
+  "廊下の奥行き Y810〜1050 と外壁の高さは採用画像 v11 から概略。",
+  "壁の飾り（芳名板・子どもの絵・灯籠・柱）は省略。",
+  "本堂の壁は window_count=0 で、窓は描かない。（決定 TRM.hall-no-window）",
+  "本堂の広間⇄西廊下・東廊下の開口（door-west/east）は passage（梁・鴨居・垂れ壁・壁を描かない開放した通路）。（決定 TRM.open-passage）"
+ ],
+ "decor_pool": "teramachi-winter",
+ "depends_on": [],
+ "_provenance": {
+  "source": "MAP:TRM-04|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
+  "input_sha": "445fcab673c960f45cca38eef7280f8302fa9e26f352cd7965c31b22bca5f398",
+  "generated_at": "2026-10-24T06:12",
+  "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
+  "ledger_id": "G-TRM-04-plan",
+  "do_not_edit": true
+ }
+}

@@ -1,0 +1,282 @@
+{
+ "schema": "sit-oblique-register/1",
+ "map_id": "TRM-05",
+ "image": {
+  "path": "residence.webp",
+  "sha256": "353859f04c2bac75f5b872d68843633b16bc26dc2054e0b5d0b1cb3a828948af",
+  "size": [
+   1672,
+   941
+  ]
+ },
+ "input_sha256": "e9d83cfe5afd78c266f7d4e950c0a2bc2ecec5501b105fbfdb3f64bd07883ba2",
+ "rooms": [
+  {
+   "id": "dining",
+   "quad": [
+    [
+     519.0,
+     207.0
+    ],
+    [
+     813.6,
+     207.0
+    ],
+    [
+     811.4,
+     562.0
+    ],
+    [
+     489.0,
+     562.0
+    ]
+   ],
+   "plan_size": [
+    1600,
+    2488
+   ],
+   "plan_aspect": {
+    "w_over_h": 0.643,
+    "source": "circle:table-basket",
+    "note": "建物の床1枚（縦横比1.41＝卓上の籠の縁から）の平面座標 u 0.0〜0.456・v 0〜1 を切り出した部分。比は建物の縦横比から決まり、各部屋の独立検証は無い。籠はダイニング内"
+   },
+   "H_img_to_plan": [
+    [
+     5.747336877890184,
+     0.4856904403850857,
+     -3083.4057607847185
+    ],
+    [
+     -5.589323556198053e-16,
+     8.11640594326078,
+     -1680.096030254981
+    ],
+    [
+     7.755273422786615e-20,
+     0.00028129620745956146,
+     1.0
+    ]
+   ],
+   "H_plan_to_img": [
+    [
+     0.1739936289182851,
+     -0.027409498949116973,
+     490.4423673707893
+    ],
+    [
+     8.683187329486078e-18,
+     0.11642784580761399,
+     195.60996155251138
+    ],
+    [
+     -1.5936229325287083e-20,
+     -3.275071146836842e-05,
+     0.944975659673968
+    ]
+   ],
+   "plan_image": "TRM-05-dining-plan.png",
+   "circles": [
+    {
+     "id": "table-basket",
+     "plan_bbox_wh": [
+      198.4,
+      198.6
+     ],
+     "err_pct_bbox": 0.07,
+     "err_pct_moments": 2.77,
+     "warn": null,
+     "implied_aspect_w_over_h": 0.643,
+     "independence": "circular",
+     "pass": null,
+     "note": "縦横比をこの円から決めたため循環検証（縦横比の証拠にならない）"
+    }
+   ],
+   "lines": [],
+   "floor_lines_auto": {
+    "planks_horizontal": {
+     "n": 55,
+     "median_deg": -0.1,
+     "mad_deg": 0.25,
+     "independence": "quad-only",
+     "pass": true
+    },
+    "seams_vertical": {
+     "n": 396,
+     "median_deg": -0.96,
+     "mad_deg": 2.72,
+     "independence": "quad-only",
+     "pass": null
+    }
+   },
+   "aspect_verified_independently": false
+  },
+  {
+   "id": "bedroom-north",
+   "quad": [
+    [
+     844.6,
+     207.0
+    ],
+    [
+     1165.0,
+     207.0
+    ],
+    [
+     1181.0,
+     390.7
+    ],
+    [
+     845.0,
+     390.7
+    ]
+   ],
+   "plan_size": [
+    1600,
+    1235
+   ],
+   "plan_aspect": {
+    "w_over_h": 1.2951,
+    "source": "derived:building-interior-1.41(circle:table-basket)",
+    "note": "建物の床1枚（縦横比1.41＝卓上の籠の縁から）の平面座標 u 0.504〜1.0・v 0〜0.54 を切り出した部分。比は建物の縦横比から決まり、各部屋の独立検証は無い。籠はダイニング内"
+   },
+   "H_img_to_plan": [
+    [
+     5.283642593328122,
+     -0.011505639042254536,
+     -4460.1827380480045
+    ],
+    [
+     -1.684605978093379e-16,
+     7.459513421454194,
+     -1544.1192782410178
+    ],
+    [
+     -3.079361473815709e-19,
+     0.0002804324151494916,
+     1.0
+    ]
+   ],
+   "H_plan_to_img": [
+    [
+     0.1892633694153996,
+     -0.029717856285925562,
+     798.2612984122741
+    ],
+    [
+     1.5441970684803127e-17,
+     0.12670201156229374,
+     195.64301864525416
+    ],
+    [
+     5.395060368442618e-20,
+     -3.5531351106712845e-05,
+     0.9451353557741745
+    ]
+   ],
+   "plan_image": "TRM-05-bedroom-north-plan.png",
+   "circles": [],
+   "lines": [],
+   "floor_lines_auto": {
+    "planks_horizontal": {
+     "n": 33,
+     "median_deg": -0.14,
+     "mad_deg": 0.19,
+     "independence": "quad-only",
+     "pass": true
+    },
+    "seams_vertical": {
+     "n": 546,
+     "median_deg": 1.37,
+     "mad_deg": 4.16,
+     "independence": "quad-only",
+     "pass": null
+    }
+   },
+   "aspect_verified_independently": false
+  },
+  {
+   "id": "bedroom-south",
+   "quad": [
+    [
+     845.0,
+     390.7
+    ],
+    [
+     1181.0,
+     390.7
+    ],
+    [
+     1196.0,
+     562.0
+    ],
+    [
+     845.3,
+     562.0
+    ]
+   ],
+   "plan_size": [
+    1600,
+    1052
+   ],
+   "plan_aspect": {
+    "w_over_h": 1.5203,
+    "source": "derived:building-interior-1.41(circle:table-basket)",
+    "note": "建物の床1枚（縦横比1.41＝卓上の籠の縁から）の平面座標 u 0.504〜1.0・v 0.54〜1.0 を切り出した部分。比は建物の縦横比から決まり、各部屋の独立検証は無い。籠はダイニング内"
+   },
+   "H_img_to_plan": [
+    [
+     5.289740556628799,
+     -0.00926361767683162,
+     -4466.211474811917
+    ],
+    [
+     4.752794219131105e-16,
+     7.120468640170944,
+     -2781.9671846345714
+    ],
+    [
+     -0.0,
+     0.00028371005091386634,
+     1.0
+    ]
+   ],
+   "H_plan_to_img": [
+    [
+     0.18904518837825748,
+     -0.03006288607559609,
+     760.6818270552382
+    ],
+    [
+     -1.1359321544058327e-17,
+     0.12642639486793886,
+     351.71408179425845
+    ],
+    [
+     3.2227536936117667e-21,
+     -3.58684389248395e-05,
+     0.9002151799470273
+    ]
+   ],
+   "plan_image": "TRM-05-bedroom-south-plan.png",
+   "circles": [],
+   "lines": [],
+   "floor_lines_auto": {
+    "planks_horizontal": {
+     "n": 18,
+     "median_deg": 0.09,
+     "mad_deg": 0.45,
+     "independence": "quad-only",
+     "pass": true
+    },
+    "seams_vertical": {
+     "n": 353,
+     "median_deg": 1.46,
+     "mad_deg": 2.62,
+     "independence": "quad-only",
+     "pass": null
+    }
+   },
+   "aspect_verified_independently": false
+  }
+ ]
+}

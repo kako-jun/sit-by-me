@@ -1,0 +1,323 @@
+{
+ "schema": "sit-oblique-plan/1",
+ "map_id": "TRM-02",
+ "name": "幼稚園・遊戯室",
+ "subtitle": "屋内・幼稚園期/火事後",
+ "source": "寸法は採用画像 v3 を土台ホモグラフィで平面へ逆射影して丸めた値（台帳に寸法は無い）。戸口の位置・幅は台帳（決定 TRM.entrances ほか）。",
+ "floors": [
+  {
+   "color": "#8f6a43",
+   "rect": [
+    300,
+    433,
+    1300,
+    1127
+   ],
+   "walkable": true,
+   "id": "hall",
+   "label": "遊戯室の床",
+   "look": "濃い茶色の木の板張り（横板・継ぎ目・節・汚れ）。出口の床パッチ（ピンク）も同じ板張りで描き、ピンクは残さない。"
+  }
+ ],
+ "walls": [
+  {
+   "h": 160,
+   "kind": "wall",
+   "rect": [
+    276,
+    409,
+    1324,
+    433
+   ],
+   "window_count": 0,
+   "id": "wall-n",
+   "look": "舞台の背景画の左右は漆喰の壁と柱・梁。壁の内側（室内側）は歩く床より少し暗い影を落としてよい。"
+  },
+  {
+   "h": 150,
+   "kind": "wall",
+   "rect": [
+    276,
+    1127,
+    1324,
+    1151
+   ],
+   "window_count": 4,
+   "id": "wall-s"
+  },
+  {
+   "h": 150,
+   "kind": "wall",
+   "rect": [
+    276,
+    409,
+    300,
+    1151
+   ],
+   "window_count": 0,
+   "id": "wall-w"
+  },
+  {
+   "h": 150,
+   "kind": "wall",
+   "rect": [
+    1300,
+    409,
+    1324,
+    1151
+   ],
+   "window_count": 0,
+   "id": "wall-e"
+  }
+ ],
+ "boxes": [
+  {
+   "blocked": true,
+   "color": "#5a3a25",
+   "h": 30,
+   "kind": "stage",
+   "rect": [
+    540,
+    433,
+    1040,
+    540
+   ],
+   "id": "stage",
+   "label": "舞台（登れない）",
+   "look": "舞台の奥の壁（北壁）の前に、緑の緞帳を左右に束ねて垂らし、上に金色の縁の緑の飾り幕。中央に背景画（青い空・雪山・雲・赤い円錐屋根の尖塔が並ぶヨーロッパ風の白い城）、左右に雪をかぶった小さな松の書割。緞帳と背景画は北壁に貼る飾りで、舞台の箱の高さ・範囲は変えない。"
+  },
+  {
+   "blocked": true,
+   "color": "#c99a52",
+   "h": 110,
+   "kind": "shelf",
+   "rect": [
+    323,
+    433,
+    515,
+    473
+   ],
+   "id": "shelf-nw",
+   "label": "棚(北西)",
+   "look": "棚の天板に黄色い箱（中にボール）・色分けした絵本の列、段に積み木・小さな玩具・太鼓。"
+  },
+  {
+   "blocked": true,
+   "color": "#c99a52",
+   "h": 110,
+   "kind": "shelf",
+   "rect": [
+    1063,
+    433,
+    1257,
+    473
+   ],
+   "id": "shelf-ne",
+   "label": "棚(北東)",
+   "look": "棚の天板にクマのぬいぐるみ・積み木の箱、段に積み木・丸い玩具・缶。"
+  },
+  {
+   "blocked": true,
+   "color": "#d9b77a",
+   "h": 50,
+   "kind": "chair",
+   "rect": [
+    305,
+    520,
+    365,
+    580
+   ],
+   "id": "chair-w1",
+   "label": "椅子"
+  },
+  {
+   "blocked": true,
+   "color": "#d9b77a",
+   "h": 50,
+   "kind": "chair",
+   "rect": [
+    305,
+    600,
+    365,
+    660
+   ],
+   "id": "chair-w2",
+   "label": "椅子"
+  },
+  {
+   "blocked": true,
+   "color": "#d9b77a",
+   "h": 50,
+   "kind": "chair",
+   "rect": [
+    305,
+    680,
+    365,
+    740
+   ],
+   "id": "chair-w3",
+   "label": "椅子"
+  },
+  {
+   "blocked": true,
+   "color": "#d6a05a",
+   "h": 55,
+   "kind": "table",
+   "rect": [
+    1123,
+    492,
+    1242,
+    632
+   ],
+   "id": "table-small",
+   "label": "小机",
+   "look": "天板に赤・青・黄のカラフルな積み木。机に寄せた小さな椅子を描いてよい（床の占有はほぼ変えない）。"
+  },
+  {
+   "blocked": true,
+   "color": "#7fa85a",
+   "h": 120,
+   "kind": "toy-rack",
+   "rect": [
+    1240,
+    616,
+    1300,
+    836
+   ],
+   "id": "toy-rack",
+   "label": "おもちゃ棚",
+   "look": "縦長の木枠にボール・積み木・形合わせの玩具が詰まる。"
+  },
+  {
+   "blocked": true,
+   "color": "#d6a05a",
+   "h": 55,
+   "kind": "round-table",
+   "rect": [
+    1148,
+    798,
+    1262,
+    918
+   ],
+   "id": "round-table",
+   "label": "丸テーブル",
+   "look": "天板に赤・青・黄・緑の積み木。机に寄せた小さな椅子を描いてよい（床の占有はほぼ変えない）。"
+  }
+ ],
+ "doors": [
+  {
+   "id": "TRM-02.door-west",
+   "wall": "wall-w",
+   "wall_side": "west",
+   "face": "east",
+   "center": 960,
+   "along_ref": [
+    433,
+    1127
+   ],
+   "partner": "TRM-04.door-east",
+   "width_class": "2people",
+   "status": "fixed",
+   "note": "本堂へ。西壁・上下の中央より下寄り（v=0.76）（決定 TRM.entrances）"
+  },
+  {
+   "id": "TRM-02.door-outside",
+   "wall": "wall-s",
+   "wall_side": "south",
+   "face": "north",
+   "center": 1140,
+   "along_ref": [
+    300,
+    1300
+   ],
+   "partner": "TRM-03.door-playroom",
+   "width_class": "1.5people",
+   "status": "fixed",
+   "note": "外へ。下辺の右端付近。扉前は空ける。幅100単位（1.5人分。接続の両側で一致）（決定 TRM.entrances, TRM.door-width-outside）"
+  }
+ ],
+ "windows": [
+  {
+   "id": "TRM-02.win-s1",
+   "wall": "wall-s",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    300,
+    1300
+   ],
+   "note": "南面の掃き出し窓（床まで届く引き違い・扉ではない）。枚数4は仮。位置は採用v3の窓の帯に合わせた既定（要確認）。窓から見えるのは室内の床で外の景色ではない（決定 TRM-03.kindergarten-bigger, TRM.windows-spec, TRM.window-glass）",
+   "center": 390,
+   "width": 140,
+   "kind": "floor",
+   "sill": 0,
+   "height": 130
+  },
+  {
+   "id": "TRM-02.win-s2",
+   "wall": "wall-s",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    300,
+    1300
+   ],
+   "note": "南面の掃き出し窓（床まで届く引き違い・扉ではない）。枚数4は仮。位置は採用v3の窓の帯に合わせた既定（要確認）。窓から見えるのは室内の床で外の景色ではない（決定 TRM-03.kindergarten-bigger, TRM.windows-spec, TRM.window-glass）",
+   "center": 573,
+   "width": 140,
+   "kind": "floor",
+   "sill": 0,
+   "height": 130
+  },
+  {
+   "id": "TRM-02.win-s3",
+   "wall": "wall-s",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    300,
+    1300
+   ],
+   "note": "南面の掃き出し窓（床まで届く引き違い・扉ではない）。枚数4は仮。位置は採用v3の窓の帯に合わせた既定（要確認）。窓から見えるのは室内の床で外の景色ではない（決定 TRM-03.kindergarten-bigger, TRM.windows-spec, TRM.window-glass）",
+   "center": 757,
+   "width": 140,
+   "kind": "floor",
+   "sill": 0,
+   "height": 130
+  },
+  {
+   "id": "TRM-02.win-s4",
+   "wall": "wall-s",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    300,
+    1300
+   ],
+   "note": "南面の掃き出し窓（床まで届く引き違い・扉ではない）。枚数4は仮。位置は採用v3の窓の帯に合わせた既定（要確認）。窓から見えるのは室内の床で外の景色ではない（決定 TRM-03.kindergarten-bigger, TRM.windows-spec, TRM.window-glass）",
+   "center": 940,
+   "width": 140,
+   "kind": "floor",
+   "sill": 0,
+   "height": 130
+  }
+ ],
+ "assumptions": [
+  "家具の位置・大きさは採用画像 v3 から概略で拾った（設計書に家具の寸法は無い）。",
+  "壁の高さ 150（前壁・側壁）・160（奥壁）。戸口の高さ134（2人分）に対する余裕。前壁を戸口高に合わせたため手前の床が約30px 隠れる。",
+  "丸テーブルの椅子・テーブルの椅子はモックに箱が無い（装飾として机に寄せて描くのは可。床の占有は変えない）。",
+  "外への戸口（TRM-02.door-outside）の幅は TRM-03.door-playroom と同じ100単位。扉の左右の壁が増えたが、窓・家具との重なりは無い（検証済み）。（決定 TRM.door-width-outside）"
+ ],
+ "decor_pool": "teramachi-winter",
+ "depends_on": [
+  "TRM-04"
+ ],
+ "_provenance": {
+  "source": "MAP:TRM-02|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
+  "input_sha": "f2939f8d2f0f1f7f63a890189f692e4aa3e3881acc80857c3910f7c59a2c7555",
+  "generated_at": "2026-10-24T04:46",
+  "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
+  "ledger_id": "G-TRM-02-plan",
+  "do_not_edit": true
+ }
+}

@@ -1,0 +1,597 @@
+{
+ "schema": "sit-oblique-plan/1",
+ "map_id": "TRM-03",
+ "name": "境内（外装）",
+ "subtitle": "屋外・本堂中心。左=住居・右=幼稚園＋園庭",
+ "source": "建物の位置は採用外観 v7 を逆射影して丸めた値。住居・幼稚園の戸口は建物の幅に対する位置を内部 MAP（TRM-05/TRM-02）の外への戸口と揃えた。",
+ "floors": [
+  {
+   "color": "#e8eef4",
+   "label": "",
+   "rect": [
+    24,
+    425,
+    1590,
+    1250
+   ],
+   "walkable": true,
+   "id": "grounds",
+   "look": "綿の雪の地面（足跡・土の露出・草）。"
+  },
+  {
+   "color": "#d4d8dc",
+   "label_at": [
+    360,
+    1000
+   ],
+   "rect": [
+    40,
+    470,
+    700,
+    1230
+   ],
+   "walkable": true,
+   "id": "grave",
+   "label": "墓地（墓石多数）",
+   "look": "墓地: 雪の地面に低い灰色の石の墓石が点在する。"
+  },
+  {
+   "color": "#f0f4f8",
+   "label_at": [
+    1230,
+    1120
+   ],
+   "rect": [
+    900,
+    470,
+    1560,
+    1230
+   ],
+   "walkable": true,
+   "id": "playground",
+   "label": "園庭（幼稚園の前）",
+   "look": "園庭: 雪の地面と足跡。"
+  },
+  {
+   "color": "#4a4d52",
+   "label_at": [
+    800,
+    1000
+   ],
+   "rect": [
+    722,
+    425,
+    878,
+    1270
+   ],
+   "walkable": true,
+   "id": "path",
+   "label": "石畳の参道",
+   "look": "参道: 黒い石畳（大きな板石、雪が所々にかかる）。"
+  }
+ ],
+ "walls": [
+  {
+   "color": "#e6d8b8",
+   "h": 140,
+   "kind": "building",
+   "rect": [
+    94,
+    150,
+    379,
+    399
+   ],
+   "top_color": "#6c7077",
+   "window_count": 2,
+   "id": "residence",
+   "label": "住居（庫裏）",
+   "look": "住居（庫裏）: クリーム色の漆喰の壁と木の柱、灰色の瓦の寄棟屋根（雪）、南壁に焦げ茶の木の板戸（小窓つき）と腰高のガラス窓2枚。"
+  },
+  {
+   "color": "#c9b890",
+   "h": 70,
+   "kind": "building",
+   "rect": [
+    379,
+    280,
+    596,
+    399
+   ],
+   "top_color": "#6c7077",
+   "window_count": 3,
+   "id": "conn-w",
+   "label": "渡り廊下棟",
+   "look": "渡り廊下棟（西。本堂と住居をつなぐ）: 灰色の瓦（波形）の低い寄棟屋根に綿の雪（外観からだけ見える。屋内は描かない）。南面: 窓の下は縦板の腰壁、漆喰の壁。窓は細い木の桟の腰高ガラス窓（外景は描かない）。（腰高の連窓3つ）。外端は閉じた壁。床は木の板張り。"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 170,
+   "kind": "building",
+   "rect": [
+    596,
+    110,
+    959,
+    399
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "main-hall",
+   "label": "本堂",
+   "look": "本堂: 灰色の瓦の大きな寄棟屋根（雪・堂々とした軒）、正面に格子戸の大きな引き戸と木の柱、石の踏み段。窓は描かない。"
+  },
+  {
+   "color": "#c9b890",
+   "h": 70,
+   "kind": "building",
+   "rect": [
+    959,
+    280,
+    1142,
+    399
+   ],
+   "top_color": "#6c7077",
+   "window_count": 3,
+   "id": "conn-e",
+   "label": "渡り廊下棟",
+   "look": "渡り廊下棟（東。本堂と幼稚園をつなぐ）: 灰色の瓦（波形）の低い寄棟屋根に綿の雪（外観からだけ見える。屋内は描かない）。南面: 窓の下は縦板の腰壁、漆喰の壁。窓は細い木の桟の腰高ガラス窓（外景は描かない）。（腰高の連窓3つ）。外端は閉じた壁。床は木の板張り。"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 140,
+   "kind": "building",
+   "rect": [
+    1142,
+    170,
+    1565,
+    425
+   ],
+   "top_color": "#6c7077",
+   "window_count": 4,
+   "id": "kindergarten",
+   "label": "幼稚園（遊戯室）",
+   "look": "幼稚園（遊戯室）: クリーム色の壁、灰色の瓦の寄棟屋根（雪）、南壁に大きな掃き出しの引き違いガラス窓4枚と木の戸（1.5人幅）。"
+  }
+ ],
+ "boxes": [
+  {
+   "blocked": true,
+   "color": "#8a7a5a",
+   "h": 170,
+   "kind": "bell",
+   "rect": [
+    400,
+    480,
+    500,
+    570
+   ],
+   "id": "bell",
+   "label": "鐘楼"
+  },
+  {
+   "blocked": true,
+   "color": "#9a9a9a",
+   "h": 90,
+   "kind": "statue",
+   "rect": [
+    640,
+    740,
+    700,
+    800
+   ],
+   "id": "statue",
+   "label": "親鸞像"
+  },
+  {
+   "blocked": true,
+   "color": "#3b78c8",
+   "h": 90,
+   "kind": "slide",
+   "rect": [
+    980,
+    620,
+    1060,
+    760
+   ],
+   "id": "slide",
+   "label": "滑り台"
+  },
+  {
+   "blocked": true,
+   "color": "#d23a3a",
+   "h": 120,
+   "kind": "swing",
+   "rect": [
+    1160,
+    700,
+    1340,
+    760
+   ],
+   "id": "swing",
+   "label": "ブランコ"
+  },
+  {
+   "blocked": true,
+   "color": "#d23a3a",
+   "h": 45,
+   "kind": "arch",
+   "rect": [
+    960,
+    900,
+    1040,
+    950
+   ],
+   "id": "arch-1",
+   "label": "半円(赤)",
+   "look": "半円のタイヤ型の遊具（赤）。地面から半分出ている。"
+  },
+  {
+   "blocked": true,
+   "color": "#3b78c8",
+   "h": 45,
+   "kind": "arch",
+   "rect": [
+    1070,
+    900,
+    1150,
+    950
+   ],
+   "id": "arch-2",
+   "label": "半円(青)",
+   "look": "半円のタイヤ型の遊具（青）。地面から半分出ている。"
+  },
+  {
+   "blocked": true,
+   "color": "#e8c62a",
+   "h": 45,
+   "kind": "arch",
+   "rect": [
+    1180,
+    900,
+    1260,
+    950
+   ],
+   "id": "arch-3",
+   "label": "半円(黄)",
+   "look": "半円のタイヤ型の遊具（黄）。地面から半分出ている。"
+  },
+  {
+   "blocked": true,
+   "color": "#3b78c8",
+   "h": 45,
+   "kind": "arch",
+   "rect": [
+    1290,
+    900,
+    1370,
+    950
+   ],
+   "id": "arch-4",
+   "label": "半円(青)",
+   "look": "半円のタイヤ型の遊具（青）。地面から半分出ている。"
+  },
+  {
+   "blocked": true,
+   "color": "#f2f2f2",
+   "h": 70,
+   "kind": "animal",
+   "rect": [
+    1420,
+    850,
+    1500,
+    930
+   ],
+   "id": "animal",
+   "label": "動物遊具(丸)"
+  }
+ ],
+ "tree_zones": [
+  {
+   "rect": [
+    0,
+    0,
+    1600,
+    100
+   ],
+   "id": "north-margin"
+  },
+  {
+   "rect": [
+    0,
+    100,
+    90,
+    425
+   ],
+   "id": "west-margin"
+  },
+  {
+   "rect": [
+    1570,
+    100,
+    1600,
+    425
+   ],
+   "id": "east-margin"
+  }
+ ],
+ "doors": [
+  {
+   "id": "TRM-03.door-main",
+   "wall": "main-hall",
+   "wall_side": "south",
+   "face": "south",
+   "center": 778,
+   "along_ref": [
+    596,
+    959
+   ],
+   "partner": "TRM-04.door-south",
+   "width_class": "2people",
+   "status": "default",
+   "note": "本堂の正面。建物の中央。位置は採用外観画像の読み取りと司令塔の既定（#144 コメント 6355539302『本堂の正面扉は南壁の中央』）で、kako-jun が位置を明示した発言は確認できていない（未決 U-050。相手端 TRM-04.door-south と同じ扉）。幅は決定参照のとおり（決定 TRM.door-width, TRM.door-width-outside, TRM.mock-master）"
+  },
+  {
+   "id": "TRM-03.door-residence",
+   "wall": "residence",
+   "wall_side": "south",
+   "face": "south",
+   "center": 177,
+   "along_ref": [
+    94,
+    379
+   ],
+   "partner": "TRM-05.door-outside",
+   "width_class": "1.5people",
+   "status": "default",
+   "note": "住居の外への戸口。建物幅の0.29（内部の戸口と揃える）。幅100単位（1.5人分。接続の両側で一致）。境内側の位置は既定（要確認）（決定 TRM.entrances, TRM.door-width-outside）"
+  },
+  {
+   "id": "TRM-03.door-playroom",
+   "wall": "kindergarten",
+   "wall_side": "south",
+   "face": "south",
+   "center": 1497,
+   "along_ref": [
+    1142,
+    1565
+   ],
+   "partner": "TRM-02.door-outside",
+   "width_class": "1.5people",
+   "status": "default",
+   "note": "幼稚園の外への戸口。建物幅の0.84（内部の戸口と揃える）。幅100単位（1.5人分。接続の両側で一致）。境内側の位置は既定（要確認）（決定 TRM.entrances, TRM.door-width-outside）"
+  }
+ ],
+ "markers": [
+  {
+   "at": 800,
+   "edge": "south",
+   "label": "山門・南（TRM-07へ）",
+   "id": "TRM-03.bottom",
+   "partner": "TRM-07.top",
+   "status": "fixed"
+  }
+ ],
+ "windows": [
+  {
+   "id": "TRM-03.win-res1",
+   "wall": "residence",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    94,
+    379
+   ],
+   "note": "住居棟の南面の腰高窓（扉・窓・窓の順）。個数2は採用外観v7。位置は既定（要確認）（決定 TRM.windows-spec）",
+   "center": 285,
+   "width": 50,
+   "kind": "waist",
+   "sill": 40,
+   "height": 50
+  },
+  {
+   "id": "TRM-03.win-res2",
+   "wall": "residence",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    94,
+    379
+   ],
+   "note": "住居棟の南面の腰高窓（扉・窓・窓の順）。個数2は採用外観v7。位置は既定（要確認）（決定 TRM.windows-spec）",
+   "center": 345,
+   "width": 50,
+   "kind": "waist",
+   "sill": 40,
+   "height": 50
+  },
+  {
+   "id": "TRM-03.win-kg1",
+   "wall": "kindergarten",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    1142,
+    1565
+   ],
+   "note": "幼稚園棟の南面の掃き出し窓（床まで届く引き違い・扉ではない。玄関扉 door-playroom とは別）。枚数4は仮。位置は既定（要確認）（決定 TRM-03.kindergarten-bigger）",
+   "center": 1188,
+   "width": 52,
+   "kind": "floor",
+   "sill": 0,
+   "height": 130
+  },
+  {
+   "id": "TRM-03.win-kg2",
+   "wall": "kindergarten",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    1142,
+    1565
+   ],
+   "note": "幼稚園棟の南面の掃き出し窓（床まで届く引き違い・扉ではない。玄関扉 door-playroom とは別）。枚数4は仮。位置は既定（要確認）（決定 TRM-03.kindergarten-bigger）",
+   "center": 1254,
+   "width": 52,
+   "kind": "floor",
+   "sill": 0,
+   "height": 130
+  },
+  {
+   "id": "TRM-03.win-kg3",
+   "wall": "kindergarten",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    1142,
+    1565
+   ],
+   "note": "幼稚園棟の南面の掃き出し窓（床まで届く引き違い・扉ではない。玄関扉 door-playroom とは別）。枚数4は仮。位置は既定（要確認）（決定 TRM-03.kindergarten-bigger）",
+   "center": 1320,
+   "width": 52,
+   "kind": "floor",
+   "sill": 0,
+   "height": 130
+  },
+  {
+   "id": "TRM-03.win-kg4",
+   "wall": "kindergarten",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    1142,
+    1565
+   ],
+   "note": "幼稚園棟の南面の掃き出し窓（床まで届く引き違い・扉ではない。玄関扉 door-playroom とは別）。枚数4は仮。位置は既定（要確認）（決定 TRM-03.kindergarten-bigger）",
+   "center": 1386,
+   "width": 52,
+   "kind": "floor",
+   "sill": 0,
+   "height": 130
+  },
+  {
+   "id": "TRM-03.win-cw1",
+   "wall": "conn-w",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    379,
+    596
+   ],
+   "note": "西の渡り廊下棟の南壁の連窓（腰高）。屋内（TRM-04）の廊下と同じ窓列（建物窓列から導出）（決定 TRM.building-shared）",
+   "center": 415,
+   "width": 42,
+   "kind": "waist",
+   "sill": 13,
+   "height": 32
+  },
+  {
+   "id": "TRM-03.win-cw2",
+   "wall": "conn-w",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    379,
+    596
+   ],
+   "note": "西の渡り廊下棟の南壁の連窓（腰高）。屋内（TRM-04）の廊下と同じ窓列（建物窓列から導出）（決定 TRM.building-shared）",
+   "center": 481,
+   "width": 42,
+   "kind": "waist",
+   "sill": 13,
+   "height": 32
+  },
+  {
+   "id": "TRM-03.win-cw3",
+   "wall": "conn-w",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    379,
+    596
+   ],
+   "note": "西の渡り廊下棟の南壁の連窓（腰高）。屋内（TRM-04）の廊下と同じ窓列（建物窓列から導出）（決定 TRM.building-shared）",
+   "center": 546,
+   "width": 42,
+   "kind": "waist",
+   "sill": 13,
+   "height": 32
+  },
+  {
+   "id": "TRM-03.win-ce1",
+   "wall": "conn-e",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    959,
+    1142
+   ],
+   "note": "東の渡り廊下棟の南壁の連窓（腰高）。屋内（TRM-04）の廊下と同じ窓列（建物窓列から導出）（決定 TRM.building-shared）",
+   "center": 1002,
+   "width": 35,
+   "kind": "waist",
+   "sill": 13,
+   "height": 32
+  },
+  {
+   "id": "TRM-03.win-ce2",
+   "wall": "conn-e",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    959,
+    1142
+   ],
+   "note": "東の渡り廊下棟の南壁の連窓（腰高）。屋内（TRM-04）の廊下と同じ窓列（建物窓列から導出）（決定 TRM.building-shared）",
+   "center": 1058,
+   "width": 35,
+   "kind": "waist",
+   "sill": 13,
+   "height": 32
+  },
+  {
+   "id": "TRM-03.win-ce3",
+   "wall": "conn-e",
+   "wall_side": "south",
+   "status": "fixed",
+   "along_ref": [
+    959,
+    1142
+   ],
+   "note": "東の渡り廊下棟の南壁の連窓（腰高）。屋内（TRM-04）の廊下と同じ窓列（建物窓列から導出）（決定 TRM.building-shared）",
+   "center": 1113,
+   "width": 35,
+   "kind": "waist",
+   "sill": 13,
+   "height": 32
+  }
+ ],
+ "no_window_walls": [
+  {
+   "wall": "main-hall",
+   "status": "fixed",
+   "reason": "本堂に窓は置かない（決定 TRM.hall-no-window）"
+  }
+ ],
+ "assumptions": [
+  "屋根は箱の天面色で表した（形は省略。高さは画面に収めるため低め: 住居・幼稚園110・本堂150・渡り廊下70）。墓石・遊具は個別に置かず区画ラベルのみ。鐘楼・親鸞像は採用外観から概略。",
+  "参道の幅156は台帳に無く採用外観の測定。",
+  "境内側の戸口位置（住居・幼稚園）は既定を置いた（要確認）。園庭＝境内の右の区画（幼稚園の前）。東の通用門・TRM-01 への接続は無い。（決定 TRM-03.garden）",
+  "園庭の遊具（滑り台1・ブランコ1・半円アーチ4=赤青黄青・動物型1）の位置と大きさは既定（要確認）。幼稚園の掃き出し窓の前（Y425〜600）と、参道・door-playroom 前の通路は空けた。歩行マスクでは遊具=blocked。（決定 TRM-03.garden-play）",
+  "本堂の壁は window_count=0 で、窓は描かない。（決定 TRM.hall-no-window）",
+  "渡り廊下棟（conn-w/conn-e）は屋内（TRM-04）の廊下と同じ建物行から導出する（閉じた壁・南壁に連窓3・木の板張りの床・低い瓦屋根）。屋根は箱の天面色で表し高さ70。柱・屋根の寸法は既定（要確認）。（決定 TRM.building-shared, TRM-03.corridor）",
+  "住居・幼稚園の外への戸口（door-residence/door-playroom）の幅は100単位。内部側（TRM-05/TRM-02 の door-outside）も同幅。窓の位置は変えていない（重ならない）。（決定 TRM.door-width-outside）"
+ ],
+ "decor_pool": "teramachi-winter-exterior",
+ "depends_on": [
+  "TRM-04",
+  "TRM-05",
+  "TRM-02"
+ ],
+ "_provenance": {
+  "source": "MAP:TRM-03|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
+  "input_sha": "c9b4ccbcdd34dcb53c2fac363f47cb7138e0301d2e8144aa3b8ac3427712ae0c",
+  "generated_at": "2026-10-24T06:12",
+  "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
+  "ledger_id": "G-TRM-03-plan",
+  "do_not_edit": true
+ }
+}

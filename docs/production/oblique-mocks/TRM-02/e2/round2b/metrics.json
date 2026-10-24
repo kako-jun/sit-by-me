@@ -1,0 +1,1659 @@
+{
+ "map": "TRM-02",
+ "round": "e2/round2b",
+ "gates": {
+  "edge_recall_room_min": 0.6,
+  "edge_margin_min": 0.15,
+  "chamfer_room_max_px": 6.0,
+  "region_shift_max_px": 8,
+  "region_ok_ratio_min": 0.7,
+  "door_pink_residual_max": 0.02,
+  "window_white_green_max": 0.05,
+  "aspect_tol": 0.005
+ },
+ "takes_measured": 4,
+ "unreliable_regions": [
+  "box:chair-w1",
+  "box:chair-w2"
+ ],
+ "takes_pass": [],
+ "ref": "git:9652459:assets/images/fields/reference/teramachi-kindergarten-interior-adopted.webp",
+ "ref_stats": {
+  "regions": {
+   "desk": {
+    "edge_density": 0.0096,
+    "color_entropy": 5.323,
+    "lab": [
+     37.3,
+     21.3,
+     32.3
+    ],
+    "px": 306573
+   },
+   "slab_front": {
+    "edge_density": 0.1033,
+    "color_entropy": 5.206,
+    "lab": [
+     31.6,
+     12.8,
+     21.4
+    ],
+    "px": 48690
+   },
+   "outside": {
+    "edge_density": 0.0863,
+    "color_entropy": 5.731,
+    "lab": [
+     64.1,
+     2.7,
+     -0.1
+    ],
+    "px": 549753
+   },
+   "floor": {
+    "edge_density": 0.0298,
+    "color_entropy": 4.631,
+    "lab": [
+     32.4,
+     11.2,
+     15.1
+    ],
+    "px": 278562
+   },
+   "wall": {
+    "edge_density": 0.0842,
+    "color_entropy": 7.127,
+    "lab": [
+     43.7,
+     3.9,
+     6.9
+    ],
+    "px": 103525
+   },
+   "objects": {
+    "edge_density": 0.0893,
+    "color_entropy": 6.45,
+    "lab": [
+     32.1,
+     11.0,
+     20.0
+    ],
+    "px": 112452
+   }
+  },
+  "outside_objects": {
+   "evergreen_frac": 0.0217,
+   "branch_frac": 0.0711,
+   "grass_frac": 0.0142,
+   "tree_blobs": 29,
+   "tree_sides": [
+    "E",
+    "N",
+    "S",
+    "W"
+   ],
+   "flat_white_frac": 0.001
+  }
+ },
+ "takes_pass_decor": [
+  "1",
+  "2",
+  "3",
+  "4"
+ ],
+ "takes_pass_all": [],
+ "decor_gates": {
+  "density_ratio_min": 0.6,
+  "layer_color_dE_max": 30.0,
+  "layer_sep_ratio_min": 0.6,
+  "outside_flat_white_max": 0.15,
+  "outside_tree_blobs_min": 6,
+  "outside_tree_sides_min": 3,
+  "outside_evergreen_ratio_min": 0.3,
+  "outside_branch_ratio_min": 0.3,
+  "outside_grass_ratio_min": 0.2
+ },
+ "round2_needed": true,
+ "human_items": [
+  "窓の外に雪・木・空が描かれていないか（測定は窓ガラス内の白/緑の割合のみ。ガラス越しが室内の床に見えるかは目視）",
+  "床の模様の質（板張りに見えるか・不自然な模様がないか。測定は輝度の標準偏差のみ）",
+  "壁の見え方（厚み・材質・上端）と、戸口が木の扉/開口として自然か（ピンク残りは測定、造形は目視）",
+  "家具が実物（棚・椅子・机・舞台）として読めるか。人物・文字・矢印が入っていないか（文字有無は未測定）",
+  "段ボールの土台・雪・木の質感の様式（手作りミニチュアらしさ）"
+ ],
+ "takes": [
+  {
+   "take": "1",
+   "file": "<repo>/docs/production/oblique-mocks/TRM-02/e2/round2b/take1.png",
+   "resized_for_measure": false,
+   "orig_size": [
+    1672,
+    941
+   ],
+   "aspect_ok": true,
+   "edge": {
+    "recall6_room": 0.706,
+    "recall6_shifted_baseline": 0.645,
+    "margin": 0.061,
+    "chamfer_room_px": 5.36,
+    "recall6_full": 0.669,
+    "gen_edge_density_room": 0.0558
+   },
+   "regions": {
+    "door:TRM-02.door-west": {
+     "shift": {
+      "best_score": 0.717,
+      "dx": -26,
+      "dy": -40,
+      "score_at_0": 0.364
+     },
+     "pink_residual": 0.0,
+     "unreliable_self_check": false
+    },
+    "door:TRM-02.door-outside": {
+     "shift": {
+      "best_score": 0.555,
+      "dx": -20,
+      "dy": -28,
+      "score_at_0": 0.237
+     },
+     "pink_residual": 0.0,
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s1": {
+     "shift": {
+      "best_score": 0.584,
+      "dx": 24,
+      "dy": -28,
+      "score_at_0": 0.242
+     },
+     "glass": {
+      "mean_rgb": [
+       155.8,
+       131.3,
+       116.2
+      ],
+      "white": 0.009,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s2": {
+     "shift": {
+      "best_score": 0.627,
+      "dx": 28,
+      "dy": -30,
+      "score_at_0": 0.229
+     },
+     "glass": {
+      "mean_rgb": [
+       128.7,
+       101.6,
+       87.8
+      ],
+      "white": 0.027,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s3": {
+     "shift": {
+      "best_score": 0.646,
+      "dx": -16,
+      "dy": -30,
+      "score_at_0": 0.278
+     },
+     "glass": {
+      "mean_rgb": [
+       124.8,
+       97.0,
+       82.4
+      ],
+      "white": 0.019,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s4": {
+     "shift": {
+      "best_score": 0.633,
+      "dx": -14,
+      "dy": -30,
+      "score_at_0": 0.228
+     },
+     "glass": {
+      "mean_rgb": [
+       122.7,
+       94.4,
+       79.3
+      ],
+      "white": 0.024,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "box:stage": {
+     "shift": {
+      "best_score": 0.599,
+      "dx": -10,
+      "dy": -16,
+      "score_at_0": 0.256
+     },
+     "unreliable_self_check": false
+    },
+    "box:shelf-nw": {
+     "shift": {
+      "best_score": 0.656,
+      "dx": -22,
+      "dy": -12,
+      "score_at_0": 0.236
+     },
+     "unreliable_self_check": false
+    },
+    "box:shelf-ne": {
+     "shift": {
+      "best_score": 0.605,
+      "dx": 32,
+      "dy": -12,
+      "score_at_0": 0.392
+     },
+     "unreliable_self_check": false
+    },
+    "box:chair-w1": {
+     "shift": {
+      "best_score": 0.623,
+      "dx": -36,
+      "dy": -12,
+      "score_at_0": 0.343
+     },
+     "unreliable_self_check": true
+    },
+    "box:chair-w2": {
+     "shift": {
+      "best_score": 0.64,
+      "dx": -40,
+      "dy": -40,
+      "score_at_0": 0.412
+     },
+     "unreliable_self_check": true
+    },
+    "box:chair-w3": {
+     "shift": {
+      "best_score": 0.558,
+      "dx": -40,
+      "dy": -24,
+      "score_at_0": 0.361
+     },
+     "unreliable_self_check": false
+    },
+    "box:table-small": {
+     "shift": {
+      "best_score": 0.581,
+      "dx": -4,
+      "dy": -28,
+      "score_at_0": 0.44
+     },
+     "unreliable_self_check": false
+    },
+    "box:toy-rack": {
+     "shift": {
+      "best_score": 0.657,
+      "dx": 40,
+      "dy": 38,
+      "score_at_0": 0.433
+     },
+     "unreliable_self_check": false
+    },
+    "box:round-table": {
+     "shift": {
+      "best_score": 0.586,
+      "dx": 40,
+      "dy": 40,
+      "score_at_0": 0.341
+     },
+     "unreliable_self_check": false
+    }
+   },
+   "floor": {
+    "lum_std": 33.45,
+    "mean_rgb": [
+     118.3,
+     82.0,
+     62.9
+    ],
+    "mock_mean_rgb": [
+     159.4,
+     130.9,
+     105.7
+    ]
+   },
+   "pink_residual_whole_image": 0.0,
+   "provenance": {
+    "sha256": "de7b22191f9f3ee2decfef53542e75030fd72daf7e0f3143508ad7a41733f094",
+    "bytes": 2992205,
+    "size": [
+     1672,
+     941
+    ],
+    "mode": "RGB",
+    "unique_colors": 193307,
+    "matches_codex_generated_image": "<home>/.codex/generated_images/<session-id>/exec-<exec-id>.png",
+    "new_generated_images_in_run": 24,
+    "log_mentions_unavailable": false,
+    "log_fabrication_tool_calls": 0,
+    "log_mentions_image_gen": true
+   },
+   "global_shift_median_px": [
+    -10.0,
+    -28.0
+   ],
+   "region_ok_ratio": 0.0,
+   "gates": {
+    "aspect": true,
+    "edge_recall": true,
+    "edge_margin": false,
+    "chamfer": true,
+    "regions": false,
+    "door_pink": true,
+    "window_content": true,
+    "genuine": true
+   },
+   "pass": false,
+   "decor": {
+    "regions": {
+     "desk": {
+      "edge_density": 0.0136,
+      "color_entropy": 5.444,
+      "lab": [
+       37.6,
+       24.2,
+       34.0
+      ],
+      "px": 306573,
+      "edge_ratio_vs_ref": 1.42,
+      "entropy_ratio_vs_ref": 1.02,
+      "dE_vs_ref": 3.4
+     },
+     "slab_front": {
+      "edge_density": 0.1003,
+      "color_entropy": 5.221,
+      "lab": [
+       34.9,
+       15.9,
+       26.2
+      ],
+      "px": 48690,
+      "edge_ratio_vs_ref": 0.97,
+      "entropy_ratio_vs_ref": 1.0,
+      "dE_vs_ref": 6.6
+     },
+     "outside": {
+      "edge_density": 0.1176,
+      "color_entropy": 6.291,
+      "lab": [
+       62.4,
+       3.4,
+       3.0
+      ],
+      "px": 549753,
+      "edge_ratio_vs_ref": 1.36,
+      "entropy_ratio_vs_ref": 1.1,
+      "dE_vs_ref": 3.6
+     },
+     "floor": {
+      "edge_density": 0.0304,
+      "color_entropy": 5.212,
+      "lab": [
+       36.3,
+       13.6,
+       18.1
+      ],
+      "px": 278562,
+      "edge_ratio_vs_ref": 1.02,
+      "entropy_ratio_vs_ref": 1.13,
+      "dE_vs_ref": 5.5
+     },
+     "wall": {
+      "edge_density": 0.0817,
+      "color_entropy": 7.29,
+      "lab": [
+       46.1,
+       5.3,
+       9.5
+      ],
+      "px": 103525,
+      "edge_ratio_vs_ref": 0.97,
+      "entropy_ratio_vs_ref": 1.02
+     },
+     "objects": {
+      "edge_density": 0.0909,
+      "color_entropy": 6.897,
+      "lab": [
+       35.4,
+       14.6,
+       23.8
+      ],
+      "px": 112452,
+      "edge_ratio_vs_ref": 1.02,
+      "entropy_ratio_vs_ref": 1.07
+     }
+    },
+    "outside_objects": {
+     "evergreen_frac": 0.0243,
+     "branch_frac": 0.1304,
+     "grass_frac": 0.0409,
+     "tree_blobs": 47,
+     "tree_sides": [
+      "E",
+      "N",
+      "S",
+      "W"
+     ],
+     "flat_white_frac": 0.0004
+    },
+    "layer_sep_desk_outside": 44.8,
+    "layer_sep_ratio_vs_ref": 0.97,
+    "chamfer_to_ref_edges_px": 1.24,
+    "chamfer_to_mock_edges_px": 5.36,
+    "composition_copy_suspect": true
+   },
+   "decor_gates": {
+    "density:desk": true,
+    "density:slab_front": true,
+    "density:outside": true,
+    "density:floor": true,
+    "density:wall": true,
+    "density:objects": true,
+    "layer_color:desk": true,
+    "layer_color:slab_front": true,
+    "layer_color:outside": true,
+    "layer_color:floor": true,
+    "layer_separation": true,
+    "outside_flat_white": true,
+    "outside_trees": true,
+    "outside_evergreen": true,
+    "outside_branch": true,
+    "outside_grass": true
+   },
+   "pass_decor": true,
+   "pass_all": false
+  },
+  {
+   "take": "2",
+   "file": "<repo>/docs/production/oblique-mocks/TRM-02/e2/round2b/take2.png",
+   "resized_for_measure": false,
+   "orig_size": [
+    1672,
+    941
+   ],
+   "aspect_ok": true,
+   "edge": {
+    "recall6_room": 0.677,
+    "recall6_shifted_baseline": 0.651,
+    "margin": 0.026,
+    "chamfer_room_px": 5.49,
+    "recall6_full": 0.619,
+    "gen_edge_density_room": 0.056
+   },
+   "regions": {
+    "door:TRM-02.door-west": {
+     "shift": {
+      "best_score": 0.734,
+      "dx": -20,
+      "dy": -40,
+      "score_at_0": 0.466
+     },
+     "pink_residual": 0.0,
+     "unreliable_self_check": false
+    },
+    "door:TRM-02.door-outside": {
+     "shift": {
+      "best_score": 0.568,
+      "dx": -24,
+      "dy": -28,
+      "score_at_0": 0.189
+     },
+     "pink_residual": 0.0,
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s1": {
+     "shift": {
+      "best_score": 0.585,
+      "dx": 30,
+      "dy": -26,
+      "score_at_0": 0.131
+     },
+     "glass": {
+      "mean_rgb": [
+       162.9,
+       136.0,
+       120.4
+      ],
+      "white": 0.005,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s2": {
+     "shift": {
+      "best_score": 0.615,
+      "dx": -12,
+      "dy": -26,
+      "score_at_0": 0.199
+     },
+     "glass": {
+      "mean_rgb": [
+       130.5,
+       103.2,
+       90.7
+      ],
+      "white": 0.016,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s3": {
+     "shift": {
+      "best_score": 0.634,
+      "dx": 28,
+      "dy": -26,
+      "score_at_0": 0.187
+     },
+     "glass": {
+      "mean_rgb": [
+       124.2,
+       96.8,
+       83.8
+      ],
+      "white": 0.012,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s4": {
+     "shift": {
+      "best_score": 0.64,
+      "dx": -14,
+      "dy": -26,
+      "score_at_0": 0.172
+     },
+     "glass": {
+      "mean_rgb": [
+       121.2,
+       93.8,
+       80.4
+      ],
+      "white": 0.008,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "box:stage": {
+     "shift": {
+      "best_score": 0.603,
+      "dx": -10,
+      "dy": -16,
+      "score_at_0": 0.234
+     },
+     "unreliable_self_check": false
+    },
+    "box:shelf-nw": {
+     "shift": {
+      "best_score": 0.639,
+      "dx": -40,
+      "dy": -10,
+      "score_at_0": 0.256
+     },
+     "unreliable_self_check": false
+    },
+    "box:shelf-ne": {
+     "shift": {
+      "best_score": 0.584,
+      "dx": 32,
+      "dy": -10,
+      "score_at_0": 0.374
+     },
+     "unreliable_self_check": false
+    },
+    "box:chair-w1": {
+     "shift": {
+      "best_score": 0.643,
+      "dx": -38,
+      "dy": -20,
+      "score_at_0": 0.442
+     },
+     "unreliable_self_check": true
+    },
+    "box:chair-w2": {
+     "shift": {
+      "best_score": 0.622,
+      "dx": -34,
+      "dy": -40,
+      "score_at_0": 0.488
+     },
+     "unreliable_self_check": true
+    },
+    "box:chair-w3": {
+     "shift": {
+      "best_score": 0.581,
+      "dx": -34,
+      "dy": -34,
+      "score_at_0": 0.345
+     },
+     "unreliable_self_check": false
+    },
+    "box:table-small": {
+     "shift": {
+      "best_score": 0.562,
+      "dx": -4,
+      "dy": -26,
+      "score_at_0": 0.434
+     },
+     "unreliable_self_check": false
+    },
+    "box:toy-rack": {
+     "shift": {
+      "best_score": 0.643,
+      "dx": 30,
+      "dy": 40,
+      "score_at_0": 0.434
+     },
+     "unreliable_self_check": false
+    },
+    "box:round-table": {
+     "shift": {
+      "best_score": 0.58,
+      "dx": -2,
+      "dy": 40,
+      "score_at_0": 0.31
+     },
+     "unreliable_self_check": false
+    }
+   },
+   "floor": {
+    "lum_std": 32.18,
+    "mean_rgb": [
+     111.6,
+     75.6,
+     56.5
+    ],
+    "mock_mean_rgb": [
+     159.4,
+     130.9,
+     105.7
+    ]
+   },
+   "pink_residual_whole_image": 0.0,
+   "provenance": {
+    "sha256": "c2a71af9c76b1cce2462b295182cae91a57c06aac206c1ea9a6c7f1b24db4c40",
+    "bytes": 2851249,
+    "size": [
+     1672,
+     941
+    ],
+    "mode": "RGB",
+    "unique_colors": 178767,
+    "matches_codex_generated_image": "<home>/.codex/generated_images/<session-id>/exec-<exec-id>.png",
+    "new_generated_images_in_run": 24,
+    "log_mentions_unavailable": false,
+    "log_fabrication_tool_calls": 0,
+    "log_mentions_image_gen": true
+   },
+   "global_shift_median_px": [
+    -10.0,
+    -26.0
+   ],
+   "region_ok_ratio": 0.0,
+   "gates": {
+    "aspect": true,
+    "edge_recall": true,
+    "edge_margin": false,
+    "chamfer": true,
+    "regions": false,
+    "door_pink": true,
+    "window_content": true,
+    "genuine": true
+   },
+   "pass": false,
+   "decor": {
+    "regions": {
+     "desk": {
+      "edge_density": 0.0083,
+      "color_entropy": 5.213,
+      "lab": [
+       37.2,
+       24.9,
+       34.9
+      ],
+      "px": 306573,
+      "edge_ratio_vs_ref": 0.86,
+      "entropy_ratio_vs_ref": 0.98,
+      "dE_vs_ref": 4.4
+     },
+     "slab_front": {
+      "edge_density": 0.0976,
+      "color_entropy": 5.069,
+      "lab": [
+       30.9,
+       15.7,
+       24.7
+      ],
+      "px": 48690,
+      "edge_ratio_vs_ref": 0.94,
+      "entropy_ratio_vs_ref": 0.97,
+      "dE_vs_ref": 4.4
+     },
+     "outside": {
+      "edge_density": 0.0885,
+      "color_entropy": 5.836,
+      "lab": [
+       66.7,
+       3.1,
+       2.3
+      ],
+      "px": 549753,
+      "edge_ratio_vs_ref": 1.03,
+      "entropy_ratio_vs_ref": 1.02,
+      "dE_vs_ref": 3.6
+     },
+     "floor": {
+      "edge_density": 0.0293,
+      "color_entropy": 4.958,
+      "lab": [
+       33.3,
+       13.6,
+       18.1
+      ],
+      "px": 278562,
+      "edge_ratio_vs_ref": 0.98,
+      "entropy_ratio_vs_ref": 1.07,
+      "dE_vs_ref": 3.9
+     },
+     "wall": {
+      "edge_density": 0.0867,
+      "color_entropy": 7.432,
+      "lab": [
+       46.7,
+       5.4,
+       9.2
+      ],
+      "px": 103525,
+      "edge_ratio_vs_ref": 1.03,
+      "entropy_ratio_vs_ref": 1.04
+     },
+     "objects": {
+      "edge_density": 0.0929,
+      "color_entropy": 6.68,
+      "lab": [
+       33.5,
+       13.7,
+       23.5
+      ],
+      "px": 112452,
+      "edge_ratio_vs_ref": 1.04,
+      "entropy_ratio_vs_ref": 1.04
+     }
+    },
+    "outside_objects": {
+     "evergreen_frac": 0.0226,
+     "branch_frac": 0.1065,
+     "grass_frac": 0.0402,
+     "tree_blobs": 39,
+     "tree_sides": [
+      "E",
+      "N",
+      "S",
+      "W"
+     ],
+     "flat_white_frac": 0.0012
+    },
+    "layer_sep_desk_outside": 49.1,
+    "layer_sep_ratio_vs_ref": 1.07,
+    "chamfer_to_ref_edges_px": 1.06,
+    "chamfer_to_mock_edges_px": 5.49,
+    "composition_copy_suspect": true
+   },
+   "decor_gates": {
+    "density:desk": true,
+    "density:slab_front": true,
+    "density:outside": true,
+    "density:floor": true,
+    "density:wall": true,
+    "density:objects": true,
+    "layer_color:desk": true,
+    "layer_color:slab_front": true,
+    "layer_color:outside": true,
+    "layer_color:floor": true,
+    "layer_separation": true,
+    "outside_flat_white": true,
+    "outside_trees": true,
+    "outside_evergreen": true,
+    "outside_branch": true,
+    "outside_grass": true
+   },
+   "pass_decor": true,
+   "pass_all": false
+  },
+  {
+   "take": "3",
+   "file": "<repo>/docs/production/oblique-mocks/TRM-02/e2/round2b/take3.png",
+   "resized_for_measure": true,
+   "orig_size": [
+    1671,
+    941
+   ],
+   "aspect_ok": true,
+   "edge": {
+    "recall6_room": 0.675,
+    "recall6_shifted_baseline": 0.649,
+    "margin": 0.026,
+    "chamfer_room_px": 5.57,
+    "recall6_full": 0.658,
+    "gen_edge_density_room": 0.0565
+   },
+   "regions": {
+    "door:TRM-02.door-west": {
+     "shift": {
+      "best_score": 0.735,
+      "dx": -24,
+      "dy": -40,
+      "score_at_0": 0.396
+     },
+     "pink_residual": 0.0,
+     "unreliable_self_check": false
+    },
+    "door:TRM-02.door-outside": {
+     "shift": {
+      "best_score": 0.547,
+      "dx": -18,
+      "dy": -24,
+      "score_at_0": 0.191
+     },
+     "pink_residual": 0.0,
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s1": {
+     "shift": {
+      "best_score": 0.593,
+      "dx": 28,
+      "dy": -24,
+      "score_at_0": 0.21
+     },
+     "glass": {
+      "mean_rgb": [
+       150.0,
+       122.5,
+       106.3
+      ],
+      "white": 0.003,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s2": {
+     "shift": {
+      "best_score": 0.635,
+      "dx": 26,
+      "dy": -28,
+      "score_at_0": 0.181
+     },
+     "glass": {
+      "mean_rgb": [
+       126.0,
+       96.5,
+       81.8
+      ],
+      "white": 0.013,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s3": {
+     "shift": {
+      "best_score": 0.638,
+      "dx": -16,
+      "dy": -28,
+      "score_at_0": 0.196
+     },
+     "glass": {
+      "mean_rgb": [
+       121.9,
+       92.5,
+       77.6
+      ],
+      "white": 0.012,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s4": {
+     "shift": {
+      "best_score": 0.604,
+      "dx": 22,
+      "dy": -24,
+      "score_at_0": 0.161
+     },
+     "glass": {
+      "mean_rgb": [
+       121.0,
+       90.9,
+       75.4
+      ],
+      "white": 0.004,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "box:stage": {
+     "shift": {
+      "best_score": 0.601,
+      "dx": -8,
+      "dy": -14,
+      "score_at_0": 0.277
+     },
+     "unreliable_self_check": false
+    },
+    "box:shelf-nw": {
+     "shift": {
+      "best_score": 0.657,
+      "dx": 40,
+      "dy": -10,
+      "score_at_0": 0.27
+     },
+     "unreliable_self_check": false
+    },
+    "box:shelf-ne": {
+     "shift": {
+      "best_score": 0.605,
+      "dx": 36,
+      "dy": -10,
+      "score_at_0": 0.301
+     },
+     "unreliable_self_check": false
+    },
+    "box:chair-w1": {
+     "shift": {
+      "best_score": 0.65,
+      "dx": -40,
+      "dy": 12,
+      "score_at_0": 0.493
+     },
+     "unreliable_self_check": true
+    },
+    "box:chair-w2": {
+     "shift": {
+      "best_score": 0.661,
+      "dx": -38,
+      "dy": -32,
+      "score_at_0": 0.528
+     },
+     "unreliable_self_check": true
+    },
+    "box:chair-w3": {
+     "shift": {
+      "best_score": 0.58,
+      "dx": -38,
+      "dy": -34,
+      "score_at_0": 0.357
+     },
+     "unreliable_self_check": false
+    },
+    "box:table-small": {
+     "shift": {
+      "best_score": 0.58,
+      "dx": -4,
+      "dy": -18,
+      "score_at_0": 0.435
+     },
+     "unreliable_self_check": false
+    },
+    "box:toy-rack": {
+     "shift": {
+      "best_score": 0.652,
+      "dx": 40,
+      "dy": 40,
+      "score_at_0": 0.447
+     },
+     "unreliable_self_check": false
+    },
+    "box:round-table": {
+     "shift": {
+      "best_score": 0.588,
+      "dx": 40,
+      "dy": 40,
+      "score_at_0": 0.374
+     },
+     "unreliable_self_check": false
+    }
+   },
+   "floor": {
+    "lum_std": 31.04,
+    "mean_rgb": [
+     118.1,
+     80.3,
+     60.4
+    ],
+    "mock_mean_rgb": [
+     159.4,
+     130.9,
+     105.7
+    ]
+   },
+   "pink_residual_whole_image": 0.0,
+   "provenance": {
+    "sha256": "0f7fb0111d1820be72647f27a962f8fd38a5963c56807c12e6c36c103253beb1",
+    "bytes": 2888925,
+    "size": [
+     1671,
+     941
+    ],
+    "mode": "RGB",
+    "unique_colors": 177580,
+    "matches_codex_generated_image": "<home>/.codex/generated_images/<session-id>/exec-<exec-id>.png",
+    "new_generated_images_in_run": 24,
+    "log_mentions_unavailable": false,
+    "log_fabrication_tool_calls": 0,
+    "log_mentions_image_gen": true
+   },
+   "global_shift_median_px": [
+    22.0,
+    -24.0
+   ],
+   "region_ok_ratio": 0.0,
+   "gates": {
+    "aspect": true,
+    "edge_recall": true,
+    "edge_margin": false,
+    "chamfer": true,
+    "regions": false,
+    "door_pink": true,
+    "window_content": true,
+    "genuine": true
+   },
+   "pass": false,
+   "decor": {
+    "regions": {
+     "desk": {
+      "edge_density": 0.012,
+      "color_entropy": 5.33,
+      "lab": [
+       37.7,
+       23.2,
+       32.9
+      ],
+      "px": 306573,
+      "edge_ratio_vs_ref": 1.25,
+      "entropy_ratio_vs_ref": 1.0,
+      "dE_vs_ref": 2.0
+     },
+     "slab_front": {
+      "edge_density": 0.0997,
+      "color_entropy": 4.96,
+      "lab": [
+       33.8,
+       15.3,
+       25.5
+      ],
+      "px": 48690,
+      "edge_ratio_vs_ref": 0.97,
+      "entropy_ratio_vs_ref": 0.95,
+      "dE_vs_ref": 5.3
+     },
+     "outside": {
+      "edge_density": 0.0955,
+      "color_entropy": 5.92,
+      "lab": [
+       65.2,
+       3.3,
+       2.4
+      ],
+      "px": 549753,
+      "edge_ratio_vs_ref": 1.11,
+      "entropy_ratio_vs_ref": 1.03,
+      "dE_vs_ref": 2.8
+     },
+     "floor": {
+      "edge_density": 0.0278,
+      "color_entropy": 4.978,
+      "lab": [
+       35.9,
+       14.0,
+       18.7
+      ],
+      "px": 278562,
+      "edge_ratio_vs_ref": 0.93,
+      "entropy_ratio_vs_ref": 1.07,
+      "dE_vs_ref": 5.7
+     },
+     "wall": {
+      "edge_density": 0.084,
+      "color_entropy": 7.397,
+      "lab": [
+       45.4,
+       6.1,
+       9.2
+      ],
+      "px": 103525,
+      "edge_ratio_vs_ref": 1.0,
+      "entropy_ratio_vs_ref": 1.04
+     },
+     "objects": {
+      "edge_density": 0.0977,
+      "color_entropy": 6.74,
+      "lab": [
+       34.6,
+       13.2,
+       22.8
+      ],
+      "px": 112452,
+      "edge_ratio_vs_ref": 1.09,
+      "entropy_ratio_vs_ref": 1.04
+     }
+    },
+    "outside_objects": {
+     "evergreen_frac": 0.0218,
+     "branch_frac": 0.1139,
+     "grass_frac": 0.0392,
+     "tree_blobs": 46,
+     "tree_sides": [
+      "E",
+      "N",
+      "S",
+      "W"
+     ],
+     "flat_white_frac": 0.0022
+    },
+    "layer_sep_desk_outside": 45.6,
+    "layer_sep_ratio_vs_ref": 0.99,
+    "chamfer_to_ref_edges_px": 1.7,
+    "chamfer_to_mock_edges_px": 5.57,
+    "composition_copy_suspect": true
+   },
+   "decor_gates": {
+    "density:desk": true,
+    "density:slab_front": true,
+    "density:outside": true,
+    "density:floor": true,
+    "density:wall": true,
+    "density:objects": true,
+    "layer_color:desk": true,
+    "layer_color:slab_front": true,
+    "layer_color:outside": true,
+    "layer_color:floor": true,
+    "layer_separation": true,
+    "outside_flat_white": true,
+    "outside_trees": true,
+    "outside_evergreen": true,
+    "outside_branch": true,
+    "outside_grass": true
+   },
+   "pass_decor": true,
+   "pass_all": false
+  },
+  {
+   "take": "4",
+   "file": "<repo>/docs/production/oblique-mocks/TRM-02/e2/round2b/take4.png",
+   "resized_for_measure": false,
+   "orig_size": [
+    1672,
+    941
+   ],
+   "aspect_ok": true,
+   "edge": {
+    "recall6_room": 0.749,
+    "recall6_shifted_baseline": 0.599,
+    "margin": 0.15,
+    "chamfer_room_px": 4.86,
+    "recall6_full": 0.653,
+    "gen_edge_density_room": 0.053
+   },
+   "regions": {
+    "door:TRM-02.door-west": {
+     "shift": {
+      "best_score": 0.703,
+      "dx": -38,
+      "dy": -40,
+      "score_at_0": 0.44
+     },
+     "pink_residual": 0.0,
+     "unreliable_self_check": false
+    },
+    "door:TRM-02.door-outside": {
+     "shift": {
+      "best_score": 0.588,
+      "dx": 18,
+      "dy": 2,
+      "score_at_0": 0.389
+     },
+     "pink_residual": 0.0,
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s1": {
+     "shift": {
+      "best_score": 0.649,
+      "dx": 2,
+      "dy": -20,
+      "score_at_0": 0.595
+     },
+     "glass": {
+      "mean_rgb": [
+       100.2,
+       77.9,
+       65.9
+      ],
+      "white": 0.004,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s2": {
+     "shift": {
+      "best_score": 0.602,
+      "dx": -4,
+      "dy": -20,
+      "score_at_0": 0.516
+     },
+     "glass": {
+      "mean_rgb": [
+       115.0,
+       90.6,
+       78.9
+      ],
+      "white": 0.002,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s3": {
+     "shift": {
+      "best_score": 0.623,
+      "dx": -12,
+      "dy": -20,
+      "score_at_0": 0.495
+     },
+     "glass": {
+      "mean_rgb": [
+       113.2,
+       87.2,
+       74.0
+      ],
+      "white": 0.001,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-02.win-s4": {
+     "shift": {
+      "best_score": 0.625,
+      "dx": -6,
+      "dy": -20,
+      "score_at_0": 0.491
+     },
+     "glass": {
+      "mean_rgb": [
+       108.5,
+       81.6,
+       67.3
+      ],
+      "white": 0.0,
+      "green": 0.0,
+      "px": 11837
+     },
+     "unreliable_self_check": false
+    },
+    "box:stage": {
+     "shift": {
+      "best_score": 0.615,
+      "dx": -6,
+      "dy": -12,
+      "score_at_0": 0.31
+     },
+     "unreliable_self_check": false
+    },
+    "box:shelf-nw": {
+     "shift": {
+      "best_score": 0.645,
+      "dx": 34,
+      "dy": -8,
+      "score_at_0": 0.299
+     },
+     "unreliable_self_check": false
+    },
+    "box:shelf-ne": {
+     "shift": {
+      "best_score": 0.602,
+      "dx": 6,
+      "dy": -8,
+      "score_at_0": 0.296
+     },
+     "unreliable_self_check": false
+    },
+    "box:chair-w1": {
+     "shift": {
+      "best_score": 0.586,
+      "dx": -6,
+      "dy": 20,
+      "score_at_0": 0.419
+     },
+     "unreliable_self_check": true
+    },
+    "box:chair-w2": {
+     "shift": {
+      "best_score": 0.601,
+      "dx": -40,
+      "dy": -30,
+      "score_at_0": 0.53
+     },
+     "unreliable_self_check": true
+    },
+    "box:chair-w3": {
+     "shift": {
+      "best_score": 0.55,
+      "dx": -4,
+      "dy": -32,
+      "score_at_0": 0.292
+     },
+     "unreliable_self_check": false
+    },
+    "box:table-small": {
+     "shift": {
+      "best_score": 0.6,
+      "dx": 6,
+      "dy": -16,
+      "score_at_0": 0.398
+     },
+     "unreliable_self_check": false
+    },
+    "box:toy-rack": {
+     "shift": {
+      "best_score": 0.629,
+      "dx": 40,
+      "dy": 10,
+      "score_at_0": 0.405
+     },
+     "unreliable_self_check": false
+    },
+    "box:round-table": {
+     "shift": {
+      "best_score": 0.488,
+      "dx": 14,
+      "dy": 40,
+      "score_at_0": 0.249
+     },
+     "unreliable_self_check": false
+    }
+   },
+   "floor": {
+    "lum_std": 31.92,
+    "mean_rgb": [
+     112.0,
+     76.7,
+     57.1
+    ],
+    "mock_mean_rgb": [
+     159.4,
+     130.9,
+     105.7
+    ]
+   },
+   "pink_residual_whole_image": 0.0,
+   "provenance": {
+    "sha256": "b900206597fd4d6e4f598ff3007ae242ea0ac9336b21a0b0eb8fa0cb72a62ef1",
+    "bytes": 2861250,
+    "size": [
+     1672,
+     941
+    ],
+    "mode": "RGB",
+    "unique_colors": 169274,
+    "matches_codex_generated_image": "<home>/.codex/generated_images/<session-id>/exec-<exec-id>.png",
+    "new_generated_images_in_run": 24,
+    "log_mentions_unavailable": false,
+    "log_fabrication_tool_calls": 0,
+    "log_mentions_image_gen": true
+   },
+   "global_shift_median_px": [
+    2.0,
+    -16.0
+   ],
+   "region_ok_ratio": 0.077,
+   "gates": {
+    "aspect": true,
+    "edge_recall": true,
+    "edge_margin": true,
+    "chamfer": true,
+    "regions": false,
+    "door_pink": true,
+    "window_content": true,
+    "genuine": true
+   },
+   "pass": false,
+   "decor": {
+    "regions": {
+     "desk": {
+      "edge_density": 0.012,
+      "color_entropy": 5.426,
+      "lab": [
+       35.8,
+       21.6,
+       31.4
+      ],
+      "px": 306573,
+      "edge_ratio_vs_ref": 1.25,
+      "entropy_ratio_vs_ref": 1.02,
+      "dE_vs_ref": 1.8
+     },
+     "slab_front": {
+      "edge_density": 0.1381,
+      "color_entropy": 5.993,
+      "lab": [
+       44.7,
+       11.8,
+       17.6
+      ],
+      "px": 48690,
+      "edge_ratio_vs_ref": 1.34,
+      "entropy_ratio_vs_ref": 1.15,
+      "dE_vs_ref": 13.7
+     },
+     "outside": {
+      "edge_density": 0.0887,
+      "color_entropy": 5.87,
+      "lab": [
+       66.2,
+       3.2,
+       1.5
+      ],
+      "px": 549753,
+      "edge_ratio_vs_ref": 1.03,
+      "entropy_ratio_vs_ref": 1.02,
+      "dE_vs_ref": 2.7
+     },
+     "floor": {
+      "edge_density": 0.0243,
+      "color_entropy": 5.148,
+      "lab": [
+       35.2,
+       12.9,
+       18.1
+      ],
+      "px": 278562,
+      "edge_ratio_vs_ref": 0.82,
+      "entropy_ratio_vs_ref": 1.11,
+      "dE_vs_ref": 4.4
+     },
+     "wall": {
+      "edge_density": 0.077,
+      "color_entropy": 7.184,
+      "lab": [
+       42.4,
+       4.9,
+       11.0
+      ],
+      "px": 103525,
+      "edge_ratio_vs_ref": 0.91,
+      "entropy_ratio_vs_ref": 1.01
+     },
+     "objects": {
+      "edge_density": 0.0904,
+      "color_entropy": 6.617,
+      "lab": [
+       34.9,
+       12.7,
+       22.4
+      ],
+      "px": 112452,
+      "edge_ratio_vs_ref": 1.01,
+      "entropy_ratio_vs_ref": 1.03
+     }
+    },
+    "outside_objects": {
+     "evergreen_frac": 0.0221,
+     "branch_frac": 0.1025,
+     "grass_frac": 0.042,
+     "tree_blobs": 37,
+     "tree_sides": [
+      "E",
+      "N",
+      "S",
+      "W"
+     ],
+     "flat_white_frac": 0.0034
+    },
+    "layer_sep_desk_outside": 46.4,
+    "layer_sep_ratio_vs_ref": 1.01,
+    "chamfer_to_ref_edges_px": 3.48,
+    "chamfer_to_mock_edges_px": 4.86,
+    "composition_copy_suspect": true
+   },
+   "decor_gates": {
+    "density:desk": true,
+    "density:slab_front": true,
+    "density:outside": true,
+    "density:floor": true,
+    "density:wall": true,
+    "density:objects": true,
+    "layer_color:desk": true,
+    "layer_color:slab_front": true,
+    "layer_color:outside": true,
+    "layer_color:floor": true,
+    "layer_separation": true,
+    "outside_flat_white": true,
+    "outside_trees": true,
+    "outside_evergreen": true,
+    "outside_branch": true,
+    "outside_grass": true
+   },
+   "pass_decor": true,
+   "pass_all": false
+  }
+ ],
+ "inter_take": {
+  "pairwise_chamfer": [
+   {
+    "pair": "1-2",
+    "sym_chamfer_room_px": 1.37
+   },
+   {
+    "pair": "1-3",
+    "sym_chamfer_room_px": 1.64
+   },
+   {
+    "pair": "1-4",
+    "sym_chamfer_room_px": 3.36
+   },
+   {
+    "pair": "2-3",
+    "sym_chamfer_room_px": 1.51
+   },
+   {
+    "pair": "2-4",
+    "sym_chamfer_room_px": 3.34
+   },
+   {
+    "pair": "3-4",
+    "sym_chamfer_room_px": 3.2
+   }
+  ],
+  "mean_pairwise_chamfer_px": 2.4,
+  "blurred_lum_pixel_std_room_mean": 10.29,
+  "region_shift_sd": {
+   "door:TRM-02.door-west": {
+    "dx_sd": 6.7,
+    "dy_sd": 0.0
+   },
+   "door:TRM-02.door-outside": {
+    "dx_sd": 16.9,
+    "dy_sd": 12.5
+   },
+   "window:TRM-02.win-s1": {
+    "dx_sd": 11.2,
+    "dy_sd": 3.0
+   },
+   "window:TRM-02.win-s2": {
+    "dx_sd": 17.7,
+    "dy_sd": 3.7
+   },
+   "window:TRM-02.win-s3": {
+    "dx_sd": 18.5,
+    "dy_sd": 3.7
+   },
+   "window:TRM-02.win-s4": {
+    "dx_sd": 14.8,
+    "dy_sd": 3.6
+   },
+   "box:stage": {
+    "dx_sd": 1.7,
+    "dy_sd": 1.7
+   },
+   "box:shelf-nw": {
+    "dx_sd": 34.7,
+    "dy_sd": 1.4
+   },
+   "box:shelf-ne": {
+    "dx_sd": 11.9,
+    "dy_sd": 1.4
+   },
+   "box:chair-w1": {
+    "dx_sd": 13.9,
+    "dy_sd": 16.5
+   },
+   "box:chair-w2": {
+    "dx_sd": 2.4,
+    "dy_sd": 4.6
+   },
+   "box:chair-w3": {
+    "dx_sd": 14.6,
+    "dy_sd": 4.1
+   },
+   "box:table-small": {
+    "dx_sd": 4.3,
+    "dy_sd": 5.1
+   },
+   "box:toy-rack": {
+    "dx_sd": 4.3,
+    "dy_sd": 12.7
+   },
+   "box:round-table": {
+    "dx_sd": 17.9,
+    "dy_sd": 0.0
+   }
+  },
+  "region_shift_sd_mean_px": 8.85
+ }
+}

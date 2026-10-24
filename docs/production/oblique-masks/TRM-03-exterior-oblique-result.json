@@ -1,0 +1,485 @@
+{
+ "schema": "sit-oblique-result/1",
+ "map_id": "TRM-03-exterior",
+ "image": {
+  "sha256": "1f4a3bb602d7981ece1fc50ac7fd5cba9ba724187cd40af2745b40e8b08526cc",
+  "size": [
+   1672,
+   941
+  ]
+ },
+ "input_sha256": "a8e65c797cbf32b0f11d9740e64c6dbd342b3b3329b444ff87f949a506d83f6f",
+ "register_sha256": "17be6ea5ee5e88d1b9659d20efe056e04a146f013309425176347a50ca597ed1",
+ "floor": [
+  {
+   "room": "grounds",
+   "floor_core_lab": [
+    210,
+    131,
+    124
+   ],
+   "thr": 6.0,
+   "quad_px": 883070,
+   "white_px": 195030,
+   "white_share_of_quad": 0.221,
+   "md_gt15_white_px": 54,
+   "furniture_components": 28
+  },
+  {
+   "room": "path",
+   "floor_core_lab": [
+    78,
+    130,
+    127
+   ],
+   "thr": 200.0,
+   "quad_px": 120185,
+   "white_px": 118641,
+   "white_share_of_quad": 0.987,
+   "md_gt15_white_px": 0,
+   "furniture_components": 0
+  },
+  {
+   "room": "west-snow",
+   "floor_core_lab": [
+    209,
+    131,
+    125
+   ],
+   "thr": 6.0,
+   "quad_px": 383581,
+   "white_px": 23236,
+   "white_share_of_quad": 0.061,
+   "md_gt15_white_px": 35,
+   "furniture_components": 7
+  },
+  {
+   "room": "east-snow",
+   "floor_core_lab": [
+    210,
+    131,
+    124
+   ],
+   "thr": 6.0,
+   "quad_px": 385722,
+   "white_px": 158024,
+   "white_share_of_quad": 0.41,
+   "md_gt15_white_px": 52,
+   "furniture_components": 17
+  }
+ ],
+ "counts_px": {
+  "white": 317354,
+  "assist_orange": 0,
+  "blocked_manual": 308209,
+  "white_components": 1
+ },
+ "blocked": [
+  {
+   "id": "graveyard",
+   "room": null,
+   "reason": "墓地の区画（台帳: 墓地は blocked 域）。墓石の間の雪面は区画ごと閉じる。通れる範囲は kako-jun 判断（質問）",
+   "leak_white_px": 0,
+   "pass": true
+  },
+  {
+   "id": "snowman-playground-1",
+   "room": null,
+   "reason": "雪だるま（雪色で床モデルでは弾けない。手書き楕円）",
+   "leak_white_px": 0,
+   "pass": true
+  },
+  {
+   "id": "snowman-playground-2",
+   "room": null,
+   "reason": "雪だるま（同上）",
+   "leak_white_px": 0,
+   "pass": true
+  },
+  {
+   "id": "snowman-playground-3",
+   "room": null,
+   "reason": "雪だるま（同上）",
+   "leak_white_px": 0,
+   "pass": true
+  },
+  {
+   "id": "snowman-playground-4",
+   "room": null,
+   "reason": "雪だるま（同上）",
+   "leak_white_px": 0,
+   "pass": true
+  }
+ ],
+ "exits": [
+  {
+   "id": "door-main",
+   "room": "grounds",
+   "edge": "north",
+   "partner": "TRM-04.door-south",
+   "design_source": [
+    {
+     "file": "docs/map-topology.md",
+     "line": 139,
+     "quote": "TRM-03.door-main | TRM-04.door-south | door | 本堂内部"
+    },
+    {
+     "file": "docs/map-topology.md",
+     "line": 285,
+     "quote": "境内から本堂へ。段差を主路にせず、扉前に回転余地を残す"
+    }
+   ],
+   "position_status": "fixed",
+   "check": {
+    "polygon": [
+     [
+      771.4,
+      283.1
+     ],
+     [
+      888.5,
+      285.1
+     ],
+     [
+      888.0,
+      371.9
+     ],
+     [
+      768.7,
+      370.1
+     ]
+    ],
+    "range_px": 10519,
+    "white_px": 9448,
+    "floor_edge_px": 119,
+    "touches_floor_edge": true,
+    "edge_adjacent_in_plan": true,
+    "max_depth_into_floor_px": 80.0,
+    "pass": true
+   },
+   "candidates": []
+  },
+  {
+   "id": "door-residence",
+   "room": "grounds",
+   "edge": "north",
+   "partner": "TRM-05.door-outside",
+   "design_source": [
+    {
+     "file": "Issue #144 コメント（kako-jun 2026-10-23）",
+     "line": null,
+     "quote": "TRM-03 は住居 TRM-05（外への出口＝TRM-03.door-residence↔TRM-05.door-outside）と幼稚園 TRM-02（外への出口＝TRM-03.door-playroom↔TRM-02.door-outside）に屋外の出入口がある。IDは暫定。台帳（map-topology.md:289 の『屋外doorを新設しない』）は別担当が更新中"
+    }
+   ],
+   "position_status": "fixed",
+   "check": {
+    "polygon": [
+     [
+      226.7,
+      273.8
+     ],
+     [
+      347.2,
+      275.8
+     ],
+     [
+      336.0,
+      363.7
+     ],
+     [
+      213.0,
+      361.9
+     ]
+    ],
+    "range_px": 10924,
+    "white_px": 0,
+    "floor_edge_px": 0,
+    "touches_floor_edge": false,
+    "edge_adjacent_in_plan": true,
+    "max_depth_into_floor_px": 0.0,
+    "pass": false
+   },
+   "candidates": []
+  },
+  {
+   "id": "door-playroom",
+   "room": "grounds",
+   "edge": "north",
+   "partner": "TRM-02.door-outside",
+   "design_source": [
+    {
+     "file": "Issue #144 コメント（kako-jun 2026-10-23）",
+     "line": null,
+     "quote": "TRM-03 は住居 TRM-05（外への出口＝TRM-03.door-residence↔TRM-05.door-outside）と幼稚園 TRM-02（外への出口＝TRM-03.door-playroom↔TRM-02.door-outside）に屋外の出入口がある。IDは暫定。台帳（map-topology.md:289 の『屋外doorを新設しない』）は別担当が更新中"
+    }
+   ],
+   "position_status": "fixed",
+   "check": {
+    "polygon": [
+     [
+      1406.6,
+      294.1
+     ],
+     [
+      1519.7,
+      296.0
+     ],
+     [
+      1531.5,
+      381.5
+     ],
+     [
+      1416.2,
+      379.8
+     ]
+    ],
+    "range_px": 9933,
+    "white_px": 3117,
+    "floor_edge_px": 284,
+    "touches_floor_edge": true,
+    "edge_adjacent_in_plan": true,
+    "max_depth_into_floor_px": 20.5,
+    "pass": true
+   },
+   "candidates": []
+  },
+  {
+   "id": "bottom",
+   "room": "grounds",
+   "edge": "south",
+   "partner": "TRM-07.top",
+   "design_source": [
+    {
+     "file": "docs/map-topology.md",
+     "line": 130,
+     "quote": "TRM-07.top | TRM-03.bottom | edge | 山門から境内へ"
+    },
+    {
+     "file": "docs/map-topology.md",
+     "line": 572,
+     "quote": "山門（南）から本堂（北）へ石畳"
+    }
+   ],
+   "position_status": "fixed",
+   "check": {
+    "polygon": [
+     [
+      753.3,
+      808.7
+     ],
+     [
+      918.0,
+      809.2
+     ],
+     [
+      918.0,
+      853.6
+     ],
+     [
+      751.9,
+      853.3
+     ]
+    ],
+    "range_px": 7576,
+    "white_px": 6825,
+    "floor_edge_px": 167,
+    "touches_floor_edge": true,
+    "edge_adjacent_in_plan": true,
+    "max_depth_into_floor_px": 41.0,
+    "pass": true
+   },
+   "candidates": []
+  },
+  {
+   "id": "door-kindergarten",
+   "room": "grounds",
+   "edge": "east",
+   "partner": "TRM-01.door-west",
+   "design_source": [
+    {
+     "file": "docs/map-topology.md",
+     "line": 585,
+     "quote": "TRM-03.door-kindergarten | TRM-01.door-west | ドア（通用門） | 境内の東脇から右隣の園庭へ。扉位置TBD"
+    },
+    {
+     "file": "docs/map-contract-checklist.md",
+     "line": null,
+     "quote": "通用門なし（kako-jun 指示では絵に通用門が無い）"
+    }
+   ],
+   "position_status": "TBD",
+   "check": null,
+   "note": "設計書に位置が無い（TBD）。絵から読まない。候補は candidates",
+   "candidates": [
+    {
+     "id": "E-north",
+     "note": "東辺の北寄り（幼稚園棟の南東の角の下）",
+     "polygon": [
+      [
+       1530.3,
+       356.4
+      ],
+      [
+       1587.1,
+       357.3
+      ],
+      [
+       1600.3,
+       445.0
+      ],
+      [
+       1542.4,
+       444.2
+      ]
+     ],
+     "range_px": 5195,
+     "white_px": 253,
+     "floor_edge_px": 55,
+     "touches_floor_edge": true,
+     "edge_adjacent_in_plan": true,
+     "max_depth_into_floor_px": 8.6,
+     "pass": true
+    },
+    {
+     "id": "E-mid",
+     "note": "東辺の中ほど（園庭の横）",
+     "polygon": [
+      [
+       1550.6,
+       503.8
+      ],
+      [
+       1609.2,
+       504.5
+      ],
+      [
+       1623.3,
+       598.1
+      ],
+      [
+       1563.6,
+       597.6
+      ]
+     ],
+     "range_px": 5653,
+     "white_px": 0,
+     "floor_edge_px": 0,
+     "touches_floor_edge": false,
+     "edge_adjacent_in_plan": true,
+     "max_depth_into_floor_px": 0.0,
+     "pass": false
+    },
+    {
+     "id": "E-south",
+     "note": "東辺の南寄り",
+     "polygon": [
+      [
+       1575.6,
+       684.7
+      ],
+      [
+       1636.4,
+       685.0
+      ],
+      [
+       1651.6,
+       786.2
+      ],
+      [
+       1589.6,
+       786.0
+      ]
+     ],
+     "range_px": 6324,
+     "white_px": 0,
+     "floor_edge_px": 0,
+     "touches_floor_edge": false,
+     "edge_adjacent_in_plan": true,
+     "max_depth_into_floor_px": 0.0,
+     "pass": false
+    }
+   ]
+  }
+ ],
+ "npcs": [
+  {
+   "id": "statue-west-lawn",
+   "room": "grounds",
+   "uv": [
+    0.36,
+    0.42
+   ],
+   "img_projected": [
+    647.9,
+    504.6
+   ],
+   "clearance_before_px": 14.1,
+   "snapped_img": [
+    648,
+    505
+   ],
+   "snap_dist_px": 0.0,
+   "edge_clearance_px": 14.1,
+   "snapped_uv": [
+    0.36,
+    0.421
+   ],
+   "pass": true
+  },
+  {
+   "id": "approach-mid",
+   "room": "grounds",
+   "uv": [
+    0.5,
+    0.55
+   ],
+   "img_projected": [
+    862.1,
+    580.4
+   ],
+   "clearance_before_px": 81.2,
+   "snapped_img": [
+    862,
+    580
+   ],
+   "snap_dist_px": 0.0,
+   "edge_clearance_px": 81.2,
+   "snapped_uv": [
+    0.5,
+    0.549
+   ],
+   "pass": true
+  },
+  {
+   "id": "playground-center",
+   "room": "grounds",
+   "uv": [
+    0.76,
+    0.5
+   ],
+   "img_projected": [
+    1258.9,
+    555.9
+   ],
+   "clearance_before_px": 5.0,
+   "snapped_img": [
+    1254,
+    551
+   ],
+   "snap_dist_px": 6.9,
+   "edge_clearance_px": 12.0,
+   "snapped_uv": [
+    0.757,
+    0.491
+   ],
+   "pass": true
+  }
+ ],
+ "verdict": {
+  "all_pass": false
+ },
+ "outputs": {
+  "traversal_edit_sha256": "c5ab12c1ce264b002d8f7bd451a4d8c10cc6b0ca4fe84f638ef16fbab4dda700",
+  "mask_sha256": "c5ab12c1ce264b002d8f7bd451a4d8c10cc6b0ca4fe84f638ef16fbab4dda700"
+ }
+}

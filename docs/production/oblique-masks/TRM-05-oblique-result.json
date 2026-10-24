@@ -1,0 +1,370 @@
+{
+ "schema": "sit-oblique-result/1",
+ "map_id": "TRM-05",
+ "image": {
+  "sha256": "353859f04c2bac75f5b872d68843633b16bc26dc2054e0b5d0b1cb3a828948af",
+  "size": [
+   1672,
+   941
+  ]
+ },
+ "input_sha256": "e9d83cfe5afd78c266f7d4e950c0a2bc2ecec5501b105fbfdb3f64bd07883ba2",
+ "register_sha256": "509e02c074eaebef41e0750bbeebb2bbfa1046d2409990e92371131361bea0a6",
+ "floor": [
+  {
+   "room": "dining",
+   "floor_core_lab": [
+    56,
+    138,
+    142
+   ],
+   "thr": 3.0,
+   "quad_px": 110182,
+   "white_px": 75171,
+   "white_share_of_quad": 0.682,
+   "md_gt15_white_px": 0,
+   "furniture_components": 8
+  },
+  {
+   "room": "bedroom-north",
+   "floor_core_lab": [
+    63,
+    138,
+    145
+   ],
+   "thr": 3.0,
+   "quad_px": 60865,
+   "white_px": 12532,
+   "white_share_of_quad": 0.206,
+   "md_gt15_white_px": 0,
+   "furniture_components": 2
+  },
+  {
+   "room": "bedroom-south",
+   "floor_core_lab": [
+    52,
+    137,
+    142
+   ],
+   "thr": 3.0,
+   "quad_px": 59254,
+   "white_px": 8154,
+   "white_share_of_quad": 0.138,
+   "md_gt15_white_px": 0,
+   "furniture_components": 4
+  }
+ ],
+ "counts_px": {
+  "white": 118123,
+  "assist_orange": 0,
+  "blocked_manual": 75128,
+  "bridge_added_white": 22266,
+  "carve_added_white": 0,
+  "white_components": 3
+ },
+ "blocked": [
+  {
+   "id": "partition-vertical",
+   "room": null,
+   "reason": "ダイニングと寝室2つを分ける縦の仕切り。絵の上で壁と区別がつかない（kako-jun 2026-10-23）ので全長を blocked。開口（戸口）の位置は絵から読まず、設計書も未指定（台帳『内部廊下の扉位置TBD』）→ partition_openings の候補で kako-jun に質問",
+   "leak_white_px": 0,
+   "pass": true
+  },
+  {
+   "id": "partition-horizontal-bedrooms",
+   "room": null,
+   "reason": "北寝室と南寝室の間の横の仕切り（天面y≈360〜380・南面〜y≈421）。絵では東端x≈1139〜1165に隙間（床が続く）があるが、設計は寝室2つ・それぞれ別の戸口なので、設計に合わせて東壁まで仕切りを延ばして blocked（絵の修正候補。kako-jun 2026-10-23『設計優先』）",
+   "leak_white_px": 0,
+   "pass": true
+  },
+  {
+   "id": "door-leaf-like-object",
+   "room": null,
+   "reason": "縦仕切りの西側に立つ薄い板状の物（絵では戸板に見えるが開口の根拠にしない。足元は blocked）",
+   "leak_white_px": 0,
+   "pass": true
+  },
+  {
+   "id": "chest-south-bedroom",
+   "room": "bedroom-south",
+   "reason": "南寝室の木箱。床と同じ茶色で床色検出をすり抜けるため手書き矩形（絵から読んだ家具の足元）",
+   "leak_white_px": 0,
+   "pass": true
+  },
+  {
+   "id": "fossil-north-bedroom",
+   "room": "bedroom-north",
+   "reason": "北寝室の化石（ゴツゴツした石）。床色検出で縁が白に混ざったため手書き矩形（絵から読んだ物の足元）。化石の取得イベントの位置は別設計",
+   "leak_white_px": 0,
+   "pass": true
+  },
+  {
+   "id": "bed-north-bedroom",
+   "room": "bedroom-north",
+   "reason": "北寝室の寝具（布団・枕）。ござの上に置かれた物の足元",
+   "leak_white_px": 0,
+   "pass": true
+  },
+  {
+   "id": "bed-south-bedroom",
+   "room": "bedroom-south",
+   "reason": "南寝室の寝具（布団・枕）",
+   "leak_white_px": 0,
+   "pass": true
+  }
+ ],
+ "bridges": [
+  {
+   "id": "goza-north-bedroom",
+   "room": "bedroom-north",
+   "reason": "北寝室のござ（床色でないが歩ける敷物。周囲の家具膨張帯で床から離れるため縁を約12px広げて床とつなぐ。寝具は blocked で引かれる）",
+   "polygon_px": 28755,
+   "added_white_px": 9573,
+   "skipped_in_blocked_px": 17915
+  },
+  {
+   "id": "goza-south-bedroom",
+   "room": "bedroom-south",
+   "reason": "南寝室のござ（歩ける敷物。寝具は blocked）",
+   "polygon_px": 26125,
+   "added_white_px": 12693,
+   "skipped_in_blocked_px": 13299
+  }
+ ],
+ "carves": [],
+ "picture_fix_candidates": [
+  {
+   "kind": "bridge",
+   "id": "goza-north-bedroom",
+   "room": "bedroom-north",
+   "reason": "北寝室のござ（床色でないが歩ける敷物。周囲の家具膨張帯で床から離れるため縁を約12px広げて床とつなぐ。寝具は blocked で引かれる）",
+   "picture": "床色ではないが歩ける所（絵では床として描かれていない）",
+   "area_px": 9573,
+   "image_bbox": [
+    846,
+    238,
+    1044,
+    355
+   ],
+   "centroid": [
+    943,
+    289
+   ],
+   "overlaps_blocked_ids": [],
+   "skipped_in_blocked_px": 17915
+  },
+  {
+   "kind": "bridge",
+   "id": "goza-south-bedroom",
+   "room": "bedroom-south",
+   "reason": "南寝室のござ（歩ける敷物。寝具は blocked）",
+   "picture": "床色ではないが歩ける所（絵では床として描かれていない）",
+   "area_px": 12693,
+   "image_bbox": [
+    846,
+    436,
+    1054,
+    560
+   ],
+   "centroid": [
+    945,
+    493
+   ],
+   "overlaps_blocked_ids": [],
+   "skipped_in_blocked_px": 13299
+  }
+ ],
+ "exits": [
+  {
+   "id": "door-hall",
+   "room": "bedroom-south",
+   "edge": "east",
+   "partner": "TRM-04.door-west",
+   "design_source": [
+    {
+     "file": "docs/map-topology.md",
+     "quote": "TRM-04.door-west | TRM-05.door-hall | door | 本堂から西の庫裏（住居）への渡り廊下。扉位置TBD"
+    },
+    {
+     "file": "kako-jun 2026-10-23（Issue #144）",
+     "quote": "本堂からの入口（東壁側。上下の中央より下寄り＝平面座標 v>0.5）。入口はどれもキャラ2人ぶんくらいの幅。設計優先（絵と食い違う所はマスクを設計に合わせる）"
+    }
+   ],
+   "position_status": "fixed",
+   "check": {
+    "polygon": [
+     [
+      1135.6,
+      417.0
+     ],
+     [
+      1183.3,
+      417.0
+     ],
+     [
+      1192.2,
+      518.5
+     ],
+     [
+      1143.3,
+      518.5
+     ]
+    ],
+    "range_px": 4998,
+    "white_px": 2601,
+    "floor_edge_px": 104,
+    "touches_floor_edge": true,
+    "edge_adjacent_in_plan": true,
+    "max_depth_into_floor_px": 24.0,
+    "pass": true
+   },
+   "candidates": []
+  },
+  {
+   "id": "door-outside",
+   "room": "dining",
+   "edge": "south",
+   "partner": "TRM-03.door-residence（暫定ID。台帳更新は別担当）",
+   "design_source": [
+    {
+     "file": "kako-jun 2026-10-23（Issue #144）",
+     "quote": "外への入口（下辺の中央より左寄りのダイニング側。平面座標 u<0.5 の南壁）。入口はどれもキャラ2人ぶんくらいの幅"
+    }
+   ],
+   "position_status": "fixed",
+   "check": {
+    "polygon": [
+     [
+      600.2,
+      535.0
+     ],
+     [
+      733.7,
+      535.0
+     ],
+     [
+      733.1,
+      562.0
+     ],
+     [
+      598.6,
+      562.0
+     ]
+    ],
+    "range_px": 3780,
+    "white_px": 3611,
+    "floor_edge_px": 135,
+    "touches_floor_edge": true,
+    "edge_adjacent_in_plan": true,
+    "max_depth_into_floor_px": 27.0,
+    "pass": true
+   },
+   "candidates": []
+  }
+ ],
+ "npcs": [
+  {
+   "id": "kitchen-front",
+   "room": "dining",
+   "uv": [
+    0.431,
+    0.353
+   ],
+   "img_projected": [
+    640.0,
+    325.1
+   ],
+   "clearance_before_px": 42.0,
+   "snapped_img": [
+    640,
+    325
+   ],
+   "snap_dist_px": 0.0,
+   "edge_clearance_px": 42.0,
+   "snapped_uv": [
+    0.431,
+    0.353
+   ],
+   "pass": true
+  },
+  {
+   "id": "dining-table-side",
+   "room": "dining",
+   "uv": [
+    0.248,
+    0.758
+   ],
+   "img_projected": [
+    574.9,
+    470.1
+   ],
+   "clearance_before_px": 36.0,
+   "snapped_img": [
+    575,
+    470
+   ],
+   "snap_dist_px": 0.0,
+   "edge_clearance_px": 36.0,
+   "snapped_uv": [
+    0.248,
+    0.758
+   ],
+   "pass": true
+  },
+  {
+   "id": "north-bedroom",
+   "room": "bedroom-north",
+   "uv": [
+    0.791,
+    0.159
+   ],
+   "img_projected": [
+    1100.0,
+    235.1
+   ],
+   "clearance_before_px": 22.0,
+   "snapped_img": [
+    1100,
+    235
+   ],
+   "snap_dist_px": 0.0,
+   "edge_clearance_px": 22.0,
+   "snapped_uv": [
+    0.791,
+    0.159
+   ],
+   "pass": true
+  },
+  {
+   "id": "south-bedroom-front",
+   "room": "bedroom-south",
+   "uv": [
+    0.73,
+    0.876
+   ],
+   "img_projected": [
+    1099.9,
+    539.9
+   ],
+   "clearance_before_px": 17.0,
+   "snapped_img": [
+    1100,
+    540
+   ],
+   "snap_dist_px": 0.0,
+   "edge_clearance_px": 17.0,
+   "snapped_uv": [
+    0.73,
+    0.876
+   ],
+   "pass": true
+  }
+ ],
+ "verdict": {
+  "all_pass": false
+ },
+ "outputs": {
+  "traversal_edit_sha256": "cfc1851452a3db113763122c6fc0d0e63b05d559ca6967ec5e32658860d2b9f7",
+  "mask_sha256": "cfc1851452a3db113763122c6fc0d0e63b05d559ca6967ec5e32658860d2b9f7"
+ }
+}

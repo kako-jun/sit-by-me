@@ -78,8 +78,9 @@ module MapAtlas
   end
   def self.run
     g=MapGraph::Graph.new(ROOT)
-    spec=File.read(File.join(ROOT,'docs/map-specifications.md')).lines.each_with_object({}) do |line,h|
-      c=line.split('|').map(&:strip);h[c[1].split.first]=c[3] if c[1]&.match?(/\A[A-Z]{3}-\d{2}(?:\s|\z)/)
+    # 見出し行の列名（MAP／一言特徴）で読む。列の位置に依存しない
+    spec=MdTable.rows(File.read(File.join(ROOT,'docs/map-specifications.md')),'MAP','時期','一言特徴').each_with_object({}) do |r,h|
+      h[r['MAP'].split.first]=r['一言特徴'] if r['MAP']&.match?(/\A[A-Z]{3}-\d{2}(?:\s|\z)/)
     end
     folder=File.join(ROOT,'docs/topology/areas');FileUtils.mkdir_p(folder)
     panels=g.areas.map do |area|

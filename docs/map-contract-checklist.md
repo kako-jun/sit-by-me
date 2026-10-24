@@ -6,22 +6,24 @@
 
 **注記**: ステータス名 `recreate-required-1920x1080` は名前は1920×1080だが1672×941（16:9）も許容する（改名は別件）。
 
-**2026-10-18 / #51**: TRM-02〜TRM-16は全て `recreate-required-1920x1080`（旧TRM-01は2026-10-23にTRM-03の右の区画＝園庭へ統合して廃止し、行を削除。旧legacy画像 `legacy/TRM-01.webp` とそのmaskは2026-10-23に削除済み。履歴はgit）、生成契約は `blocked`。以下の旧画像パスは参照専用で、旧mask・旧passは新候補の採用根拠にならない。現行再作成状態は [候補台帳](teramachi-rebuild-candidates.md)、建物群の生成前入力は [制作前確認](production/20261018-teramachi-preflight.md) を参照する。
+**寺町（TRM-02〜17。台帳 `docs/ledger/MAP.yaml` に行があるMAP）は状態列を `台帳` とする**（旧 `recreate-required-1920x1080`・`blocked` は寺町だけ廃止）。状態・採用状態・未決・既定値・決定は台帳（`MAP.yaml`・`未決.yaml`・`既定値.yaml`・`決定.yaml`）が正本で、`ruby scripts/verify_ledger.rb` が検査する。この表の寺町の行は、Ref・旧記録・台帳への参照として残す。
+
+**2026-10-18 / #51**: TRM-02〜TRM-16は当時 `recreate-required-1920x1080`（2026-10-24以降は台帳。旧TRM-01は2026-10-23にTRM-03の右の区画＝園庭へ統合して廃止し、行を削除。旧legacy画像 `legacy/TRM-01.webp` とそのmaskは2026-10-23に削除済み。履歴はgit）、生成契約は `blocked`。以下の旧画像パスは参照専用で、旧mask・旧passは新候補の採用根拠にならない。現行再作成状態は [候補台帳](teramachi-rebuild-candidates.md)、建物群の生成前入力は [制作前確認](production/20261018-teramachi-preflight.md) を参照する。
 
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
-| TRM-16 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-16.webp`; mask未記録 | TRM-06/TRM-15/TRM-17の三端と用水のblocked域を実画像から記録する |
-| TRM-15 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-15.webp`; mask未記録 | TRM-16/TRM-07/TRM-06端、火の見櫓周囲のblocked域を記録する |
-| TRM-07 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-07.webp`; mask未記録 | TRM-15/TRM-08/TRM-03端と山門のforeground域を記録する |
-| TRM-08 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-08.webp`; mask未記録 | 用水・井戸のblocked域とTRM-07/TRM-09端、top側は塀・壁で閉じる（歩行マスク=黒、接続なし。旧TRM-01正門は廃止、#51 決定 2026-10-23） |
-| TRM-09 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-09.webp`; mask未記録 | TRM-08/TRM-10端、銭湯煙突・雪山のforeground/blockedを記録する |
-| TRM-10 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-10.webp`; mask未記録 | TRM-09/TRM-11を結ぶuniversalスロープの幅・折返しを記録する |
-| TRM-11 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-11.webp`; mask未記録 | TRM-10/TRM-13端、TRM-12ドア、団地棟のforegroundを記録する |
-| TRM-13 | recreate-required-1920x1080 | R006,R011,R025 | 1254×1254のv6候補・maskは参照専用。新規出力は1920×1080（返せない場合は16:9の1672×941）、prompt・参照画像・mask・red-teamを新たに記録する | v6のleft→top石段・assist-only設計を参照し、16:9版を再生成する |
-| TRM-06 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-06.webp`; mask未記録 | TRM-15.top入口とTRM-16.leftへのright出口以外を禁止辺とする（#51ループ化。TRM-05への勝手口の扉はTBD） |
-| TRM-03 | recreate-required-1920x1080 | R006,R011,R024 | 旧境内画像は参照専用。新背景・mask未作成 | #60の屋外境内。TRM-07端、右の区画の園庭（幼稚園の前。旧TRM-01を統合・東の通用門なし）、園庭でのキスのevent-kiss（→BDY-01）、TRM-04正面扉、池・墓地のblocked域を記録。TRM-05/TRM-02屋外doorなし。共通外観参照未通過 |
-| TRM-05 | recreate-required-1920x1080 | R006,R011,R021,R024 | 旧庫裏画像は参照専用。新背景・mask未作成 | #60/#51の西（本堂から見て左）の屋内住居。TRM-04.door-west↔door-hallのみ。内部廊下の扉位置、幅・段差・回転域、火事時遮断範囲がTBD。TRM-02直結なし |
-| TRM-14 | recreate-required-1920x1080 | R006,R011 | `assets/images/fields/legacy/TRM-14.webp`; mask未記録 | TRM-13石段とSCH-01車椅子坂の端・通行クラスを記録する |
+| TRM-16 | 台帳 | R006,R011 | `assets/images/fields/legacy/TRM-16.webp`; mask未記録 | TRM-06/TRM-15/TRM-17の三端と用水のblocked域を実画像から記録する |
+| TRM-15 | 台帳 | R006,R011 | `assets/images/fields/legacy/TRM-15.webp`; mask未記録 | TRM-16/TRM-07/TRM-06端、火の見櫓周囲のblocked域を記録する |
+| TRM-07 | 台帳 | R006,R011 | `assets/images/fields/legacy/TRM-07.webp`; mask未記録 | TRM-15/TRM-08/TRM-03端と山門のforeground域を記録する |
+| TRM-08 | 台帳 | R006,R011 | `assets/images/fields/legacy/TRM-08.webp`; mask未記録 | 用水・井戸のblocked域とTRM-07/TRM-09端、top側は塀・壁で閉じる（歩行マスク=黒、接続なし。旧TRM-01正門は廃止、#51 決定 2026-10-23） |
+| TRM-09 | 台帳 | R006,R011 | `assets/images/fields/legacy/TRM-09.webp`; mask未記録 | TRM-08/TRM-10端、銭湯煙突・雪山のforeground/blockedを記録する |
+| TRM-10 | 台帳 | R006,R011 | `assets/images/fields/legacy/TRM-10.webp`; mask未記録 | TRM-09/TRM-11を結ぶuniversalスロープの幅・折返しを記録する |
+| TRM-11 | 台帳 | R006,R011 | `assets/images/fields/legacy/TRM-11.webp`; mask未記録 | TRM-10/TRM-13端、TRM-12ドア、団地棟のforegroundを記録する |
+| TRM-13 | 台帳 | R006,R011,R025 | 1254×1254のv6候補・maskは参照専用。新規出力は1920×1080（返せない場合は16:9の1672×941）、prompt・参照画像・mask・red-teamを新たに記録する | v6のleft→top石段・assist-only設計を参照し、16:9版を再生成する |
+| TRM-06 | 台帳 | R006,R011 | `assets/images/fields/legacy/TRM-06.webp`; mask未記録 | TRM-15.top入口とTRM-16.leftへのright出口以外を禁止辺とする（#51ループ化。勝手口は TRM-06.door-house⇄TRM-05.door-back、幅1人分・決定済み。TRM-06側の位置・向きは要確認） |
+| TRM-03 | 台帳 | R006,R011,R024 | 旧境内画像は参照専用。新背景・mask未作成。【2026-10-23 E2 の生成物は全て没（依存順を無視して並列生成したため。本堂 TRM-04 確定→住居→幼稚園→外観の直列で作り直す。[記録](production/20261023-trm04-adoption.md)）】 | #60の屋外境内。TRM-07端、右の区画の園庭（幼稚園の前。旧TRM-01を統合・東の通用門なし）、園庭でのキスのevent-kiss（→BDY-01）、TRM-04正面扉、池・墓地のblocked域を記録。TRM-03.door-residence↔TRM-05.door-outside・door-playroom↔TRM-02.door-outside の境内側の位置を記録（2026-10-23 kako-jun決定 #144で旧「屋外doorなし」を置換）。共通外観参照未通過 |
+| TRM-05 | 台帳 | R006,R011,R021,R024 | 旧庫裏画像は参照専用。新背景・mask未作成。【2026-10-23 E2 の生成物は全て没（依存順を無視して並列生成したため。本堂 TRM-04 確定→住居→幼稚園→外観の直列で作り直す。[記録](production/20261023-trm04-adoption.md)）】 | #60/#51の西（本堂から見て左）の屋内住居。TRM-04.door-west↔door-hall（東壁側・上下の中央より下寄り）と外への door-outside↔TRM-03.door-residence（下辺の中央より左寄りのダイニング側。2026-10-23 #144）。扉位置・幅は台帳の端表（TRM-05.door-hall／door-outside／door-back）で確定。段差・回転域・火事時遮断範囲は台帳の既定値（TRM-05.a*・TRM-05.fire.a01。要確認）。寝室の方針・歩行マスクの値・時期別の画像差し替えは台帳の決定 `TRM-05.bedrooms`・`TRM-05.mask-values`・`TRM.era-variants` が正本（この表には書かない）。TRM-02直結なし |
+| TRM-14 | 台帳 | R006,R011 | `assets/images/fields/legacy/TRM-14.webp`; mask未記録 | TRM-13石段とSCH-01車椅子坂の端・通行クラスを記録する |
 | KRB-01 | legacy-needs-review | R005,R011 | `assets/images/fields/legacy/KRB-01.webp`; mask未記録 | KRB-07/KRB-11/KRB-12端、百貨店door（相手はKRB-02.door-street）、封鎖期のKRB-12遷移を記録する |
 | KRB-04 | legacy-needs-review | R005 | `assets/images/fields/legacy/KRB-04.webp`; mask未記録 | 3階（kako-jun 2026-10-19）。door-elevator（階選択遷移。全階から行き先を選ぶ。4階は条件つき）、売場通路のuniversal幅を記録する。KRB-04（3階・玩具売場）は2階KRB-03と無関係（決定 2026-10-19） |
 | KRB-06 | legacy-needs-review | R005 | `assets/images/fields/legacy/KRB-06.webp`; mask未記録 | 5階（kako-jun決定 2026-10-19、#87。実在の大和は8階レストラン街）。door-elevator（階選択遷移。4階は条件つき）、再訪時の同一導線を記録する |
@@ -43,7 +45,7 @@
 | NTB-08 | legacy-needs-review | R016 | `assets/images/fields/legacy/NTB-08.webp`; mask未記録 | 被災前の廃校（#89で被災前へ移動）。NTB-07.right→NTB-08.left、崩落棟blocked域を記録する。画像は据え置き |
 | SCH-02 | legacy-needs-review | R006,R011 | `assets/images/fields/legacy/SCH-02.webp`; mask未記録 | SCH-01端、校門と校庭外周柵のblocked域を記録する |
 | KRB-07 | blocked | R001,R002,R011 | 未生成・mask未作成 | KRB-08/KRB-01端、南北橋の型・欄干外blocked域をR001/R002と照合する |
-| TRM-17 | blocked | R006,R011,R021,R024,R025 | 未生成・mask未作成 | TRM-16/KRB-10端、蛇行するuniversal坂と用水のblocked域を実景参照で確定する |
+| TRM-17 | 台帳 | R006,R011,R021,R024,R025 | 未生成・mask未作成 | TRM-16/KRB-10端、蛇行するuniversal坂と用水のblocked域を実景参照で確定する |
 | UCH-03 | blocked | R003,R014,R015 | 未生成・mask未作成 | UCH-02/UCH-04端、砂丘木道の幅・防砂柵・深砂blocked域を確定する |
 | NTB-02 | blocked | R004,R028 | 未生成・mask未作成 | NTB-01/NTB-03端、海を下に置く蛇行坂の集落尺度を能登沿岸資料で補う |
 | NTB-03 | blocked | R004,R028 | 未生成・mask未作成 | NTB-02/NTB-04端、尾根・小祠・畑の資料と神社枝の終端を確定する |
@@ -53,9 +55,9 @@
 | SCH-01 | blocked | R006,R011,R021,R023,R024,R025 | 未生成・mask未作成 | TRM-14/SCH-02端、車椅子の連続坂・手すり・除雪帯の寸法根拠を追加する |
 | KRB-11 | blocked | R005,R010,R011,R023,R026 | 未生成・mask未作成 | KRB-01/STN-01/UTS-01端、交差点の3出口と横断部の段差なし範囲を確定する |
 | UCH-01 | blocked | R009,R021,R022 | 未生成・mask未作成 | STN-01/UCH-02door、車椅子回転域と半自動扉のゲーム上寸法を確定する |
-| TRM-04 | recreate-required-1920x1080 | R021,R024 | 旧本堂画像は参照専用。新背景・mask未作成 | #60の中央屋内本堂。TRM-03南、TRM-05西、TRM-02東の扉位置、畳・仏具と主路、段差・幅・回転域を記録する |
-| TRM-02 | recreate-required-1920x1080 | R021,R024 | 旧遊戯室画像は参照専用。新背景・mask未作成 | #60/#51の東（右）の屋内幼稚園。TRM-04.door-east↔TRM-02.door-west（本堂側＝西から入る）の扉位置・廊下長、舞台袖・椅子・主路の分離、段差・幅・回転域を記録する。TRM-05直結なし |
-| TRM-12 | recreate-required-1920x1080 | R021,R024 | 未生成・mask未作成 | 県営住宅室内の玄関段差・回転域・TRM-11doorを創作寸法で決める |
+| TRM-04 | 台帳 | R021,R024 | 基準状態の画像採用済み（reference。kako-jun「04は４枚目」2026-10-23。`assets/images/fields/reference/teramachi-main-hall-interior-trm04-adopted.webp`、[採用記録](production/20261023-trm04-adoption.md)）。mask・occlusion はモックから作成済み（assets/images/fields/masks/TRM-04-*.webp）。red-team未・status維持。旧本堂画像は参照専用 | #60の中央屋内本堂。TRM-03南、TRM-05西、TRM-02東の扉位置（台帳の端表で確定）、板張りの床（畳は描かない。決定 TRM.no-tatami）・仏具と主路、段差・回転域を記録する |
+| TRM-02 | 台帳 | R021,R024 | 旧遊戯室画像は参照専用。新背景・mask未作成。【2026-10-23 E2 の生成物は全て没（依存順を無視して並列生成したため。本堂 TRM-04 確定→住居→幼稚園→外観の直列で作り直す。[記録](production/20261023-trm04-adoption.md)）】 | #60/#51の東（右）の屋内幼稚園。TRM-04.door-east↔TRM-02.door-west（本堂側＝西から入る）の扉位置（西壁・上下の中央より下寄り v=0.76・幅2人分。台帳の端表で確定）・廊下の奥行き（台帳の既定値 TRM-04.a02。要確認）、外への door-outside↔TRM-03.door-playroom（下辺の右端付近。2026-10-23 #144）、舞台袖・椅子・主路の分離、段差・幅・回転域を記録する。TRM-05直結なし |
+| TRM-12 | 台帳 | R021,R024 | 未生成・mask未作成 | 県営住宅室内の玄関段差・回転域・TRM-11doorを創作寸法で決める |
 | UTS-03 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | UTS-02/UTS-04端、東屋脇の枝なし蛇行主路の安全幅を決める |
 | UTS-04 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | UTS-03/UTS-05端、崩落石垣を避けるassist主路の幅を決める |
 | UTS-05 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | UTS-04/SNL-01端、山頂戦闘域と展望柵のblocked域を決める |

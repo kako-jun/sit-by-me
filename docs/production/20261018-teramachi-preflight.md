@@ -1,5 +1,7 @@
 # 寺町建物群の制作前入力（2026-10-18）
 
+> **2026-10-24 注記（旧記録）**: この文書は 2026-10-18 時点の入力記録で、畳・TBD・状態の記述は現行ではない。現行は台帳（`docs/ledger/`）が正本: 畳は描かない（決定 `TRM.no-tatami`）、扉の位置・幅は端表、状態・未決は MAP／未決表。
+
 状態: **BLOCKED / 未生成**。runtimeのready判定ではない。#51の15枚（TRM-02〜TRM-16。当初16枚、旧TRM-01は2026-10-23に統合廃止）全再作成（寸法は目標1920×1080。画像生成ツールが返せない場合は16:9の1672×941を許容。それ以外の寸法は不合格。リサイズで通さない）に先立ち、最初の対象を **共通外観参照1枚** とする。TRM-03最終背景、室内、maskはまだ生成しない。
 
 根拠: [#51](https://github.com/kako-jun/sit-by-me/issues/51)、[#60](https://github.com/kako-jun/sit-by-me/issues/60)。着手前記録は [#51コメント](https://github.com/kako-jun/sit-by-me/issues/51#issuecomment-6243857457)、[#60コメント](https://github.com/kako-jun/sit-by-me/issues/60#issuecomment-6243857707)。
