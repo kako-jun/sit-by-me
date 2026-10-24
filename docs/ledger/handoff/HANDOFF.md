@@ -18,7 +18,7 @@ kako-jun「csvが本当にいいのか？yamlとかのほうが管理しやす�
 # 【第1段階の進捗（2026-10-24）】
 - (a)(b)(c) 実施済み（prompt反映検査・Issue点検・TRM-06〜17取込み）。**(d)(e)(f)(h)(i) 実施済み**:
   - (d) 斜めツールの直書き定数・文面 → 新表 `描画定数.yaml`・`プロンプト文面.yaml`（`oblique_text.py` が読む。`verify_ledger.rb` がコードと台帳の対応を検査）。出力は変更前後でバイト一致。コード内に残したもの（色・乱数・検査の閾値・診断メッセージ・表の見出し・FONT）と理由は `tools/README.md`。
-  - (e) 旧mdは見出し行の列名で読む（`scripts/md_table.rb`）: build_map_prompt.rb・verify_map_ledger.rb・map_graph.rb・render_map_atlas.rb。**未対応（台帳に全129MAPが入る第2段階で置換）**: render_body_topology.rb・render_late_topology.rb・render_sunnyland_topology.rb（体内・後半・サニーランドの md 表を位置で読む）。
+  - (e) 旧mdは見出し行の列名で読む（`scripts/md_table.rb`）: build_map_prompt.rb・verify_map_ledger.rb・map_graph.rb・render_map_atlas.rb。**第2段階で置換済み**: render_sunnyland_topology.rb（サニーランドのMAP仕様は列名で確認し、接続は台帳参照）。未対応: render_body_topology.rb・render_late_topology.rb。
   - (f) 畳の記述を TRM.no-tatami と整合、確定済みの戸口の位置・幅のTBDを台帳参照に、TRM-05 寝室方針の3表重複を決定ID参照に、`teramachi-rebuild-candidates.md` を参照のみに、寺町の legacy status を『台帳』に（verify_map_ledger が強制）。
   - (h) 運用を SKILL.md・tools/README・INDEX 冒頭に明記。(i) `docs/ledger-views/*.md`（`ledger_views.py build|check`。verify_ledger.rb が検査）。
 - 残り: (g) 測定器、(j) 既定値の統合、Issue点検の未反映（要取込み）378 件の仕分け（見出し『決定』の38件優先）、建物表の入れ子化、独立レビュー（opus）→PR。第2段階（体内・全MAP）。
@@ -38,6 +38,12 @@ kako-jun「csvが本当にいいのか？yamlとかのほうが管理しやす�
 
 # 台帳DB化 引き継ぎ（WIP。2026-10-23 セッション終了時点）
 
+## 第2段階進捗（2026-10-24・PR #158 未マージのため別ブランチ）
+- サニーランド（SNL-01〜12）を取り込み済み。MAP 12・端 29・接続 15（うち境界接続 SNL-01.bottom↔UTS-05.top）・要素 21・窓 1・既定値 0。未決は U-051〜U-261（+211）。出典に具体値がない項目は未決として登録し、既定値の創作なし。renderer は台帳接続参照へ変更し、生成SVGは前後同一。
+- UTS-05 MAP・端は今回の対象外だが、map-topology.md v2 にある境界接続は `外部=はい` として登録。崩落の具体形状・条件付き通行の同行者assist mechanicsは未決。
+- 契約チェックリストのSNL-01〜12状態列は「台帳」。旧状態はMAP備考、SNL-03/05/06のlegacy画像パスはMAP備考と map-asset-registry.md に保持。
+- 未決の詳細は `docs/ledger/未決.yaml` が正本。検証結果・PRは Issue #156 を参照。体内・後半は未着手。
+
 この置き場は一時的。第2段階以降に、上の『handoff/ の削除手順』で内容を台帳へ吸収してこの `handoff/` ごと削除する（INDEX の到達性検証では許可リスト『handoff（第2段階以降に、HANDOFF.md の削除手順で台帳へ吸収してから削除）』）。
 
 ## 目的・目標
@@ -53,7 +59,7 @@ Issue #156（https://github.com/kako-jun/sit-by-me/issues/156）が正本。要�
 - 段階: 第0=INDEX・ファイル配置、第1=寺町（TRM-02〜17）、第2=体内・全MAP、第3=敵・素材・人物。
 
 ## どこまで済んだか（このブランチの実装）
-- 表（docs/ledger/）28枚（実測 2026-10-24）: エリア15行・MAP17行（寺町）・建物5・建物部位20・建物窓列5・建物関係4・建物時期差分4・端43・接続22・接続図設定223・要素283・窓31・時期差分16・既定値89・エリア固定22・装飾プール80・語彙117・決定68（有効65・訂正済み3）・採用要素6・素材36・生成物・必須キー62・未決50・キー別名・ファイル配置40規則・Issue点検・描画定数・プロンプト文面。
+- 表（docs/ledger/）28枚（第1段階完了時点の歴史的スナップショット、実測 2026-10-24）: エリア15行・MAP17行（寺町）・建物5・建物部位20・建物窓列5・建物関係4・建物時期差分4・端43・接続22・接続図設定223・要素283・窓31・時期差分16・既定値89・エリア固定22・装飾プール80・語彙117・決定68（有効65・訂正済み3）・採用要素6・素材36・生成物・必須キー62・未決50・キー別名・ファイル配置40規則・Issue点検・描画定数・プロンプト文面。
 - ツール（.claude/skills/sit-field-background/tools/）: `ledger_io.py`（表定義 SCHEMA）・`ledger_flat.py`・`ledger_build.py`（導出器: plan/decor/connections/dependency-graph。`build`/`check`/`template`）・`ledger_query.py`（MAP→プロンプト台帳節）・`ledger_migrate_once.py`（一度きりの移行。再実行禁止）。`oblique_build.py` は必須キーゲート＋台帳節をプロンプトに入れる版（PROMPT_VERSION /5）。
 - 検証（scripts/）: `ledger_yaml.rb`・`ledger_required_keys.rb`・`verify_ledger.rb`（外部キー・一意・循環・必須キー・語彙・別名・決定整合・建物窓列・生成物鮮度・自由記述警告）。`verify_ledger.rb` は PASS（28表・決定68・MAP17・警告1＝Issue点検の未反映通知）。`verify_map_ledger.rb`・`verify_map_atlas.rb` は PASS（旧 md は併存）。
 - 意図的な修正（移行後のJSON差分）: 畳の語の除去、化石の石（決定表から展開）、-fire の勝手口 prompt（西壁→北壁）、TRM-03 の渡り廊下棟（roof-passage を取り消し→建物行から導出・連窓6を追加）、TRM-04 廊下窓の状態（既定→確定）、決定文の写し→決定参照。移行そのものは plan/decor/connections/dependency-graph とも無損失（`curation-scripts/compare_json_roundtrip.py`）。
@@ -81,7 +87,7 @@ Issue #156（https://github.com/kako-jun/sit-by-me/issues/156）が正本。要�
 ## 既知の問題
 - 既存テストの失敗52件は main と同じ集合（`existing-test-failures-52.txt`。test_asset_migration 43・test_map_id_renumber 8 ほか）。台帳と無関係。
 - 決定の逐語の出典URLは、引用ごとに実在するコメントを `;` 区切りで指す（独立レビュー後に修正。`ruby scripts/audit_issue_decisions.rb --check-quotes [--from-json F]` が検査）。旧『会話（Issue #144 に記録）』の3件は #156 本文を出典にした。TRM-04.mask-confirmed は決定表から外し未決 U-050 へ移した（石の敷居・須弥壇の段・本堂の正面扉などは kako-jun の発言ではなく、司令塔の既定として #144 コメント 6355539302 に記録されている。kako-jun の確認待ち。端 TRM-04.door-south・TRM-03.door-main の位置は既定(要確認)）。
-- `TRM-05.mikan` の素材IDは空（採用画像の確定後に紐付け）。`未決.yaml` に50件（TRM-06〜17 の壁材・窓・時期差分・装飾プール、依存要確認、TRM-04 の歩行マスク・出口の出典確認 U-050 ほか）。
+- `TRM-05.mikan` の素材IDは空（採用画像の確定後に紐付け）。`未決.yaml` に261件（第1段階完了時50件＋サニーランド211件。TRM-06〜17 の壁材・窓・時期差分・装飾プール、依存要確認、TRM-04 の歩行マスク・出口の出典確認 U-050 ほか）。
 - 接続: `TRM-05.door-back⇄TRM-06.door-house` は接続.yaml にあり、topology v2（map-topology.md）にも 2026-10-24 に追加済み（atlas は 129MAP/137接続）。
 - curation-scripts/ はこのセッションの台帳データ作成スクリプト（記録用。再実行すると手修正が消える）。
 

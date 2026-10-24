@@ -6,7 +6,7 @@
 
 **注記**: ステータス名 `recreate-required-1920x1080` は名前は1920×1080だが1672×941（16:9）も許容する（改名は別件）。
 
-**寺町（TRM-02〜17。台帳 `docs/ledger/MAP.yaml` に行があるMAP）は状態列を `台帳` とする**（旧 `recreate-required-1920x1080`・`blocked` は寺町だけ廃止）。状態・採用状態・未決・既定値・決定は台帳（`MAP.yaml`・`未決.yaml`・`既定値.yaml`・`決定.yaml`）が正本で、`ruby scripts/verify_ledger.rb` が検査する。この表の寺町の行は、Ref・旧記録・台帳への参照として残す。
+**台帳 `docs/ledger/MAP.yaml` に行があるMAPは状態列を `台帳` とする**（旧 `recreate-required-1920x1080`・`blocked` は台帳化したMAPでは廃止）。状態・採用状態・未決・既定値・決定は台帳（`MAP.yaml`・`未決.yaml`・`既定値.yaml`・`決定.yaml`）が正本で、`ruby scripts/verify_ledger.rb` が検査する。この表はRef・旧状態・旧画像/出力記録・台帳への参照として残す。
 
 **2026-10-18 / #51**: TRM-02〜TRM-16は当時 `recreate-required-1920x1080`（2026-10-24以降は台帳。旧TRM-01は2026-10-23にTRM-03の右の区画＝園庭へ統合して廃止し、行を削除。旧legacy画像 `legacy/TRM-01.webp` とそのmaskは2026-10-23に削除済み。履歴はgit）、生成契約は `blocked`。以下の旧画像パスは参照専用で、旧mask・旧passは新候補の採用根拠にならない。現行再作成状態は [候補台帳](teramachi-rebuild-candidates.md)、建物群の生成前入力は [制作前確認](production/20261018-teramachi-preflight.md) を参照する。
 
@@ -33,9 +33,9 @@
 | KRB-13 | legacy-needs-review | R011 | `assets/images/fields/legacy/KRB-13.webp`; mask未記録 | KRB-12端、車寄せのuniversal幅と入口foregroundを記録する |
 | STN-01 | legacy-needs-review | R011 | `assets/images/fields/legacy/STN-01.webp`; mask未記録 | KRB-11端、能登／内灘乗車door、広場の禁止辺を記録する |
 | UTS-02 | legacy-needs-review | R007,R008 | `assets/images/fields/legacy/UTS-02.webp`; mask未記録 | UTS-01/UTS-03端、折返し主路と廃遊具のblocked域を記録する |
-| SNL-06 | legacy-needs-review | R007 | `assets/images/fields/legacy/SNL-06.webp`; mask未記録 | 小さな屋外空間・巨大シャチホコ。水族館出口→屋外動物園。ラッコ館・海底洞窟の入口出口。M008戦は屋外、噴水と断定しない。 door-aquarium→SNL-05.door-outdoor、door-zoo→SNL-09.door-hub、door-otter-in→SNL-07.door-entry、door-otter-out→SNL-07.door-exit、door-cave-in→SNL-08.door-entry、door-cave-out→SNL-08.door-exit。旧画像は参照専用。pixel/mask/幅TBD |
-| SNL-05 | legacy-needs-review | R007 | `assets/images/fields/legacy/SNL-05.webp`; mask未記録 | 格子状水槽の地下水族館。出口付近にピラルク巨大水槽。壁際にサメ標本・クジラの陰茎標本。展示格子と通行交点は別。 door-corridor→SNL-04.door-aquarium、door-outdoor→SNL-06.door-aquarium。旧画像は参照専用。pixel/mask/幅TBD |
-| SNL-03 | legacy-needs-review | R007 | `assets/images/fields/legacy/SNL-03.webp`; mask未記録 | 下り渡り廊下途中・右側のゲームセンター。右は下降時の進行基準。SNL-02前半への割当はゲーム配置。 door-corridor→SNL-02.door-arcade-right。旧画像は参照専用。pixel/mask/幅TBD |
+| SNL-06 | 台帳 | R007 | `assets/images/fields/legacy/SNL-06.webp`; mask未記録 | 小さな屋外空間・巨大シャチホコ。水族館出口→屋外動物園。ラッコ館・海底洞窟の入口出口。M008戦は屋外、噴水と断定しない。 door-aquarium→SNL-05.door-outdoor、door-zoo→SNL-09.door-hub、door-otter-in→SNL-07.door-entry、door-otter-out→SNL-07.door-exit、door-cave-in→SNL-08.door-entry、door-cave-out→SNL-08.door-exit。旧画像は参照専用。pixel/mask/幅TBD |
+| SNL-05 | 台帳 | R007 | `assets/images/fields/legacy/SNL-05.webp`; mask未記録 | 格子状水槽の地下水族館。出口付近にピラルク巨大水槽。壁際にサメ標本・クジラの陰茎標本。展示格子と通行交点は別。 door-corridor→SNL-04.door-aquarium、door-outdoor→SNL-06.door-aquarium。旧画像は参照専用。pixel/mask/幅TBD |
+| SNL-03 | 台帳 | R007 | `assets/images/fields/legacy/SNL-03.webp`; mask未記録 | 下り渡り廊下途中・右側のゲームセンター。右は下降時の進行基準。SNL-02前半への割当はゲーム配置。 door-corridor→SNL-02.door-arcade-right。旧画像は参照専用。pixel/mask/幅TBD |
 | UCH-02 | legacy-needs-review | R014,R015 | `assets/images/fields/legacy/UCH-02.webp`; mask未記録 | UCH-03端、駅出口と線路端のblocked域を記録する |
 | UCH-05 | legacy-needs-review | R015 | `assets/images/fields/legacy/UCH-05.webp`; mask未記録 | UCH-04端、海側blocked帯と締まった砂のuniversal帯を記録する |
 | NTR-01 | legacy-needs-review | R004 | `assets/images/fields/legacy/NTR-01.webp`; mask未記録 | STN-01/NTB-01door、車内通路とドア回転域を記録する |
@@ -61,10 +61,10 @@
 | UTS-03 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | UTS-02/UTS-04端、東屋脇の枝なし蛇行主路の安全幅を決める |
 | UTS-04 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | UTS-03/UTS-05端、崩落石垣を避けるassist主路の幅を決める |
 | UTS-05 | blocked | R007,R008,R021,R027 | 未生成・mask未作成 | UTS-04/SNL-01端、山頂戦闘域と展望柵のblocked域を決める |
-| SNL-01 | blocked | R027 | 未生成・mask未作成 | 八角形エントランス1階・受付。door-corridor→SNL-02.door-entry、door-stairs→SNL-12.door-stairs、bottom→UTS-05.top。八角形ホールの一辺から1階へ。受付横に階段と長い廊下への一辺。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
-| SNL-02 | blocked | R027 | 未生成・mask未作成 | 雪の森に囲まれた下り渡り廊下・前半。door-entry→SNL-01.door-corridor、door-next→SNL-04.door-prev、door-arcade-right→SNL-03.door-corridor。全2MAPの下り廊下、雪の森。途中の下降時右へゲームセンター（前半割当はゲーム配置）。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
-| SNL-04 | blocked | R027 | 未生成・mask未作成 | 雪の森に囲まれた下り渡り廊下・後半。door-prev→SNL-02.door-next、door-aquarium→SNL-05.door-corridor。長い下り廊下後半から地下水族館へ。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
-| SNL-09 | blocked | R027 | 未生成・mask未作成 | 狭い格子状の昭和の屋外動物園。door-hub→SNL-06.door-zoo、door-stairs→SNL-10.door-zoo。格子状の狭い劣悪な昭和の屋外檻。動物種・交点の通行はTBD。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| SNL-01 | 台帳 | R027 | 未生成・mask未作成 | 八角形エントランス1階・受付。door-corridor→SNL-02.door-entry、door-stairs→SNL-12.door-stairs、bottom→UTS-05.top。八角形ホールの一辺から1階へ。受付横に階段と長い廊下への一辺。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| SNL-02 | 台帳 | R027 | 未生成・mask未作成 | 雪の森に囲まれた下り渡り廊下・前半。door-entry→SNL-01.door-corridor、door-next→SNL-04.door-prev、door-arcade-right→SNL-03.door-corridor。全2MAPの下り廊下、雪の森。途中の下降時右へゲームセンター（前半割当はゲーム配置）。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| SNL-04 | 台帳 | R027 | 未生成・mask未作成 | 雪の森に囲まれた下り渡り廊下・後半。door-prev→SNL-02.door-next、door-aquarium→SNL-05.door-corridor。長い下り廊下後半から地下水族館へ。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| SNL-09 | 台帳 | R027 | 未生成・mask未作成 | 狭い格子状の昭和の屋外動物園。door-hub→SNL-06.door-zoo、door-stairs→SNL-10.door-zoo。格子状の狭い劣悪な昭和の屋外檻。動物種・交点の通行はTBD。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | UCH-04 | blocked | R014,R015,R021 | 未生成・mask未作成 | UCH-03/UCH-05端、砂丘頂の柵・深砂・海側のblocked域を決める |
 | NTA-01 | blocked | R016,R028,R029 | 未生成・mask未作成 | NTA-02/NTA-07端、NTB-01と同一地形の被災後差分を決める |
 | NTA-02 | blocked | R016,R028,R029 | 未生成・mask未作成 | NTA-01/NTA-03端、仮設板路のassist可否と地割れblocked域を決める |
@@ -120,11 +120,11 @@
 
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
-| SNL-12 | blocked | R027 | 未生成・mask未作成 | 八角形エントランス2階・全方向の窓。door-hotel→SNL-11.door-entry、door-stairs→SNL-01.door-stairs。2階は全方向の窓。一辺から和室宿泊棟、階段で1階。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
-| SNL-11 | blocked | R027 | 未生成・mask未作成 | 廃墟の和室が並ぶ宿泊棟。door-far-end→SNL-10.door-hotel、door-entry→SNL-12.door-hotel。廃墟の和室が並ぶ。入口2階側と屋外階段側の両端。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
-| SNL-10 | blocked | R027 | 未生成・mask未作成 | 動物園から宿泊棟端への屋外階段。door-zoo→SNL-09.door-stairs、door-hotel→SNL-11.door-far-end。ユーザー創作の動物園→宿泊棟端の屋外階段。assist方法TBD。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
-| SNL-07 | blocked | R027 | 未生成・mask未作成 | ラッコ館・入口と出口のある任意探索。door-entry→SNL-06.door-otter-in、door-exit→SNL-06.door-otter-out。入口・出口別。宝箱目当ての任意通り抜け。同じ屋外SNL-06へ戻すのはゲーム配置。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
-| SNL-08 | blocked | R027 | 未生成・mask未作成 | 低予算昭和の海底探検洞窟・任意探索。door-entry→SNL-06.door-cave-in、door-exit→SNL-06.door-cave-out。低予算昭和の海底探検の作り物。ダイオウイカ・難破船・ニンゲン。入口出口別、任意宝箱。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| SNL-12 | 台帳 | R027 | 未生成・mask未作成 | 八角形エントランス2階・全方向の窓。door-hotel→SNL-11.door-entry、door-stairs→SNL-01.door-stairs。2階は全方向の窓。一辺から和室宿泊棟、階段で1階。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| SNL-11 | 台帳 | R027 | 未生成・mask未作成 | 廃墟の和室が並ぶ宿泊棟。door-far-end→SNL-10.door-hotel、door-entry→SNL-12.door-hotel。廃墟の和室が並ぶ。入口2階側と屋外階段側の両端。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| SNL-10 | 台帳 | R027 | 未生成・mask未作成 | 動物園から宿泊棟端への屋外階段。door-zoo→SNL-09.door-stairs、door-hotel→SNL-11.door-far-end。ユーザー創作の動物園→宿泊棟端の屋外階段。assist方法TBD。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| SNL-07 | 台帳 | R027 | 未生成・mask未作成 | ラッコ館・入口と出口のある任意探索。door-entry→SNL-06.door-otter-in、door-exit→SNL-06.door-otter-out。入口・出口別。宝箱目当ての任意通り抜け。同じ屋外SNL-06へ戻すのはゲーム配置。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+| SNL-08 | 台帳 | R027 | 未生成・mask未作成 | 低予算昭和の海底探検洞窟・任意探索。door-entry→SNL-06.door-cave-in、door-exit→SNL-06.door-cave-out。低予算昭和の海底探検の作り物。ダイオウイカ・難破船・ニンゲン。入口出口別、任意宝箱。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | OVS-06 | blocked | R019 | 未生成・mask未作成 | 左塔2階・迷路状の増築。door-down→OVS-05.door-up、door-up→OVS-07.door-down。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | OVS-08 | blocked | R019 | 未生成・mask未作成 | 左塔4階・無駄道と袋小路。door-down→OVS-07.door-up、door-up→OVS-09.door-down。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | OVS-11 | blocked | R019 | 未生成・mask未作成 | 右塔2階・混在用途の迷路。door-down→OVS-10.door-up、door-up→OVS-12.door-down。左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
