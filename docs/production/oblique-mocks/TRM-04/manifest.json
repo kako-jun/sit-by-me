@@ -1,0 +1,119 @@
+{
+ "adoption": {
+  "canonical": "assets/images/fields/reference/teramachi-main-hall-interior-trm04-adopted.webp",
+  "canonical_sha256": "46027605e2631821ab653cab27c147b8bb5eb5e3dff002130dbb90e634efa81d",
+  "image": "docs/production/oblique-mocks/TRM-04/e2/take4.png",
+  "image_sha256": "11d406356da181527143609e059e9c82b8eb8968c0c6a0b50282ba4e694779a1",
+  "mock_clean_sha256": "aa3db6ff210b15538c9f026c53b0d00428d82a767783f8c6c18c346e34437822",
+  "plan_sha256": "5ee7ba9b302a0fed3826f1266eea72e5e748541293c346a65f5d53030feed3b7",
+  "prompt_sha256": "509a52512f6e6fdb8663ab5bcaabd78fcc27d0959da119d25366861e34746c1e",
+  "size": [
+   1672,
+   941
+  ],
+  "take": 4
+ },
+ "ledger": {
+  "decisions": [
+   "TRM.left-right",
+   "TRM.entrances",
+   "TRM.era-variants",
+   "TRM-04.floor",
+   "TRM.no-tatami",
+   "TRM-04.no-fence",
+   "TRM-04.east-corridor-art",
+   "TRM-04.corridor-end-doors",
+   "TRM.hall-no-window",
+   "TRM.windows-spec",
+   "TRM.window-glass",
+   "TRM.outside-view",
+   "TRM.trees-draw",
+   "TRM.trees-pine",
+   "TRM.desk",
+   "TRM.decor-fill",
+   "TRM.door-width",
+   "TRM.open-passage",
+   "TRM.building-shared"
+  ],
+  "era_suffix": null,
+  "inherits": [],
+  "input_sha": "f559f7ae28e87d2e922aa9d1baa38d41577eb872be87cdd48323fc6e1eafad4f",
+  "references": [],
+  "row_id": "TRM-04",
+  "tables": "docs/ledger/*.csv"
+ },
+ "map_id": "TRM-04",
+ "plan": "docs/production/oblique-mocks/TRM-04-plan.json",
+ "plan_sha256": "82f3a57189ecbc68b4e94d8ec6e0ff698e94ce5af60020d2f61a8992ea81c9b3",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-04.door-east": [
+     1
+    ],
+    "TRM-04.door-south": [
+     1
+    ],
+    "TRM-04.door-west": [
+     1
+    ]
+   },
+   "input_sha": "03f520e019e77214043998cc027d6f36640dd0c241da2c35eb2ac7fda297b8be",
+   "outputs": {
+    "TRM-04-exits.png": "2c6e7b3107a32bd0263a6280623284c086646a2baa8f73027006da6804d080a2",
+    "TRM-04-mask.json": "95fab560af2e4ea7c6caabfc7772a8acc8e5b34773cfe998e44509cd871ab3c8",
+    "TRM-04-mask.png": "d3c7515a747d809b39cbbd7020263b48d411e6a3653abe73d2d7cb95756e9179"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "03f520e019e77214043998cc027d6f36640dd0c241da2c35eb2ac7fda297b8be",
+   "outputs": {
+    "TRM-04-clean.png": "dac44eeea8b0d28840ee9293ece5dad252121506820d16f42549da7523e3500c",
+    "TRM-04-review.png": "fedc8cf46afc8b42a6e19804e06c201fe0fac6e33aa18c886cf1dd75a65257a5"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "03f520e019e77214043998cc027d6f36640dd0c241da2c35eb2ac7fda297b8be",
+   "outputs": {
+    "TRM-04-occlusion-depth.png": "914dc7db3efeb84a1a7846ab9e843558ef258622714db896ec2e4bbf659cf406",
+    "TRM-04-occlusion-edit.png": "839176e1362f26bd09ca86570e265be972d9ed3b7c17afe8733c0c263aec1ffa",
+    "TRM-04-occlusion-overlay.png": "13e994605f1cdd60c6d1525be8667e40aba08bf41e8a178dffb73768a9a81414",
+    "TRM-04-occlusion.json": "7a970ddb1077534654b17292a2337e1065795b8fd7292153c7154d895f60a712",
+    "TRM-04-occlusion.png": "71b1d07d6097665c8d9fe4431fc4e8e7caf89a5688224cdb8ba8691ac5779cd4"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "9492af50dc8a4fd514a9259023b5f26a1fd1bb605bd98a2ea783a45381514a23",
+   "outputs": {
+    "TRM-04-edit-prompt.txt": "2b28d9093a4965f30737852bb34c1ca79f9b8231d21dff1955f8cba33dd687e7"
+   },
+   "status": "ok",
+   "unadopted_dependencies": []
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "d9703a184bd6ab1b21b410566e3fcf88f1dde6de18440d4038c1cc785a0e87d9",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "廊下の外端（西は x76〜100・東は x1507〜1531）は閉じた壁。住居・幼稚園へは別 MAP の戸口（本堂の西壁・東壁の戸口）から入る（README の確定: 廊下の外端案は不採用）。",
+    "廊下の奥行き Y810〜1050 と外壁の高さは採用画像 v11 から概略。",
+    "壁の飾り（芳名板・子どもの絵・灯籠・柱）は省略。",
+    "本堂の壁は window_count=0 で、窓は描かない。（決定 TRM.hall-no-window）",
+    "本堂の広間⇄西廊下・東廊下の開口（door-west/east）は passage（梁・鴨居・垂れ壁・壁を描かない開放した通路）。（決定 TRM.open-passage）"
+   ]
+  },
+  "wire": {
+   "input_sha": "98de671a2a35eef7aea2802b24f8fec810eaaca7a1e6bafbe7af8be8da109b64",
+   "outputs": {
+    "wire-TRM-04.png": "2843ec00d90e0c6c95179064739bc6108ddab70c5f2b8f926bfe7eec985453bb"
+   },
+   "status": "ok"
+  }
+ }
+}

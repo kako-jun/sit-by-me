@@ -1,0 +1,245 @@
+{
+ "schema": "sit-oblique-plan/1",
+ "map_id": "TRM-12",
+ "name": "団地室",
+ "subtitle": "屋内・県営住宅の室内。玄関→居間→窓際。段差なし・回転余地",
+ "source": "台帳 map-topology v2 の接続行・map-specifications の寺町の行・map-asset-registry・teramachi-rebuild-candidates（TRM-01 は 2026-10-23 に TRM-03 へ統合・廃止）と Issue #51/#144 の決定。",
+ "design": "車椅子の回転余地がある県営住宅の団地室。TRM-11の棟入口からドア遷移。玄関→居間→窓際で、段差なし。",
+ "indoor": true,
+ "floors": [
+  {
+   "color": "#c9a77a",
+   "label_at": [
+    600,
+    640
+   ],
+   "poly": [
+    [
+     416,
+     236
+    ],
+    [
+     1184,
+     236
+    ],
+    [
+     1184,
+     1010
+    ],
+    [
+     760,
+     1010
+    ],
+    [
+     760,
+     800
+    ],
+    [
+     416,
+     800
+    ]
+   ],
+   "walkable": true,
+   "id": "living",
+   "label": "居間"
+  },
+  {
+   "color": "#d6bb92",
+   "label_at": [
+    800,
+    320
+   ],
+   "rect": [
+    416,
+    236,
+    1184,
+    400
+   ],
+   "walkable": true,
+   "id": "window-side",
+   "label": "窓際"
+  },
+  {
+   "color": "#b9b0a0",
+   "label_at": [
+    590,
+    930
+   ],
+   "rect": [
+    416,
+    800,
+    760,
+    1010
+   ],
+   "walkable": true,
+   "id": "genkan",
+   "label": "玄関（段差なし）"
+  }
+ ],
+ "walls": [
+  {
+   "color": "#d8c9a6",
+   "h": 150,
+   "kind": "wall",
+   "label": "",
+   "rect": [
+    380,
+    200,
+    1220,
+    236
+   ],
+   "top_color": null,
+   "window_count": 1,
+   "id": "wall-n"
+  },
+  {
+   "color": "#d8c9a6",
+   "h": 150,
+   "kind": "wall",
+   "label": "",
+   "rect": [
+    380,
+    1010,
+    1220,
+    1046
+   ],
+   "top_color": null,
+   "window_count": 0,
+   "id": "wall-s"
+  },
+  {
+   "color": "#d8c9a6",
+   "h": 150,
+   "kind": "wall",
+   "label": "",
+   "rect": [
+    380,
+    200,
+    416,
+    1046
+   ],
+   "top_color": null,
+   "window_count": 0,
+   "id": "wall-w"
+  },
+  {
+   "color": "#d8c9a6",
+   "h": 150,
+   "kind": "wall",
+   "label": "",
+   "rect": [
+    1184,
+    200,
+    1220,
+    1046
+   ],
+   "top_color": null,
+   "window_count": 0,
+   "id": "wall-e"
+  }
+ ],
+ "boxes": [
+  {
+   "blocked": true,
+   "color": "#8a6a58",
+   "h": 50,
+   "rect": [
+    440,
+    270,
+    700,
+    350
+   ],
+   "id": "sofa",
+   "label": "ソファ"
+  },
+  {
+   "blocked": true,
+   "color": "#a37b4a",
+   "h": 55,
+   "rect": [
+    820,
+    520,
+    1040,
+    680
+   ],
+   "id": "table",
+   "label": "食卓"
+  },
+  {
+   "blocked": true,
+   "color": "#555a60",
+   "h": 60,
+   "rect": [
+    1110,
+    480,
+    1170,
+    640
+   ],
+   "id": "tv",
+   "label": "テレビ台"
+  },
+  {
+   "blocked": true,
+   "color": "#8a6a46",
+   "h": 90,
+   "rect": [
+    440,
+    560,
+    500,
+    760
+   ],
+   "id": "shelf",
+   "label": "棚"
+  }
+ ],
+ "doors": [
+  {
+   "id": "TRM-12.door",
+   "wall": "wall-s",
+   "wall_side": "south",
+   "face": "north",
+   "center": 632,
+   "along_ref": [
+    380,
+    1220
+   ],
+   "partner": "TRM-11.door",
+   "width_class": "2people",
+   "status": "default",
+   "note": "県営住宅の玄関（TRM-11.door と同じ比 0.30。外から見て南壁）。位置は台帳に無く既定（要確認）。段差なし"
+  }
+ ],
+ "windows": [
+  {
+   "id": "TRM-12.win-n1",
+   "wall": "wall-n",
+   "wall_side": "north",
+   "status": "default",
+   "along_ref": [
+    380,
+    1220
+   ],
+   "note": "窓際の掃き出し窓（既定・要確認）",
+   "center": 800,
+   "width": 240,
+   "kind": "floor",
+   "sill": 0,
+   "height": 130
+  }
+ ],
+ "assumptions": [
+  "既定（要確認）: 部屋の大きさ・間取り（玄関左下・居間・窓際は北壁の窓の下）・家具の位置は設計に無い（台帳は『玄関→居間→窓際で、段差なし・車椅子の回転余地』のみ）。",
+  "既定（要確認）: 北壁の窓（掃き出し・幅240・中央）。種別・位置・個数は既定（要確認）。",
+  "車椅子の回転余地: 居間の中央に直径150の空きを残した（家具は壁沿い・食卓は右寄り）。直径は既定。",
+  "TRM-12 は事故後〜壮年の時期の部屋（map-specifications）。モックは時期差を持たない。"
+ ],
+ "depends_on": [],
+ "_provenance": {
+  "source": "MAP:TRM-12|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
+  "input_sha": "668a6d313fa92a31c685d9dbb28f269855129d143a0afd48839ec7ebf4ce4ec0",
+  "generated_at": "2026-10-24T04:46",
+  "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
+  "ledger_id": "G-TRM-12-plan",
+  "do_not_edit": true
+ }
+}

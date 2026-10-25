@@ -1,0 +1,127 @@
+{
+ "schema": "sit-oblique-deps/1",
+ "note": "依存グラフ。判定基準=『同じ建物・扉・家具・場所を複数枚で描くか』。共有するなら先に確定した画像を参考画像として後続へ渡す（直列）。共有しないなら並列。屋内→屋外の順（扉・渡り廊下は室内が確定してから外観）。戸口で接続する2枚は扉を共有するので室内が親。道の端の連続（地面・用水の流れ）だけの接続は共有とみなさない（要確認の項目は dependency-notes.md）。TRM-01 は廃止（TRM-03 へ統合）。TRM-06〜17 の plan は別ブランチ teramachi-rest-mocks-20261023（読むだけ）。",
+ "maps": {
+  "TRM-02": {
+   "depends_on": [
+    "TRM-04"
+   ],
+   "status": "fixed",
+   "basis": "幼稚園の遊戯室。本堂の扉と一致（TRM-04.door-east↔TRM-02.door-west）"
+  },
+  "TRM-03": {
+   "depends_on": [
+    "TRM-04",
+    "TRM-05",
+    "TRM-02"
+   ],
+   "status": "fixed",
+   "basis": "外観。内部（04・05・02）が全部確定してから。扉・渡り廊下・建物は内部と一致"
+  },
+  "TRM-04": {
+   "depends_on": [],
+   "status": "fixed",
+   "basis": "本堂。扉のデザインの正本。最初に確定する（kako-jun 2026-10-23）"
+  },
+  "TRM-05": {
+   "depends_on": [
+    "TRM-04"
+   ],
+   "status": "fixed",
+   "basis": "住居（基準）。本堂の扉・材質を参考に。家具のデザインの正本"
+  },
+  "TRM-06": {
+   "depends_on": [
+    "TRM-05",
+    "TRM-03"
+   ],
+   "status": "derived",
+   "basis": "住居の裏の細道。door-house は TRM-05.door-back と同じ勝手口（導出）。住居の外壁は TRM-03 の住居と同じ建物（要確認）"
+  },
+  "TRM-07": {
+   "depends_on": [
+    "TRM-03"
+   ],
+   "status": "needs-confirmation",
+   "basis": "山門の通り。山門・寺の長塀は TRM-03 と共有する建物の様式（要確認）。TRM-03.bottom↔TRM-07.top"
+  },
+  "TRM-08": {
+   "depends_on": [],
+   "status": "derived",
+   "basis": "井戸と用水の道。戸口なし・建物の共有なし（道の端の連続だけ）。独立"
+  },
+  "TRM-09": {
+   "depends_on": [],
+   "status": "derived",
+   "basis": "銭湯前。戸口なし。銭湯は他に描かれない。独立"
+  },
+  "TRM-10": {
+   "depends_on": [],
+   "status": "derived",
+   "basis": "バリアフリースロープ。戸口なし。独立"
+  },
+  "TRM-11": {
+   "depends_on": [
+    "TRM-12"
+   ],
+   "status": "derived",
+   "basis": "県営住宅の中庭。棟入口 door は TRM-12.door と同じ扉（室内を先に確定）"
+  },
+  "TRM-12": {
+   "depends_on": [],
+   "status": "derived",
+   "basis": "団地室（屋内）。他の建物と共有しない。独立"
+  },
+  "TRM-13": {
+   "depends_on": [],
+   "status": "derived",
+   "basis": "石段の下の古い坂道。戸口なし。独立"
+  },
+  "TRM-14": {
+   "depends_on": [],
+   "status": "derived",
+   "basis": "段丘上の分岐。戸口なし。独立"
+  },
+  "TRM-15": {
+   "depends_on": [],
+   "status": "derived",
+   "basis": "火の見櫓の角。戸口なし。火の見櫓は他に描かれない。独立"
+  },
+  "TRM-16": {
+   "depends_on": [
+    "TRM-03"
+   ],
+   "status": "needs-confirmation",
+   "basis": "用水と寺門の斜め道。寺門・土塀は TRM-03 の寺の建物と共有する様式（要確認）"
+  },
+  "TRM-17": {
+   "depends_on": [
+    "TRM-03"
+   ],
+   "status": "needs-confirmation",
+   "basis": "寺町への坂道。坂の上の寺の屋根・黒瓦は TRM-03 の屋根と共有（要確認）"
+  },
+  "TRM-05-kids": {
+   "depends_on": [
+    "TRM-05"
+   ],
+   "status": "fixed",
+   "basis": "住居の幼稚園時代。住居基準の家具・材質に一致"
+  },
+  "TRM-05-fire": {
+   "depends_on": [
+    "TRM-05"
+   ],
+   "status": "fixed",
+   "basis": "住居の火事の時点。住居基準に一致"
+  }
+ },
+ "_provenance": {
+  "source": "MAP.依存MAP|時期差分|接続図設定",
+  "input_sha": "6400c17a49560225a905a1d1ddfd81137ba430532eafab2b5b235725343796a1",
+  "generated_at": "2026-10-24T14:06",
+  "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
+  "ledger_id": "G-dependency-graph",
+  "do_not_edit": true
+ }
+}

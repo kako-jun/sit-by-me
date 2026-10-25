@@ -1,0 +1,660 @@
+{
+ "schema": "sit-oblique-input/1",
+ "map_id": "TRM-05",
+ "slug": "teramachi-residence-interior",
+ "era": "小学生以降",
+ "pattern": "two-bedrooms",
+ "variant_note": "この入力は②『小学生以降＝寝室2つ』（採用 v12・中3の火事前）用。①『幼稚園時代＝父と同じ寝室1つ』は別の時期別画像（同一ID差し替え・接尾辞 -kids）で別画像・未作成。①の住居は車椅子3値、②は2値（通れる/通れないだけ。assist 領域を作らない＝0）。①のマスクは別ファイル名（-kids）で後続。",
+ "image": {
+  "source": "採用画像 TRM-05 住居 v12（git febf8a6 の assets/images/fields/reference/teramachi-residence-interior-adopted.webp。sha256 353859f0…8af）",
+  "expected_size": [
+   1672,
+   941
+  ]
+ },
+ "rooms": [
+  {
+   "id": "dining",
+   "quad": [
+    [
+     519.0,
+     207.0
+    ],
+    [
+     813.6,
+     207.0
+    ],
+    [
+     811.4,
+     562.0
+    ],
+    [
+     489.0,
+     562.0
+    ]
+   ],
+   "plan_width": 1600,
+   "circles": [
+    {
+     "id": "table-basket",
+     "note": "卓上の丸い籠の縁（外縁）。原寸8倍の切り抜きで人が拾った左端・右端・上端・下端（左x≈662.5・右x≈701.2・上y≈425.6・下y≈455）の楕円から12点を等角度で生成（手拾いの全周ではない）。卓天板は床より高い面なので厳密には床面の円ではない",
+     "outline": [
+      [
+       701.3,
+       440.4
+      ],
+      [
+       698.7,
+       447.7
+      ],
+      [
+       691.6,
+       453.0
+      ],
+      [
+       681.9,
+       455.0
+      ],
+      [
+       672.2,
+       453.0
+      ],
+      [
+       665.1,
+       447.7
+      ],
+      [
+       662.5,
+       440.4
+      ],
+      [
+       665.1,
+       433.1
+      ],
+      [
+       672.2,
+       427.8
+      ],
+      [
+       681.9,
+       425.8
+      ],
+      [
+       691.6,
+       427.8
+      ],
+      [
+       698.7,
+       433.1
+      ]
+     ]
+    }
+   ],
+   "lines": [],
+   "floor_lines_auto": true,
+   "quad_note": "ダイニング・台所（建物の床の u 0〜0.456）",
+   "plan_aspect": {
+    "w_over_h": 0.643,
+    "source": "circle:table-basket",
+    "note": "建物の床1枚（縦横比1.41＝卓上の籠の縁から）の平面座標 u 0.0〜0.456・v 0〜1 を切り出した部分。比は建物の縦横比から決まり、各部屋の独立検証は無い。籠はダイニング内"
+   }
+  },
+  {
+   "id": "bedroom-north",
+   "quad": [
+    [
+     844.6,
+     207.0
+    ],
+    [
+     1165.0,
+     207.0
+    ],
+    [
+     1181.0,
+     390.7
+    ],
+    [
+     845.0,
+     390.7
+    ]
+   ],
+   "plan_width": 1600,
+   "circles": [],
+   "lines": [],
+   "floor_lines_auto": true,
+   "quad_note": "北寝室（幼馴染の個室）。建物の床の u 0.504〜1.0・v 0〜0.54",
+   "plan_aspect": {
+    "w_over_h": 1.2951,
+    "source": "derived:building-interior-1.41(circle:table-basket)",
+    "note": "建物の床1枚（縦横比1.41＝卓上の籠の縁から）の平面座標 u 0.504〜1.0・v 0〜0.54 を切り出した部分。比は建物の縦横比から決まり、各部屋の独立検証は無い。籠はダイニング内"
+   }
+  },
+  {
+   "id": "bedroom-south",
+   "quad": [
+    [
+     845.0,
+     390.7
+    ],
+    [
+     1181.0,
+     390.7
+    ],
+    [
+     1196.0,
+     562.0
+    ],
+    [
+     845.3,
+     562.0
+    ]
+   ],
+   "plan_width": 1600,
+   "circles": [],
+   "lines": [],
+   "floor_lines_auto": true,
+   "quad_note": "南寝室（父の寝室）。建物の床の u 0.504〜1.0・v 0.54〜1.0",
+   "plan_aspect": {
+    "w_over_h": 1.5203,
+    "source": "derived:building-interior-1.41(circle:table-basket)",
+    "note": "建物の床1枚（縦横比1.41＝卓上の籠の縁から）の平面座標 u 0.504〜1.0・v 0.54〜1.0 を切り出した部分。比は建物の縦横比から決まり、各部屋の独立検証は無い。籠はダイニング内"
+   }
+  }
+ ],
+ "floor": {
+  "thr": 3.0,
+  "reg": 1.0,
+  "core_erode": 25,
+  "min_component": 1500,
+  "hole_fill_max": 300,
+  "furniture_close": 15,
+  "furniture_dilate": 7,
+  "core_hsv": {
+   "h": [
+    5,
+    17
+   ],
+   "s_min": 90,
+   "v": [
+    20,
+    200
+   ]
+  }
+ },
+ "blocked": [
+  {
+   "id": "partition-vertical",
+   "polygon": [
+    [
+     813,
+     200
+    ],
+    [
+     845,
+     200
+    ],
+    [
+     845,
+     566
+    ],
+    [
+     813,
+     566
+    ]
+   ],
+   "reason": "ダイニングと寝室2つを分ける縦の仕切り。絵の上で壁と区別がつかない（kako-jun 2026-10-23）ので全長を blocked。開口（戸口）の位置は絵から読まず、設計書も未指定（台帳『内部廊下の扉位置TBD』）→ partition_openings の候補で kako-jun に質問"
+  },
+  {
+   "id": "partition-horizontal-bedrooms",
+   "polygon": [
+    [
+     840,
+     356
+    ],
+    [
+     1172,
+     356
+    ],
+    [
+     1172,
+     426
+    ],
+    [
+     840,
+     426
+    ]
+   ],
+   "reason": "北寝室と南寝室の間の横の仕切り（天面y≈360〜380・南面〜y≈421）。絵では東端x≈1139〜1165に隙間（床が続く）があるが、設計は寝室2つ・それぞれ別の戸口なので、設計に合わせて東壁まで仕切りを延ばして blocked（絵の修正候補。kako-jun 2026-10-23『設計優先』）"
+  },
+  {
+   "id": "door-leaf-like-object",
+   "polygon": [
+    [
+     803,
+     356
+    ],
+    [
+     816,
+     356
+    ],
+    [
+     816,
+     466
+    ],
+    [
+     803,
+     466
+    ]
+   ],
+   "reason": "縦仕切りの西側に立つ薄い板状の物（絵では戸板に見えるが開口の根拠にしない。足元は blocked）"
+  },
+  {
+   "id": "chest-south-bedroom",
+   "room": "bedroom-south",
+   "polygon": [
+    [
+     1060,
+     450
+    ],
+    [
+     1136,
+     450
+    ],
+    [
+     1136,
+     522
+    ],
+    [
+     1060,
+     522
+    ]
+   ],
+   "reason": "南寝室の木箱。床と同じ茶色で床色検出をすり抜けるため手書き矩形（絵から読んだ家具の足元）"
+  },
+  {
+   "id": "fossil-north-bedroom",
+   "room": "bedroom-north",
+   "polygon": [
+    [
+     1058,
+     258
+    ],
+    [
+     1145,
+     258
+    ],
+    [
+     1145,
+     338
+    ],
+    [
+     1058,
+     338
+    ]
+   ],
+   "reason": "北寝室の化石（ゴツゴツした石）。床色検出で縁が白に混ざったため手書き矩形（絵から読んだ物の足元）。化石の取得イベントの位置は別設計"
+  },
+  {
+   "id": "bed-north-bedroom",
+   "room": "bedroom-north",
+   "polygon": [
+    [
+     864,
+     260
+    ],
+    [
+     1010,
+     260
+    ],
+    [
+     1010,
+     345
+    ],
+    [
+     864,
+     345
+    ]
+   ],
+   "reason": "北寝室の寝具（布団・枕）。ござの上に置かれた物の足元"
+  },
+  {
+   "id": "bed-south-bedroom",
+   "room": "bedroom-south",
+   "polygon": [
+    [
+     882,
+     456
+    ],
+    [
+     1024,
+     456
+    ],
+    [
+     1024,
+     548
+    ],
+    [
+     882,
+     548
+    ]
+   ],
+   "reason": "南寝室の寝具（布団・枕）"
+  }
+ ],
+ "assist": [],
+ "assist_note": "住居②（小学生以降）は2値（通れる/通れない）。assist 領域を作らない＝0画素。①（幼稚園時代・-kids）は3値で別マスク",
+ "exits": [
+  {
+   "id": "door-hall",
+   "room": "bedroom-south",
+   "edge": "east",
+   "partner": "TRM-04.door-west",
+   "design_source": [
+    {
+     "file": "docs/map-topology.md",
+     "quote": "TRM-04.door-west | TRM-05.door-hall | door | 本堂から西の庫裏（住居）への渡り廊下。扉位置TBD"
+    },
+    {
+     "file": "kako-jun 2026-10-23（Issue #144）",
+     "quote": "本堂からの入口（東壁側。上下の中央より下寄り＝平面座標 v>0.5）。入口はどれもキャラ2人ぶんくらいの幅。設計優先（絵と食い違う所はマスクを設計に合わせる）"
+    }
+   ],
+   "position": {
+    "status": "fixed",
+    "plan_box": [
+     0.859,
+     1.0,
+     0.159,
+     0.754
+    ],
+    "building_plan_box": [
+     0.93,
+     1.0,
+     0.613,
+     0.887
+    ],
+    "note": "設計優先の既定位置（暫定）。建物床の東壁・v の中心0.75（下寄りの中央付近）・幅=キャラ2人。正確な位置は kako-jun に確認（変更は position の書き換えだけ）"
+   }
+  },
+  {
+   "id": "door-outside",
+   "room": "dining",
+   "edge": "south",
+   "partner": "TRM-03.door-residence（暫定ID。台帳更新は別担当）",
+   "design_source": [
+    {
+     "file": "kako-jun 2026-10-23（Issue #144）",
+     "quote": "外への入口（下辺の中央より左寄りのダイニング側。平面座標 u<0.5 の南壁）。入口はどれもキャラ2人ぶんくらいの幅"
+    }
+   ],
+   "position": {
+    "status": "fixed",
+    "plan_box": [
+     0.34,
+     0.757,
+     0.93,
+     1.0
+    ],
+    "building_plan_box": [
+     0.155,
+     0.345,
+     0.93,
+     1.0
+    ],
+    "note": "設計優先の既定位置（暫定）。建物床の南壁・u の中心0.25（中央より左寄りのダイニング側）・幅=キャラ2人。絵の外観の玄関扉（u≈0.20〜0.33）とも重なる"
+   }
+  }
+ ],
+ "npcs": [
+  {
+   "id": "kitchen-front",
+   "room": "dining",
+   "img": [
+    640,
+    325
+   ],
+   "note": "台所の前",
+   "uv": [
+    0.431,
+    0.353
+   ],
+   "building_uv": [
+    0.197,
+    0.353
+   ]
+  },
+  {
+   "id": "dining-table-side",
+   "room": "dining",
+   "img": [
+    575,
+    470
+   ],
+   "note": "ダイニング・卓の左横",
+   "uv": [
+    0.248,
+    0.758
+   ],
+   "building_uv": [
+    0.113,
+    0.758
+   ]
+  },
+  {
+   "id": "north-bedroom",
+   "room": "bedroom-north",
+   "img": [
+    1100,
+    235
+   ],
+   "note": "北寝室（幼馴染の個室）の床",
+   "uv": [
+    0.791,
+    0.159
+   ],
+   "building_uv": [
+    0.896,
+    0.086
+   ]
+  },
+  {
+   "id": "south-bedroom-front",
+   "room": "bedroom-south",
+   "img": [
+    1100,
+    540
+   ],
+   "note": "南寝室（父の寝室）の南寄り",
+   "uv": [
+    0.73,
+    0.876
+   ],
+   "building_uv": [
+    0.866,
+    0.943
+   ]
+  }
+ ],
+ "partition_openings": {
+  "note": "内部の仕切りの開口（戸口）は絵から読まない・設計書未指定（台帳『内部廊下の扉位置TBD』）→決め打ちせず候補を並べる。幅=キャラ2人。各寝室は別々の戸口（設計：寝室2つ・それぞれの出入口）。候補の検査は TRM-05-openings-check（スクリプト）で、両側の床マスクに接するかを見る。",
+  "candidates": [
+   {
+    "id": "P-N1",
+    "between": "ダイニング↔北寝室",
+    "partition": "縦の仕切り（建物床 u 0.456〜0.504）",
+    "building_plan_box": [
+     0.456,
+     0.504,
+     0.05,
+     0.337
+    ],
+    "width_persons": 2,
+    "needs": "要 carve（絵では壁と区別がつかず塞がれている）"
+   },
+   {
+    "id": "P-N2",
+    "between": "ダイニング↔北寝室",
+    "partition": "縦の仕切り（建物床 u 0.456〜0.504）",
+    "building_plan_box": [
+     0.456,
+     0.504,
+     0.29,
+     0.577
+    ],
+    "width_persons": 2,
+    "needs": "要 carve（絵では壁と区別がつかず塞がれている）"
+   },
+   {
+    "id": "P-S1",
+    "between": "ダイニング↔南寝室",
+    "partition": "縦の仕切り（建物床 u 0.456〜0.504）",
+    "building_plan_box": [
+     0.456,
+     0.504,
+     0.62,
+     0.892
+    ],
+    "width_persons": 2,
+    "needs": "要 carve（絵では壁と区別がつかず塞がれている）"
+   },
+   {
+    "id": "P-S2",
+    "between": "ダイニング↔南寝室",
+    "partition": "縦の仕切り（建物床 u 0.456〜0.504）",
+    "building_plan_box": [
+     0.456,
+     0.504,
+     0.72,
+     0.992
+    ],
+    "width_persons": 2,
+    "needs": "要 carve（絵では壁と区別がつかず塞がれている）"
+   }
+  ]
+ },
+ "building_quad_whole": {
+  "quad": [
+   [
+    519,
+    207
+   ],
+   [
+    1165,
+    207
+   ],
+   [
+    1196,
+    562
+   ],
+   [
+    489,
+    562
+   ]
+  ],
+  "plan_aspect": 1.41,
+  "plan_size": [
+   1600,
+   1135
+  ],
+  "note": "建物の床1枚の4点と縦横比。rooms はこれを平面座標で切った3つ（床の色が部屋ごとに違い、床の芯の色を部屋ごとに取るため分けた。全部屋同一平面・高さ差なし）。plan uv はこの建物床の座標"
+ },
+ "char_unit": {
+  "one_person_px_1672": 67,
+  "one_person_px_1920": 77,
+  "basis": "docs/map-specifications.md・map-asset-registry.md の BDY-04（通路幅＝キャラ1人分・約77px〔1920×1080〕＝1672幅で約67px、模型の天面比0.047）。kako-jun 2026-10-23『入口はどれもキャラ2人ぶんくらいの幅や高さがいい』。assets/images/characters/C001/walk の立ち絵は211x387px（余白込みの素材寸法で、ゲーム画面での寸法は docs に無い）ため基準にしない。斜め視点でも同じ画面スケール（1人=67px）を採用し、出口の位置の行の局所スケール（その行の床の画像幅÷平面図幅1600px）で平面図の長さに換算",
+  "exit_width_persons": 2,
+  "local_conversion": {
+   "south edge y=562": {
+    "img_px_per_plan_px": 0.4419,
+    "one_person_plan_px": 151.6,
+    "two_persons_plan_px": 303.3,
+    "two_persons_u": 0.19,
+    "two_persons_v": 0.267
+   },
+   "east door v~0.75 y=476": {
+    "img_px_per_plan_px": 0.4326,
+    "one_person_plan_px": 154.9,
+    "two_persons_plan_px": 309.7,
+    "two_persons_u": 0.194,
+    "two_persons_v": 0.273
+   },
+   "partition v~0.2 y=278": {
+    "img_px_per_plan_px": 0.4114,
+    "one_person_plan_px": 162.9,
+    "two_persons_plan_px": 325.7,
+    "two_persons_u": 0.204,
+    "two_persons_v": 0.287
+   },
+   "partition v~0.8 y=491": {
+    "img_px_per_plan_px": 0.4342,
+    "one_person_plan_px": 154.3,
+    "two_persons_plan_px": 308.6,
+    "two_persons_u": 0.193,
+    "two_persons_v": 0.272
+   }
+  },
+  "note": "出入口の幅（東壁は v 方向・南壁は u 方向・仕切りは v 方向の長さ）= 2人 = 約134画像px ÷ 局所スケール。手前（南）ほどスケールが大きく平面長は短い。奥（北）の位置は遠近で画像が小さいので平面長は長くなる"
+ },
+ "picture_fix_candidates": [
+  "仕切り（ダイニングと寝室の間）が絵で壁・柱と区別がつかない。開口（戸口）の位置が絵から読めない（読みやすさの問題）",
+  "北寝室と南寝室の間の横の仕切りの東端に隙間（床が続く）。設計は寝室2つ・それぞれ別の戸口なので塞ぐのが設計に合う",
+  "縦の仕切り西側に戸板のような薄い板が立つ（x≈803〜816,y≈356〜466）。開口なのか装飾なのか不明",
+  "東壁の灰色の敷居（x≈1187〜1215,y≈455〜560＝v≈0.70〜0.99）は南寄り。設計優先の既定（v中心0.75）とはずれる。東壁の入口の位置を設計で決めたら絵の敷居を合わせる",
+  "建物の床の縦横比が割付図（ほぼ正方形1.0）でなく約1.41（横長）。採用時に許容済みの逸脱",
+  "台所設備が北壁の足元を隠し、北辺の足元を北寝室側の壁から読んだ（台所側の床の奥行きは推定）",
+  "ござ（床色でない）が歩ける敷物か絵からは判断できない。要 bridge の確認"
+ ],
+ "floor_note": "thr=3.0（既定5だと寝室で化石・木箱・ござ・寝具の縁が床に混ざったため3に絞った。床の芯の色は部屋ごと）",
+ "components_note": "床の白は3つの連結成分（ダイニング・北寝室・南寝室）が正しい。内部の仕切りの開口が未決（設計書TBD）で仕切りを全長 blocked にしているため。ツールの『連結1』検査はこの間 FAIL になる（開口を carve した後に連結1になるのが期待）",
+ "bridges": [
+  {
+   "id": "goza-north-bedroom",
+   "room": "bedroom-north",
+   "image_polygon": [
+    [
+     832,
+     238
+    ],
+    [
+     1044,
+     238
+    ],
+    [
+     1044,
+     372
+    ],
+    [
+     832,
+     372
+    ]
+   ],
+   "reason": "北寝室のござ（床色でないが歩ける敷物。周囲の家具膨張帯で床から離れるため縁を約12px広げて床とつなぐ。寝具は blocked で引かれる）"
+  },
+  {
+   "id": "goza-south-bedroom",
+   "room": "bedroom-south",
+   "image_polygon": [
+    [
+     846,
+     436
+    ],
+    [
+     1054,
+     436
+    ],
+    [
+     1054,
+     560
+    ],
+    [
+     846,
+     560
+    ]
+   ],
+   "reason": "南寝室のござ（歩ける敷物。寝具は blocked）"
+  }
+ ],
+ "carves": [],
+ "carves_note": "仕切りの開口が未決定のため carves は空。開口が決まったら partition_openings の該当候補（building_plan_box）を room 別の plan_uv_polygon にして carves に移す（要 carve＝絵では壁で塞がれている）"
+}

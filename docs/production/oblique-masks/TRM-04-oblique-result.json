@@ -1,0 +1,371 @@
+{
+ "schema": "sit-oblique-result/1",
+ "map_id": "TRM-04",
+ "image": {
+  "sha256": "edde938b31b7fd7c7d55856803eee61921aeb5e75b71d82d93f02393be926cca",
+  "size": [
+   1672,
+   940
+  ]
+ },
+ "input_sha256": "c1202de432dfa290f5421c309c71eb71aa1cb81a3eaa0281680a3f77749fbce7",
+ "register_sha256": "56873dce9facb8b476b56b89d436a7a5fbb356c3c1633f4d1d03ac1d0b419417",
+ "floor": [
+  {
+   "room": "hall",
+   "floor_core_lab": [
+    72,
+    137,
+    139
+   ],
+   "thr": 5.0,
+   "quad_px": 100701,
+   "white_px": 99064,
+   "white_share_of_quad": 0.984,
+   "md_gt15_white_px": 0,
+   "furniture_components": 0
+  },
+  {
+   "room": "west-corridor",
+   "floor_core_lab": [
+    66,
+    136,
+    137
+   ],
+   "thr": 5.0,
+   "quad_px": 23688,
+   "white_px": 22356,
+   "white_share_of_quad": 0.944,
+   "md_gt15_white_px": 0,
+   "furniture_components": 1
+  },
+  {
+   "room": "east-corridor",
+   "floor_core_lab": [
+    53,
+    135,
+    137
+   ],
+   "thr": 5.0,
+   "quad_px": 23400,
+   "white_px": 22341,
+   "white_share_of_quad": 0.955,
+   "md_gt15_white_px": 0,
+   "furniture_components": 0
+  }
+ ],
+ "counts_px": {
+  "white": 150851,
+  "assist_orange": 0,
+  "blocked_manual": 168651,
+  "bridge_added_white": 7090,
+  "carve_added_white": 0,
+  "white_components": 1
+ },
+ "blocked": [
+  {
+   "id": "sanctuary-dais",
+   "room": null,
+   "reason": "須弥壇（内陣）の段。黒い縁で一段高い。登れない段差は blocked（kako-jun 決定 #144）。段より奥は本尊・仏壇・金の柱・香炉・仏花・燭台・紫の打敷の机があり、通行の対象でもない。床の色の判定の外（どの部屋にも入れない）で、重ね画像に青く出すための多角形",
+   "leak_white_px": 0,
+   "pass": true
+  },
+  {
+   "id": "front-wall-and-door",
+   "room": null,
+   "reason": "南壁（正面扉・石段を含む）。床の外。TRM-04.door-front の出口位置の候補は別（exits）。blocked として記録のみ",
+   "leak_white_px": 0,
+   "pass": true
+  }
+ ],
+ "bridges": [
+  {
+   "id": "west-sill",
+   "room": "hall",
+   "reason": "西の石の敷居（灰色の小さな段）。通れる（kako-jun 2026-10-23 A）。広間と西廊下の間の約42px の隙間（敷居・壁の厚み・柱）を white で結ぶ。広間の平面座標の u<0 へ外挿",
+   "polygon_px": 3384,
+   "added_white_px": 3358,
+   "skipped_in_blocked_px": 0
+  },
+  {
+   "id": "east-sill",
+   "room": "hall",
+   "reason": "東の石の敷居と壁の厚み（木の手すりの柱を含む）。通れる（同 A）。広間と東廊下の間の約36px の隙間を結ぶ。広間の u>1 へ外挿",
+   "polygon_px": 3816,
+   "added_white_px": 3732,
+   "skipped_in_blocked_px": 0
+  }
+ ],
+ "carves": [],
+ "picture_fix_candidates": [
+  {
+   "kind": "bridge",
+   "id": "west-sill",
+   "room": "hall",
+   "reason": "西の石の敷居（灰色の小さな段）。通れる（kako-jun 2026-10-23 A）。広間と西廊下の間の約42px の隙間（敷居・壁の厚み・柱）を white で結ぶ。広間の平面座標の u<0 へ外挿",
+   "picture": "床色ではないが歩ける所（絵では床として描かれていない）",
+   "area_px": 3358,
+   "image_bbox": [
+    484,
+    528,
+    539,
+    599
+   ],
+   "centroid": [
+    511,
+    563
+   ],
+   "overlaps_blocked_ids": [],
+   "skipped_in_blocked_px": 0
+  },
+  {
+   "kind": "bridge",
+   "id": "east-sill",
+   "room": "hall",
+   "reason": "東の石の敷居と壁の厚み（木の手すりの柱を含む）。通れる（同 A）。広間と東廊下の間の約36px の隙間を結ぶ。広間の u>1 へ外挿",
+   "picture": "床色ではないが歩ける所（絵では床として描かれていない）",
+   "area_px": 3732,
+   "image_bbox": [
+    1139,
+    528,
+    1200,
+    599
+   ],
+   "centroid": [
+    1168,
+    563
+   ],
+   "overlaps_blocked_ids": [],
+   "skipped_in_blocked_px": 0
+  }
+ ],
+ "exits": [
+  {
+   "id": "door-west",
+   "room": "hall",
+   "edge": "west",
+   "partner": "TRM-05.door-hall",
+   "design_source": [
+    {
+     "file": "docs/map-topology.md",
+     "line": 140,
+     "quote": "TRM-04.door-west | TRM-05.door-hall | door | 本堂から西（境内から北を見て左）の庫裏（住居）への渡り廊下"
+    },
+    {
+     "file": "docs/map-topology.md",
+     "line": 286,
+     "quote": "本堂から西（左）の庫裏へ渡る廊下。畳廊下の方位と扉位置を一致させる。扉位置TBD。"
+    },
+    {
+     "file": "docs/map-contract-checklist.md",
+     "line": 57,
+     "quote": "TRM-03南、TRM-05西、TRM-02東の扉位置、…を記録する"
+    }
+   ],
+   "position_status": "fixed",
+   "check": {
+    "polygon": [
+     [
+      537.3,
+      542.9
+     ],
+     [
+      567.5,
+      542.9
+     ],
+     [
+      559.7,
+      614.3
+     ],
+     [
+      528.7,
+      614.3
+     ]
+    ],
+    "range_px": 2268,
+    "white_px": 2256,
+    "floor_edge_px": 15,
+    "touches_floor_edge": true,
+    "edge_adjacent_in_plan": true,
+    "max_depth_into_floor_px": 47.7,
+    "pass": true
+   },
+   "candidates": []
+  },
+  {
+   "id": "door-east",
+   "room": "hall",
+   "edge": "east",
+   "partner": "TRM-02.door-west",
+   "design_source": [
+    {
+     "file": "docs/map-topology.md",
+     "line": 141,
+     "quote": "TRM-04.door-east | TRM-02.door-west | door | 本堂から東（境内から北を見て右）の幼稚園への屋内廊下。TRM-02側は本堂側（西）から入る… 扉の位置・廊下長はTBD"
+    },
+    {
+     "file": "docs/map-topology.md",
+     "line": 287,
+     "quote": "中央の本堂から東（右）の幼稚園へ屋内廊下で移動。TRM-02は本堂側（西面）から入る。扉位置・廊下長TBD。舞台袖は画面内終端。"
+    }
+   ],
+   "position_status": "fixed",
+   "check": {
+    "polygon": [
+     [
+      1110.5,
+      542.9
+     ],
+     [
+      1140.7,
+      542.9
+     ],
+     [
+      1149.3,
+      614.3
+     ],
+     [
+      1118.3,
+      614.3
+     ]
+    ],
+    "range_px": 2268,
+    "white_px": 2256,
+    "floor_edge_px": 15,
+    "touches_floor_edge": true,
+    "edge_adjacent_in_plan": true,
+    "max_depth_into_floor_px": 47.7,
+    "pass": true
+   },
+   "candidates": []
+  },
+  {
+   "id": "door-front",
+   "room": "hall",
+   "edge": "south",
+   "partner": "TRM-03.door-main",
+   "design_source": [
+    {
+     "file": "docs/map-topology.md",
+     "line": 139,
+     "quote": "TRM-03.door-main | TRM-04.door-south | door | 本堂内部"
+    },
+    {
+     "file": "docs/map-topology.md",
+     "line": 285,
+     "quote": "境内から本堂へ。段差を主路にせず、扉前に回転余地を残す。"
+    }
+   ],
+   "position_status": "fixed",
+   "check": {
+    "polygon": [
+     [
+      772.1,
+      611.2
+     ],
+     [
+      905.9,
+      611.2
+     ],
+     [
+      906.2,
+      620.0
+     ],
+     [
+      771.8,
+      620.0
+     ]
+    ],
+    "range_px": 1350,
+    "white_px": 1215,
+    "floor_edge_px": 135,
+    "touches_floor_edge": true,
+    "edge_adjacent_in_plan": true,
+    "max_depth_into_floor_px": 9.0,
+    "pass": true
+   },
+   "candidates": []
+  }
+ ],
+ "npcs": [
+  {
+   "id": "hall-center",
+   "room": "hall",
+   "uv": [
+    0.5,
+    0.5
+   ],
+   "img_projected": [
+    839.0,
+    534.2
+   ],
+   "clearance_before_px": 80.0,
+   "snapped_img": [
+    839,
+    534
+   ],
+   "snap_dist_px": 0.0,
+   "edge_clearance_px": 80.0,
+   "snapped_uv": [
+    0.5,
+    0.499
+   ],
+   "pass": true
+  },
+  {
+   "id": "west-corridor",
+   "room": "west-corridor",
+   "uv": [
+    0.45,
+    0.5
+   ],
+   "img_projected": [
+    305.6,
+    563.0
+   ],
+   "clearance_before_px": 35.0,
+   "snapped_img": [
+    306,
+    563
+   ],
+   "snap_dist_px": 0.0,
+   "edge_clearance_px": 35.0,
+   "snapped_uv": [
+    0.451,
+    0.501
+   ],
+   "pass": true
+  },
+  {
+   "id": "east-corridor",
+   "room": "east-corridor",
+   "uv": [
+    0.45,
+    0.5
+   ],
+   "img_projected": [
+    1338.8,
+    563.7
+   ],
+   "clearance_before_px": 35.0,
+   "snapped_img": [
+    1339,
+    564
+   ],
+   "snap_dist_px": 0.0,
+   "edge_clearance_px": 35.0,
+   "snapped_uv": [
+    0.45,
+    0.504
+   ],
+   "pass": true
+  }
+ ],
+ "verdict": {
+  "all_pass": true
+ },
+ "outputs": {
+  "traversal_edit_sha256": "54ef511536fc84482e5f613b82ba90aa15979c17610e0272706f08773a0028e0",
+  "mask_sha256": "54ef511536fc84482e5f613b82ba90aa15979c17610e0272706f08773a0028e0"
+ }
+}

@@ -1,0 +1,110 @@
+{
+ "ledger": {
+  "decisions": [
+   "TRM.left-right",
+   "TRM.entrances",
+   "TRM.era-variants",
+   "TRM-05.rooms",
+   "TRM-02.floor",
+   "TRM.no-tatami",
+   "TRM.windows-spec",
+   "TRM.window-glass",
+   "TRM.outside-view",
+   "TRM.trees-draw",
+   "TRM.trees-pine",
+   "TRM.desk",
+   "TRM.decor-fill",
+   "TRM-02.interior",
+   "TRM-02.stage-castle",
+   "TRM.door-width",
+   "TRM.door-width-outside",
+   "TRM.building-shared"
+  ],
+  "era_suffix": null,
+  "inherits": [
+   "TRM-04.door-design",
+   "TRM-04.wall-material",
+   "TRM-04.floor-planks",
+   "TRM-04.outer-trees"
+  ],
+  "input_sha": "b8db247247ff64dd73e87031f5318bc2e76abdfdbd40d827f07b97e2f5a6acb4",
+  "references": [
+   [
+    "TRM-04",
+    "46027605e2631821ab653cab27c147b8bb5eb5e3dff002130dbb90e634efa81d"
+   ]
+  ],
+  "row_id": "TRM-02",
+  "tables": "docs/ledger/*.csv"
+ },
+ "map_id": "TRM-02",
+ "plan": "docs/production/oblique-mocks/TRM-02-plan.json",
+ "plan_sha256": "435ca2e6c51a0a5de46dd95e9bfbae279b59add41632fc0218b76934f16b3551",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-02.door-outside": [
+     2
+    ],
+    "TRM-02.door-west": [
+     2
+    ]
+   },
+   "input_sha": "90e57ef720e987bf2b6a811c3e0caf7def5b3115df16c3cfcd9b6d4e48b27221",
+   "outputs": {
+    "TRM-02-exits.png": "2ac804c0aaa2654e02eeafbeeeb69aa36189d7214aa65161b3da32bef98ade3f",
+    "TRM-02-mask.json": "e1d6593b47ee4f7498051012bc25c7e7e30bcd0fc0f5bee69296363db58ca6d2",
+    "TRM-02-mask.png": "ea5204a032c3ca44fa2668b25f330a3b0bdc27f020e7ff30cee412fdb6dcc1a8"
+   },
+   "status": "ok",
+   "white_components": 4
+  },
+  "mock": {
+   "input_sha": "90e57ef720e987bf2b6a811c3e0caf7def5b3115df16c3cfcd9b6d4e48b27221",
+   "outputs": {
+    "TRM-02-clean.png": "3d3db7874e3610a08ea689c63e921898102035e008fc001dc2d78f830e1ad0bd",
+    "TRM-02-review.png": "05c28f5773706f106084ba013ff79cbd26a3665bd3f9dd6f63c2f7c0579d3551"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "90e57ef720e987bf2b6a811c3e0caf7def5b3115df16c3cfcd9b6d4e48b27221",
+   "outputs": {
+    "TRM-02-occlusion-depth.png": "7b1c6aa0f37567e35c9acbf224ae73fa333b074290963c389661ff8d4565d330",
+    "TRM-02-occlusion-edit.png": "3cf4489009d70a1d848b9b5a5b4ac68ce9f19f607241ef90e98cffb657a6c450",
+    "TRM-02-occlusion-overlay.png": "b4e945dc0e56b0c7ae1ac52560538df8aac242143333544de1210e701f06ee8f",
+    "TRM-02-occlusion.json": "30ef9ef45c2ea6d3207864711362a7d6e8ed3c48079ba68a599d207bc17e660e",
+    "TRM-02-occlusion.png": "954bffc9f45ce7c67ef6f1126f7802c309ee8982c6de73f59e0c945cb18a552b"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "cd1c358c46a79646971b2f7a28e52e8be1fe062880c49bd9fa4670833738b701",
+   "outputs": {
+    "TRM-02-edit-prompt.txt": "2c1b3eed099cbbb4521424fb640f73b734c3223de22836c6ce1599e45c643d03"
+   },
+   "status": "ok",
+   "unadopted_dependencies": []
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "cf8ed6744a08e34816931be7ad7b78cf5a94e5da171aa38a9dc4b0b087517d43",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "家具の位置・大きさは採用画像 v3 から概略で拾った（設計書に家具の寸法は無い）。",
+    "壁の高さ 150（前壁・側壁）・160（奥壁）。戸口の高さ134（2人分）に対する余裕。前壁を戸口高に合わせたため手前の床が約30px 隠れる。",
+    "丸テーブルの椅子・テーブルの椅子はモックに箱が無い（装飾として机に寄せて描くのは可。床の占有は変えない）。",
+    "外への戸口（TRM-02.door-outside）の幅は TRM-03.door-playroom と同じ100単位。扉の左右の壁が増えたが、窓・家具との重なりは無い（検証済み）。（決定 TRM.door-width-outside）"
+   ]
+  },
+  "wire": {
+   "input_sha": "037c929e6d2e69193e40c8440ed6d56278b921e1ec63308fcb8fe3cf9bb6584e",
+   "outputs": {
+    "wire-TRM-02.png": "e567893d35a7c1bcd8691538f5dc04bd1a2e795e3785fd07c67c27d3910529e1"
+   },
+   "status": "ok"
+  }
+ }
+}

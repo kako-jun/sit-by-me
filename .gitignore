@@ -1,1 +1,11 @@
 __pycache__/
+
+# E2 の生成画像・重ね画像（2026-10-23 以降は追跡しない。測定値 metrics・prompt・report は追跡）。ディスクには残す
+docs/production/oblique-mocks/*/e2/**/take*.png
+docs/production/oblique-mocks/*/e2/take*.png
+docs/production/oblique-mocks/*/e2/**/overlay-*.png
+docs/production/oblique-mocks/*/e2/overlay-*.png
+docs/production/oblique-mocks/*/e2/**/style-ref.png
+# E2 実行時の ~/.codex/generated_images 一覧（ローカルのセッションIDが並ぶので追跡しない）
+docs/production/oblique-mocks/*/e2/**/.gi-*.txt
+docs/production/oblique-mocks/*/e2/.gi-*.txt

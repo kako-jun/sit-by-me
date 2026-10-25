@@ -1,0 +1,778 @@
+{
+ "schema": "sit-oblique-input/1",
+ "map_id": "TRM-03-exterior",
+ "slug": "teramachi-temple-grounds-exterior-standing",
+ "image": {
+  "source": "採用外観 v7（git febf8a6 の assets/images/fields/reference/teramachi-temple-grounds-exterior-standing.webp, sha256 1f4a3bb6…26cc。作業ツリーには無く履歴から取り出して --image に渡す）",
+  "expected_size": [
+   1672,
+   941
+  ]
+ },
+ "rooms": [
+  {
+   "id": "grounds",
+   "quad": [
+    [
+     124,
+     272
+    ],
+    [
+     1578,
+     297
+    ],
+    [
+     1662,
+     855
+    ],
+    [
+     20,
+     852
+    ]
+   ],
+   "quad_note": "境内の雪面。左上・右上・右下・左下。奥辺=住居・本堂・幼稚園の南壁の足元線（y272〜297の傾き線）、手前辺=土台の雪面の手前の縁、左右辺=土台の雪面の側縁",
+   "plan_width": 1600,
+   "plan_aspect": {
+    "w_over_h": 2.1,
+    "source": "zhang-he-board",
+    "note": "台帳・設計書に境内の寸法なし。土台の雪面全体の4点から Zhang-He の自己較正で f≈3500px・板 w/h≈1.44 を得て、境内（板の手前約7割）へ換算した概算。f に非常に敏感で独立検証ではない（既知の円が無い）"
+   },
+   "floor_lines_auto": false
+  },
+  {
+   "id": "path",
+   "quad": [
+    [
+     722,
+     292
+    ],
+    [
+     954,
+     292
+    ],
+    [
+     934,
+     850
+    ],
+    [
+     738,
+     850
+    ]
+   ],
+   "quad_note": "石畳の参道（本堂正面の石段の下〜南端）。灰色の石で雪の床モデルと別色のため別 room。room 別 floor（thr 200＝quad 全体を床）で参道全面を白にする。雪の吹き溜まりが載る所も歩ける面なので含める",
+   "plan_width": 400,
+   "plan_aspect": {
+    "w_over_h": 0.35,
+    "source": "approx",
+    "note": "床の抽出だけに使う。出口・NPC は grounds に置くため縦横比は参道の判定に影響しない"
+   },
+   "floor_lines_auto": false,
+   "floor": {
+    "thr": 200.0,
+    "core_hsv": {
+     "h": [
+      0,
+      179
+     ],
+     "s_min": 0,
+     "v": [
+      0,
+      255
+     ]
+    },
+    "core_erode": 10,
+    "min_component": 1500
+   }
+  },
+  {
+   "id": "west-snow",
+   "quad": [
+    [
+     124,
+     272
+    ],
+    [
+     734,
+     292
+    ],
+    [
+     750,
+     852
+    ],
+    [
+     20,
+     852
+    ]
+   ],
+   "quad_note": "床抽出専用の副 room（参道の西側の雪面）。room は最大の連結成分1つだけを床に残す仕様のため、参道で分断された雪面を別 room にして和集合を取る。出口・NPC の平面座標は room grounds（境内全体）を使う",
+   "plan_width": 800,
+   "plan_aspect": {
+    "w_over_h": 1.0,
+    "source": "approx",
+    "note": "床抽出のみ。平面座標には使わない"
+   },
+   "floor_lines_auto": false
+  },
+  {
+   "id": "east-snow",
+   "quad": [
+    [
+     942,
+     292
+    ],
+    [
+     1578,
+     297
+    ],
+    [
+     1662,
+     855
+    ],
+    [
+     922,
+     852
+    ]
+   ],
+   "quad_note": "床抽出専用の副 room（参道の東側の雪面＝園庭側）",
+   "plan_width": 800,
+   "plan_aspect": {
+    "w_over_h": 1.0,
+    "source": "approx",
+    "note": "床抽出のみ"
+   },
+   "floor_lines_auto": false
+  }
+ ],
+ "floor": {
+  "thr": 6.0,
+  "reg": 2.0,
+  "core_erode": 25,
+  "min_component": 1500,
+  "hole_fill_max": 1,
+  "furniture_close": 15,
+  "furniture_dilate": 7,
+  "core_hsv": {
+   "h": [
+    0,
+    179
+   ],
+   "s_min": 0,
+   "v": [
+    200,
+    255
+   ]
+  }
+ },
+ "blocked": [
+  {
+   "id": "graveyard",
+   "polygon": [
+    [
+     118,
+     280
+    ],
+    [
+     440,
+     278
+    ],
+    [
+     445,
+     470
+    ],
+    [
+     560,
+     480
+    ],
+    [
+     640,
+     560
+    ],
+    [
+     660,
+     700
+    ],
+    [
+     600,
+     780
+    ],
+    [
+     560,
+     852
+    ],
+    [
+     20,
+     852
+    ]
+   ],
+   "reason": "墓地の区画（台帳: 墓地は blocked 域）。墓石の間の雪面は区画ごと閉じる。通れる範囲は kako-jun 判断（質問）"
+  },
+  {
+   "id": "snowman-playground-1",
+   "polygon": [
+    [
+     1056,
+     462
+    ],
+    [
+     1054,
+     478
+    ],
+    [
+     1047,
+     493
+    ],
+    [
+     1036,
+     504
+    ],
+    [
+     1023,
+     511
+    ],
+    [
+     1008,
+     514
+    ],
+    [
+     993,
+     511
+    ],
+    [
+     980,
+     504
+    ],
+    [
+     969,
+     493
+    ],
+    [
+     962,
+     478
+    ],
+    [
+     960,
+     462
+    ],
+    [
+     962,
+     446
+    ],
+    [
+     969,
+     431
+    ],
+    [
+     980,
+     420
+    ],
+    [
+     993,
+     413
+    ],
+    [
+     1008,
+     410
+    ],
+    [
+     1023,
+     413
+    ],
+    [
+     1036,
+     420
+    ],
+    [
+     1047,
+     431
+    ],
+    [
+     1054,
+     446
+    ]
+   ],
+   "reason": "雪だるま（雪色で床モデルでは弾けない。手書き楕円）"
+  },
+  {
+   "id": "snowman-playground-2",
+   "polygon": [
+    [
+     1418,
+     606
+    ],
+    [
+     1415,
+     623
+    ],
+    [
+     1408,
+     638
+    ],
+    [
+     1397,
+     650
+    ],
+    [
+     1382,
+     657
+    ],
+    [
+     1366,
+     660
+    ],
+    [
+     1350,
+     657
+    ],
+    [
+     1335,
+     650
+    ],
+    [
+     1324,
+     638
+    ],
+    [
+     1317,
+     623
+    ],
+    [
+     1314,
+     606
+    ],
+    [
+     1317,
+     589
+    ],
+    [
+     1324,
+     574
+    ],
+    [
+     1335,
+     562
+    ],
+    [
+     1350,
+     555
+    ],
+    [
+     1366,
+     552
+    ],
+    [
+     1382,
+     555
+    ],
+    [
+     1397,
+     562
+    ],
+    [
+     1408,
+     574
+    ],
+    [
+     1415,
+     589
+    ]
+   ],
+   "reason": "雪だるま（同上）"
+  },
+  {
+   "id": "snowman-playground-3",
+   "polygon": [
+    [
+     1530,
+     582
+    ],
+    [
+     1528,
+     594
+    ],
+    [
+     1524,
+     606
+    ],
+    [
+     1517,
+     614
+    ],
+    [
+     1508,
+     620
+    ],
+    [
+     1498,
+     622
+    ],
+    [
+     1488,
+     620
+    ],
+    [
+     1479,
+     614
+    ],
+    [
+     1472,
+     606
+    ],
+    [
+     1468,
+     594
+    ],
+    [
+     1466,
+     582
+    ],
+    [
+     1468,
+     570
+    ],
+    [
+     1472,
+     558
+    ],
+    [
+     1479,
+     550
+    ],
+    [
+     1488,
+     544
+    ],
+    [
+     1498,
+     542
+    ],
+    [
+     1508,
+     544
+    ],
+    [
+     1517,
+     550
+    ],
+    [
+     1524,
+     558
+    ],
+    [
+     1528,
+     570
+    ]
+   ],
+   "reason": "雪だるま（同上）"
+  },
+  {
+   "id": "snowman-playground-4",
+   "polygon": [
+    [
+     1248,
+     752
+    ],
+    [
+     1246,
+     766
+    ],
+    [
+     1241,
+     778
+    ],
+    [
+     1232,
+     788
+    ],
+    [
+     1222,
+     794
+    ],
+    [
+     1210,
+     796
+    ],
+    [
+     1198,
+     794
+    ],
+    [
+     1188,
+     788
+    ],
+    [
+     1179,
+     778
+    ],
+    [
+     1174,
+     766
+    ],
+    [
+     1172,
+     752
+    ],
+    [
+     1174,
+     738
+    ],
+    [
+     1179,
+     726
+    ],
+    [
+     1188,
+     716
+    ],
+    [
+     1198,
+     710
+    ],
+    [
+     1210,
+     708
+    ],
+    [
+     1222,
+     710
+    ],
+    [
+     1232,
+     716
+    ],
+    [
+     1241,
+     726
+    ],
+    [
+     1246,
+     738
+    ]
+   ],
+   "reason": "雪だるま（同上）"
+  }
+ ],
+ "assist": [],
+ "exits": [
+  {
+   "id": "door-main",
+   "room": "grounds",
+   "edge": "north",
+   "partner": "TRM-04.door-south",
+   "design_source": [
+    {
+     "file": "docs/map-topology.md",
+     "line": 139,
+     "quote": "TRM-03.door-main | TRM-04.door-south | door | 本堂内部"
+    },
+    {
+     "file": "docs/map-topology.md",
+     "line": 285,
+     "quote": "境内から本堂へ。段差を主路にせず、扉前に回転余地を残す"
+    }
+   ],
+   "position": {
+    "status": "fixed",
+    "plan_box": [
+     0.4356,
+     0.516,
+     0.0,
+     0.169
+    ],
+    "basis": "本堂の正面＝建物の中央（設計: 本堂中心）。絵の正面扉の足元 u≈0.476 とも一致。幅=2人"
+   }
+  },
+  {
+   "id": "door-residence",
+   "room": "grounds",
+   "edge": "north",
+   "partner": "TRM-05.door-outside",
+   "design_source": [
+    {
+     "file": "Issue #144 コメント（kako-jun 2026-10-23）",
+     "line": null,
+     "quote": "TRM-03 は住居 TRM-05（外への出口＝TRM-03.door-residence↔TRM-05.door-outside）と幼稚園 TRM-02（外への出口＝TRM-03.door-playroom↔TRM-02.door-outside）に屋外の出入口がある。IDは暫定。台帳（map-topology.md:289 の『屋外doorを新設しない』）は別担当が更新中"
+    }
+   ],
+   "position": {
+    "status": "fixed",
+    "plan_box": [
+     0.0681,
+     0.1485,
+     0.0,
+     0.169
+    ],
+    "basis": "TRM-05 側の決定『住居の扉は建物の左端寄り（幅の約1/4）』（v7 で描き直し済み）。住居棟 u 0.054〜0.225 の左1/4 ≒ 0.097〜0.108。絵の玄関の足元 u≈0.108。幅=2人。暫定ID"
+   }
+  },
+  {
+   "id": "door-playroom",
+   "room": "grounds",
+   "edge": "north",
+   "partner": "TRM-02.door-outside",
+   "design_source": [
+    {
+     "file": "Issue #144 コメント（kako-jun 2026-10-23）",
+     "line": null,
+     "quote": "TRM-03 は住居 TRM-05（外への出口＝TRM-03.door-residence↔TRM-05.door-outside）と幼稚園 TRM-02（外への出口＝TRM-03.door-playroom↔TRM-02.door-outside）に屋外の出入口がある。IDは暫定。台帳（map-topology.md:289 の『屋外doorを新設しない』）は別担当が更新中"
+    }
+   ],
+   "position": {
+    "status": "fixed",
+    "plan_box": [
+     0.878,
+     0.9584,
+     0.0,
+     0.169
+    ],
+    "basis": "設計に位置の記述なし。幼稚園棟（u 0.701〜0.952）の右寄りの玄関という絵（v7）に合わせて仮置き（設計優先の既定位置）。要確認。幅=2人。暫定ID"
+   }
+  },
+  {
+   "id": "bottom",
+   "room": "grounds",
+   "edge": "south",
+   "partner": "TRM-07.top",
+   "design_source": [
+    {
+     "file": "docs/map-topology.md",
+     "line": 130,
+     "quote": "TRM-07.top | TRM-03.bottom | edge | 山門から境内へ"
+    },
+    {
+     "file": "docs/map-topology.md",
+     "line": 572,
+     "quote": "山門（南）から本堂（北）へ石畳"
+    }
+   ],
+   "position": {
+    "status": "fixed",
+    "plan_box": [
+     0.4348,
+     0.5359,
+     0.93,
+     1.0
+    ],
+    "basis": "南辺の石畳の参道の全幅（辺の遷移）。参道は約2.5人幅。絵の参道は上端 u0.40〜0.56 から下端 0.43〜0.54 へ細くなる（絵の修正候補）"
+   }
+  },
+  {
+   "id": "door-kindergarten",
+   "room": "grounds",
+   "edge": "east",
+   "partner": "TRM-01.door-west",
+   "design_source": [
+    {
+     "file": "docs/map-topology.md",
+     "line": 585,
+     "quote": "TRM-03.door-kindergarten | TRM-01.door-west | ドア（通用門） | 境内の東脇から右隣の園庭へ。扉位置TBD"
+    },
+    {
+     "file": "docs/map-contract-checklist.md",
+     "line": null,
+     "quote": "通用門なし（kako-jun 指示では絵に通用門が無い）"
+    }
+   ],
+   "position": {
+    "status": "TBD"
+   },
+   "candidates": [
+    {
+     "id": "E-north",
+     "note": "東辺の北寄り（幼稚園棟の南東の角の下）",
+     "plan_box": [
+      0.96,
+      1.0,
+      0.12,
+      0.28900000000000003
+     ]
+    },
+    {
+     "id": "E-mid",
+     "note": "東辺の中ほど（園庭の横）",
+     "plan_box": [
+      0.96,
+      1.0,
+      0.4,
+      0.5690000000000001
+     ]
+    },
+    {
+     "id": "E-south",
+     "note": "東辺の南寄り",
+     "plan_box": [
+      0.96,
+      1.0,
+      0.72,
+      0.889
+     ]
+    }
+   ]
+  }
+ ],
+ "npcs": [
+  {
+   "id": "statue-west-lawn",
+   "room": "grounds",
+   "uv": [
+    0.36,
+    0.42
+   ],
+   "note": "親鸞像の東側の雪面（参道の西）"
+  },
+  {
+   "id": "approach-mid",
+   "room": "grounds",
+   "uv": [
+    0.5,
+    0.55
+   ],
+   "note": "参道の中ほど"
+  },
+  {
+   "id": "playground-center",
+   "room": "grounds",
+   "uv": [
+    0.76,
+    0.5
+   ],
+   "note": "園庭側の雪面の中央付近"
+  }
+ ],
+ "char_unit": {
+  "person_width_px_1672": 67,
+  "basis": "体内マップの通路幅＝キャラ1人分 約77px（1920×1080 画面。docs/map-specifications.md BDY-04 行。模型の天面比 0.047）を 1672 幅へ換算して 67px（77×1672/1920）。assets/images/characters/ のマスター画像は 1536×1024 の立ち絵で画面上の寸法の根拠にならないため使わない",
+  "plan_conversion": "ホモグラフィ（room grounds）で、手前の雪面の縁（y≈852）の局所スケール 1plan単位=約0.959px から 67px=約64.3 plan単位=u 0.0402。物理量として一定とし、奥の建物の足元（y≈285）では画面上 約60px/人（1plan=0.927px）に縮む。2人幅=u 0.0804（128.6 plan単位）。出口の奥行き（高さ）も2人分=v 0.169（plan_h=762）",
+  "person_u": 0.0402,
+  "two_persons_u": 0.0804,
+  "two_persons_v": 0.169,
+  "note": "縦横比 2.1 は概算（f 依存）。v 方向の人数換算は縦横比が変わると比例して変わる"
+ },
+ "bridge": [
+  {
+   "id": "stone-approach",
+   "polygon": [
+    [
+     0.4021,
+     0.0192
+    ],
+    [
+     0.5612,
+     0.0114
+    ],
+    [
+     0.5457,
+     0.9943
+    ],
+    [
+     0.4263,
+     0.9949
+    ]
+   ],
+   "reason": "石畳の参道（山門→本堂）は雪色でないが歩ける。現行ツールには bridge が無いので room path（thr 200＝quad 全面）で代用している。bridge が入ったら room path を外して置き換える。plan 座標 uv（room grounds）。要 bridge"
+  }
+ ],
+ "carve": [],
+ "carve_note": "絵で塞がれていて通路を開ける必要のある所は今のところ無い（墓地は台帳どおり blocked 域として閉じる。墓地内の通路を設けるなら要 carve。kako-jun 判断）",
+ "tool_requirements": "rooms[].floor（room 別の床モデル上書き）を使う。oblique_mask.py の room_floor 呼び出しを {**floor, **room.get('floor',{})} にする1行の改修が必要（作業コピーで実行済み）。副 room west-snow・east-snow は『room は最大の連結成分1つだけ』という仕様の回避で、bridge が入れば不要になる",
+ "map_note": "境内（屋外）。rooms: grounds=平面座標の基準（境内全体）、path・west-snow・east-snow=床抽出専用の副 room（出口・NPC は grounds）"
+}

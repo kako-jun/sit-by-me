@@ -1,5 +1,7 @@
 # Issue 対応表（docs の決定・候補 ↔ Issue 番号）
 
+全ドキュメント・台帳・ツールの入口は [INDEX](INDEX.md)。
+
 作成: 2026-10-15（kako-jun 指示「すべてをドキュメント化し、Issue 化し、記憶を失わない」）。docs に溜まっていた「Issue 候補（起票せず列挙）」と「未決・判断待ち」を Issue 化した結果。
 - name-name: https://github.com/kako-jun/name-name/issues/ （`NN#`）
 - sit-by-me: https://github.com/kako-jun/sit-by-me/issues/ （`SB#`）

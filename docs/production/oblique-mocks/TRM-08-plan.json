@@ -1,0 +1,338 @@
+{
+ "schema": "sit-oblique-plan/1",
+ "map_id": "TRM-08",
+ "name": "井戸と用水が合流する道",
+ "subtitle": "屋外・S字の道。左=TRM-07、右=TRM-09。上端は塀・壁で閉じる（決定済み）",
+ "source": "台帳 map-topology v2 の接続行・map-specifications の寺町の行・map-asset-registry・teramachi-rebuild-candidates（TRM-01 は 2026-10-23 に TRM-03 へ統合・廃止）と Issue #51/#144 の決定。",
+ "design": "井戸と用水が合流するS字。TRM-07西↔TRM-09東、上端は塀・壁で閉じる（歩行マスク=黒。外への接続なし）。水路と井戸の縁は黒マスク。",
+ "floors": [
+  {
+   "color": "#e8eef4",
+   "label": "",
+   "rect": [
+    0,
+    0,
+    1600,
+    1270
+   ],
+   "walkable": false,
+   "id": "snow",
+   "look": "雪に覆われた地面（歩けない部分）"
+  },
+  {
+   "color": "#50545a",
+   "label_at": [
+    300,
+    860
+   ],
+   "poly": [
+    [
+     0,
+     990
+    ],
+    [
+     568,
+     990
+    ],
+    [
+     868,
+     730
+    ],
+    [
+     1100,
+     730
+    ],
+    [
+     1600,
+     730
+    ],
+    [
+     1600,
+     470
+    ],
+    [
+     1100,
+     470
+    ],
+    [
+     772,
+     470
+    ],
+    [
+     472,
+     730
+    ],
+    [
+     0,
+     730
+    ]
+   ],
+   "walkable": true,
+   "id": "road",
+   "label": "S字の道",
+   "look": "湿った雪の広い道。S字にゆるく曲がる"
+  },
+  {
+   "color": "#7fb0d8",
+   "rect": [
+    380,
+    100,
+    460,
+    410
+   ],
+   "surface": "water",
+   "walkable": false,
+   "id": "canal-a",
+   "label": "用水",
+   "look": "雪の中を流れる用水。井戸から用水へ合流する"
+  },
+  {
+   "color": "#7fb0d8",
+   "label_at": [
+    700,
+    370
+   ],
+   "rect": [
+    460,
+    330,
+    1000,
+    410
+   ],
+   "surface": "water",
+   "walkable": false,
+   "id": "canal-b",
+   "label": "用水（合流）"
+  }
+ ],
+ "walls": [
+  {
+   "color": "#cdb98f",
+   "h": 120,
+   "kind": "fence",
+   "rect": [
+    18,
+    18,
+    1582,
+    52
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "top-wall",
+   "label": "塀・壁（上端は閉鎖。決定済み）"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 120,
+   "kind": "building",
+   "rect": [
+    60,
+    120,
+    330,
+    360
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-nw",
+   "label": "民家"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 120,
+   "kind": "building",
+   "rect": [
+    1180,
+    130,
+    1540,
+    380
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-ne",
+   "label": "民家"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 110,
+   "kind": "building",
+   "rect": [
+    60,
+    1020,
+    500,
+    1222
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-sw",
+   "label": "民家"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 110,
+   "kind": "building",
+   "rect": [
+    700,
+    990,
+    1100,
+    1222
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-s",
+   "label": "民家"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 110,
+   "kind": "building",
+   "rect": [
+    1250,
+    830,
+    1530,
+    1100
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-se",
+   "label": "民家"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "rect": [
+    18,
+    1226,
+    1582,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-s1",
+   "label": "閉鎖（家並み。台帳: bottom閉鎖）"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    18,
+    44,
+    726
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-w1"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    994,
+    44,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-w2"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    1556,
+    18,
+    1582,
+    466
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-e1"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    1556,
+    734,
+    1582,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-e2"
+  }
+ ],
+ "boxes": [
+  {
+   "blocked": true,
+   "color": "#8a7a5a",
+   "h": 70,
+   "rect": [
+    1060,
+    220,
+    1160,
+    310
+   ],
+   "id": "well",
+   "label": "井戸",
+   "look": "屋根つきの古い井戸"
+  }
+ ],
+ "closed_edges": [
+  {
+   "decided": true,
+   "edge": "north",
+   "reason": "塀・壁で閉じる（接続なし。決定済み 2026-10-23, #51）"
+  },
+  {
+   "edge": "south",
+   "reason": "家並みで閉鎖（台帳: bottom閉鎖）"
+  }
+ ],
+ "markers": [
+  {
+   "at": 860,
+   "edge": "west",
+   "label": "TRM-07 へ（左）",
+   "width": 260,
+   "id": "TRM-08.left",
+   "partner": "TRM-07.right",
+   "status": "default"
+  },
+  {
+   "at": 600,
+   "edge": "east",
+   "label": "TRM-09 へ（右）",
+   "width": 260,
+   "id": "TRM-08.right",
+   "partner": "TRM-09.left",
+   "status": "default"
+  }
+ ],
+ "assumptions": [
+  "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+  "既定（要確認）: 道の幅: 狭い道=132（キャラ2人分。車椅子の最小）、街路=160、広い道=260（既定・要確認）。 左右の出入口の幅は260（TRM-07.right・TRM-09.left と一致）。",
+  "既定（要確認）: S字の形（左 y860 → 右 y600）、井戸・用水・民家の位置と寸法は設計に無い（台帳は『井戸と用水は主路外・水路と井戸の縁は黒マスク』のみ）。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+  "上端は塀・壁で閉じる（接続なし・歩行マスク=黒）。kako-jun 決定 2026-10-23（Issue #51。旧TRM-01正門は廃止）。壁の高さ120・位置は既定（要確認）。（決定 TRM-08.top-closed）",
+  "既定（要確認）: 用水の行き先（暗渠で道の下へ）は描かない。水路は歩行不可の黒マスク（台帳どおり）。",
+  "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。（下は台帳『bottom閉鎖』）"
+ ],
+ "depends_on": [],
+ "_provenance": {
+  "source": "MAP:TRM-08|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
+  "input_sha": "0b97e7ccfb39ab7d20894be2f87fd47ee686eb77404e518d8b6d30d0e56dc3e1",
+  "generated_at": "2026-10-24T04:46",
+  "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
+  "ledger_id": "G-TRM-08-plan",
+  "do_not_edit": true
+ }
+}

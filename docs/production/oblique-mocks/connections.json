@@ -1,0 +1,161 @@
+{
+ "schema": "sit-oblique-connections/1",
+ "title": "寺町 幼稚園一式の接続図（TRM-02〜05）",
+ "plans": [
+  "TRM-05-plan.json",
+  "TRM-04-plan.json",
+  "TRM-02-plan.json",
+  "TRM-03-plan.json"
+ ],
+ "canvas": [
+  3300,
+  2700
+ ],
+ "cells": {
+  "TRM-05": {
+   "pos": [
+    300,
+    270
+   ],
+   "width": 780
+  },
+  "TRM-04": {
+   "pos": [
+    1230,
+    270
+   ],
+   "width": 940
+  },
+  "TRM-02": {
+   "pos": [
+    2400,
+    270
+   ],
+   "width": 860
+  },
+  "TRM-03": {
+   "pos": [
+    900,
+    1400
+   ],
+   "width": 1500,
+   "title_below": true
+  }
+ },
+ "externals": [
+  {
+   "id": "TRM-07",
+   "label": "TRM-07 山門の通り（寺町の外・広い道）",
+   "box": [
+    1450,
+    2380,
+    850,
+    110
+   ],
+   "ports": {
+    "TRM-07.top": [
+     "top",
+     0.5
+    ]
+   }
+  },
+  {
+   "id": "TRM-06",
+   "label": "TRM-06 住居の裏の細道\n（寺町内・未制作マップ）",
+   "dashed": true,
+   "note": "（寺町内・未制作MAP）",
+   "kind_note": "寺町内・未制作マップへの接続（点線の箱）",
+   "box": [
+    40,
+    900,
+    300,
+    110
+   ],
+   "ports": {
+    "TRM-06.door-house": [
+     "top",
+     0.5
+    ]
+   }
+  }
+ ],
+ "legend_notes": [
+  "TRM-01（旧園庭）は TRM-03 に統合済み。東の通用門・園庭への接続は無い。",
+  "園庭＝TRM-03 境内の右の区画。",
+  "TRM-06 は住居の裏の細道。TRM-16→15→06→16 の円環の一部。",
+  "勝手口 door-back は北壁の左端。",
+  "TRM-05-fire では door-back は焼失・通行不可（TRM-06 へ行けない）。"
+ ],
+ "edges": [
+  {
+   "a": "TRM-05.door-hall",
+   "b": "TRM-04.door-west",
+   "kind": "door",
+   "expect": "opposite",
+   "label": "住居↔本堂"
+  },
+  {
+   "a": "TRM-04.door-east",
+   "b": "TRM-02.door-west",
+   "kind": "door",
+   "expect": "opposite",
+   "label": "本堂↔幼稚園"
+  },
+  {
+   "a": "TRM-05.door-outside",
+   "b": "TRM-03.door-residence",
+   "kind": "door",
+   "expect": "same",
+   "label": "住居↔境内",
+   "a_dir": "south",
+   "b_dir": "north"
+  },
+  {
+   "a": "TRM-02.door-outside",
+   "b": "TRM-03.door-playroom",
+   "kind": "door",
+   "expect": "same",
+   "label": "幼稚園↔境内",
+   "a_dir": "south",
+   "b_dir": "north"
+  },
+  {
+   "a": "TRM-04.door-south",
+   "b": "TRM-03.door-main",
+   "kind": "door",
+   "expect": "same",
+   "label": "本堂↔境内（正面）",
+   "a_dir": "south",
+   "b_dir": "north"
+  },
+  {
+   "a": "TRM-03.bottom",
+   "b": "TRM-07.top",
+   "kind": "edge",
+   "label": "境内の南端↔山門の通り",
+   "a_dir": "south",
+   "b_dir": "north",
+   "external": true
+  },
+  {
+   "a": "TRM-05.door-back",
+   "b": "TRM-06.door-house",
+   "kind": "door",
+   "label": "勝手口↔裏の細道",
+   "a_dir": "west",
+   "b_dir": "north",
+   "external": true,
+   "disabled_in": {
+    "TRM-05-fire": "焼失・通行不可（火と燃えカスが残る）"
+   }
+  }
+ ],
+ "_provenance": {
+  "source": "接続|接続図設定|MAP.設計意図(寺町全体のみ)",
+  "input_sha": "7c0e4f6c91aefbe927c03679f4971566e25d74a9fc93277062512c0063b4a6cd",
+  "generated_at": "2026-10-24T02:11",
+  "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
+  "ledger_id": "G-connections",
+  "do_not_edit": true
+ }
+}

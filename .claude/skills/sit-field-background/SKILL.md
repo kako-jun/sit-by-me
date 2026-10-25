@@ -14,11 +14,21 @@ Sit by Me のフィールド背景を、手作りのミニチュアに見える�
 | `SKILL.md`（本書） | モック提示ゲート（最優先）＋標準手順12工程 | 常に |
 | `issue-template.md` | 新エリア用 Issue 本文（**着手前の確認票**・工程チェックリスト・承認記録欄・hash欄） | 工程0で Issue を立てるとき |
 | `pitfalls.md` | ハマり所と対処（症状→原因→対処） | 工程4〜8で詰まったとき。着手前にも一読 |
+| `tools/README.md` | ツール一覧・台帳（YAML）の操作・ファイルの置き場所の検査（`docs/INDEX.md`・`ファイル配置.yaml`） | ツールを使う・足すとき |
 | `gates.md` | 一意解釈・材料固定宣言・台帳原文・建築連続性・接続・材料表（旧 SKILL.md の全文） | 工程1・4・5で |
 | `tools/README.md` | ツール一覧（エリア共通／体内専用）と次にやること | 工程2・8・10で |
 | `body-appendix.md` | 体内（BDY）の経緯・個別事項・実測・体内専用の値 | 体内を触るときだけ |
 | `../sit-field-mask/SKILL.md` | 工程10（位置合わせ・マスク） | 工程10 |
 | `../sit-artifact-redteam/SKILL.md` | 工程5・8・11（独立レビュー） | 工程5・11 |
+
+## 台帳の運用（絶対。台帳 = `docs/ledger/*.yaml` が情報の唯一のマスター。2026-10-24）
+
+1. **決定は先に台帳へ**: kako-jun の決定・指示は、まず `決定.yaml`（逐語・出典つき。status に関係なく全件がプロンプトに入る）に書く。Issue は決定IDを参照するだけで、**Issue にだけ書かない**。Issue の決定候補の取りこぼしは `ruby scripts/audit_issue_decisions.rb` が検出する。
+2. **必須キーと自由記述**: 表ごとの必須キーは `必須キー.yaml`。欠けている・『未決(要確認)』のMAPは `oblique_build.py` が起動しない（形・数値を発明しない。未決は `未決.yaml`）。決まりが表の列に収まらないときは、その行の `特徴(自由記述)` 欄にそのまま書く（プロンプトの FEATURES 節に入る。`verify_prompt_reflects_ledger.rb` が漏れを検出）。
+3. **画像生成は、台帳整理の完了と kako-jun の再開指示があるまでしない**（現在は停止中）。
+4. **生成画像は Claude は見ない**（見るのは kako-jun）。Claude が扱うのは、スクリプトの測定値（`oblique_e2_measure.py`）と台帳だけ。
+5. **プロンプトの文面・寸法はコードに直書きしない**: 台帳の `プロンプト文面`・`描画定数` を直す（コードは `oblique_text.py` で読むだけ）。
+6. 変更したら `ruby scripts/verify_ledger.rb`（スキーマ・外部キー・鮮度・コードと台帳の対応）と `ruby scripts/verify_prompt_reflects_ledger.rb` を通す。入口と表の一覧は [docs/INDEX.md](../../../docs/INDEX.md)。
 
 ## モック提示ゲート（絶対・最優先。このスキルの全行より優先）
 
@@ -36,7 +46,7 @@ kako-jun 指示（2026-10-22、逐語）: 『モックを見せずに作るこ�
 
 - **一意解釈ゲート**: `少し`・`やや`・`広い`・`自然`・`斜め`だけ等の曖昧語で形・幅・方角を決めない。道・水路・建物の形を直線・直交・格子へ正規化しない。根拠がなければ TBD を残して停止し、数値を発明しない。
 - **材料固定宣言**: 「手作り」「模型」だけで生成しない。各生成入力に対象ごとの材料・道具・接着方法を列挙し、原寸で三つ以上確認できなければ `failed`。
-- **台帳原文ゲート**: 対象MAPの台帳原文（registry・specifications・topology・checklist・再構築候補台帳）を**要約せず逐語で**生成入力に添付する。読めない・矛盾する・接続相手の原文が確認できないなら `blocked`。生成直前に原文→prompt の対応を照合する。
+- **台帳原文ゲート**（寺町など `docs/ledger/MAP.yaml` に行があるMAPは台帳が正本で、決定・未決・窓・採用要素は `oblique_build.py` が全件プロンプトに入れる。以下は台帳に行が無いエリア用）: 対象MAPの台帳原文（registry・specifications・topology・checklist・再構築候補台帳）を**要約せず逐語で**生成入力に添付する。読めない・矛盾する・接続相手の原文が確認できないなら `blocked`。生成直前に原文→prompt の対応を照合する。
 - **建築連続性ゲート**: 複数MAPが一建物を表すエリア（寺・学校・住宅）は、建築不変表を転記し、外観参照を先に通す。
 - **接続は接続表だけで判定**する。通路は模型の縁まで。必須接続を先に固定し、行き止まりは後。
 
@@ -171,3 +181,35 @@ kako-jun 指示（2026-10-22、逐語）: 『モックを見せずに作るこ�
 - 原文にない建物間の外部接続・別棟・渡り廊下・出口を作らない
 
 共通（#68運用）: 合格済みの正本を上書きする前に、現行がコミット済みか確認する。不合格テイクをコミット済みにしてしまった場合は `git revert <commit>`、または `git checkout <旧commit> -- <path>` で戻す。
+
+## 斜め視点のエリア（寺町 TRM-02〜05 ほか。#144。kako-jun 2026-10-23 決定で作り直し方式に転換）
+
+**方針: モックが設計の正本。** 平面スペック JSON を書くと、斜めモック・マスク・出口・オクルージョン・接続図・imagegen 編集用プロンプトまで**全部スクリプトが決定論で出す**（絵の認識・LLM は使わない。使うのは承認後の imagegen だけ）。マスクは絵から逆算せず、モック（平面図）から直接導く。生成した絵がモックの幾何を保つ限り、マスクと絵は食い違わない。旧方式（採用画像から逆算: `oblique_register.py`・`oblique_mask.py`・`docs/production/oblique-masks/`）は既存の採用画像の検証用に残す。
+
+### 標準手順（1コマンド）
+
+1. `docs/production/oblique-mocks/<MAP>-plan.json`（`sit-oblique-plan/1`）を書く。部屋の床・壁（高さつき）・戸口（壁・辺・位置・歩く側・相手の door ID）・家具の箱（高さ・blocked）・内部仕切りと開口。**窓は `windows[]`（壁・中心位置・幅・窓台高さ・高さ・種別=`floor`掃き出し/`waist`腰高・status=fixed/default）で個数・位置・種別をすべて明示し、各壁に `window_count`（実数と一致を検証）を持たせる。**モックの壁面に窓枠＋ガラスで描かれ（クリーン版にも。imagegen が窓をずらさない）、edit-prompt に個数・位置・種別が文章で出る。窓は見た目のみで歩行・オクルージョンに影響しない。一覧は `windows.md`（既定要確認の窓を kako-jun がレビュー）。寸法は台帳・kako-jun の決定から。**設計に無い所は発明せず、`status:"default"` と `assumptions` に『既定（要確認）』と書く**。時期別（-kids/-fire/-burnt）は `variants` の差分で書く。
+2. `connections.json` に MAP と接続を足す（外部の端点＝TRM-07・TRM-01・体内も）。
+3. `uv run --with numpy --with opencv-python-headless --with pillow python3 -I .claude/skills/sit-field-background/tools/oblique_build.py --all docs/production/oblique-mocks/connections.json`
+
+段階（`tools/oblique_build.py`）: validate（スキーマ・戸口の相手不一致・幅不足・戸口の前の障害物・到達不能をエラー）→ mock（クリーン／ラベル付き）→ wire（個別の白黒ワイヤー図）→ mask（歩行マスク）→ occlusion（手前オクルージョン）→ prompt（imagegen 編集用。台帳 `build_map_prompt.rb` が ready でなければ blocked と記録）→ **承認ゲート** → adopt（`--adopt IMAGE --take N`。寸法・sha256・プロンプト hash・モック hash を記録）→ verify（`--status`。採用後にスペックが変われば「再生成が要る」）。各段の入力 hash・出力 sha256 は `docs/production/oblique-mocks/<MAP>/manifest.json`。入力が変わらない段はスキップ、変わった段以降だけ再実行（`--from STAGE`・`--force`）。接続図・一覧・接続表は `--all` で横断生成（`connection-diagram.png`・`overview.png`・`connections.md`）。
+
+**依存順の直列方式（kako-jun 2026-10-23。並列の4MAP同時生成は誤りだった）: 直列か並列かは依存関係で決める。** 判定基準は『同じ建物・扉・家具・場所を複数枚で描くか』。共有するなら**1つ確定→その採用画像を参考画像として次へ**（確定画像は扉・材質・家具・装飾のデザインの参考のみ。構図・配置・位置・大きさはコピーしない＝位置は常にクリーンモックが正本）。共有しない通路的な独立マップは並列。寺町の依存: 本堂 TRM-04 → 住居 TRM-05 基準 → TRM-05-kids・-fire／本堂 → 幼稚園 TRM-02／内部（04・05・02）が全部確定 → 外観 TRM-03（扉・渡り廊下は内部と一致）→ 屋外の他MAP。依存グラフは `docs/production/oblique-mocks/dependency-graph.json`（plan の `depends_on` と一致。循環・存在しないID・自己参照はエラー）、要確認は `dependency-notes.md`。`oblique_e2_schedule.py list|check|refs|graph|launch` が『今起動できるMAP』を出し、親が未確定のMAPは `oblique_e2_run.sh` が起動を拒否し、確定済みの親の正本画像を参考画像（役割節つき）として自動で付ける。確定＝`oblique_build.py --adopt IMG --take N --canonical PATH`（manifest の adoption.canonical）。
+
+**標準手順（kako-jun 2026-10-23 確定）＝案1: 座標つき幾何固定文＋装飾許可＋エリア固定**。MAP を足すときは (1) 採用済み画像（git 履歴）を1回見て plan の box.look・walls.look・floors.look を書く（`decor_pool` は屋内=`teramachi-winter`・外観=`teramachi-winter-exterior`。エリア固定=机・木・台座は継承）、(2) `oblique_build.py` で edit-prompt v4（COORDINATES＋TREE PLACEMENT）を出す、(3) `oblique_e2_run.sh MAP 4`（`REF_IMAGE=git:REV:PATH` で装飾基準）で4テイク＋測定。MAPごとの生成は互いに独立なので3MAPを同時にバックグラウンドで回してよい。案3（別生成して合成）は不要。測定基準の変更（2026-10-23。家具は接地線／松の緑量は絶対 0.003）は `docs/production/oblique-mocks/TRM-02/e2/e2-report.md` に記録。外観は歩く地面に木を置けないので plan の `tree_zones`（木を置ける矩形）で限定する。e2 の生成画像・重ね画像は git に入れない（`.gitignore`）。
+
+**テイク数は4で固定。自動の順位づけ・上位絞り込みはしない。採用判定は kako-jun が目視で行い、全4テイクを提示する（kako-jun 2026-10-23「４つでいいし人間が判定すればいい」）。測定値（幾何・装飾・エリア固定）は参考情報と不具合検出（崩れ・混入・偽造PNG）にのみ使い、合否で自動的にテイクを落とさない。metrics の表示は「基準内／基準超」（判定ではない）。**
+
+**開口（仕切り・敷居の passage）の描画**: 開口の幅の分、仕切りの壁の立体を上端から下端まで切り抜き（壁を除いた再描画を開口の柱状の空間だけ貼る）、隣室の床がつながって見えるようにし、開口を緑で塗って左右の端に枠線を引く（クリーン版にも。印なので完成画像には残さない）。オクルージョンは開口の空間で壁のシルエットを出さない。edit-prompt は開口ごとに座標つきで『扉のない通り抜けられる開口・床が連続・壁・梁・鴨居・垂れ壁・柱・敷居を描かない』、冒頭に DOORS『全部でN個。1つも欠かさない』（細い戸口ほど強調）を出す。測定は戸口・窓の存在確認（壁との色差・エッジ）・開口が床色か・畳らしい色の面積を**参考表示**する。生成は台帳マスターの整理が済むまで再開しない（kako-jun 2026-10-23）。
+
+### E2: クリーンモック編集元の生成と幾何保持の測定（TRM-02 で実証、#144）
+
+`tools/oblique_e2_run.sh MAP 4`（リポ直下）で、承認済みクリーンモックを編集元に imagegen を4テイク並列生成→`oblique_e2_measure.py` で幾何保持を数値化する。参照は**クリーンモック＋素材見本（`verification/body-layout/BDY-material-swatch-corrugated-edge.png`）の2枚のみ・様式参照なし**。**edit-prompt は物の見た目と許す/禁じる装飾を持つ。幾何固定と装飾は別軸**（round1 は箱の名前と高さだけで『足さない・消さない』が装飾まで禁じる読みになり、kako-jun が全不合格にした）: 平面スペックに `decor_pool`（`docs/production/oblique-mocks/decor-pools.json`、`sit-oblique-decor/1`。層=作業机/台座の前縁/建物の外/建物の look と固定、面=壁・床・戸口・窓、kinds=物の種類別の見た目、allow/forbid）と、box の `kind`/`look`・floors/walls の `look` を書く（`oblique_build.py` が検証し、edit-prompt v3 に出す。未指定は警告）。『足さない・消さない・ずらさない』は幾何を決める要素（寸法・視点・層の境界・壁・戸口・窓・家具の箱）に限り、指定のない面（壁・床・棚や机の上・建物の外・作業机・台座の前縁）は工作の装飾で十分に埋める。**エリアごとに固定するもの=机の天面の材質・木の種類・台座の素材**（`decor-pools.json` の `areas.<area>`＝area_fixed。各プールは `area` を指定して継承し、プール・plan 側で上書きするとエラー。同じエリアの全MAPで変えない。寺町の既定〔要確認〕: 机=温かい茶色の木の板張り・板目は画面の左右方向・節〔採用済み4枚の実測平均色 RGB(127,75,38)。板目は4枚中3枚が横、本堂は混在〕、木=松＋枯木、台座=段ボール＋綿の雪。他エリアの材質は発明せず、エリアを作るときに kako-jun と決めて `areas` に足す）。層構造は 作業机（最外層）／台座（前縁に段ボール断面・テープ）／建物の外（綿の雪・草・木。**寺町の木=松＋枯木の2種に固定**〔kako-jun 2026-10-23「木が洋風すぎる。寺だし松だろう」〕。松=雪をかぶった日本の松（幹がうねる・太い枝が横に張る・針葉は段状の房・盆栽的・1本ずつ形が違う）、枯木=葉を落とした広葉樹。杉・モミ・クリスマスツリー風の三角形の針葉樹は禁止。本数は外周に合計8〜12本、松6〜8・枯木2〜4（松多め。既定・要確認）。pool の `trees` に持つ。#51）／建物。窓ガラス越しには外景を描かない。測定は `--ref`（元の採用画像）で装飾量・層・外周の木と草も出す。round2（TRM-02 A案=文章のみ／B案=元画像を様式参照）では装飾は出たが幾何が崩れた（A=建物全体が約20〜40px上ずれ、B=元画像の構図コピー）。round3（案1: edit-prompt v4 の COORDINATES 節＝台座の台形・外壁の外形・戸口・窓・家具箱の画素座標を plan とモックから機械的に出し、TREE PLACEMENT で木の本数と四辺の帯を座標つきで指定）で建物の上ずれは窓の平均 |dy| 約30px→1〜12px に減り、構図コピーも消えたが、4テイク中2枚は10〜14px上ずれ・幾何+装飾 0/4。座標を書くだけでは固定しきれないので、次手は案3（建物と外周を別々に生成して合成。クロップ生成＋決定論の位置合わせ）。詳細は `docs/production/oblique-mocks/TRM-02/e2/round2-report.md`・`round3-report.md`。結果は `docs/production/oblique-mocks/<MAP>/e2/`（`takeN.png`・`overlay-takeN.png`・`metrics.json`/`metrics.md`・`run-log.md`・`e2-report.md`）。TRM-02 の実測: 4テイクとも輪郭 recall@6px 0.78〜0.94（ずらし基準 0.50〜0.57）・Chamfer 2〜4px・戸口ピンク残り0・窓ガラスに空/木なし、領域ずれの合格は2/4（崩壊でなく局所ずれ）。採用は kako-jun が決める（assets 配置・台帳 status は E2 では触らない）。**画像の内容は測れる範囲を数値で出し、測れない項目（窓越しの見え方・床の模様・扉の造形・様式）は kako-jun の目視項目として別掲する。** 手順の落とし穴は `pitfalls.md` F。
+
+### 決定（kako-jun、2026-10-23）
+
+- **全体レビューが承認ゲートの核**: 各戸口の位置・向き・幅（`width_class`: 原則キャラ2人分・住居/幼稚園の外への戸口1.5人分・勝手口1人分）・相手 MAP の戸口との位置整合・寺町外への端点を載せた接続図（白黒ワイヤー。昔の攻略本流）と全MAP一覧を見せ、通ってから生成する。生成後の修正より、モック段階の接続修正を優先する。
+- **視点**（採用4枚の測定）: 見下ろし約42度・側辺の開き約10度・奥幅/手前幅0.835・手前の土台前面35px・机の小物は手前に固定・1672×941・1キャラ=67px。出入口の高さはキャラ2人分、幅は戸口ごとの `width_class`（原則2人分=132平面単位＝土台の手前縁で約134px。奥は遠近で縮む。外への戸口1.5人分=100・勝手口1人分=66）。
+- 舞台は登れない（blocked）／戸口・仕切りの開口の位置は設計が正本（絵から読まない。TBD は既定を置いて聞く）／assist は最小限。
+- **歩行マスクとオクルージョンは別レイヤー**。体内以外は斜めなので、手前の壁・背の高い家具がキャラを隠す。これをモックの幾何から自動で出す（`<MAP>-occlusion.png`＝隠す領域、`-occlusion-depth.png`＝その画素の物の接地線の画像 y、`-occlusion-edit.png`＝黒/シアンの編集地図（sit-field-mask の `*-foreground-edit` 規約）。**ルール: スプライトの足元 y < depth の画素だけ隠す**。奥壁・キャラの体（67×100px）が重ならない物は出さず、戸口の開口は抜く）。前景に隠れる床は通行不能にしない。深度つきの実行時適用は未実装（要確認）。
+- 縦横比の検証は循環に注意（`pitfalls.md` F）。

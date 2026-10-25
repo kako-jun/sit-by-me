@@ -1,0 +1,326 @@
+{
+ "schema": "sit-oblique-plan/1",
+ "map_id": "TRM-15",
+ "name": "火の見櫓の角",
+ "subtitle": "屋外・火の見櫓を曲がる見通しの悪い角。左=TRM-16、右=TRM-07、下=TRM-06",
+ "source": "台帳 map-topology v2 の接続行・map-specifications の寺町の行・map-asset-registry・teramachi-rebuild-candidates（TRM-01 は 2026-10-23 に TRM-03 へ統合・廃止）と Issue #51/#144 の決定。",
+ "design": "火の見櫓を曲がる見通しの悪い角。TRM-16西↔TRM-07東、南→TRM-06。細道は画面内で終えず TRM-06.right→TRM-16.left へ戻る（#51）。",
+ "floors": [
+  {
+   "color": "#e8eef4",
+   "label": "",
+   "rect": [
+    0,
+    0,
+    1600,
+    1270
+   ],
+   "walkable": false,
+   "id": "snow",
+   "look": "雪に覆われた地面（歩けない部分）"
+  },
+  {
+   "color": "#50545a",
+   "label_at": [
+    230,
+    430
+   ],
+   "poly": [
+    [
+     0,
+     510
+    ],
+    [
+     527,
+     510
+    ],
+    [
+     944,
+     917
+    ],
+    [
+     1056,
+     803
+    ],
+    [
+     593,
+     350
+    ],
+    [
+     0,
+     350
+    ]
+   ],
+   "walkable": true,
+   "id": "road-a",
+   "label": "用水沿いの道（TRM-16 から）",
+   "look": "湿った雪の街路。火の見櫓の角で曲がる"
+  },
+  {
+   "color": "#50545a",
+   "label_at": [
+    1300,
+    860
+   ],
+   "rect": [
+    940,
+    730,
+    1600,
+    990
+   ],
+   "walkable": true,
+   "id": "road-b",
+   "label": "広い道（TRM-07 へ）"
+  },
+  {
+   "color": "#b9bec6",
+   "label_at": [
+    700,
+    1100
+   ],
+   "rect": [
+    634,
+    540,
+    766,
+    1270
+   ],
+   "walkable": true,
+   "id": "branch",
+   "label": "細道（TRM-06 へ）"
+  }
+ ],
+ "walls": [
+  {
+   "color": "#e6d8b8",
+   "h": 120,
+   "kind": "building",
+   "rect": [
+    80,
+    80,
+    420,
+    300
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-nw",
+   "label": "民家"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 120,
+   "kind": "building",
+   "rect": [
+    1100,
+    80,
+    1500,
+    320
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-ne",
+   "label": "民家"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 110,
+   "kind": "building",
+   "rect": [
+    80,
+    720,
+    560,
+    1100
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-sw",
+   "label": "民家"
+  },
+  {
+   "color": "#e6d8b8",
+   "h": 110,
+   "kind": "building",
+   "rect": [
+    900,
+    1080,
+    1500,
+    1222
+   ],
+   "top_color": "#6c7077",
+   "window_count": 0,
+   "id": "house-se",
+   "label": "民家"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "rect": [
+    18,
+    18,
+    1582,
+    44
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-n1",
+   "label": "閉鎖（塀・家並み。台帳: top閉鎖）"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    1226,
+    630,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-s1"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    770,
+    1226,
+    1582,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-s2"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    18,
+    44,
+    346
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-w1"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    514,
+    44,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-w2"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    1556,
+    18,
+    1582,
+    726
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-e1"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    1556,
+    994,
+    1582,
+    1252
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-e2"
+  }
+ ],
+ "boxes": [
+  {
+   "blocked": true,
+   "color": "#8a7a5a",
+   "h": 260,
+   "rect": [
+    880,
+    300,
+    960,
+    380
+   ],
+   "id": "tower",
+   "label": "火の見櫓",
+   "look": "木組みの火の見櫓。雪をかぶる"
+  }
+ ],
+ "closed_edges": [
+  {
+   "edge": "north",
+   "reason": "塀・家並みで閉鎖（台帳: top閉鎖）"
+  }
+ ],
+ "markers": [
+  {
+   "at": 430,
+   "edge": "west",
+   "label": "TRM-16 へ（左・用水沿い）",
+   "width": 160,
+   "id": "TRM-15.left",
+   "partner": "TRM-16.right",
+   "status": "default"
+  },
+  {
+   "at": 860,
+   "edge": "east",
+   "label": "TRM-07 へ（右・広い道）",
+   "width": 260,
+   "id": "TRM-15.right",
+   "partner": "TRM-07.left",
+   "status": "default"
+  },
+  {
+   "at": 700,
+   "edge": "south",
+   "label": "TRM-06 へ（下・勝手口の細道）",
+   "width": 132,
+   "id": "TRM-15.bottom",
+   "partner": "TRM-06.top",
+   "status": "default"
+  }
+ ],
+ "assumptions": [
+  "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+  "既定（要確認）: 道の幅: 狭い道=132（キャラ2人分。車椅子の最小）、街路=160、広い道=260（既定・要確認）。 左160（TRM-16.right）・右260（TRM-07.left）・下132（TRM-06.top）。",
+  "既定（要確認）: 角の形（左 y430 から東へ、櫓の角で南東へ曲がり、右 y860 の広い道へ。下の細道は曲がり角から南へ分岐）・火の見櫓の位置と大きさ・民家の位置は設計に無い。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+  "細道は画面内で終えず TRM-06.right→TRM-16.left へ戻る（円環。Issue #51）。（決定 TRM-06.loop）",
+  "既定（要確認）: 台帳『topは閉鎖』。"
+ ],
+ "depends_on": [],
+ "_provenance": {
+  "source": "MAP:TRM-15|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
+  "input_sha": "cb35ccc37927bce85c6a3b2a61b9276f9943ea848b719290f780c07b0ebc71f8",
+  "generated_at": "2026-10-24T04:46",
+  "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
+  "ledger_id": "G-TRM-15-plan",
+  "do_not_edit": true
+ }
+}

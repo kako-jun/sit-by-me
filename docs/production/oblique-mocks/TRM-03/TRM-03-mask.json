@@ -1,0 +1,167 @@
+{
+ "schema": "sit-oblique-mock-mask/1",
+ "map_id": "TRM-03",
+ "size": [
+  1672,
+  941
+ ],
+ "white_components": 1,
+ "door_width_plan": 132,
+ "exits": [
+  {
+   "id": "TRM-03.door-main",
+   "partner": "TRM-04.door-south",
+   "wall_side": "south",
+   "plan_patch": [
+    712.0,
+    50,
+    844.0,
+    637.0
+   ],
+   "image_polygon": [
+    [
+     769,
+     81
+    ],
+    [
+     882,
+     81
+    ],
+    [
+     882,
+     418
+    ],
+    [
+     759,
+     418
+    ],
+    [
+     764,
+     187
+    ]
+   ],
+   "status": "fixed"
+  },
+  {
+   "id": "TRM-03.door-residence",
+   "partner": "TRM-05.door-outside",
+   "wall_side": "south",
+   "plan_patch": [
+    127.0,
+    90,
+    227.0,
+    595.0
+   ],
+   "image_polygon": [
+    [
+     352,
+     103
+    ],
+    [
+     329,
+     275
+    ],
+    [
+     313,
+     392
+    ],
+    [
+     221,
+     392
+    ],
+    [
+     239,
+     187
+    ],
+    [
+     266,
+     103
+    ]
+   ],
+   "status": "default"
+  },
+  {
+   "id": "TRM-03.door-playroom",
+   "partner": "TRM-02.door-outside",
+   "wall_side": "south",
+   "plan_patch": [
+    1447.0,
+    110,
+    1547.0,
+    621.0
+   ],
+   "image_polygon": [
+    [
+     1532,
+     408
+    ],
+    [
+     1439,
+     408
+    ],
+    [
+     1424,
+     290
+    ],
+    [
+     1402,
+     113
+    ],
+    [
+     1488,
+     113
+    ],
+    [
+     1514,
+     202
+    ]
+   ],
+   "status": "default"
+  },
+  {
+   "id": "TRM-03.bottom",
+   "partner": "TRM-07.top",
+   "wall_side": "south",
+   "plan_patch": [
+    734.0,
+    1200,
+    866.0,
+    1270
+   ],
+   "image_polygon": [
+    [
+     770,
+     798
+    ],
+    [
+     903,
+     798
+    ],
+    [
+     903,
+     850
+    ],
+    [
+     769,
+     850
+    ]
+   ],
+   "status": "fixed"
+  }
+ ],
+ "exit_components": {
+  "TRM-03.door-main": [
+   1
+  ],
+  "TRM-03.door-residence": [
+   1
+  ],
+  "TRM-03.door-playroom": [
+   1
+  ],
+  "TRM-03.bottom": [
+   1
+  ]
+ },
+ "note": "平面図から導いた。床=白・blocked=黒（壁・blocked の箱は画像上の覆いも黒）・戸口と開口=白"
+}

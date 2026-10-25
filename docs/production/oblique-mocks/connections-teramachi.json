@@ -1,0 +1,593 @@
+{
+ "schema": "sit-oblique-town/1",
+ "title": "寺町 全体の接続図（TRM-02〜TRM-17。幼稚園一式を含む）",
+ "plans": [
+  "TRM-02-plan.json",
+  "TRM-03-plan.json",
+  "TRM-04-plan.json",
+  "TRM-05-plan.json",
+  "TRM-06-plan.json",
+  "TRM-07-plan.json",
+  "TRM-08-plan.json",
+  "TRM-09-plan.json",
+  "TRM-10-plan.json",
+  "TRM-11-plan.json",
+  "TRM-12-plan.json",
+  "TRM-13-plan.json",
+  "TRM-14-plan.json",
+  "TRM-15-plan.json",
+  "TRM-16-plan.json",
+  "TRM-17-plan.json"
+ ],
+ "own_plans": [
+  "TRM-06-plan.json",
+  "TRM-07-plan.json",
+  "TRM-08-plan.json",
+  "TRM-09-plan.json",
+  "TRM-10-plan.json",
+  "TRM-11-plan.json",
+  "TRM-12-plan.json",
+  "TRM-13-plan.json",
+  "TRM-14-plan.json",
+  "TRM-15-plan.json",
+  "TRM-16-plan.json",
+  "TRM-17-plan.json"
+ ],
+ "own_plans_order": [
+  "TRM-06",
+  "TRM-07",
+  "TRM-08",
+  "TRM-09",
+  "TRM-10",
+  "TRM-11",
+  "TRM-12",
+  "TRM-13",
+  "TRM-14",
+  "TRM-15",
+  "TRM-16",
+  "TRM-17"
+ ],
+ "overview_order": [
+  "TRM-02",
+  "TRM-03",
+  "TRM-04",
+  "TRM-05",
+  "TRM-06",
+  "TRM-07",
+  "TRM-08",
+  "TRM-09",
+  "TRM-10",
+  "TRM-11",
+  "TRM-12",
+  "TRM-13",
+  "TRM-14",
+  "TRM-15",
+  "TRM-16",
+  "TRM-17"
+ ],
+ "canvas": [
+  7750,
+  4820
+ ],
+ "legend_at": [
+  60,
+  3258
+ ],
+ "cells": {
+  "TRM-02": {
+   "pos": [
+    4257,
+    234
+   ],
+   "width": 860,
+   "title_pos": "above"
+  },
+  "TRM-03": {
+   "pos": [
+    2757,
+    1364
+   ],
+   "width": 1500,
+   "title_pos": "below"
+  },
+  "TRM-04": {
+   "pos": [
+    3087,
+    234
+   ],
+   "width": 940,
+   "title_pos": "above"
+  },
+  "TRM-05": {
+   "pos": [
+    2157,
+    234
+   ],
+   "width": 780,
+   "title_pos": "above"
+  },
+  "TRM-06": {
+   "pos": [
+    150,
+    2520
+   ],
+   "width": 700
+  },
+  "TRM-07": {
+   "pos": [
+    3150,
+    2520
+   ],
+   "width": 700
+  },
+  "TRM-08": {
+   "pos": [
+    4150,
+    2520
+   ],
+   "width": 700
+  },
+  "TRM-09": {
+   "pos": [
+    5150,
+    2520
+   ],
+   "width": 700
+  },
+  "TRM-10": {
+   "pos": [
+    5150,
+    3222
+   ],
+   "width": 700
+  },
+  "TRM-11": {
+   "pos": [
+    5150,
+    3890
+   ],
+   "width": 700
+  },
+  "TRM-12": {
+   "pos": [
+    4150,
+    3890
+   ],
+   "width": 700
+  },
+  "TRM-13": {
+   "pos": [
+    6150,
+    3890
+   ],
+   "width": 700
+  },
+  "TRM-14": {
+   "pos": [
+    6150,
+    3222
+   ],
+   "width": 700
+  },
+  "TRM-15": {
+   "pos": [
+    2150,
+    2520
+   ],
+   "width": 700
+  },
+  "TRM-16": {
+   "pos": [
+    1150,
+    2520
+   ],
+   "width": 700
+  },
+  "TRM-17": {
+   "pos": [
+    1150,
+    1852
+   ],
+   "width": 700
+  }
+ },
+ "externals": [
+  {
+   "id": "KRB-10",
+   "label": "KRB-10 コンビニ（寺町の外）",
+   "dashed": false,
+   "note": "（寺町の外・別MAP）",
+   "kind_note": "寺町の外への端点",
+   "box": [
+    1229,
+    1572,
+    620,
+    110
+   ],
+   "ports": {
+    "KRB-10.bottom": [
+     "bottom",
+     0.5
+    ]
+   }
+  },
+  {
+   "id": "SCH-01",
+   "label": "SCH-01 学校側の坂\n（寺町の外・別MAP）",
+   "dashed": false,
+   "note": "（寺町の外・別MAP）",
+   "kind_note": "寺町の外への端点",
+   "box": [
+    7050,
+    3298,
+    560,
+    120
+   ],
+   "ports": {
+    "SCH-01.left": [
+     "left",
+     0.5
+    ]
+   }
+  },
+  {
+   "id": "BDY-01",
+   "label": "BDY-01 体内（寺町の外・口から入る）",
+   "dashed": false,
+   "note": "（寺町の外・体内・別MAP）",
+   "kind_note": "寺町の外への端点（体内の入口。一方向のイベント）",
+   "box": [
+    4517,
+    1912,
+    640,
+    110
+   ],
+   "ports": {
+    "BDY-01.event-mouth": [
+     "left",
+     0.5
+    ]
+   }
+  }
+ ],
+ "virtual_ports": {
+  "TRM-03.event-kiss": {
+   "map": "TRM-03",
+   "at": [
+    1230,
+    1060
+   ],
+   "note": "園庭（幼稚園の前）\n体内入口イベント",
+   "status": "fixed"
+  }
+ },
+ "rings": [
+  {
+   "name": "TRM-16→TRM-15→TRM-06→TRM-16",
+   "maps": [
+    "TRM-16",
+    "TRM-15",
+    "TRM-06"
+   ]
+  }
+ ],
+ "maps_info": {
+  "TRM-02": {
+   "kind": "屋内",
+   "design": "本堂の東の屋内遊戯室（幼稚園）。扉は本堂側（西）と外（下辺右端付近）。舞台袖は画面内終端。"
+  },
+  "TRM-03": {
+   "kind": "屋外",
+   "design": "親鸞像のある浄土真宗の境内（屋外）。右の区画＝園庭（幼稚園の前）。bottom→TRM-07、door-main→TRM-04、event-kiss→BDY-01.event-mouth。"
+  },
+  "TRM-04": {
+   "kind": "屋内",
+   "design": "中央の屋内本堂。door-south→TRM-03、door-west→TRM-05、door-east→TRM-02。扉前の段差なし・回転余地。"
+  },
+  "TRM-05": {
+   "kind": "屋内",
+   "design": "本堂の西の屋内庫裏（住居）。door-hall→TRM-04、door-outside→TRM-03、door-back→TRM-06（勝手口）。"
+  },
+  "TRM-06": {
+   "kind": "屋外",
+   "design": "寺の勝手口へ入る土塀の細道。TRM-15.bottom から入り、TRM-06.right→TRM-16.left へ戻るループの一部。住居の裏の道（map-specifications）。"
+  },
+  "TRM-07": {
+   "kind": "屋外",
+   "design": "消雪パイプと寺の長塀の広い道。TRM-15 西↔TRM-08 東、北の山門→TRM-03。山門は中央より北寄り。"
+  },
+  "TRM-08": {
+   "kind": "屋外",
+   "design": "井戸と用水が合流するS字。TRM-07西↔TRM-09東、上端は塀・壁で閉じる（歩行マスク=黒。外への接続なし）。水路と井戸の縁は黒マスク。"
+  },
+  "TRM-09": {
+   "kind": "屋外",
+   "design": "湯気の煙突が立つ銭湯前。TRM-08西↔TRM-10南（bottom）。時期差は営業灯だけ、地形不変。"
+  },
+  "TRM-10": {
+   "kind": "屋外",
+   "design": "犀川側の団地へ下る雪囲いスロープ。TRM-09北→TRM-11南、蛇行する車椅子主路。途中の急段差なし。"
+  },
+  "TRM-11": {
+   "kind": "屋外",
+   "design": "犀川側の県営住宅の中庭。TRM-10北↔TRM-13東（立位期だけの石段口）、棟入口→TRM-12（ドア遷移）。"
+  },
+  "TRM-12": {
+   "kind": "屋内",
+   "design": "車椅子の回転余地がある県営住宅の団地室。TRM-11の棟入口からドア遷移。玄関→居間→窓際で、段差なし。"
+  },
+  "TRM-13": {
+   "kind": "屋外",
+   "design": "石段の下の古い坂道。TRM-11西↔TRM-14北、車椅子不可。事故後は入口を閉鎖（立てる時期のみ）。"
+  },
+  "TRM-14": {
+   "kind": "屋外",
+   "design": "段丘上の分岐、学校側へ向く眺め。TRM-13南↔SCH-01東、車椅子主路はSCH-01側。石段と学校坂を混同しない。"
+  },
+  "TRM-15": {
+   "kind": "屋外",
+   "design": "火の見櫓を曲がる見通しの悪い角。TRM-16西↔TRM-07東、南→TRM-06。細道は画面内で終えず TRM-06.right→TRM-16.left へ戻る（#51）。"
+  },
+  "TRM-16": {
+   "kind": "屋外",
+   "design": "用水と寺門が交わる斜め道。左端←TRM-06.right、右→TRM-15（東）、北→TRM-17。画面内で北東へ曲がる。犀川へ向かう出口はtop。"
+  },
+  "TRM-17": {
+   "kind": "屋外",
+   "design": "寺町台地の入口の坂。擁壁と石積み、細い用水、坂の上に寺の屋根。北上しつつ蛇行して段丘へ。車椅子主坂。"
+  }
+ },
+ "legend_notes": [
+  "TRM-01（旧園庭）は TRM-03 に統合済み（2026-10-23）。園庭＝TRM-03 境内の右の区画。",
+  "円環 TRM-16→TRM-15→TRM-06→TRM-16 は【円環】の3本（#51）。TRM-06 は住居の裏の細道。",
+  "TRM-08 の上端は塀・壁で閉じる（接続なし。決定済み 2026-10-23）。",
+  "TRM-05-fire では door-back は焼失・通行不可。",
+  "TRM-13・TRM-11.right の石段は立位期だけ（車椅子不可）。"
+ ],
+ "cross_assumptions": [
+  "既定（要確認）: 道の幅＝狭い道・戸口132／街路160／広い道260。出入口はキャラ2人分が原則（決定済み 2026-10-23）なので、車椅子主路は132以上。",
+  "既定（要確認）: 端の出入口の辺上の位置（x または y）は台帳に無く、相手MAPの出入口と一致する値を置いた。接続図の整合検査（位置差24単位以内・幅一致）に通る。位置を変えるときは相手MAPも同時に直す。",
+  "既定（要確認）: 道の形・建物・塀・用水・橋・石段の位置と寸法は設計に無く、旧 legacy 画像（参照専用）の概略構図を参考にした。屋根は箱の天面色で表し、形は省略。",
+  "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・擁壁・雪の壁）。歩行マスクでは黒。",
+  "既定（要確認）: 屋外MAPは decor_pool（装飾プール）を付けていない。装飾（木の本数・屋根・民家の見た目・路面の look）は、全体レビューの承認後に採用済み画像と合わせて決める。edit-prompt は簡易版（箱と床の記述のみ）。",
+  "既定（要確認）: 勝手口 TRM-05.door-back⇄TRM-06.door-house（1人分幅・決定済み）の TRM-06 側の位置・向き（住居の東面・中央）。",
+  "TRM-03.event-kiss（園庭のキス→BDY-01.event-mouth）は台帳 v2 のとおり TRM-03 起点（旧 TRM-01.event-kiss）。TRM-03 の plan は変更せず、接続図の仮想端点（園庭の中央 x1230・y1060）として描く。"
+ ],
+ "edges": [
+  {
+   "a": "TRM-05.door-hall",
+   "b": "TRM-04.door-west",
+   "kind": "door",
+   "expect": "opposite",
+   "label": "住居↔本堂"
+  },
+  {
+   "a": "TRM-04.door-east",
+   "b": "TRM-02.door-west",
+   "kind": "door",
+   "expect": "opposite",
+   "label": "本堂↔幼稚園"
+  },
+  {
+   "a": "TRM-05.door-outside",
+   "b": "TRM-03.door-residence",
+   "kind": "door",
+   "expect": "same",
+   "label": "住居↔境内",
+   "a_dir": "south",
+   "b_dir": "north"
+  },
+  {
+   "a": "TRM-02.door-outside",
+   "b": "TRM-03.door-playroom",
+   "kind": "door",
+   "expect": "same",
+   "label": "幼稚園↔境内",
+   "a_dir": "south",
+   "b_dir": "north"
+  },
+  {
+   "a": "TRM-04.door-south",
+   "b": "TRM-03.door-main",
+   "kind": "door",
+   "expect": "same",
+   "label": "本堂↔境内（正面）",
+   "a_dir": "south",
+   "b_dir": "north"
+  },
+  {
+   "a": "TRM-03.bottom",
+   "b": "TRM-07.top",
+   "kind": "edge",
+   "label": "境内↔山門の通り（参道）",
+   "expect": "opposite",
+   "label_at": [
+    3733,
+    2344
+   ]
+  },
+  {
+   "a": "TRM-05.door-back",
+   "b": "TRM-06.door-house",
+   "kind": "door",
+   "label": "勝手口↔裏の細道（幅1人分）",
+   "a_dir": "west",
+   "disabled_in": {
+    "TRM-05-fire": "焼失・通行不可（火と燃えカスが残る）"
+   },
+   "expect": "skip",
+   "label_at": [
+    2067,
+    2190
+   ],
+   "ledger": "Issue #144 決定（台帳 v2 に未記載）",
+   "note": "位置・向きは台帳に無く既定（要確認）。画面の向きは一致させていない",
+   "via": [
+    [
+     2067,
+     342
+    ],
+    [
+     2067,
+     2320
+    ],
+    [
+     130,
+     2320
+    ],
+    [
+     130,
+     2661
+    ]
+   ]
+  },
+  {
+   "a": "TRM-03.event-kiss",
+   "b": "BDY-01.event-mouth",
+   "kind": "event",
+   "label": "園庭でのキス→体内（一方向・物語イベント）",
+   "a_dir": "east",
+   "b_dir": "west"
+  },
+  {
+   "a": "TRM-07.left",
+   "b": "TRM-15.right",
+   "kind": "edge",
+   "expect": "opposite",
+   "label": "山門の通り↔火の見櫓の角"
+  },
+  {
+   "a": "TRM-07.right",
+   "b": "TRM-08.left",
+   "kind": "edge",
+   "expect": "opposite",
+   "label": "寺塀沿いの主路"
+  },
+  {
+   "a": "TRM-08.right",
+   "b": "TRM-09.left",
+   "kind": "edge",
+   "expect": "opposite",
+   "label": "用水合流→銭湯"
+  },
+  {
+   "a": "TRM-09.bottom",
+   "b": "TRM-10.top",
+   "kind": "edge",
+   "expect": "opposite",
+   "label": "団地側の緩い生活スロープ"
+  },
+  {
+   "a": "TRM-10.bottom",
+   "b": "TRM-11.top",
+   "kind": "edge",
+   "expect": "opposite",
+   "label": "車椅子主路"
+  },
+  {
+   "a": "TRM-11.right",
+   "b": "TRM-13.left",
+   "kind": "edge",
+   "expect": "opposite",
+   "label": "立位期だけの石段口"
+  },
+  {
+   "a": "TRM-11.door",
+   "b": "TRM-12.door",
+   "kind": "door",
+   "expect": "same",
+   "label": "団地棟入口↔団地室",
+   "via": [
+    [
+     5307,
+     4510
+    ],
+    [
+     4373,
+     4510
+    ]
+   ]
+  },
+  {
+   "a": "TRM-13.top",
+   "b": "TRM-14.bottom",
+   "kind": "edge",
+   "expect": "opposite",
+   "label": "段丘上の石段"
+  },
+  {
+   "a": "TRM-14.right",
+   "b": "SCH-01.left",
+   "kind": "edge",
+   "label": "学校側の車椅子坂"
+  },
+  {
+   "a": "TRM-16.right",
+   "b": "TRM-15.left",
+   "kind": "edge",
+   "expect": "opposite",
+   "label": "用水沿いの東行き【円環】"
+  },
+  {
+   "a": "TRM-15.bottom",
+   "b": "TRM-06.top",
+   "kind": "edge",
+   "expect": "opposite",
+   "label": "勝手口の細道へ【円環】",
+   "label_at": [
+    2458,
+    2998
+   ],
+   "via": [
+    [
+     2458,
+     2998
+    ],
+    [
+     60,
+     2998
+    ],
+    [
+     60,
+     2430
+    ],
+    [
+     468,
+     2430
+    ]
+   ]
+  },
+  {
+   "a": "TRM-06.right",
+   "b": "TRM-16.left",
+   "kind": "edge",
+   "expect": "opposite",
+   "label": "住居の裏の道→用水沿いの斜め道【円環】"
+  },
+  {
+   "a": "TRM-16.top",
+   "b": "TRM-17.bottom",
+   "kind": "edge",
+   "expect": "opposite",
+   "label": "寺町から北へ抜ける坂"
+  },
+  {
+   "a": "TRM-17.top",
+   "b": "KRB-10.bottom",
+   "kind": "edge",
+   "label": "寺町北端から生活店へ",
+   "label_at": [
+    1799,
+    1799
+   ]
+  }
+ ],
+ "_provenance": {
+  "source": "接続|接続図設定|MAP.設計意図(寺町全体のみ)",
+  "input_sha": "187a39d64cce08617a465be3f58ac182c41edd04abcd987f3bf3bd762449cb45",
+  "generated_at": "2026-10-24T14:06",
+  "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
+  "ledger_id": "G-connections-teramachi",
+  "do_not_edit": true
+ }
+}
