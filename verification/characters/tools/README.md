@@ -48,7 +48,7 @@ uv run --with pillow --with numpy --with scipy python3 -I verification/character
 
 ## フィールドの歩き（幼稚園期・スノーボードウェア）
 
-`key_walk.py`: 4行×3列の歩きグリッド（クロマキー背景）を透過にし、12コマを同じ大きさの枠へ足元そろえで切り出す。絵がセル境界をまたぐので、`key_grid.py` と同じく全体でかたまりを見つけて重心でコマへ振り分ける。生成では2行目と3行目の向きが入れ替わることがあるので、行の向きを引数で指定する（顔を拡大して確かめる）。出力は `walk/{name}-walk-{down,left,right,up}-{1,2,3}.webp`。
+`key_walk.py`: 4行×3列の歩きグリッドを透過にし、12コマを同じ大きさの枠へ足元そろえで切り出す。背景指定は `alpha`（透過生成）またはクロマキー色。絵がセル境界をまたぐので、`key_grid.py` と同じく全体でかたまりを見つけて重心でコマへ振り分ける。生成では行順が変わることがあるので、顔と背中を拡大して向きを確認し、引数で各行を指定する。方向は `down`, `left`, `right`, `up`, `downleft`, `downright`, `upleft`, `upright`。出力は `walk/{name}-walk-{dir}-{1,2,3}.webp`。
 
 ```
 uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_walk.py \
@@ -59,9 +59,11 @@ uv run --with pillow --with numpy --with scipy python3 -I verification/character
   <生成グリッド>/C003-walk-grid.png assets/images/characters/C003/walk C003 magenta down,left,right,up
 uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_walk.py \
   <生成グリッド>/C004-walk-grid.png assets/images/characters/C004/walk C004 green down,right,left,up
+uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools/key_walk.py \
+  <生成グリッド>/C001-diagonal-walk-grid.png assets/images/characters/C001/walk C001 alpha downleft,downright,upleft,upright
 ```
 
-コマ数（4方向×3コマ）と枠の大きさは仮。name-name にフィールド移動のモードができたら、その仕様に合わせる。
+コマ数（各方向3コマ）と枠の大きさは仮。name-name にフィールド移動のモードができたら、その仕様に合わせる。
 
 ## 小学生（少年編前半）
 
@@ -92,3 +94,19 @@ $T/key_grid.py <生成グリッド>/C002-elementary-wheelchair-grid.png assets/i
 $T/key_walk.py <生成グリッド>/C001-elementary-wheelchair-walk.png assets/images/characters/C001/walk C001-elementary-wheelchair alpha down,right,left,up 2
 $T/key_walk.py <生成グリッド>/C002-elementary-wheelchair-walk.png assets/images/characters/C002/walk C002-elementary-wheelchair alpha down,right,left,up
 ```
+
+## C001の年齢段階別フィールド歩き
+
+小学生・中学生・青年・壮年の車椅子歩きは各8方向×3コマ（24枚）。同じ頭身と車椅子寸法を保つため、年齢段階を進めるときは前段階の採用済み12コマを同時生成の配置・位相参照として使い、対象年齢のマスターを顔・年齢・衣装の参照にする。4方向の4×3グリッドは対応が保てる場合に一括切り出しできる。斜め4方向のグリッドは行連結、位相重複、色縁が続いたため、2回失敗した段階で同方向・同コマの採用済み画像と対象年齢マスターを使う個別編集に切り替える。グリッドを切り出すときは `key_walk.py` が12体を正しく分離できることを確認し、失敗時に行境界で強制分割しない。
+
+個別編集後はフレーム1〜3を並べ、手の接触状態、ハンドリム位置、肘、スポーク位相を年齢段階間で照合する。移動距離は生成画像の縮小前サイズではなく、最終共通キャンバス上の可視座標で測る。全身が出力端に触れる斜め上方向などは、縦横比を変えずに等方縮小して共通キャンバスへ収め、左右4%以上・上下6%以上の透明余白を確認する。余白追加は端接触がある候補に限り、通常フレームのスケールを一律に変えない。
+
+### 通常歩行の斜め視点を直す
+
+斜めコマで帽子・肩・靴の上面が増え、脚が短く見える場合は俯瞰カメラの失敗として扱う。1×3同方向ストリップがヨー・画面内サイズを保ちながらframe1/3の位相を重複させた場合、位相失敗を記録し、独立レビューで通過位相と確認した中央コマをカメラ・ヨー・投影・全身スケールの土台にして各コマを個別編集する。歩行位相は同年齢・同番号の正面/背面フレームから解剖学的な関係だけを移し、年齢マスターは同一性・年齢・頭身・衣装だけに使う。中央コマの既存ヨーを保ち、「45°回転」をもう一度指示しない。土台なしで正面/背面フレームとマスターから作ると正面寄りに出ることがあるため、同方向のヨー土台を先にレビューする。カメラは子どもの目線、水平からの俯角0°、roll 0°、正投影に固定し、`down-left` 等をカメラ移動と混同させない。ユーザーが直接透過を指定した場合は最初から透明背景で生成し、`key_single.py ... alpha` で切り出す。WebPの透明プレビューに横帯RGBが見えても、alpha確認と白/暗色合成で可視画素を判定し、合成後に帯やフリンジがある場合だけ失敗とする。失敗した斜め画像を構図参照に戻さない。
+
+frame1とframe3が似た接地歩幅へ収束しやすいため、最終キャンバスの3コマを並べて位相を再点検する。frame3がframe1を反復したら、UP3などの同年齢・同番号ソースを位相正本にして脚だけを修正し、frame1/2との違いを独立レビューする。靴底が見える脚は画面左右でなく解剖学的左右と支持脚で指定する。プレビューが黒く見える場合も、alpha=0画素の色かもしれないため、alpha>5 bboxと白・暗色合成で実際の背景を判定する。
+
+4×3グリッドに加え、方向別1×3ストリップでもヨーが正面寄りになったり、3フレームの歩幅が潰れる失敗があった。方向または位相が2コマ続けて不合格なら、ストリップを採用せず、同方向の採用済みヨー土台・同年齢同番号の位相フレーム・年齢masterから一枚ずつ生成する。
+
+通過位相に見えるかはraw候補だけで決めず、最終共通キャンバスの白/暗色合成で確認する。後ろ斜めでは脚が交差していても、縮小後の靴の左右間隔が広いとストライドに見える。脚の補正で頭・胴のヨーが崩れた場合は、通過位相の脚を保持したまま同方向採用フレームから頭・首・胴だけを再編集し、カメラ・腕・脚を同時に変えない。

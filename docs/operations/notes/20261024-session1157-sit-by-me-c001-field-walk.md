@@ -1,0 +1,21 @@
+# Session 1157: C001 field walk sets
+
+## Completed
+- C001 post-elementary wheelchair walking assets are present for elementary, teen, adult, and midlife: 8 directions × 3 frames each. Teen/adult/midlife were produced in this work; elementary was retained.
+- Adult and midlife frames use 307×388 canvases. Existing elementary/teen material uses 299×385 and 307×388; this inherited frame-size difference is recorded in Issue #155.
+- Updated `.claude/skills/sit-character-sprite/SKILL.md`, `docs/assets-policy.md`, and `verification/characters/tools/README.md` with production findings.
+- Issue #155 and PR #157 now describe the completed sets and remaining question. Docs were committed as `49b45d4`; branch is pushed and clean.
+
+## Production learnings
+- Simultaneous 4×3 generation can keep age-stage head/body proportions aligned when the accepted prior-stage 12-frame sheet and target age master are supplied together with fixed cell correspondence.
+- Diagonal grids repeatedly collapsed phases, connected rows, or added fringe. After two failures, edit individual frames using the same-direction, same-frame accepted source plus the target master.
+- Compare head/body ratio and wheelchair size across all cells before cutting. Measure pose movement in final canonical pixels and verify contact/release phase against the exact source frame; do not assume every third frame releases the rim.
+- When diagonal crops touch canvas edges, fit uniformly (no non-isotropic scaling) and inspect margins and silhouette after placement.
+
+## Decisions and remaining work
+- Current timeline has no field movement scene between the late-kindergarten accident and the next elementary map, so a kindergarten wheelchair walk set is not needed unless a scene is added.
+- Existing elementary wheelchair idle art exists; teen/adult/midlife dedicated idle art and runtime idle behavior are undocumented. Keep this as the only unresolved item in #155 until implementation docs clarify whether a dedicated image is needed.
+- PR #157 is open for merge. C002+ expansion belongs to Issue #77 and is not part of this C001 completion.
+
+## Next action
+After PR #157 is merged, continue with the next prioritized Sit by Me work. If field idle handling is documented, close or extend the idle item in #155 accordingly.
