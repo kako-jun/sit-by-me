@@ -1,0 +1,34 @@
+{
+  "source_issue": 165,
+  "status": "candidate; generated as one reusable visual effect",
+  "coordinate_system": "normalized within visible character cutout after transparent crop",
+  "effects": [
+    {
+      "file": "C001-phone-glow-candidate.webp",
+      "status": "candidate",
+      "source_generation": "/home/kako-jun/.codex/generated_images/01a175d9-0624-75e0-bf02-82f1054f93c9/exec-887bbb8c-866b-46d6-9e21-686db2af0aed.png",
+      "asset_size_px": [
+        225,
+        320
+      ],
+      "use": "overlay on the phone screen; phone remains in character layer",
+      "layer_order": "in front of phone and character",
+      "display_height": "about 1.4-1.6 × visible phone height",
+      "approximate_effect_center_by_structure": {
+        "standing": {
+          "x": 0.12,
+          "y": 0.06
+        },
+        "wheelchair": {
+          "x": 0.12,
+          "y": 0.24
+        }
+      },
+      "preview": "/home/kako-jun/repos/private/freeza/output/C001-phone-glow-character-composite.png"
+    }
+  ],
+  "planned": [
+    "C001-magic-burst-candidate.webp",
+    "C001-movement-streak-candidate.webp"
+  ]
+}
