@@ -35,7 +35,9 @@ def targets(map_id, spec):
 
 class Ledger:
     def __init__(self):
-        self.T = {t: L.read(t) for t in L.SCHEMA}
+        relevant = ("エリア", "MAP", "建物", "建物部位", "建物窓列", "建物関係", "建物時期差分",
+                    "端", "接続", "要素", "窓", "素材", "採用要素", "決定", "語彙", "MAP仕様", "MAP契約", "特殊遷移", "体内幾何", "制作規約")
+        self.T = {t: L.read(t) for t in relevant}
 
     def row(self, table, key, val):
         return next((r for r in self.T[table] if r[key] == val), None)
@@ -124,6 +126,13 @@ class Ledger:
         for a in self.inherits(map_id):
             if a[L.FREE]:
                 out.append((f"採用要素 {a['採用要素ID']}", a[L.FREE]))
+        for table in ("MAP仕様", "MAP契約", "体内幾何"):
+            for r in self.T[table]:
+                if r["MAP_ID"] in (base, "GLOBAL") and r[L.FREE]:
+                    out.append((f"{table} {r[L.SCHEMA[table][0]]}", r[L.FREE]))
+        for r in self.T["特殊遷移"]:
+            if (r["起点MAP"] == base or base in L.split_list(r["到着MAP"])) and r[L.FREE]:
+                out.append((f"特殊遷移 {r['遷移ID']}", r[L.FREE]))
         return out
 
 
@@ -162,6 +171,10 @@ def sections(map_id, depends=None):
     L_ += ["", f"MAP KEYS（{m['MAP_ID']} の必須キー）:"]
     for k in ("屋内外", "床材", "壁材", "窓", "扉の意匠", "工作の材質", "時期差分"):
         L_.append(f"- {k}: {m[k]}")
+    rules = [r for r in led.T["制作規約"] if r["対象ID"] in ("全体", m["エリアID"], base_of(map_id))]
+    if rules:
+        L_ += ["", "PRODUCTION RULES（台帳の制作規約・確度も引き継ぐ）:"]
+        L_ += [f"- [{r['規約ID']}] {r['内容']}（{r['確度']}）" for r in rules]
     for b, parts, wins in led.buildings(map_id):
         side = m["表現する部位"]
         L_ += ["", f"BUILDING {b['建物ID']}（{b['名称']}。{side}を描く。屋内と外観は同じ行から導出）:",

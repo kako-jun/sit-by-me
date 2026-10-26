@@ -44,6 +44,7 @@ HM = cv2.getPerspectiveTransform(_SRC, _DST)
 HI = np.linalg.inv(HM)
 FONT = "/usr/share/fonts/noto-cjk/NotoSansCJK-Medium.ttc"
 DOOR_COLOR = "#ff2fa0"
+FLOOR_SURFACES = ("water", "stairs")  # supported surface rendering formats
 OPEN_COLOR = "#2ee06a"  # 開口（通れる所）=明るい緑。仕切り=濃い灰。戸口=ピンク
 
 
@@ -91,6 +92,11 @@ def load_plan(path, variant=None):
         p["variant"] = variant
         p["map_id"] = p["map_id"] + "-" + variant
     p.pop("variants", None)
+    for floor in p["floors"]:
+        if "poly" in floor:
+            points = floor_poly(floor)
+            xs, ys = zip(*points)
+            floor["rect"] = [min(xs), min(ys), max(xs), max(ys)]
     return p
 
 
@@ -159,15 +165,39 @@ def rect_poly(rc, z=0.0):
     return [proj(x0, y0, z), proj(x1, y0, z), proj(x1, y1, z), proj(x0, y1, z)]
 
 
+def floor_poly(f):
+    """Return the explicit floor polygon, or the rectangle's four corners."""
+    if "poly" in f:
+        poly = f["poly"]
+        if not (isinstance(poly, list) and len(poly) >= 3 and
+                all(isinstance(q, (list, tuple)) and len(q) == 2 and
+                    all(isinstance(v, (int, float)) and np.isfinite(v) for v in q)
+                    for q in poly)):
+            raise ValueError(f"floors {f.get('id')}: poly must contain at least three finite [x,y] points")
+        return [tuple(q) for q in poly]
+    x0, y0, x1, y1 = f["rect"]
+    return [(x0, y0), (x1, y0), (x1, y1), (x0, y1)]
+
+
+def floor_img_poly(f):
+    return [proj(x, y) for x, y in floor_poly(f)]
+
+
+def marker_w(m):
+    return m.get("width", DOOR_W)  # 端の出入口の幅（平面単位）。既定=キャラ2人分。広い道・狭い道は plan の markers[].width で指定する
+
+
+
 def marker_rect(m):
     c = m["at"]
+    h = marker_w(m) / 2
     if m["edge"] == "south":
-        return [c - DOOR_W / 2, BASE_D - 70, c + DOOR_W / 2, BASE_D]
+        return [c - h, BASE_D - 70, c + h, BASE_D]
     if m["edge"] == "east":
-        return [BASE_W - 70, c - DOOR_W / 2, BASE_W, c + DOOR_W / 2]
+        return [BASE_W - 70, c - h, BASE_W, c + h]
     if m["edge"] == "west":
-        return [0, c - DOOR_W / 2, 70, c + DOOR_W / 2]
-    return [c - DOOR_W / 2, 0, c + DOOR_W / 2, 70]
+        return [0, c - h, 70, c + h]
+    return [c - h, 0, c + h, 70]
 
 
 # ---------------------------------------------------------------- 描画要素
@@ -224,7 +254,7 @@ def build_items(p, style):
     bs = 0.6 if wire else 1.0
     items = []
     for f in p["floors"]:
-        items.append((-1000, "floor", [(rect_poly(f["rect"]), f["color"], "floor")], f))
+        items.append((-1000, "floor", [(floor_img_poly(f), f["color"], "floor")], f))
     for o in p["openings"]:
         w = wall_by_id(p, o["wall"])
         r = w["rect"]
@@ -244,7 +274,7 @@ def build_items(p, style):
         if w["id"] in p.get("_hide_walls", ()):
             continue  # 開口の切り抜き用の再描画: この壁の立体は描かない
         kind = w.get("kind", "wall")
-        color = w.get("color") or ("#4a4f57" if kind == "partition" else "#d8c9a6")
+        color = w.get("color") or ("#4a4f57" if kind == "partition" else "#cdb98f" if kind == "fence" else "#9a9a96" if kind == "retaining" else "#d8c9a6")
         top = w.get("top_color") or ("#262a30" if kind == "partition" else None)
         h = w["h"] * hs
         if kind == "roof-passage":
@@ -341,6 +371,35 @@ def opening_voids(p):
     return out
 
 
+def decorate_surface(img, f, wire, ss):
+    """床の面種別の描き分け。water=斜線（水面）、stairs=段の線（石段。平面で y 一定の線を射影）。多角形の内側だけに引く。"""
+    surf = f.get("surface")
+    if surf not in FLOOR_SURFACES:
+        return
+    from PIL import ImageChops
+    poly = [(u * ss, v * ss) for u, v in floor_img_poly(f)]
+    mask = Image.new("L", img.size, 0)
+    ImageDraw.Draw(mask).polygon(poly, fill=255)
+    layer = Image.new("L", img.size, 0)
+    ld = ImageDraw.Draw(layer)
+    x0, y0, x1, y1 = f["rect"]
+    if surf == "water":
+        step = 16 * ss
+        for k in range(-img.size[1], img.size[0], step):
+            ld.line([(k, 0), (k + img.size[1], img.size[1])], fill=255, width=max(1, int(2 * ss * (1.0 if wire else 0.6))))
+        col = "#000000" if wire else "#a9d0ec"
+    else:
+        yy = y0 + 12
+        while yy < y1:
+            a, b = proj(x0, yy), proj(x1, yy)
+            ld.line([(a[0] * ss, a[1] * ss), (b[0] * ss, b[1] * ss)], fill=255, width=max(1, int(2 * ss)))
+            yy += 24
+        col = "#000000" if wire else "#6e6a62"
+    layer = ImageChops.multiply(layer, mask)
+    img.paste(col, mask=layer)
+
+
+
 def render(p, style="color", labels=False, ss=2, _void_pass=True, _raw=False):
     """style: color | wire。戻り値 (PIL RGB 画像 W x H_IMG, アンカー辞書 {door_id: (x, y)})。"""
     wire = style == "wire"
@@ -401,6 +460,8 @@ def render(p, style="color", labels=False, ss=2, _void_pass=True, _raw=False):
                 elif role == "opening":
                     ol = "#0b6b2e"
             s.polygon(pts, fill=fill, outline=ol, width=(3 if role == "window" else lw))
+            if role == "floor":
+                decorate_surface(img, meta, wire, ss)
             if role == "window":  # 引き違いの中桟
                 mx0 = ((pts[0][0] + pts[1][0]) / 2, (pts[0][1] + pts[1][1]) / 2)
                 mx1 = ((pts[2][0] + pts[3][0]) / 2, (pts[2][1] + pts[3][1]) / 2)
@@ -472,7 +533,7 @@ def render(p, style="color", labels=False, ss=2, _void_pass=True, _raw=False):
                 seen.add(meta["id"])
                 cx, cy = center_of(polys[2][0])
                 text((cx, cy), meta.get("label", X.text("MK.partition-default-label")), f2, "#ffffff", "#4a4f57")
-            if tag == "wall" and meta.get("kind") == "building" and meta["id"] not in seen:
+            if tag == "wall" and (meta.get("kind") == "building" or (meta.get("kind") in ("fence", "retaining") and meta.get("label"))) and meta["id"] not in seen:
                 seen.add(meta["id"])
                 cx, cy = center_of(polys[2][0])
                 text((cx, cy), meta.get("label", ""), f1, "#222222", "#ffffff")
@@ -506,7 +567,7 @@ def derive_mask(p):
         cv2.fillPoly(arr, [np.round(np.array(pts)).astype(np.int32)], v)
     for f in p["floors"]:
         if f.get("walkable", True):
-            fill(m, rect_poly(f["rect"]), 255)
+            fill(m, floor_img_poly(f), 255)
     for key, tag, polys, meta in build_items(p, "color"):
         if tag == "wall" or (tag == "box" and meta.get("blocked")):
             for pts, _, _ in polys:

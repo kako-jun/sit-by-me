@@ -31,7 +31,7 @@ module MapAtlas
     north=%w[garden castle].include?(area['id']) ? '北↑・接続概念図（縮尺ではない）' : area['id']=='body' ? '架空人体の空間配置・地理的方位ではない' : area['id']=='overseas' ? '階層と移動の概念図・地理的方位ではない' : '接続模式図・地理的方位／縮尺を表さない'
     out=[%(<g data-area="#{area['id']}"><rect x="8" y="8" width="#{w-16}" height="#{h-16}" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">#{esc(area['name'])}・#{area['maps'].length}MAP</text><text x="25" y="78" class="note">#{esc(north)}</text>)]
     if area['id']=='city'
-      out<<%(<text x="25" y="108" class="note">デパート5階（KRB-02・KRB-03・KRB-04・KRB-05・KRB-06）のエレベーターはMAPを持たず、台帳外の「階選択遷移」。各階の扉に入るとウィンドウで階を選び、選んだ階の扉前に着く。</text>)
+      out<<%(<text x="25" y="108" class="note">デパート5階（KRB-02・KRB-03・KRB-04・KRB-05・KRB-06）のエレベーターはMAPを持たず、特殊遷移表の「階選択遷移」。各階の扉に入るとウィンドウで階を選び、選んだ階の扉前に着く。</text>)
       out<<%(<text x="25" y="134" class="note">箱は全階を結ぶので階をつなぐ線は描かない。4階KRB-05は条件つき。</text>)
     end
     counts=Hash.new(0)
@@ -78,9 +78,8 @@ module MapAtlas
   end
   def self.run
     g=MapGraph::Graph.new(ROOT)
-    # 見出し行の列名（MAP／一言特徴）で読む。列の位置に依存しない
-    spec=MdTable.rows(File.read(File.join(ROOT,'docs/map-specifications.md')),'MAP','時期','一言特徴').each_with_object({}) do |r,h|
-      h[r['MAP'].split.first]=r['一言特徴'] if r['MAP']&.match?(/\A[A-Z]{3}-\d{2}(?:\s|\z)/)
+    spec=LedgerYaml.read('MAP仕様').each_with_object({}) do |r,h|
+      h[r['MAP_ID']]=r['一言特徴'] if r['MAP_ID'].match?(/\A[A-Z]{3}-\d{2}\z/)
     end
     folder=File.join(ROOT,'docs/topology/areas');FileUtils.mkdir_p(folder)
     panels=g.areas.map do |area|

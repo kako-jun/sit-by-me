@@ -1,12 +1,16 @@
 """Exercise the real ledger CLI against isolated, semantically mutated inputs."""
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
 import tempfile
 import unittest
 import xml.etree.ElementTree as ET
+from ledger_test_support import TOOLS, L, environment
+import ledger_flat as F
+import ledger_build as B
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,13 +20,17 @@ EXPECTED_IDS = {f"{code}-{n:02}"
                 for n in range(1, count + 1)} - set(_REGISTER.get("retired", {}))
 
 
-class MapTopologyTests(unittest.TestCase):
+class MapTopologyFixture(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         for name in ("docs", "scripts"):
-            shutil.copytree(ROOT / name, self.root / name)
+            shutil.copytree(ROOT / name, self.root / name,
+                            ignore=shutil.ignore_patterns("handoff", "Issue出典.yaml", "Issue命題.yaml"))
+        # Invoke production scripts with LEDGER_ROOT; this keeps uv on the one
+        # existing project environment instead of creating fixture environments.
+        self.sources_changed = False
         # Legacy image existence is part of the CLI contract; copy tiny fixtures
         # rather than the production image collection.
         for image in (ROOT / "assets/images/fields/legacy").glob("*.webp"):
@@ -31,8 +39,32 @@ class MapTopologyTests(unittest.TestCase):
             target.write_bytes(b"fixture")
 
     def cli(self):
-        return subprocess.run(["ruby", "scripts/verify_map_ledger.rb"],
-                              cwd=self.root, capture_output=True, text=True)
+        self.refresh_source_views()
+        return subprocess.run(["ruby", str(ROOT / "scripts/verify_map_ledger.rb")],
+                              cwd=self.root, env=environment(self.root), capture_output=True, text=True)
+
+    def yaml_rows(self, table):
+        return L.parse(table, (self.root / "docs/ledger" / (table + ".yaml")).read_text())
+
+    def write_yaml(self, table, values):
+        (self.root / "docs/ledger" / (table + ".yaml")).write_text(L.dumps(table, values))
+        self.sources_changed = True
+
+    def refresh_source_views(self):
+        if not self.sources_changed:
+            return
+        result = subprocess.run(["uv", "run", "python3", str(ROOT / "scripts/map_source_views.py"), "build"],
+                                cwd=ROOT, env=environment(self.root), capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.sources_changed = False
+
+    def sync_connections(self, values):
+        self.write_yaml("接続", values)
+        views = self.yaml_rows("文書ビュー")
+        for view in views:
+            if view["元の表"] == "接続":
+                view["行参照"] = ";".join(r["端A"] + ">" + r["端B"] for r in values)
+        self.write_yaml("文書ビュー", views)
 
     def edit(self, name, before, after):
         path = self.root / "docs" / name
@@ -48,28 +80,67 @@ class MapTopologyTests(unittest.TestCase):
             self.assertIn(diagnostic, result.stderr)
 
     def topology(self, before, after):
+        values = self.yaml_rows("接続")
+        for value in values:
+            old = self.connection_line(value)
+            if before not in old:
+                continue
+            changed = old.replace(before, after, 1)
+            cells = [v.strip() for v in changed.strip().strip("|").split("|")]
+            if len(cells) != 4:
+                # A truncated legacy row corresponds to a missing canonical
+                # kind/reason; change that fact, never corrupt a generated view.
+                cells = cells[:2] + ["", ""]
+            value.update(zip(("端A", "端B", "種別", "主路・状態"), cells))
+            self.sync_connections(values)
+            return
         self.edit("map-topology.md", before, after)
 
     def append_connection(self, line):
-        self.topology("#### 寺町の地形不変条件", line + "\n\n#### 寺町の地形不変条件")
+        cells = [v.strip() for v in line.strip().strip("|").split("|")]
+        value = dict.fromkeys(L.SCHEMA["接続"], "")
+        value.update(zip(("端A", "端B", "種別", "主路・状態"), cells))
+        self.sync_connections(self.yaml_rows("接続") + [value])
 
     def render(self):
+        self.refresh_source_views()
         for script in ("render_late_topology.rb", "render_sunnyland_topology.rb", "render_map_atlas.rb"):
-            result = subprocess.run(["ruby", "scripts/" + script],
-                                    cwd=self.root, capture_output=True, text=True)
+            result = subprocess.run(["ruby", str(ROOT / "scripts" / script)],
+                                    cwd=self.root, env=environment(self.root), capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
 
     def remove_connection(self, prefix):
-        path = self.root / "docs/map-topology.md"
-        source = path.read_text()
-        row = next(line for line in source.splitlines() if line.startswith(prefix))
-        path.write_text(source.replace(row + "\n", "", 1))
+        values = self.yaml_rows("接続")
+        match = next(value for value in values if self.connection_line(value).startswith(prefix))
+        values.remove(match)
+        self.sync_connections(values)
+
+    @staticmethod
+    def connection_line(row):
+        return "| " + " | ".join(row[k] for k in ("端A", "端B", "種別", "主路・状態")) + " |"
 
     def connection_rows(self):
-        source = (self.root / "docs/map-topology.md").read_text()
-        table = source.split("#### MAP相互接続台帳 v2", 1)[1].split("#### 寺町の地形不変条件", 1)[0]
-        return [line for line in table.splitlines() if line.startswith("| ")
-                and "." in line.split("|")[1]]
+        return [self.connection_line(row) for row in self.yaml_rows("接続")]
+
+    def mutate_registry(self, mutate):
+        """Change the canonical placement/structure inputs, then derive JSON."""
+        values = json.loads((self.root / "docs/topology/areas.json").read_text())
+        mutate(values)
+        original = self.yaml_rows("図配置")
+        placements = []
+        for area in values["areas"]:
+            for index, ident in enumerate(area["maps"], 1):
+                prior = next((r for r in original if r["MAP_ID"] == ident), dict.fromkeys(L.SCHEMA["図配置"], ""))
+                item = prior.copy()
+                xy = area["layout"].get(ident, [0, 0])
+                item.update(配置ID=f"FIXTURE-{len(placements)}", エリアID=area["id"], MAP_ID=ident,
+                            順番=str(index), X=str(xy[0]), Y=str(xy[1]))
+                placements.append(item)
+        self.write_yaml("図配置", placements)
+        structure = {k: v for k, v in values.items() if k not in ("areas", "schema_version")}
+        self.write_yaml("エリア構造", [dict(経路=p, 型=t, 値=v, 根拠="fixture") for p, v, t in F.flatten(structure)])
+        tables = {name: self.yaml_rows(name) for name in ("エリア", "図配置", "エリア構造")}
+        (self.root / "docs/topology/areas.json").write_text(json.dumps(B.build_areas(tables), ensure_ascii=False))
 
     def pair_row(self, a, b):
         return next(row for row in self.connection_rows()
@@ -81,6 +152,8 @@ class MapTopologyTests(unittest.TestCase):
     def diagram(self):
         return self.root / "docs/topology/late-dungeons.svg"
 
+
+class MapTopologyTests(MapTopologyFixture):
     def test_current_expanded_contracts_pass_without_mutating_inputs(self):
         paths = sorted((self.root / "docs").rglob("*"))
         before = {p: hashlib.sha256(p.read_bytes()).digest() for p in paths if p.is_file()}
@@ -92,24 +165,38 @@ class MapTopologyTests(unittest.TestCase):
         self.assertEqual(before, {p: hashlib.sha256(p.read_bytes()).digest() for p in before})
 
     def test_one_missing_contract_rejected(self):
-        path = self.root / "docs/map-contract-checklist.md"
-        rows = path.read_text().splitlines(keepends=True)
-        path.write_text("".join(row for row in rows if not row.startswith("| CST-10 |")))
+        self.write_yaml("MAP契約", [r for r in self.yaml_rows("MAP契約") if r["契約ID"] != "CHECK-CST-10"])
+        # Retain the descriptor's reference to the deleted source: a missing
+        # canonical contract must fail before a stale document can hide it.
+        result = subprocess.run(["uv", "run", "python3", str(ROOT / "scripts/map_source_views.py"), "check"],
+                                cwd=ROOT, env=environment(self.root), capture_output=True, text=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("CHECK-CST-10", result.stderr)
+        self.sources_changed = False
         self.reject()
 
     def test_one_extra_contract_rejected(self):
-        path = self.root / "docs/map-contract-checklist.md"
-        source = path.read_text()
-        row = next(line for line in source.splitlines() if line.startswith("| CST-10 |"))
-        path.write_text(source + "\n" + row + "\n")
+        values = self.yaml_rows("MAP契約")
+        source = next(r for r in values if r["契約ID"] == "CHECK-CST-10")
+        duplicate = source.copy()
+        duplicate["契約ID"] = "CHECK-extra"
+        self.write_yaml("MAP契約", values + [duplicate])
+        views = self.yaml_rows("文書ビュー")
+        view = next(v for v in views if "CHECK-CST-10" in v["行参照"])
+        view["行参照"] += ";CHECK-extra"
+        self.write_yaml("文書ビュー", views)
         self.reject()
 
     def test_duplicate_and_missing_contract_at_expected_count_rejected(self):
-        self.edit("map-contract-checklist.md", "| CST-10 |", "| CST-09 |")
+        values = self.yaml_rows("MAP契約")
+        next(r for r in values if r["契約ID"] == "CHECK-CST-10")["MAP_ID"] = "CST-09"
+        self.write_yaml("MAP契約", values)
         self.reject("重複", "CST-09")
 
     def test_unknown_contract_at_expected_count_rejected(self):
-        self.edit("map-contract-checklist.md", "| CST-10 |", "| KRB-99 |")
+        values = self.yaml_rows("MAP契約")
+        next(r for r in values if r["契約ID"] == "CHECK-CST-10")["MAP_ID"] = "KRB-99"
+        self.write_yaml("MAP契約", values)
         self.reject("CST-10")
 
     def test_edge_must_use_opposite_sides(self):
@@ -142,7 +229,7 @@ class MapTopologyTests(unittest.TestCase):
 
     def test_malformed_row_without_kind_or_reason_rejected(self):
         self.topology("| TRM-16.right | TRM-15.left | edge |", "| TRM-16.right | TRM-15.left |")
-        self.reject("欄不足")
+        self.reject("種別")
 
     def test_missing_door_identifier_rejected(self):
         self.topology("| TRM-04.door-west | TRM-05.door-hall | door |",

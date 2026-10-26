@@ -21,7 +21,7 @@ description: Sit by Me の戦闘背景を、対応フィールドMAPと既存戦
 
 劇の背景では「手作り舞台」「ミニチュア」だけで生成せず、床=`balsa wood` または `popsicle sticks` をクラフトナイフで切断、書き割り=`corrugated cardboard` と `matte poster paint`、幕=`felt` または `tissue paper`、固定=`masking tape`・PVA接着剤、土台=`foamboard` と露出段ボール断面を対象ごとに指定する。屋外背景は対応MAP原文と `sit-field-background` の対象別材料・加工法を使い、劇場床・幕・書き割りを追加しない。実物素材やCG均一面で代替しない。指定した材料・切断面・テープ・接着剤・土台断面のうち三つ以上を原寸の証拠座標で確認できなければ `failed` として記録し、採用候補へ進めない。
 
-開始前に `docs/content-registry.md` から対象の戦闘・MAP IDを確定し、対象MAPの原文、`docs/art-direction.md`、対応する戦闘レイアウトJSONのキャラ・敵・UIの安全領域を読む。劇の場合は `docs/roadmap.md` の劇背景決定も読む。
+開始前に `docs/content-registry.md` から対象の戦闘・MAP IDを確定し、対象MAPの原文、`docs/art-direction.md`、対応する戦闘レイアウトJSONのキャラ・敵・UIの安全領域を読む。 対戦相手の敵IDまたは召喚獣IDが確定している場合は `uv run python3 scripts/content_ledger.py query enemy Mxxx --gate` または `query summon Sxxx --gate` を実行し、配置・戦闘パターン案・適用決定を生成入力へ渡す。ゲート失敗ならその対象の生成を止める。劇の場合は `docs/roadmap.md` の劇背景決定も読む。
 
 ## 絶対ゲート: 参照MAPと戦闘面の角度
 

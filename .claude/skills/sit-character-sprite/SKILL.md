@@ -15,7 +15,7 @@ Sit by Me の4人（と子供3人、不良など人物）の絵を、生成 → 
 
 人物素材はミニチュア背景ではない。人物に「模型風」「手作り風」を追加してはならない。人物を背景へ合成する依頼でミニチュア材料の指定が必要な場合は、このスキルで補完せず、背景側の `sit-field-background` または `sit-battle-background` の材料・道具宣言を正本にする。
 
-先に `docs/art-direction.md`（人物素材・4人の呼称と特徴）と `docs/assets-policy.md`（マスターの一覧・命名）と `docs/decisions.md` を読み、何がすでに決まっているかを確かめる。サンプル用ではなく、設定が正本。
+先に `uv run python3 scripts/content_ledger.py query character Cxxx --form FORM-xxx --gate` を実行し、その出力全体（人物の特徴、形態、素材の採否、適用する決定、未解決ゲート）を生成入力とレビューへ渡す。`Cxxx` と `FORM-xxx` は対象ID・形態IDで置換する。ゲート失敗なら生成を止め、台帳の未決を確認する。正本は `docs/ledger/人物.yaml`・`人物形態.yaml`・`素材.yaml`・`決定.yaml`。経緯は各行の出典、技術運用は `docs/assets-policy.md` を読む。C IDがない子供・不良などはIDを推測せず、人物表に追加する決定を待つ。
 
 別のゲームのスプライトを作るときは、このスキルをそのまま使わない。ツール（`verification/characters/tools/`）と手順の考え方を流用し、そのゲームの設定を正本にする。
 

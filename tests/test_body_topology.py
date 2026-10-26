@@ -16,7 +16,7 @@ BODY_PAIRS = {
 }
 
 
-class BodyTopologyTests(unittest.TestCase):
+class BodyTopologyTests(topology_tests.MapTopologyFixture):
     setUp = topology_tests.MapTopologyTests.setUp
     cli = topology_tests.MapTopologyTests.cli
     reject = topology_tests.MapTopologyTests.reject
@@ -31,11 +31,7 @@ class BodyTopologyTests(unittest.TestCase):
     def registry(self):
         return json.loads((self.root / "docs/topology/areas.json").read_text())
 
-    def mutate_registry(self, mutate):
-        path = self.root / "docs/topology/areas.json"
-        data = json.loads(path.read_text())
-        mutate(data)
-        path.write_text(json.dumps(data, ensure_ascii=False))
+    mutate_registry = topology_tests.MapTopologyFixture.mutate_registry
 
     def test_all_registered_maps_have_one_area_membership(self):
         members = [ident for area in self.registry()["areas"] for ident in area["maps"]]

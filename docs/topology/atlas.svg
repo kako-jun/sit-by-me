@@ -4,21 +4,21 @@
 <g transform="translate(0 120)"><g data-area="teramachi"><rect x="8" y="8" width="1694" height="2463" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">寺町・寺院と住居・16MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
 <path class="edge" data-edge-id="TRM-16.right&gt;TRM-15.left:edge" data-kind="edge" data-from="TRM-16" data-to="TRM-15" data-from-port="right" data-to-port="left" d="M270 640 L530 530"/>
 <path class="edge" data-edge-id="TRM-16.top&gt;TRM-17.bottom:edge" data-kind="edge" data-from="TRM-16" data-to="TRM-17" data-from-port="top" data-to-port="bottom" d="M270 640 L340 410"/>
-<path class="edge" data-edge-id="TRM-15.right&gt;TRM-07.left:edge" data-kind="edge" data-from="TRM-15" data-to="TRM-07" data-from-port="right" data-to-port="left" d="M530 530 L790 640"/>
+<path class="edge" data-edge-id="TRM-07.left&gt;TRM-15.right:edge" data-kind="edge" data-from="TRM-07" data-to="TRM-15" data-from-port="left" data-to-port="right" d="M790 640 L530 530"/>
 <path class="edge" data-edge-id="TRM-15.bottom&gt;TRM-06.top:edge" data-kind="edge" data-from="TRM-15" data-to="TRM-06" data-from-port="bottom" data-to-port="top" d="M530 530 L140 870"/>
 <path class="edge" data-edge-id="TRM-06.right&gt;TRM-16.left:edge" data-kind="edge" data-from="TRM-06" data-to="TRM-16" data-from-port="right" data-to-port="left" d="M140 870 L270 640"/>
 <path class="edge" data-edge-id="TRM-07.right&gt;TRM-08.left:edge" data-kind="edge" data-from="TRM-07" data-to="TRM-08" data-from-port="right" data-to-port="left" d="M790 640 L1050 640"/>
-<path class="edge" data-edge-id="TRM-07.top&gt;TRM-03.bottom:edge" data-kind="edge" data-from="TRM-07" data-to="TRM-03" data-from-port="top" data-to-port="bottom" d="M790 640 L790 420"/>
+<path class="edge" data-edge-id="TRM-03.bottom&gt;TRM-07.top:edge" data-kind="edge" data-from="TRM-03" data-to="TRM-07" data-from-port="bottom" data-to-port="top" d="M790 420 L790 640"/>
 <path class="edge" data-edge-id="TRM-08.right&gt;TRM-09.left:edge" data-kind="edge" data-from="TRM-08" data-to="TRM-09" data-from-port="right" data-to-port="left" d="M1050 640 L1310 710"/>
 <path class="edge" data-edge-id="TRM-09.bottom&gt;TRM-10.top:edge" data-kind="edge" data-from="TRM-09" data-to="TRM-10" data-from-port="bottom" data-to-port="top" d="M1310 710 L1310 860"/>
 <path class="edge" data-edge-id="TRM-10.bottom&gt;TRM-11.top:edge" data-kind="edge" data-from="TRM-10" data-to="TRM-11" data-from-port="bottom" data-to-port="top" d="M1310 860 L1310 1080"/>
 <path class="edge" data-edge-id="TRM-11.right&gt;TRM-13.left:edge" data-kind="edge" data-from="TRM-11" data-to="TRM-13" data-from-port="right" data-to-port="left" d="M1310 1080 L1570 1080"/>
 <path class="door" data-edge-id="TRM-11.door&gt;TRM-12.door:door" data-kind="door" data-from="TRM-11" data-to="TRM-12" data-from-port="door" data-to-port="door" d="M1310 1080 L1310 1300"/>
 <path class="edge" data-edge-id="TRM-13.top&gt;TRM-14.bottom:edge" data-kind="edge" data-from="TRM-13" data-to="TRM-14" data-from-port="top" data-to-port="bottom" d="M1570 1080 L1570 860"/>
-<path class="door" data-edge-id="TRM-03.door-main&gt;TRM-04.door-south:door" data-kind="door" data-from="TRM-03" data-to="TRM-04" data-from-port="door-main" data-to-port="door-south" d="M790 420 L790 160"/>
-<path class="door" data-edge-id="TRM-03.door-residence&gt;TRM-05.door-outside:door" data-kind="door" data-from="TRM-03" data-to="TRM-05" data-from-port="door-residence" data-to-port="door-outside" d="M790 420 L530 160"/>
-<path class="door" data-edge-id="TRM-03.door-playroom&gt;TRM-02.door-outside:door" data-kind="door" data-from="TRM-03" data-to="TRM-02" data-from-port="door-playroom" data-to-port="door-outside" d="M790 420 L1050 160"/>
-<path class="door" data-edge-id="TRM-04.door-west&gt;TRM-05.door-hall:door" data-kind="door" data-from="TRM-04" data-to="TRM-05" data-from-port="door-west" data-to-port="door-hall" d="M790 160 L530 160"/>
+<path class="door" data-edge-id="TRM-04.door-south&gt;TRM-03.door-main:door" data-kind="door" data-from="TRM-04" data-to="TRM-03" data-from-port="door-south" data-to-port="door-main" d="M790 160 L790 420"/>
+<path class="door" data-edge-id="TRM-05.door-outside&gt;TRM-03.door-residence:door" data-kind="door" data-from="TRM-05" data-to="TRM-03" data-from-port="door-outside" data-to-port="door-residence" d="M530 160 L790 420"/>
+<path class="door" data-edge-id="TRM-02.door-outside&gt;TRM-03.door-playroom:door" data-kind="door" data-from="TRM-02" data-to="TRM-03" data-from-port="door-outside" data-to-port="door-playroom" d="M1050 160 L790 420"/>
+<path class="door" data-edge-id="TRM-05.door-hall&gt;TRM-04.door-west:door" data-kind="door" data-from="TRM-05" data-to="TRM-04" data-from-port="door-hall" data-to-port="door-west" d="M530 160 L790 160"/>
 <path class="door" data-edge-id="TRM-04.door-east&gt;TRM-02.door-west:door" data-kind="door" data-from="TRM-04" data-to="TRM-02" data-from-port="door-east" data-to-port="door-west" d="M790 160 L1050 160"/>
 <path class="door" data-edge-id="TRM-05.door-back&gt;TRM-06.door-house:door" data-kind="door" data-from="TRM-05" data-to="TRM-06" data-from-port="door-back" data-to-port="door-house" d="M530 160 L140 870"/>
 <circle class="node" data-map="TRM-02" cx="1050" cy="160" r="34"/><text class="id" x="1050" y="165">TRM-02</text>
@@ -67,11 +67,11 @@
 <text x="25" y="1425" class="note">全接続口（各行は上のMAP IDを参照。外部は隣接エリア名と到着口を明記）</text>
 <text x="25" y="1460" class="small">TRM-16.right ↔ TRM-15.left</text>
 <text x="25" y="1502" class="small">TRM-16.top ↔ TRM-17.bottom</text>
-<text x="25" y="1544" class="small">TRM-15.right ↔ TRM-07.left</text>
+<text x="25" y="1544" class="small">TRM-07.left ↔ TRM-15.right</text>
 <text x="25" y="1586" class="small">TRM-15.bottom ↔ TRM-06.top</text>
 <text x="25" y="1628" class="small">TRM-06.right ↔ TRM-16.left</text>
 <text x="25" y="1670" class="small">TRM-07.right ↔ TRM-08.left</text>
-<text x="25" y="1712" class="small">TRM-07.top ↔ TRM-03.bottom</text>
+<text x="25" y="1712" class="small">TRM-03.bottom ↔ TRM-07.top</text>
 <text x="25" y="1754" class="small">TRM-08.right ↔ TRM-09.left</text>
 <text x="25" y="1796" class="small">TRM-09.bottom ↔ TRM-10.top</text>
 <text x="25" y="1838" class="small">TRM-10.bottom ↔ TRM-11.top</text>
@@ -81,10 +81,10 @@
 <circle class="ref" data-reference-map="SCH-01" data-reference="SCH-01" cx="40" cy="2001" r="13"/>
 <text x="65" y="2006" class="small">TRM-14.right ↔ SCH-01.left  [外部: school]</text>
 <path class="edge" data-reference-edge-id="TRM-14.right&gt;SCH-01.left:edge" data-kind="edge" data-from="TRM-14" data-to="SCH-01" data-from-port="right" data-to-port="left" d="M1550 1999 L1665 1999"/>
-<text x="25" y="2048" class="small">TRM-03.door-main ↔ TRM-04.door-south</text>
-<text x="25" y="2090" class="small">TRM-03.door-residence ↔ TRM-05.door-outside</text>
-<text x="25" y="2132" class="small">TRM-03.door-playroom ↔ TRM-02.door-outside</text>
-<text x="25" y="2174" class="small">TRM-04.door-west ↔ TRM-05.door-hall</text>
+<text x="25" y="2048" class="small">TRM-04.door-south ↔ TRM-03.door-main</text>
+<text x="25" y="2090" class="small">TRM-05.door-outside ↔ TRM-03.door-residence</text>
+<text x="25" y="2132" class="small">TRM-02.door-outside ↔ TRM-03.door-playroom</text>
+<text x="25" y="2174" class="small">TRM-05.door-hall ↔ TRM-04.door-west</text>
 <text x="25" y="2216" class="small">TRM-04.door-east ↔ TRM-02.door-west</text>
 <text x="25" y="2258" class="small">TRM-05.door-back ↔ TRM-06.door-house</text>
 <circle class="ref" data-reference-map="KRB-10" data-reference="KRB-10" cx="40" cy="2295" r="13"/>
@@ -95,7 +95,7 @@
 <path class="event" data-reference-edge-id="TRM-03.event-kiss&gt;BDY-01.event-mouth:event" data-kind="event" data-from="TRM-03" data-to="BDY-01" data-from-port="event-kiss" data-to-port="event-mouth" d="M1550 2335 L1665 2335" marker-end="url(#directed-arrow)"/>
 </g></g>
 <g transform="translate(1740 120)"><g data-area="city"><rect x="8" y="8" width="1404" height="2023" rx="12" fill="#fbfdfb" stroke="#8aa79a"/><text x="25" y="45" class="heading">香林坊・茶屋街・広坂・病院・13MAP</text><text x="25" y="78" class="note">接続模式図・地理的方位／縮尺を表さない</text>
-<text x="25" y="108" class="note">デパート5階（KRB-02・KRB-03・KRB-04・KRB-05・KRB-06）のエレベーターはMAPを持たず、台帳外の「階選択遷移」。各階の扉に入るとウィンドウで階を選び、選んだ階の扉前に着く。</text>
+<text x="25" y="108" class="note">デパート5階（KRB-02・KRB-03・KRB-04・KRB-05・KRB-06）のエレベーターはMAPを持たず、特殊遷移表の「階選択遷移」。各階の扉に入るとウィンドウで階を選び、選んだ階の扉前に着く。</text>
 <text x="25" y="134" class="note">箱は全階を結ぶので階をつなぐ線は描かない。4階KRB-05は条件つき。</text>
 <path class="edge" data-edge-id="KRB-10.top&gt;KRB-08.bottom:edge" data-kind="edge" data-from="KRB-10" data-to="KRB-08" data-from-port="top" data-to-port="bottom" d="M440 1280 L440 1060"/>
 <path class="edge" data-edge-id="KRB-08.top&gt;KRB-07.bottom:edge" data-kind="edge" data-from="KRB-08" data-to="KRB-07" data-from-port="top" data-to-port="bottom" d="M440 1060 L440 840"/>

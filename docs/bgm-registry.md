@@ -1,5 +1,7 @@
 # BGMスロット表（FF5 全曲目を場面名に抽象化して作り直した版）
 
+> **台帳移行（Issue #156）**: BGMスロット・回想編曲・旧対応の構造化正本は `docs/ledger/BGMスロット.yaml`・`BGM回想編曲.yaml`・`BGM旧スロット対応.yaml`。以下は移行元の文脈。案は採用決定ではない。 検索用の生成ビューは [`docs/ledger/views/content.md`](ledger/views/content.md)。
+
 **状態: 案。スロット構成・長さ・兼用は決定ではない。** 物語上の決定は story.md・decisions.md・systems.md・art-direction.md が正本。ここで決まっていないことは「未決」と書く。新しい物語上の決定はここでは作らない。
 
 ## 0. 前提（置き換え済みの決定）

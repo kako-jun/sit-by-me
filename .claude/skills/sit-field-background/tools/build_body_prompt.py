@@ -39,8 +39,13 @@ import sys
 from collections import deque
 from pathlib import Path
 
-import numpy as np
-from PIL import Image
+# Source-ledger inspection has no image dependency. Pixel measurement requires
+# the optional runtime documented in tools/README.md.
+try:
+    import numpy as np
+    from PIL import Image
+except ModuleNotFoundError:
+    np = Image = None
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[3]
@@ -276,86 +281,43 @@ def bdy02_issue_decisions(comments, picks=None, note_for="BDY-02"):
 
 
 def build_bundle(mid, lw):
+    """YAML masters supply design facts; research text remains a cited reference."""
+    import ledger_io as ledger
     bd = Bundle()
-    for k, p in DOCS.items():
-        bd.lines[k] = p.read_text(encoding="utf-8").split("\n")
-    L = bd.lines
-    bd.note("(This block is a specification, not text to be drawn. No letter, number or word from it may appear in the picture. Lines about other maps are context only: draw only this one map.)")
-    # --- Issue #142: 題名・本文は全文逐語。コメントは『最新の決定コメント』の決定部分だけ逐語（旧コメント・BDY-02固有の決定・作業メモは収録しない）
-    title = run_gh(["--json", "title", "--jq", ".title"]).rstrip("\n")
-    body = run_gh(["--json", "body", "--jq", ".body"]).rstrip("\n")
-    comments = json.loads(run_gh(["--json", "comments"]))["comments"]
+    bd.issue_lines = set()
+    bd.note("(This block is a specification, not text to be drawn. Draw only this one map.)")
+    def record(table, row):
+        ident = row[ledger.SCHEMA[table][0]]
+        bd.note(f"[台帳:{table}/{ident}]\n" + json.dumps(row, ensure_ascii=False, sort_keys=True))
+    connections = [r for r in ledger.read("接続") if any(r[k].startswith(mid + ".") for k in ("端A", "端B"))]
+    neighbours_ = {r[k].split(".")[0] for r in connections for k in ("端A", "端B")}
+    for table in ("MAP", "MAP仕様", "MAP契約", "端", "要素", "窓", "体内幾何"):
+        for row in ledger.read(table):
+            if row["MAP_ID"] in neighbours_ | {mid, "GLOBAL"}:
+                record(table, row)
+    for row in connections:
+        record("接続", row)
+    for row in ledger.read("制作規約"):
+        if row["対象ID"] in ("body", mid, "全体"):
+            record("制作規約", row)
+    from ledger_query import Ledger
+    for row in Ledger().all_decisions_for(mid):
+        record("決定", row)
+    # Frozen source material provides quote provenance, never a second master.
+    sources = [r for r in ledger.read("Issue出典") if r["Issue番号"] == str(ISSUE)]
+    comments = [{"body": r["本文"]} for r in sources if r["種別"] == "コメント"]
     if mid == "BDY-02":
-        dec, head_note = bdy02_issue_decisions(comments)
+        quote, _ = bdy02_issue_decisions(comments)
     elif mid in ROOM_PICKS:
-        dec, head_note = bdy02_issue_decisions(comments, ROOM_PICKS[mid], mid)
+        quote, _ = bdy02_issue_decisions(comments, ROOM_PICKS[mid], mid)
     else:
-        latest = [c["body"] for c in comments if c["body"].startswith("## kako-jun 決定（")][-1]
-        dec = []
-        for l in latest.split("\n"):
-            if l.startswith("## これからやること"):  # 作業メモは送信文に入れない
-                break
-            if "広間" in l:  # 広間の決定は BDY-02 固有。広間の無いMAPには持ち込まない（hall の有る割付図は measure/build_prompt が拒否する）
-                continue
-            dec.append(l)
-        dec = "\n".join(dec).rstrip("\n")
-        head_note = f"[Issue #{ISSUE} 最新の決定コメント（逐語）]"
-    bd.note(f"[Issue #{ISSUE} 全文（gh issue view {ISSUE} --json title,body。1行目=タイトル、以降=本文、逐語）]\n{title}\n{body}")
-    bd.note("[優先規則] 最新のコメントが、それより前のコメントに優先する。\n"
-            f"{head_note}\n{dec}")
-    bd.issue_lines = set(title.split("\n")) | set(body.split("\n")) | set(dec.split("\n"))
-    # --- topology 冒頭規則
-    n = find_line(L["topology"], "以下は接続の向きを一意にする正本である")
-    bd.line("topology", n)
-    # --- 対象MAPの行（registry / spec / checklist / topology）
-    rows = {}
-    for key in ("registry", "spec", "checklist"):
-        r = row_of(L[key], mid, key)
-        rows[key] = r
-        for h in table_header(L[key], r):
-            bd.line(key, h)
-        bd.line(key, r)
-    trows, nbs = neighbours(L["topology"], mid)
-    for r, *_ in trows:
-        bd.line("topology", r)
-    bd.rows, bd.topo_rows, bd.neighbours = rows, trows, nbs
-    # --- 体内の現行空間設計・art-direction・研究・decisions
-    # BDY-04（迷路）は slim: 他MAPの記述を含む長い行（topology 690・692）・別MAPの話（decisions 体内入口・topology/research の17MAP表）は載せない
-    slim = mid == "BDY-04"
-    h = find_line(L["topology"], "## 体内の現行空間設計")
-    for n in ([] if slim else [h] + next_nonempty(L["topology"], h, 3)):  # slim（BDY-04）は手足・他MAPの記述が主の節なので載せない（BDY-04 の接続行は上の対象行で逐語）
-        bd.line("topology", n)
-    h = find_line(L["art"], "## #74 体内の最新空間・色の契約")
-    sec_end = next((i + 1 for i in range(h, len(L["art"])) if L["art"][i].startswith("## ")), len(L["art"]) + 1)  # 次の見出しの前まで（節に段落が増えても取りこぼさない）
-    for n in [h] + [n_ for n_ in next_nonempty(L["art"], h, 8) if n_ < sec_end]:
-        if slim and L["art"][n - 1].startswith("**左右は身体の本人から見る"):  # 左右の規約は迷路（左右の無い1MAP）に無関係
-            continue
-        bd.line("art", n)
-    bd.line("art", find_line(L["art"], "- 背景はタイルを無限に継ぎ足さない"))
-    bd.line("research", find_line(L["research"], "| R018 |"))
-    if not slim:
-        bd.line("research", find_line(L["research"], "| BDY-01〜BDY-17 |"))
-        h = find_line(L["research"], "## #74 体内の最新根拠")
-        for n in [h] + next_nonempty(L["research"], h, 1):
-            bd.line("research", n)
-        bd.line("decisions", find_line(L["decisions"], "体内入口は園庭（TRM-03境内の右の区画。旧TRM-01は2026-10-23に統合して廃止）→BDY-01口"))
-        for n, l in enumerate(L["topology"], 1):
-            if l.startswith("| 体内 | 中3 |"):
-                bd.line("topology", n)
-        h = find_line(L["topology"], "## 体内の現行空間設計")
-        for n in next_nonempty(L["topology"], h, 3):
-            bd.line("topology", n)
-    # --- 接続相手の行
-    for nb in nbs:
-        for key in ("registry", "spec", "checklist"):
-            r = row_of(L[key], nb, key)
-            for hh in table_header(L[key], r):
-                bd.line(key, hh)
-            bd.line(key, r)
-    if mid in ("BDY-04", "BDY-17"):
-        bd.note(f"[注記] 主路幅は天面幅比0.14={lw}px。この MAP の通路はキャラクター1人分＝その1/3＝{round(lw / 3)}px。")
-    else:
-        bd.note(f"[注記] 通路幅は天面幅比0.14={lw}px。")
+        quote = ""
+    if quote:
+        bd.note(f"[Issue #{ISSUE} 引用の出典（設計の正本は上の台帳）]\n{quote}")
+        bd.issue_lines = set(quote.split("\n"))
+    bd.lines["research"] = DOCS["research"].read_text(encoding="utf-8").split("\n")
+    bd.line("research", find_line(bd.lines["research"], "| R018 |"))
+    bd.note(f"[注記] 通路幅 {lw}px。型付き幾何の確度・未決を確定値と誤認しない。")
     return bd
 
 
@@ -364,10 +326,25 @@ def line_matches(doc_line, sent):
     return doc_line == sent or (CUT_MARK.search(doc_line) is not None and CUT_MARK.split(doc_line)[0] == sent)
 
 
+def verify_ledger_source(text):
+    """Each serialized ledger row must match a current strict YAML row in full."""
+    import ledger_io as ledger
+    cache, bad, count = {}, [], 0
+    for match in re.finditer(r"^\[台帳:([^/\]\n]+)/([^\]\n]+)\]\n([^\n]+)$", text, re.M):
+        table, ident, serialized = match.groups()
+        if table not in cache:
+            cache[table] = {json.dumps(r, ensure_ascii=False, sort_keys=True) for r in ledger.read(table)}
+        count += 1
+        if serialized not in cache[table]:
+            bad.append(f"台帳:{table}/{ident}")
+    return count, bad
+
+
 def verify_bundle_text(md_text):
     """原文束の各 `[ファイル:行]` 見出し直後の1行が、docs のその行と完全一致することを機械照合する。戻り値=(照合件数, 不一致リスト)。"""
     sec = md_text.split("## 1. 原文束", 1)[1].split("\n## 2.", 1)[0]
-    cache, bad, n = {}, [], 0
+    n, bad = verify_ledger_source(sec)
+    cache = {}
     pat = re.compile(r"^\[(docs/[a-z\-]+\.md):(\d+)\]\n(.*)$", re.M)
     for m in pat.finditer(sec):
         f, ln, text = m.group(1), int(m.group(2)), m.group(3)
@@ -385,10 +362,14 @@ def verify_send_text(send, issue_lines):
     """送信文の SOURCE TEXT ブロックを機械照合する。docs 行は `[ファイル:行]` 直後の1行が docs と完全一致、
     Issue #142 の区間の各行は gh の題名・本文・決定コメントの行に存在すること。戻り値=(docs件数, Issue行数, 問題リスト)。"""
     sec = send.split("=== SOURCE TEXT (verbatim, do not paraphrase) ===\n", 1)[1].split("\n\n=== WHAT TO DRAW", 1)[0].split("\n\n=== END OF SOURCE TEXT", 1)[0]  # 後ろに置く送信文（部屋・迷路の4枚）では END 行の手前まで
-    cache, bad, nd, ni = {}, [], 0, 0
+    nd, bad = verify_ledger_source(sec)
+    cache, ni = {}, 0
     lines = sec.split("\n")
     in_issue = False
     for i, l in enumerate(lines):
+        if l.startswith("[台帳:"):
+            in_issue = False
+            continue
         m = re.match(r"^\[(docs/[a-z\-]+\.md):(\d+)\]$", l)
         if m:
             in_issue = False
@@ -874,37 +855,28 @@ def sha(p):
 
 
 def fragment_table(mid, bundle_text, m, shape, slim=False):
-    """原文の断片（束に逐語で存在することを確認）→ 本文のP。"""
-    def must(frag):
-        if frag not in bundle_text:
-            die(f"照合表の原文断片が束に無い: {frag!r}")
-        return frag
-
-    rows = ([] if slim else [(must("手足末端は閉じ、手足相互の連絡や迂回路を足さない"), "topology", "P3, P4, P5（余計な経路・迂回路を足さない。末端は閉じる）")]) + [
-        (must("幼稚園児の架空人体・非写実・肌色寄り"), "registry/spec/checklist", "P6（体の輪郭・洞窟口なし。平らな床・低い仕切り・地形だけ）, P7, P8"),
-        (must("door-passageは物理的な扉でない"), "topology", "P6（扉・枠・門なし）"),
-        (must("pixel/maskはTBD（mask未作成）" if mid in ROOM_MAPS else "通行幅・pixel/mask・脳内迷路はTBD"), "registry/spec/checklist", "P3（幅 230px は割付図の仮置き。画素値はTBDのまま）" if mid not in ROOM_MAPS else "P3, P4（通路幅・形は台帳が決定済み。形の詳細は割付図が正本。pixel/maskだけTBD）"),
-        (must("幼稚園児が想像する架空人体"), "research R018", "P7, P8, P10, P12（非写実・肌色寄り・血に見えない）"),
-        (must("5 mm foamboardの土台と見えるcorrugated cardboard断面"), "art-direction", "P2（土台縁の帯: 外28px foamboard・内20px corrugated 断面）"),
-        (must("指跡・爪楊枝の跡を残したpaper clay"), "art-direction", "P7, P11, P12（指跡・爪楊枝の跡）"),
-        (must("肌色・薄桃・クリーム色のmatte poster paint"), "art-direction", "P7, P8"),
-        (must("赤い折り紙を切った形を血痕に見えない明確な工作アクセントとして置く"), "art-direction", "P10（手切りの赤い紙片6枚。地形の上のみ）"),
-        (must("毛糸は通路の縁や造形の継ぎ目に用い"), "art-direction", "P9（毛糸は床の外側＝地形側）, P11"),
-        (must("雪の綿は使わない"), "art-direction", "P12（材料列挙に綿なし）, 参照2の綿は継承しない"),
-        (must("白いPVA接着剤とmasking tapeで固定し、紙端・接着・塗りの手作り感を残す"), "art-direction", "P2, P11, P12"),
-        (must("通路は画像端でなく模型の縁まで届き、土台の板とまわりの机は見えたまま。遷移位置は画面端固定でなく範囲指定"),
-         "art-direction:30", "P1（机・土台縁・天面）, P3（模型の縁で止まる・遷移位置に印を描かない）"),
-        (must("視点は、真上に近い見下ろし"), "art-direction:30", "P13（鉛直下向き45°より急）"),
-    ]
-    if not slim:  # BDY-04 の slim な原文束には decisions の『体内入口』行（別MAPの話）を載せない
-        rows.append((must("体内入口は園庭（TRM-03境内の右の区画。旧TRM-01は2026-10-23に統合して廃止）→BDY-01口の物語イベント"), "decisions", "（BDY-01 のイベント到着は絵に描かない。警告）" if mid == "BDY-01" else "P4/P5（接続は模型の縁のみ）"))
-    return rows
+    """Coverage maps current YAML rows to prompt sections, without stale md literals."""
+    mapping = {"MAP": "P3–P5", "MAP仕様": "P3–P5", "MAP契約": "生成前ゲート・P3–P5",
+               "端": "P3–P5", "接続": "P3–P5", "体内幾何": "P1–P6",
+               "制作規約": "P2・P6–P13", "決定": "P1–P14", "要素": "P4・P6・P11", "窓": "P6"}
+    out = []
+    for match in re.finditer(r"^\[台帳:([^/\]\n]+)/([^\]\n]+)\]\n([^\n]+)$", bundle_text, re.M):
+        table, ident, serialized = match.groups()
+        row = json.loads(serialized)
+        if row.get("MAP_ID", mid) not in (mid, "GLOBAL"):
+            continue
+        content = row.get("内容") or row.get("決定の要点") or row.get("一言特徴") or row.get("値") or row.get("備考") or ident
+        out.append((content, f"台帳:{table}/{ident}", mapping.get(table, "SOURCE TEXT")))
+    count, bad = verify_ledger_source(bundle_text)
+    if bad or not count:
+        die("台帳原文の照合に失敗: " + "; ".join(bad))
+    return out
 
 
 def render_md(mid, m, bl, bundle, P, shape, warns, wrapper, refs_text, body, table, out_name, send_sha="", ctx02=None):
     M, lw = m["M"], ctx02.get("lw", m["lw"])  # 通路幅（BDY-04・17 は1人幅 77px）
-    reg_row = bundle.lines["registry"][bundle.rows["registry"] - 1]
-    title_jp = re.match(r"^\|[^|]*\|[^|]*\|[^|]*\|\s*([^。|]*)", reg_row).group(1).strip()
+    import ledger_io as ledger
+    title_jp = next(r["名称"] for r in ledger.read("MAP") if r["MAP_ID"] == mid)
     fence = "````"
     lines = []
     A = lines.append
@@ -2786,29 +2758,7 @@ def checks_rooms(mid, m, rg):
 
 
 def fragment_table_rooms(mid, bundle_text, m, shape):
-    base = [r for r in fragment_table(mid, bundle_text, m, shape, slim=(mid == "BDY-04")) if not r[0].startswith("手足末端は閉じ")]
-    base = [(a, b, ("P3（入口の幅。画素値はTBDのまま。通路の形は P4）" if a.startswith(("通行幅・pixel/mask", "pixel/mask")) else c)) for a, b, c in base]
-
-    def must(frag):
-        if frag not in bundle_text:
-            die(f"照合表の原文断片が束に無い: {frag!r}")
-        return frag
-    extra_f = {
-        "BDY-04": lambda: [(must("頭・脳の迷路通路"), "registry/spec/checklist", "P3・P4（迷路の通路。通路の列挙・行き止まり・T字・曲がりの数は clean 画素の実測。ステンシル宣言・ランドマークも実測）"),
-                   (must("脳は迷路状通路"), "art-direction:199", "P4（迷路状）"),
-                   (must("脳は迷路状ということだな"), "Issue #142", "P4（迷路状。通路の配置は参照1のとおり）"),
-                   (must("この MAP の通路はキャラクター1人分＝その1/3＝77px"), "[注記]（ビルダーの数値事実）", "P3・P4（1人幅77px・格子13x6）")],
-        "BDY-15": lambda: [(must("分岐なしJ字の1袋"), "Issue #142", "P4（分岐なしJ字の1つの袋。docs の『単純な分岐室』は、この MAP の部屋は1つの袋、の形で P4 が明示）"),
-                   (must("最大幅460px"), "Issue #142", "P4（胃体の最大幅約460px・入口の2倍）"),
-                   (must("幽門（130px・丸く閉じた行き止まり）"), "Issue #142", "P4（幽門約130px・丸い閉じた端）")],
-        "BDY-16": lambda: [(must("心臓=解剖学の4つの部屋（右心房・右心室・左心房・左心室）を抽象的な4つの部屋と通路で表す"), "Issue #142", "P4（丸い4部屋を四角い環の通路でつなぐ。部屋名は絵に描かない。docs の『単純な分岐室』は、この MAP の部屋は4つの丸い部屋、の形で P4 が明示）"),
-                   (must("心臓は自然にすればいい"), "Issue #142", "P4（心臓は自然に。本人の左側＝画面右は BDY-02 の南辺の位置）")],
-        "BDY-17": lambda: [(must("肺BDY-17は人間の肺が渦巻きでないため行き止まりなし（外周の環に右肺3葉=画面左・左肺2葉=画面右の丸い5部屋"), "topology", "P3・P4（外周の環・丸い5部屋・通路幅77px・行き止まりなし）"),
-                   (must("案A（外周の環）"), "Issue #142", "P4（案A。渦巻き＝案Bは不採用）"),
-                   (must("通路をキャラ１人分の幅で左から上にぐるっとまわしては"), "Issue #142", "P3・P4（入口は北辺中央・通路はキャラ1人分幅・左から上へぐるっと一周する環）")],
-    }
-    extra = extra_f[mid]()
-    return base + extra
+    return fragment_table(mid, bundle_text, m, shape)
 
 
 def build_one(mid, out_dir, bl, force_redo=False):
@@ -2819,6 +2769,10 @@ def build_one(mid, out_dir, bl, force_redo=False):
         die(f"{mid}: 採用済み（旧プールの装飾）。既定は再生成しない。作り直しは kako-jun 2026-10-22『つくりなおせ』（Issue #142）の明示オプション --force-redo で、BDY-02・BDY-09 だけ。")
     if mid not in TARGETS:
         die(f"{mid}: 対象外（対象 = {', '.join(TARGETS)}）")
+    from ledger_query import missing_keys
+    missing = missing_keys(mid)
+    if missing:
+        die("台帳の生成ゲートで停止: " + "; ".join(missing), 3)
     m = measure(mid, bl)
     bundle = build_bundle(mid, m["lw"])
     _, _, _, _, portals = bl.build_model()

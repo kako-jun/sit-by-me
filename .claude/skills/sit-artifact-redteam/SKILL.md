@@ -26,9 +26,9 @@ Use the #68 migration ledger for actual paths: `assets/images/{enemies,summons,c
 For a MAP review, first read:
 
 - `docs/content-registry.md`
-- target row in `docs/map-asset-registry.md`
-- target row in `docs/map-specifications.md`
-- applicable graph in `docs/map-topology.md`
+- target YAML rows in `docs/ledger/MAP.yaml`, `MAP仕様.yaml`, and `MAP契約.yaml`
+- target endpoints/connections in `docs/ledger/端.yaml` and `接続.yaml` (`ledger_query.py MAP_ID`)
+- applicable generated graph in `docs/topology/` (historical Markdown tables are references)
 - `docs/map-reference-research.md`
 - `docs/art-direction.md`, `docs/assets-policy.md`, and `.claude/skills/sit-field-background/SKILL.md`
 

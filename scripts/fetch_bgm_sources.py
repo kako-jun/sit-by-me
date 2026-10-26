@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
-"""docs/bgm-sources.csv の manifest から BGM 入力素材(新世界より)を再取得する。
+"""docs/ledger/BGM録音.yaml から BGM 入力素材(新世界より)を再取得する。
 
 音源は git 管理外の ~/data/sit-bgm/raw/{録音ID}/{楽章}.{ext} に保存する(リポ内には置かない)。
 実行: uv run python3 scripts/fetch_bgm_sources.py [--ids a,b] [--max-rank B] [--force] [--probe-only]
   - ファイルパス列が空/備考が「手動取得要」の行は取得しない(IMSLP 等)。
-  - 取得後 ffprobe で長さ(秒)と形式を測り、CSV に書き戻す。
+  - 取得後 ffprobe で長さ(秒)と形式を測り、YAML に書き戻す。
   - 外部 HTTPS は curl 経由(施設内プロキシ環境でも通る)。
 """
-import argparse, csv, json, os, subprocess, sys, tempfile, time
+import argparse, json, os, subprocess, sys, tempfile, time
 from pathlib import Path
+import yaml
 
-CSV_PATH = Path(__file__).resolve().parent.parent / "docs" / "bgm-sources.csv"
+YAML_PATH = Path(__file__).resolve().parent.parent / "docs" / "ledger" / "BGM録音.yaml"
 RAW_ROOT = (Path.home() / "data" / "sit-bgm" / "raw").resolve()
 UA = "sit-bgm-fetch/1.0 (personal research; contact via repo owner)"
 RANK_ORDER = {"A": 0, "B": 1, "C": 2, "X": 3}
-COL_PATH, COL_URL, COL_DUR, COL_FMT, COL_NOTE, COL_RANK, COL_ID = "ファイルパス", "出典URL", "ffprobeで実測した長さ(秒)", "形式", "備考", "ランク", "id"
+COL_PATH, COL_URL, COL_DUR, COL_FMT, COL_NOTE, COL_RANK, COL_ID = "ファイルパス", "出典URL", "ffprobeで実測した長さ(秒)", "形式", "備考", "ランク", "録音ID"
 
 
 MIN_BYTES = 10_000  # これ未満は HTML エラーページ等とみなす
@@ -77,12 +78,10 @@ def main():
     a = ap.parse_args()
     ids = set(a.ids.split(",")) if a.ids else None
 
-    with open(CSV_PATH, newline="", encoding="utf-8") as f:
-        rd = csv.DictReader(f)
-        fields, rows = rd.fieldnames, list(rd)
-    for i, row in enumerate(rows, start=2):  # 1行目はヘッダ
+    rows = yaml.safe_load(YAML_PATH.read_text(encoding="utf-8"))
+    for i, row in enumerate(rows, start=1):
         if row.get(COL_RANK) not in RANK_ORDER:
-            sys.exit(f"{CSV_PATH.name} {i}行目 (id={row.get(COL_ID)}): ランク列が A/B/C/X のいずれでもない: {row.get(COL_RANK)!r}")
+            sys.exit(f"{YAML_PATH.name} {i}件目 (録音ID={row.get(COL_ID)}): ランク列が A/B/C/X のいずれでもない: {row.get(COL_RANK)!r}")
     original = [dict(r) for r in rows]
     ok = ng = skip = 0
     for row in rows:
@@ -109,7 +108,7 @@ def main():
                 print(f"FAIL(probe) {row[COL_ID]} {row['楽章']}")
                 ng += 1
                 continue
-            row[COL_DUR], row[COL_FMT] = str(dur), fmt or ""  # CSV の表記(文字列)に揃える
+            row[COL_DUR], row[COL_FMT] = str(dur), fmt or ""
             ok += 1
         else:
             ng += 1
@@ -117,13 +116,12 @@ def main():
         print(f"done: ok={ok} fail={ng} skipped(manual)={skip}")
         return
     # 一時ファイルに書いてから rename(原子的更新)
-    fd, tmp_name = tempfile.mkstemp(dir=CSV_PATH.parent, prefix=".bgm-sources.", suffix=".tmp")
+    fd, tmp_name = tempfile.mkstemp(dir=YAML_PATH.parent, prefix=".bgm-recordings.", suffix=".tmp")
     try:
-        with os.fdopen(fd, "w", newline="", encoding="utf-8") as f:
-            w = csv.DictWriter(f, fieldnames=fields)
-            w.writeheader()
-            w.writerows(rows)
-        os.replace(tmp_name, CSV_PATH)
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write("# 表: BGM録音。移行後はこの YAML が正本。全値は文字列。\n")
+            yaml.safe_dump(rows, f, allow_unicode=True, sort_keys=False, default_style='"', width=100000)
+        os.replace(tmp_name, YAML_PATH)
     except BaseException:
         Path(tmp_name).unlink(missing_ok=True)
         raise

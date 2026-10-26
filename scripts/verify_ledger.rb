@@ -24,10 +24,7 @@ class LedgerVerifier
   def warn!(msg) = @warnings << msg
 
   def map_ids
-    @map_ids ||= begin
-      ids = JSON.parse(File.read(File.join(@root, 'docs/topology/map-ids.json'), encoding: 'UTF-8'))
-      ids.fetch('areas').flat_map { |code, n| (1..n).map { |i| format('%s-%02d', code, i) } }
-    end
+    @map_ids ||= ids('MAP', 'MAP_ID')
   end
 
   def base_map(id) = id.sub(/-(kids|fire|burnt|wc)\z/, '')
@@ -51,11 +48,12 @@ class LedgerVerifier
     check_views_fresh
     check_free_text
     check_code_texts
+    check_domains
     self
   end
 
   # 描画定数・プロンプト文面: 空値なし、変数列と本文の {名前} が一致、コード（oblique_*.py）が参照するIDが全て在り、どの行もコードから参照されている（死んだ行を残さない）
-  CODE_REF = /["']((?:PR|MK|TP)\.[A-Za-z0-9._-]*|(?:view|width|door|window|slab|occlusion|topology)\.[A-Za-z0-9._-]*)["']/.freeze
+  CODE_REF = /["']((?:PR|MK|TP)\.[A-Za-z0-9._-]*|(?:view|width|door|window|slab|occlusion|topology|battle|town)\.[A-Za-z0-9._-]*)["']/.freeze
 
   def check_code_texts
     texts = @t['プロンプト文面']
@@ -72,7 +70,8 @@ class LedgerVerifier
       err("描画定数 #{r['定数ID']}: コード内の名前が空") if r['コード内の名前'].to_s.strip.empty?
     end
     tools = File.join(@root, '.claude/skills/sit-field-background/tools')
-    refs = Dir.glob(File.join(tools, 'oblique_*.py')).flat_map { |f| File.read(f, encoding: 'UTF-8').scan(CODE_REF).flatten }.uniq
+    sources = Dir.glob(File.join(tools, 'oblique_*.py')) + Dir.glob(File.join(@root, '.claude/skills/sit-battle-background/tools/*.py'))
+    refs = sources.flat_map { |f| File.read(f, encoding: 'UTF-8').scan(CODE_REF).flatten }.uniq
     all_ids = texts.map { |r| r['文面ID'] } + consts.map { |r| r['定数ID'] }
     refs.each do |ref|
       # 末尾が '.' のものは動的に連結する接頭辞（"PR.door.wname." + k）
@@ -86,7 +85,7 @@ class LedgerVerifier
   end
 
   def check_presence
-    %w[エリア MAP 建物 建物部位 建物窓列 建物関係 建物時期差分 端 接続 接続図設定 要素 窓 時期差分 既定値 エリア固定 装飾プール 語彙 決定 採用要素 素材 生成物 必須キー 未決 キー別名 ファイル配置 Issue点検 描画定数 プロンプト文面].each do |n|
+    schema.keys.each do |n|
       err("表 #{n}.yaml が無い") unless File.file?(File.join(@root, 'docs/ledger', "#{n}.yaml"))
     end
   end
@@ -117,13 +116,16 @@ class LedgerVerifier
   # 特徴(自由記述)の欄がある表は、全て導出（ledger_query.free_texts／決定は DECISIONS 節）と検査（verify_prompt_reflects_ledger.rb の (iii)）の
   # 対象でなければならない。新しい表に欄を足したのに導出・検査を足し忘れると、自由記述がプロンプトに黙って出なくなる。
   FREE_TEXT_COVERED = %w[エリア MAP 建物 建物部位 建物窓列 建物関係 建物時期差分 端 接続 要素 窓 素材 採用要素 決定].freeze
+  # MAPプロンプト以外の本文は、各領域の生成ビューで全列を出す。
+  DOMAIN_FREE_TEXT_COVERED = %w[MAP仕様 MAP契約 特殊遷移 体内幾何 敵 召喚獣 敵配置 ボスギミック 人物].freeze
 
   def check_free_text_tables
     with_free = schema.select { |_, cols| cols.include?('特徴(自由記述)') }.keys
-    (with_free - FREE_TEXT_COVERED).each do |tb|
+    (with_free - FREE_TEXT_COVERED - DOMAIN_FREE_TEXT_COVERED).each do |tb|
       err("表 #{tb} に特徴(自由記述)の欄があるが、プロンプトへの導出（ledger_query.free_texts）と反映検査（verify_prompt_reflects_ledger.rb）の対象になっていない（FREE_TEXT_COVERED に足す前に両方を実装する）")
     end
     (FREE_TEXT_COVERED - with_free).each { |tb| err("FREE_TEXT_COVERED の表 #{tb} に特徴(自由記述)の欄が無い（定義が変わった。導出・検査を見直す）") }
+    (DOMAIN_FREE_TEXT_COVERED - with_free).each { |tb| err("DOMAIN_FREE_TEXT_COVERED の表 #{tb} に特徴(自由記述)の欄が無い") }
   end
 
   # 必須キー表のキー・条件の列名が、対象テーブルの表定義に在る（綴り間違いの条件は『=』だと常に偽になり、検査が黙って外れる）
@@ -239,8 +241,14 @@ class LedgerVerifier
     end
     @t['素材'].each do |s|
       owner = s['所有者ID']
-      ok = ids('MAP', 'MAP_ID').include?(base_map(owner))
-      err("素材 #{s['素材ID']} の所有者 #{owner} が MAP に無い") unless ok
+      next if owner.to_s.empty? || owner == '未決(要確認)'
+
+      ok = ids('MAP', 'MAP_ID').include?(base_map(owner)) ||
+           ids('人物', '人物ID').include?(owner) ||
+           ids('敵', '敵ID').include?(owner) ||
+           ids('召喚獣', '召喚獣ID').include?(owner) ||
+           owner.match?(/\ABG\d{3}\z/) || owner == 'BRAND'
+      err("素材 #{s['素材ID']} の所有者 #{owner} に対応する台帳行または素材名前空間が無い") unless ok
     end
     # 決定参照（全表）: 存在し、訂正済み・撤回済みの決定を参照していない
     dec = @t['決定'].to_h { |d| [d['決定ID'], d] }
@@ -277,10 +285,17 @@ class LedgerVerifier
   end
 
   def check_decision_fks
-    tabs = { 'エリア' => ['エリア', 'エリアID'], 'MAP' => ['MAP', 'MAP_ID'], '建物' => ['建物', '建物ID'], '端' => ['端', '端ID'], '要素' => ['要素', '要素ID'], '窓' => ['窓', '窓ID'], '接続' => ['接続', '端A'] }
+    tabs = { 'エリア' => ['エリア', 'エリアID'], 'MAP' => ['MAP', 'MAP_ID'], '建物' => ['建物', '建物ID'],
+             '端' => ['端', '端ID'], '要素' => ['要素', '要素ID'], '窓' => ['窓', '窓ID'], '接続' => ['接続', '端A'],
+             '敵' => ['敵', '敵ID'], '召喚獣' => ['召喚獣', '召喚獣ID'], '人物' => ['人物', '人物ID'],
+             '敵配置' => ['敵配置', '配置ID'], 'ボスギミック' => ['ボスギミック', 'ギミックID'],
+             'BGMスロット' => ['BGMスロット', 'スロットID'], '素材' => ['素材', '素材ID'],
+             '刀候補' => ['刀候補', '刀候補ID'], '能力候補' => ['能力候補', '能力ID'], '魔法' => ['魔法', '魔法ID'] }
     @t['決定'].each do |d|
       tt = tabs[d['対象種別']]
-      if tt.nil?
+      if d['対象種別'] == '全体'
+        err("決定 #{d['決定ID']}: 全体の対象IDは sit-by-me") unless d['対象ID'] == 'sit-by-me'
+      elsif tt.nil?
         err("決定 #{d['決定ID']}: 対象種別 '#{d['対象種別']}' が不正")
       else
         set = ids(*tt)
@@ -454,6 +469,7 @@ class LedgerVerifier
         next
       end
       next unless g['パス'].end_with?('.json') && !g['入力ハッシュ'].to_s.empty?
+      next if g['生成物ID'] == 'G-asset-migration' # shape preserved; content_ledger.py manifest check verifies every field
 
       prov = (JSON.parse(File.read(path, encoding: 'UTF-8'))['_provenance'] || {})
       err("生成物 #{g['生成物ID']}: JSON の _provenance.input_sha が生成物表と違う（手編集か古い）") if prov['input_sha'] != g['入力ハッシュ']
@@ -465,6 +481,19 @@ class LedgerVerifier
 
     out = `uv run python3 #{tool} check 2>&1`
     err("派生JSONが台帳から再生成した内容と一致しない: #{out.strip.lines.first(3).join(' / ')}") unless $?.success?
+  end
+
+  def check_domains
+    project = File.expand_path('..', __dir__)
+    %w[verify_domain_ledger.py verify_content_ledger.py].each do |script|
+      tool = File.join(project, 'scripts', script)
+      out, status = Open3.capture2e({'LEDGER_ROOT' => @root}, 'uv', 'run', '--project', project, 'python3', tool, chdir: project)
+      err("#{script}: #{out.strip.lines.first(5).join(' / ')}") unless status.success?
+    end
+    [['content_ledger.py', 'bgm-csv', 'check'], ['content_ledger_views.py', 'check'], ['map_source_views.py', 'check']].each do |script, *args|
+      out, status = Open3.capture2e({'LEDGER_ROOT' => @root}, 'uv', 'run', '--project', project, 'python3', File.join(project, 'scripts', script), *args, chdir: project)
+      err("#{script}: #{out.strip.lines.first(3).join(' / ')}") unless status.success?
+    end
   end
 
   # 自由記述（特徴）: 禁止語との衝突・必須キー値との食い違い・構造化できる内容（寸法・個数・材質）を警告

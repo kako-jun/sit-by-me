@@ -9,7 +9,7 @@ description: Sit by Me の敵スプライトを、敵台帳のID・4種グリッ
 
 候補の来歴（完全prompt・参照・実寸/検査結果・判定理由）はIssueまたはレビュー文書に記録する。候補の削除・移動・リバートは、人間が不採用を明示してから行う。採否待ちの候補を勝手に削除しない。
 
-敵 `M` の戦闘用マスター画像だけを扱う。生成前に `docs/content-registry.md`、`docs/monsters.md` の対象行、必要なら `docs/dungeon-enemies.md`、`docs/art-direction.md`、`docs/assets-policy.md` を原文のまま読む。`ready` は最終採用済みの状態であり、生成の前提条件ではない。対象画像そのものに未解決のTBDがある、またはサイズ種別が矛盾する場合だけ生成しない。
+敵 `M` の戦闘用マスター画像だけを扱う。生成前に `uv run python3 scripts/content_ledger.py query enemy Mxxx --gate` を実行し、その出力全体（敵本体、サイズ、配置、採用状態、素材、適用する決定、案、未解決ゲート）を生成入力とレビューへ渡す。`Mxxx` は対象IDで置換する。サイズ行が複数なら `--size-row SZ-xxx` も指定する。ゲート失敗なら生成を止め、台帳の未決を確認する。必要な経緯は出典欄にある元文書を読むが、修正する正本は `docs/ledger/敵.yaml` などのYAML表。`docs/content-registry.md`、`docs/art-direction.md`、`docs/assets-policy.md` の運用規則も読む。`ready` は最終採用済みの状態であり、生成の前提条件ではない。対象画像そのものに未解決のTBDがある、またはサイズ種別が矛盾する場合だけ生成しない。
 
 ## 一意解釈ゲート（このスキルの全行より優先）
 

@@ -3210,18 +3210,18 @@
     {
       "old": "sample/battle/backgrounds/bg-b.png",
       "new": null,
-      "pruned_path": "assets/images/battle-backgrounds/BG002.png",
       "action": "delete",
       "reason": "Pruned by #68 follow-up (2026-10-19): unadopted background removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing verification asset; BG005 adopted stage-b and BG001 camera reference preserved.",
-      "sha256": "f69eb583e4484a6effa057bd8fc4a355b78de62450d424dcc9a8f80d9fb257cf"
+      "sha256": "f69eb583e4484a6effa057bd8fc4a355b78de62450d424dcc9a8f80d9fb257cf",
+      "pruned_path": "assets/images/battle-backgrounds/BG002.png"
     },
     {
       "old": "sample/battle/backgrounds/bg-c.png",
       "new": null,
-      "pruned_path": "assets/images/battle-backgrounds/BG003.png",
       "action": "delete",
       "reason": "Pruned by #68 follow-up (2026-10-19): unadopted background removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Existing verification asset; BG005 adopted stage-b and BG001 camera reference preserved.",
-      "sha256": "71fdf4e9ed93892a85871c4fa914eb970e7319bdad84293c42d444408ee6b0bf"
+      "sha256": "71fdf4e9ed93892a85871c4fa914eb970e7319bdad84293c42d444408ee6b0bf",
+      "pruned_path": "assets/images/battle-backgrounds/BG003.png"
     },
     {
       "old": "sample/battle/backgrounds/stage-a.png",
@@ -3256,10 +3256,10 @@
     {
       "old": "sample/battle/backgrounds/stage-e-1920x1080-candidate.png",
       "new": null,
-      "pruned_path": "assets/images/battle-backgrounds/candidates/BG008.png",
       "action": "delete",
       "reason": "Pruned by #68 follow-up (2026-10-19): unadopted background removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Pixel-pass-only candidate; provenance/live verification blocked.",
-      "sha256": "a11343fc4d30dd5f6ce607c65793d1830729f4da1aefc7c6cb7c2fffcbcb64a9"
+      "sha256": "a11343fc4d30dd5f6ce607c65793d1830729f4da1aefc7c6cb7c2fffcbcb64a9",
+      "pruned_path": "assets/images/battle-backgrounds/candidates/BG008.png"
     },
     {
       "old": "sample/battle/backgrounds/stage-e-candidate.png",
@@ -3271,10 +3271,10 @@
     {
       "old": "sample/battle/backgrounds/stage-f-miniature-1920x1080-candidate.png",
       "new": null,
-      "pruned_path": "assets/images/battle-backgrounds/candidates/BG009.png",
       "action": "delete",
       "reason": "Pruned by #68 follow-up (2026-10-19): unadopted background removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Pixel-pass-only candidate; provenance/live verification blocked.",
-      "sha256": "37404a425f2018e253adf4969b5bf3eeddb2d0aaf9699dadc17ce06f56bbafa7"
+      "sha256": "37404a425f2018e253adf4969b5bf3eeddb2d0aaf9699dadc17ce06f56bbafa7",
+      "pruned_path": "assets/images/battle-backgrounds/candidates/BG009.png"
     },
     {
       "old": "sample/battle/backgrounds/stage-g-miniature-reference-view-1920x1080-candidate.png",
@@ -3328,10 +3328,10 @@
     {
       "old": "sample/battle/backgrounds/teramachi-outdoor-diorama-1920x1080-candidate.png",
       "new": null,
-      "pruned_path": "assets/images/battle-backgrounds/candidates/BG007.png",
       "action": "delete",
       "reason": "Pruned by #68 follow-up (2026-10-19): unadopted background removed. Restore with: git show 1bb09d0:<pruned_path>. Earlier: Pixel-pass-only candidate; provenance/live verification blocked.",
-      "sha256": "20f513e547bc8d283f29119ce4c4dbf0a0bdea422ea9ca50ac8ce9827b06af21"
+      "sha256": "20f513e547bc8d283f29119ce4c4dbf0a0bdea422ea9ca50ac8ce9827b06af21",
+      "pruned_path": "assets/images/battle-backgrounds/candidates/BG007.png"
     },
     {
       "old": "sample/battle/backgrounds/teramachi-outdoor-diorama-candidate.png",

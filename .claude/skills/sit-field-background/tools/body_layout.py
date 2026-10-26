@@ -29,6 +29,8 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import body_geometry as BG  # 台帳の体内幾何入力（画像生成はしない）
+BODY_CONSTANTS = BG.constants()
 
 W, H = 1920, 1080
 REPO = Path(__file__).resolve().parents[4]
@@ -38,12 +40,12 @@ FONT = "/usr/share/fonts/noto-cjk/NotoSansCJK-Bold.ttc"
 
 # 主路幅 = キャラクター3人が横に並べる幅。キャラ1人の画像幅比は原文に無い（TBD）ので、
 # 「3人並び」を満たすための仮置きとして画像幅の 14%（= 1人あたり約4.7%）を既定にする。数値自体は TBD。
-DEFAULT_MAIN_WIDTH_RATIO = 0.14
+DEFAULT_MAIN_WIDTH_RATIO = BODY_CONSTANTS["DEFAULT_MAIN_WIDTH_RATIO"]
 
 # BDY-02 の「首の通路は1本・頭はそこから分かれる北向きの枝」を満たす個別指定（正規化座標 0..1）。
 # それ以外のMAPは portal -> 内側へ垂直 -> ハブ（画像中心付近）の汎用経路。
 # slot: 辺上の位置（0..1、N/S辺なら x、E/W辺なら y）の提案値。
-LW17_DIV = 3  # BDY-17・BDY-04 の通路幅 = 主路幅の 1/3（キャラ1人分。主路幅=3人並び）。入口の帯も1人幅（原文に無く『要確認』）
+LW17_DIV = BODY_CONSTANTS["LW17_DIV"]  # 未決の数値は体内幾何台帳を参照
 
 
 def mlw(m, lw):
@@ -54,38 +56,13 @@ def mlw(m, lw):
 ONE_PERSON_MAPS = ("BDY-17", "BDY-04")
 
 
-BDY02_SLOTS = {
-    "door-passage-head": 0.50,
-    "door-passage-mouth": 0.74,
-    "door-passage-left-arm": 0.28,    # 左右は身体の本人から見る（kako-jun 決定 #142 2026-10-22）。本人の左手 = 画面右 = 東辺
-    "door-passage-lung": 0.26,        # 肺 = 画面左寄り x≈450–680（心臓は本人の左側 = 画面右。確定）
-    "door-passage-heart": 0.74,       # 心臓 = 画面右寄り x≈1239–1469（確定）
-    "door-passage-lower": 0.50,
-    "door-passage-right-arm": 0.50,   # 本人の右手 = 画面左 = 西辺
-}
-HUB = {"BDY-02": (0.50, 0.50)}
-
-# BDY-02 の新しい形（kako-jun 決定 #142『首は A案』）: 広間(丸い床+壁) -> 首(1本の太い帯) -> 分岐点 J -> 頭(ほぼ真北)・口(右上へ斜め→最後は辺に垂直)。
-# 他の5本（左腕・右腕・肺・心臓・下半身）は広間に別々の角度で接する帯。辺の位置・本数・幅は不変。座標は画像 px。
-# 広間は『首が見える長さ』を取るため、旧版（半径265・中心=模型中心）より小さく少し南へ寄せた。壁の厚み・台座なしは従来どおり。
-BDY02_HALL = ((960, 700), 205)
-BDY02_HALL_RX = 300           # 広間は横長の楕円（縦半径=BDY02_HALL[1]、横半径=この値）。6本の帯を別々に接するための周長
-BDY02_J = (960, 350)          # 首の分岐点（広間と北辺の間）。首はここまで1本
-BDY02_K_Y = 225               # 口の帯が辺へ垂直に曲がる高さ（辺に垂直な最後の区間 = 位置・幅が仕様どおり）
-# 5本の帯: 辺の点から広間の中へ入る折れ線の途中の点（絶対 px）。最後の点は広間の床の内側。端は port=辺上の点。
-BDY02_ARMS = {
-    # 左右は身体の本人から見る（kako-jun 決定 #142 2026-10-22『本人は仰向け、それを正面から見ている。画面左側は右手』）。
-    # 右腕（西辺）: 西辺 y425-655（辺から水平に 162px）-> 折れ点 (300,540) から広間へ向けて右下へ 16.7 度の斜め（kako-jun 2026-10-22『分岐にガクッと段差』の修正を踏襲）。
-    # 旧版は水平のまま (800,540) で帯の端を平らに切っていたため、広間の楕円の縁より北側にはみ出した端の縦の切り口が段差になっていた。
-    "door-passage-right-arm": [(300, 540), (800, 690)],
-    # 左腕（東辺 slot0.28）: 辺から水平に入り、広間へ左下へ斜め（旧『右腕』の形をそのまま左腕に。口の分岐に北東で近い）
-    "door-passage-left-arm": [(1662, 363), (1090, 650)],
-    # 心臓（本人の左 = 画面右、南辺右寄り。確定）: 垂直に入り、左上へ斜めで広間へ（旧『肺』の形）
-    "door-passage-heart": [(1355, 800), (1160, 745)],
-    # 肺（画面左寄り。確定）: 垂直に入り、右上へ斜めで広間へ（旧『心臓』の形）
-    "door-passage-lung": [(565, 800), (760, 745)],
-    "door-passage-lower": [(960, 800)],
-}
+BDY02_SLOTS = BODY_CONSTANTS["BDY02_SLOTS"]
+HUB = BODY_CONSTANTS["HUB"]
+BDY02_HALL = BODY_CONSTANTS["BDY02_HALL"]
+BDY02_HALL_RX = BODY_CONSTANTS["BDY02_HALL_RX"]
+BDY02_J = BODY_CONSTANTS["BDY02_J"]
+BDY02_K_Y = BODY_CONSTANTS["BDY02_K_Y"]
+BDY02_ARMS = BODY_CONSTANTS["BDY02_ARMS"]
 
 # ---- 体内の手足は『斜めに伸びる道』（kako-jun 確定 2026-10-22。原文: 胴体を真ん中として頭は上方向に、両手は右上、左上方向に、
 #      足は右下、左下方向に、一本道の通路としてかけばいい / map-topology.md 686行付近・body.svg）----
@@ -93,99 +70,15 @@ BDY02_ARMS = {
 # ports: port -> (出る/入る辺, 辺上の位置の比)。辺は map-topology.md + body.svg から導いた側と一致すること（検査C2b）。
 # paths: 折れ線。str は port（その辺上の点）、(x,y) は模型内の点。port で終わる端は模型の縁まで届く。
 #        port でない端は丸い閉じた端（末端）か合流点。kind: limb=斜めであること(水平垂直から15度以上)を検査 / trunk=胴の縦通路 / stub=TBD枠への入口
-MW0, MH0 = 1644, 804  # 模型の天面（W-2*MARGIN, H-2*MARGIN）。下で MARGIN から導く値と一致を assert
+MW0, MH0 = BODY_CONSTANTS["MW0"], BODY_CONSTANTS["MH0"]  # モデルの天面。MARGIN からの導出値と照合する
 # BDY-09（左足1）の折れ点 = 膝の1つだけ（kako-jun 指示 2026-10-22『２回曲げちゃダメだ。関節は１つであるべき』→『極端すぎる。もっとちょっと曲がった程度でいいのだ。鈍角にしろ』）。
 # 2区間とも同じ側（右下）へ進み続け、膝で進行方向が35度だけ変わる（内角145度の鈍角）。模型の天面基準 px。BDY-12 は x を左右反転。
 # 入口（西辺）は 0.35→0.292、出口（南辺）は 0.392→0.407 へ動かした（鈍角の1折れを模型の天面に収めるため。接続は辺の反対だけで成立し位置の画素一致は条件外）。
-THIGH_ENTRY_SLOT, THIGH_EXIT_SLOT = 0.292, 0.407
-THIGH_KNEES = [(503, 491)]   # 付け根(0,235)→膝: 右下27度 / 膝→足首側(669,804): 右下62度。進行方向の変化 35度・中心線 約919px（旧の直線830pxの約1.11倍）
-# BDY-15 胃の袋の中心線: ドーム(胃底)から真下へ少し、半径295の四分円で下から右へ曲がり(J字)、右へ進みながら細くなって丸い端(幽門)。制御点=(x,y,半径)。
-# 曲がりの中心線の曲率半径(295)は袋の最大半径(232)より大きい＝内側の輪郭が尖らない（凹みは半径63の丸み）。
-_SC = (740, 252); _SR = 295
-SAC15 = [(445, 244, 222), (445, 252, 222)] + [(round(_SC[0] + _SR * math.cos(math.radians(a_))), round(_SC[1] + _SR * math.sin(math.radians(a_))), r_)
-                                              for a_, r_ in ((150, 226), (120, 230), (90, 232))] + [(950, 555, 205), (1180, 530, 115), (1390, 455, 65)]
-
-SPECS = {
-    "BDY-01": dict(ports={"door-passage-torso": ("S", 0.60)},
-                   paths=[dict(kind="limb", pts=["door-passage-torso", (1300, 470)])]),
-    "BDY-03": dict(ports={"door-passage-upper": ("N", 0.50), "door-passage-left-leg": ("E", 0.82),
-                          "door-passage-right-leg": ("W", 0.82), "door-passage-stomach": ("E", 0.162)},
-                   paths=[dict(kind="trunk", pts=["door-passage-upper", (822, 400)]),
-                          dict(kind="limb", pts=[(822, 400), "door-passage-left-leg"]),
-                          dict(kind="limb", pts=[(822, 400), "door-passage-right-leg"]),
-                          dict(kind="limb", pts=[(822, 400), "door-passage-stomach"])]),
-    # 左手（本人の左 = 画面右）: BDY-02 の東辺から出て西辺から入り、右上へ斜め（左右は本人から見る。kako-jun 決定 #142 2026-10-22）
-    "BDY-05": dict(ports={"door-passage-torso": ("W", 0.50), "door-passage-tip": ("N", 0.392)},
-                   paths=[dict(kind="limb", pts=["door-passage-torso", "door-passage-tip"])]),
-    "BDY-06": dict(ports={"door-passage-base": ("S", 0.392)},
-                   paths=[dict(kind="limb", pts=["door-passage-base", (1124, 424)])]),
-    # 右手（本人の右 = 画面左）: BDY-02 の西辺から出て東辺から入り、左上へ斜め
-    "BDY-07": dict(ports={"door-passage-torso": ("E", 0.50), "door-passage-tip": ("N", 0.608)},
-                   paths=[dict(kind="limb", pts=["door-passage-torso", "door-passage-tip"])]),
-    "BDY-08": dict(ports={"door-passage-base": ("S", 0.608)},
-                   paths=[dict(kind="limb", pts=["door-passage-base", (520, 424)])]),
-    # 左足（本人の左 = 画面右）: BDY-03 の東辺から出て西辺から入り、右下へ斜め
-    # 太ももは1マップ内の道が短くもったいない（kako-jun 指示 2026-10-22『曲がってる感じしてはどうか』）ので、斜めの帯に膝の曲がりを1つだけ入れる
-    # （『２回曲げちゃダメだ。関節は１つであるべき』『極端すぎる。もっとちょっと曲がった程度でいいのだ。鈍角にしろ』）: 付け根（西辺）から右下27度、膝（折れ点1つ）で
-    # 右下62度へ35度だけ向きを変えて南辺へ。入口・出口の辺は不変（辺上の位置は上の THIGH_*_SLOT）。2区間とも水平垂直から15度以上、折れ点は丸い。中心線は旧（直線830px）の約1.11倍。
-    "BDY-09": dict(ports={"door-passage-torso": ("W", THIGH_ENTRY_SLOT), "door-passage-middle": ("S", THIGH_EXIT_SLOT)},
-                   paths=[dict(kind="limb", pts=["door-passage-torso", *THIGH_KNEES, "door-passage-middle"])]),
-    "BDY-10": dict(ports={"door-passage-base": ("N", 0.392), "door-passage-tip": ("S", 0.70)},
-                   paths=[dict(kind="limb", pts=["door-passage-base", "door-passage-tip"])]),
-    "BDY-11": dict(ports={"door-passage-base": ("N", 0.70)},
-                   paths=[dict(kind="limb", pts=["door-passage-base", (1494, 480)])]),
-    # 右足（本人の右 = 画面左）: BDY-03 の西辺から出て東辺から入り、左下へ斜め
-    # BDY-09 の左右ミラー（折れ点の x を MW0 - x に）
-    "BDY-12": dict(ports={"door-passage-torso": ("E", THIGH_ENTRY_SLOT), "door-passage-middle": ("S", round(1 - THIGH_EXIT_SLOT, 3))},
-                   paths=[dict(kind="limb", pts=["door-passage-torso", *[(MW0 - kx, ky) for kx, ky in THIGH_KNEES], "door-passage-middle"])]),
-    "BDY-13": dict(ports={"door-passage-base": ("N", 0.608), "door-passage-tip": ("S", 0.30)},
-                   paths=[dict(kind="limb", pts=["door-passage-base", "door-passage-tip"])]),
-    "BDY-14": dict(ports={"door-passage-base": ("N", 0.30)},
-                   paths=[dict(kind="limb", pts=["door-passage-base", (150, 480)])]),
-    # 保留4枚（BDY-04/15/16/17）の『仮案』（kako-jun 指示 2026-10-22: 肺や心臓は医学的な4つ等の区分を抽象的な部屋で、脳は迷路状）。
-    # 入口は1本だけ（辺と位置は接続表+body.svg 由来で不変）。rooms=(名前, x, y, 半径) 丸い部屋の床。名前は mock の注記にだけ描く（清書版には描かない）。
-    # paths の kind: entry=入口から最初の合流点まで / maze=迷路の通路 / link=部屋どうしをつなぐ通路。座標は模型の天面基準 px。
-    # expect = 機械検査の期待値（部屋数・曲がり数・T字分岐数・行き止まり数）。
-    "BDY-04": None,  # 下の make_maze_spec() が作る（seed固定の迷路生成）
-    # BDY-15 胃（kako-jun 指摘『なぜ胃が2つに分岐したようになってるのだ？人間はそうなのか？』で作り直し・分岐なしJ字の1袋）。
-    # 入口(西辺)=噴門から、分岐のない1つの袋がJ字に曲がる: 入口のすぐ上に丸いドーム(胃底=袋の一部)、そこから幅広い袋の本体(胃体)が下へ膨らみ、
-    # 右へ曲がって細くなり(幽門)、丸く閉じた端で終わる(出口は十二指腸へ続くが、このMAPの接続は入口1本だけなので行き止まり)。
-    # 袋の形は SAC（中心線の制御点 (x,y,半径) を滑らかにつないだ掃引）。graph は曲がり・行き止まりを数えるための簡略中心線(描かない)。
-    "BDY-15": dict(ports={"door-passage-torso": ("W", 0.162)},
-                   paths=[dict(kind="entry", pts=["door-passage-torso", (445, 130)]),
-                          dict(kind="graph", pts=[(445, 130), (445, 545), (1390, 455)])],
-                   sac=SAC15,
-                   rooms=[("噴門", 330, 130, 115), ("胃底", 445, 244, 222), ("胃体", 740, 400, 232), ("幽門", 1390, 455, 65)],
-                   expect=dict(rooms=4, corners=2, tjunc=0, deadends=1),
-                   proposal=["仮案(kako-jun指摘で作り直し・分岐なしJ字の1袋): 入口(西)=噴門 → すぐ上のドーム=胃底 → 袋の本体=胃体(入口の約2倍幅) → 右へ曲がって細く=幽門(丸い閉じた行き止まり)。部屋名は注記のみ",
-                             "分岐なし・T字0・曲がり2・行き止まり1。道幅 入口230px・胃体は最大460px・幽門は130px(キャラ1人分77px以上)。出口なし(接続はこの1本のみ)"]),
-    "BDY-16": dict(ports={"door-passage-torso": ("N", 0.26)},
-                   paths=[dict(kind="entry", pts=["door-passage-torso", (427, 190)]),
-                          dict(kind="link", pts=[(427, 190), (427, 614)]),
-                          dict(kind="link", pts=[(1217, 190), (1217, 614)]),
-                          dict(kind="link", pts=[(427, 190), (1217, 190)]),
-                          dict(kind="link", pts=[(427, 614), (1217, 614)])],
-                   rooms=[("右心房", 427, 190, 160), ("右心室", 427, 614, 160), ("左心房", 1217, 190, 160), ("左心室", 1217, 614, 160)],
-                   expect=dict(rooms=4, corners=3, tjunc=1, deadends=0),
-                   proposal=["仮案: 心臓=2x2の丸い4部屋(画面左上=右心房・画面左下=右心室・画面右上=左心房・画面右下=左心室、本人から見る名前)を四角い環の通路でつなぐ。入口(北)=右心房",
-                             "部屋名は注記のみ(絵には描かない)。環の中央は地形の島。出口なし(接続はこの1本のみ)"]),
-    # BDY-17 肺: kako-jun 指示『肺は左右の中心に上から入るように、通路をキャラ１人分の幅で左から上にぐるっとまわしては』。
-    # 入口=北辺の左右中心(x=画像中心)の1本・通路幅=主路幅/3(キャラ1人分)・丸い5部屋(右肺3葉=画面左の列、左肺2葉=右の列)。
-    # 『左から上にぐるっと』の解釈が2通りなので仮案A(外周の環)と仮案B(渦巻き)の2案。既定=A。B は SPEC17_B（下）。
-    "BDY-17": dict(ports={"door-passage-torso": ("N", 0.50)}, label="A",
-                   paths=[dict(kind="entry", pts=["door-passage-torso", (822, 160)]),
-                          dict(kind="link", pts=[(822, 160), (230, 160)]),
-                          dict(kind="link", pts=[(230, 160), (230, 402)]),
-                          dict(kind="link", pts=[(230, 402), (230, 644)]),
-                          dict(kind="link", pts=[(230, 644), (1414, 644)]),
-                          dict(kind="link", pts=[(1414, 644), (1414, 160)]),
-                          dict(kind="link", pts=[(1414, 160), (822, 160)])],
-                   rooms=[("右肺上葉", 230, 160, 110), ("右肺中葉", 230, 402, 110), ("右肺下葉", 230, 644, 110),
-                          ("左肺上葉", 1414, 160, 135), ("左肺下葉", 1414, 644, 135)],
-                   expect=dict(rooms=5, corners=4, tjunc=1, deadends=0),
-                   proposal=["仮案A(外周を回る環): 入口(北辺中央)から下り、環の上辺中央へ。左へ分かれ、右肺3葉(上・中・下)を経て下→右→左肺2葉(下・上)と上へ、ぐるっと一周して上辺中央に戻る",
-                             "通路幅は全通路でキャラ1人分=主路幅の1/3。5部屋は丸く大きい。環の中央は地形の島。行き止まりなし。入口の帯も1人幅(入口幅は要確認: 原文にない)。部屋名は注記のみ"]),
-}
+THIGH_ENTRY_SLOT = BODY_CONSTANTS["THIGH_ENTRY_SLOT"]
+THIGH_EXIT_SLOT = BODY_CONSTANTS["THIGH_EXIT_SLOT"]
+THIGH_KNEES = BODY_CONSTANTS["THIGH_KNEES"]
+SAC15 = BODY_CONSTANTS["SAC15"]
+SPECS = BG.specs()
 
 # ---- BDY-04 脳の迷路（kako-jun 指示 #142 2026-10-22『脳もキャラ１人分の幅でもっと複雑にして』）----
 # 通路幅=主路幅/3(77px)。格子 13列x6行・ピッチ120px（隣り合う通路の壁=120-77=43px >= 通路幅の半分38.5px）。
@@ -193,11 +86,13 @@ SPECS = {
 #   各セルは 1回だけ訪れ、未訪問の隣セルをランダムに選んで進む(行き止まりになったら戻る)。得られた木のうち
 #   曲がり>=20・T字>=8・行き止まり>=10 を満たす seed の中で『入口から最も遠い行き止まりまでの道』が最長のものを
 #   seed 0..MAZE_SEED_TRIES-1 から選ぶ（探索は決定的）。座標は全て模型の天面基準 px。
-MAZE_COLS, MAZE_ROWS, MAZE_PITCH = 13, 6, 120
-MAZE_X0, MAZE_Y0 = 102, 102          # 左上セル中心（縁から 102px = 通路の縁まで 63px の余白）
-MAZE_SEED_TRIES = 600
-MAZE_MIN = dict(corners=20, tjunc=8, deadends=10)
-
+MAZE_COLS = BODY_CONSTANTS["MAZE_COLS"]
+MAZE_ROWS = BODY_CONSTANTS["MAZE_ROWS"]
+MAZE_PITCH = BODY_CONSTANTS["MAZE_PITCH"]
+MAZE_X0 = BODY_CONSTANTS["MAZE_X0"]
+MAZE_Y0 = BODY_CONSTANTS["MAZE_Y0"]
+MAZE_SEED_TRIES = BODY_CONSTANTS["MAZE_SEED_TRIES"]
+MAZE_MIN = BODY_CONSTANTS["MAZE_MIN"]
 
 def _maze_tree(seed):
     import random
@@ -287,24 +182,11 @@ def make_maze_spec():
 
 
 SPECS["BDY-04"] = make_maze_spec()
+assert SPECS["BDY-04"]["seed"] == BG.maze_seed(), "迷路 seed が台帳と違う"
 
 # 仮案B（渦巻き）: 入口(北辺中央)から下りて左へ出て、左側を下り、右へ、右側を上り、内へ折れて渦を巻く（外から内へ）。行き止まり=渦の中心。
 # 平面上、入口が北辺中央の1本なので『左から上へ』は入口の線を横切る（交差する）ため、渦は反時計回り（左→下→右→上→左…）。
-SPEC17_B = dict(ports={"door-passage-torso": ("N", 0.50)}, label="B",
-                paths=[dict(kind="entry", pts=["door-passage-torso", (822, 160)]),
-                       dict(kind="link", pts=[(822, 160), (230, 160)]),
-                       dict(kind="link", pts=[(230, 160), (230, 402)]),
-                       dict(kind="link", pts=[(230, 402), (230, 644)]),
-                       dict(kind="link", pts=[(230, 644), (1414, 644)]),
-                       dict(kind="link", pts=[(1414, 644), (1414, 300)]),
-                       dict(kind="link", pts=[(1414, 300), (500, 300)]),
-                       dict(kind="link", pts=[(500, 300), (500, 500)]),
-                       dict(kind="link", pts=[(500, 500), (1000, 500)])],
-                rooms=[("右肺上葉", 230, 160, 110), ("右肺中葉", 230, 402, 110), ("右肺下葉", 230, 644, 110),
-                       ("左肺下葉", 1414, 644, 135), ("左肺上葉", 1414, 300, 135)],
-                expect=dict(rooms=5, corners=7, tjunc=0, deadends=1),
-                proposal=["仮案B(渦巻き・外から内へ): 入口(北辺中央)から下りて左へ出て、左側を右肺3葉(上・中・下)、下辺を右へ、右側を上り左肺2葉(下・上)、さらに内へ折れて渦の中心(行き止まり)へ",
-                          "通路幅は全通路でキャラ1人分=主路幅の1/3。5部屋は丸く大きい。入口の帯も1人幅(入口幅は要確認: 原文にない)。部屋名は注記のみ。『左から上へ』は入口線との交差になるため反時計回り"])
+SPEC17_B = BG.variant("BDY-17", "B")
 SPEC17_A = SPECS["BDY-17"]
 
 
@@ -364,20 +246,23 @@ SIDE_OVERRIDE = {("BDY-02", "door-passage-lung"): "S", ("BDY-02", "door-passage-
 
 
 def parse_topology():
-    text = (DOCS / "docs/map-topology.md").read_text(encoding="utf-8")
-    rows = re.findall(
-        r"^\|\s*(BDY-\d\d)\.(door-passage-[a-z-]+)\s*\|\s*(BDY-\d\d)\.(door-passage-[a-z-]+)\s*\|\s*door\s*\|",
-        text, re.M)
-    ev = re.findall(r"^\|\s*(TRM-03)\.(event-kiss)\s*\|\s*(BDY-01)\.(event-mouth)\s*\|\s*event\s*\|", text, re.M)
+    rows, ev = [], []
+    for edge in BG.rows("接続"):
+        a, b = edge["端A"], edge["端B"]
+        if edge["種別"] == "door" and a.startswith("BDY-") and b.startswith("BDY-"):
+            am, ap = a.split(".", 1); bm, bp = b.split(".", 1)
+            rows.append((am, ap, bm, bp))
+        elif edge["種別"] == "event" and {a, b} == {"TRM-03.event-kiss", "BDY-01.event-mouth"}:
+            ev.append(("TRM-03", "event-kiss", "BDY-01", "event-mouth"))
     return rows, ev
 
 
 def parse_svg():
-    svg = (DOCS / "docs/topology/body.svg").read_text(encoding="utf-8")
-    nodes = {m[0]: (float(m[1]), float(m[2])) for m in
-             re.findall(r'<circle class="node" data-map="(BDY-\d\d)" cx="(\d+)" cy="(\d+)"', svg)}
-    edges = re.findall(r'data-kind="door" data-edge-id="[^"]*" data-from="(BDY-\d\d)" data-to="(BDY-\d\d)" '
-                       r'data-from-port="([a-z-]+)" data-to-port="([a-z-]+)"', svg)
+    # SVG は台帳から作るビュー。生成物を逆読みして入力にしない。
+    nodes = {r["MAP_ID"]: (float(r["X"]) + 100, float(r["Y"]) + 160)
+             for r in BG.rows("図配置") if r["エリアID"] == "body"}
+    rows, _ = parse_topology()
+    edges = [(a, b, ap, bp) for a, ap, b, bp in rows]
     return nodes, edges
 
 

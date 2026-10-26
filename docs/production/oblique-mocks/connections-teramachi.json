@@ -355,45 +355,68 @@
  ],
  "edges": [
   {
-   "a": "TRM-05.door-hall",
-   "b": "TRM-04.door-west",
-   "kind": "door",
+   "a": "TRM-16.right",
+   "b": "TRM-15.left",
+   "kind": "edge",
    "expect": "opposite",
-   "label": "住居↔本堂"
+   "label": "用水沿いの東行き【円環】"
   },
   {
-   "a": "TRM-04.door-east",
-   "b": "TRM-02.door-west",
-   "kind": "door",
+   "a": "TRM-16.top",
+   "b": "TRM-17.bottom",
+   "kind": "edge",
    "expect": "opposite",
-   "label": "本堂↔幼稚園"
+   "label": "寺町から北へ抜ける坂"
   },
   {
-   "a": "TRM-05.door-outside",
-   "b": "TRM-03.door-residence",
-   "kind": "door",
-   "expect": "same",
-   "label": "住居↔境内",
-   "a_dir": "south",
-   "b_dir": "north"
+   "a": "TRM-07.left",
+   "b": "TRM-15.right",
+   "kind": "edge",
+   "expect": "opposite",
+   "label": "山門の通り↔火の見櫓の角"
   },
   {
-   "a": "TRM-02.door-outside",
-   "b": "TRM-03.door-playroom",
-   "kind": "door",
-   "expect": "same",
-   "label": "幼稚園↔境内",
-   "a_dir": "south",
-   "b_dir": "north"
+   "a": "TRM-15.bottom",
+   "b": "TRM-06.top",
+   "kind": "edge",
+   "expect": "opposite",
+   "label": "勝手口の細道へ【円環】",
+   "label_at": [
+    2458,
+    2998
+   ],
+   "via": [
+    [
+     2458,
+     2998
+    ],
+    [
+     60,
+     2998
+    ],
+    [
+     60,
+     2430
+    ],
+    [
+     468,
+     2430
+    ]
+   ]
   },
   {
-   "a": "TRM-04.door-south",
-   "b": "TRM-03.door-main",
-   "kind": "door",
-   "expect": "same",
-   "label": "本堂↔境内（正面）",
-   "a_dir": "south",
-   "b_dir": "north"
+   "a": "TRM-06.right",
+   "b": "TRM-16.left",
+   "kind": "edge",
+   "expect": "opposite",
+   "label": "住居の裏の道→用水沿いの斜め道【円環】"
+  },
+  {
+   "a": "TRM-07.right",
+   "b": "TRM-08.left",
+   "kind": "edge",
+   "expect": "opposite",
+   "label": "寺塀沿いの主路"
   },
   {
    "a": "TRM-03.bottom",
@@ -405,63 +428,6 @@
     3733,
     2344
    ]
-  },
-  {
-   "a": "TRM-05.door-back",
-   "b": "TRM-06.door-house",
-   "kind": "door",
-   "label": "勝手口↔裏の細道（幅1人分）",
-   "a_dir": "west",
-   "disabled_in": {
-    "TRM-05-fire": "焼失・通行不可（火と燃えカスが残る）"
-   },
-   "expect": "skip",
-   "label_at": [
-    2067,
-    2190
-   ],
-   "ledger": "Issue #144 決定（台帳 v2 に未記載）",
-   "note": "位置・向きは台帳に無く既定（要確認）。画面の向きは一致させていない",
-   "via": [
-    [
-     2067,
-     342
-    ],
-    [
-     2067,
-     2320
-    ],
-    [
-     130,
-     2320
-    ],
-    [
-     130,
-     2661
-    ]
-   ]
-  },
-  {
-   "a": "TRM-03.event-kiss",
-   "b": "BDY-01.event-mouth",
-   "kind": "event",
-   "label": "園庭でのキス→体内（一方向・物語イベント）",
-   "a_dir": "east",
-   "b_dir": "west"
-  },
-  {
-   "a": "TRM-07.left",
-   "b": "TRM-15.right",
-   "kind": "edge",
-   "expect": "opposite",
-   "label": "山門の通り↔火の見櫓の角"
-  },
-  {
-   "a": "TRM-07.right",
-   "b": "TRM-08.left",
-   "kind": "edge",
-   "expect": "opposite",
-   "label": "寺塀沿いの主路"
   },
   {
    "a": "TRM-08.right",
@@ -522,54 +488,80 @@
    "label": "学校側の車椅子坂"
   },
   {
-   "a": "TRM-16.right",
-   "b": "TRM-15.left",
-   "kind": "edge",
-   "expect": "opposite",
-   "label": "用水沿いの東行き【円環】"
+   "a": "TRM-04.door-south",
+   "b": "TRM-03.door-main",
+   "kind": "door",
+   "expect": "same",
+   "label": "本堂↔境内（正面）",
+   "a_dir": "south",
+   "b_dir": "north"
   },
   {
-   "a": "TRM-15.bottom",
-   "b": "TRM-06.top",
-   "kind": "edge",
+   "a": "TRM-05.door-outside",
+   "b": "TRM-03.door-residence",
+   "kind": "door",
+   "expect": "same",
+   "label": "住居↔境内",
+   "a_dir": "south",
+   "b_dir": "north"
+  },
+  {
+   "a": "TRM-02.door-outside",
+   "b": "TRM-03.door-playroom",
+   "kind": "door",
+   "expect": "same",
+   "label": "幼稚園↔境内",
+   "a_dir": "south",
+   "b_dir": "north"
+  },
+  {
+   "a": "TRM-05.door-hall",
+   "b": "TRM-04.door-west",
+   "kind": "door",
    "expect": "opposite",
-   "label": "勝手口の細道へ【円環】",
+   "label": "住居↔本堂"
+  },
+  {
+   "a": "TRM-04.door-east",
+   "b": "TRM-02.door-west",
+   "kind": "door",
+   "expect": "opposite",
+   "label": "本堂↔幼稚園"
+  },
+  {
+   "a": "TRM-05.door-back",
+   "b": "TRM-06.door-house",
+   "kind": "door",
+   "label": "勝手口↔裏の細道（幅1人分）",
+   "a_dir": "west",
+   "disabled_in": {
+    "TRM-05-fire": "焼失・通行不可（火と燃えカスが残る）"
+   },
+   "expect": "skip",
    "label_at": [
-    2458,
-    2998
+    2067,
+    2190
    ],
+   "ledger": "Issue #144 決定（台帳 v2 に未記載）",
+   "note": "位置・向きは台帳に無く既定（要確認）。画面の向きは一致させていない",
    "via": [
     [
-     2458,
-     2998
+     2067,
+     342
     ],
     [
-     60,
-     2998
+     2067,
+     2320
     ],
     [
-     60,
-     2430
+     130,
+     2320
     ],
     [
-     468,
-     2430
+     130,
+     2661
     ]
    ]
-  },
-  {
-   "a": "TRM-06.right",
-   "b": "TRM-16.left",
-   "kind": "edge",
-   "expect": "opposite",
-   "label": "住居の裏の道→用水沿いの斜め道【円環】"
-  },
-  {
-   "a": "TRM-16.top",
-   "b": "TRM-17.bottom",
-   "kind": "edge",
-   "expect": "opposite",
-   "label": "寺町から北へ抜ける坂"
   },
   {
    "a": "TRM-17.top",
@@ -580,12 +572,20 @@
     1799,
     1799
    ]
+  },
+  {
+   "a": "TRM-03.event-kiss",
+   "b": "BDY-01.event-mouth",
+   "kind": "event",
+   "label": "園庭でのキス→体内（一方向・物語イベント）",
+   "a_dir": "east",
+   "b_dir": "west"
   }
  ],
  "_provenance": {
   "source": "接続|接続図設定|MAP.設計意図(寺町全体のみ)",
-  "input_sha": "187a39d64cce08617a465be3f58ac182c41edd04abcd987f3bf3bd762449cb45",
-  "generated_at": "2026-10-24T14:06",
+  "input_sha": "7c5889fa1cc0cd0dfc78aba8524b85996e4bd26efe6d26ab4cbc2a052e4d74a4",
+  "generated_at": "2026-10-25T18:45",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-connections-teramachi",
   "do_not_edit": true

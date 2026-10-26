@@ -1,19 +1,16 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Read connections from the canonical Markdown table; layout is schematic, not GPS.
+# Read connections and MAP labels from the ledger; layout is schematic, not GPS.
 require 'cgi'
+require_relative 'map_graph'
 ROOT = File.expand_path('..', __dir__)
-source = File.read(File.join(ROOT, 'docs/map-topology.md'))
-table = source.split('#### MAP相互接続台帳 v2', 2).last.split('#### 寺町の地形不変条件', 2).first
-edges = table.lines.map do |line|
-  match = line.match(/^\| ([A-Z]{3}-\d{2})\.([^ |]+) \| ([A-Z]{3}-\d{2})\.([^ |]+) \| (edge|door) \|/)
-  [match[1], match[3], match[5]] if match
-end.compact
-specs = File.read(File.join(ROOT, 'docs/map-specifications.md')).lines.map do |line|
-  cells = line.split('|').map(&:strip)
-  [cells[1], cells[3]] if cells[1]&.match?(/^(?:OVS|GRD|CST)-\d{2}$|^UTS-02$/)
-end.compact.to_h
+edges = MapGraph::Graph.new(ROOT).edges.filter_map do |e|
+  [e['from'], e['to'], e['kind']] if %w[edge door].include?(e['kind'])
+end
+specs = LedgerYaml.read('MAP仕様').filter_map do |r|
+  [r['MAP_ID'], r['一言特徴']] if r['MAP_ID'].match?(/^(?:OVS|GRD|CST)-\d{2}$|^UTS-02$/)
+end.to_h
 panels = [
   ['兼六園：北↑・13辺・独立閉路4本', 20, 95, 890, 670,
    {'GRD-01'=>[120,550], 'GRD-02'=>[340,510], 'GRD-03'=>[130,330], 'GRD-04'=>[360,320], 'GRD-05'=>[470,160], 'GRD-06'=>[710,235], 'GRD-07'=>[690,410], 'GRD-08'=>[700,550], 'GRD-09'=>[490,550], 'GRD-10'=>[140,100]},

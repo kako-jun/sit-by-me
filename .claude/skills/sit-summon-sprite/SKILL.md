@@ -9,7 +9,7 @@ description: Sit by Me の召喚獣スプライトを、召喚獣台帳のID・�
 
 失敗の来歴（完全prompt・参照・実寸/検査結果・判定理由）はIssueまたはレビュー文書に記録し、失敗画像はリバート／削除する（バイナリを別置き場に保存しない）。
 
-召喚獣 `S` の戦闘用マスター画像だけを扱う。生成前に `docs/content-registry.md`、`docs/monsters.md` の対象行、`docs/story.md` の対象行、`docs/art-direction.md`、`docs/assets-policy.md` を原文のまま読む。`ready` は最終採用状態であって生成前条件ではない。対象画像が描く項目に未解決TBDが残る場合は生成しない。召喚獣は敵側にも出る同一の `S` マスター自身が敵起源であり、別の `M` IDは必要としない。
+召喚獣 `S` の戦闘用マスター画像だけを扱う。生成前に `uv run python3 scripts/content_ledger.py query summon Sxxx --gate` を実行し、その出力全体（召喚獣本体、段階別サイズ、配置、素材、適用する決定、未解決ゲート）を生成入力とレビューへ渡す。`Sxxx` は対象IDで置換する。変身段階などサイズ行が複数なら `--size-row SZ-xxx` も指定する。ゲート失敗なら生成を止める。正本は `docs/ledger/召喚獣.yaml`・`敵サイズ.yaml`・`素材.yaml`・`決定.yaml`。経緯は各行の出典、技術運用は `docs/art-direction.md` と `docs/assets-policy.md` を読む。`ready` は最終採用状態であって生成前条件ではない。対象画像が描く項目に未解決TBDが残る場合は生成しない。召喚獣は敵側にも出る同一の `S` マスター自身が敵起源であり、別の `M` IDは必要としない。
 
 ## 一意解釈ゲート
 
