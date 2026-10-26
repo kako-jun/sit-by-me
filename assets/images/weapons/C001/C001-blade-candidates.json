@@ -106,10 +106,50 @@
         "wheelchair": {
           "weapon": "none; hands stay on pushrims"
         }
+      },
+      "swing-windup": {
+        "weapon_anchor": "handle_center_normalized",
+        "weapon_height_ratio": 0.52,
+        "rotation_deg": -90,
+        "handle_target": {
+          "standing": {
+            "x": 0.76,
+            "y": 0.25
+          },
+          "wheelchair": {
+            "x": 0.8,
+            "y": 0.26
+          }
+        }
+      },
+      "swing-followthrough": {
+        "weapon_anchor": "handle_center_normalized",
+        "weapon_height_ratio": 0.52,
+        "rotation_deg": 90,
+        "handle_target": {
+          "standing": {
+            "x": 0.22,
+            "y": 0.64
+          },
+          "wheelchair": {
+            "x": 0.28,
+            "y": 0.43
+          }
+        }
       }
     },
     "preview": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png",
-    "follow_up": "After key positions are approved, add swing wind-up and follow-through character poses for smoother animation."
+    "follow_up": "After key positions are approved, add swing wind-up and follow-through character poses for smoother animation.",
+    "swing_sequence": [
+      "ready",
+      "swing-windup",
+      "slash",
+      "swing-followthrough",
+      "ready"
+    ],
+    "swing_sequence_preview": "/home/kako-jun/repos/private/freeza/output/C001-swing-all-generations-preview-frames.png",
+    "full_slash_candidate_matrix": "/home/kako-jun/repos/private/freeza/output/C001-all-generations-five-swords-slash-preview.png",
+    "preview_note": "0.52 height and in-between rotations are candidate composition settings; runtime timing and final fit remain open"
   },
   "structure_transform_comparison": {
     "status": "initial reduced-size comparison of two structures; final candidate coordinates are in shared_pose_transforms",
@@ -165,7 +205,8 @@
       "slash",
       "special"
     ],
-    "finding": "Standing and wheelchair transforms keep the reusable blade readable across all seven generations at reduced size. Weapon images remain one per sword, shared across generations."
+    "finding": "Standing and wheelchair transforms keep the reusable blade readable across all seven generations at reduced size. Weapon images remain one per sword, shared across generations.",
+    "five_weapon_slash_matrix": "/home/kako-jun/repos/private/freeza/output/C001-all-generations-five-swords-slash-preview.png"
   },
   "step_pose_transforms": {
     "standing": {

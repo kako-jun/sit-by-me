@@ -223,7 +223,7 @@
     "Integrate the ready → swing-windup → slash → swing-followthrough → ready sequence in the battle runtime and verify timing/weapon transforms at display size."
   ],
   "slash_animation": {
-    "status": "candidate character-only windup/followthrough frames generated for all seven sets; runtime timing and final gameplay approval remain open",
+    "status": "candidate five-frame compositions previewed for all seven sets; per-structure swing transforms are approximate; runtime integration and weapon assignment remain open",
     "sequence": [
       "ready",
       "swing-windup",
@@ -276,6 +276,18 @@
         "C001-midlife-wheelchair-character-swing-followthrough.webp"
       ]
     },
-    "preview": "/home/kako-jun/repos/private/freeza/output/C001-swing-inbetweens-contact-sheet.png"
+    "preview": "/home/kako-jun/repos/private/freeza/output/C001-swing-inbetweens-contact-sheet.png",
+    "composition_preview": "/home/kako-jun/repos/private/freeza/output/C001-swing-all-generations-preview-frames.png",
+    "representative_gifs": {
+      "standing": "/home/kako-jun/repos/private/freeza/output/C001-swing-elementary-standing-preview.gif",
+      "wheelchair": "/home/kako-jun/repos/private/freeza/output/C001-swing-midlife-wheelchair-preview.gif"
+    },
+    "weapon_transforms": {
+      "status": "preview candidate; use one shared weapon image across age sets and choose position by standing/wheelchair structure",
+      "source": "assets/images/weapons/C001/C001-blade-candidates.json#shared_pose_transforms.poses",
+      "preview_weapon": "C001-odenta-mitsuyo-candidate.webp",
+      "preview": "/home/kako-jun/repos/private/freeza/output/C001-swing-all-generations-preview-frames.png",
+      "limitation": "Preview timing and placement are composition aids, not final runtime or historical weapon approval"
+    }
   }
 }
