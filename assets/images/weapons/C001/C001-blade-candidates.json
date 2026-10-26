@@ -1,0 +1,49 @@
+{
+  "source_issue": 147,
+  "character_issue": 165,
+  "status": "candidate; visual interpretation, not final historical reproduction",
+  "coordinate_system": "normalized from top-left of each cropped WebP; origin is top-left, x right, y down",
+  "handle_anchor": "approximate handle midpoint for overlay on visible empty grip; adjust visually at target size",
+  "weapons": [
+    {
+      "file": "C001-odenta-mitsuyo-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.846,
+        "y": 0.836
+      }
+    },
+    {
+      "file": "C001-juzumaru-tsunetsugu-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.87,
+        "y": 0.83
+      }
+    },
+    {
+      "file": "C001-sohaya-no-tsuruki-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.89,
+        "y": 0.85
+      }
+    },
+    {
+      "file": "C001-mikazuki-munechika-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.934,
+        "y": 0.853
+      }
+    },
+    {
+      "file": "C001-onimaru-kunitsuna-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.935,
+        "y": 0.87
+      }
+    }
+  ]
+}
