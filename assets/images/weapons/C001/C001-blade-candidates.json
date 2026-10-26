@@ -48,7 +48,7 @@
   ],
   "shared_pose_transforms": {
     "policy": "reuse one shared sword image per weapon; apply position transforms by pose structure, never by age",
-    "sword_scale": "uniform scale per pose and structure: 0.72 for ready, 0.52 standing slash / 0.42 wheelchair slash, 0.57 special, 0.42 standing step",
+    "sword_scale": "uniform per pose/structure: 0.72 ready, 0.52 standing slash / 0.42 wheelchair slash, 0.57 special, 0.42 standing step; Onimaru slash override 0.48 standing / 0.42 wheelchair",
     "layer_order": "weapon foreground over the full character cutout; slash/special trail behind character",
     "grip_contact": "approximate hand-near-handle placement; exact finger wrapping is not a requirement",
     "poses": {
@@ -82,6 +82,25 @@
         "weapon_height_ratio": {
           "standing": 0.52,
           "wheelchair": 0.42
+        },
+        "candidate_overrides": {
+          "C001-onimaru-kunitsuna-candidate.webp": {
+            "weapon_height_ratio": {
+              "standing": 0.48,
+              "wheelchair": 0.42
+            },
+            "handle_target": {
+              "standing": {
+                "x": 0.72,
+                "y": 0.48
+              },
+              "wheelchair": {
+                "x": 0.62,
+                "y": 0.34
+              }
+            },
+            "reason": "Longer horizontal projection; shared across generations to keep the full sword tip inside the frame."
+          }
         }
       },
       "special": {
@@ -190,7 +209,7 @@
         }
       }
     },
-    "finding": "Wheelchair slash uses a smaller blade and a more central handle target to keep the full tip inside the frame; hand contact remains approximate.",
+    "finding": "Wheelchair slash uses a smaller blade and central handle target to keep tips inside; Onimaru receives a shared across-generation rightward offset because its longer tip otherwise clips in standing and wheelchair frames. Grip contact remains approximate.",
     "trail_layer_order": "trail behind character; weapon in foreground"
   },
   "all_generation_preview": {
