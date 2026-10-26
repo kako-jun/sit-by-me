@@ -46,32 +46,40 @@
       }
     }
   ],
-  "alignment_demo": {
-    "character_set": "C001-adult-wheelchair",
-    "sample_poses": {
+  "shared_pose_transforms": {
+    "policy": "one shared transform per attack pose applied to every C001 generation; sword image is common and shown in front of the full character cutout",
+    "sword_scale": "uniform; weapon height about 0.74 × character frame height",
+    "layer_order": "weapon in foreground over character",
+    "grip_contact": "approximate hand-near-handle placement; exact finger wrapping is not a requirement",
+    "poses": {
       "ready": {
-        "file": "assets/images/characters/C001/poses/C001-adult-wheelchair-ready.webp",
-        "hand_center_normalized": {
-          "x": 0.065,
-          "y": 0.344
-        }
+        "character_anchor_normalized": {
+          "x": 0.12,
+          "y": 0.37
+        },
+        "weapon_anchor": "handle_center_normalized",
+        "rotation_deg": 0
       },
       "slash": {
-        "file": "assets/images/characters/C001/poses/C001-adult-wheelchair-slash.webp",
-        "hand_center_normalized": {
-          "x": 0.293,
-          "y": 0.27
-        }
+        "character_anchor_normalized": {
+          "x": 0.25,
+          "y": 0.34
+        },
+        "weapon_anchor": "handle_center_normalized",
+        "rotation_deg": 0
       },
       "special": {
-        "file": "assets/images/characters/C001/poses/C001-adult-wheelchair-special.webp",
-        "hand_center_normalized": {
-          "x": 0.386,
-          "y": 0.053
-        }
+        "character_anchor_normalized": {
+          "x": 0.44,
+          "y": 0.06
+        },
+        "weapon_anchor": "handle_center_normalized",
+        "rotation_deg": -20
       }
     },
-    "rendering": "Scale the weapon uniformly to about 0.78 of character height; transform its handle_center_normalized onto hand_center_normalized. Render sword below the character cutout so the fist appears in front of the handle. These are visual starting points; adjust by eye at target size.",
-    "preview": "/home/kako-jun/repos/private/freeza/output/C001-adult-wheelchair-sword-alignment.png"
+    "preview": "/home/kako-jun/repos/private/freeza/output/C001-common-sword-transform-preview.png",
+    "adjustment_rule": "Check all seven C001 sets at reduced size. If the same transform clearly fails only across standing vs wheelchair poses, split by those two pose structures, not by age or character.",
+    "pose_coverage": "same transform by pose is applied to all C001 generations; example preview includes all seven sets",
+    "intermediate_animation": "After key poses and shared transforms are approved, add wind-up and follow-through in-between character poses for a smooth sword-swing animation."
   }
 }

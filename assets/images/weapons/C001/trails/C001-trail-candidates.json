@@ -1,0 +1,38 @@
+{
+  "source_issue": 147,
+  "character_issue": 165,
+  "status": "candidate color and shape set; game palette not approved",
+  "coordinate_system": "crop-local, x right, y down",
+  "trails": [
+    {
+      "file": "C001-odenta-mitsuyo-trail-candidate.webp",
+      "status": "candidate",
+      "layer_order": "behind weapon and character",
+      "use": "slash or special; rotate/position by visual composite"
+    },
+    {
+      "file": "C001-juzumaru-tsunetsugu-trail-candidate.webp",
+      "status": "candidate",
+      "layer_order": "behind weapon and character",
+      "use": "slash or special; rotate/position by visual composite"
+    },
+    {
+      "file": "C001-sohaya-no-tsuruki-trail-candidate.webp",
+      "status": "candidate",
+      "layer_order": "behind weapon and character",
+      "use": "slash or special; rotate/position by visual composite"
+    },
+    {
+      "file": "C001-mikazuki-munechika-trail-candidate.webp",
+      "status": "candidate",
+      "layer_order": "behind weapon and character",
+      "use": "slash or special; rotate/position by visual composite"
+    },
+    {
+      "file": "C001-onimaru-kunitsuna-trail-candidate.webp",
+      "status": "candidate",
+      "layer_order": "behind weapon and character",
+      "use": "slash or special; rotate/position by visual composite"
+    }
+  ]
+}
