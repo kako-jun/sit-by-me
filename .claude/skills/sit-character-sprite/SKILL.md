@@ -117,7 +117,7 @@ Sit by Me の4人（と子供3人、不良など人物）の絵を、生成 → 
 
 ## 8. 透過
 
-- **既定は「透過のまま生成」**（2026-10-14 に統一）。プロンプトに transparent-output request と「Do NOT key out or post-process」を書き、`file` で `RGBA` を確かめる。切り出しツールには `alpha` を渡す
+- **既定は「透過のまま生成」**（2026-10-14 に統一）。プロンプトに transparent-output request と「Do NOT key out or post-process」を書く。組み込み `image_gen` を使う場合は文面だけに頼らず、呼び出し引数 `transparent_background=true` も必ず渡す（2026-10-26: 指定漏れで市松模様入りのRGB画像が出たため）。生成後は `file` で実ファイルが `RGBA` か確かめ、切り出しツールには `alpha` を渡す
 - 理由: 同じグリッドで比べた結果、クロマキーは刃・リボンの青い光に緑が混ざって濁った。透過の直接生成は光が自分の色のまま半透明で残り、写真背景になじむ。体の縁はどちらもきれい
 - 生成を安定させたいときは、クロマキー背景でポーズ・構図を決めてから、その画像を編集元に「Change ONLY the background: make it fully TRANSPARENT」で透過にしてよい（小学生のセットはこの2段で作った）
 - **クロマキーは代替**（RGBA で返らないとき）。緑 `#00ff00`、緑の服や帽子のキャラ（シャー）はマゼンタ `#ff00ff`。「perfectly flat and uniform, no shadows, no floor」と書き、ツールに `green` / `magenta` を渡す
