@@ -119,5 +119,23 @@
     },
     "finding": "The fist locations differ enough between standing and wheelchair structures to justify two position transforms. Keep one reusable image per sword across generations; transforms remain visual approximations.",
     "trail_layer_order": "trail behind character; weapon in foreground"
+  },
+  "all_generation_preview": {
+    "status": "candidate only; Odenta and gold trail used as visual placeholders",
+    "file": "/home/kako-jun/repos/private/freeza/output/C001-all-generations-shared-weapon-preview.png",
+    "sets": [
+      "kindergarten snowwear",
+      "kindergarten uniform",
+      "elementary standing",
+      "elementary wheelchair",
+      "teen wheelchair",
+      "adult wheelchair",
+      "midlife wheelchair"
+    ],
+    "poses": [
+      "slash",
+      "special"
+    ],
+    "finding": "Standing and wheelchair transforms keep the reusable blade readable across all seven generations at reduced size. Weapon images remain one per sword, shared across generations."
   }
 }
