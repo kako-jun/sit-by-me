@@ -64,9 +64,30 @@
         }
       },
       "preview": "/home/kako-jun/repos/private/freeza/output/C001-magic-burst-character-composite.png"
+    },
+    {
+      "file": "C001-movement-streak-candidate.webp",
+      "status": "candidate",
+      "source_generation": "/home/kako-jun/.codex/generated_images/01a175d9-0624-75e0-bf02-82f1054f93c9/exec-d704f231-218c-4b17-ae18-142aa859b418.png",
+      "asset_size_px": [
+        320,
+        92
+      ],
+      "use": "optional speed effect for step poses, reusable across standing and wheelchair structures",
+      "layer_order": "behind character",
+      "display_width": "about 0.65 × visible character width in the reviewed preview",
+      "approximate_overlay_by_structure": {
+        "standing": {
+          "x": 0.35,
+          "y": 0.58
+        },
+        "wheelchair": {
+          "x": 0.35,
+          "y": 0.61
+        }
+      },
+      "preview": "/home/kako-jun/repos/private/freeza/output/C001-movement-streak-composite.png"
     }
   ],
-  "planned": [
-    "C001-movement-streak-candidate.webp"
-  ]
+  "planned": []
 }
