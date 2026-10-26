@@ -1,0 +1,225 @@
+{
+  "source_issue": 165,
+  "status": "candidate recipe; visual positioning is approximate and not final gameplay approval",
+  "coordinate_system": "normalized within each visible character cutout after transparent crop; x right, y down",
+  "character_sets": [
+    {
+      "id": "kindergarten_snowwear",
+      "prefix": "C001-kindergarten-character",
+      "structure": "standing",
+      "age": "kindergarten"
+    },
+    {
+      "id": "kindergarten_uniform",
+      "prefix": "C001-uniform-character",
+      "structure": "standing",
+      "age": "kindergarten"
+    },
+    {
+      "id": "elementary_standing",
+      "prefix": "C001-elementary-character",
+      "structure": "standing",
+      "age": "elementary"
+    },
+    {
+      "id": "elementary_wheelchair",
+      "prefix": "C001-elementary-wheelchair-character",
+      "structure": "wheelchair",
+      "age": "elementary"
+    },
+    {
+      "id": "teen_wheelchair",
+      "prefix": "C001-teen-wheelchair",
+      "structure": "wheelchair",
+      "age": "teen"
+    },
+    {
+      "id": "adult_wheelchair",
+      "prefix": "C001-adult-wheelchair",
+      "structure": "wheelchair",
+      "age": "adult"
+    },
+    {
+      "id": "midlife_wheelchair",
+      "prefix": "C001-midlife-wheelchair",
+      "structure": "wheelchair",
+      "age": "midlife"
+    }
+  ],
+  "weapon_catalog": "assets/images/weapons/C001/C001-blade-candidates.json",
+  "effect_catalog": "assets/images/effects/C001/C001-effect-candidates.json",
+  "layer_order": {
+    "slash_special": [
+      "trail",
+      "character",
+      "weapon"
+    ],
+    "phone_glow": [
+      "character_with_phone",
+      "phone_glow"
+    ],
+    "magic_burst": [
+      "magic_burst",
+      "character"
+    ],
+    "wheelchair_step": [
+      "movement_streak",
+      "character"
+    ],
+    "standing_step": [
+      "character",
+      "weapon"
+    ]
+  },
+  "pose_layers": {
+    "idle": [
+      "character"
+    ],
+    "ready": [
+      "character",
+      "weapon"
+    ],
+    "step": {
+      "standing": {
+        "layers": [
+          "character",
+          "weapon"
+        ],
+        "weapon_height_ratio": 0.42,
+        "flip_x": true,
+        "rotation_deg": 25,
+        "handle_target": {
+          "x": 0.70,
+          "y": 0.38
+        }
+      },
+      "wheelchair": {
+        "layers": [
+          "movement_streak",
+          "character"
+        ],
+        "weapon": "none; hands stay on pushrims",
+        "movement_anchor": {
+          "x": 0.53,
+          "y": 0.61
+        }
+      }
+    },
+    "slash": {
+      "layers": [
+        "trail",
+        "character",
+        "weapon"
+      ],
+      "weapon_height_ratio": 0.72,
+      "rotation_deg": 45,
+      "handle_target": {
+        "standing": {
+          "x": 0.56,
+          "y": 0.48
+        },
+        "wheelchair": {
+          "x": 0.35,
+          "y": 0.34
+        }
+      }
+    },
+    "hurt": {
+      "layers": [
+        "magic_burst",
+        "character"
+      ],
+      "effect_scope": "elementary standing and wheelchair sets only in this candidate; other ages keep character alone",
+      "effect_origin_target": {
+        "standing": {
+          "x": 0.25,
+          "y": 0.26
+        },
+        "wheelchair": {
+          "x": 0.14,
+          "y": 0.25
+        }
+      }
+    },
+    "down": [
+      "character"
+    ],
+    "cast": {
+      "layers": [
+        "character_with_phone",
+        "phone_glow"
+      ],
+      "phone_glow_center": {
+        "kindergarten_standing": {
+          "x": 0.14,
+          "y": 0.09
+        },
+        "elementary_standing": {
+          "x": 0.29,
+          "y": 0.27
+        },
+        "wheelchair": {
+          "x": 0.14,
+          "y": 0.28
+        }
+      }
+    },
+    "special": {
+      "layers": [
+        "trail",
+        "character",
+        "weapon"
+      ],
+      "weapon_height_ratio": 0.57,
+      "rotation_deg": -20,
+      "handle_target": {
+        "standing": {
+          "x": 0.53,
+          "y": 0.10
+        },
+        "wheelchair": {
+          "x": 0.48,
+          "y": 0.08
+        }
+      }
+    },
+    "victory": {
+      "layers": [
+        "magic_burst",
+        "character"
+      ],
+      "effect_scope": "elementary standing and wheelchair sets only in this candidate; other ages keep character alone",
+      "effect_origin_target": {
+        "standing": {
+          "x": 0.45,
+          "y": 0.07
+        },
+        "wheelchair": {
+          "x": 0.12,
+          "y": 0.13
+        }
+      }
+    }
+  },
+  "ready_weapon_transform": {
+    "weapon_height_ratio": 0.72,
+    "rotation_deg": 0,
+    "handle_target": {
+      "standing": {
+        "x": 0.40,
+        "y": 0.38
+      },
+      "wheelchair": {
+        "x": 0.30,
+        "y": 0.36
+      }
+    }
+  },
+  "trail_rule": "Use the trail candidate corresponding to the selected weapon. The preview uses Odenta and its gold trail as placeholders.",
+  "all_seven_preview": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png",
+  "follow_up": [
+    "Choose or confirm the five C001 weapon candidates and their trail colors.",
+    "Check the candidate sheet at the actual game display size and adjust only clearly visible pose or face interference.",
+    "Add wind-up and follow-through in-between character poses after the key poses and transforms are approved."
+  ]
+}

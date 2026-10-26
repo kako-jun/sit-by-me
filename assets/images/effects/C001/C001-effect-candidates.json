@@ -14,17 +14,27 @@
       "use": "overlay on the phone screen; phone remains in character layer",
       "layer_order": "in front of phone and character",
       "display_height": "about 1.4-1.6 × visible phone height",
-      "approximate_effect_center_by_structure": {
-        "standing": {
-          "x": 0.12,
-          "y": 0.06
+      "approximate_effect_center_by_structure": null,
+      "preview": "/home/kako-jun/repos/private/freeza/output/C001-phone-glow-character-composite.png",
+      "approximate_effect_center_by_set": {
+        "kindergarten_snowwear": {
+          "x": 0.14,
+          "y": 0.09
+        },
+        "kindergarten_uniform": {
+          "x": 0.14,
+          "y": 0.09
+        },
+        "elementary_standing": {
+          "x": 0.29,
+          "y": 0.27
         },
         "wheelchair": {
-          "x": 0.12,
-          "y": 0.24
+          "x": 0.14,
+          "y": 0.28
         }
       },
-      "preview": "/home/kako-jun/repos/private/freeza/output/C001-phone-glow-character-composite.png"
+      "preview_all_seven": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png"
     },
     {
       "file": "C001-magic-burst-candidate.webp",
@@ -73,21 +83,18 @@
         320,
         92
       ],
-      "use": "optional speed effect for step poses, reusable across standing and wheelchair structures",
+      "use": "optional speed effect for wheelchair step poses; standing step reuses the sword and the wheelchair keeps both hands on pushrims",
       "layer_order": "behind character",
       "display_width": "about 0.65 × visible character width in the reviewed preview",
       "approximate_overlay_by_structure": {
-        "standing": {
-          "x": 0.35,
-          "y": 0.58
-        },
         "wheelchair": {
-          "x": 0.35,
+          "x": 0.53,
           "y": 0.61
         }
       },
       "preview": "/home/kako-jun/repos/private/freeza/output/C001-movement-streak-composite.png"
     }
   ],
-  "planned": []
+  "planned": [],
+  "all_seven_preview": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png"
 }

@@ -47,43 +47,72 @@
     }
   ],
   "shared_pose_transforms": {
-    "policy": "one shared transform per attack pose applied to every C001 generation; sword image is common and shown in front of the full character cutout",
-    "sword_scale": "uniform; weapon height about 0.74 × character frame height",
-    "layer_order": "weapon in foreground over character",
+    "policy": "reuse one shared sword image per weapon; apply position transforms by pose structure, never by age",
+    "sword_scale": "uniform; about 0.72 × visible character height for ready/slash, 0.57 for special, 0.42 for standing step",
+    "layer_order": "weapon foreground over the full character cutout; slash/special trail behind character",
     "grip_contact": "approximate hand-near-handle placement; exact finger wrapping is not a requirement",
     "poses": {
       "ready": {
-        "character_anchor_normalized": {
-          "x": 0.12,
-          "y": 0.37
-        },
         "weapon_anchor": "handle_center_normalized",
-        "rotation_deg": 0
+        "rotation_deg": 0,
+        "handle_target": {
+          "standing": {
+            "x": 0.40,
+            "y": 0.38
+          },
+          "wheelchair": {
+            "x": 0.30,
+            "y": 0.36
+          }
+        }
       },
       "slash": {
-        "character_anchor_normalized": {
-          "x": 0.25,
-          "y": 0.34
-        },
         "weapon_anchor": "handle_center_normalized",
-        "rotation_deg": 0
+        "rotation_deg": 45,
+        "handle_target": {
+          "standing": {
+            "x": 0.56,
+            "y": 0.48
+          },
+          "wheelchair": {
+            "x": 0.35,
+            "y": 0.34
+          }
+        }
       },
       "special": {
-        "character_anchor_normalized": {
-          "x": 0.44,
-          "y": 0.06
-        },
         "weapon_anchor": "handle_center_normalized",
-        "rotation_deg": -20
+        "rotation_deg": -20,
+        "handle_target": {
+          "standing": {
+            "x": 0.53,
+            "y": 0.10
+          },
+          "wheelchair": {
+            "x": 0.48,
+            "y": 0.08
+          }
+        }
+      },
+      "step": {
+        "standing": {
+          "flip_x": true,
+          "rotation_deg": 25,
+          "handle_target": {
+            "x": 0.70,
+            "y": 0.38
+          }
+        },
+        "wheelchair": {
+          "weapon": "none; hands stay on pushrims"
+        }
       }
     },
-    "preview": "/home/kako-jun/repos/private/freeza/output/C001-common-sword-transform-preview.png",
-    "adjustment_rule": "Check all seven C001 sets at reduced size. If the same transform clearly fails only across standing vs wheelchair poses, split by those two pose structures, not by age or character.",
-    "pose_coverage": "same transform by pose is applied to all C001 generations; example preview includes all seven sets",
-    "intermediate_animation": "After key poses and shared transforms are approved, add wind-up and follow-through in-between character poses for a smooth sword-swing animation."
+    "preview": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png",
+    "follow_up": "After key positions are approved, add swing wind-up and follow-through character poses for smoother animation."
   },
   "structure_transform_comparison": {
-    "status": "candidate; reviewed on reduced dark-background contact sheet, not final runtime values",
+    "status": "initial reduced-size comparison of two structures; final candidate coordinates are in shared_pose_transforms",
     "preview": "/home/kako-jun/repos/private/freeza/output/C001-weapon-trail-composite-candidates.png",
     "sample_sets": [
       "C001-elementary-character (standing)",
@@ -103,16 +132,16 @@
         },
         "special": {
           "x": 0.53,
-          "y": 0.1
+          "y": 0.10
         }
       },
       "wheelchair": {
         "slash": {
-          "x": 0.22,
+          "x": 0.35,
           "y": 0.34
         },
         "special": {
-          "x": 0.36,
+          "x": 0.48,
           "y": 0.08
         }
       }
@@ -141,17 +170,18 @@
   "step_pose_transforms": {
     "standing": {
       "weapon": "same reusable sword image; flip horizontally, rotate +25 deg",
-      "weapon_height": "about 0.45 × visible character height",
+      "weapon_height": "about 0.42 × visible character height",
       "handle_target_normalized": {
-        "x": 0.78,
-        "y": 0.31
+        "x": 0.70,
+        "y": 0.38
       }
     },
     "wheelchair": {
       "weapon": "none; hands remain on pushrims",
       "movement_effect": "C001-movement-streak-candidate.webp behind character near rear wheel"
     },
-    "preview": "/home/kako-jun/repos/private/freeza/output/C001-step-weapon-effect-preview.png",
+    "preview": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png",
     "status": "candidate, visually checked across all seven C001 sets at reduced size"
-  }
+  },
+  "all_seven_battle_layers_preview": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png"
 }
