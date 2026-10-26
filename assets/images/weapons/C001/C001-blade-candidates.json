@@ -81,5 +81,43 @@
     "adjustment_rule": "Check all seven C001 sets at reduced size. If the same transform clearly fails only across standing vs wheelchair poses, split by those two pose structures, not by age or character.",
     "pose_coverage": "same transform by pose is applied to all C001 generations; example preview includes all seven sets",
     "intermediate_animation": "After key poses and shared transforms are approved, add wind-up and follow-through in-between character poses for a smooth sword-swing animation."
+  },
+  "structure_transform_comparison": {
+    "status": "candidate; reviewed on reduced dark-background contact sheet, not final runtime values",
+    "preview": "/home/kako-jun/repos/private/freeza/output/C001-weapon-trail-composite-candidates.png",
+    "sample_sets": [
+      "C001-elementary-character (standing)",
+      "C001-midlife-wheelchair"
+    ],
+    "sample_poses": [
+      "slash",
+      "special"
+    ],
+    "coordinate_system": "normalized within visible character cutout after transparent crop; x right, y down",
+    "weapon_height": "about 0.78 × visible character height",
+    "approximate_handle_target_by_structure": {
+      "standing": {
+        "slash": {
+          "x": 0.56,
+          "y": 0.48
+        },
+        "special": {
+          "x": 0.53,
+          "y": 0.1
+        }
+      },
+      "wheelchair": {
+        "slash": {
+          "x": 0.22,
+          "y": 0.34
+        },
+        "special": {
+          "x": 0.36,
+          "y": 0.08
+        }
+      }
+    },
+    "finding": "The fist locations differ enough between standing and wheelchair structures to justify two position transforms. Keep one reusable image per sword across generations; transforms remain visual approximations.",
+    "trail_layer_order": "trail behind character; weapon in foreground"
   }
 }
