@@ -221,5 +221,30 @@
     "Choose or confirm the five C001 weapon candidates and their trail colors.",
     "Check the candidate sheet at the actual game display size and adjust only clearly visible pose or face interference.",
     "Add wind-up and follow-through in-between character poses after the key poses and transforms are approved."
-  ]
+  ],
+  "slash_animation": {
+    "status": "in-between character poses planned; generation prompt is under independent review",
+    "sequence": [
+      "ready",
+      "swing-windup",
+      "slash",
+      "swing-followthrough",
+      "ready"
+    ],
+    "intermediate_poses": {
+      "swing-windup": "torso/attack shoulder turn away from image-left; attack arm bends and draws back; other arm counterbalances",
+      "swing-followthrough": "torso turns toward image-left; attack arm extends across the front after slash; other arm counterbalances"
+    },
+    "weapon_and_trail": "remain separate layers; animate by per-frame transform rather than drawing into character frames",
+    "generation_strip": "one transparent 1×2 strip per character set; left windup, right followthrough",
+    "targets": [
+      "C001-kindergarten-character-swing-{windup,followthrough}.webp",
+      "C001-uniform-character-swing-{windup,followthrough}.webp",
+      "C001-elementary-character-swing-{windup,followthrough}.webp",
+      "C001-elementary-wheelchair-character-swing-{windup,followthrough}.webp",
+      "C001-teen-wheelchair-character-swing-{windup,followthrough}.webp",
+      "C001-adult-wheelchair-character-swing-{windup,followthrough}.webp",
+      "C001-midlife-wheelchair-character-swing-{windup,followthrough}.webp"
+    ]
+  }
 }
