@@ -111,7 +111,10 @@
         "character",
         "weapon"
       ],
-      "weapon_height_ratio": 0.72,
+      "weapon_height_ratio": {
+        "standing": 0.52,
+        "wheelchair": 0.42
+      },
       "rotation_deg": 45,
       "handle_target": {
         "standing": {
@@ -119,7 +122,7 @@
           "y": 0.48
         },
         "wheelchair": {
-          "x": 0.35,
+          "x": 0.5,
           "y": 0.34
         }
       }

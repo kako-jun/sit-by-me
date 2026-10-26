@@ -48,7 +48,7 @@
   ],
   "shared_pose_transforms": {
     "policy": "reuse one shared sword image per weapon; apply position transforms by pose structure, never by age",
-    "sword_scale": "uniform; about 0.72 × visible character height for ready/slash, 0.57 for special, 0.42 for standing step",
+    "sword_scale": "uniform scale per pose and structure: 0.72 for ready, 0.52 standing slash / 0.42 wheelchair slash, 0.57 special, 0.42 standing step",
     "layer_order": "weapon foreground over the full character cutout; slash/special trail behind character",
     "grip_contact": "approximate hand-near-handle placement; exact finger wrapping is not a requirement",
     "poses": {
@@ -75,9 +75,13 @@
             "y": 0.48
           },
           "wheelchair": {
-            "x": 0.35,
+            "x": 0.5,
             "y": 0.34
           }
+        },
+        "weapon_height_ratio": {
+          "standing": 0.52,
+          "wheelchair": 0.42
         }
       },
       "special": {
@@ -152,8 +156,8 @@
     "preview_note": "0.52 height and in-between rotations are candidate composition settings; runtime timing and final fit remain open"
   },
   "structure_transform_comparison": {
-    "status": "initial reduced-size comparison of two structures; final candidate coordinates are in shared_pose_transforms",
-    "preview": "/home/kako-jun/repos/private/freeza/output/C001-weapon-trail-composite-candidates.png",
+    "status": "revised after left-edge audit; current slash transforms were checked across all seven sets and five sword/trail candidates",
+    "preview": "/home/kako-jun/repos/private/freeza/output/C001-all-generations-five-swords-slash-preview.png",
     "sample_sets": [
       "C001-elementary-character (standing)",
       "C001-midlife-wheelchair"
@@ -163,7 +167,7 @@
       "special"
     ],
     "coordinate_system": "normalized within visible character cutout after transparent crop; x right, y down",
-    "weapon_height": "about 0.78 × visible character height",
+    "weapon_height": "0.52 standing / 0.42 wheelchair",
     "approximate_handle_target_by_structure": {
       "standing": {
         "slash": {
@@ -177,7 +181,7 @@
       },
       "wheelchair": {
         "slash": {
-          "x": 0.35,
+          "x": 0.5,
           "y": 0.34
         },
         "special": {
@@ -186,7 +190,7 @@
         }
       }
     },
-    "finding": "The fist locations differ enough between standing and wheelchair structures to justify two position transforms. Keep one reusable image per sword across generations; transforms remain visual approximations.",
+    "finding": "Wheelchair slash uses a smaller blade and a more central handle target to keep the full tip inside the frame; hand contact remains approximate.",
     "trail_layer_order": "trail behind character; weapon in foreground"
   },
   "all_generation_preview": {
