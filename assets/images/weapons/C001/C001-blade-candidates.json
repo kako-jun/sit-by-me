@@ -45,5 +45,33 @@
         "y": 0.87
       }
     }
-  ]
+  ],
+  "alignment_demo": {
+    "character_set": "C001-adult-wheelchair",
+    "sample_poses": {
+      "ready": {
+        "file": "assets/images/characters/C001/poses/C001-adult-wheelchair-ready.webp",
+        "hand_center_normalized": {
+          "x": 0.065,
+          "y": 0.344
+        }
+      },
+      "slash": {
+        "file": "assets/images/characters/C001/poses/C001-adult-wheelchair-slash.webp",
+        "hand_center_normalized": {
+          "x": 0.293,
+          "y": 0.27
+        }
+      },
+      "special": {
+        "file": "assets/images/characters/C001/poses/C001-adult-wheelchair-special.webp",
+        "hand_center_normalized": {
+          "x": 0.386,
+          "y": 0.053
+        }
+      }
+    },
+    "rendering": "Scale the weapon uniformly to about 0.78 of character height; transform its handle_center_normalized onto hand_center_normalized. Render sword below the character cutout so the fist appears in front of the handle. These are visual starting points; adjust by eye at target size.",
+    "preview": "/home/kako-jun/repos/private/freeza/output/C001-adult-wheelchair-sword-alignment.png"
+  }
 }
