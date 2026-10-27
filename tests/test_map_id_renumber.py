@@ -114,6 +114,37 @@ class MapIdRenumberTests(unittest.TestCase):
         result = self.run_cli()
         self.assertEqual(result.returncode, 0, result.stderr)
 
+    # --- 除外境界の回帰 ---
+    def test_old_id_in_canonical_ledger_yaml_rejected(self):
+        self.append("docs/ledger/決定.yaml", "\n# 残骸 旧E15 から入る\n")
+        self.reject("old ID E15 remains")
+
+    def test_prefix_exempt_word_does_not_hide_other_old_ids(self):
+        self.append("docs/ledger/決定.yaml", "\n# 旧E14（現 KRB-01）と旧E15\n")
+        self.reject("old ID E15 remains")
+
+    def test_old_id_in_issue_quote_ledger_passes(self):
+        self.append("docs/ledger/Issue出典.yaml", "\n    元Issueの E15 は改番前のID。\n")
+        result = self.run_cli()
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_old_slug_in_quote_ledger_rejected(self):
+        self.append("docs/ledger/Issue出典.yaml", "\n    asanogawa-line-interior を参照\n")
+        self.reject("old slug asanogawa-line-interior remains")
+
+    def test_old_id_in_production_doc_rejected(self):
+        self.append("docs/production/20261023-trm04-adoption.md", "\nE14 の残骸\n")
+        self.reject("old ID E14 remains")
+
+    def test_old_id_in_skill_rejected(self):
+        self.append(".claude/skills/sit-field-background/SKILL.md", "\nN8 の入口\n")
+        self.reject("old ID N8 remains")
+
+    def test_generation_round_and_exit_words_in_production_pass(self):
+        self.append("docs/production/20261023-trm04-adoption.md", "\nE2 報告と、出口 N1/E1 は一致\n")
+        result = self.run_cli()
+        self.assertEqual(result.returncode, 0, result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

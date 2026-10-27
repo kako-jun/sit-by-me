@@ -74,11 +74,36 @@ class MetadataLedgerTests(YamlFixture):
         self.mutate("素材メタデータ値", leak)
         self.assert_rejected(self.check(), "Private provenance")
 
+    def git_commit(self):
+        import subprocess
+        run = lambda *a: subprocess.run(["git", "-C", str(self.root), *a], capture_output=True, text=True, check=True)
+        run("init", "-q")
+        run("-c", "user.name=t", "-c", "user.email=t@example.com", "commit", "-q", "--allow-empty", "-m", "x")
+        return run("rev-parse", "HEAD").stdout.strip()
+
+    def ingest(self, commit, path=None, owner="C001"):
+        raw = self.root / "raw.json"
+        raw.write_text(RAW)
+        return self.cli("asset_metadata.py", "ingest", "--source", str(raw), "--path", path or self.PATH,
+                        "--owner", owner, "--commit", commit)
+
+    def test_ingest_validates_path_owner_and_commit(self):
+        self.write_table("人物", [row("人物", 人物ID="C001")])
+        commit = self.git_commit()
+        self.assertEqual(self.ingest(commit).returncode, 0)
+        self.assert_rejected(self.ingest(commit, path="docs/x.json"), "--path")
+        self.assert_rejected(self.ingest(commit, path="assets/images/a/x.png"), "--path")
+        self.assert_rejected(self.ingest(commit, path="assets/images/../x.json"), "--path")
+        self.assert_rejected(self.ingest(commit, owner="C999"), "--owner")
+        self.assert_rejected(self.ingest(commit, owner=""), "--owner")
+        self.assert_rejected(self.ingest("abcdef1"), "git に存在しない")
+
     def test_ingest_reimports_raw_json_and_rebuilds_identically(self):
+        self.write_table("人物", [row("人物", 人物ID="C001")])
         raw = self.root / "raw.json"
         raw.write_text(RAW.replace("0.70", "0.75"))
         result = self.cli("asset_metadata.py", "ingest", "--source", str(raw), "--path", self.PATH,
-                          "--owner", "C001", "--commit", "abcdef1")
+                          "--owner", "C001", "--commit", self.git_commit())
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("AMETA-001", result.stdout)
         self.assertEqual(len(self.read_table("素材メタデータ")), 1)

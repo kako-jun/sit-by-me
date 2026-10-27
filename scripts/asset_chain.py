@@ -114,19 +114,24 @@ def validate_sources(updates, migration, git):
     """素材更新の出典を git 履歴と照合する。エラー文のリストを返す。
 
     git(*args) -> (終了コード, 標準出力bytes)。出典commit の実在・新sha256＝出典commit の blob、
-    移行行のない path の連鎖起点＝その path の履歴上のどれかの blob を確認する。"""
+    移行行のない path の連鎖起点＝その path の履歴上のどれかの blob を確認する。
+    限界: 移行行のない path は、起点が履歴上の blob と一致することしか確かめられず、途中の更新行の欠落は検出できない
+    （移行行のある path は validate が移行SHA→現物SHAの連鎖で欠落を検出する）。"""
     import hashlib
 
     def blob_sha(ref, path):
-        code, out = git('show', f'{ref}:{path}')
+        code, out = git('cat-file', 'blob', f'{ref}:{path}')
         return hashlib.sha256(out).hexdigest() if code == 0 else None
 
     errors = []
     moved = {r['新パス'] for r in migration if r['操作'] == 'move' and r['新パス']}
+    shallow = git('rev-parse', '--is-shallow-repository')[1].strip() == b'true'
     for row in updates:
         ident, commit, source = row['更新ID'], row['出典commit'], row['出典パス']
         if git('cat-file', '-e', f'{commit}^{{commit}}')[0] != 0:
-            errors.append(f'素材更新 {ident}: 出典commit {commit} が git に存在しない')
+            hint = '（shallow clone のため履歴が足りない可能性。git fetch --unshallow で全履歴を取得して再実行）' if shallow \
+                else ''
+            errors.append(f'素材更新 {ident}: 出典commit {commit} が git に存在しない{hint}')
             continue
         if blob_sha(commit, source) != row['新sha256']:
             errors.append(f'素材更新 {ident}: 新sha256 が {commit}:{source} の blob と違う')
@@ -143,7 +148,7 @@ def validate_sources(updates, migration, git):
         heads = [old for old in steps if old not in steps.values()]
         if len(heads) != 1:
             continue
-        code, out = git('log', '--format=%H', '--', by_path[path]['出典パス'])
+        code, out = git('log', '--follow', '--format=%H', '--', by_path[path]['出典パス'])
         history = {blob_sha(h, by_path[path]['出典パス']) for h in out.decode().split()} if code == 0 else set()
         if heads[0] not in history:
             errors.append(f'素材更新 {path}: 連鎖の起点が移行行にも git 履歴上の blob にもない')

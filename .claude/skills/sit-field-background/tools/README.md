@@ -103,7 +103,7 @@ uv run --with opencv-python-headless --with numpy --with pillow python3 -I body_
 |---|---|
 | `素材共有` | 所有者以外の人物・敵・召喚獣が同じ素材を使う関係（素材行は複製しない） |
 | `素材更新` | 素材移行後の差し替えを（パス・旧sha256→新sha256・出典commit・出典パス）で記録するSHA連鎖。起点=素材移行.sha256、終点=素材.sha256。検査は `scripts/asset_chain.py`（`verify_domain_ledger.py`・`verify_asset_layout.py` が使う） |
-| `素材メタデータ`／`素材メタデータ値` | 画像用JSON（battle-layers・候補一覧など）の安全化済み正本。ローカルパス等は `redacted local provenance` に置換済み。`scripts/asset_metadata.py build|check` がJSONを生成・検査、`ingest --source 元JSON --path assets/images/….json --owner ID --commit SHA` が元JSONを安全化してYAMLへ取り込み直す（続けて `build`）（`build_ledger.py` と `verify_ledger.rb` に組み込み済み）。数値は元の表記を保持 |
+| `素材メタデータ`／`素材メタデータ値` | 画像用JSON（battle-layers・候補一覧など）の安全化済み正本。ローカルパス等は `redacted local provenance` に置換済み。`scripts/asset_metadata.py build|check` がJSONを生成・検査、`ingest --source 元JSON --path assets/images/….json --owner ID --commit SHA`（path は assets/images/ 配下の .json、owner は台帳にある MAP・人物・敵・召喚獣のID、commit は git に存在すること。違えば失敗）が元JSONを安全化してYAMLへ取り込み直す（続けて `build`）（`build_ledger.py` と `verify_ledger.rb` に組み込み済み）。数値は元の表記を保持 |
 
 接続表の `図` は `;` 区切りで複数の接続図に属せる。`属性JSON` は `{図ID: {辺の出力キー: 値}}`（null=その図では出さない）で図ごとの上書きを持つ。MAP の `設計意図` は plan の `design`、`plan追加JSON` は plan 最上位の追加キー（例 `indoor`）、要素の種別 `閉鎖辺` は plan の `closed_edges`（屋外MAPの閉鎖した辺と理由）。
 

@@ -11,6 +11,7 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / '.claude/skills/sit-field-background/tools'))
 import ledger_io
 
@@ -176,6 +177,16 @@ def ingest(source, path, owner, commit):
     同じパスの行があればIDを保って置き換え、なければ AMETA-NNN を採番する。"""
     raw = Path(source).read_bytes()
     require(re.fullmatch(r'[0-9a-f]{7,40}', commit), f'出典commit は7〜40桁の小文字16進: {commit}')
+    require(path.startswith('assets/images/') and path.endswith('.json') and '..' not in path.split('/'),
+            f'--path は assets/images/ 配下の .json: {path}')
+    import asset_chain
+    git = asset_chain.git_runner(ROOT)
+    require(git is not None, f'--commit を確認できない（{ROOT} が git リポジトリの最上位でない）')
+    require(git('cat-file', '-e', f'{commit}^{{commit}}')[0] == 0, f'--commit {commit} が git に存在しない')
+    known = {r[key] for table, key in (('MAP', 'MAP_ID'), ('人物', '人物ID'), ('敵', '敵ID'), ('召喚獣', '召喚獣ID'))
+             for r in ledger_io.read(table)}
+    require(owner and (re.sub(r'-(kids|fire|burnt|wc)\Z', '', owner) in known or re.fullmatch(r'BG\d{3}|BRAND', owner)),
+            f'--owner {owner!r} が台帳にない（MAP・人物・敵・召喚獣のID）')
     node = sanitize(loads(raw.decode('utf-8')))
     payload = output_bytes(node)
     require(not PRIVATE.search(payload.decode('utf-8')), 'Private provenance remains after sanitize')
@@ -207,7 +218,8 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         if args.action == 'ingest':
-            require(args.source and args.path and args.commit, 'ingest には --source --path --commit が必要')
+            require(args.source and args.path and args.commit and args.owner,
+                    'ingest には --source --path --owner --commit が必要')
             print(f'INGEST: {ingest(args.source, args.path, args.owner, args.commit)}（続けて build で JSON を再生成）')
             return
         count = verify_or_build(args.action == 'build')

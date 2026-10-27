@@ -9,7 +9,8 @@
 - 指定Ruby検証5本、build/index/views check、content/domain検証はPASS。凍結Issueスナップショットの出典構造・引用照合はPASS（決定74件、照合70件・引用104個・例外4件）。これは発言の意味確認完了を示さない。
 - テスト（全suite）は独立再レビュー時点で402件・既存失敗9件（いずれもこの移行の回帰ではない）。その9件は原因を調べて解消した（旧IDスキャンの対象外に台帳の引用・制作ログ・BGMスロットを明記、体内の左右は#142の「本人から見る」に合わせたテスト修正）。最新の件数は #156 のコメントを参照。
 - 独立レビューで指摘された5件（敵サイズ決定の欠落、S008の素材共有、人物形態のgate、queryのID重複、Issue命題の必須出典FK）は**修正済み**で、回帰テストがある。人物形態の許可値は `語彙.yaml`（グループ `人物形態.年齢`・`人物形態.衣装`・`人物形態.車椅子`・組み合わせ規則 `人物形態.規則`）が正本で、`verify_content_ledger.py` が全行を検査する。
-- 他PCのmain `d469045`（#160〜#164・#172）は**取り込み済み**（履歴上の親も持つ）。新規画像327点・既存画像102点の差し替え・JSONメタデータ7件は台帳に反映した。移行後の差し替えは `素材更新.yaml` のSHA連鎖（素材移行SHA→現物SHA）で追跡し、`verify_asset_layout.py` と `tests/test_asset_migration.py` が連鎖を辿って受理する（連鎖を壊すと落ちる。`verify_ledger.rb` も、移行SHAと現物SHAが違うのに素材更新の行がない素材と、出典commit の実在・新SHA＝出典blob・移行行のない path の連鎖起点を検出する）。ae90c04以前のmain由来の41件も連鎖に登録し、削除済みの S005 は素材移行で墓標（delete）にした。
+- 他PCのmain `d469045`（#160〜#164・#172）は**取り込み済み**（履歴上の親も持つ）。新規画像327点・既存画像102点の差し替え・JSONメタデータ7件は台帳に反映した。移行後の差し替えは `素材更新.yaml` のSHA連鎖（素材移行SHA→現物SHA）で追跡し、`verify_asset_layout.py` と `tests/test_asset_migration.py` が連鎖を辿って受理する（連鎖を壊すと落ちる。`verify_ledger.rb` も、移行SHAと現物SHAが違うのに素材更新の行がない素材と、出典commit の実在・新SHA＝出典blob・移行行のない path の連鎖起点を検出する）。ae90c04以前のmain由来の41件も連鎖に登録し、削除済みの S005 は素材移行で墓標（delete）にした。**限界**: 素材移行に行のない12パスは、連鎖の起点が git 履歴上のどれかの blob と一致することしか確かめられず、途中の素材更新行の欠落は検出できない（移行行のあるパスは移行SHA→現物SHAで欠落を検出する）。出典の照合には git の全履歴が要る（shallow clone では `git fetch --unshallow` を案内して失敗する）。
+- `scripts/verify_map_id_renumber.py` の旧IDスキャンは、台帳の引用表（Issue出典・Issue命題・Issue点検）では原文の旧IDだけ残し旧slugは検査する。`docs/production/` と制作スキルの 生成ラウンド名・出口の方位の略号は、直後の語（報告・測定など）か同じ行の「出口」で行単位に見逃し、それ以外の旧MAP IDは検出する。
 - 候補画像・付随JSON・`output/battle-sword-previews`・`sit-battle-effect` のエージェント定義は `ファイル配置.yaml` に用途限定の規則を追加。画像用JSONは `素材メタデータ.yaml`／`素材メタデータ値.yaml` から `scripts/asset_metadata.py` が生成し、`build_ledger.py` と `verify_ledger.rb` が検査する（数値は元の表記を保持）。
 
 ## 保存先と統合済み範囲

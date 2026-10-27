@@ -55,7 +55,11 @@ def shape_vocabulary_errors(shape: dict, vocabulary: list) -> list:
         if not value or candidate(value) or value not in allowed:
             errors.append(f"{shape['形態ID']}.{field}が未確定または語彙外: {value or '(空欄)'}")
     for rule in (r["値"] for r in vocabulary if r["グループ"] == "人物形態.規則"):
-        when, then = (dict(part.split("=", 1) for part in side.split(";")) for side in rule.split(":", 1))
+        try:
+            when, then = (dict(part.split("=", 1) for part in side.split(";")) for side in rule.split(":", 1))
+        except ValueError:
+            errors.append(f"人物形態.規則 の書式エラー（「列=値;列=値:列=値」の形で書く）: {rule!r}")
+            continue
         if all(shape.get(k) == v for k, v in when.items()) and any(shape.get(k) != v for k, v in then.items()):
             errors.append(f"{shape['形態ID']}: 規則 {rule} に反する")
     return errors

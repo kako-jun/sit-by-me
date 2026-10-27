@@ -237,6 +237,14 @@ class ShapeVocabularyGateTests(unittest.TestCase):
         # 規則行を消すと、コードに直書きされていないので通る
         self.assertEqual(self.check(self.shape(年齢="adult"), self.vocab[:-1]), [])
 
+    def test_malformed_rule_names_the_bad_rule(self):
+        for rule in ("車椅子なし", "車椅子=なし", "車椅子=なし:年齢"):
+            with self.subTest(rule=rule):
+                errors = self.check(self.shape(), self.vocab + [{"グループ": "人物形態.規則", "値": rule}])
+                self.assertEqual(len(errors), 1, errors)
+                self.assertIn("書式エラー", errors[0])
+                self.assertIn(repr(rule), errors[0])
+
     def test_out_of_vocabulary_and_blank_values_fail(self):
         for value in ("", "未決(要確認)", "teen"):
             self.assertTrue(self.check(self.shape(年齢=value), self.vocab), value)

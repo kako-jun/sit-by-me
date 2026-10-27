@@ -313,13 +313,16 @@ class AssetChainValidateTests(unittest.TestCase):
         self.assertTrue(asset_chain.reaches({}, "q", self.A, self.A))
 
     def test_sources_checked_against_git(self):
-        def fake_git(blobs, commits):
+        def fake_git(blobs, commits, shallow=False):
             def git(*args):
-                if args[0] == "cat-file":
+                if args[:2] == ("cat-file", "-e"):
                     return (0 if args[2].split("^")[0] in commits else 1), b""
-                if args[0] == "show":
-                    ref, path = args[1].split(":", 1)
+                if args[:2] == ("cat-file", "blob"):
+                    ref, path = args[2].split(":", 1)
                     return (0, blobs[(ref, path)]) if (ref, path) in blobs else (128, b"")
+                if args[0] == "rev-parse":
+                    return 0, b"true\n" if shallow else b"false\n"
+                assert args[:2] == ("log", "--follow"), args  # 改名をまたいで履歴を辿る
                 return 0, b"h1\n"
             return git
         row = {"更新ID": "AUP-1", "パス": self.PATH, "旧sha256": hashlib.sha256(b"old").hexdigest(),
@@ -328,6 +331,9 @@ class AssetChainValidateTests(unittest.TestCase):
         self.assertEqual(asset_chain.validate_sources([row], [], good), [])
         missing = fake_git({("abcdef0", self.PATH): b"new", ("h1", self.PATH): b"old"}, set())
         self.assertTrue(any("存在しない" in e for e in asset_chain.validate_sources([row], [], missing)))
+        shallow = asset_chain.validate_sources([row], [], fake_git({}, set(), shallow=True))
+        self.assertTrue(any("shallow" in e and "unshallow" in e for e in shallow), shallow)
+        self.assertFalse(any("shallow" in e for e in asset_chain.validate_sources([row], [], missing)))
         wrong_new = fake_git({("abcdef0", self.PATH): b"other", ("h1", self.PATH): b"old"}, {"abcdef0"})
         self.assertTrue(any("blob と違う" in e for e in asset_chain.validate_sources([row], [], wrong_new)))
         orphan_start = fake_git({("abcdef0", self.PATH): b"new", ("h1", self.PATH): b"else"}, {"abcdef0"})
