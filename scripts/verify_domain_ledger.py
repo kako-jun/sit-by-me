@@ -9,12 +9,16 @@ from pathlib import Path
 
 from content_ledger import rows, L
 import ledger_flat as F
+import asset_chain
+
+# 制作規約より前にある素材の付随表も、汎用の主キー検査（空・重複）の対象にする
+ASSET_SIDE_TABLES = ("素材共有", "素材更新", "素材メタデータ", "素材メタデータ値", "素材移行")
 
 
 def check(require_reviewed=False, from_json=None):
     names = list(L.SCHEMA)[list(L.SCHEMA).index("制作規約"):]
     data = {name: rows(name) for name in names}
-    data.update({name: rows(name) for name in ("エリア", "MAP", "決定", "未決", "素材", "素材共有")})
+    data.update({name: rows(name) for name in ("エリア", "MAP", "決定", "未決", "素材") + ASSET_SIDE_TABLES})
     errors = []
 
     def need(ok, message):
@@ -24,28 +28,29 @@ def check(require_reviewed=False, from_json=None):
     def ids(table, key=None):
         return {r[key or L.SCHEMA[table][0]] for r in data[table]}
 
-    compound = {"体内幾何": ("MAP_ID", "変種", "経路")}
-    for table in names:
+    compound = {"体内幾何": ("MAP_ID", "変種", "経路"), "素材メタデータ値": ("メタデータID", "JSONポインタ")}
+    for table in [*ASSET_SIDE_TABLES, *names]:
         keys = compound.get(table, (L.SCHEMA[table][0],))
         seen = set()
         for row in data[table]:
             key = tuple(row[k] for k in keys)
-            need(all(key), f"{table}: 空の主キー {key}")
+            # JSONポインタの空文字はルート要素を表す正規の値
+            need(bool(key[0]) if table == "素材メタデータ値" else all(key), f"{table}: 空の主キー {key}")
             need(key not in seen, f"{table}: 主キー重複 {key}")
             seen.add(key)
 
-    shared_ids = set()
     shared_pairs = set()
     for row in data["素材共有"]:
-        ident = row["共有ID"]
         pair = (row["利用者ID"], row["素材ID"])
-        need(bool(ident), "素材共有: 空の主キー")
-        need(ident not in shared_ids, f"素材共有: 主キー重複 {ident}")
-        shared_ids.add(ident)
         need(pair not in shared_pairs, f"素材共有: 関係重複 {pair}")
         shared_pairs.add(pair)
         need(pair[0] in ids("敵") | ids("召喚獣") | ids("人物"), f"素材共有.利用者ID: {pair[0]} が敵・召喚獣・人物にない")
         need(pair[1] in ids("素材"), f"素材共有.素材ID: {pair[1]} が素材にない")
+
+    errors.extend(asset_chain.validate(data["素材更新"], data["素材"], data["素材移行"]))
+    meta_ids = ids("素材メタデータ")
+    for row in data["素材メタデータ値"]:
+        need(row["メタデータID"] in meta_ids, f"素材メタデータ値: {row['メタデータID']} が素材メタデータにない")
 
     def fk(table, column, target, key=None, allow=(), many=False):
         parents = ids(target, key)

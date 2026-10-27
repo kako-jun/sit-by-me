@@ -97,6 +97,14 @@ uv run --with opencv-python-headless --with numpy --with pillow python3 -I body_
 | `ledger_write_rows.py` | 標準入力の JSON（行の配列）を台帳の1表として書く（YAML の書き出しは Python の `ledger_io` だけ）。`audit_issue_decisions.rb --write` が使う |
 | `ledger_csv_to_yaml_once.py` | 一度きりの CSV→YAML 変換（変換済み。`--verify-only` は コミット 40bf95d の CSV との無損失突合） |
 
+素材まわりの付随表（`ledger_io.py` の `SCHEMA` に定義）:
+
+| 表 | 役割 |
+|---|---|
+| `素材共有` | 所有者以外の人物・敵・召喚獣が同じ素材を使う関係（素材行は複製しない） |
+| `素材更新` | 素材移行後の差し替えを（パス・旧sha256→新sha256・出典commit・出典パス）で記録するSHA連鎖。起点=素材移行.sha256、終点=素材.sha256。検査は `scripts/asset_chain.py`（`verify_domain_ledger.py`・`verify_asset_layout.py` が使う） |
+| `素材メタデータ`／`素材メタデータ値` | 画像用JSON（battle-layers・候補一覧など）の安全化済み正本。ローカルパス等は `redacted local provenance` に置換済み。`scripts/asset_metadata.py build|check` がJSONを生成・検査（`build_ledger.py` と `verify_ledger.rb` に組み込み済み）。数値は元の表記を保持 |
+
 接続表の `図` は `;` 区切りで複数の接続図に属せる。`属性JSON` は `{図ID: {辺の出力キー: 値}}`（null=その図では出さない）で図ごとの上書きを持つ。MAP の `設計意図` は plan の `design`、`plan追加JSON` は plan 最上位の追加キー（例 `indoor`）、要素の種別 `閉鎖辺` は plan の `closed_edges`（屋外MAPの閉鎖した辺と理由）。
 
 ファイルの置き場所は台帳 `ファイル配置.yaml` が正本。`ruby scripts/verify_index_reachable.rb` が、全ファイルが配置規則にちょうど1つ一致し、到達=リンクのファイルが `docs/INDEX.md` からのリンクで辿れる（孤立・壊れたリンクはエラー）ことを検査する。新しいツール・スクリプト・ドキュメントを足したら INDEX から辿れるようにリンクを張る。

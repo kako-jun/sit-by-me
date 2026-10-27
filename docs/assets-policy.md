@@ -1,6 +1,10 @@
 # 素材の方針
 
-> **台帳移行（Issue #156）**: 素材の現存・採否・来歴の構造化正本は `docs/ledger/素材.yaml`、過去のファイル移行は `素材移行.yaml`。以下は生成・保存の運用方針。 検索用の生成ビューは [`docs/ledger/views/content.md`](ledger/views/content.md)。
+> **台帳移行（Issue #156）**: 素材の現存・採否・来歴の構造化正本は `docs/ledger/素材.yaml`、過去のファイル移行は `素材移行.yaml`。以下は生成・保存の運用方針。
+>
+> **素材のSHAと更新**: `素材移行.yaml` の `sha256` は移行時点の履歴として固定する。移行後に上流で差し替えられた画像は `素材更新.yaml` に（パス・旧sha256→新sha256・出典commit・出典パス）の行を足してSHA連鎖で追跡する。連鎖の起点は素材移行の sha256、終点は `素材.yaml` の sha256 に一致しなければならない（`verify_domain_ledger.py`／`verify_asset_layout.py` が検査）。画像を差し替えたら、同じ変更で連鎖に1行足す。画像用JSONは `素材メタデータ.yaml` から生成し、手編集しない。
+>
+> **候補置き場**: 採否未決の候補画像は `assets/images/effects/candidates/`・`effects/Cxxx/`・`characters/shared/candidates/`・`weapons/Cxxx/`（軌跡は `trails/`）に置く。置き場所は `ファイル配置.yaml` の `asset-*-candidate*` 規則で限定し、候補であることは採用の根拠にならない（採否は `素材.yaml` の状態で管理する）。 検索用の生成ビューは [`docs/ledger/views/content.md`](ledger/views/content.md)。
 
 ## 生成画像の方針
 

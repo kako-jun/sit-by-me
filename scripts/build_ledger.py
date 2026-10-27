@@ -32,7 +32,7 @@ def run(action):
                               "備考": "台帳から導出（手編集禁止）。既存consumerの形式を保持し、内容のSHA256を登録。"}
     if action == "build":
         L.write("生成物", list(existing.values()))
-    commands = [f"{TOOLS}/ledger_build.py", "scripts/content_ledger_views.py", "scripts/map_source_views.py", f"{TOOLS}/ledger_views.py", f"{TOOLS}/ledger_index.py"]
+    commands = [f"{TOOLS}/ledger_build.py", "scripts/asset_metadata.py", "scripts/content_ledger_views.py", "scripts/map_source_views.py", f"{TOOLS}/ledger_views.py", f"{TOOLS}/ledger_index.py"]
     for script in commands:
         subprocess.run([sys.executable, str(ROOT / script), action], cwd=ROOT, check=True)
 

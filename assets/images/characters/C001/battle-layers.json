@@ -89,7 +89,7 @@
         "flip_x": true,
         "rotation_deg": 25,
         "handle_target": {
-          "x": 0.7,
+          "x": 0.70,
           "y": 0.38
         }
       },
@@ -178,7 +178,7 @@
       "handle_target": {
         "standing": {
           "x": 0.53,
-          "y": 0.1
+          "y": 0.10
         },
         "wheelchair": {
           "x": 0.48,
@@ -209,11 +209,11 @@
     "rotation_deg": 0,
     "handle_target": {
       "standing": {
-        "x": 0.4,
+        "x": 0.40,
         "y": 0.38
       },
       "wheelchair": {
-        "x": 0.3,
+        "x": 0.30,
         "y": 0.36
       }
     }

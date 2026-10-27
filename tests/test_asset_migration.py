@@ -15,6 +15,10 @@ from urllib.request import urlopen
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(ROOT / ".claude/skills/sit-field-background/tools"))
+import asset_chain
+import ledger_io
 MANIFEST = ROOT / "docs/production/20261018-asset-migration.json"
 PNG = b"\x89PNG\r\n\x1a\n"
 
@@ -29,6 +33,8 @@ class AssetMigrationTests(unittest.TestCase):
     def setUpClass(cls):
         cls.manifest = json.loads(MANIFEST.read_text())
         cls.rows = cls.manifest["entries"]
+        # 移行後の差し替えは素材更新のSHA連鎖で追跡する（移行時SHAは履歴として固定）
+        cls.chains = asset_chain.index(ledger_io.read("素材更新"))
 
     def test_manifest_covers_original_assets_once(self):
         original = subprocess.check_output(
@@ -51,10 +57,23 @@ class AssetMigrationTests(unittest.TestCase):
                     target = ROOT / row["new"]
                     self.assertTrue(target.is_file())
                     if target.suffix in {".png", ".webp"}:
-                        self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), row["sha256"])
+                        actual = hashlib.sha256(target.read_bytes()).hexdigest()
+                        self.assertTrue(asset_chain.reaches(self.chains, row["new"], row["sha256"], actual),
+                                        f"{row['new']}: 移行SHAから現物SHAへの素材更新の連鎖がない")
                 else:
                     self.assertEqual(row["action"], "delete")
                     self.assertIsNone(row["new"])
+
+    def test_every_chain_starts_at_migration_sha_and_ends_at_live_bytes(self):
+        migrated = {r["new"]: r["sha256"] for r in self.rows if r["action"] == "move"}
+        for path, steps in self.chains.items():
+            with self.subTest(path=path):
+                head = [old for old in steps if old not in steps.values()]
+                self.assertEqual(len(head), 1)
+                if path in migrated:
+                    self.assertEqual(head[0], migrated[path])
+                end = asset_chain.walk(steps, head[0])[-1]
+                self.assertEqual(hashlib.sha256((ROOT / path).read_bytes()).hexdigest(), end)
 
     def test_character_identity_and_every_suffix_preserved(self):
         ids = {"otton": "C001", "nam": "C002", "shah": "C003", "peiko": "C004"}
@@ -73,7 +92,12 @@ class AssetMigrationTests(unittest.TestCase):
     def test_no_fabricated_summon_or_live_sample_assets(self):
         before = [r for r in self.rows if r["old"].startswith("assets/summons/") and r["action"] == "move"]
         actual = list((ROOT / "assets/images/summons").rglob("*.webp"))
-        self.assertEqual({r["new"] for r in before}, {p.relative_to(ROOT).as_posix() for p in actual})
+        live = {p.relative_to(ROOT).as_posix() for p in actual}
+        migrated = {r["new"] for r in before}
+        # 移行した召喚獣画像は現存する。移行後に追加された画像は素材台帳に載っていなければならない
+        self.assertLessEqual(migrated, live)
+        registered = {r["パス"] for r in ledger_io.read("素材")}
+        self.assertEqual(live - migrated - registered, set())
         self.assertFalse((ROOT / "assets/images/summons/S008.webp").exists())
         self.assertFalse(any((ROOT / "sample").rglob("*.png")))
 
@@ -147,6 +171,38 @@ class VerifierFailureTests(unittest.TestCase):
             result = self.run_verifier(root, [row])
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("Missing migrated asset", result.stderr)
+
+    def chain_fixture(self, root, row, steps):
+        ledger = root / "docs/ledger"
+        ledger.mkdir(parents=True, exist_ok=True)
+        rows = [dict.fromkeys(ledger_io.SCHEMA["素材更新"], "") | {
+            "更新ID": f"AUP-{n:03d}", "素材ID": "A-1", "パス": row["new"], "旧sha256": old, "新sha256": new,
+            "出典commit": "abcdef0", "出典パス": row["new"], "根拠": "fixture"} for n, (old, new) in enumerate(steps, 1)]
+        (ledger / "素材更新.yaml").write_text(ledger_io.dumps("素材更新", rows), encoding="utf-8")
+
+    def test_update_chain_accepts_replaced_bytes_and_mutations_are_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            row = self.fixture(root)
+            migrated = row["sha256"]
+            (root / row["new"]).write_bytes(PNG + b"replaced-twice")
+            final = hashlib.sha256(PNG + b"replaced-twice").hexdigest()
+            middle = hashlib.sha256(PNG + b"replaced-once").hexdigest()
+            # 連鎖なし: 差し替えは検出される
+            self.assertNotEqual(self.run_verifier(root, [row]).returncode, 0)
+            # 移行SHA -> 中間 -> 現物 の連鎖があれば受理される
+            self.chain_fixture(root, row, [(migrated, middle), (middle, final)])
+            self.assertEqual(self.run_verifier(root, [row]).returncode, 0)
+            # 変異: 連鎖の途切れ・起点違い・終点違いはどれも落ちる
+            other = hashlib.sha256(b"unrelated").hexdigest()
+            for label, steps in {"途切れ": [(migrated, middle), (other, final)],
+                                 "起点違い": [(other, middle), (middle, final)],
+                                 "終点違い": [(migrated, middle), (middle, other)],
+                                 "分岐": [(migrated, middle), (migrated, final)]}.items():
+                with self.subTest(mutation=label):
+                    self.chain_fixture(root, row, steps)
+                    result = self.run_verifier(root, [row])
+                    self.assertNotEqual(result.returncode, 0, label)
 
     def test_duplicate_destination_and_source_rejected(self):
         with tempfile.TemporaryDirectory() as directory:

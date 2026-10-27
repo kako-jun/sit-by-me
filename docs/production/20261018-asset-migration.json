@@ -3117,10 +3117,11 @@
     },
     {
       "old": "assets/summons/vertical-city-beast.png",
-      "new": "assets/images/summons/S005.webp",
-      "action": "move",
-      "reason": "Existing monsters.md ID; adoption unchanged.",
-      "sha256": "7b090056267cb06f903da0188a6c512195118520f9b7459b1b180e102c7aced8"
+      "new": null,
+      "action": "delete",
+      "reason": "Retired per 3c0d0b7 (2026-10-20): ice summon concept updated and the old earth sprite removed. Earlier migration: Existing monsters.md ID; adoption unchanged.",
+      "sha256": "7b090056267cb06f903da0188a6c512195118520f9b7459b1b180e102c7aced8",
+      "pruned_path": "assets/images/summons/S005.webp"
     },
     {
       "old": "sample/archive/pre-sync-local/sample/field/masks/teramachi-e09-rebuild-v6-assist-mask.png",

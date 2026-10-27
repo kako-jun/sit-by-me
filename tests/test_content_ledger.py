@@ -15,6 +15,10 @@ class ContentQueryTests(YamlFixture):
                                          マスターパス="assets/C001-adult.webp"),
                                       row("人物形態", 形態ID="FORM-001", 人物ID="C001", 年齢="adult", 衣装="通常", 車椅子="はい",
                                           マスターパス="assets/C001-adult-wheelchair.webp")])
+        self.write_table("語彙", [row("語彙", 語彙ID=f"V-{n}", グループ=f"人物形態.{field}", 値=value)
+                                for n, (field, value) in enumerate(
+                                    [("年齢", "adult"), ("年齢", "ageless"), ("衣装", "通常"), ("衣装", "時代不変"),
+                                     ("車椅子", "はい"), ("車椅子", "いいえ"), ("車椅子", "なし")])])
         self.write_table("素材", [row("素材", 素材ID="A-001", 所有者ID="C001", 状態="現存（採否未照合）", パス="assets/C001-adult.webp"),
                                 row("素材", 素材ID="A-002", 所有者ID="C001", 状態="採用", パス="assets/C001-adult-wheelchair.webp")])
 
@@ -149,6 +153,15 @@ class ContentQueryTests(YamlFixture):
                     self.mutate("人物形態", lambda rows: rows[0].update({field: value}))
                     self.assert_rejected(self.query("character", "C001", "--form", "FORM-002"), field)
                     self.mutate("人物形態", lambda rows: rows[0].update({field: {"年齢": "adult", "衣装": "通常", "車椅子": "いいえ"}[field]}))
+        self.assertEqual(self.query("character", "C001", "--form", "FORM-002").returncode, 0)
+
+    def test_form_vocabulary_comes_from_the_ledger_not_code(self):
+        # 語彙表から値を消すと、コードに許可値が残っていても止まる。語彙へ足すと通る
+        self.write_table("語彙", [])
+        self.assert_rejected(self.query("character", "C001", "--form", "FORM-002"), "語彙外")
+        self.write_table("語彙", [row("語彙", 語彙ID="V-1", グループ="人物形態.年齢", 値="adult"),
+                                row("語彙", 語彙ID="V-2", グループ="人物形態.衣装", 値="通常"),
+                                row("語彙", 語彙ID="V-3", グループ="人物形態.車椅子", 値="いいえ")])
         self.assertEqual(self.query("character", "C001", "--form", "FORM-002").returncode, 0)
 
     def test_duplicate_identity_form_and_size_ids_do_not_select_first_row(self):

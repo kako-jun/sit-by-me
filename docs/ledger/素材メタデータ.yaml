@@ -5,7 +5,7 @@
   "パス": "assets/images/characters/C001/battle-layers.json"
   "所有者ID": "C001"
   "原文sha256": "1e427a2b1132c9a5f358945f2e9024bd9b3fbbc7a0ff11d256c85ddbeff312d0"
-  "安全化sha256": "6a383e23410315a479b068a37b751149e9fc9362c02129fe33e9978d917c84e1"
+  "安全化sha256": "9550211029393180140ea9cdc22c5623669583749b85f37f83b7e8135aec0b03"
   "出典commit": "d469045"
   "安全化方針": "ローカル絶対パスと生成実行IDを含む文字列を redacted local provenance に置換。元値はYAMLに保持しない。"
 - "メタデータID": "AMETA-002"

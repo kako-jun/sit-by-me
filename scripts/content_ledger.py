@@ -145,12 +145,11 @@ def query(kind: str, ident: str, gate: bool = False, form: str = "", size_row: s
         for key_id in {r["形態ID"] for r in result["形態"]}:
             if sum(r["形態ID"] == key_id for r in all_forms) > 1:
                 result["未解決"].append(f"人物形態.形態ID={key_id} の主キーが重複")
+        # 許可値は台帳の語彙（グループ「人物形態.<列>」）が正本。語彙が無ければ全値が語彙外として止まる
+        vocabulary = rows("語彙")
+        permitted = {field: {r["値"] for r in vocabulary if r["グループ"] == f"人物形態.{field}"}
+                     for field in ("年齢", "衣装", "車椅子")}
         for shape in result["形態"]:
-            permitted = {
-                "年齢": {"ageless", "adult", "elementary", "kindergarten", "midlife", "teen"},
-                "衣装": {"通常", "園服", "時代不変"},
-                "車椅子": {"はい", "いいえ", "なし"},
-            }
             for field, allowed in permitted.items():
                 value = shape.get(field, "").strip()
                 if not value or candidate(value) or value not in allowed:

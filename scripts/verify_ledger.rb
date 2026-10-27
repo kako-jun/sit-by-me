@@ -485,9 +485,9 @@ class LedgerVerifier
 
   def check_domains
     project = File.expand_path('..', __dir__)
-    %w[verify_domain_ledger.py verify_content_ledger.py].each do |script|
+    [['verify_domain_ledger.py'], ['verify_content_ledger.py'], ['asset_metadata.py', 'check']].each do |script, *args|
       tool = File.join(project, 'scripts', script)
-      out, status = Open3.capture2e({'LEDGER_ROOT' => @root}, 'uv', 'run', '--project', project, 'python3', tool, chdir: project)
+      out, status = Open3.capture2e({'LEDGER_ROOT' => @root}, 'uv', 'run', '--project', project, 'python3', tool, *args, chdir: project)
       err("#{script}: #{out.strip.lines.first(5).join(' / ')}") unless status.success?
     end
     [['content_ledger.py', 'bgm-csv', 'check'], ['content_ledger_views.py', 'check'], ['map_source_views.py', 'check']].each do |script, *args|

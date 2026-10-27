@@ -169,3 +169,61 @@ class EndpointMandatoryGateTests(YamlFixture):
         result = self.reflect_empty_prompt(gate)
         self.assert_rejected(result, "回帰アンカー tatami", "回帰アンカー corridor-windows",
                              "このMAPがゲートで止まっていて検査できない")
+
+
+class AssetUpdateChainTests(YamlFixture):
+    A = "a" * 64
+    B = "b" * 64
+    C = "c" * 64
+
+    def setUp(self):
+        super().setUp()
+        self.write_table("素材", [row("素材", 素材ID="A-1", パス="assets/images/enemies/M001.webp", sha256=self.C)])
+        self.write_table("素材移行", [row("素材移行", 旧パス="assets/enemies/x.png", 新パス="assets/images/enemies/M001.webp", 操作="move", sha256=self.A)])
+        self.write_table("素材更新", [self.update("AUP-1", self.A, self.B), self.update("AUP-2", self.B, self.C)])
+
+    def update(self, ident, old, new, **values):
+        base = dict(更新ID=ident, 素材ID="A-1", パス="assets/images/enemies/M001.webp", 旧sha256=old, 新sha256=new,
+                    出典commit="abcdef0", 出典パス="assets/images/enemies/M001.webp", 根拠="fixture")
+        return row("素材更新", **{**base, **values})
+
+    def verify(self):
+        return self.cli("verify_domain_ledger.py")
+
+    def test_valid_chain_passes(self):
+        result = self.verify()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_each_rule_is_enforced(self):
+        cases = {
+            "主キー重複": (lambda r: r[1].update(更新ID="AUP-1"), "主キー重複"),
+            "素材IDがない": (lambda r: r[0].update(素材ID="A-999"), "素材にない"),
+            "パス不一致": (lambda r: [x.update(パス="assets/images/enemies/M002.webp") for x in r], "パス"),
+            "起点が移行SHAと違う": (lambda r: r[0].update(旧sha256="d" * 64), "素材移行.sha256"),
+            "終点が素材SHAと違う": (lambda r: r[1].update(新sha256="e" * 64), "素材.sha256"),
+            "出典commitが空": (lambda r: r[0].update(出典commit=""), "出典commit"),
+            "出典commitが不正": (lambda r: r[0].update(出典commit="HEAD"), "出典commit"),
+            "出典パスが空": (lambda r: r[0].update(出典パス=""), "出典パス"),
+            "SHA形式": (lambda r: r[0].update(新sha256="xyz"), "64桁"),
+            "分岐": (lambda r: r[1].update(旧sha256=self.A), "分岐"),
+        }
+        for label, (change, diagnostic) in cases.items():
+            with self.subTest(label):
+                self.mutate("素材更新", change)
+                self.assert_rejected(self.verify(), diagnostic)
+                self.write_table("素材更新", [self.update("AUP-1", self.A, self.B), self.update("AUP-2", self.B, self.C)])
+
+    def test_cycle_is_rejected(self):
+        self.write_table("素材更新", [self.update("AUP-1", self.A, self.B), self.update("AUP-2", self.B, self.A)])
+        self.assert_rejected(self.verify())
+
+    def test_new_asset_tables_reject_duplicate_and_empty_keys(self):
+        for table in ("素材共有", "素材メタデータ"):
+            with self.subTest(table=table):
+                key = L.SCHEMA[table][0]
+                item = row(table, **{key: "DUP"})
+                self.write_table(table, [item, item.copy()])
+                self.assert_rejected(self.verify(), table, "重複")
+                self.write_table(table, [row(table, **{key: ""})])
+                self.assert_rejected(self.verify(), table, "空の主キー")
+                self.write_table(table, [])

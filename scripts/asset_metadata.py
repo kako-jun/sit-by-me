@@ -1,19 +1,59 @@
 #!/usr/bin/env python3
-"""Build/check sanitized asset metadata JSON from normalized YAML masters."""
+"""Build/check sanitized asset metadata JSON from normalized YAML masters.
+
+数値は元JSONの表記（0.70 など）をそのまま保持する。検査は assert でなく明示的な失敗なので `python -O` でも効く。"""
 
 import argparse
 import hashlib
 import json
+import os
 import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / '.claude/skills/sit-field-background/tools'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / '.claude/skills/sit-field-background/tools'))
 import ledger_io
 
-PRIVATE = re.compile(r'(?:/Users/|/home/|/tmp/|exec-[0-9a-f]{8}-[0-9a-f-]{20,})', re.I)
-TYPES = {dict: 'object', list: 'array', str: 'string', int: 'number', float: 'number', bool: 'boolean', type(None): 'null'}
+ROOT = Path(os.environ.get('LEDGER_ROOT', ledger_io.REPO))
+# ローカル絶対パス（Unix/macOS/WSL/Windows/ホーム略記）と生成実行IDを含む文字列は丸ごと置換する
+PRIVATE = re.compile(r'(?:/Users/|/home/|/tmp/|/private/|/var/folders/|/mnt/|~/|\\\\[\w.-]+\\|\b[A-Za-z]:[\\/]|exec-[0-9a-f]{8}-[0-9a-f-]{20,})', re.I)
+REDACTED = 'redacted local provenance'
+NUMBER_TEXT = re.compile(r'-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?')
+
+
+class MetadataError(Exception):
+    pass
+
+
+def require(condition, message):
+    if not condition:
+        raise MetadataError(message)
+
+
+class Lit(str):
+    """元JSONの小数・指数表記をそのまま保つ数値リテラル。"""
+
+
+def kind_of(node):
+    if node is None:
+        return 'null'
+    if isinstance(node, bool):
+        return 'boolean'
+    if isinstance(node, (int, Lit)):
+        return 'number'
+    if isinstance(node, float):
+        return 'number'
+    if isinstance(node, str):
+        return 'string'
+    if isinstance(node, dict):
+        return 'object'
+    if isinstance(node, list):
+        return 'array'
+    raise MetadataError(f'Unsupported JSON value {type(node).__name__}')
+
+
+def loads(text):
+    return json.loads(text, parse_float=Lit)
 
 
 def sanitize(node):
@@ -21,8 +61,8 @@ def sanitize(node):
         return {key: sanitize(value) for key, value in node.items()}
     if isinstance(node, list):
         return [sanitize(value) for value in node]
-    if isinstance(node, str) and PRIVATE.search(node):
-        return 'redacted local provenance'
+    if isinstance(node, str) and not isinstance(node, Lit) and PRIVATE.search(node):
+        return REDACTED
     return node
 
 
@@ -30,10 +70,17 @@ def pointer(parent, part):
     return parent + '/' + str(part).replace('~', '~0').replace('/', '~1')
 
 
+def literal(node):
+    kind = kind_of(node)
+    if kind == 'number':
+        return str(node) if isinstance(node, (Lit, int)) else repr(node)
+    return json.dumps(node, ensure_ascii=False)
+
+
 def flatten(ident, node, path=''):
-    kind = TYPES[type(node)]
+    kind = kind_of(node)
     yield {'メタデータID': ident, 'JSONポインタ': path, '型': kind,
-           '値': json.dumps(node, ensure_ascii=False) if kind not in ('object', 'array') else ''}
+           '値': literal(node) if kind not in ('object', 'array') else ''}
     if isinstance(node, dict):
         for key, value in node.items():
             yield from flatten(ident, value, pointer(path, key))
@@ -50,57 +97,89 @@ def reconstruct(rows):
             node = {}
         elif kind == 'array':
             node = []
-        elif kind in ('string', 'number', 'boolean', 'null'):
+        elif kind == 'number':
+            require(NUMBER_TEXT.fullmatch(value), f'Invalid number literal at {path}: {value}')
+            node = int(value) if re.fullmatch(r'-?\d+', value) else Lit(value)
+        elif kind in ('string', 'boolean', 'null'):
             node = json.loads(value)
-            assert TYPES[type(node)] == kind, (path, kind)
+            require(kind_of(node) == kind, f'Type mismatch at {path}: {kind}')
         else:
-            raise ValueError(f'Unknown JSON type {kind}')
-        assert path not in nodes, f'Duplicate JSON pointer {path}'
+            raise MetadataError(f'Unknown JSON type {kind}')
+        require(path not in nodes, f'Duplicate JSON pointer {path}')
         nodes[path] = node
         if path:
             parent, encoded = path.rsplit('/', 1)
             part = encoded.replace('~1', '/').replace('~0', '~')
-            assert parent in nodes, f'Parent missing: {path}'
+            require(parent in nodes, f'Parent missing: {path}')
             if isinstance(nodes[parent], list):
-                assert part == str(len(nodes[parent])), f'Array index gap: {path}'
+                require(part == str(len(nodes[parent])), f'Array index gap: {path}')
                 nodes[parent].append(node)
             else:
-                assert part not in nodes[parent], f'Duplicate property: {path}'
+                require(isinstance(nodes[parent], dict), f'Parent is not a container: {path}')
+                require(part not in nodes[parent], f'Duplicate property: {path}')
                 nodes[parent][part] = node
-    assert '' in nodes, 'Root JSON pointer missing'
+    require('' in nodes, 'Root JSON pointer missing')
     return nodes['']
 
 
+def dump(node, level=0):
+    """json.dumps(indent=2, ensure_ascii=False) と同じ体裁。数値だけ元の表記で出す。"""
+    if isinstance(node, dict):
+        if not node:
+            return '{}'
+        pad = '  ' * (level + 1)
+        body = ',\n'.join(f'{pad}{json.dumps(key, ensure_ascii=False)}: {dump(value, level + 1)}' for key, value in node.items())
+        return '{\n' + body + '\n' + '  ' * level + '}'
+    if isinstance(node, list):
+        if not node:
+            return '[]'
+        pad = '  ' * (level + 1)
+        return '[\n' + ',\n'.join(pad + dump(value, level + 1) for value in node) + '\n' + '  ' * level + ']'
+    return literal(node)
+
+
 def output_bytes(node):
-    return (json.dumps(node, ensure_ascii=False, indent=2) + '\n').encode('utf-8')
+    return (dump(node) + '\n').encode('utf-8')
 
 
-def verify_or_build(build=False):
+def verify_or_build(build=False, root=None):
+    root = Path(root or ROOT)
     metadata = ledger_io.read('素材メタデータ')
     leaves = ledger_io.read('素材メタデータ値')
-    assert len(metadata) == 7, f'Expected seven metadata records, got {len(metadata)}'
-    assert len({r['パス'] for r in metadata}) == len(metadata)
-    assert len({r['メタデータID'] for r in metadata}) == len(metadata)
+    require(len({r['パス'] for r in metadata}) == len(metadata), 'Duplicate metadata path')
+    require(len({r['メタデータID'] for r in metadata}) == len(metadata), 'Duplicate metadata id')
     by_id = {}
     for row in leaves:
         by_id.setdefault(row['メタデータID'], []).append(row)
-    assert set(by_id) == {r['メタデータID'] for r in metadata}
+    require(set(by_id) == {r['メタデータID'] for r in metadata}, 'Metadata ids differ between 素材メタデータ and 素材メタデータ値')
+    images = root / 'assets/images'
     for row in metadata:
-        path = ROOT / row['パス']
-        path.resolve().relative_to(ROOT)
-        assert path.suffix == '.json' and path.as_posix().startswith((ROOT / 'assets/images').as_posix())
+        path = (root / row['パス']).resolve()
+        path.relative_to(images.resolve())
+        require(path.suffix == '.json', f'Not a JSON path: {row["パス"]}')
         payload = output_bytes(reconstruct(by_id[row['メタデータID']]))
-        assert not PRIVATE.search(payload.decode('utf-8')), f'Private provenance remains in {row["パス"]}'
-        assert hashlib.sha256(payload).hexdigest() == row['安全化sha256'], row['パス']
+        require(not PRIVATE.search(payload.decode('utf-8')), f'Private provenance remains in {row["パス"]}')
+        require(hashlib.sha256(payload).hexdigest() == row['安全化sha256'], f'Sanitized hash differs from YAML values: {row["パス"]}')
         if build:
             path.write_bytes(payload)
         else:
-            assert path.read_bytes() == payload, f'Stale metadata JSON: {row["パス"]}'
-    print(f'PASS: {len(metadata)} sanitized asset metadata JSON files match YAML')
+            require(path.is_file() and path.read_bytes() == payload, f'Stale metadata JSON: {row["パス"]}')
+    # 台帳に載っていない画像用JSONが出てきたら失敗させる（件数の固定値ではなく集合で照合）
+    on_disk = {p.relative_to(root).as_posix() for p in images.rglob('*.json')}
+    require(on_disk == {r['パス'] for r in metadata}, f'Metadata JSON set differs: unregistered={sorted(on_disk - {r["パス"] for r in metadata})}, missing={sorted({r["パス"] for r in metadata} - on_disk)}')
+    return len(metadata)
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('action', choices=['build', 'check'])
+    args = parser.parse_args(argv)
+    try:
+        count = verify_or_build(args.action == 'build')
+    except (MetadataError, ValueError, OSError, KeyError) as error:
+        raise SystemExit(f'FAIL: {error}')
+    print(f'PASS: {count} sanitized asset metadata JSON files match YAML')
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['build', 'check'])
-    args = parser.parse_args()
-    verify_or_build(args.action == 'build')
+    main()
