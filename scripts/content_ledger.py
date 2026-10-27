@@ -46,6 +46,21 @@ def candidate(value: str) -> bool:
     return any(word in value for word in ("案", "未決", "未定", "未照合", "TBD", "候補", "要確認"))
 
 
+def shape_vocabulary_errors(shape: dict, vocabulary: list) -> list:
+    """人物形態1行を語彙（人物形態.年齢/衣装/車椅子/規則）に照らした誤り。語彙が無ければ全値が語彙外になる。"""
+    errors = []
+    for field in ("年齢", "衣装", "車椅子"):
+        allowed = {r["値"] for r in vocabulary if r["グループ"] == f"人物形態.{field}"}
+        value = shape.get(field, "").strip()
+        if not value or candidate(value) or value not in allowed:
+            errors.append(f"{shape['形態ID']}.{field}が未確定または語彙外: {value or '(空欄)'}")
+    for rule in (r["値"] for r in vocabulary if r["グループ"] == "人物形態.規則"):
+        when, then = (dict(part.split("=", 1) for part in side.split(";")) for side in rule.split(":", 1))
+        if all(shape.get(k) == v for k, v in when.items()) and any(shape.get(k) != v for k, v in then.items()):
+            errors.append(f"{shape['形態ID']}: 規則 {rule} に反する")
+    return errors
+
+
 def refs(value: str) -> list[str]:
     return list(dict.fromkeys(re.findall(r"(?:M|S|C)\d{3}|(?:G|P)\d{3}", value)))
 
@@ -145,17 +160,9 @@ def query(kind: str, ident: str, gate: bool = False, form: str = "", size_row: s
         for key_id in {r["形態ID"] for r in result["形態"]}:
             if sum(r["形態ID"] == key_id for r in all_forms) > 1:
                 result["未解決"].append(f"人物形態.形態ID={key_id} の主キーが重複")
-        # 許可値は台帳の語彙（グループ「人物形態.<列>」）が正本。語彙が無ければ全値が語彙外として止まる
-        vocabulary = rows("語彙")
-        permitted = {field: {r["値"] for r in vocabulary if r["グループ"] == f"人物形態.{field}"}
-                     for field in ("年齢", "衣装", "車椅子")}
+        # 許可値・組み合わせ規則は台帳の語彙（グループ「人物形態.<列>」「人物形態.規則」）が正本
         for shape in result["形態"]:
-            for field, allowed in permitted.items():
-                value = shape.get(field, "").strip()
-                if not value or candidate(value) or value not in allowed:
-                    result["未解決"].append(f"{shape['形態ID']}.{field}が未確定または語彙外: {value or '(空欄)'}")
-            if shape.get("車椅子") == "なし" and shape.get("年齢") != "ageless":
-                result["未解決"].append(f"{shape['形態ID']}.車椅子=なし は ageless 以外で使えない")
+            result["未解決"].extend(shape_vocabulary_errors(shape, rows("語彙")))
     related = {("素材", r["素材ID"]) for label in ("採用素材", "採否未照合・参考素材") for r in result[label]}
     related |= {("人物形態", r["形態ID"]) for r in result.get("形態", [])}
     related |= {("敵サイズ", r["サイズ行ID"]) for r in result.get("サイズ", [])}

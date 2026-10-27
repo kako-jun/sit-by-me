@@ -1,5 +1,8 @@
 """Generation inputs follow canonical YAML and keep proposals/unknowns explicit."""
 import json
+import sys
+import unittest
+from pathlib import Path
 
 from tests.ledger_test_support import YamlFixture, row
 
@@ -211,3 +214,29 @@ class ContentQueryTests(YamlFixture):
         result = self.query()
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertNotIn("obsolete", result.stdout)
+
+
+class ShapeVocabularyGateTests(unittest.TestCase):
+    """人物形態の語彙・組み合わせ規則は全行ゲート（verify_content_ledger）でも同じ関数で検査する。"""
+
+    def setUp(self):
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+        import content_ledger
+        self.check = content_ledger.shape_vocabulary_errors
+        self.vocab = [{"グループ": f"人物形態.{f}", "値": v} for f, v in
+                      [("年齢", "adult"), ("年齢", "ageless"), ("衣装", "通常"),
+                       ("車椅子", "はい"), ("車椅子", "いいえ"), ("車椅子", "なし")]]
+        self.vocab.append({"グループ": "人物形態.規則", "値": "車椅子=なし:年齢=ageless"})
+
+    def shape(self, **kw):
+        return {"形態ID": "F-1", "年齢": "ageless", "衣装": "通常", "車椅子": "なし"} | kw
+
+    def test_rule_lives_in_vocabulary(self):
+        self.assertEqual(self.check(self.shape(), self.vocab), [])
+        self.assertTrue(self.check(self.shape(年齢="adult"), self.vocab))
+        # 規則行を消すと、コードに直書きされていないので通る
+        self.assertEqual(self.check(self.shape(年齢="adult"), self.vocab[:-1]), [])
+
+    def test_out_of_vocabulary_and_blank_values_fail(self):
+        for value in ("", "未決(要確認)", "teen"):
+            self.assertTrue(self.check(self.shape(年齢=value), self.vocab), value)

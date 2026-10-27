@@ -9,7 +9,7 @@ import re
 from collections import Counter
 from pathlib import Path
 
-from content_ledger import ROOT, MANIFEST, manifest_payload, rows
+from content_ledger import ROOT, MANIFEST, manifest_payload, rows, shape_vocabulary_errors
 
 EXPECTED = {
     "敵": 86, "召喚獣": 8, "敵サイズ": 63, "ダンジョン": 12,
@@ -77,8 +77,11 @@ def check() -> None:
     for row in data["BGMフレーズ"]:
         recording = row["録音ID"].split("(")[0]
         assert recording in rec_ids, row
+    vocabulary = rows("語彙")
     for row in data["人物形態"]:
         assert row["人物ID"] in person, row
+        shape_errors = shape_vocabulary_errors(row, vocabulary)
+        assert not shape_errors, shape_errors
         assert (ROOT / row["マスターパス"]).is_file(), row
     for name in ("刀配分案", "刀能力配分案"):
         for row in data[name]:

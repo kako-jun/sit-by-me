@@ -74,6 +74,20 @@ class MetadataLedgerTests(YamlFixture):
         self.mutate("素材メタデータ値", leak)
         self.assert_rejected(self.check(), "Private provenance")
 
+    def test_ingest_reimports_raw_json_and_rebuilds_identically(self):
+        raw = self.root / "raw.json"
+        raw.write_text(RAW.replace("0.70", "0.75"))
+        result = self.cli("asset_metadata.py", "ingest", "--source", str(raw), "--path", self.PATH,
+                          "--owner", "C001", "--commit", "abcdef1")
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn("AMETA-001", result.stdout)
+        self.assertEqual(len(self.read_table("素材メタデータ")), 1)
+        self.assert_rejected(self.check(), "Stale metadata JSON")
+        self.assertEqual(self.cli("asset_metadata.py", "build").returncode, 0)
+        self.assertEqual(self.check().returncode, 0)
+        self.assertIn('"x": 0.75', (self.root / self.PATH).read_text())
+        self.assertNotIn("/home/someone", (self.root / self.PATH).read_text())
+
     def test_works_under_python_optimize(self):
         # assert に頼らない: -O でも不一致を検出する
         (self.root / self.PATH).write_text('{"edited": true}\n')

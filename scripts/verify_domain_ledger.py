@@ -7,7 +7,7 @@ import json
 import os
 from pathlib import Path
 
-from content_ledger import rows, L
+from content_ledger import rows, L, ROOT
 import ledger_flat as F
 import asset_chain
 
@@ -48,6 +48,9 @@ def check(require_reviewed=False, from_json=None):
         need(pair[1] in ids("素材"), f"素材共有.素材ID: {pair[1]} が素材にない")
 
     errors.extend(asset_chain.validate(data["素材更新"], data["素材"], data["素材移行"]))
+    git = asset_chain.git_runner(ROOT)
+    if git:
+        errors.extend(asset_chain.validate_sources(data["素材更新"], data["素材移行"], git))
     meta_ids = ids("素材メタデータ")
     for row in data["素材メタデータ値"]:
         need(row["メタデータID"] in meta_ids, f"素材メタデータ値: {row['メタデータID']} が素材メタデータにない")

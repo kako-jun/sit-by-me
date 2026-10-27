@@ -20,11 +20,21 @@ MAP_ONLY_FILES = (
     'docs/topology/areas.json', 'docs/topology/overseas-progression.json',
 )
 # 直後が英字でも検出する(E18door型)。イベントID(E001, 3桁)は一致しない
-OLD_TOKEN_ANY = re.compile(r'(?<![A-Za-z0-9])([EFN])(0\d|[1-9]\d?)(?![0-9])')
+# URLエンコード(%E3%82...)の16進は旧IDではない
+OLD_TOKEN_ANY = re.compile(r'(?<![A-Za-z0-9%])([EFN])(0\d|[1-9]\d?)(?![0-9])')
 # E/F/N+数字が別体系(決定ラベルN1・BGMスロット等)で出る文書・行は旧ID検査から除く
 EXEMPT_OLD_ID_FILES = ('docs/ability-candidates.md', 'scripts/verify_map_id_renumber.py')
-EXEMPT_OLD_ID_LINE_WORDS = ('ぬすむ',)
-# tests are not scanned: they use deliberately unregistered IDs (存在しない連番や旧ID名) as negative fixtures
+EXEMPT_OLD_ID_LINE_WORDS = ('ぬすむ', 'E2 の生成物', 'E1の絵', 'E2（生成実験）', '成分1・出口', '旧ID E', '旧E1', '改番前のID')  # E1・E2は2026-10-23の生成ラウンド名でMAP IDではない
+# Issue本文・発言の引用をそのまま保持する台帳表。当時の旧ID・旧slugが原文のまま残るのが正しい
+QUOTE_LEDGER_FILES = tuple(f'docs/ledger/{name}.yaml' for name in ('Issue出典', 'Issue命題', 'Issue点検')) + (
+    'docs/ledger/branch-integration-paths.json',  # 旧ブランチの旧ファイル名（E09-...png等）を履歴として記録する監査
+    'docs/ledger/handoff/')  # 一回限りの移行スクリプトと記録
+# 旧ID(E/F/N+数字)だけを除く(旧slugは引き続き検査する)。別の意味でE1/E2/N1を使う文書・生成物
+OLD_ID_EXEMPT_PREFIXES = (
+    'docs/ledger/migration-closure.md',  # E1〜E5等は移管項目の通し番号
+    'docs/ledger/素材移行.yaml', 'docs/ledger/views/',  # 旧ファイル名の履歴 / 生成ビュー(元のYAMLを直接検査する)
+    # 制作ログ・測定器・制作手順は E1/E2（生成ラウンド）や N1/E1（出口の方位と本数）を別の意味で使う
+    'docs/production/', '.claude/skills/sit-field-background/')
 SCAN_DIRS = ('docs', 'scripts', '.claude')
 SKIP_PREFIXES = ('docs/reviews/', 'docs/production/20261018-asset-migration.json')
 
@@ -91,7 +101,8 @@ def verify(root):
                     '.md', '.json', '.rb', '.py', '.csv', '.yaml'}:
                 continue
             text = path.read_text(encoding='utf-8')
-            is_bgm = relative.startswith('docs/bgm')
+            # BGMスロットは別体系のE01等を使う。台帳移行後の表は docs/ledger/BGM*.yaml にある
+            is_bgm = relative.startswith(('docs/bgm', 'docs/ledger/BGM'))
             for token in new_token.findall(text):
                 assert token in valid, f'{relative}: unregistered new-style ID {token}'
             if is_bgm:
@@ -105,9 +116,11 @@ def verify(root):
                         assert re.fullmatch(r'E\d{3}', first), f'{relative}: bad event ID {first}'
             if relative.startswith('docs/production/20261019'):
                 continue
+            if relative.startswith(QUOTE_LEDGER_FILES):
+                continue
             for slug in old_slugs:
                 assert slug not in text, f'{relative}: old slug {slug} remains'
-            if is_bgm or relative in EXEMPT_OLD_ID_FILES:
+            if is_bgm or relative in EXEMPT_OLD_ID_FILES or relative.startswith(OLD_ID_EXEMPT_PREFIXES):
                 continue
             for line in text.splitlines():
                 if any(word in line for word in EXEMPT_OLD_ID_LINE_WORDS):

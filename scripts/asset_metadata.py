@@ -170,11 +170,46 @@ def verify_or_build(build=False, root=None):
     return len(metadata)
 
 
+def ingest(source, path, owner, commit):
+    """元の画像用JSON（source）を安全化し、素材メタデータ／素材メタデータ値へ取り込み直してJSONを再生成する。
+
+    同じパスの行があればIDを保って置き換え、なければ AMETA-NNN を採番する。"""
+    raw = Path(source).read_bytes()
+    require(re.fullmatch(r'[0-9a-f]{7,40}', commit), f'出典commit は7〜40桁の小文字16進: {commit}')
+    node = sanitize(loads(raw.decode('utf-8')))
+    payload = output_bytes(node)
+    require(not PRIVATE.search(payload.decode('utf-8')), 'Private provenance remains after sanitize')
+    metadata = ledger_io.read('素材メタデータ')
+    leaves = ledger_io.read('素材メタデータ値')
+    existing = next((r for r in metadata if r['パス'] == path), None)
+    if existing:
+        ident = existing['メタデータID']
+    else:
+        ident = 'AMETA-%03d' % (max([int(r['メタデータID'].split('-')[1]) for r in metadata] or [0]) + 1)
+    row = {'メタデータID': ident, 'パス': path, '所有者ID': owner,
+           '原文sha256': hashlib.sha256(raw).hexdigest(), '安全化sha256': hashlib.sha256(payload).hexdigest(),
+           '出典commit': commit,
+           '安全化方針': 'ローカル絶対パスと生成実行IDを含む文字列を redacted local provenance に置換。元値はYAMLに保持しない。'}
+    metadata = [row if r['メタデータID'] == ident else r for r in metadata] + ([] if existing else [row])
+    leaves = [r for r in leaves if r['メタデータID'] != ident] + list(flatten(ident, node))
+    ledger_io.write('素材メタデータ', metadata)
+    ledger_io.write('素材メタデータ値', leaves)
+    return ident
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['build', 'check'])
+    parser.add_argument('action', choices=['build', 'check', 'ingest'])
+    parser.add_argument('--source', help='ingest: 元JSONのファイル')
+    parser.add_argument('--path', help='ingest: 台帳上のパス（assets/images/ 配下の .json）')
+    parser.add_argument('--owner', default='', help='ingest: 所有者ID')
+    parser.add_argument('--commit', help='ingest: 出典commit')
     args = parser.parse_args(argv)
     try:
+        if args.action == 'ingest':
+            require(args.source and args.path and args.commit, 'ingest には --source --path --commit が必要')
+            print(f'INGEST: {ingest(args.source, args.path, args.owner, args.commit)}（続けて build で JSON を再生成）')
+            return
         count = verify_or_build(args.action == 'build')
     except (MetadataError, ValueError, OSError, KeyError) as error:
         raise SystemExit(f'FAIL: {error}')

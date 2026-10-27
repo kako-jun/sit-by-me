@@ -35,8 +35,9 @@ def walk(steps, start):
 
 
 def reaches(chains, path, start, actual):
-    """移行SHA start から、素材更新の連鎖で現物SHA actual に到達できるか（actual == start も可）。"""
-    return actual in walk(chains.get(path, {}), start)
+    """移行SHA start から素材更新の連鎖を辿った終点が現物SHA actual か（連鎖なしは start == actual）。
+    途中のSHAは受理しない。"""
+    return walk(chains.get(path, {}), start)[-1] == actual
 
 
 def validate(updates, assets, migration):
@@ -87,4 +88,63 @@ def validate(updates, assets, migration):
             errors.append(f'素材更新 {path}: 連鎖の終点が素材.sha256 と違う')
         if path not in current:
             errors.append(f'素材更新 {path}: 素材に現存行がない')
+    # 移行時SHAと現物SHAが違うのに素材更新の連鎖がない素材（更新の書き忘れ）
+    for path, row in moved.items():
+        if path in current and path not in chains and row['sha256'] != current[path]:
+            errors.append(f'素材移行 {path}: 移行時SHAと素材.sha256 が違うのに素材更新の連鎖がない')
+    return errors
+
+
+def git_runner(root):
+    """root が git リポジトリの最上位ならその git を呼ぶ関数、そうでなければ None（fixture では照合を省く）。"""
+    import subprocess
+    from pathlib import Path
+
+    def git(*args):
+        result = subprocess.run(['git', '-C', str(root), *args], capture_output=True)
+        return result.returncode, result.stdout
+
+    code, out = git('rev-parse', '--show-toplevel')
+    if code != 0 or Path(out.decode().strip()).resolve() != Path(root).resolve():
+        return None
+    return git
+
+
+def validate_sources(updates, migration, git):
+    """素材更新の出典を git 履歴と照合する。エラー文のリストを返す。
+
+    git(*args) -> (終了コード, 標準出力bytes)。出典commit の実在・新sha256＝出典commit の blob、
+    移行行のない path の連鎖起点＝その path の履歴上のどれかの blob を確認する。"""
+    import hashlib
+
+    def blob_sha(ref, path):
+        code, out = git('show', f'{ref}:{path}')
+        return hashlib.sha256(out).hexdigest() if code == 0 else None
+
+    errors = []
+    moved = {r['新パス'] for r in migration if r['操作'] == 'move' and r['新パス']}
+    for row in updates:
+        ident, commit, source = row['更新ID'], row['出典commit'], row['出典パス']
+        if git('cat-file', '-e', f'{commit}^{{commit}}')[0] != 0:
+            errors.append(f'素材更新 {ident}: 出典commit {commit} が git に存在しない')
+            continue
+        if blob_sha(commit, source) != row['新sha256']:
+            errors.append(f'素材更新 {ident}: 新sha256 が {commit}:{source} の blob と違う')
+    try:
+        chains = index(updates)
+    except ChainError:
+        return errors
+    by_path = {}
+    for row in updates:
+        by_path.setdefault(row['パス'], row)
+    for path, steps in chains.items():
+        if path in moved:
+            continue
+        heads = [old for old in steps if old not in steps.values()]
+        if len(heads) != 1:
+            continue
+        code, out = git('log', '--format=%H', '--', by_path[path]['出典パス'])
+        history = {blob_sha(h, by_path[path]['出典パス']) for h in out.decode().split()} if code == 0 else set()
+        if heads[0] not in history:
+            errors.append(f'素材更新 {path}: 連鎖の起点が移行行にも git 履歴上の blob にもない')
     return errors

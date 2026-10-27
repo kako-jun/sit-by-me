@@ -285,5 +285,56 @@ class VerifierFailureTests(unittest.TestCase):
                 self.assertEqual(asset.read_bytes(), PNG + b"old-asset")
 
 
+class AssetChainValidateTests(unittest.TestCase):
+    PATH = "assets/images/enemies/M001.webp"
+    A, B, C = ("a" * 64, "b" * 64, "c" * 64)
+
+    def run_validate(self, updates, current=None, moved=None):
+        assets = [{"素材ID": "A-1", "パス": self.PATH, "sha256": current or self.B}]
+        migration = [{"操作": "move", "新パス": self.PATH, "sha256": moved or self.A}]
+        rows = [{"更新ID": f"AUP-{n}", "素材ID": "A-1", "パス": self.PATH, "旧sha256": old, "新sha256": new,
+                 "出典commit": "abcdef0", "出典パス": self.PATH} for n, (old, new) in enumerate(updates, 1)]
+        return asset_chain.validate(rows, assets, migration)
+
+    def test_valid_chain_passes(self):
+        self.assertEqual(self.run_validate([(self.A, self.B)]), [])
+
+    def test_missing_update_row_is_detected(self):
+        errors = self.run_validate([], current=self.B, moved=self.A)
+        self.assertTrue(any("連鎖がない" in e for e in errors), errors)
+        self.assertEqual(self.run_validate([], current=self.A, moved=self.A), [])
+
+    def test_reaches_requires_chain_end(self):
+        chains = asset_chain.index([{"パス": "p", "旧sha256": self.A, "新sha256": self.B},
+                                    {"パス": "p", "旧sha256": self.B, "新sha256": self.C}])
+        self.assertTrue(asset_chain.reaches(chains, "p", self.A, self.C))
+        self.assertFalse(asset_chain.reaches(chains, "p", self.A, self.B))
+        self.assertFalse(asset_chain.reaches(chains, "p", self.A, self.A))
+        self.assertTrue(asset_chain.reaches({}, "q", self.A, self.A))
+
+    def test_sources_checked_against_git(self):
+        def fake_git(blobs, commits):
+            def git(*args):
+                if args[0] == "cat-file":
+                    return (0 if args[2].split("^")[0] in commits else 1), b""
+                if args[0] == "show":
+                    ref, path = args[1].split(":", 1)
+                    return (0, blobs[(ref, path)]) if (ref, path) in blobs else (128, b"")
+                return 0, b"h1\n"
+            return git
+        row = {"更新ID": "AUP-1", "パス": self.PATH, "旧sha256": hashlib.sha256(b"old").hexdigest(),
+               "新sha256": hashlib.sha256(b"new").hexdigest(), "出典commit": "abcdef0", "出典パス": self.PATH}
+        good = fake_git({("abcdef0", self.PATH): b"new", ("h1", self.PATH): b"old"}, {"abcdef0"})
+        self.assertEqual(asset_chain.validate_sources([row], [], good), [])
+        missing = fake_git({("abcdef0", self.PATH): b"new", ("h1", self.PATH): b"old"}, set())
+        self.assertTrue(any("存在しない" in e for e in asset_chain.validate_sources([row], [], missing)))
+        wrong_new = fake_git({("abcdef0", self.PATH): b"other", ("h1", self.PATH): b"old"}, {"abcdef0"})
+        self.assertTrue(any("blob と違う" in e for e in asset_chain.validate_sources([row], [], wrong_new)))
+        orphan_start = fake_git({("abcdef0", self.PATH): b"new", ("h1", self.PATH): b"else"}, {"abcdef0"})
+        self.assertTrue(any("起点" in e for e in asset_chain.validate_sources([row], [], orphan_start)))
+        # 起点が移行行にあれば git 履歴の blob は要らない
+        self.assertEqual(asset_chain.validate_sources([row], [{"操作": "move", "新パス": self.PATH}], orphan_start), [])
+
+
 if __name__ == "__main__":
     unittest.main()
