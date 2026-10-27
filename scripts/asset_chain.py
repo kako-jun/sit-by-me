@@ -148,8 +148,14 @@ def validate_sources(updates, migration, git):
         heads = [old for old in steps if old not in steps.values()]
         if len(heads) != 1:
             continue
-        code, out = git('log', '--follow', '--format=%H', '--', by_path[path]['出典パス'])
-        history = {blob_sha(h, by_path[path]['出典パス']) for h in out.decode().split()} if code == 0 else set()
+        source = by_path[path]['出典パス']
+        code, out = git('log', '--follow', '--name-only', '--format=%x00%H', '--', source)
+        history = set()
+        if code == 0:
+            for block in out.decode().split('\x00')[1:]:  # 各コミット時点のパス（改名を辿った名前）で blob を引く
+                lines = [line for line in block.splitlines() if line]
+                if len(lines) >= 2:
+                    history.add(blob_sha(lines[0], lines[1]))
         if heads[0] not in history:
             errors.append(f'素材更新 {path}: 連鎖の起点が移行行にも git 履歴上の blob にもない')
     return errors

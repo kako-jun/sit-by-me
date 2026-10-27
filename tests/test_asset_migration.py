@@ -323,7 +323,7 @@ class AssetChainValidateTests(unittest.TestCase):
                 if args[0] == "rev-parse":
                     return 0, b"true\n" if shallow else b"false\n"
                 assert args[:2] == ("log", "--follow"), args  # 改名をまたいで履歴を辿る
-                return 0, b"h1\n"
+                return 0, f"\x00h1\n\n{self.PATH}\n".encode()
             return git
         row = {"更新ID": "AUP-1", "パス": self.PATH, "旧sha256": hashlib.sha256(b"old").hexdigest(),
                "新sha256": hashlib.sha256(b"new").hexdigest(), "出典commit": "abcdef0", "出典パス": self.PATH}
@@ -340,6 +340,30 @@ class AssetChainValidateTests(unittest.TestCase):
         self.assertTrue(any("起点" in e for e in asset_chain.validate_sources([row], [], orphan_start)))
         # 起点が移行行にあれば git 履歴の blob は要らない
         self.assertEqual(asset_chain.validate_sources([row], [{"操作": "move", "新パス": self.PATH}], orphan_start), [])
+
+    def test_source_history_follows_rename_with_path_at_each_commit(self):
+        import subprocess
+        import tempfile
+        with tempfile.TemporaryDirectory() as temp:
+            repo = Path(temp)
+
+            def run(*args):
+                subprocess.run(["git", "-C", temp, "-c", "user.name=t", "-c", "user.email=t@example.com", *args],
+                               check=True, capture_output=True)
+            run("init", "-q")
+            (repo / "old.bin").write_bytes(b"first" * 50)
+            run("add", "."); run("commit", "-qm", "a")
+            run("mv", "old.bin", "new.bin"); run("commit", "-qm", "rename")
+            (repo / "new.bin").write_bytes(b"second" * 50)
+            run("commit", "-qam", "update")
+            commit = subprocess.run(["git", "-C", temp, "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
+            first, second = (hashlib.sha256(b * 50).hexdigest() for b in (b"first", b"second"))
+            row = {"更新ID": "AUP-1", "パス": "new.bin", "旧sha256": first, "新sha256": second,
+                   "出典commit": commit, "出典パス": "new.bin"}
+            git = asset_chain.git_runner(repo)
+            self.assertEqual(asset_chain.validate_sources([row], [], git), [])  # 改名前の blob（old.bin 時代）も起点に届く
+            stray = dict(row, 旧sha256=hashlib.sha256(b"never").hexdigest())
+            self.assertTrue(any("起点" in e for e in asset_chain.validate_sources([stray], [], git)))
 
 
 if __name__ == "__main__":
