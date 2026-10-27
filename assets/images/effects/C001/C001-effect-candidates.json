@@ -1,0 +1,100 @@
+{
+  "source_issue": 165,
+  "status": "candidate; generated as one reusable visual effect",
+  "coordinate_system": "normalized within visible character cutout after transparent crop",
+  "effects": [
+    {
+      "file": "C001-phone-glow-candidate.webp",
+      "status": "candidate",
+      "source_generation": "/home/kako-jun/.codex/generated_images/01a175d9-0624-75e0-bf02-82f1054f93c9/exec-887bbb8c-866b-46d6-9e21-686db2af0aed.png",
+      "asset_size_px": [
+        225,
+        320
+      ],
+      "use": "overlay on the phone screen; phone remains in character layer",
+      "layer_order": "in front of phone and character",
+      "display_height": "about 1.4-1.6 × visible phone height",
+      "approximate_effect_center_by_structure": null,
+      "preview": "/home/kako-jun/repos/private/freeza/output/C001-phone-glow-character-composite.png",
+      "approximate_effect_center_by_set": {
+        "kindergarten_snowwear": {
+          "x": 0.14,
+          "y": 0.09
+        },
+        "kindergarten_uniform": {
+          "x": 0.14,
+          "y": 0.09
+        },
+        "elementary_standing": {
+          "x": 0.29,
+          "y": 0.27
+        },
+        "wheelchair": {
+          "x": 0.14,
+          "y": 0.28
+        }
+      },
+      "preview_all_seven": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png"
+    },
+    {
+      "file": "C001-magic-burst-candidate.webp",
+      "status": "candidate",
+      "source_generation": "/home/kako-jun/.codex/generated_images/01a175d9-0624-75e0-bf02-82f1054f93c9/exec-e0a0d701-cdbc-4222-9e2e-1675b8077a80.png",
+      "asset_size_px": [
+        280,
+        280
+      ],
+      "use": "reusable for elementary hurt and victory; image itself contains only the effect",
+      "layer_order": "behind character",
+      "display_size": "about 0.69 × visible character height",
+      "effect_origin_normalized": {
+        "x": 0.28,
+        "y": 0.52
+      },
+      "approximate_effect_origin_by_structure_and_pose": {
+        "standing": {
+          "hurt": {
+            "x": 0.25,
+            "y": 0.26
+          },
+          "victory": {
+            "x": 0.45,
+            "y": 0.07
+          }
+        },
+        "wheelchair": {
+          "hurt": {
+            "x": 0.14,
+            "y": 0.25
+          },
+          "victory": {
+            "x": 0.12,
+            "y": 0.13
+          }
+        }
+      },
+      "preview": "/home/kako-jun/repos/private/freeza/output/C001-magic-burst-character-composite.png"
+    },
+    {
+      "file": "C001-movement-streak-candidate.webp",
+      "status": "candidate",
+      "source_generation": "/home/kako-jun/.codex/generated_images/01a175d9-0624-75e0-bf02-82f1054f93c9/exec-d704f231-218c-4b17-ae18-142aa859b418.png",
+      "asset_size_px": [
+        320,
+        92
+      ],
+      "use": "optional speed effect for wheelchair step poses; standing step reuses the sword and the wheelchair keeps both hands on pushrims",
+      "layer_order": "behind character",
+      "display_width": "about 0.65 × visible character width in the reviewed preview",
+      "approximate_overlay_by_structure": {
+        "wheelchair": {
+          "x": 0.53,
+          "y": 0.61
+        }
+      },
+      "preview": "/home/kako-jun/repos/private/freeza/output/C001-movement-streak-composite.png"
+    }
+  ],
+  "planned": [],
+  "all_seven_preview": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png"
+}

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Sit Battle Effect"
+  short_description: "Create separate, reusable battle effect layers"
