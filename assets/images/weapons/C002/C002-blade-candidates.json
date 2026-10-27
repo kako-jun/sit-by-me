@@ -4,7 +4,7 @@
   "status": "candidate; visual interpretation, not final historical reproduction",
   "coordinate_system": "normalized within each cropped WebP; origin at top-left, x right, y down",
   "handle_anchor": "approximate grip midpoint; current five sword renders share normalized anchor (0.82, 0.82), to be adjusted visually only if reduced composites show an obvious mismatch",
-  "alignment_status": "revised again: all ten slash generations × five swords inspected in white and dark reduced-size matrices; hilt remains near the hand and full blade has visible clearance from the top edge",
+  "alignment_status": "revised after cross-character scale review: all ten slash generations × five swords inspected in white and dark reduced-size matrices; hilt remains near the hand, blades point inward/downward and remain fully in frame at peer-comparable scales",
   "weapons": [
     {
       "file": "C002-heshikiri-hasebe-candidate.webp",
@@ -55,26 +55,27 @@
     "layer_order": "character layer, then sword in foreground; no trail layer",
     "slash": {
       "weapon_anchor": "handle_center_normalized",
-      "rotation_deg": -75,
+      "rotation_deg": -150,
       "standing": {
-        "weapon_height_ratio": 0.24,
+        "weapon_height_ratio": 0.48,
         "handle_target_normalized": {
           "x": 0.16,
           "y": 0.3
         }
       },
       "wheelchair": {
-        "weapon_height_ratio": 0.28,
+        "weapon_height_ratio": 0.42,
         "handle_target_normalized": {
-          "x": 0.07,
+          "x": 0.15,
           "y": 0.34
         },
         "applies_to": "C002 wheelchair variants only"
       },
       "layer_order": "character layer, then sword in foreground; no trail layer",
-      "status": "candidate; scale and angle revised to keep blade tips inside all generation frames",
+      "status": "candidate; inward/downward blade orientation avoids the left-edge hand pose without reducing peer-comparable scale",
       "preview": "output/battle-sword-previews/C002-slash-matrix-white.png",
-      "dark_preview": "output/battle-sword-previews/C002-slash-matrix-dark.png"
+      "dark_preview": "output/battle-sword-previews/C002-slash-matrix-dark.png",
+      "reason": "C002 slash fists are near the left canvas edge. At the prior angle the blade projected out of the frame; a nearly vertical upward angle clipped the top and required underscaling. This inward/downward angle preserves the shared hand-near hilt while keeping a full-size blade inside the canvas."
     }
   },
   "all_20_candidates_preview": "output/battle-sword-previews/all-20-sword-candidates.png"
