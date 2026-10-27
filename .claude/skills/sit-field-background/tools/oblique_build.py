@@ -194,12 +194,19 @@ def plan_free_grid(p, cell=2):
     def fill(rc, v):
         x0, y0, x1, y1 = [int(round(c / cell)) for c in rc]
         g[max(0, y0):max(0, y1), max(0, x0):max(0, x1)] = v
+    def fill_floor(floor, value):
+        if "poly" not in floor:
+            fill(floor["rect"], value)
+            return
+        points = np.round(np.array(M.floor_poly(floor)) / cell).astype(np.int32)
+        cv2.fillPoly(g, [points], value)
+
     for f in p["floors"]:
         if f.get("walkable", True) and not f.get("no_step"):
-            fill(f["rect"], 255)
+            fill_floor(f, 255)
     for f in p["floors"]:
         if f.get("no_step"):
-            fill(f["rect"], 0)
+            fill_floor(f, 0)
     for w in p["walls"]:
         fill(w["rect"], 0)
     for bx in p["boxes"]:
@@ -285,6 +292,13 @@ def validate_plan(p):
                     E.append(f"boxes {e['id']}: color が必要")
                 if kind == "floors" and "color" not in e:
                     E.append(f"floors {e['id']}: color が必要")
+    for f in p["floors"]:
+        if f.get("poly") is not None:
+            pl = f["poly"]
+            if not (isinstance(pl, list) and len(pl) >= 3 and all(isinstance(q, list) and len(q) == 2 and all(isinstance(v, (int, float)) for v in q) for q in pl)):
+                E.append(f"floors {f.get('id')}: poly は [[x,y],...]（3点以上）")
+        if f.get("surface") is not None and f["surface"] not in M.FLOOR_SURFACES:
+            E.append(f"floors {f.get('id')}: surface は {list(M.FLOOR_SURFACES)} のどれか")
     walls = {w["id"]: w for w in p["walls"] if "rect" in w and "id" in w}
     seen_span = {}
     for kind in ("doors", "openings"):
@@ -331,6 +345,8 @@ def validate_plan(p):
             E.append(f"markers {m.get('id')}: edge が不正")
         if not m.get("partner") or not ID_RE.match(m["partner"]):
             E.append(f"markers {m.get('id')}: partner が必要")
+        if "width" in m and not (isinstance(m["width"], (int, float)) and M.CHAR <= m["width"] <= 600):
+            E.append(f"markers {m.get('id')}: width は {M.CHAR}〜600（平面単位）。未指定=2人分{M.DOOR_W}")
     # 窓
     for wn in p["windows"]:
         reg("windows", wn)
@@ -468,7 +484,7 @@ def coord_section(p, pool):
         L.append(X.text("PR.coord.top", hb=hb, hf=hf, pts=_pts(top)))
         L.append(X.text("PR.coord.bbox", bbox=_bbox([ground, top])))
     for f in p["floors"]:
-        L.append(X.text("PR.coord.floor", id=f["id"], pts=_pts(M.rect_poly(f["rect"]))))
+        L.append(X.text("PR.coord.floor", id=f["id"], pts=_pts(M.floor_img_poly(f))))
     for d in p["doors"]:
         _, panel, _ = M.door_geom(p, d)
         L.append(X.text("PR.coord.door", id=d["id"], pts=_pts(panel), bbox=_bbox([panel])))

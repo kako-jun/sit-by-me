@@ -1,25 +1,15 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 require 'cgi'
-require_relative 'md_table'
 require_relative 'ledger_yaml'
-root = File.expand_path('..', __dir__)
+root = ENV['LEDGER_ROOT'] || File.expand_path('..', __dir__)
 
-# The legacy specifications remain an input audit only. Read their named columns,
-# while the render data itself comes from the YAML ledger.
-specs = File.read(File.join(root, 'docs/map-specifications.md'))
-sourced_ids = []
-[
-  ['MAP', '時期', '一言特徴', '方位・主路・通行条件', '暫定固定'],
-  ['MAP', '時期', '一言特徴', '接続', '不変条件／TBD']
-].each do |columns|
-  sourced_ids.concat(MdTable.rows(specs, *columns).filter_map { |row| row['MAP'] })
-end
 maps = LedgerYaml.read('MAP').select { |row| row['エリアID'] == 'sunnyland' }
 map_ids = maps.map { |row| row['MAP_ID'] }
 expected_ids = %w[SNL-01 SNL-02 SNL-03 SNL-04 SNL-05 SNL-06 SNL-07 SNL-08 SNL-09 SNL-10 SNL-11 SNL-12]
 raise "sunnyland MAP ledger mismatch: #{map_ids.inspect}" unless map_ids.sort == expected_ids.sort
-raise 'map-specifications.md lacks one or more sunnyland MAP IDs' unless (expected_ids - sourced_ids).empty?
+specified_ids = LedgerYaml.read('MAP仕様').map { |r| r['MAP_ID'] }
+raise 'MAP仕様.yaml lacks one or more sunnyland MAP IDs' unless (expected_ids - specified_ids).empty?
 
 connections = LedgerYaml.read('接続').filter_map do |row|
   a, b, kind = row.values_at('端A', '端B', '種別')
@@ -44,4 +34,4 @@ end
 nodes.each{|id,(x,y,label)|svg<<%(<circle class="node" data-map="#{id}" cx="#{x}" cy="#{y}" r="34"/><text class="id" x="#{x}" y="#{y+5}">#{id}</text><text class="label" x="#{x}" y="#{y+63}">#{CGI.escapeHTML(label)}</text>)}
 svg+=['<text x="35" y="790" class="note">入口1F→水族館側と入口2F→宿泊棟側の2経路。動物園→屋外階段→宿泊棟端はユーザー創作。</text>','<text x="35" y="825" class="note">ラッコ館・洞窟は入口と出口別、主円環には不要。同じ屋外空間の別扉へ戻すのはゲーム配置の採用。</text>','<text x="35" y="858" class="note">洞窟＝低予算昭和の海底探検の作り物（ダイオウイカ・難破船・ニンゲン）。画像・mask未生成、階内経路／幅TBD。</text>','</svg>']
 File.write(File.join(root,'docs/topology/sunnyland.svg'),svg.join("\n")+"\n")
-puts 'Rendered docs/topology/sunnyland.svg from YAML ledger (map-specifications parsed by named columns)'
+puts 'Rendered docs/topology/sunnyland.svg from YAML ledger'

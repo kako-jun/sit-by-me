@@ -249,7 +249,7 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
     def setUpClass(cls):
         cls.tmp = tempfile.TemporaryDirectory()
         cls.base = Path(cls.tmp.name)
-        for name in ("scripts", ".claude/skills/sit-field-background/tools"):
+        for name in ("scripts", ".claude/skills/sit-field-background/tools", ".claude/skills/sit-battle-background/tools"):
             shutil.copytree(ROOT / name, cls.base / name, ignore=shutil.ignore_patterns("__pycache__"))
         for name in ("docs/ledger", "docs/topology"):
             shutil.copytree(ROOT / name, cls.base / name, ignore=shutil.ignore_patterns("handoff"))
@@ -470,6 +470,10 @@ class LegacyMdReaderTests(unittest.TestCase):
 
     def test_verify_map_ledger_reads_md_from_ledger_root(self):
         root = self.make_root(self.CHECKLIST, self.SPEC, self.TOPO)
+        # The public verifier checks YAML-derived document views first. Give
+        # that check a valid empty registry, then require the missing topology
+        # registry diagnostic to name this isolated root.
+        (root / "docs/ledger/文書ビュー.yaml").write_text(ledger_io.dumps("文書ビュー", []), encoding="utf-8")
         r = subprocess.run([RUBY, str(ROOT / "scripts/verify_map_ledger.rb")], env=env_for(root), capture_output=True, text=True)
         self.assertNotEqual(r.returncode, 0)
         self.assertIn(str(root), r.stderr)  # fixture に無い docs/topology/map-ids.json を fixture の root から読もうとして失敗する（本物の docs を読まない）
@@ -885,8 +889,9 @@ class MissingKeysGateTests(LedgerCopyBase):
         self.assertNotIn("MISSING:[]", r.stdout)
 
     def test_ruby_exception_stops_instead_of_opening_the_gate(self):
-        # 決定表の日付を未引用にすると Ruby の YAML 読み込みが例外になる（以前は『欠落なし』としてゲートが開いた）
-        self.replace_text("決定", '"日付": "2026-10-21"', '"日付": 2026-10-21')
+        # Corrupt a table the mandatory-key checker actually consumes. An
+        # unrelated decision table is no longer read by this scoped checker.
+        self.replace_text("MAP", '"MAP_ID": "TRM-02"', '"MAP_ID": TRM-02')
         r = self.missing("TRM-05")
         self.assertNotEqual(r.returncode, 0, r.stdout)
         self.assertIn("異常終了", r.stderr)
@@ -1439,11 +1444,18 @@ class HandoffAndDocsFollowTests(unittest.TestCase):
         import re
         dec = self.rows("決定")
         valid = sum(1 for d in dec if d["状態"] == "有効")
-        m = re.search(r"決定(\d+)（有効(\d+)・訂正済み(\d+)）", self.HANDOFF)
+        section = re.search(r"(?ms)^# 現行台帳との照合[^\n]*\n(.*?)(?=^# |\Z)", self.HANDOFF)
+        self.assertIsNotNone(section, "現在値と歴史的スナップショットを区別する見出しが必要")
+        current = section[1]
+        m = re.search(r"決定(\d+)（有効(\d+)・訂正済み(\d+)）", current)
         self.assertEqual((int(m[1]), int(m[2]), int(m[3])), (len(dec), valid, len(dec) - valid))
-        self.assertEqual(int(re.search(r"`未決.yaml` に(\d+)件", self.HANDOFF)[1]), len(self.rows("未決")))
-        self.assertEqual(int(re.search(r"ファイル配置.yaml`（(\d+)規則", self.HANDOFF)[1]), len(self.rows("ファイル配置")))
-        self.assertIn(f"表（docs/ledger/）{len(list((ROOT / 'docs/ledger').glob('*.yaml')))}枚", self.HANDOFF)
+        self.assertEqual(int(re.search(r"`未決.yaml` に(\d+)件", current)[1]), len(self.rows("未決")))
+        self.assertEqual(int(re.search(r"ファイル配置.yaml`（(\d+)規則", current)[1]), len(self.rows("ファイル配置")))
+        self.assertIn(f"表（docs/ledger/）{len(list((ROOT / 'docs/ledger').glob('*.yaml')))}枚", current)
+        # Phase-one counts are evidence about that phase, never current totals.
+        history = self.HANDOFF.split("## どこまで済んだか（このブランチの実装）", 1)[1].split("## ", 1)[0]
+        for fact in ("歴史的スナップショット", "決定68（有効65・訂正済み3）", "MAP17行", "未決50"):
+            self.assertIn(fact, history)
 
     def test_atlas_connection_count_is_consistent(self):
         import re

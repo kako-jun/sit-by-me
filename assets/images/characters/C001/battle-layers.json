@@ -219,7 +219,7 @@
     }
   },
   "trail_rule": "Use the trail candidate corresponding to the selected weapon. The preview uses Odenta and its gold trail as placeholders.",
-  "all_seven_preview": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png",
+  "all_seven_preview": "redacted local provenance",
   "follow_up": [
     "Choose or confirm the five C001 weapon candidates and their trail colors.",
     "Check the candidate sheet at the actual game display size and adjust only clearly visible pose or face interference.",
@@ -279,17 +279,17 @@
         "C001-midlife-wheelchair-character-swing-followthrough.webp"
       ]
     },
-    "preview": "/home/kako-jun/repos/private/freeza/output/C001-swing-inbetweens-contact-sheet.png",
-    "composition_preview": "/home/kako-jun/repos/private/freeza/output/C001-swing-all-generations-labelled.png",
+    "preview": "redacted local provenance",
+    "composition_preview": "redacted local provenance",
     "representative_gifs": {
-      "standing": "/home/kako-jun/repos/private/freeza/output/C001-swing-elementary-standing-preview.gif",
-      "wheelchair": "/home/kako-jun/repos/private/freeza/output/C001-swing-midlife-wheelchair-preview.gif"
+      "standing": "redacted local provenance",
+      "wheelchair": "redacted local provenance"
     },
     "weapon_transforms": {
       "status": "preview candidate; use one shared weapon image across age sets and choose position by standing/wheelchair structure",
       "source": "assets/images/weapons/C001/C001-blade-candidates.json#shared_pose_transforms.poses",
       "preview_weapon": "C001-odenta-mitsuyo-candidate.webp",
-      "preview": "/home/kako-jun/repos/private/freeza/output/C001-swing-all-generations-preview-frames.png",
+      "preview": "redacted local provenance",
       "limitation": "Preview timing and placement are composition aids, not final runtime or historical weapon approval"
     }
   }

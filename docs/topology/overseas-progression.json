@@ -1,287 +1,293 @@
 {
-  "schema_version": 1,
-  "kind": "design-contract-not-game-runtime",
-  "initial": {
-    "phase": "exploring",
+ "schema_version": 1,
+ "kind": "design-contract-not-game-runtime",
+ "initial": {
+  "phase": "exploring",
+  "left_defeated": false,
+  "right_defeated": false,
+  "timer_running": false,
+  "third_unlocked": false,
+  "third_entered": false,
+  "floor": 5,
+  "s005_defeated": false,
+  "exited": false,
+  "four_party": false,
+  "timer_starts": 0,
+  "timer_id": "escape"
+ },
+ "transitions": [
+  {
+   "event": "defeat_left",
+   "from": "exploring",
+   "to": "exploring",
+   "requires": {
     "left_defeated": false,
+    "right_defeated": false
+   },
+   "set": {
+    "left_defeated": true
+   }
+  },
+  {
+   "event": "defeat_left",
+   "from": "exploring",
+   "to": "bridge",
+   "requires": {
+    "left_defeated": false,
+    "right_defeated": true
+   },
+   "set": {
+    "left_defeated": true
+   }
+  },
+  {
+   "event": "defeat_right",
+   "from": "exploring",
+   "to": "exploring",
+   "requires": {
     "right_defeated": false,
-    "timer_running": false,
-    "third_unlocked": false,
-    "third_entered": false,
-    "floor": 5,
-    "s005_defeated": false,
-    "exited": false,
-    "four_party": false,
-    "timer_starts": 0,
-    "timer_id": "escape"
+    "left_defeated": false
+   },
+   "set": {
+    "right_defeated": true
+   }
   },
-  "transitions": [
-    {
-      "event": "defeat_left",
-      "from": "exploring",
-      "to": "exploring",
-      "requires": {
-        "left_defeated": false,
-        "right_defeated": false
-      },
-      "set": {
-        "left_defeated": true
-      }
-    },
-    {
-      "event": "defeat_left",
-      "from": "exploring",
-      "to": "bridge",
-      "requires": {
-        "left_defeated": false,
-        "right_defeated": true
-      },
-      "set": {
-        "left_defeated": true
-      }
-    },
-    {
-      "event": "defeat_right",
-      "from": "exploring",
-      "to": "exploring",
-      "requires": {
-        "right_defeated": false,
-        "left_defeated": false
-      },
-      "set": {
-        "right_defeated": true
-      }
-    },
-    {
-      "event": "defeat_right",
-      "from": "exploring",
-      "to": "bridge",
-      "requires": {
-        "right_defeated": false,
-        "left_defeated": true
-      },
-      "set": {
-        "right_defeated": true
-      }
-    },
-    {
-      "event": "reveal_and_cooperate",
-      "from": "bridge",
-      "to": "cooperation",
-      "requires": {
-        "left_defeated": true,
-        "right_defeated": true
-      },
-      "set": {
-        "four_party": true
-      }
-    },
-    {
-      "event": "finish_cooperation",
-      "from": "cooperation",
-      "to": "escaping",
-      "requires": {
-        "four_party": true
-      },
-      "set": {
-        "timer_running": true,
-        "third_unlocked": true,
-        "timer_starts": 1
-      }
-    },
-    {
-      "event": "enter_third",
-      "from": "escaping",
-      "to": "escaping",
-      "requires": {
-        "third_unlocked": true,
-        "timer_running": true
-      },
-      "set": {
-        "third_entered": true
-      }
-    },
-    {
-      "event": "collect_chest",
-      "from": "escaping",
-      "to": "escaping",
-      "requires": {
-        "third_entered": true,
-        "timer_running": true
-      },
-      "set": {
-      }
-    },
-    {
-      "event": "descend_5_to_4",
-      "from": "escaping",
-      "to": "escaping",
-      "requires": {
-        "third_entered": true,
-        "timer_running": true,
-        "floor": 5
-      },
-      "set": {
-        "floor": 4
-      }
-    },
-    {
-      "event": "descend_4_to_3",
-      "from": "escaping",
-      "to": "escaping",
-      "requires": {
-        "third_entered": true,
-        "timer_running": true,
-        "floor": 4
-      },
-      "set": {
-        "floor": 3
-      }
-    },
-    {
-      "event": "descend_3_to_2",
-      "from": "escaping",
-      "to": "escaping",
-      "requires": {
-        "third_entered": true,
-        "timer_running": true,
-        "floor": 3
-      },
-      "set": {
-        "floor": 2
-      }
-    },
-    {
-      "event": "descend_2_to_1",
-      "from": "escaping",
-      "to": "escaping",
-      "requires": {
-        "third_entered": true,
-        "timer_running": true,
-        "floor": 2
-      },
-      "set": {
-        "floor": 1
-      }
-    },
-    {
-      "event": "reach_exit",
-      "from": "escaping",
-      "to": "exit_battle",
-      "requires": {
-        "third_entered": true,
-        "floor": 1,
-        "timer_running": true
-      },
-      "set": {
-      }
-    },
-    {
-      "event": "defeat_s005",
-      "from": "exit_battle",
-      "to": "exit_battle",
-      "requires": {
-        "timer_running": true,
-        "s005_defeated": false
-      },
-      "set": {
-        "s005_defeated": true
-      }
-    },
-    {
-      "event": "timeout",
-      "from": "escaping",
-      "to": "failed",
-      "requires": {
-        "timer_running": true
-      },
-      "set": {
-        "timer_running": false
-      }
-    },
-    {
-      "event": "timeout",
-      "from": "exit_battle",
-      "to": "failed",
-      "requires": {
-        "timer_running": true
-      },
-      "set": {
-        "timer_running": false
-      }
-    },
-    {
-      "event": "actual_exit",
-      "from": "exit_battle",
-      "to": "escaped",
-      "requires": {
-        "timer_running": true,
-        "s005_defeated": true
-      },
-      "set": {
-        "exited": true,
-        "timer_running": false
-      }
-    }
-  ],
-  "bosses": {
-    "left": {
-      "id": "M015",
-      "map": "OVS-09",
-      "only": "magic"
-    },
-    "right": {
-      "id": "M016",
-      "map": "OVS-14",
-      "only": "ability"
-    }
+  {
+   "event": "defeat_right",
+   "from": "exploring",
+   "to": "bridge",
+   "requires": {
+    "right_defeated": false,
+    "left_defeated": true
+   },
+   "set": {
+    "right_defeated": true
+   }
   },
-  "family_id": "M003",
-  "tower_paths": {
-    "left": [
-      "OVS-05",
-      "OVS-06",
-      "OVS-07",
-      "OVS-08",
-      "OVS-09"
-    ],
-    "right": [
-      "OVS-10",
-      "OVS-11",
-      "OVS-12",
-      "OVS-13",
-      "OVS-14"
-    ],
-    "escape": [
-      "OVS-16",
-      "OVS-17",
-      "OVS-18",
-      "OVS-19",
-      "OVS-20"
-    ]
+  {
+   "event": "reveal_and_cooperate",
+   "from": "bridge",
+   "to": "cooperation",
+   "requires": {
+    "left_defeated": true,
+    "right_defeated": true
+   },
+   "set": {
+    "four_party": true
+   }
   },
-  "bridge_map": "OVS-15",
-  "deadline": "authorities_arrive_and_arrest_shah",
-  "bridge_battle": "ordinary_enemies_only",
-  "save_during_timer": false,
-  "failure": "restore_last_pre_timer_save_and_chests",
-  "third_tower_preentry": false,
-  "s005_timer_continues": true,
-  "floor_area_class": {
-    "OVS-05": "comparable_full_floor",
-    "OVS-06": "comparable_full_floor",
-    "OVS-07": "comparable_full_floor",
-    "OVS-08": "comparable_full_floor",
-    "OVS-09": "comparable_full_floor",
-    "OVS-10": "comparable_full_floor",
-    "OVS-11": "comparable_full_floor",
-    "OVS-12": "comparable_full_floor",
-    "OVS-13": "comparable_full_floor",
-    "OVS-14": "comparable_full_floor",
-    "OVS-16": "comparable_full_floor",
-    "OVS-17": "comparable_full_floor",
-    "OVS-18": "comparable_full_floor",
-    "OVS-19": "comparable_full_floor",
-    "OVS-20": "comparable_full_floor"
+  {
+   "event": "finish_cooperation",
+   "from": "cooperation",
+   "to": "escaping",
+   "requires": {
+    "four_party": true
+   },
+   "set": {
+    "timer_running": true,
+    "third_unlocked": true,
+    "timer_starts": 1
+   }
+  },
+  {
+   "event": "enter_third",
+   "from": "escaping",
+   "to": "escaping",
+   "requires": {
+    "third_unlocked": true,
+    "timer_running": true
+   },
+   "set": {
+    "third_entered": true
+   }
+  },
+  {
+   "event": "collect_chest",
+   "from": "escaping",
+   "to": "escaping",
+   "requires": {
+    "third_entered": true,
+    "timer_running": true
+   },
+   "set": {}
+  },
+  {
+   "event": "descend_5_to_4",
+   "from": "escaping",
+   "to": "escaping",
+   "requires": {
+    "third_entered": true,
+    "timer_running": true,
+    "floor": 5
+   },
+   "set": {
+    "floor": 4
+   }
+  },
+  {
+   "event": "descend_4_to_3",
+   "from": "escaping",
+   "to": "escaping",
+   "requires": {
+    "third_entered": true,
+    "timer_running": true,
+    "floor": 4
+   },
+   "set": {
+    "floor": 3
+   }
+  },
+  {
+   "event": "descend_3_to_2",
+   "from": "escaping",
+   "to": "escaping",
+   "requires": {
+    "third_entered": true,
+    "timer_running": true,
+    "floor": 3
+   },
+   "set": {
+    "floor": 2
+   }
+  },
+  {
+   "event": "descend_2_to_1",
+   "from": "escaping",
+   "to": "escaping",
+   "requires": {
+    "third_entered": true,
+    "timer_running": true,
+    "floor": 2
+   },
+   "set": {
+    "floor": 1
+   }
+  },
+  {
+   "event": "reach_exit",
+   "from": "escaping",
+   "to": "exit_battle",
+   "requires": {
+    "third_entered": true,
+    "floor": 1,
+    "timer_running": true
+   },
+   "set": {}
+  },
+  {
+   "event": "defeat_s005",
+   "from": "exit_battle",
+   "to": "exit_battle",
+   "requires": {
+    "timer_running": true,
+    "s005_defeated": false
+   },
+   "set": {
+    "s005_defeated": true
+   }
+  },
+  {
+   "event": "timeout",
+   "from": "escaping",
+   "to": "failed",
+   "requires": {
+    "timer_running": true
+   },
+   "set": {
+    "timer_running": false
+   }
+  },
+  {
+   "event": "timeout",
+   "from": "exit_battle",
+   "to": "failed",
+   "requires": {
+    "timer_running": true
+   },
+   "set": {
+    "timer_running": false
+   }
+  },
+  {
+   "event": "actual_exit",
+   "from": "exit_battle",
+   "to": "escaped",
+   "requires": {
+    "timer_running": true,
+    "s005_defeated": true
+   },
+   "set": {
+    "exited": true,
+    "timer_running": false
+   }
   }
+ ],
+ "bosses": {
+  "left": {
+   "id": "M015",
+   "map": "OVS-09",
+   "only": "magic"
+  },
+  "right": {
+   "id": "M016",
+   "map": "OVS-14",
+   "only": "ability"
+  }
+ },
+ "family_id": "M003",
+ "tower_paths": {
+  "left": [
+   "OVS-05",
+   "OVS-06",
+   "OVS-07",
+   "OVS-08",
+   "OVS-09"
+  ],
+  "right": [
+   "OVS-10",
+   "OVS-11",
+   "OVS-12",
+   "OVS-13",
+   "OVS-14"
+  ],
+  "escape": [
+   "OVS-16",
+   "OVS-17",
+   "OVS-18",
+   "OVS-19",
+   "OVS-20"
+  ]
+ },
+ "bridge_map": "OVS-15",
+ "deadline": "authorities_arrive_and_arrest_shah",
+ "bridge_battle": "ordinary_enemies_only",
+ "save_during_timer": false,
+ "failure": "restore_last_pre_timer_save_and_chests",
+ "third_tower_preentry": false,
+ "s005_timer_continues": true,
+ "floor_area_class": {
+  "OVS-05": "comparable_full_floor",
+  "OVS-06": "comparable_full_floor",
+  "OVS-07": "comparable_full_floor",
+  "OVS-08": "comparable_full_floor",
+  "OVS-09": "comparable_full_floor",
+  "OVS-10": "comparable_full_floor",
+  "OVS-11": "comparable_full_floor",
+  "OVS-12": "comparable_full_floor",
+  "OVS-13": "comparable_full_floor",
+  "OVS-14": "comparable_full_floor",
+  "OVS-16": "comparable_full_floor",
+  "OVS-17": "comparable_full_floor",
+  "OVS-18": "comparable_full_floor",
+  "OVS-19": "comparable_full_floor",
+  "OVS-20": "comparable_full_floor"
+ },
+ "_provenance": {
+  "source": "海外進行",
+  "input_sha": "e8cf6e236ab3f2c1c155870324ed7796a49e3556a00eb7888fcb5a32a7960bf7",
+  "generated_at": "2026-10-25T18:45",
+  "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
+  "ledger_id": "G-overseas-progression",
+  "do_not_edit": true
+ }
 }

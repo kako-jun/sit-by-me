@@ -22,8 +22,8 @@ module LedgerYaml
   end
 
   # 行は Hash（欠けた列は '' を返す既定値つき）。
-  def read(table)
-    p = path(table)
+  def read(table, root: ROOT)
+    p = File.join(root, 'docs', 'ledger', "#{table}.yaml")
     return [] unless File.file?(p)
 
     text = File.read(p, encoding: 'UTF-8')

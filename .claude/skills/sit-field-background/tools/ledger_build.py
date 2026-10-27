@@ -23,7 +23,42 @@ EDGE_TO_KEY = {"戸口": "doors", "開口": "openings", "縁": "markers"}
 
 
 def tables():
-    return {t: L.read(t) for t in L.SCHEMA}
+    # Issue出典は数MBある。MAP派生物と無関係な表まで読むと、MAPごとの
+    # 照会・鮮度検査が出典サイズに比例して遅くなる。
+    relevant = ("エリア", "MAP", "建物部位", "建物窓列", "端", "接続", "接続図設定",
+                "要素", "窓", "時期差分", "既定値", "エリア固定", "装飾プール",
+                "決定", "生成物", "図配置", "エリア構造", "海外進行")
+    return {t: L.read(t) for t in relevant}
+
+
+def build_map_ids(T):
+    areas = {}
+    for a in T["エリア"]:
+        code = a["区域コード"]
+        ids = [m["MAP_ID"] for m in T["MAP"] if m["エリアID"] == a["エリアID"]]
+        areas[code] = max(int(mid.rsplit("-", 1)[1]) for mid in ids)
+    retired = {m["MAP_ID"]: m["備考"] for m in T["MAP"] if m["状態"] == "廃止"}
+    return {"schema_version": 2,
+            "format": "区域コード(英大文字3字)-2桁連番。areas の数は連番の最大値で、retired の欠番を含む。旧ID→新IDは production/20261019-map-id-renumber.json",
+            "areas": areas, "expected_count": len(T["MAP"]) - len(retired), "retired": retired}
+
+
+def build_areas(T):
+    placements = {}
+    for r in T["図配置"]:
+        placements.setdefault(r["エリアID"], []).append(r)
+    areas = []
+    for a in T["エリア"]:
+        rows = sorted(placements[a["エリアID"]], key=lambda r: int(r["順番"]))
+        areas.append({"id": a["エリアID"], "name": a["名称"],
+                      "maps": [r["MAP_ID"] for r in rows],
+                      "layout": {r["MAP_ID"]: [int(r["X"]), int(r["Y"])] for r in rows}})
+    return {"schema_version": 1, "areas": areas,
+            **F.unflatten([(r["経路"], r["値"], r["型"]) for r in T["エリア構造"]])}
+
+
+def build_overseas(T):
+    return F.unflatten([(r["経路"], r["値"], r["型"]) for r in T["海外進行"]])
 
 
 def num(s):
@@ -137,7 +172,7 @@ def collect(T, map_id, era):
         if r["MAP_ID"] == map_id and r["適用時期"] == era:
             out.setdefault(KIND_TO_KEY[r["種別"]], []).append(element_dict(T, r))
     for r in T["端"]:
-        if r["MAP_ID"] == map_id and r["適用時期"] == era:
+        if r["MAP_ID"] == map_id and r["適用時期"] == era and r["種別"] in EDGE_TO_KEY:
             out.setdefault(EDGE_TO_KEY[r["種別"]], []).append(edge_dict(T, r))
     return out
 
@@ -298,6 +333,15 @@ def build_deps(T):
 # ---- 生成物の出力先
 def targets(T):
     out = []
+    out += [
+        ("G-map-ids", "MAP ID登録JSON", "docs/topology/map-ids.json", "エリア|MAP", build_map_ids,
+         lambda t: {"エリア": [(r["エリアID"], r["区域コード"]) for r in t["エリア"]],
+                    "MAP": [(r["MAP_ID"], r["エリアID"], r["状態"], r["備考"] if r["状態"] == "廃止" else "") for r in t["MAP"]]}),
+        ("G-areas", "MAP所属・模式図座標JSON", "docs/topology/areas.json", "エリア|図配置|エリア構造", build_areas,
+         lambda t: {"エリア": [(r["エリアID"], r["名称"]) for r in t["エリア"]], "図配置": t["図配置"], "エリア構造": t["エリア構造"]}),
+        ("G-overseas-progression", "海外三塔設計契約JSON", "docs/topology/overseas-progression.json", "海外進行", build_overseas,
+         lambda t: {"海外進行": t["海外進行"]}),
+    ]
     for m in T["MAP"]:
         if m["描画方式"] == "斜めモック" and any(r["MAP_ID"] == m["MAP_ID"] for r in T["要素"]):
             out.append((f"G-{m['MAP_ID']}-plan", "斜めplan JSON", f"docs/production/oblique-mocks/{m['MAP_ID']}-plan.json",

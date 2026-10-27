@@ -172,7 +172,7 @@
       "swing-followthrough",
       "ready"
     ],
-    "swing_sequence_preview": "/home/kako-jun/repos/private/freeza/output/C001-swing-all-generations-preview-frames.png",
+    "swing_sequence_preview": "redacted local provenance",
     "full_slash_candidate_matrix": "output/battle-sword-previews/C001-slash-matrix-white.png",
     "preview_note": "Current slash matrix contains the foreground sword only and no trail layer; white and dark versions cover all seven C001 generations and five sword candidates."
   },
@@ -247,10 +247,10 @@
       "weapon": "none; hands remain on pushrims",
       "movement_effect": "C001-movement-streak-candidate.webp behind character near rear wheel"
     },
-    "preview": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png",
+    "preview": "redacted local provenance",
     "status": "candidate, visually checked across all seven C001 sets at reduced size"
   },
-  "all_seven_battle_layers_preview": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png",
+  "all_seven_battle_layers_preview": "redacted local provenance",
   "sword_only_preview": "output/battle-sword-previews/C001-slash-matrix-white.png",
   "sword_only_dark_preview": "output/battle-sword-previews/C001-slash-matrix-dark.png",
   "trail_policy": "No trail layer in current sword-only preview; broad ribbon-like curved trails are not used.",

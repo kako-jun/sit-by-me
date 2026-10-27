@@ -1,5 +1,7 @@
 # 刃（刀）候補調査: 有名な刀の実在リスト
 
+> **台帳移行（Issue #156）**: 刀の調査候補と配分案の構造化正本は `docs/ledger/刀候補.yaml`・`刀配分案.yaml`。以下は移行元の調査経緯。候補はゲーム採用決定ではない。 検索用の生成ビューは [`docs/ledger/views/content.md`](ledger/views/content.md)。
+
 調査日: 2026-10-15 / 調査担当: Claude（読み取り調査のみ。最終決定は kako-jun）
 
 ## 0. 使い方・凡例

@@ -97,6 +97,14 @@ uv run --with opencv-python-headless --with numpy --with pillow python3 -I body_
 | `ledger_write_rows.py` | 標準入力の JSON（行の配列）を台帳の1表として書く（YAML の書き出しは Python の `ledger_io` だけ）。`audit_issue_decisions.rb --write` が使う |
 | `ledger_csv_to_yaml_once.py` | 一度きりの CSV→YAML 変換（変換済み。`--verify-only` は コミット 40bf95d の CSV との無損失突合） |
 
+素材まわりの付随表（`ledger_io.py` の `SCHEMA` に定義）:
+
+| 表 | 役割 |
+|---|---|
+| `素材共有` | 所有者以外の人物・敵・召喚獣が同じ素材を使う関係（素材行は複製しない） |
+| `素材更新` | 素材移行後の差し替えを（パス・旧sha256→新sha256・出典commit・出典パス）で記録するSHA連鎖。起点=素材移行.sha256、終点=素材.sha256。検査は `scripts/asset_chain.py`（`verify_domain_ledger.py`・`verify_asset_layout.py` が使う） |
+| `素材メタデータ`／`素材メタデータ値` | 画像用JSON（battle-layers・候補一覧など）の安全化済み正本。ローカルパス等は `redacted local provenance` に置換済み。`scripts/asset_metadata.py build|check` がJSONを生成・検査、`ingest --source 元JSON --path assets/images/….json --owner ID --commit SHA`（path は assets/images/ 配下の .json、owner は台帳にある MAP・人物・敵・召喚獣のID、commit は git に存在すること。違えば失敗）が元JSONを安全化してYAMLへ取り込み直す（続けて `build`）（`build_ledger.py` と `verify_ledger.rb` に組み込み済み）。数値は元の表記を保持 |
+
 接続表の `図` は `;` 区切りで複数の接続図に属せる。`属性JSON` は `{図ID: {辺の出力キー: 値}}`（null=その図では出さない）で図ごとの上書きを持つ。MAP の `設計意図` は plan の `design`、`plan追加JSON` は plan 最上位の追加キー（例 `indoor`）、要素の種別 `閉鎖辺` は plan の `closed_edges`（屋外MAPの閉鎖した辺と理由）。
 
 ファイルの置き場所は台帳 `ファイル配置.yaml` が正本。`ruby scripts/verify_index_reachable.rb` が、全ファイルが配置規則にちょうど1つ一致し、到達=リンクのファイルが `docs/INDEX.md` からのリンクで辿れる（孤立・壊れたリンクはエラー）ことを検査する。新しいツール・スクリプト・ドキュメントを足したら INDEX から辿れるようにリンクを張る。
@@ -114,9 +122,21 @@ Issue 本文・コメントから『kako-jun の決定』と読める候補を�
 
 検証は Ruby（`scripts/verify_ledger.rb` ほか。Homebrew の Ruby 4.x: `PATH=/opt/homebrew/opt/ruby/bin:$PATH`）。
 
-## 次にやること（優先度順。今回は大規模リファクタをしない）
+## YAML台帳の統合運用
 
-1. **【高】`body_layout.py` の `SPECS` を JSON 仕様に外出し**。新エリアは JSON を書くだけで割付図・接続検査・幾何JSONが出る。`body_geometry_json.py`・`body_sheet.py`・`build_body_prompt.py`・`check_body_image.py` が `body_layout` を import（または ast で読む）しているので、まず JSON を読む薄い層を足し、既存 SPECS を JSON へ書き出して出力が不変（割付図の sha256 一致）なことを確認してから置き換える。
+回収した制作補助は次の入力を使う（いずれも画像生成APIは呼ばない）。`layout_guide.py --map TRM-04 --out guide.png` は現行YAMLの `ledger_build.build_plan` からガイドを出し、`--preset trm02|trm04|trm05` も同じ入力へ解決する。`oblique_town.py connections-teramachi.json --out DIR --check-only` は画像を作らず台帳接続を検査する。`pasteback.py --base BASE --raw RAW --mask MASK --out OUT`（または `--rects`）は指定範囲だけ貼り戻し、ぼかしはマスク内に限る。戦闘の `.claude/skills/sit-battle-background/tools/battle_base.py --measure` は `描画定数.yaml` の `battle.*` を測り、画像を作らない。
+
+唯一のマスターは `docs/ledger/*.yaml`。全派生物はリポ直下で `uv run python3 scripts/build_ledger.py build`、鮮度は同コマンドの `check` で検査する。MAP・エリア・海外進行のJSON、歴史的素材移行manifest、BGM CSV、コンテンツ全列ビュー、元MAP文書の互換表、6種のMAPビューとINDEXを順に更新する。旧MAP文書の生成ブロックは手で直さない。根拠の `doc:line` は移行前の行番号で、現在の行番号ではない。
+
+端の必須項目は種別で分ける。戸口・開口・抽象通路には壁側を要求する。`イベント`・`移動` は物語イベントや一方向の到着を表す論理的な端点なので、背景の壁側を生成ゲートの必須条件にはしない。到着位置などの未決はそのまま保持し、方角を推測して埋めない。
+
+`uv run python3 scripts/verify_domain_ledger.py` は領域別の主キー・FK・型付き経路・Issue出典と命題の構造を検査する。凍結APIとの完全一致は `--from-json SNAPSHOT`、意味点検の完了は `--require-reviewed` で別に検査する。構造が通っても、自動抽出・要確認の出典が残る限り意味点検は未完了。
+
+敵・召喚獣・人物の入力は `uv run python3 scripts/content_ledger.py query enemy M008 --gate` のように取得する。人物形態は `--form FORM-...`、複数サイズは `--size-row SZ-...` が必要。候補ID、非遭遇ID、不正なグリッド、対象の未決はゲートで停止する。体内promptも必須キーを先に検査し、MAP仕様・契約・幾何・制作規約をYAMLから束ねる。Issueは凍結出典の引用来歴として扱い、設計を二重管理しない。
+
+## 残る整理項目
+
+1. 体内の `SPECS` と幾何入力は `docs/ledger/体内幾何.yaml` に移行済み。`body_geometry.py` が型付き経路から読み、`body_layout.py` はそこから仕様を得る。JSONを追加のマスターにしない。
 2. **【高】`build_body_prompt.py` の部品分離**: ①構図（天面の内側・机→縁→天面。P1・P2）②色の制約（肯定形・範囲）③装飾プール（族・配置・色味・隣接検査）④赤紙（定数アクセントの数と座標）⑤SOURCE TEXT 検証（逐語抽出・`--verify-*`・`leak_check`）を別モジュールに。エリア固有は族プール・原文行の選別・形別の本文だけにする。
 3. **【中】チェッカーの期待値の外出し**（`check_body_image.py`）: 色の範囲・通路本数・赤紙の数・広間の有無・天面 rect を JSON 引数に。床色を手動指定する `--floor-color`（`estimate_floor_color` が失敗した BDY-07 の対策）、机・縁が近い色のときの判定を『判定不能』にする。
 4. **【中】共通定数の集約**: 天面 rect（138,138,1782,942）が `body_layout`・`body_geometry_json`・`body_mask_export`・`body_register`・`body_step_scan` に、寸法 1672/OK_SIZES が `check_body_image`・`build_body_prompt` ほかに重複している（grep で確認）。1ファイル（例 `body_consts.py`）へ。

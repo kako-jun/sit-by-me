@@ -35,47 +35,77 @@ def flatten(o, prefix=""):
 
 
 def tokens(path):
+    if path.startswith("."):
+        raise ValueError(f"不正な経路: {path}")
     out = []
+    pos = 0
     for m in TOK.finditer(path):
+        if m.start() != pos:
+            raise ValueError(f"不正な経路: {path}")
+        pos = m.end()
         if m.group(1) is not None:
             out.append((m.group(1), None))
         elif m.group(2) is not None:
             out.append((m.group(2), None))
         else:
             out.append((None, int(m.group(3))))
+    if pos != len(path) or not out:
+        raise ValueError(f"不正な経路: {path}")
     return out
 
 
 def _val(v, t):
     if t == "数":
-        return json.loads(v)
+        value = json.loads(v)
+        if type(value) not in (int, float) or not __import__('math').isfinite(value):
+            raise ValueError(f"数でない値: {v}")
+        return value
     if t == "真偽":
+        if v not in ("true", "false"):
+            raise ValueError(f"真偽でない値: {v}")
         return v == "true"
+    if t in ("空", "空配列", "空辞書") and v != "":
+        raise ValueError(f"{t} の値は空欄にする: {v}")
     if t == "空":
         return None
     if t == "空配列":
         return []
     if t == "空辞書":
         return {}
-    return v
+    if t == "文":
+        return v
+    raise ValueError(f"未知の型: {t}")
 
 
 def unflatten(rows):
     """rows: [(path, value, type)] → 入れ子。リストの添字は出現順（0 始まり連番）を要求する。"""
     root = {}
+    seen = set()
     for p, v, t in rows:
         toks = tokens(p)
+        path_key = tuple(toks)
+        if path_key in seen:
+            raise ValueError(f"経路が重複: {p}")
+        if any(path_key[:len(old)] == old or old[:len(path_key)] == path_key for old in seen):
+            raise ValueError(f"親と子の経路が衝突: {p}")
+        seen.add(path_key)
         cur = root
         for i, (k, idx) in enumerate(toks):
             last = i == len(toks) - 1
             nxt = toks[i + 1] if not last else None
             container_new = [] if (nxt and nxt[1] is not None) else {}
             if k is not None:
+                if not isinstance(cur, dict):
+                    raise ValueError(f"辞書と配列の経路が衝突: {p}")
                 if last:
                     cur[k] = _val(v, t)
                 else:
                     cur = cur.setdefault(k, container_new)
             else:
+                if not isinstance(cur, list):
+                    raise ValueError(f"辞書と配列の経路が衝突: {p}")
+                if idx > len(cur):
+                    raise ValueError(f"配列の添字は0始まり連番にする: {p}")
                 while len(cur) <= idx:
                     cur.append(None)
                 if last:

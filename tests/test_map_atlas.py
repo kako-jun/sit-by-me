@@ -4,11 +4,12 @@ import json
 import subprocess
 import unittest
 import xml.etree.ElementTree as ET
+from tests.ledger_test_support import environment
 
-import test_map_topology as topology_tests
+from tests import test_map_topology as topology_tests
 
 
-class MapAtlasTests(unittest.TestCase):
+class MapAtlasTests(topology_tests.MapTopologyFixture):
     setUp = topology_tests.MapTopologyTests.setUp
     cli = topology_tests.MapTopologyTests.cli
     reject = topology_tests.MapTopologyTests.reject
@@ -23,15 +24,12 @@ class MapAtlasTests(unittest.TestCase):
     def registry(self):
         return json.loads((self.root / "docs/topology/areas.json").read_text())
 
-    def mutate_registry(self, mutate):
-        path = self.root / "docs/topology/areas.json"
-        data = json.loads(path.read_text())
-        mutate(data)
-        path.write_text(json.dumps(data, ensure_ascii=False))
+    mutate_registry = topology_tests.MapTopologyFixture.mutate_registry
 
     def render(self):
-        result = subprocess.run(["ruby", "scripts/render_map_atlas.rb"], cwd=self.root,
-                                capture_output=True, text=True)
+        self.refresh_source_views()
+        result = subprocess.run(["ruby", str(topology_tests.ROOT / "scripts/render_map_atlas.rb")], cwd=self.root,
+                                env=environment(self.root), capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
 
     def diagram(self, filename="atlas.svg"):

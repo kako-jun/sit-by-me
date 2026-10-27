@@ -10,6 +10,9 @@
 
 **2026-10-18 / #51**: TRM-02〜TRM-16は当時 `recreate-required-1920x1080`（2026-10-24以降は台帳。旧TRM-01は2026-10-23にTRM-03の右の区画＝園庭へ統合して廃止し、行を削除。旧legacy画像 `legacy/TRM-01.webp` とそのmaskは2026-10-23に削除済み。履歴はgit）、生成契約は `blocked`。以下の旧画像パスは参照専用で、旧mask・旧passは新候補の採用根拠にならない。現行再作成状態は [候補台帳](teramachi-rebuild-candidates.md)、建物群の生成前入力は [制作前確認](production/20261018-teramachi-preflight.md) を参照する。
 
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-016 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP契約.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
+
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
 | TRM-16 | 台帳 | R006,R011 | `assets/images/fields/legacy/TRM-16.webp`; mask未記録 | TRM-06/TRM-15/TRM-17の三端と用水のblocked域を実画像から記録する |
@@ -115,8 +118,12 @@
 | CST-08 | blocked | R017,R031,R034,R035 | 未生成・mask未作成 | 鶴の丸・東の丸側。top→CST-02.bottom、left→CST-09.right。3攻略目標完了後にCST-09本丸入口を解錠。池／堀・高低差、各出口の位置・幅、assistと閉鎖域、城攻略目標と解錠条件を個別確定する（#45） |
 | CST-09 | blocked | R017,R031,R034,R035 | 未生成・mask未作成 | 高い本丸。left→CST-07.right、right→CST-08.left、door-tower→CST-10.door-base。池／堀・高低差、各出口の位置・幅、assistと閉鎖域、城攻略目標と解錠条件を個別確定する（#45） |
 | CST-10 | blocked | R017,R031,R034,R035 | 未生成・mask未作成 | 本丸内のイマジナリー天守上層。door-base→CST-09.door-tower。池／堀・高低差、各出口の位置・幅、assistと閉鎖域、城攻略目標と解錠条件を個別確定する（#45） |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-016 -->
 
 ## 2026-10-18追加ID
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-017 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP契約.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
@@ -133,15 +140,23 @@
 | OVS-17 | blocked | R019 | 未生成・mask未作成 | 脱出第3塔4階・宝箱と下り階段。door-up→OVS-16.door-down、door-down→OVS-18.door-up。5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | OVS-18 | blocked | R019 | 未生成・mask未作成 | 脱出第3塔3階・宝箱と下り階段。door-up→OVS-17.door-down、door-down→OVS-19.door-up。5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | OVS-19 | blocked | R019 | 未生成・mask未作成 | 脱出第3塔2階・宝箱と下り階段。door-up→OVS-18.door-down、door-down→OVS-20.door-up。5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-017 -->
 
 ## #74追加ID（胴体・肺）
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-018 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP契約.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
 | BDY-02 | blocked | R018 | 基準状態の画像採用済み（reference。先行previewはユーザー却下済みで、現行は採用版）。mask作成済み（assets/images/fields/masks/BDY-02-mask.webp）・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・blocked維持。 | 上半身・胴体上段。接続契約は `map-specifications.md` BDY-02 行と `docs/topology/body.svg` を照合する。口から胴体への首道は1本、頭はその枝。各経路は模型（ジオラマ）の縁の辺まで届いて隣MAPへ遷移する（遷移位置は辺上の範囲指定、範囲値TBD。土台の板と机は見えたまま。kako-jun 2026-10-22）。体外形・洞窟口・物理扉なし。平面床と低い仕切り。心臓・肺の部屋はBDY-16/17、胃BDY-15はBDY-03から接続。架空人体・非写実・肌色寄り・非グロ、通路幅はキャラクター3人分程度、体内材料は `art-direction.md` 参照。配置モック、生画像レビュー、採否、maskは未完了。 【BDY-02 新版（首1本・左右は本人から見る）の基準状態の画像採用済み（reference。mask作成済み・links作成済み・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-upper-torso-bdy02-adopted.webp`、[採用記録](production/20261022-bdy02-adoption.md)）】 【BDY-02 承認済みの逸脱 2026-10-23】首の狭まりがない旧版画像を kako-jun が承認済みの逸脱として採用。契約の首1本・分岐は画像では広い床の塊として現れる（マスクは変更不要。画像が正）。 |
 | BDY-17 | blocked | R018 | mask作成済み（assets/images/fields/masks/BDY-17-mask.webp）・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23） | 肺・分岐室。door-passage-torso→BDY-02.door-passage-lung。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。丸い5部屋（右肺3葉=画面左・左肺2葉=画面右）を外周の環で結ぶ。入口は北辺中央、通路幅はキャラクター1人分、行き止まりなし。形の詳細（座標・格子）は verification/body-layout の割付図が正本。pixel/maskはmask作成済み（assets/images/fields/masks/BDY-17-mask.webp。2026-10-23）・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・status は blocked 維持。 【BDY-17 基準状態の画像採用済み（reference。mask作成済み・links作成済み・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-lungs-bdy17-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-018 -->
 
 ## #74追加ボリューム（上半身・下半身／手2／足3）
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-019 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP契約.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
@@ -152,8 +167,12 @@
 | BDY-10 | blocked | R018 | mask作成済み（assets/images/fields/masks/BDY-10-mask.webp）・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23） | 左足通路2・中間。door-passage-base→BDY-09.door-passage-middle、door-passage-tip→BDY-11.door-passage-base。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・脳内迷路はTBD、mask作成済み（assets/images/fields/masks/BDY-10-mask.webp。2026-10-23）・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・status は blocked 維持。 【BDY-10 基準状態の画像採用済み（reference。mask作成済み・links作成済み・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-left-leg-2-bdy10-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
 | BDY-12 | blocked | R018 | mask作成済み（assets/images/fields/masks/BDY-12-mask.webp）・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23） | 右足通路1・付け根側。door-passage-torso→BDY-03.door-passage-right-leg、door-passage-middle→BDY-13.door-passage-base。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・脳内迷路はTBD、mask作成済み（assets/images/fields/masks/BDY-12-mask.webp。2026-10-23）・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・status は blocked 維持。 【BDY-12 基準状態の画像採用済み（reference。mask作成済み・links作成済み・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-right-leg-1-bdy12-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
 | BDY-13 | blocked | R018 | mask作成済み（assets/images/fields/masks/BDY-13-mask.webp）・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23） | 右足通路2・中間。door-passage-base→BDY-12.door-passage-middle、door-passage-tip→BDY-14.door-passage-base。上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・脳内迷路はTBD、mask作成済み（assets/images/fields/masks/BDY-13-mask.webp。2026-10-23）・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・status は blocked 維持。 【BDY-13 基準状態の画像採用済み（reference。mask作成済み・links作成済み・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-right-leg-2-bdy13-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 【BDY-13 承認 2026-10-23】寸法 1672x940 は kako-jun が例外承認（寸法ゲートは 1672x941。比率差0.1%）。 |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-019 -->
 
 ## #87/#89追加ID
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-020 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP契約.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
@@ -161,3 +180,4 @@
 | KRB-03 | blocked | R005 | 未生成・mask未作成 | デパート2階（隠し階。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-elevator（階選択遷移）。四角い吹き抜けの廊下だけ（売場は無い。決定 2026-10-19）。歩行域=廊下の環のみ、吹き抜け部分はblocked（歩行マスク契約）。描画=中央の吹き抜けから下の1階が見える（侵入不可）。見える1階=KRB-02(同じ場所を2階から見下ろす視点で描く)。契約: KRB-02の背景を作るときはKRB-03の吹き抜け越しの絵と整合させる(KRB-02の吹き抜け・時計・床の見た目が共通の参照)。決定: 2階は最初から解放（解放条件なし。2026-10-19）。KRB-04（3階・玩具売場）とKRB-03は無関係（決定）。吹き抜けの縁では落下しない（吹き抜けは歩行不可のblockedで、落下の仕組みは無い。kako-jun決定 2026-10-19、#87）。隠し階の行き方は決定済み: エレベーターの扉→階選択ウィンドウ（B案）。画像生成blocked。 |
 | KRB-05 | blocked | R005 | 未生成・mask未作成 | デパート4階（隠し階・条件つき。最終章で兼六園へ向かう途中にデパートに寄り道すると、階選択で4階も選べるようになる(決定 2026-10-19)。最終章の兼六園への道（茶屋街→香林坊→広坂→兼六園）の途中の、香林坊のデパートに入ると階選択に4階が出る。専用イベントなし（デパートに入ること自体が条件。kako-jun決定 2026-10-19、#87）。強い何か=ものまね（FF5/6の隠しアビリティに相当。kako-jun決定 2026-10-19、#87）。魔法扱い（パーティ共通の共有ライブラリ。全員が使える）。4階の敵は「鏡」=映った自分たち自身（パーティの姿）で、ボス扱い。兼六園の最終救済には出ない（これまでのボスは兼六園でも雑魚敵として出さない）ので、ものまねはここでしか覚えられない。鏡の技「ものまね」を食らった味方が戦闘終了時に自動でラーニング（既存規則）。ものまねの効果=直前の味方の行動を、ノーコスト（MP・AP等の消費なし）で真似る。敵の行動は真似ない（回数・対象の選び方などの細部は未決）。要確認(#87): 鏡の敵の新規ID・映り込みの流用方法（鏡像・色味・何人映るか。味方の映り込みを流用できるならしたい。実現可否と作り方は要確認）・戦闘仕様。https://github.com/kako-jun/sit-by-me/issues/87 2026-10-19の決定）。実在店に似せないジオラマ。door-elevator（階選択遷移。選択肢に出る条件はシナリオ側）。TBD: 鏡の敵のID・映り込みの流用方法・戦闘仕様（#87）。行き方は決定済み: エレベーターの扉→階選択ウィンドウ（B案）。4階は最終章の兼六園途中の寄り道で選択肢に出る。画像生成blocked。 |
 | NTB-07 | blocked | R016 | 未生成・mask未作成 | 廃校の校庭（被災前）。left←NTB-01.right（茂みの小径の暫定入口）、right→NTB-08.left。TBD: 入口MAP（NTB-01は暫定）、茂みの見せ方、校庭の見た目、勝手口等の扉、校庭↔NTB-08の辺はright↔leftで選択済み（理由はmap-topology.md）。 |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-020 -->

@@ -105,6 +105,9 @@
 
 エレベーターはMAPを持たない。次の5つの階MAPがそれぞれエレベーター扉（`door-elevator`）を1つ持ち、扉に入った瞬間にウィンドウで行き先の階を選ぶ。選んだ階のエレベーター扉前に着く。行き先に選べるのは、ここに載る**全階**（自分以外）で、組を個別に列挙しない（下表が全部）。接続台帳v2の行ではなく、`door`のような2点間の接続ではない。両側が反対の画像辺という規則は、この扉には適用しない（扉は画像端でなく階選択の入口）。検証は `verify_map_ledger.rb` がこの表を別枠として読む。
 
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-029 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/特殊遷移.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
+
 | 階 | MAP | エレベーター扉 | 選べる行き先 | 出現・解放 |
 |---|---|---|---|---|
 | 1階 | KRB-02 | KRB-02.door-elevator | 2・3・5階（4階は条件つき） | 常時（入口階。街路側は KRB-01.door↔KRB-02.door-street） |
@@ -112,20 +115,24 @@
 | 3階 | KRB-04 | KRB-04.door-elevator | 1・2・5階（4階は条件つき） | 常時 |
 | 4階 | KRB-05 | KRB-05.door-elevator | 1・2・3・5階 | 条件つき（最終章で兼六園へ向かう途中にデパートに寄り道すると、階選択で4階も選べるようになる(決定 2026-10-19)。最終章の兼六園への道（茶屋街→香林坊→広坂→兼六園）の途中の、香林坊のデパートに入ると階選択に4階が出る。専用イベントなし（デパートに入ること自体が条件。kako-jun決定 2026-10-19、#87）。通常は選択肢に出ない） |
 | 5階 | KRB-06 | KRB-06.door-elevator | 1・2・3階（4階は条件つき） | 常時（序盤のワープ先） |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-029 -->
 
 #### MAP相互接続台帳 v2（生成・マスク実装の唯一の正本）
 
 以下は接続の向きを一意にする正本である。`→` の両側は必ず反対の画像辺とし、`door` は画像端でなく室内・階層遷移である。`event` は一方向の物語イベント、`oneway` は一方向の通常移動。`door-passage-*` は体内の抽象通路名で物理的な扉ではない。`pending` は旧仮説のID追跡だけの行で、隣接・通行路・生成契約ではない。`§3.1` 以降の旧試作時の図・発注文は履歴説明であり、ここにない辺指定を新規プロンプト、画像生成、マスクに使ってはならない。
 
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-028 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/接続.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
+
 | From | To | 種別 | 主路・状態 |
 |---|---|---|---|
 | TRM-16.right | TRM-15.left | edge | 用水沿いの東行き |
 | TRM-16.top | TRM-17.bottom | edge | 寺町から北へ抜ける坂 |
-| TRM-15.right | TRM-07.left | edge | 火の見櫓から広い道 |
+| TRM-07.left | TRM-15.right | edge | 火の見櫓から広い道 |
 | TRM-15.bottom | TRM-06.top | edge | 勝手口の細道へ。TRM-06は住居の裏の道としてTRM-16へ戻るループの一部（行き止まりではない） |
 | TRM-06.right | TRM-16.left | edge | 住居の裏の道から用水沿いの斜め道（TRM-16）の西端へ続く。TRM-16→TRM-15→TRM-06→TRM-16のループ（#51）。TRM-06↔TRM-05の勝手口の扉は TRM-05.door-back↔TRM-06.door-house（上の行） |
 | TRM-07.right | TRM-08.left | edge | 寺塀沿いの主路 |
-| TRM-07.top | TRM-03.bottom | edge | 山門から境内へ |
+| TRM-03.bottom | TRM-07.top | edge | 山門から境内へ |
 | TRM-08.right | TRM-09.left | edge | 用水合流から銭湯へ |
 | TRM-09.bottom | TRM-10.top | edge | 団地側の緩い生活スロープ |
 | TRM-10.bottom | TRM-11.top | edge | 車椅子主路 |
@@ -134,10 +141,10 @@
 | TRM-13.top | TRM-14.bottom | edge | 段丘上の石段 |
 | TRM-14.right | SCH-01.left | edge | 学校側の車椅子坂 |
 | SCH-01.bottom | SCH-02.top | edge | 校門 |
-| TRM-03.door-main | TRM-04.door-south | door | 本堂内部 |
-| TRM-03.door-residence | TRM-05.door-outside | door | 境内（TRM-03）の西（左）の住居の外への出入口（kako-jun 2026-10-23、#144）。住居側は下辺の中央より左寄りのダイニング側。境内側の位置はTBD |
-| TRM-03.door-playroom | TRM-02.door-outside | door | 境内（TRM-03）の東（右）の幼稚園の外への出入口（kako-jun 2026-10-23、#144）。幼稚園側は下辺（南壁）の右端付近（E1の絵の南壁右の木の扉）。境内側の位置はTBD |
-| TRM-04.door-west | TRM-05.door-hall | door | 本堂から西（境内から北を見て左）の庫裏（住居）への渡り廊下。住居側の接続は東壁側で上下の中央より下寄り（kako-jun 2026-10-23、#144。幅・正確な位置はTBD） |
+| TRM-04.door-south | TRM-03.door-main | door | 本堂内部 |
+| TRM-05.door-outside | TRM-03.door-residence | door | 境内（TRM-03）の西（左）の住居の外への出入口（kako-jun 2026-10-23、#144）。住居側は下辺の中央より左寄りのダイニング側。境内側の位置はTBD |
+| TRM-02.door-outside | TRM-03.door-playroom | door | 境内（TRM-03）の東（右）の幼稚園の外への出入口（kako-jun 2026-10-23、#144）。幼稚園側は下辺（南壁）の右端付近（E1の絵の南壁右の木の扉）。境内側の位置はTBD |
+| TRM-05.door-hall | TRM-04.door-west | door | 本堂から西（境内から北を見て左）の庫裏（住居）への渡り廊下。住居側の接続は東壁側で上下の中央より下寄り（kako-jun 2026-10-23、#144。幅・正確な位置はTBD） |
 | TRM-04.door-east | TRM-02.door-west | door | 本堂から東（境内から北を見て右）の幼稚園への屋内廊下。TRM-02側は本堂側（西）から入るので既存IDのwestと整合。扉の位置・廊下長はTBD。幼稚園側の接続は西壁側で上下の中央より下寄り（kako-jun 2026-10-23、#144。幅・正確な位置はTBD） |
 | TRM-05.door-back | TRM-06.door-house | door | 住居（庫裏）の勝手口と住居の裏の細道TRM-06の勝手口（kako-jun 2026-10-23、#144。幅はキャラ1人分で両側一致）。TRM-05側は北壁（上辺）の左（西）端。TRM-06側の位置・向きは台帳に無く既定（要確認）。TRM-05-fire では焼失して通れない |
 | TRM-17.top | KRB-10.bottom | edge | 寺町北端から生活店へ |
@@ -182,7 +189,6 @@
 | OVS-01.right | OVS-02.left | edge | 凍結荒野A |
 | OVS-02.right | OVS-03.left | edge | 凍結荒野B |
 | OVS-03.top | OVS-04.bottom | edge | 縦都市外門 |
-
 | GRD-01.top | GRD-03.bottom | edge | 池岸・外周の回遊路。水面を横断しない（#45） |
 | GRD-01.right | GRD-02.left | edge | 池岸・外周の回遊路。水面を横断しない（#45） |
 | GRD-02.top | GRD-04.bottom | edge | 池岸・外周の回遊路。水面を横断しない（#45） |
@@ -209,7 +215,6 @@
 | CST-07.right | CST-09.left | edge | 3攻略目標完了後に解錠する本丸入口。上下差維持（#45） |
 | CST-08.left | CST-09.right | edge | 3攻略目標完了後に解錠する本丸入口。東の丸側から西の高い本丸へ（#45） |
 | CST-09.door-tower | CST-10.door-base | door | 本丸内の架空の天守上層。本丸への入場は3攻略目標完了後。北に実在天守台を捏造しない |
-
 | SNL-01.door-corridor | SNL-02.door-entry | door | サニーランド双方向円環／任意施設。施設出口は同じ屋外空間の別扉とするゲーム配置 |
 | SNL-02.door-next | SNL-04.door-prev | door | サニーランド双方向円環／任意施設。施設出口は同じ屋外空間の別扉とするゲーム配置 |
 | SNL-04.door-aquarium | SNL-05.door-corridor | door | サニーランド双方向円環／任意施設。施設出口は同じ屋外空間の別扉とするゲーム配置 |
@@ -241,9 +246,7 @@
 | OVS-17.door-down | OVS-18.door-up | door | 各塔5階。階層の上下接続は対応、建築平面はカオス |
 | OVS-18.door-down | OVS-19.door-up | door | 各塔5階。階層の上下接続は対応、建築平面はカオス |
 | OVS-19.door-down | OVS-20.door-up | door | 各塔5階。階層の上下接続は対応、建築平面はカオス |
-
 | TRM-03.event-kiss | BDY-01.event-mouth | event | 園庭（TRM-03境内の右の区画・幼稚園の前）でのキスによる体内移動の物語イベント。一方向、恒常的な徒歩口ではない（旧起点TRM-01は2026-10-23にTRM-03へ統合） |
-
 | BDY-01.door-passage-torso | BDY-02.door-passage-mouth | door | 架空人体の抽象通路。door-passageは物理的な扉でない。上半身/下半身2枚・手各2枚・足各3枚の連続一本道 |
 | BDY-02.door-passage-lower | BDY-03.door-passage-upper | door | 架空人体の抽象通路。door-passageは物理的な扉でない。上半身/下半身2枚・手各2枚・足各3枚の連続一本道 |
 | BDY-02.door-passage-head | BDY-04.door-passage-torso | door | 架空人体の抽象通路。door-passageは物理的な扉でない。上半身/下半身2枚・手各2枚・足各3枚の連続一本道 |
@@ -260,6 +263,7 @@
 | BDY-03.door-passage-stomach | BDY-15.door-passage-torso | door | 架空人体の抽象通路。door-passageは物理的な扉でない。上半身/下半身2枚・手各2枚・足各3枚の連続一本道 |
 | BDY-02.door-passage-heart | BDY-16.door-passage-torso | door | 架空人体の抽象通路。door-passageは物理的な扉でない。上半身/下半身2枚・手各2枚・足各3枚の連続一本道 |
 | BDY-02.door-passage-lung | BDY-17.door-passage-torso | door | 架空人体の抽象通路。door-passageは物理的な扉でない。上半身/下半身2枚・手各2枚・足各3枚の連続一本道 |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-028 -->
 
 #### 被災前の廃校の入口（#89。暫定案1つ＋要確認）
 

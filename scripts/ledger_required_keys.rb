@@ -9,7 +9,10 @@ require_relative 'ledger_yaml'
 module LedgerRequiredKeys
   UNDECIDED = '未決(要確認)'
   NOT_APPLICABLE = %w[該当なし なし].freeze
-  KEY_TABLE_ID = { 'エリア' => 'エリアID', 'MAP' => 'MAP_ID', '建物' => '建物ID', '端' => '端ID', '決定' => '決定ID', '採用要素' => '採用要素ID', '素材' => '素材ID', '生成物' => '生成物ID' }.freeze
+  KEY_TABLE_ID = { 'エリア' => 'エリアID', 'MAP' => 'MAP_ID', '建物' => '建物ID', '端' => '端ID', '決定' => '決定ID', '採用要素' => '採用要素ID', '素材' => '素材ID', '生成物' => '生成物ID',
+                   '図配置' => '配置ID', 'MAP仕様' => '仕様ID', 'MAP契約' => '契約ID', '特殊遷移' => '遷移ID', '体内幾何' => '幾何ID',
+                   '敵' => '敵ID', '召喚獣' => '召喚獣ID', '敵配置' => '配置ID', 'ダンジョン' => 'ダンジョンID', '人物' => '人物ID',
+                   'Issue出典' => '出典ID', 'Issue命題' => '命題ID' }.merge(LedgerYaml.schema.transform_values(&:first)).freeze
 
   ANNOTATED_GROUPS = %w[採用要素状態].freeze
   REQUIRED_DEGREES = %w[必須 条件付き必須].freeze
@@ -109,7 +112,8 @@ module LedgerRequiredKeys
     when '@接続'
       id = row['MAP_ID']
       hit = tables['接続'].any? { |c| c['端A'].start_with?("#{id}.") || c['端B'].start_with?("#{id}.") }
-      hit ? nil : '接続表に行が無い（出入口と相手を書く）'
+      hit ||= tables.fetch('特殊遷移', []).any? { |tr| tr['起点MAP'] == id || tr['到着MAP'] == id }
+      hit ? nil : '接続表・特殊遷移表に行が無い（出入口と相手を書く）'
     when '@窓の整合'
       id = row['MAP_ID']
       wins = tables['窓'].select { |w| w['MAP_ID'] == id && w['適用時期'].to_s.empty? && w['種別'] != '窓なし' }
@@ -150,7 +154,8 @@ end
 
 if $PROGRAM_NAME == __FILE__
   id = ARGV.fetch(0, '')
-  tables = LedgerYaml.load_all
+  needed = %w[必須キー 未決 語彙 エリア MAP 建物 端 窓 時期差分 建物時期差分 接続 特殊遷移 装飾プール]
+  tables = Hash.new { |h, k| h[k] = [] }.merge(needed.to_h { |t| [t, LedgerYaml.read(t)] })
   errors, undecided = LedgerRequiredKeys.for_map(tables, id)
   lines = errors + undecided.reject { |t, i, k| errors.any? { |e| e.include?("#{t} #{i}: 『#{k}』") } }.map { |t, i, k| "#{t} #{i}: 『#{k}』が未決（生成を起動できない）" }
   puts lines

@@ -6,7 +6,7 @@
     {
       "file": "C001-phone-glow-candidate.webp",
       "status": "candidate",
-      "source_generation": "/home/kako-jun/.codex/generated_images/01a175d9-0624-75e0-bf02-82f1054f93c9/exec-887bbb8c-866b-46d6-9e21-686db2af0aed.png",
+      "source_generation": "redacted local provenance",
       "asset_size_px": [
         225,
         320
@@ -15,7 +15,7 @@
       "layer_order": "in front of phone and character",
       "display_height": "about 1.4-1.6 × visible phone height",
       "approximate_effect_center_by_structure": null,
-      "preview": "/home/kako-jun/repos/private/freeza/output/C001-phone-glow-character-composite.png",
+      "preview": "redacted local provenance",
       "approximate_effect_center_by_set": {
         "kindergarten_snowwear": {
           "x": 0.14,
@@ -34,12 +34,12 @@
           "y": 0.28
         }
       },
-      "preview_all_seven": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png"
+      "preview_all_seven": "redacted local provenance"
     },
     {
       "file": "C001-magic-burst-candidate.webp",
       "status": "candidate",
-      "source_generation": "/home/kako-jun/.codex/generated_images/01a175d9-0624-75e0-bf02-82f1054f93c9/exec-e0a0d701-cdbc-4222-9e2e-1675b8077a80.png",
+      "source_generation": "redacted local provenance",
       "asset_size_px": [
         280,
         280
@@ -73,12 +73,12 @@
           }
         }
       },
-      "preview": "/home/kako-jun/repos/private/freeza/output/C001-magic-burst-character-composite.png"
+      "preview": "redacted local provenance"
     },
     {
       "file": "C001-movement-streak-candidate.webp",
       "status": "candidate",
-      "source_generation": "/home/kako-jun/.codex/generated_images/01a175d9-0624-75e0-bf02-82f1054f93c9/exec-d704f231-218c-4b17-ae18-142aa859b418.png",
+      "source_generation": "redacted local provenance",
       "asset_size_px": [
         320,
         92
@@ -92,9 +92,9 @@
           "y": 0.61
         }
       },
-      "preview": "/home/kako-jun/repos/private/freeza/output/C001-movement-streak-composite.png"
+      "preview": "redacted local provenance"
     }
   ],
   "planned": [],
-  "all_seven_preview": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png"
+  "all_seven_preview": "redacted local provenance"
 }

@@ -406,7 +406,7 @@ def wire_single(p, path, plans):
             seen.add(meta["id"])
             cx, cy = M.proj(*meta["label_at"]) if meta.get("label_at") else (sum(q[0] for q in polys[0][0]) / 4, sum(q[1] for q in polys[0][0]) / 4)
             d.text((cx - 60, cy - 12), meta["label"], font=f_xs, fill="#666666")
-        elif tag == "wall" and meta["id"] not in seen and meta.get("kind") in ("partition", "building"):
+        elif tag == "wall" and meta["id"] not in seen and (meta.get("kind") in ("partition", "building") or (meta.get("kind") in ("fence", "retaining") and meta.get("label"))):
             seen.add(meta["id"])
             cx, cy = (sum(q[0] for q in polys[2][0]) / 4, sum(q[1] for q in polys[2][0]) / 4)
             text_box(d, (cx, cy), meta.get("label", ""), f_s, pad=3, outline=None)
@@ -429,7 +429,15 @@ def wire_single(p, path, plans):
         text_box(d, (ax, ay), an["text"], f_xs, bg="#fff0d0", outline="#c04000")
     for mk in p["markers"]:
         ax, ay = anchors[mk["id"]]
-        text_box(d, (ax - 150, ay - 70), f"{mk['id']}\n{mk.get('label','')}\n" + X.text("TP.wire-partner", partner=mk.get("partner")) + ("\n" + X.text("TP.default-note") if mk.get("status") == "default" else ""), f_xs, bg="#ffffee", anchor="lt")
+        text = f"{mk['id']}\n{mk.get('label','')}\n" + X.text("TP.wire-partner", partner=mk.get("partner"))
+        if "width" in mk:
+            text += f"\n幅{M.marker_w(mk):.0f}単位"
+        if mk.get("status") == "default":
+            text += "\n" + X.text("TP.default-note")
+        width = max(d.textbbox((0, 0), line, font=f_xs)[2] for line in text.split("\n")) + 12
+        height = len(text.split("\n")) * 31 + 10
+        pos = (max(10, min(ax - 150, M.W - width - 10)), max(70, min(ay - 70, M.H_IMG - height - 70)))
+        text_box(d, pos, text, f_xs, bg="#ffffee", anchor="lt")
     for o in p["openings"]:
         ax, ay = anchors[o["id"]]
         text_box(d, (ax - 60, ay - 14), X.text("TP.wire-opening"), f_xs, bg="#ffffff", pad=2)

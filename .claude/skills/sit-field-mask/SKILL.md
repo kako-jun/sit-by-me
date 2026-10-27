@@ -98,7 +98,7 @@ replacing them from the JSON polygons.
 体内の2値とは別に、斜めの採用画像は `../sit-field-background/tools/oblique_register.py`（位置合わせ）→ `oblique_mask.py`（マスク）で作る。入力JSONは `docs/production/oblique-masks/`。
 
 - **舞台など登れないものは blocked**。入力JSONの `blocked` に多角形を手で足す。
-- **出口・通路の位置は設計書（map-topology.md・map-specifications.md・map-asset-registry.md・map-contract-checklist.md）が正本**。絵から読み取った出入口は使わない。設計書に位置が無い（TBD）出口は発明せず `position: {"status":"TBD"}` のまま候補を並べて kako-jun に聞く。位置が決まったら人が `plan_box`（平面座標）か `image_polygon` を JSON に書き、根拠の行を `design_source` に引用する。
+- **出口・通路の位置は日本語YAML台帳の `端`・`接続`・`MAP仕様`・`MAP契約` が正本**。`ledger_query.py MAP_ID` と台帳の行IDを読む。絵から読み取った出入口は使わない。台帳に位置が無い（未決）出口は発明せず `position: {"status":"TBD"}` のまま候補を並べて kako-jun に聞く。位置が決まったら `plan_box`（平面座標）か `image_polygon` を派生JSONに書き、根拠の台帳行IDを `design_source` に引用する。旧Markdown表は履歴または生成ビュー。
 - **assist（橙 #FF9D00）は通学路など最小限**。室内は基本すべて white でこだわらない。ただし車椅子になる前にしか取れない宝箱などのため、`assist` に多角形を足すだけで橙を少数作れる作りにしてある（既定は0画素。場所は宝箱の設計時に決める）。
 - 床は Lab のマハラノビス距離、家具は床色でない連結成分を閉じて穴埋め→膨張（凸包は使わない）。NPC は縁から12px以上内側へ寄せる。
 - 台帳の status は変えない（ready にしない）。red-team 前。

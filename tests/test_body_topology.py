@@ -2,7 +2,7 @@
 import json
 import unittest
 
-import test_map_topology as topology_tests
+from tests import test_map_topology as topology_tests
 
 
 BODY = {f"BDY-{n:02}" for n in range(1, 18)}
@@ -16,7 +16,7 @@ BODY_PAIRS = {
 }
 
 
-class BodyTopologyTests(unittest.TestCase):
+class BodyTopologyTests(topology_tests.MapTopologyFixture):
     setUp = topology_tests.MapTopologyTests.setUp
     cli = topology_tests.MapTopologyTests.cli
     reject = topology_tests.MapTopologyTests.reject
@@ -31,11 +31,7 @@ class BodyTopologyTests(unittest.TestCase):
     def registry(self):
         return json.loads((self.root / "docs/topology/areas.json").read_text())
 
-    def mutate_registry(self, mutate):
-        path = self.root / "docs/topology/areas.json"
-        data = json.loads(path.read_text())
-        mutate(data)
-        path.write_text(json.dumps(data, ensure_ascii=False))
+    mutate_registry = topology_tests.MapTopologyFixture.mutate_registry
 
     def test_all_registered_maps_have_one_area_membership(self):
         members = [ident for area in self.registry()["areas"] for ident in area["maps"]]
@@ -57,10 +53,11 @@ class BodyTopologyTests(unittest.TestCase):
     def test_head_and_each_limb_chain_have_approved_direction(self):
         layout = next(area for area in self.registry()["areas"] if area["id"] == "body")["layout"]
         self.assertLess(layout["BDY-04"][1], layout["BDY-02"][1])
-        for chain, sign_x, sign_y in ((["BDY-02", "BDY-05", "BDY-06"], -1, -1),
-                                      (["BDY-02", "BDY-07", "BDY-08"], 1, -1),
-                                      (["BDY-03", "BDY-09", "BDY-10", "BDY-11"], -1, 1),
-                                      (["BDY-03", "BDY-12", "BDY-13", "BDY-14"], 1, 1)):
+        # 左右は本人から見る（#142）。本人は仰向けで、画面右が本人の左手・左足
+        for chain, sign_x, sign_y in ((["BDY-02", "BDY-05", "BDY-06"], 1, -1),
+                                      (["BDY-02", "BDY-07", "BDY-08"], -1, -1),
+                                      (["BDY-03", "BDY-09", "BDY-10", "BDY-11"], 1, 1),
+                                      (["BDY-03", "BDY-12", "BDY-13", "BDY-14"], -1, 1)):
             for a, b in zip(chain, chain[1:]):
                 self.assertGreater((layout[b][0] - layout[a][0]) * sign_x, 0)
                 self.assertGreater((layout[b][1] - layout[a][1]) * sign_y, 0)

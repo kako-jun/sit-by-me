@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# MAP生成台帳の構造検査。Markdownを正本のまま読み、生成可能性を
+# MAP生成台帳の構造検査。YAMLから生成した互換ビューを読み、生成可能性を
 # "見た目の印象" ではなく 登録された全行・参照・接続端の不変条件で検査する。
 # 表は見出し行の列名で読む（md_table.rb。列の位置に依存しない）。台帳（docs/ledger）に行がある寺町のMAPは、
 # 契約チェックリストの状態列を『台帳』とし、状態・未決・既定は台帳（verify_ledger.rb）が検査する。
@@ -9,6 +9,7 @@
 ROOT = ENV['LEDGER_ROOT'] || File.expand_path('..', __dir__) # LEDGER_ROOT で md の読み先も差し替える（ledger_yaml.rb と同じ環境変数）
 require 'rexml/document'
 require 'json'
+require 'open3'
 require_relative 'md_table'
 require_relative 'ledger_yaml'
 require_relative 'verify_overseas_progression'
@@ -21,6 +22,12 @@ end
 def fail!(message)
   warn "FAIL: #{message}"
   exit 1
+end
+
+view_builder = File.join(__dir__, 'map_source_views.py')
+if File.file?(view_builder)
+  out, status = Open3.capture2e({'LEDGER_ROOT' => ROOT}, 'uv', 'run', '--project', File.expand_path('..', __dir__), 'python3', view_builder, 'check')
+  fail!("MAP生成ビューが台帳と一致しない: #{out.lines.first(3).join(' / ')}") unless status.success?
 end
 
 MAP_ID_PATTERN = "(?:#{JSON.parse(read('topology/map-ids.json')).fetch('areas').keys.join('|')})-\\d{2}"
@@ -58,7 +65,8 @@ ledger_maps = LedgerYaml.read('MAP').reject { |r| r['状態'] == '廃止' }.map 
 contract_rows.each do |id, status, refs, mask, tbd|
   fail!("#{id}: 不正な状態 #{status}") unless valid_status.include?(status)
   fail!("#{id}: 状態が『台帳』なのに台帳（docs/ledger/MAP.yaml）に行が無い") if status == '台帳' && !ledger_maps.include?(id)
-  fail!("#{id}: 台帳（docs/ledger/MAP.yaml）に行があるMAPの状態は『台帳』にする（旧 status #{status} は寺町だけ廃止）") if status != '台帳' && ledger_maps.include?(id)
+  # The compatibility view preserves historical status. Current generation
+  # readiness comes from required YAML keys, not the former Markdown status.
   fail!("#{id}: Refがない") if refs.nil? || refs.empty?
   fail!("#{id}: mask/output欄がない") if mask.nil? || mask.empty?
   fail!("#{id}: 具体的TBDがない") if tbd.nil? || tbd.empty?

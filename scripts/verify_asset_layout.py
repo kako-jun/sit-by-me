@@ -6,6 +6,10 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import asset_chain
 
 MAP_ID = r'(?:TRM|KRB|STN|NTR|NTB|UTS|SNL|SCH|NTA|UCH|BDY|APT|OVS|GRD|CST)-\d{2}'
 LAYOUT = 'docs/ledger/ファイル配置.yaml'
@@ -13,7 +17,6 @@ LAYOUT = 'docs/ledger/ファイル配置.yaml'
 
 def image_name_patterns(root):
     """画像の ID 名規則の正本は台帳 docs/ledger/ファイル配置.yaml（検査=画像ID規則 の行のパターン。{MAP_ID} を展開）。"""
-    import sys
     repo = Path(__file__).resolve().parents[1]
     sys.path.insert(0, str(repo / '.claude/skills/sit-field-background/tools'))
     import ledger_io
@@ -25,6 +28,16 @@ def image_name_patterns(root):
     return patterns
 
 
+def load_updates(root):
+    """素材更新表（移行後の差し替え連鎖）。検証対象 root に無い最小 fixture では連鎖なし（=現物は移行SHAと完全一致が必須）。"""
+    table = root / 'docs/ledger/素材更新.yaml'
+    if not table.is_file():
+        return {}
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / '.claude/skills/sit-field-background/tools'))
+    import ledger_io
+    return asset_chain.index(ledger_io.parse('素材更新', table.read_text(encoding='utf-8')))
+
+
 def check_image_names(root):
     patterns = image_name_patterns(root)
     for image in (path for path in (root / 'assets/images').rglob('*') if path.suffix in {'.png', '.webp'}):
@@ -34,6 +47,7 @@ def check_image_names(root):
 
 def verify(root):
     root = root.resolve()
+    chains = load_updates(root)
     manifest = json.loads((root / 'docs/production/20261018-asset-migration.json').read_text())
     rows = manifest['entries']
     old_paths = [r['old'] for r in rows]
@@ -55,7 +69,7 @@ def verify(root):
         assert new.is_file(), f'Missing migrated asset: {row["new"]}'
         if new.suffix in {'.png', '.webp', '.svg'}:
             actual = hashlib.sha256(new.read_bytes()).hexdigest()
-            assert actual == row['sha256'], f'Image bytes changed: {row["new"]}'
+            assert asset_chain.reaches(chains, row['new'], row['sha256'], actual), f'Image bytes changed: {row["new"]}'
 
     image_root = root / 'assets/images'
     check_image_names(root)

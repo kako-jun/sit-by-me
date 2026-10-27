@@ -1,25 +1,33 @@
 {
-  "schema_version": 2,
-  "format": "区域コード(英大文字3字)-2桁連番。areas の数は連番の最大値で、retired の欠番を含む。旧ID→新IDは production/20261019-map-id-renumber.json",
-  "areas": {
-    "TRM": 17,
-    "KRB": 13,
-    "STN": 1,
-    "NTR": 1,
-    "NTB": 8,
-    "UTS": 5,
-    "SNL": 12,
-    "SCH": 2,
-    "NTA": 7,
-    "UCH": 5,
-    "BDY": 17,
-    "APT": 2,
-    "OVS": 20,
-    "GRD": 10,
-    "CST": 10
-  },
-  "expected_count": 129,
-  "retired": {
-    "TRM-01": "2026-10-23 TRM-03 境内の右の区画（園庭）へ統合して廃止。欠番のまま詰めない（#51）"
-  }
+ "schema_version": 2,
+ "format": "区域コード(英大文字3字)-2桁連番。areas の数は連番の最大値で、retired の欠番を含む。旧ID→新IDは production/20261019-map-id-renumber.json",
+ "areas": {
+  "TRM": 17,
+  "KRB": 13,
+  "STN": 1,
+  "NTR": 1,
+  "NTB": 8,
+  "UTS": 5,
+  "SNL": 12,
+  "SCH": 2,
+  "NTA": 7,
+  "UCH": 5,
+  "BDY": 17,
+  "APT": 2,
+  "OVS": 20,
+  "GRD": 10,
+  "CST": 10
+ },
+ "expected_count": 129,
+ "retired": {
+  "TRM-01": "2026-10-23 TRM-03 境内の右の区画（園庭）へ統合して廃止。欠番のまま詰めない（#51）"
+ },
+ "_provenance": {
+  "source": "エリア|MAP",
+  "input_sha": "3926d0ef8bc787fb02c7ef8385fb24e42f9d9b5ba88e1aa7588c939895200144",
+  "generated_at": "2026-10-25T18:45",
+  "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
+  "ledger_id": "G-map-ids",
+  "do_not_edit": true
+ }
 }

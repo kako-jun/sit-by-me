@@ -4,6 +4,9 @@
 
 ## 寺町（河岸段丘）
 
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-001 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP仕様.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
+
 | MAP | 時期 | 一言特徴 | 不変条件／接続 | 暫定固定 |
 |---|---|---|---|---|
 | TRM-16 connector | 全時期 | 用水と寺門が交わる斜め道 | 左端←TRM-06.right（住居裏の勝手口の細道から。旧TRM-01接続は#51で廃止。TRM-01自体も2026-10-23に廃止）、右→TRM-15（東）、北→TRM-17 | 画面内で北東へ曲がる（旧「TRM-01から入って」はTBD）。犀川へ向かう出口はtop |
@@ -18,8 +21,12 @@
 | TRM-03 temple-grounds | 全時期 | 親鸞像のある浄土真宗の境内（屋外） | bottom→TRM-07、door-main→TRM-04、event-kiss→BDY-01.event-mouth（園庭でのキス・一方向） | #60/#51。本堂中心・境内から見て左（西）住居・右（東）幼稚園の同じ建物群。**右の区画＝園庭（幼稚園の前。旧TRM-01を2026-10-23に統合。本堂の裏で雪遊びをする私立幼稚園の園庭）**。東の通用門・別マップへの出口なし。住居／遊戯室への屋外door: door-residence→TRM-05.door-outside、door-playroom→TRM-02.door-outside（2026-10-23 kako-jun決定 #144で旧「なし」を置換。境内側の位置は台帳の既定値 TRM-03.a03・端表 TRM-03.door-residence／door-playroom。既定・要確認） |
 | TRM-05 residence | 全時期 | 庫裏の台所と幼馴染の部屋（屋内） | door-hall→中央TRM-04のdoor-west（東壁側・上下の中央より下寄り）、door-outside→TRM-03.door-residence（下辺の中央より左寄りのダイニング側）。2026-10-23 kako-jun決定 #144。TRM-02直結なし | #60/#51。本堂の西（左）。台所は火事イベントの場所。寝室の方針・歩行マスクの値・時期別の画像差し替えは台帳の決定 `TRM-05.bedrooms`・`TRM-05.mask-values`・`TRM.era-variants` が正本（この表には書かない） |
 | TRM-14 slope-top | 立てる時期〜中学生 | 段丘上の分岐、学校側へ向く眺め | TRM-13南↔SCH-01東、車椅子主路はSCH-01側 | 石段と学校坂を混同しない |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-001 -->
 
 ## 香林坊〜武蔵ヶ辻
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-002 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP仕様.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | MAP | 時期 | 一言特徴 | 不変条件／接続 | 暫定固定 |
 |---|---|---|---|---|
@@ -37,20 +44,28 @@
 | TRM-17 | 幼稚園 | 用水と黒瓦を見上げる寺町坂 | TRM-16南→KRB-10北、北上しつつ蛇行して段丘へ | 車椅子主坂 |
 | KRB-12 | 壮年 | 松と石垣で二手に分かれる広坂 | KRB-01西→GRD-01北、KRB-13東のT字 | 封鎖は切替柵 |
 | KRB-11 | 幼稚園〜再訪 | バス屋根と市場アーケードの十字 | KRB-01南→STN-01北／UTS-01東 | 浅野川橋はUTS-01内。アスファルトは灰色の砂、白線は白い砂で表現する。 |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-002 -->
 
 ## 寺町の屋内（追加3枚）
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-003 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP仕様.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | MAP | 時期 | 一言特徴 | 方位・主路・通行条件 | 暫定固定 |
 |---|---|---|---|---|
 | TRM-04 | 全時期 | 仏具の鈍い金と板張りの床が対照になる本堂（屋内） | door-south→TRM-03、door-west→TRM-05.door-hall、door-east→TRM-02.door-west。参拝域は端へ出ない | #60。中央の屋内分岐。住居・幼稚園へ外に出ず移動 |
 | TRM-02 | 幼稚園期・火事後 | 舞台幕と小さな椅子が残る遊戯室（屋内） | door-west→TRM-04.door-east（本堂側＝西から入る。西壁・上下の中央より下寄り v=0.76・幅2人分。台帳の端表 TRM-02.door-west・決定 TRM.entrances）、door-outside→TRM-03.door-playroom（下辺の右端付近。2026-10-23 kako-jun決定 #144）。廊下の奥行きは台帳の既定値 TRM-04.a02（要確認）。舞台袖は画面内終端。TRM-05直結なし | #60/#51。本堂の東（右）。劇の自動イベント用。旧TRM-01園庭（現・TRM-03の右の区画）と同じ幼稚園で、園庭直結は未契約 |
 | TRM-12 | 事故後〜壮年 | 車椅子の回転余地がある県営住宅の団地室 | TRM-11棟入口からドア遷移。玄関→居間→窓際で、段差なし。 | 犀川側・段丘下の生活空間。 |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-003 -->
 
 ## 卯辰山・サニーランド
 
 **現行指定**: 八角形入口1階・2階、雪の森の長い下り渡り廊下2MAP、地下水族館、シャチホコ屋外空間、昭和の屋外動物園、創作の屋外階段、和室宿泊棟が双方向円環。ラッコ館・洞窟は任意の入口出口付き探索。
 
 山は「東岸へ渡る→北へ上る→西へ折返す→再び北東へ上る」の蛇行を固定し、分岐・宝箱脇道・近道を置かない。全て事故後も同行者が押せる幅の緩勾配を主路として残す。
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-004 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP仕様.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | MAP | 時期 | 一言特徴 | 方位・主路・通行条件 | 暫定固定 |
 |---|---|---|---|---|
@@ -66,8 +81,12 @@
 | SNL-06 | 小学生前半 | 小さな屋外空間・巨大シャチホコ | door-aquarium→SNL-05.door-outdoor、door-zoo→SNL-09.door-hub、door-otter-in→SNL-07.door-entry、door-otter-out→SNL-07.door-exit、door-cave-in→SNL-08.door-entry、door-cave-out→SNL-08.door-exit | 水族館出口→屋外動物園。ラッコ館・海底洞窟の入口出口。M008戦は屋外、噴水と断定しない。 pixel/mask/幅TBD |
 | SNL-05 | 小学生前半 | 格子状水槽の地下水族館 | door-corridor→SNL-04.door-aquarium、door-outdoor→SNL-06.door-aquarium | 出口付近にピラルク巨大水槽。壁際にサメ標本・クジラの陰茎標本。展示格子と通行交点は別。 pixel/mask/幅TBD |
 | SNL-03 | 小学生前半 | 下り渡り廊下途中・右側のゲームセンター | door-corridor→SNL-02.door-arcade-right | 右は下降時の進行基準。SNL-02前半への割当はゲーム配置。 pixel/mask/幅TBD |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-004 -->
 
 ## 内灘・内灘線
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-005 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP仕様.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | MAP | 時期 | 一言特徴 | 方位・主路・通行条件 | 暫定固定 |
 |---|---|---|---|---|
@@ -77,18 +96,26 @@
 | UCH-03 | 中学生後半 | クロマツ防砂林を蛇行して登る木道 | UCH-02西から入り、右→左のS字で北へUCH-04。深砂は黒マスク。 | 車椅子木道。 |
 | UCH-04 | 中学生後半 | 海を見下ろす砂丘頂の風車柵 | UCH-03南から北へ上がり、東へ緩く折れてUCH-05南へ下る。頂上枝は画面内で終える。 | 海は画面上。 |
 | UCH-05 | 中学生後半 | 風紋と波打ち際が上側に広がる砂浜 | UCH-04から下側へ入り、上の海は通行不能。横長の締まった砂の帯が主路。 | 風の召喚獣の場。 |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-005 -->
 
 ## 小学校への坂
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-006 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP仕様.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | MAP | 時期 | 一言特徴 | 方位・主路・通行条件 | 暫定固定 |
 |---|---|---|---|---|
 | SCH-01 | 中学生前半 | 雪の手すりに沿って二度曲がる校門前の長坂 | TRM-14の東出口から入り、東へ出た後に南へ蛇行してSCH-02北の校門へ。石段は置かず、連続した緩勾配と除雪帯を確保。 | 寺町段丘の学校側、車椅子主路。 |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-006 -->
 
 ## 奥能登（被災前・被災後）
 
 能登編の場所は奥能登（個別の町は特定しない。飯田・小木・蛸島の特徴を足した実在しない合成の町・駅。kako-jun 2026-10-19）。
 
 同一地点の前後版は、方位・出入口・高低を必ず一致させる。被災後だけ道を増やして地理を変えない。海は常に画面下側。
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-007 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP仕様.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | MAP | 時期 | 一言特徴 | 方位・主路・通行条件 | 暫定固定 |
 |---|---|---|---|---|
@@ -97,7 +124,7 @@
 | NTB-02 | 幼稚園後半 | 海を背に蛇行して上がる漁村坂 | NTB-01北から入り、左→右へ折返しNTB-03南へ。 | 海から離れる上り。 |
 | NTB-03 | 幼稚園後半 | 小祠と畑を抱える尾根の横道 | NTB-02南から入り東のNTB-04へ横断。神社枝は画面内終了。 | 海は下端に遠く見える。 |
 | NTB-04 | 幼稚園後半 | 船揚げ場の屋根へ蛇行して降りる急坂 | NTB-03西から入り、二度曲がり南のNTB-05へ下る。 | 低地への下り。 |
-| NTB-05 | 幼稚園後半 | 黒瓦の実家と海岸道のT字 | NTB-04北から受け、南のNTB-06桟橋へ。西は家の玄関ドア。| 家・海岸の結節。 |
+| NTB-05 | 幼稚園後半 | 黒瓦の実家と海岸道のT字 | NTB-04北から受け、南のNTB-06桟橋へ。西は家の玄関ドア。 | 家・海岸の結節。 |
 | NTB-06 | 幼稚園後半 | テトラポッド脇へ伸びる短い桟橋 | NTB-05北から入り南の先端で終了。海・テトラは通行不可。 | 事故イベント地点。 |
 | NTA-01 | 中学生後半 | 傾いた標識と土砂が残る被災後蛸島駅 | NTB-01と同じ駅出口・線路終端。東の仮設導線からNTA-07へ（被災前はNTB-01東の茂みの小径から廃校の校庭NTB-07へ、#89）。 | NTB-01の被災後版。奥能登鉄道は廃線のため、被災後のこの駅が駅として使われるか、残骸か、別の駅かは要確認。 |
 | NTA-02 | 中学生後半 | 崩れた擁壁を迂回する被災後の上り坂 | NTB-02と同じ南入・北出、折返し位置も同じ。仮設板路が主路。 | NTB-02の被災後版。 |
@@ -108,10 +135,14 @@
 | NTA-07 | 中学生後半 | 給水車と小さな集会所の仮設住宅（廃校の校庭に建つ） | NTA-01東の生活動線から入るL字。集会所ドア以外は行き止まり。被災後の廃校は潰れて入れず、NTB-08への接続は廃止。 | 被災後の安全拠点。潰れた廃校の校庭に作る（#89、kako-jun 2026-10-19）。NTB-07の被災後版。被災前のNTB-01.right→NTB-07.left（茂みの小径）の被災後版がNTA-01東の仮設導線→NTA-07。 |
 | NTB-08 | 幼稚園後半 | 窓が抜けた廃校の雪深い中庭（被災前の廃校） | left←NTB-07.right（校庭から地続き）。校舎入口→中庭→体育館ドアの短い主路、崩落棟は封鎖。 | 被災前の廃校（もともと廃墟）。被災後は潰れて入れないためMAPなし（#89、https://github.com/kako-jun/sit-by-me/issues/89#issuecomment-6258788080）。ID据え置き、時期ラベルを被災前へ変更。画像NTB-08.pngは据え置き。 |
 | SCH-02 | 中学生前半 | 楕円トラックと鉄棒が雪に埋もれる小学校校庭 | SCH-01北から校門へ入り、校舎・体育館はドア遷移。外周柵は閉鎖。 | 段丘の反対側、車椅子可。 |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-007 -->
 
 ## 体内
 
 **体内の左右は身体の本人から見る（本人は仰向けに寝ていて、それを正面から見る構図。画面左側が本人の右手・右足、画面右側が本人の左手・左足。BDY-05=左手などのID名は不変で、変わるのは画面上の方位だけ。心臓は本人の左側＝画面右、肺は画面左。kako-jun 2026-10-22、#142）。** 幼稚園児が想像する現実離れした架空人体の抽象概念。肌色寄りで、写実的な臓器・解剖図・血の表現を避ける。口から上半身・下半身へ入り、頭は上、手は左右斜め上各2MAP、足は左右斜め下各3MAPの一本道。脳は迷路、胃・心臓・肺は単純な分岐室。体内の主路は主人公キャラクター3人が横に並べる幅を基準にする（2026-10-21 kako-jun）。背景共通の手作りジオラマ材は5 mm foamboardの土台と露出するcorrugated cardboard断面、指跡・爪楊枝跡を残すpaper clayの丸い地形、肌色・薄桃・クリーム色のmatte poster paint。赤い折り紙の切片は血痕に見えない工作アクセント、毛糸は通路の縁や造形の継ぎ目に使う。白いPVA接着剤とmasking tapeで固定し、雪用の綿は使わない（材料決定 2026-10-21）。既存の心臓への発火条件を保持し、空間上の枝だけから全枝任意・即座の心臓到達を確定しない。攻略条件・迷路・pixel/maskはTBD。
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-008 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP仕様.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | MAP | 時期 | 一言特徴 | 方位・主路・通行条件 | 暫定固定 |
 |---|---|---|---|---|
@@ -123,10 +154,14 @@
 | BDY-04 | 中3 | 頭・脳の迷路通路 | door-passage-torso→BDY-02.door-passage-head | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。迷路状の通路。通路幅はキャラクター1人分（約77px。模型の天面比0.047）、入口は南辺中央1本、行き止まりの迷路（出口なし）。形の詳細（座標・格子）は verification/body-layout の割付図が正本。pixel/maskはmask作成済み（assets/images/fields/masks/BDY-04-mask.webp。2026-10-23）・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・status は blocked 維持。 【BDY-04 基準状態の画像採用済み（reference。mask作成済み・links作成済み・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-brain-maze-bdy04-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
 | BDY-15 | 中3 | 胃・分岐室 | door-passage-torso→BDY-03.door-passage-stomach | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。分岐なしJ字の1袋（入口は西辺230px→ドーム=胃底→胃体最大460px→幽門130pxで丸く閉じる）。形の詳細（座標・格子）は verification/body-layout の割付図が正本。pixel/maskはmask作成済み（assets/images/fields/masks/BDY-15-mask.webp。2026-10-23）・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・status は blocked 維持。 【BDY-15 基準状態の画像採用済み（reference。mask作成済み・links作成済み・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-stomach-bdy15-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
 | BDY-16 | 中3 | 心臓・分岐室 | door-passage-torso→BDY-02.door-passage-heart | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。丸い4部屋（右心房=画面左上・右心室=左下・左心房=右上・左心室=右下。左右は本人から見る）を四角い環の通路でつなぐ。入口は北辺。形の詳細（座標・格子）は verification/body-layout の割付図が正本。pixel/maskはmask作成済み（assets/images/fields/masks/BDY-16-mask.webp。2026-10-23）・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・status は blocked 維持。 【BDY-16 基準状態の画像採用済み（reference。mask作成済み・links作成済み・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-heart-bdy16-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-008 -->
 
 ## K空港・海外
 
 K空港だけがワープ到達点。そこから飛行機で海外へ出た後は日本へ戻れない。海外も冬であり、黄土色の砂漠・熱帯・青空は使わない。乾いた氷、霜、灰褐色、錆赤、青白い長い影を共通基調にする。
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-009 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP仕様.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | MAP | 時期 | 一言特徴 | 方位・主路・通行条件 | 暫定固定 |
 |---|---|---|---|---|
@@ -144,10 +179,14 @@ K空港だけがワープ到達点。そこから飛行機で海外へ出た後�
 | OVS-14 | 青年後半 | 右塔5階・M016アビリティのみ有効 | door-down→OVS-13.door-up、door-bridge→OVS-15.door-right | 左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | OVS-15 | 青年後半 | 塔間空中通路・シャー判明と雑魚共闘 | door-left→OVS-09.door-bridge、door-right→OVS-14.door-bridge、door-third→OVS-16.door-bridge | 左右塔は5階建て、雑多な増改築・無駄道・袋小路。左右対称・同一階平面反復を避ける。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | OVS-20 | 青年後半 | 脱出第3塔1階・出口直前S005戦 | door-up→OVS-19.door-down | 5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-009 -->
 
 ## 兼六園（最終ダンジョン前半）
 
 兼六園は実在の池・築山・高低差・園路を保ち、8地区の遭遇レイヤーを重ねる自由回遊網。夕方から城の夜へ。接続はv2、地形根拠は調査記録。
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-010 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP仕様.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | MAP | 時期 | 一言特徴 | 方位・主路・通行条件 | 暫定固定 |
 |---|---|---|---|---|
@@ -161,10 +200,14 @@ K空港だけがワープ到達点。そこから飛行機で海外へ出た後�
 | GRD-08 | 壮年 | 山崎山・花見橋側 | top→GRD-07.bottom、bottom→GRD-09.top | 実景地形を維持。池・急段差blocked、通行幅・mask TBD（#45） |
 | GRD-09 | 壮年 | 梅林側の南周回路 | left→GRD-02.right、right→GRD-07.left、top→GRD-08.bottom | 実景地形を維持。池・急段差blocked、通行幅・mask TBD（#45） |
 | GRD-10 | 壮年 | 桂坂口・石川橋 | bottom→GRD-03.top、right→GRD-05.left、top→CST-01.bottom | 実景地形を維持。池・急段差blocked、通行幅・mask TBD（#45） |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-010 -->
 
 ## 金沢城（最終ダンジョン後半）
 
 石川橋はGRD-10北端から城へ。三の丸の西に二の丸、その南の高い本丸。3攻略目標は任意順、最終夜の天守は本丸内の架空上層。
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-011 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP仕様.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | MAP | 時期 | 一言特徴 | 方位・主路・通行条件 | 暫定固定 |
 |---|---|---|---|---|
@@ -178,8 +221,12 @@ K空港だけがワープ到達点。そこから飛行機で海外へ出た後�
 | CST-08 | 壮年 | 鶴の丸・東の丸側 | top→CST-02.bottom、left→CST-09.right | 夜。建物を描く場合はマッチ棒工作、LEDまたは間接照明で壁・建物を光らせる。3攻略目標完了後にCST-09本丸入口を解錠。高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
 | CST-09 | 壮年 | 高い本丸 | left→CST-07.right、right→CST-08.left、door-tower→CST-10.door-base | 夜。建物はマッチ棒工作、LEDまたは間接照明で壁・建物を光らせる。高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
 | CST-10 | 壮年 | 本丸内のイマジナリー天守上層 | door-base→CST-09.door-tower | 夜。天守はマッチ棒工作、LEDまたは間接照明で壁・建物を光らせる。高低差を維持。攻略／門開閉・assist・mask TBD（#45） |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-011 -->
 
 ## 2026-10-18追加ID
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-012 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP仕様.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | MAP | 時期 | 一言特徴 | 接続 | 不変条件／TBD |
 |---|---|---|---|---|
@@ -196,15 +243,23 @@ K空港だけがワープ到達点。そこから飛行機で海外へ出た後�
 | OVS-17 | 青年後半 | 脱出第3塔4階・宝箱と下り階段 | door-up→OVS-16.door-down、door-down→OVS-18.door-up | 5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | OVS-18 | 青年後半 | 脱出第3塔3階・宝箱と下り階段 | door-up→OVS-17.door-down、door-down→OVS-19.door-up | 5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
 | OVS-19 | 青年後半 | 脱出第3塔2階・宝箱と下り階段 | door-up→OVS-18.door-down、door-down→OVS-20.door-up | 5階建て第3塔の下降。各階は攻略塔同程度の面積。宝箱取捨選択、タイマー継続。 幅・pixel/mask・階内経路TBD、画像生成blocked。 |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-012 -->
 
 ## #74追加ID（胴体・肺）
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-013 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP仕様.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | MAP | 時期 | 一言特徴 | 接続 | 不変条件／TBD |
 |---|---|---|---|---|
 | BDY-02 | 中3 | 上半身・胴体上段（最初に契約する体内MAP） | door-passage-mouth→BDY-01.door-passage-torso、door-passage-lower→BDY-03.door-passage-upper、door-passage-head→BDY-04.door-passage-torso、door-passage-left-arm→BDY-05.door-passage-torso、door-passage-right-arm→BDY-07.door-passage-torso、door-passage-heart→BDY-16.door-passage-torso、door-passage-lung→BDY-17.door-passage-torso | 上半身の独立した1MAP。各通路は画像端でなく模型（ジオラマ）の縁の辺まで届き、そこで隣のMAPへ遷移する（土台の板とまわりの机は見えたまま。遷移のトリガー位置は辺上の範囲（レンジ）で指定し、画面端に固定しない。範囲の数値はTBD。接続は辺単位の判定のままで画素一致は条件にしない。kako-jun 2026-10-22）。配置方位は `docs/topology/body.svg` に従う: 口=北東、頭=北、左腕=北東（東辺から出る）、右腕=北西（西辺から出る）、下半身=南、心臓=南東、肺=南西。**左右は身体の本人から見る（本人は仰向け、それを正面から見る構図なので、画面左が本人の右手・右足、画面右が本人の左手・左足。kako-jun 2026-10-22、#142）**。左足・左手は画面右、右足・右手は画面左。心臓は本人の左側で画面右（南東）、肺は画面左（南西）。南辺は 肺=左寄り（BDY-17）・下半身=中央・心臓=右寄り（BDY-16）。心臓BDY-16は北辺から、肺BDY-17は北辺中央から入る（出た辺の反対）。首は広間から1本、上で頭（北）と口（北東）に分岐。口から胴体へ入る首の通路は1本だけで、頭はそこから分かれる北向きの枝。体の外形は描かず、平面の床と低い仕切りだけで通路を作る。心臓・肺の部屋自体はBDY-16/17にあるため描かず、胃への接続も置かない（胃BDY-15は下半身BDY-03から接続）。7接続のみ。幼稚園児が考える架空人体、肌色寄り・非写実・非グロ。全主路・枝はキャラクター3人分程度の幅。材料は体内共通仕様。 【BDY-02 新版（首1本・左右は本人から見る）の基準状態の画像採用済み（reference。mask作成済み・links作成済み・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-upper-torso-bdy02-adopted.webp`、[採用記録](production/20261022-bdy02-adoption.md)）】 【BDY-02 承認済みの逸脱 2026-10-23】首の狭まりがない旧版画像を kako-jun が承認済みの逸脱として採用。契約の首1本・分岐は画像では広い床の塊として現れる（マスクは変更不要。画像が正）。 |
 | BDY-17 | 中3 | 肺・分岐室 | door-passage-torso→BDY-02.door-passage-lung | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。丸い5部屋（右肺3葉=画面左・左肺2葉=画面右）を外周の環で結ぶ。入口は北辺中央、通路幅はキャラクター1人分、行き止まりなし。形の詳細（座標・格子）は verification/body-layout の割付図が正本。pixel/maskはmask作成済み（assets/images/fields/masks/BDY-17-mask.webp。2026-10-23）・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・status は blocked 維持。 【BDY-17 基準状態の画像採用済み（reference。mask作成済み・links作成済み・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-lungs-bdy17-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-013 -->
 
 ## #74追加ボリューム（上半身・下半身／手2／足3）
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-014 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP仕様.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | MAP | 時期 | 一言特徴 | 接続 | 不変条件／TBD |
 |---|---|---|---|---|
@@ -215,8 +270,12 @@ K空港だけがワープ到達点。そこから飛行機で海外へ出た後�
 | BDY-10 | 中3 | 左足通路2・中間 | door-passage-base→BDY-09.door-passage-middle、door-passage-tip→BDY-11.door-passage-base | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・脳内迷路はTBD、mask作成済み（assets/images/fields/masks/BDY-10-mask.webp。2026-10-23）・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・status は blocked 維持。 【BDY-10 基準状態の画像採用済み（reference。mask作成済み・links作成済み・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-left-leg-2-bdy10-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
 | BDY-12 | 中3 | 右足通路1・付け根側 | door-passage-torso→BDY-03.door-passage-right-leg、door-passage-middle→BDY-13.door-passage-base | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・脳内迷路はTBD、mask作成済み（assets/images/fields/masks/BDY-12-mask.webp。2026-10-23）・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・status は blocked 維持。 【BDY-12 基準状態の画像採用済み（reference。mask作成済み・links作成済み・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-right-leg-1-bdy12-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 |
 | BDY-13 | 中3 | 右足通路2・中間 | door-passage-base→BDY-12.door-passage-middle、door-passage-tip→BDY-14.door-passage-base | 上半身/下半身の胴体縦2MAP、手各2MAP、足各3MAP。幼稚園児の架空人体・非写実・肌色寄り。通行幅・脳内迷路はTBD、mask作成済み（assets/images/fields/masks/BDY-13-mask.webp。2026-10-23）・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・status は blocked 維持。 【BDY-13 基準状態の画像採用済み（reference。mask作成済み・links作成済み・第2回red-team済み（mask可。ready は遷移の範囲値・runtime扱いのTBD待ち。BDY-13 の寸法例外・BDY-02 の首の逸脱は kako-jun 承認済み 2026-10-23）・runtime切替なし。kako-jun 2026-10-22。`assets/images/fields/reference/body-right-leg-2-bdy13-adopted.webp`、[採用記録](production/20261022-body-maps-adoption.md)）】 【BDY-13 承認 2026-10-23】寸法 1672x940 は kako-jun が例外承認（寸法ゲートは 1672x941。比率差0.1%）。 |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-014 -->
 
 ## #87/#89追加ID
+
+<!-- GENERATED:BEGIN MAP-SOURCE MAP-VIEW-015 -->
+> YAML生成ビュー（手編集禁止）。正本: `docs/ledger/MAP仕様.yaml`。再生成: `uv run python3 scripts/build_ledger.py build`。
 
 | MAP | 時期 | 一言特徴 | 接続 | 不変条件／TBD |
 |---|---|---|---|---|
@@ -224,3 +283,4 @@ K空港だけがワープ到達点。そこから飛行機で海外へ出た後�
 | KRB-03 | 幼稚園・壮年 | デパート2階（隠し階） | door-elevator（階選択遷移。通らなくても本筋は成立） | 詳細は香林坊〜武蔵ヶ辻の表のKRB-03行を正とする（二重管理を避け、ここは索引のみ）。 |
 | KRB-05 | 壮年（ラスボス付近） | デパート4階（隠し階・条件つき） | door-elevator（階選択遷移。4階は条件つき） | 詳細は香林坊〜武蔵ヶ辻の表のKRB-05行を正とする（二重管理を避け、ここは索引のみ）。 |
 | NTB-07 | 幼稚園後半 | 廃校の校庭（被災前）。NTA-07の被災前版（仮設住宅が建つ前） | left←NTB-01.right（茂みの小径の暫定入口）、right→NTB-08.left | 校庭側の見た目、勝手口等の扉（TRM-06同様）、茂みの見せ方（画面端／獣道）、入口がNTB-01でよいか（比較はmap-topology.md参照）、校庭↔NTB-08は地続きの屋外としてNTB-07.right↔NTB-08.left（辺の選択理由はmap-topology.md）。画像生成blocked。 |
+<!-- GENERATED:END MAP-SOURCE MAP-VIEW-015 -->

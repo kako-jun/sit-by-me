@@ -10,6 +10,8 @@
 #   ruby scripts/audit_issue_decisions.rb --write               # Issue点検.yaml を更新（【手動】と書いた行の分類は保つ）
 #   ruby scripts/audit_issue_decisions.rb --list 未反映(要取込み)  # 分類ごとの一覧
 #   ruby scripts/audit_issue_decisions.rb --check-quotes [--from-json F]  # 決定.逐語の各引用が 出典URL（; 区切り複数）のコメント本文に実在するか検査（違反があれば exit 1）
+#   ruby scripts/audit_issue_decisions.rb --check-sources [--from-json F] # 全実Issueの出典・ハッシュ・命題リンクを検査
+#   ruby scripts/audit_issue_decisions.rb --check-sources --require-reviewed # 全命題の意味判定完了も要求（未判定があれば exit 1）
 #   LEDGER_ROOT=/path/to/root ...                               # root 差し替え（テスト用）
 #
 # 候補のヒューリスティック（README: tools/README.md にも同文）:
@@ -24,6 +26,7 @@
 #   決定でない         先頭の見出しが 結果|これからやること|実施記録|進捗|完了|再開|棚卸し 等の作業記録で、逐語の引用が1つも無い
 #   未反映(要取込み)   上のどれでもない（逐語ありの発言だけが決定表へ取り込む根拠になる。備考に逐語あり/なしを書く）
 require 'json'
+require 'digest'
 require 'open3'
 require 'set'
 require 'shellwords'
@@ -237,6 +240,69 @@ def write_table(rows, root)
   merged.size
 end
 
+# Issue点検の候補ヒューリスティックとは独立した、全実Issueの出典網羅検査。
+# PASS は出典の保存と構造的なリンクだけを意味し、各節の意味判定の完了を意味しない。
+def check_source_coverage(data, require_reviewed: false)
+  issues = data['issues'].to_h { |issue| [issue['number'].to_s, issue] }
+  originals = data['issues'].reject { |issue| issue['pull_request'] }.map do |issue|
+    [issue['html_url'], issue['body'].to_s]
+  end
+  originals += data['comments'].filter_map do |comment|
+    number = comment['issue_url'].split('/').last
+    next if issues[number].nil? || issues[number]['pull_request']
+
+    [comment['html_url'], comment['body'].to_s]
+  end
+  expected = originals.to_h
+  sources = LedgerYaml.read('Issue出典')
+  claims = LedgerYaml.read('Issue命題')
+  decisions = LedgerYaml.read('決定').to_h { |d| [d['決定ID'], d] }
+  source_by_url = sources.to_h { |s| [s['URL'], s] }
+  source_by_id = sources.to_h { |s| [s['出典ID'], s] }
+  errors = []
+  errors << "Issue出典.URL に重複あり" unless source_by_url.size == sources.size
+  errors << "Issue出典.出典ID に重複あり" unless source_by_id.size == sources.size
+  (expected.keys - source_by_url.keys).each { |url| errors << "Issue出典に無い: #{url}" }
+  (source_by_url.keys - expected.keys).each { |url| errors << "取得結果に無いIssue出典: #{url}" }
+  expected.each do |url, body|
+    row = source_by_url[url]
+    next unless row
+
+    errors << "Issue出典の原文SHA256が変化: #{url}" unless row['本文SHA256'] == Digest::SHA256.hexdigest(body)
+    errors << "Issue出典の安全化SHA256が不一致: #{url}" unless row['安全化SHA256'] == Digest::SHA256.hexdigest(row['本文'])
+  end
+  claims_by_source = claims.group_by { |claim| claim['出典ID'] }
+  sources.each do |source|
+    errors << "Issue出典に命題行が無い: #{source['出典ID']}" if claims_by_source.fetch(source['出典ID'], []).empty?
+  end
+  claims.each do |claim|
+    source = source_by_id[claim['出典ID']]
+    if source.nil?
+      errors << "Issue命題 #{claim['命題ID']}: 出典IDが無い"
+      next
+    end
+    excerpt = claim['原文抜粋']
+    errors << "Issue命題 #{claim['命題ID']}: 安全化出典に抜粋が無い" unless excerpt.empty? || source['本文'].include?(excerpt)
+    next unless claim['分類'] == '決定反映'
+
+    decision = decisions[claim['決定ID']]
+    if decision.nil?
+      errors << "Issue命題 #{claim['命題ID']}: 決定IDが無い"
+    elsif !decision['出典URL'].split(';').map(&:strip).include?(source['URL'])
+      errors << "Issue命題 #{claim['命題ID']}: 決定の出典URLと一致しない"
+    end
+  end
+  unresolved = claims.count { |claim| claim['分類'] == '要確認' }
+  unreviewed_sources = sources.count { |source| source['点検状態'] != '確認済み' }
+  if require_reviewed && (unresolved.positive? || unreviewed_sources.positive?)
+    errors << "意味判定が未完了: 出典 #{unreviewed_sources} 件・命題 #{unresolved} 件"
+  end
+  errors.first(30).each { |error| warn "FAIL: #{error}" }
+  puts "Issue出典の構造検査: 実Issue #{expected.size} 件、出典表 #{sources.size} 件、命題表 #{claims.size} 件、出典未点検 #{unreviewed_sources} 件、命題要確認 #{unresolved} 件"
+  puts errors.empty? ? 'PASS: 全実Issueの出典保存・ハッシュ・命題リンクは一致（意味判定は別）' : "FAIL: 出典保存・リンク #{errors.size} 件"
+  errors.empty?
+end
+
 if $PROGRAM_NAME == __FILE__
   root = LedgerYaml::ROOT
   arg = ->(flag) { (i = ARGV.index(flag)) && ARGV[i + 1] }
@@ -246,6 +312,9 @@ if $PROGRAM_NAME == __FILE__
     exit 0
   end
   data = (f = arg.call('--from-json')) ? JSON.parse(File.read(f, encoding: 'UTF-8')) : fetch_all
+  if ARGV.include?('--check-sources')
+    exit(check_source_coverage(data, require_reviewed: ARGV.include?('--require-reviewed')) ? 0 : 1)
+  end
   audit = IssueAudit.new(data)
   if ARGV.include?('--check-quotes')
     errors = audit.check_quotes
@@ -271,6 +340,8 @@ if $PROGRAM_NAME == __FILE__
   missing.first(20).each { |r| warn "未点検の候補: Issue ##{r['Issue番号']} #{r['コメントURL']}（自動分類: #{r['分類']}）#{r['候補の要約']}" }
   diff.first(20).each { |r| warn "分類が自動判定と違う: #{r['コメントURL']}（表: #{table[r['コメントURL']]['分類']} / 自動: #{r['分類']}）" }
   warn "未点検の候補 #{missing.size} 件・自動判定と違う分類 #{diff.size} 件・表にあるが候補でなくなった行 #{stale.size} 件" unless missing.empty? && diff.empty?
-  puts missing.empty? && diff.empty? ? 'PASS: Issue点検.yaml は走査結果と一致' : 'FAIL: --write で更新するか、【手動】つきで分類を確定する'
+  actual = table.values.group_by { |r| r['分類'] }.transform_values(&:size)
+  puts "台帳の分類: #{actual.map { |name, count| "#{name}=#{count}" }.join('、')}"
+  puts missing.empty? && diff.empty? ? 'PASS: Issue点検.yaml は候補走査結果と一致（全Issueの意味判定は --check-sources で別途確認）' : 'FAIL: --write で更新するか、【手動】つきで分類を確定する'
   exit(missing.empty? && diff.empty? ? 0 : 1)
 end
