@@ -1,0 +1,17 @@
+{
+  "source_issue": 147,
+  "character_issue": 166,
+  "status": "candidate; visual interpretation, not final historical reproduction",
+  "coordinate_system": "normalized within each cropped WebP; origin at top-left, x right, y down",
+  "handle_anchor": "approximate grip midpoint; adjust visually in shared-transform composites",
+  "alignment_status": "candidate art and reduced-size all-generation slash composite accepted",
+  "weapons": [
+    {"file": "C004-shichishito-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}},
+    {"file": "C004-kinsaku-mei-tetsuken-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}},
+    {"file": "C004-ginzougan-mei-tachi-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}},
+    {"file": "C004-chuuhei-mei-tetsutou-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}},
+    {"file": "C004-shichiseiken-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}}
+  ],
+  "preview": "output/battle-sword-previews/C004-slash-matrix-white.png",
+  "trail_policy": "No ribbon-like curved trail candidates; weapon art contains swords only."
+}
