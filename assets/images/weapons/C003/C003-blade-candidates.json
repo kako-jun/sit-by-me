@@ -4,14 +4,63 @@
   "status": "candidate; visual interpretation, not final historical reproduction",
   "coordinate_system": "normalized within each cropped WebP; origin at top-left, x right, y down",
   "handle_anchor": "approximate grip midpoint; adjust visually in shared-transform composites",
-  "alignment_status": "candidate art accepted; shared pose transforms pending reduced-size composite review",
+  "alignment_status": "candidate art and reduced-size all-generation slash matrix independently reviewed; no clipping or face/wheel obstruction",
   "weapons": [
-    {"file": "C003-nagasone-kotetsu-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}},
-    {"file": "C003-minamoto-kiyomaro-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}},
-    {"file": "C003-suishinshi-masahide-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}},
-    {"file": "C003-izuminokami-kanesada-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}},
-    {"file": "C003-kashu-kiyomitsu-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}}
+    {
+      "file": "C003-nagasone-kotetsu-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.82,
+        "y": 0.82
+      }
+    },
+    {
+      "file": "C003-minamoto-kiyomaro-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.82,
+        "y": 0.82
+      }
+    },
+    {
+      "file": "C003-suishinshi-masahide-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.82,
+        "y": 0.82
+      }
+    },
+    {
+      "file": "C003-izuminokami-kanesada-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.82,
+        "y": 0.82
+      }
+    },
+    {
+      "file": "C003-kashu-kiyomitsu-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.82,
+        "y": 0.82
+      }
+    }
   ],
-  "preview": null,
-  "trail_policy": "No ribbon-like curved trail candidates; weapon art contains swords only."
+  "preview": "output/battle-sword-previews/C003-slash-matrix-white.png",
+  "trail_policy": "No ribbon-like curved trail candidates; weapon art contains swords only.",
+  "dark_preview": "output/battle-sword-previews/C003-slash-matrix-dark.png",
+  "shared_pose_transforms": {
+    "policy": "one reusable sword image per candidate; one transform shared across all standing generations",
+    "layer_order": "character layer, then sword in foreground; no trail layer",
+    "slash": {
+      "rotation_deg": 45,
+      "weapon_height_ratio": 0.52,
+      "handle_target_normalized": {
+        "x": 0.64,
+        "y": 0.48
+      }
+    }
+  },
+  "all_20_candidates_preview": "output/battle-sword-previews/all-20-sword-candidates.png"
 }

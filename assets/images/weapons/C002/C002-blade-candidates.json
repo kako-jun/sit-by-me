@@ -4,14 +4,73 @@
   "status": "candidate; visual interpretation, not final historical reproduction",
   "coordinate_system": "normalized within each cropped WebP; origin at top-left, x right, y down",
   "handle_anchor": "approximate grip midpoint; adjust visually in shared-transform composites",
-  "alignment_status": "candidate art accepted; shared pose transforms pending reduced-size composite review",
+  "alignment_status": "candidate art and reduced-size all-generation slash matrix independently reviewed; no clipping or face/wheel obstruction",
   "weapons": [
-    {"file": "C002-heshikiri-hasebe-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}},
-    {"file": "C002-honebami-toshiro-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}},
-    {"file": "C002-yoshimoto-samonji-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}},
-    {"file": "C002-yamanbagiri-kunihiro-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}},
-    {"file": "C002-muramasa-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}}
+    {
+      "file": "C002-heshikiri-hasebe-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.82,
+        "y": 0.82
+      }
+    },
+    {
+      "file": "C002-honebami-toshiro-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.82,
+        "y": 0.82
+      }
+    },
+    {
+      "file": "C002-yoshimoto-samonji-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.82,
+        "y": 0.82
+      }
+    },
+    {
+      "file": "C002-yamanbagiri-kunihiro-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.82,
+        "y": 0.82
+      }
+    },
+    {
+      "file": "C002-muramasa-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.82,
+        "y": 0.82
+      }
+    }
   ],
-  "preview": null,
-  "trail_policy": "No ribbon-like curved trail candidates; weapon art contains swords only."
+  "preview": "output/battle-sword-previews/C002-slash-matrix-white.png",
+  "trail_policy": "No ribbon-like curved trail candidates; weapon art contains swords only.",
+  "dark_preview": "output/battle-sword-previews/C002-slash-matrix-dark.png",
+  "shared_pose_transforms": {
+    "policy": "one reusable sword image per candidate; transforms are shared across generations, with wheelchair structure separate only for C002",
+    "layer_order": "character layer, then sword in foreground; no trail layer",
+    "slash": {
+      "rotation_deg": 45,
+      "standing": {
+        "weapon_height_ratio": 0.52,
+        "handle_target_normalized": {
+          "x": 0.64,
+          "y": 0.48
+        }
+      },
+      "wheelchair": {
+        "weapon_height_ratio": 0.28,
+        "handle_target_normalized": {
+          "x": 0.32,
+          "y": 0.22
+        },
+        "applies_to": "C002 wheelchair variants only"
+      }
+    }
+  },
+  "all_20_candidates_preview": "output/battle-sword-previews/all-20-sword-candidates.png"
 }

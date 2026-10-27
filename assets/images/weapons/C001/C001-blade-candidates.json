@@ -49,7 +49,7 @@
   "shared_pose_transforms": {
     "policy": "reuse one shared sword image per weapon; apply position transforms by pose structure, never by age",
     "sword_scale": "uniform per pose/structure: 0.72 ready, 0.52 standing slash / 0.42 wheelchair slash, 0.57 special, 0.42 standing step; Onimaru slash override 0.48 standing / 0.42 wheelchair",
-    "layer_order": "weapon foreground over the full character cutout; slash/special trail behind character",
+    "layer_order": "character, then separate sword in foreground; current candidate matrix contains no trail",
     "grip_contact": "approximate hand-near-handle placement; exact finger wrapping is not a requirement",
     "poses": {
       "ready": {
@@ -57,11 +57,11 @@
         "rotation_deg": 0,
         "handle_target": {
           "standing": {
-            "x": 0.40,
+            "x": 0.4,
             "y": 0.38
           },
           "wheelchair": {
-            "x": 0.30,
+            "x": 0.3,
             "y": 0.36
           }
         }
@@ -101,7 +101,9 @@
             },
             "reason": "Longer horizontal projection; shared across generations to keep the full sword tip inside the frame."
           }
-        }
+        },
+        "preview": "output/battle-sword-previews/C001-slash-matrix-white.png",
+        "status": "candidate transform; sword-only matrix independently reviewed across all seven generations and five swords"
       },
       "special": {
         "weapon_anchor": "handle_center_normalized",
@@ -109,7 +111,7 @@
         "handle_target": {
           "standing": {
             "x": 0.53,
-            "y": 0.10
+            "y": 0.1
           },
           "wheelchair": {
             "x": 0.48,
@@ -122,7 +124,7 @@
           "flip_x": true,
           "rotation_deg": 25,
           "handle_target": {
-            "x": 0.70,
+            "x": 0.7,
             "y": 0.38
           }
         },
@@ -161,7 +163,7 @@
         }
       }
     },
-    "preview": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png",
+    "preview": "output/battle-sword-previews/C001-slash-matrix-white.png",
     "follow_up": "After key positions are approved, add swing wind-up and follow-through character poses for smoother animation.",
     "swing_sequence": [
       "ready",
@@ -171,12 +173,12 @@
       "ready"
     ],
     "swing_sequence_preview": "/home/kako-jun/repos/private/freeza/output/C001-swing-all-generations-preview-frames.png",
-    "full_slash_candidate_matrix": "/home/kako-jun/repos/private/freeza/output/C001-all-generations-five-swords-slash-preview.png",
-    "preview_note": "0.52 height and in-between rotations are candidate composition settings; runtime timing and final fit remain open"
+    "full_slash_candidate_matrix": "output/battle-sword-previews/C001-slash-matrix-white.png",
+    "preview_note": "Current slash matrix contains the foreground sword only and no trail layer; white and dark versions cover all seven C001 generations and five sword candidates."
   },
   "structure_transform_comparison": {
-    "status": "revised after left-edge audit; current slash transforms were checked across all seven sets and five sword/trail candidates",
-    "preview": "/home/kako-jun/repos/private/freeza/output/C001-all-generations-five-swords-slash-preview.png",
+    "status": "revised after clipping review; current sword-only matrix checked across all seven sets and five sword candidates",
+    "preview": "output/battle-sword-previews/C001-slash-matrix-white.png",
     "sample_sets": [
       "C001-elementary-character (standing)",
       "C001-midlife-wheelchair"
@@ -195,7 +197,7 @@
         },
         "special": {
           "x": 0.53,
-          "y": 0.10
+          "y": 0.1
         }
       },
       "wheelchair": {
@@ -210,11 +212,11 @@
       }
     },
     "finding": "Wheelchair slash uses a smaller blade and central handle target to keep tips inside; Onimaru receives a shared across-generation rightward offset because its longer tip otherwise clips in standing and wheelchair frames. Grip contact remains approximate.",
-    "trail_layer_order": "trail behind character; weapon in foreground"
+    "trail_layer_order": "No trail in current sword-only matrices."
   },
   "all_generation_preview": {
-    "status": "candidate only; Odenta and gold trail used as visual placeholders",
-    "file": "/home/kako-jun/repos/private/freeza/output/C001-all-generations-shared-weapon-preview.png",
+    "status": "superseded for current sword-only slash review",
+    "file": "output/battle-sword-previews/C001-slash-matrix-white.png",
     "sets": [
       "kindergarten snowwear",
       "kindergarten uniform",
@@ -229,14 +231,15 @@
       "special"
     ],
     "finding": "Standing and wheelchair transforms keep the reusable blade readable across all seven generations at reduced size. Weapon images remain one per sword, shared across generations.",
-    "five_weapon_slash_matrix": "/home/kako-jun/repos/private/freeza/output/C001-all-generations-five-swords-slash-preview.png"
+    "five_weapon_slash_matrix": "output/battle-sword-previews/C001-slash-matrix-white.png",
+    "trail_policy": "No trail overlay; user rejected ribbon-like curved trails."
   },
   "step_pose_transforms": {
     "standing": {
       "weapon": "same reusable sword image; flip horizontally, rotate +25 deg",
       "weapon_height": "about 0.42 × visible character height",
       "handle_target_normalized": {
-        "x": 0.70,
+        "x": 0.7,
         "y": 0.38
       }
     },
@@ -247,5 +250,9 @@
     "preview": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png",
     "status": "candidate, visually checked across all seven C001 sets at reduced size"
   },
-  "all_seven_battle_layers_preview": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png"
+  "all_seven_battle_layers_preview": "/home/kako-jun/repos/private/freeza/output/C001-all-seven-battle-layers-preview.png",
+  "sword_only_preview": "output/battle-sword-previews/C001-slash-matrix-white.png",
+  "sword_only_dark_preview": "output/battle-sword-previews/C001-slash-matrix-dark.png",
+  "trail_policy": "No trail layer in current sword-only preview; broad ribbon-like curved trails are not used.",
+  "all_20_candidates_preview": "output/battle-sword-previews/all-20-sword-candidates.png"
 }
