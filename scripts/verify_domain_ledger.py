@@ -14,7 +14,7 @@ import ledger_flat as F
 def check(require_reviewed=False, from_json=None):
     names = list(L.SCHEMA)[list(L.SCHEMA).index("制作規約"):]
     data = {name: rows(name) for name in names}
-    data.update({name: rows(name) for name in ("エリア", "MAP", "決定", "未決", "素材")})
+    data.update({name: rows(name) for name in ("エリア", "MAP", "決定", "未決", "素材", "素材共有")})
     errors = []
 
     def need(ok, message):
@@ -33,6 +33,19 @@ def check(require_reviewed=False, from_json=None):
             need(all(key), f"{table}: 空の主キー {key}")
             need(key not in seen, f"{table}: 主キー重複 {key}")
             seen.add(key)
+
+    shared_ids = set()
+    shared_pairs = set()
+    for row in data["素材共有"]:
+        ident = row["共有ID"]
+        pair = (row["利用者ID"], row["素材ID"])
+        need(bool(ident), "素材共有: 空の主キー")
+        need(ident not in shared_ids, f"素材共有: 主キー重複 {ident}")
+        shared_ids.add(ident)
+        need(pair not in shared_pairs, f"素材共有: 関係重複 {pair}")
+        shared_pairs.add(pair)
+        need(pair[0] in ids("敵") | ids("召喚獣") | ids("人物"), f"素材共有.利用者ID: {pair[0]} が敵・召喚獣・人物にない")
+        need(pair[1] in ids("素材"), f"素材共有.素材ID: {pair[1]} が素材にない")
 
     def fk(table, column, target, key=None, allow=(), many=False):
         parents = ids(target, key)
@@ -64,10 +77,14 @@ def check(require_reviewed=False, from_json=None):
         ("人物形態", "人物ID", "人物"), ("刀配分案", "人物ID", "人物"),
         ("刀配分案", "刀候補ID", "刀候補"), ("刀能力配分案", "人物ID", "人物"),
         ("刀能力配分案", "刀候補ID", "刀候補"), ("刀能力配分案", "能力候補ID", "能力候補"),
-        ("ジョブ候補", "人物ID", "人物"), ("Issue命題", "出典ID", "Issue出典"),
+        ("ジョブ候補", "人物ID", "人物"),
         ("Issue命題", "決定ID", "決定"), ("Issue命題", "未決ID", "未決"),
     ):
         fk(table, column, target, key="録音ID" if column == "元録音ID" else None, allow=unknown, many=True)
+    for row in data["Issue命題"]:
+        source_id = row["出典ID"].strip()
+        need(bool(source_id) and source_id not in unknown and source_id in ids("Issue出典"),
+             f"Issue命題.出典ID: {row['命題ID']} の出典 {source_id or '(空欄)'} が必須または未登録")
     enemy_ids = ids("敵") | ids("召喚獣")
     for row in data["敵サイズ"]:
         need(row["敵ID"] in enemy_ids, f"敵サイズ: 未登録ID {row['敵ID']}")

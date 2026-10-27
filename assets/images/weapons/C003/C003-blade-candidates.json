@@ -1,0 +1,71 @@
+{
+  "source_issue": 147,
+  "character_issue": 168,
+  "status": "candidate; visual interpretation, not final historical reproduction",
+  "coordinate_system": "normalized within each cropped WebP; origin at top-left, x right, y down",
+  "handle_anchor": "approximate grip midpoint; shared normalized anchor (0.82, 0.82), visually checked in reduced composites",
+  "alignment_status": "revised candidate transforms: all five standing generations and all five sword candidates inspected in white and dark reduced-size matrices; hilt near clasped hands and full blade visible",
+  "weapons": [
+    {
+      "file": "C003-nagasone-kotetsu-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.82,
+        "y": 0.82
+      }
+    },
+    {
+      "file": "C003-minamoto-kiyomaro-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.82,
+        "y": 0.82
+      }
+    },
+    {
+      "file": "C003-suishinshi-masahide-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.82,
+        "y": 0.82
+      }
+    },
+    {
+      "file": "C003-izuminokami-kanesada-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.82,
+        "y": 0.82
+      }
+    },
+    {
+      "file": "C003-kashu-kiyomitsu-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.82,
+        "y": 0.82
+      }
+    }
+  ],
+  "preview": "output/battle-sword-previews/C003-slash-matrix-white.png",
+  "trail_policy": "No ribbon-like curved trail candidates; weapon art contains swords only.",
+  "dark_preview": "output/battle-sword-previews/C003-slash-matrix-dark.png",
+  "shared_pose_transforms": {
+    "policy": "one reusable sword image per candidate; one transform shared across all standing generations",
+    "layer_order": "character layer, then sword in foreground; no trail layer",
+    "slash": {
+      "weapon_anchor": "handle_center_normalized",
+      "rotation_deg": 45,
+      "weapon_height_ratio": 0.48,
+      "handle_target_normalized": {
+        "x": 0.58,
+        "y": 0.53
+      },
+      "layer_order": "character layer, then sword in foreground; no trail layer",
+      "status": "candidate; revised after cross-character visual audit",
+      "preview": "output/battle-sword-previews/C003-slash-matrix-white.png",
+      "dark_preview": "output/battle-sword-previews/C003-slash-matrix-dark.png"
+    }
+  },
+  "all_20_candidates_preview": "output/battle-sword-previews/all-20-sword-candidates.png"
+}

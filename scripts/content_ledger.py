@@ -67,14 +67,9 @@ def applicable_decisions(kind: str, ident: str, related: set[tuple[str, str]] | 
 
 
 def matching_assets(ident: str) -> list[dict[str, str]]:
-    result = []
-    for row in rows("素材"):
-        owners = {ident}
-        if ident in {"M004", "M005"}:
-            owners.add("S006")  # 敵.yaml に同一存在と明記されたラスボス形態
-        if row.get("所有者ID") in owners and row.get("パス"):
-            result.append(row)
-    return result
+    shared_ids = {r["素材ID"] for r in rows("素材共有") if r["利用者ID"] == ident}
+    return [r for r in rows("素材")
+            if r.get("パス") and (r.get("所有者ID") == ident or r["素材ID"] in shared_ids)]
 
 
 def query(kind: str, ident: str, gate: bool = False, form: str = "", size_row: str = "") -> dict:
@@ -84,25 +79,32 @@ def query(kind: str, ident: str, gate: bool = False, form: str = "", size_row: s
         "character": ("人物", "人物ID"),
     }
     table, key = spec[kind]
-    entity = next((row for row in rows(table) if row[key] == ident), None)
-    if entity is None:
+    entities = [row for row in rows(table) if row[key] == ident]
+    if not entities:
         raise ValueError(f"{table} {ident} is absent")
+    entity = entities[0]
     assets = matching_assets(ident)
     result = {"種別": table, "ID": ident, "本体": entity,
               "採用素材": [r for r in assets if r["状態"] == "採用"],
               "採否未照合・参考素材": [r for r in assets if r["状態"] != "採用"],
               "未解決": []}
+    if len(entities) > 1:
+        result["未解決"].append(f"{table}.{key}={ident} の主キーが重複 ({len(entities)}行)")
     for field in ("名称",) if kind != "character" else ("呼称",):
         if not entity.get(field) or candidate(entity[field]):
             result["未解決"].append(f"{field}が未確定")
     if kind in {"enemy", "summon"}:
-        result["サイズ"] = [r for r in rows("敵サイズ") if r["敵ID"] == ident]
+        all_sizes = rows("敵サイズ")
+        result["サイズ"] = [r for r in all_sizes if r["敵ID"] == ident]
         if size_row:
             result["サイズ"] = [r for r in result["サイズ"] if r["サイズ行ID"] == size_row]
             if not result["サイズ"]:
                 result["未解決"].append(f"指定サイズ行 {size_row} は {ident} に存在しない")
         elif len(result["サイズ"]) > 1:
             result["未解決"].append("複数のサイズ行から対象形態を選ぶ必要がある（--size-row）")
+        for key_id in {r["サイズ行ID"] for r in result["サイズ"]}:
+            if sum(r["サイズ行ID"] == key_id for r in all_sizes) > 1:
+                result["未解決"].append(f"敵サイズ.サイズ行ID={key_id} の主キーが重複")
         result["配置"] = [r for r in rows("敵配置") if r.get("敵ID") == ident or r.get("召喚獣ID") == ident]
         result["戦闘パターン案"] = [r for r in rows("戦闘パターン案") if ident in refs(r.get("対象ID", ""))]
         used = {ref for r in result["戦闘パターン案"] for ref in re.findall(r"G\d{3}", r.get("ギミックID", ""))}
@@ -126,7 +128,8 @@ def query(kind: str, ident: str, gate: bool = False, form: str = "", size_row: s
             if grid not in allowed_grids:
                 result["未解決"].append(f"戦闘グリッド種別が語彙外: {r['グリッド種別']}")
     else:
-        result["形態"] = [r for r in rows("人物形態") if r["人物ID"] == ident]
+        all_forms = rows("人物形態")
+        result["形態"] = [r for r in all_forms if r["人物ID"] == ident]
         if form:
             result["形態"] = [r for r in result["形態"] if r["形態ID"] == form]
             if not result["形態"]:
@@ -139,8 +142,24 @@ def query(kind: str, ident: str, gate: bool = False, form: str = "", size_row: s
             result["未解決"].append("複数の人物形態から対象を選ぶ必要がある（--form）")
         if not result["形態"]:
             result["未解決"].append("人物マスター形態が未登録")
+        for key_id in {r["形態ID"] for r in result["形態"]}:
+            if sum(r["形態ID"] == key_id for r in all_forms) > 1:
+                result["未解決"].append(f"人物形態.形態ID={key_id} の主キーが重複")
+        for shape in result["形態"]:
+            permitted = {
+                "年齢": {"ageless", "adult", "elementary", "kindergarten", "midlife", "teen"},
+                "衣装": {"通常", "園服", "時代不変"},
+                "車椅子": {"はい", "いいえ", "なし"},
+            }
+            for field, allowed in permitted.items():
+                value = shape.get(field, "").strip()
+                if not value or candidate(value) or value not in allowed:
+                    result["未解決"].append(f"{shape['形態ID']}.{field}が未確定または語彙外: {value or '(空欄)'}")
+            if shape.get("車椅子") == "なし" and shape.get("年齢") != "ageless":
+                result["未解決"].append(f"{shape['形態ID']}.車椅子=なし は ageless 以外で使えない")
     related = {("素材", r["素材ID"]) for label in ("採用素材", "採否未照合・参考素材") for r in result[label]}
     related |= {("人物形態", r["形態ID"]) for r in result.get("形態", [])}
+    related |= {("敵サイズ", r["サイズ行ID"]) for r in result.get("サイズ", [])}
     result["決定"] = applicable_decisions(kind, ident, related)
     targets = {(table, ident)} | related
     targets |= {("敵サイズ", r["サイズ行ID"]) for r in result.get("サイズ", [])}

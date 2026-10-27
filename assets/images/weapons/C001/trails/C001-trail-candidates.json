@@ -1,0 +1,39 @@
+{
+  "source_issue": 147,
+  "character_issue": 165,
+  "status": "unused legacy candidates; not part of current battle compositions",
+  "coordinate_system": "crop-local, x right, y down",
+  "trails": [
+    {
+      "file": "C001-odenta-mitsuyo-trail-candidate.webp",
+      "status": "unused-legacy",
+      "layer_order": "behind weapon and character",
+      "use": "Do not use in current battle composites; archived after user direction against broad ribbon-like curved trails."
+    },
+    {
+      "file": "C001-juzumaru-tsunetsugu-trail-candidate.webp",
+      "status": "unused-legacy",
+      "layer_order": "behind weapon and character",
+      "use": "Do not use in current battle composites; archived after user direction against broad ribbon-like curved trails."
+    },
+    {
+      "file": "C001-sohaya-no-tsuruki-trail-candidate.webp",
+      "status": "unused-legacy",
+      "layer_order": "behind weapon and character",
+      "use": "Do not use in current battle composites; archived after user direction against broad ribbon-like curved trails."
+    },
+    {
+      "file": "C001-mikazuki-munechika-trail-candidate.webp",
+      "status": "unused-legacy",
+      "layer_order": "behind weapon and character",
+      "use": "Do not use in current battle composites; archived after user direction against broad ribbon-like curved trails."
+    },
+    {
+      "file": "C001-onimaru-kunitsuna-trail-candidate.webp",
+      "status": "unused-legacy",
+      "layer_order": "behind weapon and character",
+      "use": "Do not use in current battle composites; archived after user direction against broad ribbon-like curved trails."
+    }
+  ],
+  "decision": "Per user direction, omit ribbon-like curved trails. Keep these files archived but do not compose them."
+}

@@ -1,0 +1,258 @@
+{
+  "source_issue": 147,
+  "character_issue": 165,
+  "status": "candidate; visual interpretation, not final historical reproduction",
+  "coordinate_system": "normalized from top-left of each cropped WebP; origin is top-left, x right, y down",
+  "handle_anchor": "approximate handle midpoint for overlay on visible empty grip; adjust visually at target size",
+  "weapons": [
+    {
+      "file": "C001-odenta-mitsuyo-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.846,
+        "y": 0.836
+      }
+    },
+    {
+      "file": "C001-juzumaru-tsunetsugu-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.87,
+        "y": 0.83
+      }
+    },
+    {
+      "file": "C001-sohaya-no-tsuruki-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.89,
+        "y": 0.85
+      }
+    },
+    {
+      "file": "C001-mikazuki-munechika-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.934,
+        "y": 0.853
+      }
+    },
+    {
+      "file": "C001-onimaru-kunitsuna-candidate.webp",
+      "status": "candidate",
+      "handle_center_normalized": {
+        "x": 0.935,
+        "y": 0.87
+      }
+    }
+  ],
+  "shared_pose_transforms": {
+    "policy": "reuse one shared sword image per weapon; apply position transforms by pose structure, never by age",
+    "sword_scale": "uniform per pose/structure: 0.72 ready, 0.52 standing slash / 0.42 wheelchair slash, 0.57 special, 0.42 standing step; Onimaru slash override 0.48 standing / 0.42 wheelchair",
+    "layer_order": "character, then separate sword in foreground; current candidate matrix contains no trail",
+    "grip_contact": "approximate hand-near-handle placement; exact finger wrapping is not a requirement",
+    "poses": {
+      "ready": {
+        "weapon_anchor": "handle_center_normalized",
+        "rotation_deg": 0,
+        "handle_target": {
+          "standing": {
+            "x": 0.4,
+            "y": 0.38
+          },
+          "wheelchair": {
+            "x": 0.3,
+            "y": 0.36
+          }
+        }
+      },
+      "slash": {
+        "weapon_anchor": "handle_center_normalized",
+        "rotation_deg": 45,
+        "handle_target": {
+          "standing": {
+            "x": 0.56,
+            "y": 0.48
+          },
+          "wheelchair": {
+            "x": 0.5,
+            "y": 0.34
+          }
+        },
+        "weapon_height_ratio": {
+          "standing": 0.52,
+          "wheelchair": 0.42
+        },
+        "candidate_overrides": {
+          "C001-onimaru-kunitsuna-candidate.webp": {
+            "weapon_height_ratio": {
+              "standing": 0.48,
+              "wheelchair": 0.42
+            },
+            "handle_target": {
+              "standing": {
+                "x": 0.72,
+                "y": 0.48
+              },
+              "wheelchair": {
+                "x": 0.62,
+                "y": 0.34
+              }
+            },
+            "reason": "Longer horizontal projection; shared across generations to keep the full sword tip inside the frame."
+          }
+        },
+        "preview": "output/battle-sword-previews/C001-slash-matrix-white.png",
+        "status": "candidate transform; sword-only matrix independently reviewed across all seven generations and five swords"
+      },
+      "special": {
+        "weapon_anchor": "handle_center_normalized",
+        "rotation_deg": -20,
+        "handle_target": {
+          "standing": {
+            "x": 0.53,
+            "y": 0.1
+          },
+          "wheelchair": {
+            "x": 0.48,
+            "y": 0.08
+          }
+        }
+      },
+      "step": {
+        "standing": {
+          "flip_x": true,
+          "rotation_deg": 25,
+          "handle_target": {
+            "x": 0.7,
+            "y": 0.38
+          }
+        },
+        "wheelchair": {
+          "weapon": "none; hands stay on pushrims"
+        }
+      },
+      "swing-windup": {
+        "weapon_anchor": "handle_center_normalized",
+        "weapon_height_ratio": 0.52,
+        "rotation_deg": -90,
+        "handle_target": {
+          "standing": {
+            "x": 0.76,
+            "y": 0.25
+          },
+          "wheelchair": {
+            "x": 0.8,
+            "y": 0.26
+          }
+        }
+      },
+      "swing-followthrough": {
+        "weapon_anchor": "handle_center_normalized",
+        "weapon_height_ratio": 0.52,
+        "rotation_deg": 90,
+        "handle_target": {
+          "standing": {
+            "x": 0.22,
+            "y": 0.64
+          },
+          "wheelchair": {
+            "x": 0.28,
+            "y": 0.43
+          }
+        }
+      }
+    },
+    "preview": "output/battle-sword-previews/C001-slash-matrix-white.png",
+    "follow_up": "After key positions are approved, add swing wind-up and follow-through character poses for smoother animation.",
+    "swing_sequence": [
+      "ready",
+      "swing-windup",
+      "slash",
+      "swing-followthrough",
+      "ready"
+    ],
+    "swing_sequence_preview": "redacted local provenance",
+    "full_slash_candidate_matrix": "output/battle-sword-previews/C001-slash-matrix-white.png",
+    "preview_note": "Current slash matrix contains the foreground sword only and no trail layer; white and dark versions cover all seven C001 generations and five sword candidates."
+  },
+  "structure_transform_comparison": {
+    "status": "revised after clipping review; current sword-only matrix checked across all seven sets and five sword candidates",
+    "preview": "output/battle-sword-previews/C001-slash-matrix-white.png",
+    "sample_sets": [
+      "C001-elementary-character (standing)",
+      "C001-midlife-wheelchair"
+    ],
+    "sample_poses": [
+      "slash",
+      "special"
+    ],
+    "coordinate_system": "normalized within visible character cutout after transparent crop; x right, y down",
+    "weapon_height": "0.52 standing / 0.42 wheelchair",
+    "approximate_handle_target_by_structure": {
+      "standing": {
+        "slash": {
+          "x": 0.56,
+          "y": 0.48
+        },
+        "special": {
+          "x": 0.53,
+          "y": 0.1
+        }
+      },
+      "wheelchair": {
+        "slash": {
+          "x": 0.5,
+          "y": 0.34
+        },
+        "special": {
+          "x": 0.48,
+          "y": 0.08
+        }
+      }
+    },
+    "finding": "Wheelchair slash uses a smaller blade and central handle target to keep tips inside; Onimaru receives a shared across-generation rightward offset because its longer tip otherwise clips in standing and wheelchair frames. Grip contact remains approximate.",
+    "trail_layer_order": "No trail in current sword-only matrices."
+  },
+  "all_generation_preview": {
+    "status": "superseded for current sword-only slash review",
+    "file": "output/battle-sword-previews/C001-slash-matrix-white.png",
+    "sets": [
+      "kindergarten snowwear",
+      "kindergarten uniform",
+      "elementary standing",
+      "elementary wheelchair",
+      "teen wheelchair",
+      "adult wheelchair",
+      "midlife wheelchair"
+    ],
+    "poses": [
+      "slash",
+      "special"
+    ],
+    "finding": "Standing and wheelchair transforms keep the reusable blade readable across all seven generations at reduced size. Weapon images remain one per sword, shared across generations.",
+    "five_weapon_slash_matrix": "output/battle-sword-previews/C001-slash-matrix-white.png",
+    "trail_policy": "No trail overlay; user rejected ribbon-like curved trails."
+  },
+  "step_pose_transforms": {
+    "standing": {
+      "weapon": "same reusable sword image; flip horizontally, rotate +25 deg",
+      "weapon_height": "about 0.42 × visible character height",
+      "handle_target_normalized": {
+        "x": 0.7,
+        "y": 0.38
+      }
+    },
+    "wheelchair": {
+      "weapon": "none; hands remain on pushrims",
+      "movement_effect": "C001-movement-streak-candidate.webp behind character near rear wheel"
+    },
+    "preview": "redacted local provenance",
+    "status": "candidate, visually checked across all seven C001 sets at reduced size"
+  },
+  "all_seven_battle_layers_preview": "redacted local provenance",
+  "sword_only_preview": "output/battle-sword-previews/C001-slash-matrix-white.png",
+  "sword_only_dark_preview": "output/battle-sword-previews/C001-slash-matrix-dark.png",
+  "trail_policy": "No trail layer in current sword-only preview; broad ribbon-like curved trails are not used.",
+  "all_20_candidates_preview": "output/battle-sword-previews/all-20-sword-candidates.png"
+}

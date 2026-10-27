@@ -11,9 +11,9 @@ class ContentQueryTests(YamlFixture):
         self.write_table("敵サイズ", [row("敵サイズ", サイズ行ID="SZ-001", 敵ID="M008", グリッド種別="2x2")])
         self.write_table("召喚獣", [row("召喚獣", 召喚獣ID="S001", 名称="召喚獣")])
         self.write_table("人物", [row("人物", 人物ID="C001", 呼称="主人公")])
-        self.write_table("人物形態", [row("人物形態", 形態ID="FORM-002", 人物ID="C001",
+        self.write_table("人物形態", [row("人物形態", 形態ID="FORM-002", 人物ID="C001", 年齢="adult", 衣装="通常", 車椅子="いいえ",
                                          マスターパス="assets/C001-adult.webp"),
-                                      row("人物形態", 形態ID="FORM-001", 人物ID="C001",
+                                      row("人物形態", 形態ID="FORM-001", 人物ID="C001", 年齢="adult", 衣装="通常", 車椅子="はい",
                                           マスターパス="assets/C001-adult-wheelchair.webp")])
         self.write_table("素材", [row("素材", 素材ID="A-001", 所有者ID="C001", 状態="現存（採否未照合）", パス="assets/C001-adult.webp"),
                                 row("素材", 素材ID="A-002", 所有者ID="C001", 状態="採用", パス="assets/C001-adult-wheelchair.webp")])
@@ -113,6 +113,55 @@ class ContentQueryTests(YamlFixture):
         result = self.query("character", "C001", "--form", "FORM-002")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual({d["決定ID"] for d in json.loads(result.stdout)["決定"]}, {"D-form", "D-asset"})
+
+    def test_selected_size_decision_reaches_prompt_without_other_or_withdrawn_sizes(self):
+        self.write_table("敵サイズ", [row("敵サイズ", サイズ行ID="SZ-005", 敵ID="M008", グリッド種別="1x2"),
+                                    row("敵サイズ", サイズ行ID="SZ-006", 敵ID="M008", グリッド種別="2x2")])
+        self.write_table("決定", [row("決定", 決定ID="D-selected", 対象種別="敵サイズ", 対象ID="SZ-005", 状態="有効", 決定の要点="縦長の白いシャチホコ"),
+                                row("決定", 決定ID="D-other-size", 対象種別="敵サイズ", 対象ID="SZ-006", 状態="有効", 決定の要点="別サイズだけの赤い像"),
+                                row("決定", 決定ID="D-withdrawn", 対象種別="敵サイズ", 対象ID="SZ-005", 状態="撤回", 決定の要点="撤回した青い像")])
+        result = self.cli("content_ledger.py", "query", "enemy", "M008", "--gate", "--size-row", "SZ-005")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("縦長の白いシャチホコ", result.stdout)
+        self.assertNotIn("別サイズだけの赤い像", result.stdout)
+        self.assertNotIn("撤回した青い像", result.stdout)
+
+    def test_s008_uses_exact_shared_s001_final_asset_and_its_decision(self):
+        self.write_table("召喚獣", [row("召喚獣", 召喚獣ID="S001", 名称="原型"), row("召喚獣", 召喚獣ID="S008", 名称="水の化身")])
+        self.write_table("敵サイズ", [row("敵サイズ", サイズ行ID="SZ-059", 敵ID="S008", グリッド種別="2x2")])
+        self.write_table("素材", [row("素材", 素材ID="A-550", 所有者ID="S001", パス="assets/images/summons/S001-core.webp", 状態="採用"),
+                                row("素材", 素材ID="A-551", 所有者ID="S001", パス="assets/images/summons/S001.webp", 状態="採用")])
+        self.write_table("素材共有", [row("素材共有", 共有ID="SHARE-001", 利用者ID="S008", 素材ID="A-551", 根拠="同一画像の決定")])
+        self.write_table("決定", [row("決定", 決定ID="D-final", 対象種別="素材", 対象ID="A-551", 状態="有効", 決定の要点="黒いアンモナイトの最終形"),
+                                row("決定", 決定ID="D-core", 対象種別="素材", 対象ID="A-550", 状態="有効", 決定の要点="旧コア版だけ")])
+        result = self.query("summon", "S008")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        facts = json.loads(result.stdout)
+        self.assertEqual([r["素材ID"] for r in facts["採用素材"]], ["A-551"])
+        self.assertEqual([r["決定ID"] for r in facts["決定"]], ["D-final"])
+        self.assertNotIn("S001-core.webp", result.stdout)
+        self.assertFalse((self.root / "assets/images/summons/S008.webp").exists())
+
+    def test_selected_character_form_fields_gate_without_unknown_row(self):
+        for field in ("年齢", "衣装", "車椅子"):
+            for value in ("", "未決(要確認)", "invalid-value"):
+                with self.subTest(field=field, value=value):
+                    self.mutate("人物形態", lambda rows: rows[0].update({field: value}))
+                    self.assert_rejected(self.query("character", "C001", "--form", "FORM-002"), field)
+                    self.mutate("人物形態", lambda rows: rows[0].update({field: {"年齢": "adult", "衣装": "通常", "車椅子": "いいえ"}[field]}))
+        self.assertEqual(self.query("character", "C001", "--form", "FORM-002").returncode, 0)
+
+    def test_duplicate_identity_form_and_size_ids_do_not_select_first_row(self):
+        cases = [("敵", "enemy", "M008", "敵ID", []),
+                 ("敵サイズ", "enemy", "M008", "サイズ行ID", ["--size-row", "SZ-001"]),
+                 ("人物", "character", "C001", "人物ID", ["--form", "FORM-002"]),
+                 ("人物形態", "character", "C001", "形態ID", ["--form", "FORM-002"])]
+        for table, kind, ident, key, arguments in cases:
+            with self.subTest(table=table):
+                original = self.read_table(table)
+                self.write_table(table, original + [original[0].copy()])
+                self.assert_rejected(self.query(kind, ident, *arguments), key)
+                self.write_table(table, original)
 
     def test_candidate_pattern_stays_labelled_as_proposal(self):
         self.write_table("戦闘パターン案", [row("戦闘パターン案", パターンID="P001", 対象ID="M008", 案="試験案", 採用状態="候補・要確認")])

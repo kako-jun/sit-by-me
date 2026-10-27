@@ -69,6 +69,19 @@ class IssueProvenanceTests(YamlFixture):
         self.write_table("Issue命題", [])
         self.assert_rejected(self.verify(), "命題がない出典")
 
+    def test_claim_source_is_required_and_must_resolve_exactly(self):
+        for source in ("", "未決(要確認)", "ISSUE-999-BODY"):
+            with self.subTest(source=source):
+                self.install()
+                self.mutate("Issue命題", lambda rows: rows[0].update(出典ID=source))
+                self.assert_rejected(self.verify(), "Issue命題", "出典ID")
+
+    def test_unknown_map_reference_remains_permitted_with_real_source(self):
+        self.install()
+        self.mutate("Issue命題", lambda rows: rows[0].update(分類="既存台帳参照", 参照先="MAP:未決(要確認)"))
+        result = self.verify()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_orphan_comment_is_rejected(self):
         data = snapshot()
         data["comments"][0]["issue_url"] = "https://api.github.com/repos/kako-jun/sit-by-me/issues/999"
