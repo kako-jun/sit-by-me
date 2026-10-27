@@ -3,8 +3,8 @@
   "character_issue": 166,
   "status": "candidate; visual interpretation, not final historical reproduction",
   "coordinate_system": "normalized within each cropped WebP; origin at top-left, x right, y down",
-  "handle_anchor": "approximate grip midpoint; adjust visually in shared-transform composites",
-  "alignment_status": "candidate art and reduced-size all-generation slash matrix independently reviewed; no clipping or face/wheel obstruction",
+  "handle_anchor": "approximate grip midpoint; shared normalized anchor (0.82, 0.82), visually checked in reduced composites",
+  "alignment_status": "revised candidate transforms: all five standing generations and all five sword candidates inspected in white and dark reduced-size matrices; hilt near clasped hands and full blade visible",
   "weapons": [
     {
       "file": "C004-shichishito-candidate.webp",
@@ -54,12 +54,17 @@
     "policy": "one reusable sword image per candidate; one transform shared across all standing generations",
     "layer_order": "character layer, then sword in foreground; no trail layer",
     "slash": {
+      "weapon_anchor": "handle_center_normalized",
       "rotation_deg": 45,
-      "weapon_height_ratio": 0.52,
+      "weapon_height_ratio": 0.48,
       "handle_target_normalized": {
-        "x": 0.64,
-        "y": 0.48
-      }
+        "x": 0.52,
+        "y": 0.53
+      },
+      "layer_order": "character layer, then sword in foreground; no trail layer",
+      "status": "candidate; revised after cross-character visual audit",
+      "preview": "output/battle-sword-previews/C004-slash-matrix-white.png",
+      "dark_preview": "output/battle-sword-previews/C004-slash-matrix-dark.png"
     }
   },
   "all_20_candidates_preview": "output/battle-sword-previews/all-20-sword-candidates.png"
