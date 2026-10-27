@@ -8,6 +8,7 @@
 
 - Issue との対応は [Issue 対応表](issue-map.md)（docs の決定・候補 ↔ Issue 番号）。Issue 対応表からもここへ戻れる。
 - 台帳の方針（Issue #156）: 日本語キーの YAML（`docs/ledger/<表名>.yaml`）が情報の唯一のマスター。派生 JSON は台帳から導出する。
+- 保存点: [移行再開メモ](ledger/MIGRATION-RESUME.md)、[関連ブランチの捕捉監査](ledger/branch-integration.md)（[パス別証拠](ledger/branch-integration-paths.json)）。監査は捕捉時点の履歴で、ゲーム情報の正本ではない。
 
 ## 台帳（マスター）
 
@@ -19,6 +20,7 @@
 - 領域台帳の検査: [verify_domain_ledger.py](../scripts/verify_domain_ledger.py)、[verify_content_ledger.py](../scripts/verify_content_ledger.py)。`--require-reviewed` はIssueの意味点検が全件終わるまで失敗する。[移行の閉鎖条件](ledger/migration-closure.md) を形式移行の合格と区別する。
 - 敵・人物・BGM・刀の全列ビュー: [コンテンツ](ledger/views/content.md)（[content_ledger_views.py](../scripts/content_ledger_views.py)）。生成入力は [content_ledger.py](../scripts/content_ledger.py) の `query KIND ID --gate`。
 - 領域台帳の回帰検証: [content](../tests/test_content_ledger.py)、[domain](../tests/test_domain_ledger.py)、[Issue provenance](../tests/test_issue_provenance.py)、[typed paths](../tests/test_ledger_typed.py)。
+- 共通fixture: [ledger_test_support.py](../tests/ledger_test_support.py)。PR #157に含まれる制作履歴: [C001歩行セット](operations/notes/20261024-session1157-sit-by-me-c001-field-walk.md)（記載のマージ待ちは当時の状態）。
 - Issueの凍結出典からの再生成: [build_issue_provenance.py](../scripts/build_issue_provenance.py)（`build|check --from-json SNAPSHOT`）。原文と安全化本文のハッシュを区別し、自動抽出を本人の決定と誤認しない。
 - 移行用の一回限りのツール（再実行禁止）: [MAP移行](../.claude/skills/sit-field-background/tools/ledger_map_migrate_once.py)、[体内移行](../.claude/skills/sit-field-background/tools/ledger_body_migrate_once.py)、[コンテンツ移行](../scripts/content_ledger_migrate_once.py)。現行の体内入力は [body_geometry.py](../.claude/skills/sit-field-background/tools/body_geometry.py) がYAMLから読む。
 - 人が読むビュー（台帳から生成。手編集禁止。`ledger_views.py build|check`）: [MAP 一覧](ledger-views/MAP.md)、[建物](ledger-views/建物.md)、[決定](ledger-views/決定.md)、[未決](ledger-views/未決.md)、[採用要素](ledger-views/採用要素.md)、[接続](ledger-views/接続.md)
@@ -75,7 +77,7 @@
 | [建物関係](ledger/建物関係.yaml) | 4 | 建物どうしの関係（渡り廊下で接続など）。 | 通番 / 建物A / 建物B / 関係 / 方角 / 接続端ID / 決定参照 / 特徴(自由記述) |
 | [建物時期差分](ledger/建物時期差分.yaml) | 4 | 建物の時期ごとの差分。 | 建物ID / 時期 / 部位ID / 差分 / 内容 / 決定参照 / 特徴(自由記述) |
 | [端](ledger/端.yaml) | 277 | MAP の端（戸口・開口・縁）。 | 端ID / MAP_ID / 適用時期 / 種別 / 壁 / 壁側 / 面 / 中心 / 沿い範囲 / 相手端 / 幅クラス / 状態 / 通路 / 建物部位ID / 備考 / 決定参照 / 属性JSON / 特徴(自由記述) |
-| [接続](ledger/接続.yaml) | 137 | 端と端の接続。図は ; 区切りで複数の接続図に属せる。属性JSON は {図ID: {辺の出力キー: 値(null=その図では出さない)}} で図ごとの上書きを持つ。 | 端A / 端B / 種別 / 期待 / ラベル / 方角A / 方角B / 外部 / 無効時期 / 図 / 主路・状態 / 決定参照 / 属性JSON / 特徴(自由記述) |
+| [接続](ledger/接続.yaml) | 137 | 端と端の接続。図は ; 区切りで複数の接続図に属せる。属性JSON は {図ID: {辺の出力キー: 値(null=その図では出さない)}} で図ごとの上書きを持つ。 | 端A / 端B / 種別 / 期待 / ラベル / 方角A / 方角B / 外部 / 無効時期 / 図 / 主路・状態 / 出典注記 / 決定参照 / 属性JSON / 特徴(自由記述) |
 | [接続図設定](ledger/接続図設定.yaml) | 223 | 接続図の描画設定（図ID×項目）。 | 図ID / 項目 / 値 / 型 / 決定参照 |
 | [要素](ledger/要素.yaml) | 304 | MAP 内の要素（家具・物・樹木など）。 | MAP_ID / 適用時期 / 要素ID / 種別 / 名称 / 建物部位ID / 見た目 / 決定参照 / 属性JSON / 特徴(自由記述) |
 | [窓](ledger/窓.yaml) | 32 | MAP の壁の窓。 | 窓ID / MAP_ID / 適用時期 / 壁 / 壁側 / 中心 / 幅 / 種別 / 窓台 / 高さ / 状態 / 沿い範囲 / 建物窓列ID / 連番 / 備考 / 決定参照 / 属性JSON / 特徴(自由記述) |
@@ -92,16 +94,16 @@
 | [未決](ledger/未決.yaml) | 1823 | 未決（要確認）の一覧。 | 未決ID / 対象テーブル / 対象ID / キー / 内容 / 状態 / 解決決定ID |
 | [キー別名](ledger/キー別名.yaml) | 20 | 列名・キー名の別名と正規名。 | 正規名 / 別名 / 対象テーブル / 説明 |
 | [Issue点検](ledger/Issue点検.yaml) | 480 | Issue の決定候補と決定表の突合結果（audit_issue_decisions.rb が更新。分類=決定表に反映済み／未反映(要取込み)／決定でない／対象外）。 | Issue番号 / コメントURL / 候補の要約 / 分類 / 決定ID / 備考 |
-| [ファイル配置](ledger/ファイル配置.yaml) | 43 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
+| [ファイル配置](ledger/ファイル配置.yaml) | 46 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
 | [描画定数](ledger/描画定数.yaml) | 28 | 斜めツール（oblique_mock.py・oblique_topology.py）の寸法・視点・幅クラス・窓種別・台座の飾りの位置。コードはここを読む。 | 定数ID / グループ / 値 / 単位 / 説明 / コード内の名前 |
 | [プロンプト文面](ledger/プロンプト文面.yaml) | 144 | imagegen 用プロンプト・接続表・窓一覧・接続図に出る文面（{名前}=変数の差し込み口）。コードは oblique_text.text で読み、文面を直接持たない。 | 文面ID / 区分 / 文面 / 変数 / 使用箇所 / 備考 |
 | [制作規約](ledger/制作規約.yaml) | 8 | 制作規約の台帳。元資料の提案と確定状態を区別して保持する。 | 規約ID / 対象種別 / 対象ID / 区分 / 内容 / 確度 / 根拠 |
 | [図配置](ledger/図配置.yaml) | 129 | MAPの接続模式図上の順序と座標。地理的な実距離ではない。 | 配置ID / エリアID / MAP_ID / 順番 / X / Y / 図ラベル / 備考 |
 | [エリア構造](ledger/エリア構造.yaml) | 16 | area JSON の体内部位分類など、模式図座標では表せない構造値。経路・型・値で保持する。 | 経路 / 型 / 値 / 根拠 |
 | [MAP仕様](ledger/MAP仕様.yaml) | 132 | MAPごとの個別仕様。原表の各行を名前付き列として保持し、MAP行へ重複転記しない。 | 仕様ID / MAP_ID / 原文ID表記 / 節 / 時期 / 一言特徴 / 経路・通行 / 暫定固定 / 原文列名 / 根拠 / 決定参照 / 特徴(自由記述) |
-| [文書ビュー](ledger/文書ビュー.yaml) | 27 | 文書ビューの台帳。元資料の提案と確定状態を区別して保持する。 | ビューID / パス / 元の表 / ヘッダーJSON / 行参照 / 根拠 |
+| [文書ビュー](ledger/文書ビュー.yaml) | 29 | 文書ビューの台帳。元資料の提案と確定状態を区別して保持する。 | ビューID / パス / 元の表 / ヘッダーJSON / 行参照 / 根拠 |
 | [MAP契約](ledger/MAP契約.yaml) | 258 | 旧MAP仕様・契約表の移行先。参考、旧状態、既存素材、通行条件、未決の出典を保持する。 | 契約ID / MAP_ID / 資料区分 / 参照ID / 旧状態 / 画像識別子 / mask・出力 / 具体的TBD / 通行・接続 / 素材状態 / 根拠 / 特徴(自由記述) |
-| [特殊遷移](ledger/特殊遷移.yaml) | 5 | 歩行接続ではない階選択やワープの遷移。未決の端点を推測しない。 | 遷移ID / 種別 / 起点MAP / 到着MAP / 条件 / 状態 / 根拠 / 特徴(自由記述) |
+| [特殊遷移](ledger/特殊遷移.yaml) | 5 | 歩行接続ではない階選択やワープの遷移。未決の端点を推測しない。 | 遷移ID / 種別 / 階 / 起点MAP / 起点端 / 到着MAP / 行先表示 / 条件 / 状態 / 根拠 / 特徴(自由記述) |
 | [体内幾何](ledger/体内幾何.yaml) | 419 | 体内の幾何入力。MAP・変種・経路ごとの型付き値を保ち、モック生成コードはこれを読む。 | 幾何ID / MAP_ID / 変種 / 経路 / 型 / 値 / 確度 / 根拠 / 特徴(自由記述) |
 | [海外進行](ledger/海外進行.yaml) | 165 | 海外三塔の設計状態機械。経路ごとの型付き値からJSONを導出する。 | 経路 / 型 / 値 / 根拠 |
 | [敵](ledger/敵.yaml) | 96 | 敵の台帳。元資料の提案と確定状態を区別して保持する。 | 敵ID / 名称 / 分類 / 登場設定 / 属性 / 弱点・耐性 / 役割 / 遭遇状態 / 画像状態 / 根拠 / 特徴(自由記述) |
@@ -206,10 +208,13 @@
 | asset-field-legacy-masks | 画像正本 | 旧接続の検証専用マスク（可逆WebP） | 許可 | assets/images |
 | asset-field-reference | 画像正本 | 外観参照・採用基準状態（kebab-case・非可逆WebP品質85） | 許可 | assets/images |
 | asset-field-masks | 画像正本 | 体内・寺町（斜め視点）のマスク（mask・edit は可逆、overlay は非可逆。runtime 切替前） | 許可 | assets/images |
-| asset-battle-backgrounds | 画像正本 | 戦闘背景（現存は BG001・BG005） | 許可 | assets/images |
+| asset-battle-backgrounds | 画像正本 | 戦闘背景（現存はBG001。BG005は没・削除） | 許可 | assets/images |
 | asset-brand | 画像正本 | ブランド（暫定の文字ロゴ。svg が正本・png は派生） | 許可 | assets/images |
 | ledger-closure | 監査文書 | Issue #156 の元資料ごとの移行先と未解決ゲート | リンク |  |
 | ledger-content-view | 台帳の生成ビュー | 非MAPコンテンツ24表の検索ビュー | リンク |  |
 | asset-weapons | 画像正本 | 復元した旧刀マスター画像。採用・所有者は未決 | 許可 | assets/images |
+| ledger-branch-audit | 監査文書 | 関連枝の捕捉時点のGit比較・除外理由。ゲーム情報の正本ではない。 | リンク |  |
+| ledger-resume | 監査文書 | WIP再開条件と検証入口 | リンク |  |
+| production-session-note | 制作履歴 | 統合済み制作作業の履歴。台帳の現行採否と区別する。 | リンク |  |
 
 <!-- GENERATED:END ledger-views -->

@@ -4,7 +4,7 @@
 # Read connections and MAP labels from the ledger; layout is schematic, not GPS.
 require 'cgi'
 require_relative 'map_graph'
-ROOT = File.expand_path('..', __dir__)
+ROOT = ENV['LEDGER_ROOT'] || File.expand_path('..', __dir__)
 edges = MapGraph::Graph.new(ROOT).edges.filter_map do |e|
   [e['from'], e['to'], e['kind']] if %w[edge door].include?(e['kind'])
 end

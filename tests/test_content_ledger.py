@@ -1,7 +1,7 @@
 """Generation inputs follow canonical YAML and keep proposals/unknowns explicit."""
 import json
 
-from ledger_test_support import YamlFixture, row
+from tests.ledger_test_support import YamlFixture, row
 
 
 class ContentQueryTests(YamlFixture):

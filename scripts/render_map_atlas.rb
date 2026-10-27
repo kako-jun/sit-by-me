@@ -4,7 +4,7 @@ require 'cgi'
 require 'fileutils'
 require_relative 'map_graph'
 module MapAtlas
-  ROOT=File.expand_path('..',__dir__)
+  ROOT=ENV['LEDGER_ROOT'] || File.expand_path('..',__dir__)
   STYLE='text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;fill:#263f4e}.node{fill:#fff;stroke:#527b69;stroke-width:3}.ref{fill:#fff7eb;stroke:#ad8456;stroke-width:2}.edge{fill:none;stroke:#527b69;stroke-width:3}.door{fill:none;stroke:#a16b42;stroke-width:3;stroke-dasharray:8 5}.event{fill:none;stroke:#ac4871;stroke-width:4;stroke-dasharray:6 5}.oneway{fill:none;stroke:#5262a8;stroke-width:4}.id{font-size:15px;font-weight:bold;text-anchor:middle}.label{font-size:16px;text-anchor:middle;paint-order:stroke;stroke:#fbfdfb;stroke-width:5;stroke-linejoin:round}.note{font-size:16px}.small{font-size:14px}.heading{font-size:25px;font-weight:bold}'
   def self.esc(s); CGI.escapeHTML(s.to_s);end
   def self.header(w,h,title)

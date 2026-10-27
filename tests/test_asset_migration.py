@@ -10,6 +10,7 @@ import tempfile
 import threading
 import unittest
 from urllib.parse import urljoin
+from urllib.error import HTTPError
 from urllib.request import urlopen
 
 
@@ -95,17 +96,26 @@ class AssetMigrationTests(unittest.TestCase):
         origin = f"http://127.0.0.1:{server.server_port}/"
         try:
             fetched = set()
-            for relative in ["assets/images/enemies/M001.webp", "assets/images/battle-backgrounds/BG005.webp",
+            for relative in ["assets/images/enemies/M001.webp",
                              "assets/images/battle-backgrounds/BG001.webp"]:
                 with urlopen(urljoin(origin, relative)) as response:
                     self.assertEqual(response.status, 200)
-                    body = response.read(12)
+                    body = response.read()
                     self.assertEqual((body[:4], body[8:12]), (b"RIFF", b"WEBP"), relative)
                 fetched.add(relative)
+            # BG005 was explicitly retired after the original migration. Its
+            # tombstone remains auditable, while the live HTTP path is gone.
+            retired = "assets/images/battle-backgrounds/BG005.webp"
+            tombstone = [row for row in self.rows if row.get("pruned_path") == retired]
+            self.assertEqual(len(tombstone), 1)
+            self.assertEqual((tombstone[0]["action"], tombstone[0]["new"]), ("delete", None))
+            with self.assertRaises(HTTPError) as response:
+                urlopen(urljoin(origin, retired))
+            self.assertEqual(response.exception.code, 404)
             legacy = sorted((ROOT / "assets/images/fields/legacy").glob("*.webp"))
             self.assertTrue(legacy)
             with urlopen(urljoin(origin, legacy[0].relative_to(ROOT).as_posix())) as response:
-                body = response.read(12)
+                body = response.read()
                 self.assertEqual((body[:4], body[8:12]), (b"RIFF", b"WEBP"))
         finally:
             server.shutdown()

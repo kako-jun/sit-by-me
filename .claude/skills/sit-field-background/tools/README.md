@@ -120,6 +120,8 @@ Issue 本文・コメントから『kako-jun の決定』と読める候補を�
 
 唯一のマスターは `docs/ledger/*.yaml`。全派生物はリポ直下で `uv run python3 scripts/build_ledger.py build`、鮮度は同コマンドの `check` で検査する。MAP・エリア・海外進行のJSON、歴史的素材移行manifest、BGM CSV、コンテンツ全列ビュー、元MAP文書の互換表、6種のMAPビューとINDEXを順に更新する。旧MAP文書の生成ブロックは手で直さない。根拠の `doc:line` は移行前の行番号で、現在の行番号ではない。
 
+端の必須項目は種別で分ける。戸口・開口・抽象通路には壁側を要求する。`イベント`・`移動` は物語イベントや一方向の到着を表す論理的な端点なので、背景の壁側を生成ゲートの必須条件にはしない。到着位置などの未決はそのまま保持し、方角を推測して埋めない。
+
 `uv run python3 scripts/verify_domain_ledger.py` は領域別の主キー・FK・型付き経路・Issue出典と命題の構造を検査する。凍結APIとの完全一致は `--from-json SNAPSHOT`、意味点検の完了は `--require-reviewed` で別に検査する。構造が通っても、自動抽出・要確認の出典が残る限り意味点検は未完了。
 
 敵・召喚獣・人物の入力は `uv run python3 scripts/content_ledger.py query enemy M008 --gate` のように取得する。人物形態は `--form FORM-...`、複数サイズは `--size-row SZ-...` が必要。候補ID、非遭遇ID、不正なグリッド、対象の未決はゲートで停止する。体内promptも必須キーを先に検査し、MAP仕様・契約・幾何・制作規約をYAMLから束ねる。Issueは凍結出典の引用来歴として扱い、設計を二重管理しない。

@@ -1,7 +1,7 @@
 """Typed cells must retain JSON meanings and reject ambiguous paths."""
 import unittest
 
-from ledger_test_support import TOOLS
+from tests.ledger_test_support import TOOLS
 import ledger_flat as F
 
 

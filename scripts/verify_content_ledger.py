@@ -111,8 +111,8 @@ def check() -> None:
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     assert manifest == manifest_payload(), "derived asset manifest differs from YAML"
     actions = Counter(r["操作"] for r in data["素材移行"])
-    assert actions == {"move": 433, "delete": 279}, actions
-    assert sum(bool(r["剪定パス"]) for r in data["素材移行"]) == 132
+    assert actions == {"move": 432, "delete": 280}, actions
+    assert sum(bool(r["剪定パス"]) for r in data["素材移行"]) == 133
     print(f"PASS: {len(EXPECTED)} content tables; {len(assets)} assets ({len(present)} present, {len(restored)} restored weapon records); {len(data['素材移行'])} migration entries")
 
 

@@ -1,4 +1,6 @@
-# 表: 素材移行。移行後はこの YAML が正本。全値は文字列。
+# 表: 素材移行 — 旧素材の移動・削除・剪定先を監査可能な行で保持し、manifest JSONを導出する。
+# 列: 旧パス / 新パス / 操作 / 理由 / sha256 / 剪定パス
+# 全スカラーは文字列（引用符つき）。空欄は ""。複数行は |- ブロック。
 - "旧パス": "assets/characters/masters/nam-adult-wheelchair.png"
   "新パス": "assets/images/characters/C002/masters/C002-adult-wheelchair.webp"
   "操作": "move"
@@ -2694,11 +2696,11 @@
   "sha256": "ecef48982e7e90959e0ffa38b0712dc9a22e46206cb3370e8b1452469d6bfbf8"
   "剪定パス": "assets/images/battle-backgrounds/BG004.png"
 - "旧パス": "sample/battle/backgrounds/stage-b.png"
-  "新パス": "assets/images/battle-backgrounds/BG005.webp"
-  "操作": "move"
-  "理由": "Existing verification asset; BG005 adopted stage-b and BG001 camera reference preserved."
+  "新パス": ""
+  "操作": "delete"
+  "理由": "Retired per 19ab92a (2026-10-21): BG005 rejected; no current theatre background selected. Earlier migration: Existing verification asset; BG005 adopted stage-b and BG001 camera reference preserved."
   "sha256": "1aa39413de86a3350182b18f22af369cc43f1fcdde3c0e0923208f5c97afca13"
-  "剪定パス": ""
+  "剪定パス": "assets/images/battle-backgrounds/BG005.webp"
 - "旧パス": "sample/battle/backgrounds/stage-c.png"
   "新パス": ""
   "操作": "delete"

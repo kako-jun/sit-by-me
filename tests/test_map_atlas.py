@@ -4,9 +4,9 @@ import json
 import subprocess
 import unittest
 import xml.etree.ElementTree as ET
-from ledger_test_support import environment
+from tests.ledger_test_support import environment
 
-import test_map_topology as topology_tests
+from tests import test_map_topology as topology_tests
 
 
 class MapAtlasTests(topology_tests.MapTopologyFixture):

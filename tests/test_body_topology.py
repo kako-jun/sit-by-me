@@ -2,7 +2,7 @@
 import json
 import unittest
 
-import test_map_topology as topology_tests
+from tests import test_map_topology as topology_tests
 
 
 BODY = {f"BDY-{n:02}" for n in range(1, 18)}

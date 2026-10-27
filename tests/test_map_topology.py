@@ -1,14 +1,13 @@
 """Exercise the real ledger CLI against isolated, semantically mutated inputs."""
 import hashlib
 import json
-import os
 from pathlib import Path
 import shutil
 import subprocess
 import tempfile
 import unittest
 import xml.etree.ElementTree as ET
-from ledger_test_support import TOOLS, L, environment
+from tests.ledger_test_support import L, environment
 import ledger_flat as F
 import ledger_build as B
 
@@ -94,6 +93,17 @@ class MapTopologyFixture(unittest.TestCase):
             value.update(zip(("端A", "端B", "種別", "主路・状態"), cells))
             self.sync_connections(values)
             return
+        values = self.yaml_rows("特殊遷移")
+        columns = ("階", "起点MAP", "起点端", "行先表示", "条件")
+        for value in values:
+            old = "| " + " | ".join(value[k] for k in columns) + " |"
+            if before in old:
+                changed = old.replace(before, after, 1)
+                cells = [v.strip() for v in changed.strip().strip("|").split("|")]
+                self.assertEqual(len(cells), len(columns))
+                value.update(zip(columns, cells))
+                self.write_yaml("特殊遷移", values)
+                return
         self.edit("map-topology.md", before, after)
 
     def append_connection(self, line):
@@ -108,6 +118,17 @@ class MapTopologyFixture(unittest.TestCase):
             result = subprocess.run(["ruby", str(ROOT / "scripts" / script)],
                                     cwd=self.root, env=environment(self.root), capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
+
+    def reject_sunny_contract(self, *diagnostics):
+        # The renderer now reads canonical YAML and rejects invalid topology
+        # itself. Also require the verifier to identify the broken domain fact,
+        # so a stale diagram alone cannot make this mutation test pass.
+        self.refresh_source_views()
+        result = subprocess.run(["ruby", str(ROOT / "scripts/render_sunnyland_topology.rb")],
+                                cwd=self.root, env=environment(self.root), capture_output=True, text=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("sunnyland connection ledger mismatch", result.stderr)
+        self.reject(*diagnostics)
 
     def remove_connection(self, prefix):
         values = self.yaml_rows("接続")
@@ -127,6 +148,11 @@ class MapTopologyFixture(unittest.TestCase):
         values = json.loads((self.root / "docs/topology/areas.json").read_text())
         mutate(values)
         original = self.yaml_rows("図配置")
+        areas = self.yaml_rows("エリア")
+        self.assertEqual(len(areas), len(values["areas"]))
+        for source, selected in zip(areas, values["areas"]):
+            source.update(エリアID=selected["id"], 名称=selected["name"])
+        self.write_yaml("エリア", areas)
         placements = []
         for area in values["areas"]:
             for index, ident in enumerate(area["maps"], 1):
@@ -137,7 +163,7 @@ class MapTopologyFixture(unittest.TestCase):
                             順番=str(index), X=str(xy[0]), Y=str(xy[1]))
                 placements.append(item)
         self.write_yaml("図配置", placements)
-        structure = {k: v for k, v in values.items() if k not in ("areas", "schema_version")}
+        structure = {k: v for k, v in values.items() if k not in ("areas", "schema_version", "_provenance")}
         self.write_yaml("エリア構造", [dict(経路=p, 型=t, 値=v, 根拠="fixture") for p, v, t in F.flatten(structure)])
         tables = {name: self.yaml_rows(name) for name in ("エリア", "図配置", "エリア構造")}
         (self.root / "docs/topology/areas.json").write_text(json.dumps(B.build_areas(tables), ensure_ascii=False))
@@ -232,8 +258,8 @@ class MapTopologyTests(MapTopologyFixture):
         self.reject("種別")
 
     def test_missing_door_identifier_rejected(self):
-        self.topology("| TRM-04.door-west | TRM-05.door-hall | door |",
-                      "| TRM-04. | TRM-05.door-hall | door |")
+        row = self.pair_row("TRM-04", "TRM-05")
+        self.topology(row, row.replace("TRM-04.door-west", "TRM-04."))
         self.reject()
 
     def test_reused_door_endpoint_rejected(self):
@@ -318,13 +344,11 @@ class MapTopologyTests(MapTopologyFixture):
 
     def test_sunny_aquarium_ring_route_is_required(self):
         self.remove_pair("SNL-04", "SNL-05")
-        self.render()
-        self.reject()
+        self.reject_sunny_contract("サニーランド円環", "SNL-04", "SNL-05")
 
     def test_sunny_hotel_ring_route_is_required(self):
         self.remove_pair("SNL-12", "SNL-11")
-        self.render()
-        self.reject()
+        self.reject_sunny_contract("サニーランド円環", "SNL-11", "SNL-12")
 
     def test_pending_requires_utf8_reason(self):
         self.append_connection("| TRM-03.door-future | TRM-06.door-future | pending |  |")
@@ -332,18 +356,15 @@ class MapTopologyTests(MapTopologyFixture):
 
     def test_optional_otter_has_two_distinct_ports(self):
         self.remove_pair("SNL-06", "SNL-07")
-        self.render()
-        self.reject()
+        self.reject_sunny_contract("任意施設の入口出口", "SNL-07")
 
     def test_optional_cave_has_two_distinct_ports(self):
         self.remove_pair("SNL-06", "SNL-08")
-        self.render()
-        self.reject()
+        self.reject_sunny_contract("任意施設の入口出口", "SNL-08")
 
     def test_optional_otter_three_doors_rejected(self):
         self.append_connection("| SNL-06.door-extra | SNL-07.door-extra | door | 任意館の余分な扉 |")
-        self.render()
-        self.reject()
+        self.reject_sunny_contract("任意施設の入口出口", "SNL-07")
 
     def test_expanded_id_set_is_exact(self):
         for name in ("map-contract-checklist.md", "map-asset-registry.md"):

@@ -5,7 +5,7 @@ import json
 import sys
 from unittest.mock import patch
 
-from ledger_test_support import ROOT, YamlFixture
+from tests.ledger_test_support import ROOT, YamlFixture
 sys.path.insert(0, str(ROOT / "scripts"))
 import build_issue_provenance as P
 

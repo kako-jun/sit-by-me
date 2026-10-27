@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 require 'cgi'
 require_relative 'ledger_yaml'
-root = File.expand_path('..', __dir__)
+root = ENV['LEDGER_ROOT'] || File.expand_path('..', __dir__)
 
 maps = LedgerYaml.read('MAP').select { |row| row['エリアID'] == 'sunnyland' }
 map_ids = maps.map { |row| row['MAP_ID'] }

@@ -3,7 +3,7 @@
 # Body-only Phase A visual. Full-area atlas generation is a separate phase.
 require 'cgi'
 require_relative 'map_graph'
-root=File.expand_path('..',__dir__)
+root=ENV['LEDGER_ROOT'] || File.expand_path('..',__dir__)
 graph=MapGraph::Graph.new(root)
 area=graph.areas.find { |a| a['id']=='body' }
 edges=graph.incident(area).map { |e| e.values_at('from','from_port','to','to_port','kind') }
