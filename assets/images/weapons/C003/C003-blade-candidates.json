@@ -1,0 +1,17 @@
+{
+  "source_issue": 147,
+  "character_issue": 168,
+  "status": "candidate; visual interpretation, not final historical reproduction",
+  "coordinate_system": "normalized within each cropped WebP; origin at top-left, x right, y down",
+  "handle_anchor": "approximate grip midpoint; adjust visually in shared-transform composites",
+  "alignment_status": "candidate art accepted; shared pose transforms pending reduced-size composite review",
+  "weapons": [
+    {"file": "C003-nagasone-kotetsu-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}},
+    {"file": "C003-minamoto-kiyomaro-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}},
+    {"file": "C003-suishinshi-masahide-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}},
+    {"file": "C003-izuminokami-kanesada-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}},
+    {"file": "C003-kashu-kiyomitsu-candidate.webp", "status": "candidate", "handle_center_normalized": {"x": 0.82, "y": 0.82}}
+  ],
+  "preview": null,
+  "trail_policy": "No ribbon-like curved trail candidates; weapon art contains swords only."
+}
