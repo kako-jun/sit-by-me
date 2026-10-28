@@ -10,6 +10,8 @@
 
 特定の C 管理IDを持たない人物（フィールドの汎用モブNPCなど）の採用素材は `assets/images/characters/shared/` に置く（採用名に `-v数字` は付けない。候補は `shared/candidates/`）。例: `anonymous-elder-woman.webp`（杖を持つ高齢の女性の正面全身、2026-10-28 採用、台帳 A-1054、[#170](https://github.com/kako-jun/sit-by-me/issues/170)）。切り抜き（アルファ16以上の bbox・非可逆WebP品質85・アルファ保持）のみでアクスタ処理は未適用。フィールドへ出す前に「人物アクスタ統一」の処理を掛ける。
 
+フィールドのモブ（汎用NPC）の法則は決定 `SIT.field-mob-era-rule`・`SIT.field-mob-kappa-boy` を正本とし、ここには再掲しない。置き場の運用: `anonymous-elder-woman.webp`（A-1054）は大人時代用、`anonymous-kid-girl-short.webp`（A-1055）は子供時代用（中身が分からない中立名。アクスタ処理は未適用）。追加の種類・人数・絵の方針は未決（U-1839〜U-1841）。
+
 ## 生成画像の方針
 
 人物、物、敵、召喚獣、マップは**実写っぽい生成画像**で作る。**背景だけは、実写に似せず、デフォルメされたジオラマ（模型）と分かる質感とサイズ感**にする（2026-10-14。art-direction.md）。実写素材・ストック素材との選択は行わない。人物は実在人物を参照せず、普通の人間の頭身にする。
