@@ -291,7 +291,9 @@ def check_source_coverage(data, require_reviewed: false)
     next unless claim['分類'] == '決定反映'
 
     # 決定IDは ';' 区切りで複数指定できる（節に複数の決定が混在する場合）。各IDを個別に検査する
-    claim['決定ID'].split(';').map(&:strip).reject(&:empty?).each do |decision_id|
+    decision_ids = claim['決定ID'].split(';').map(&:strip).reject(&:empty?)
+    errors << "Issue命題 #{claim['命題ID']}: 決定IDが無い（決定反映なのに決定IDが空）" if decision_ids.empty?
+    decision_ids.each do |decision_id|
       decision = decisions[decision_id]
       if decision.nil?
         errors << "Issue命題 #{claim['命題ID']}: 決定IDが無い（#{decision_id}）"
