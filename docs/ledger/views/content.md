@@ -681,7 +681,7 @@ uv run python3 scripts/content_ledger_views.py build で更新する。
 | FORM-030 | C004 | teen | 通常 | いいえ | assets/images/characters/C004/masters/C004-teen.webp | 現存（採否は原文参照） | docs/assets-policy.md; assets/images/characters |
 | FORM-031 | C009 | ageless | 時代不変 | なし | assets/images/characters/C009/masters/C009-ageless.webp | 現存（採否未照合） | git 3c9f9e9e611caf988c48de59b7adf73d182441c1:docs/assets-policy.md; raw-image reviewはゲーム内採用の承認と区別する。 |
 
-### 素材 (1050件)
+### 素材 (1054件)
 
 正本: [素材.yaml](../素材.yaml)
 
@@ -1737,6 +1737,10 @@ uv run python3 scripts/content_ledger_views.py build で更新する。
 | A-1048 | C004 | 刀候補 | assets/images/weapons/C004/C004-kinsaku-mei-tetsuken-candidate.webp | 現存（採否未照合） | 2026-10-27 | 上流 d469045 の現存ファイル。出典: assets/images/weapons/C004/C004-blade-candidates.json。採用判定は出典の明示範囲に限る。 | 2c80f17623621ae92499b48139338e4f75edc4e7cb6f2c3dcda74453c12c71cd |  |
 | A-1049 | C004 | 刀候補 | assets/images/weapons/C004/C004-shichiseiken-candidate.webp | 現存（採否未照合） | 2026-10-27 | 上流 d469045 の現存ファイル。出典: assets/images/weapons/C004/C004-blade-candidates.json。採用判定は出典の明示範囲に限る。 | 63b0db2325f93fd7494190e3ccf0a5b4bb3a8c89dc9d46c52c38beacc3dcc04e |  |
 | A-1050 | C004 | 刀候補 | assets/images/weapons/C004/C004-shichishito-candidate.webp | 現存（採否未照合） | 2026-10-27 | 上流 d469045 の現存ファイル。出典: assets/images/weapons/C004/C004-blade-candidates.json。採用判定は出典の明示範囲に限る。 | b5bc420382bbd2869c99f216e70213c5df1d158611a29667a8ca8f2497bc7d0d |  |
+| A-1051 | 未決(要確認) | フィールド感情吹き出し | assets/images/effects/field-emotion/field-emotion-exclaim.png | 採用 | 2026-10-28 | 赤い「！」の角張ったピクセル風吹き出し（白地・黒枠・灰色の影・尾付き）。gpt-image-2 で生成した試作（透過RGBA PNG 1254x1254）を、アルファ16以上のbboxで切り抜き、長辺240pxへ最近傍法で縮小し256x256の透明正方形キャンバスへ中央寄せ。kako-jun 採用（2026-10-28「これでいい」）。Issue #170、docs/field-emotion-registry.md。 | eb886e897cc4d5160198860a2220835c80cd8f14b1e262e62787f45f477b35fb |  |
+| A-1052 | 未決(要確認) | フィールド感情吹き出し | assets/images/effects/field-emotion/field-emotion-question.png | 採用 | 2026-10-28 | 青い「？」の同系統の吹き出し。gpt-image-2 で生成した試作（透過RGBA PNG 1254x1254）を、アルファ16以上のbboxで切り抜き、長辺240pxへ最近傍法で縮小し256x256の透明正方形キャンバスへ中央寄せ。kako-jun 採用（2026-10-28「これでいい」）。Issue #170、docs/field-emotion-registry.md。 | 7659e16f02c761a67598a18c343f6ea6533ab9c98e87b52dcfda29a5d3c638e1 |  |
+| A-1053 | 未決(要確認) | フィールド感情吹き出し | assets/images/effects/field-emotion/field-emotion-dots.png | 採用 | 2026-10-28 | 灰色の3点「…」の同系統の吹き出し。gpt-image-2 で生成した試作（透過RGBA PNG 1254x1254）を、アルファ16以上のbboxで切り抜き、長辺240pxへ最近傍法で縮小し256x256の透明正方形キャンバスへ中央寄せ。kako-jun 採用（2026-10-28「これでいい」）。Issue #170、docs/field-emotion-registry.md。 | 54dd26a8955eb7fa79b7a492d955f1d9e6ee8b3026c0bffe4a8ce1533f302b9c |  |
+| A-1054 | 未決(要確認) | 共有人物 | assets/images/characters/shared/anonymous-elder-woman.webp | 採用 | 2026-10-28 | gpt-image-2 で生成した杖を持つ高齢の女性の正面全身（フィールドの汎用モブNPC用、透過RGBA PNG 1024x1536）を、アルファ16以上のbboxでタイトに切り抜き（502x1450）、非可逆WebP品質85・アルファ保持。アクスタ処理（枠線・台座・接地影）は未適用の素材（採用画像の生の切り抜き）。kako-jun 採用（2026-10-28「これでいい」）。Issue #170。 | 5c3843ac1a28365c60f834be4bda914180c532b9a88f79f02830486c31efd9e0 |  |
 
 ### 素材移行 (712件)
 
