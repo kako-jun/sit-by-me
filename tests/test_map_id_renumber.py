@@ -119,6 +119,13 @@ class MapIdRenumberTests(unittest.TestCase):
         self.append("docs/ledger/決定.yaml", "\n# 残骸 旧E15 から入る\n")
         self.reject("old ID E15 remains")
 
+    def test_old_id_in_decision_quote_field_passes_but_not_in_point(self):
+        self.append("docs/ledger/決定.yaml", "\n  \"逐語\": \"原文の E15 は改番前のID\"\n")
+        result = self.run_cli()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.append("docs/ledger/決定.yaml", "\n  \"決定の要点\": \"E15 から入る\"\n")
+        self.reject("old ID E15 remains")
+
     def test_prefix_exempt_word_does_not_hide_other_old_ids(self):
         self.append("docs/ledger/決定.yaml", "\n# 旧E14（現 KRB-01）と旧E15\n")
         self.reject("old ID E15 remains")
