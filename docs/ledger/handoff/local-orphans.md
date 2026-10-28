@@ -1,6 +1,6 @@
 # sit-by-me ローカル孤立情報の棚卸し(読み取り専用)
 
-調査日 2026-10-23。対象: sit-by-me 本体(`<repo>`、branch body-maps-baseline-20261022、追跡1153ファイル、画像・レビューを除く文書/コード/JSON 486)と worktree 3つ(oblique 268 / teramachi-rest 355 / ledger-master 282 の本体に無い追加ファイル)、notes リポ、freeza セッションノート47本、memory。
+調査日 2026-10-23。対象: sit-by-me 本体(`<repo>`、branch body-maps-baseline-20261022、追跡1153ファイル、画像・レビューを除く文書/コード/JSON 486)と worktree 3つ(oblique 268 / teramachi-rest 355 / ledger-master 282 の本体に無い追加ファイル)、別リポのメモ、作業ノート47本、memory。
 凡例: 「確認」=ファイル/コマンドで確認、「推測」=未確認。
 注意: 台帳(新形式)は ledger-master worktree の `docs/ledger/*.csv` 10表(MAP/端/接続/接続図設定/要素/窓/時期差分/既定値/エリア固定/装飾プール、計364行)が現状の全て。**決定表・採用要素表・未決表は ledger_io.py にスキーマだけあり、CSV はまだ無い**(確認: ledger_io.py L37-42、ls docs/ledger)。つまり「決定が台帳に降りていない」はほぼ全件が現状該当し、孤立の判定は「決定表が出来たとき移す先がある情報か」を基準にした。Issue 側は番号・本文を全件は突合していない(推測を含む)。
 
@@ -56,7 +56,7 @@
 | M2 | `docs/content-registry.md`(5.6KB) | 戦闘/MAP ID の確定表。sit-enemy-sprite/battle-background が最初に読む | 台帳 INDEX の入口候補 |
 | M3 | `docs/art-direction.md`(52KB)・`assets-policy.md`(7.5KB) | 画風・品質規約。sit-enemy/character/summon が「原文のまま」読む | 語彙/決定へ分解(散文は残す) |
 | M4 | `docs/production/asset-layout.md` L27-47 | **C001〜C009 の人名prefix表**、`C009`採用記録、`M001`旧640px透過の扱い、Mxxx-field 16点正本化(2026-10-23)の記述。人物ID表の正本が Issue #95 でなく asset-layout.md 内 | キャラ.csv(第3段階)+素材.csv |
-| M5 | `assets/images/weapons/masters/`(20枚)(session1153 `20261023-session1153-sit-by-me-weapon-masters.md`、Issue #147) | **武器マスター20枚は README・docs・スキル・asset-layout のどこからも言及されていない**(確認: grep で assets 外に0件)。来歴=Issue #147 とセッションノートだけ。ファイル名は `<刀名>-reference-v1.png`(PNG、asset-layout は非可逆WebP規約) | 素材.csv(武器)・asset-layout の配置表に追記 |
+| M5 | `assets/images/weapons/masters/`(20枚)(作業ノート、Issue #147) | **武器マスター20枚は README・docs・スキル・asset-layout のどこからも言及されていない**(確認: grep で assets 外に0件)。来歴=Issue #147 と作業ノートだけ。ファイル名は `<刀名>-reference-v1.png`(PNG、asset-layout は非可逆WebP規約) | 素材.csv(武器)・asset-layout の配置表に追記 |
 | M6 | `verification/transparency-audit-20261022/{audit-notes.md,alpha-report.txt}` | 透過監査(どの敵/人物の画像のalphaが不合格か、約今日の敵を緑背景で確認)。docs/ のどこからもリンクされない | 素材.csv の検査結果列。履歴として保存 |
 
 ### 2.4 素材(P4)
@@ -76,7 +76,7 @@
 | # | 場所(行) | 値/語彙 | 台帳候補 |
 |---|---|---|---|
 | B1 | oblique_mock.py L25-27 `CHAR=66`、`WIDTH_CLASSES={2people:132, 1.5people:100, 1person:66}`、DOOR_H=2*CHAR | 戸口幅クラスの寸法(決定 2026-10-23「1.5人分=100」等) | 語彙(幅クラス)+エリア固定 |
-| B2 | oblique_mock.py L34-37 `KV=0.74`、`SLAB=35`、`_DST=[[165,55],[1525,55],[1650,850],[22,850]]`、L290-291 `SLAB_TAPES`/`SLAB_GLUE`(マステ・糊の座標)、L542-543 `CHAR_PX=67`・`BODY_PX=100` | 斜め視点の測定値(session1152 で記録した 40〜45°/奥幅比0.81〜0.84/前面35px/出力1672×941/1キャラ=67px)。決定は視点系パラメータ=エリア横断 | 描画方式表(新)または既定値。session1152ノートの数値と食い違い無しか照合要 |
+| B2 | oblique_mock.py L34-37 `KV=0.74`、`SLAB=35`、`_DST=[[165,55],[1525,55],[1650,850],[22,850]]`、L290-291 `SLAB_TAPES`/`SLAB_GLUE`(マステ・糊の座標)、L542-543 `CHAR_PX=67`・`BODY_PX=100` | 斜め視点の測定値(作業ノートに記録した 40〜45°/奥幅比0.81〜0.84/前面35px/出力1672×941/1キャラ=67px)。決定は視点系パラメータ=エリア横断 | 描画方式表(新)または既定値。作業ノートの数値と食い違い無しか照合要 |
 | B3 | oblique_build.py L40-58 `DECOR_FILE`、`DECOR_LAYER_KEYS`、`DECOR_REQUIRED`、`AREA_OVERRIDE_PLAN_KEYS` | スキーマ定数。台帳列と二重(ledger_io.py にも列定義) | ledger_io と一本化 |
 | B4 | oblique_build.py L519-570 の build_prompt 直書き文: TREES 見出し「寺町の木=松＋枯木。常緑樹は松だけ」、OPEN PASSAGES「(#51 2026-10-21)」「床は木の板張り(確定)。石の床にしない」、DOOR WIDTHS の WN、「細い扉。見落としやすいので必ず描く」、ROLE 文(段ボールの台座・綿の雪…) | **決定が英日の文に埋まる**。松の決定は decor-pools.json にもあり二重。板張り・開口の文は decor-pool に無い | 決定表(プロンプト出力=必須語)+語彙(プロンプト断片) |
 | B5 | oblique_topology.py L382「本堂に窓はいらない(kako-jun 決定 2026-10-23)」の直書き文、L23 `WCN` | 決定の文章がコード内 | 決定表 |
@@ -161,15 +161,15 @@
 - sit-character-sprite: art-direction・assets-policy・decisions・asset-layout の C-ID 表
 - sit-artifact-redteam: `docs/reviews/artifact-redteam/`(索引新設)
 
-## 7. 決定がメモリ・ノート・セッションノートにだけある例
+## 7. 決定がメモリ・作業ノートにだけある例
 
 - memory `project-sit-body-left-right-from-the-person.md`(体内の左右は本人から見る): 本体 HEAD では `.claude/skills/sit-field-background/{body-appendix,pitfalls,issue-template}.md` と body_layout.py のコメントに既出だが、**docs/(map-topology・decisions)には無い**(確認: git grep)。台帳の方位語(左腕=北西 等)が画面左=左のまま、という注記が memory にあり、台帳の決定表には無い。→ 決定表へ。
 - memory `project-sit-by-me-concept-and-plan.md`: 「人物は必ずイラスト調」「世界観は少し未来の日本(混血・移民)」「召喚獣は想像で曖昧に」「公開リポなので私的名・未処理の実写素材を書かない」。リポ docs に同旨がある可能性は高いが(推測)未突合。
-- freeza セッションノート session1152: 「視点の測定値(40〜45°・側辺9〜11°・奥幅/手前幅0.81〜0.84・前面35px・机小物(マステ3〜5・糊3〜5)は手前固定・出力1672×941・1キャラ=67px)」は一部がコード定数(§3 B2)で、台帳の既定値.csv には `1672` が0件(確認)。寝室1(幼稚園期)/2(小学生〜)・舞台は登れない・内部仕切りは絵で壁と区別、は既定値.csv に既出。
-- session1152「質問を減らす: 既定は司令塔が決めてモックに織り込み、まとめて見せる」「常設ゲート: 全モック提示→明示承認前は試験生成も禁止」: 運用規範。スキル(gates.md)に既出の可能性が高い(未突合)。memory `feedback-show-all-mocks-before-generating-images.md` にもある。決定表の対象外(プロセス)。
-- 旧採用画像の元: 外観v7・住居v12=commit febf8a6、本堂v11=fbe876a、幼稚園v3=9652459(現ツリーに無い)。session1152 ノートと decor-pools.json の note(「git 9652459」)にだけある → 素材.csv の来歴列に(ledger-master の 装飾プール.csv にも9652459は含まれる=確認、febf8a6/fbe876a は未確認)。
-- notes リポ: sit-by-me 専用の dev リーフ無し。`todo/freeza.md` L26 の sit-by-me 行に現況サマリ(M101〜M152採用47/47、M002/M006残、BG010→PR #138 判断、回答待ち #123 ほか)があるが、台帳(monsters.md 絵の状態)と二重。孤立ではなく「現況の写し」。
-- freeza セッションノート sit 47本: 決定の記録として正当。台帳にまだ決定表が無いので、各ノートの「決定」節は決定表の初期データ候補(session1140 topology-decisions、1141、1149、1152 が特に)。
+- 作業ノート(視点の測定): 「視点の測定値(40〜45°・側辺9〜11°・奥幅/手前幅0.81〜0.84・前面35px・机小物(マステ3〜5・糊3〜5)は手前固定・出力1672×941・1キャラ=67px)」は一部がコード定数(§3 B2)で、台帳の既定値.csv には `1672` が0件(確認)。寝室1(幼稚園期)/2(小学生〜)・舞台は登れない・内部仕切りは絵で壁と区別、は既定値.csv に既出。
+- 作業ノート「質問を減らす: 既定は司令塔が決めてモックに織り込み、まとめて見せる」「常設ゲート: 全モック提示→明示承認前は試験生成も禁止」: 運用規範。スキル(gates.md)に既出の可能性が高い(未突合)。memory `feedback-show-all-mocks-before-generating-images.md` にもある。決定表の対象外(プロセス)。
+- 旧採用画像の元: 外観v7・住居v12=commit febf8a6、本堂v11=fbe876a、幼稚園v3=9652459(現ツリーに無い)。作業ノートと decor-pools.json の note(「git 9652459」)にだけある → 素材.csv の来歴列に(ledger-master の 装飾プール.csv にも9652459は含まれる=確認、febf8a6/fbe876a は未確認)。
+- 別リポのメモ: sit-by-me 専用の dev リーフ無し。私的な ToDo メモの sit-by-me 行に現況サマリ(M101〜M152採用47/47、M002/M006残、BG010→PR #138 判断、回答待ち #123 ほか)があるが、台帳(monsters.md 絵の状態)と二重。孤立ではなく「現況の写し」。
+- 作業ノート 47本: 決定の記録として正当。台帳にまだ決定表が無いので、各ノートの「決定」節は決定表の初期データ候補(トポロジー決定のノートが特に)。
 
 ## 8. 合流の進め方(優先度順)
 

@@ -1,6 +1,6 @@
 # 現行台帳との照合（2026-10-26・WIP）
 
-表（docs/ledger/）67枚。決定460（有効452・訂正済み8）、`未決.yaml` に1938件、`ファイル配置.yaml`（55規則）。これは格納行数の実測であり、意味点検や移行の完了件数ではない。U-050を含む未決を維持し、Issue出典1988件・命題2962件（要確認42件が残る）の意味点検は未完了。
+表（docs/ledger/）67枚。決定472（有効464・訂正済み8）、`未決.yaml` に1941件、`ファイル配置.yaml`（55規則）。これは格納行数の実測であり、意味点検や移行の完了件数ではない。U-050を含む未決を維持し、Issue出典1988件・命題3020件の意味点検は未完了（要確認42件、見出しによる自動分類432件と規則による機械仕分け825件は節ごとの精読が未了）。
 
 現在の件数・列・配置規則は [INDEXの生成ビュー](../../INDEX.md#台帳の生成ビュー) でも確認する。この節の実測と以下の歴史的スナップショットを混同しない。
 
@@ -102,4 +102,4 @@ Issue #156（https://github.com/kako-jun/sit-by-me/issues/156）が正本。要�
 ## 注意
 - **画像生成は停止中**。再開は台帳整理の完了＋kako-jun の指示後。生成画像は Claude は見ない（kako-jun が見る）。
 - Issue にだけ書かない: 決定は先に `決定.yaml`、Issue は決定IDを参照。
-- worktree/ブランチ: 本作業 `~/repos/2026/sit-by-me-wt-ledger-master`（ledger-master-phase1-20261023）。他: `sit-by-me-wt-oblique`（oblique-mask-tools-20261023。別担当）、`sit-by-me-wt-teramachi-rest`（teramachi-rest-mocks-20261023。読むだけ）、`sit-by-me`（本体）。git stash 禁止。コミットに Co-Authored-By を付けない。
+- worktree/ブランチ: 本作業 `sit-by-me-wt-ledger-master`（ローカルの作業ツリー）（ledger-master-phase1-20261023）。他: `sit-by-me-wt-oblique`（oblique-mask-tools-20261023。別担当）、`sit-by-me-wt-teramachi-rest`（teramachi-rest-mocks-20261023。読むだけ）、`sit-by-me`（本体）。git stash 禁止。コミットに Co-Authored-By を付けない。

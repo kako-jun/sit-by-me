@@ -9039,7 +9039,7 @@
   "種別": "本文"
   "URL": "https://github.com/kako-jun/sit-by-me/issues/77"
   "投稿日": "2026-10-19T01:25:04Z"
-  "本文SHA256": "28da642a8568f63ed88e1b4e989068683fbcbae9e788c8e1d65368e26b3649be"
+  "本文SHA256": "edfbee8f55ed2470af07dfcc0580bc818320d45a2c47a6043018cc055aa322bb"
   "安全化SHA256": "28da642a8568f63ed88e1b4e989068683fbcbae9e788c8e1d65368e26b3649be"
   "本文": |-
     ## 背景
@@ -9070,7 +9070,7 @@
     ## 完了条件
     全人物・全時期のフィールド歩行で、仕様どおりの方向セットが揃い、実際のフィールド移動で斜め進行時に正しい向きの絵が出ることを目視確認する。
   "点検状態": "自動抽出・要確認"
-  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。節の意味分類は自動抽出で再点検が必要。"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。節の意味分類は自動抽出で再点検が必要。 安全化: 私的リポジトリ1件。"
 - "出典ID": "ISSUE-77-C6257933302"
   "Issue番号": "77"
   "種別": "コメント"
@@ -10151,7 +10151,7 @@
   "種別": "コメント"
   "URL": "https://github.com/kako-jun/sit-by-me/issues/89#issuecomment-6258909155"
   "投稿日": "2026-10-19T03:19:22Z"
-  "本文SHA256": "b5cade8d96117846a60d0f613472b4330048e5382615f54e697b8941f9e38c23"
+  "本文SHA256": "7c0710baa1f1585db96b5b8981a38088018f0c8baf4adf3d94ebac9573ee7a72"
   "安全化SHA256": "b5cade8d96117846a60d0f613472b4330048e5382615f54e697b8941f9e38c23"
   "本文": |-
     ## 追加（kako-jun 2026-10-19）— 能登に「シーサイド」というショッピングセンターを入れる
@@ -10168,7 +10168,7 @@
     3. 何MAPか（外観の駐車場・店内・津波の跡など）、被災前後でどの MAP が対応するか。
     4. 場所（既存の被災前 MAP のどこから行くか）。接続口の空き・『反対辺』規則を確認して案を出す。
   "点検状態": "自動抽出・要確認"
-  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。節の意味分類は自動抽出で再点検が必要。"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。節の意味分類は自動抽出で再点検が必要。 安全化: 私的リポジトリ1件。"
 - "出典ID": "ISSUE-89-C6258932858"
   "Issue番号": "89"
   "種別": "コメント"
@@ -19125,7 +19125,7 @@
     ## 完了条件
     台帳に書いた決定が、必ず生成プロンプトに現れる（回帰テストが通る）。同じ事実が複数箇所に重複しない。全追跡ファイルが目次から辿れる。必須キーが全MAP・全エリアで埋まる（未決は未決表に）。Issue にしか無い決定が無い。
   "点検状態": "自動抽出・要確認"
-  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。節の意味分類は自動抽出で再点検が必要。 安全化: ホーム相対パス1件。"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。節の意味分類は自動抽出で再点検が必要。 安全化: ホーム相対パス1件, 私的リポジトリ1件。"
 - "出典ID": "ISSUE-156-C6360594987"
   "Issue番号": "156"
   "種別": "コメント"
@@ -19895,7 +19895,7 @@
   "種別": "コメント"
   "URL": "https://github.com/kako-jun/sit-by-me/issues/77#issuecomment-6395110077"
   "投稿日": "2026-10-25T07:55:14Z"
-  "本文SHA256": "3ac21b161aa1a4f5d2af6a4a234a3d82796dbede062e4bb49bf4b0ffc2460a1a"
+  "本文SHA256": "218bcbf561836b3b4d85a05be90722bbebb11916bca79c28c07481fd50dd33f3"
   "安全化SHA256": "3ac21b161aa1a4f5d2af6a4a234a3d82796dbede062e4bb49bf4b0ffc2460a1a"
   "本文": "Continuing C002 field-walk completion. Inventory refresh: kindergarten regular diagonals 12/12 accepted; elementary\
     \ regular diagonals currently up-left 3/3 accepted, up-right can be mirrored from that set, and down-left/down-right 6\
@@ -19904,7 +19904,7 @@
     \ consecutive grid failures occur. Once C002 is complete, build C002 overview and refresh combined C001+C002 overview/index\
     \ in ［私的リポジトリ省略］/output."
   "点検状態": "自動抽出・要確認"
-  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。節の意味分類は自動抽出で再点検が必要。"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。節の意味分類は自動抽出で再点検が必要。 安全化: 私的リポジトリ1件。"
 - "出典ID": "ISSUE-77-C6395126482"
   "Issue番号": "77"
   "種別": "コメント"
@@ -19923,7 +19923,7 @@
   "種別": "コメント"
   "URL": "https://github.com/kako-jun/sit-by-me/issues/77#issuecomment-6395159051"
   "投稿日": "2026-10-25T08:00:56Z"
-  "本文SHA256": "d8148277c59048d3469ebc0a06445e843d1b893288ace8c66fdc93e5e9176f5a"
+  "本文SHA256": "95939c3d5be9722333ad597296c16d63c2eea7b24bf17f35beea0173eea5ea37"
   "安全化SHA256": "d8148277c59048d3469ebc0a06445e843d1b893288ace8c66fdc93e5e9176f5a"
   "本文": "Further DL2 candidates remain rejected after independent review: the latest uses the accepted C001 elementary DL1\
     \ yaw reference but the output still reads too frontal (far eye and jacket front visible) and legs diverge from DOWN2\
@@ -19933,7 +19933,7 @@
     \ counts are kindergarten 24/24, elementary regular 15/24, elementary wheelchair 24/24, teen/adult/midlife wheelchair\
     \ 0/24."
   "点検状態": "自動抽出・要確認"
-  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。節の意味分類は自動抽出で再点検が必要。"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。節の意味分類は自動抽出で再点検が必要。 安全化: 私的リポジトリ1件。"
 - "出典ID": "ISSUE-77-C6395189295"
   "Issue番号": "77"
   "種別": "コメント"
@@ -26528,7 +26528,7 @@
   "種別": "コメント"
   "URL": "https://github.com/kako-jun/sit-by-me/issues/165#issuecomment-6406927865"
   "投稿日": "2026-10-26T02:32:40Z"
-  "本文SHA256": "f837ba1cf3813f0f551aa7184783a2cbe9cdd036db06f1594ab5516336cef87b"
+  "本文SHA256": "77af35c380f7d16e42653419f2e104ab871f2d0a5c7d598185b800479a264c30"
   "安全化SHA256": "f837ba1cf3813f0f551aa7184783a2cbe9cdd036db06f1594ab5516336cef87b"
   "本文": |
     ## 縮小時の刀・手位置合わせプレビュー
@@ -26537,7 +26537,7 @@
 
     開始座標は `assets/images/weapons/C001/C001-blade-candidates.json` の `alignment_demo` に記録。座標は正規化した目安であり、厳密な画素一致条件ではない。残りの6セット・ほか4刀の当たりを目視で調整し、軌跡・スマホの発光/詠唱など効果を別レイヤー化する。
   "点検状態": "自動抽出・要確認"
-  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。節の意味分類は自動抽出で再点検が必要。"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。節の意味分類は自動抽出で再点検が必要。 安全化: 私的リポジトリ1件。"
 - "出典ID": "ISSUE-165-C6406929989"
   "Issue番号": "165"
   "種別": "コメント"
