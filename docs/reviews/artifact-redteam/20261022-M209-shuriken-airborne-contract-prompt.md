@@ -4,7 +4,7 @@
 - Stage: contract/prompt
 - Status: awaiting independent prompt review before generating a new candidate
 - Grid class: `1x2` (`docs/monsters.md` §3-7)
-- Read-only reference: previous unadopted M209 candidate `exec-076d1aea-a11f-42a8-92e6-42cd02902231.png` at `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/`
+- Read-only reference: previous unadopted M209 candidate `exec-076d1aea-a11f-42a8-92e6-42cd02902231.png` at `［ローカルパス省略］/`
 - Output role: one separate, unadopted candidate. Do not alter the prior candidate or create/overwrite the canonical `assets/images/enemies/M209.webp` before user approval.
 - User change request: keep the light-blue airborne kunoichi distinct from M206 and give both enemies ninja-like weapons. M209 receives a shuriken.
 

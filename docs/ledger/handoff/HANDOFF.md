@@ -1,6 +1,6 @@
 # 現行台帳との照合（2026-10-26・WIP）
 
-表（docs/ledger/）67枚。決定76（有効73・訂正済み3）、`未決.yaml` に1842件、`ファイル配置.yaml`（55規則）。これは格納行数の実測であり、意味点検や移行の完了件数ではない。U-050を含む未決を維持し、Issue出典1182件・命題1322件の意味点検は未完了。
+表（docs/ledger/）67枚。決定486（有効478・訂正済み8）、`未決.yaml` に1954件、`ファイル配置.yaml`（54規則）。これは格納行数の実測であり、意味点検や移行の完了件数ではない。U-050を含む未決を維持し、Issue出典1988件・命題3033件は全命題を精読して分類済み（既存台帳参照45・決定反映771・作業記録1898・提案125・撤回・訂正43・未決反映113・要確認38）。出典の「点検状態」は確認済み1953件、自動抽出・要確認35件（要確認の命題38件を含む出典）。要確認38件は話者表記がなく本人決定と読めない記述で、kako-jun の確認待ちとして残す（決定にはしていない）。そのため `verify_domain_ledger.py --require-reviewed` は、この38件が解消するまで通らない。判定割れ・重複の疑いは該当決定の備考に「重複の疑い・未統合」と記録。docs/decisions.md の kako-jun 帰属行は最終精読で未取込を洗い出して取り込み済み。
 
 現在の件数・列・配置規則は [INDEXの生成ビュー](../../INDEX.md#台帳の生成ビュー) でも確認する。この節の実測と以下の歴史的スナップショットを混同しない。
 
@@ -102,4 +102,4 @@ Issue #156（https://github.com/kako-jun/sit-by-me/issues/156）が正本。要�
 ## 注意
 - **画像生成は停止中**。再開は台帳整理の完了＋kako-jun の指示後。生成画像は Claude は見ない（kako-jun が見る）。
 - Issue にだけ書かない: 決定は先に `決定.yaml`、Issue は決定IDを参照。
-- worktree/ブランチ: 本作業 `~/repos/2026/sit-by-me-wt-ledger-master`（ledger-master-phase1-20261023）。他: `sit-by-me-wt-oblique`（oblique-mask-tools-20261023。別担当）、`sit-by-me-wt-teramachi-rest`（teramachi-rest-mocks-20261023。読むだけ）、`sit-by-me`（本体）。git stash 禁止。コミットに Co-Authored-By を付けない。
+- worktree/ブランチ: 本作業 `sit-by-me-wt-ledger-master`（ローカルの作業ツリー）（ledger-master-phase1-20261023）。他: `sit-by-me-wt-oblique`（oblique-mask-tools-20261023。別担当）、`sit-by-me-wt-teramachi-rest`（teramachi-rest-mocks-20261023。読むだけ）、`sit-by-me`（本体）。git stash 禁止。コミットに Co-Authored-By を付けない。

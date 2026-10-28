@@ -2,7 +2,7 @@
 
 ## 採用
 - 採用: `docs/production/oblique-mocks/TRM-04/e2/take4.png`（E2 案1の4枚目）。**根拠: kako-jun「04は４枚目」（2026-10-23、4テイクを目視して選択）**。他の3テイク・追加1巡 `retry1` は没。
-- 保存先（正本）: `assets/images/fields/reference/teramachi-main-hall-interior-trm04-adopted.webp`（WebP 品質85・実寸 1672×941・リサイズなし・333,634 bytes）、sha256 `46027605e2631821ab653cab27c147b8bb5eb5e3dff002130dbb90e634efa81d`。元 PNG（codex 出力、2,972,537 bytes）の sha256 `11d406356da181527143609e059e9c82b8eb8968c0c6a0b50282ba4e694779a1`（`~/.codex/generated_images/` の本ラン生成物と一致を確認済み。偽造なし）。
+- 保存先（正本）: `assets/images/fields/reference/teramachi-main-hall-interior-trm04-adopted.webp`（WebP 品質85・実寸 1672×941・リサイズなし・333,634 bytes）、sha256 `46027605e2631821ab653cab27c147b8bb5eb5e3dff002130dbb90e634efa81d`。元 PNG（codex 出力、2,972,537 bytes）の sha256 `11d406356da181527143609e059e9c82b8eb8968c0c6a0b50282ba4e694779a1`（`［ホーム相対パス省略］/generated_images/` の本ラン生成物と一致を確認済み。偽造なし）。
 - 生成: 2026-10-23 15:28〜15:32（JST）、`codex exec`（codex-cli 0.163.0・`$imagegen` 明示・品質 high・reasoning high）。`oblique_e2_run.sh TRM-04 4 e2`。
 - 送信文（プロンプト全文）: [TRM-04-prompt-send.txt](20261023-trm04-adoption-prompts/TRM-04-prompt-send.txt)（sha256 `f01ef03e06741c3142912d8b0d5db3f406487b35be7a8d52e20c3c1120af9805`。edit-prompt v4＋参照・出力の節）。
 - 参照画像（2枚。様式参照なし）: クリーンモック `docs/production/oblique-mocks/TRM-04/TRM-04-clean.png`（sha256 `aa3db6ff210b15538c9f026c53b0d00428d82a767783f8c6c18c346e34437822`、編集元）、素材見本 `verification/body-layout/BDY-material-swatch-corrugated-edge.png`（sha256 `764b7ae7f1aa0ff19bd8e79a8724fc8b975c4d5465440fb539f5566f52828b45`）。

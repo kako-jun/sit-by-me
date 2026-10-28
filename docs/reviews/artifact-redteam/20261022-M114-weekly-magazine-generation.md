@@ -1,7 +1,7 @@
 # M114 週刊誌風新版候補 — generation record
 
 - Image candidate: exec-fa7c7b39-3307-4c5a-ac00-c298fb6c0b24.png
-- Candidate path: ~/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-fa7c7b39-3307-4c5a-ac00-c298fb6c0b24.png
+- Candidate path: ［ホーム相対パス省略］/generated_images/［セッションID省略］/［ファイル名省略］.png
 - Output: 1024×1536 RGBA PNG; logical gridClass 1x2
 - Status: generated; raw review and user adoption pending
 - Reference: current adopted assets/images/enemies/M114.webp, used read-only

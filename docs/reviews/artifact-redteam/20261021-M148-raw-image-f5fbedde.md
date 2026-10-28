@@ -1,7 +1,7 @@
 # M148 raw image review — 2026-10-21
 
 - Reviewer: `/root/m130_prompt_review` (independent)
-- Candidate: `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-f5fbedde-7754-44d0-8ca1-86b356dcb11c.png`
+- Candidate: `［ローカルパス省略］/exec-f5fbedde-7754-44d0-8ca1-86b356dcb11c.png`
 - Stage: raw-image; superseded by user-directed correction before adoption
 - Contract: [M148 prompt review](20261021-M148-contract-prompt.md), pass
 - Declared gridClass: `2x1`

@@ -5,7 +5,7 @@
 - Stage: `contract/prompt` only; no edit or generation performed
 - Canonical source commit: `64bb973967e41475ef55678e9ce7d10dd413dc4a`
 - Prompt reviewed: `/tmp/sit-m133-bg-prompt.txt` (exact text below)
-- Image 1 inspected and identified as latest blocked edit candidate: `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-370149f0-bd62-4833-8ab3-d01fa5f3cb22.png`, 1536×1024 RGBA, SHA-256 `bd8af0add559c89ecdbf66b6d9f8e6fc0116135c4b166c63738e37c9c8e89174`; it shows the desired four mushroom forms/spores plus the unwanted radial field. The candidate's prior raw review is `20261021-M133-raw-image-370149f0.md`.
+- Image 1 inspected and identified as latest blocked edit candidate: `［ローカルパス省略］/exec-370149f0-bd62-4833-8ab3-d01fa5f3cb22.png`, 1536×1024 RGBA, SHA-256 `bd8af0add559c89ecdbf66b6d9f8e6fc0116135c4b166c63738e37c9c8e89174`; it shows the desired four mushroom forms/spores plus the unwanted radial field. The candidate's prior raw review is `20261021-M133-raw-image-370149f0.md`.
 
 ## Sources checked
 

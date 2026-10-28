@@ -113,6 +113,11 @@ class IssueAudit
       qs = self.class.verbatim_quotes(d['逐語'])
       marked = d['逐語'].include?(NO_QUOTE_MARK)
       urls = d['出典URL'].split(';').map(&:strip).reject(&:empty?)
+      # docs/decisions.md の帰属記録から取り込んだ決定は Issue のコメントを持たない。逐語なしの例外として数える
+      if d['出典'].to_s.start_with?('docs/decisions.md') && marked
+        @quote_stats[:exceptions] << id
+        next
+      end
       if urls.empty?
         errors << "決定 #{id}: 出典URLが無い"
         next

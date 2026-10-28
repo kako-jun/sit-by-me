@@ -2,7 +2,7 @@
 
 - Reviewer: Codex independent reviewer (`enemy_input_audit`)
 - Target: M207 城の雑魚: 姫
-- Candidate referenced: `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-b529c122-b421-4daf-b4e9-ebdfb8c0467a.png`
+- Candidate referenced: `［ローカルパス省略］/exec-b529c122-b421-4daf-b4e9-ebdfb8c0467a.png`
 - Scope: Review of the proposed final edit-prompt constraints supplied for this audit; the complete verbatim prompt was not provided.
 - Sources: `docs/monsters.md:165,246`; `docs/dungeon-enemies.md:262`; `.claude/skills/sit-enemy-sprite/SKILL.md` lines 16–36.
 
@@ -28,7 +28,7 @@ The revised prompt summary now specifies the head and torso **each exactly 45° 
 
 ### Candidate check
 
-- Candidate: `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-b9502417-27dd-43b8-8b87-22f0a8ca1445.png`
+- Candidate: `［ローカルパス省略］/exec-b9502417-27dd-43b8-8b87-22f0a8ca1445.png`
 - Canvas: 887×1774 px RGBA; all four corner alpha samples are 0.
 - Alpha-positive bounding box: 876×1757 at x=0, y=1. The sprite touches the left edge and nearly touches the top edge; the full intended transparent margin is absent, and the left skirt edge appears clipped/flush with the frame.
 

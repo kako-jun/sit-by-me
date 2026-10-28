@@ -15,8 +15,8 @@
 
 Full source paths:
 
-- M206: `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-5b7f8edf-9bc0-4fbb-bc7a-1bf8c4ea2d19.png`
-- M209: `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-076d1aea-a11f-42a8-92e6-42cd02902231.png`
+- M206: `［ローカルパス省略］/exec-5b7f8edf-9bc0-4fbb-bc7a-1bf8c4ea2d19.png`
+- M209: `［ローカルパス省略］/exec-076d1aea-a11f-42a8-92e6-42cd02902231.png`
 
 Prompt SHA-256: M206 `fc5515fd772aa0ff161522b89356f09ea7fbb588a4c747d90f3364b25d40ac3f`; M209 `e1655579c6a0e257b7a3890f107e9018c4a6118d476feb8e6928d492cf9031e2`. The read-only adopted M206 reference `assets/images/enemies/M206.webp` has SHA-256 `8a625c3456ef5f2df7d37afc8f810fe906bc8c2e92a1831061bee6fb4e9df263`.
 

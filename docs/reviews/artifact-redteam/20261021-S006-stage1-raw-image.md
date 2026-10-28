@@ -7,7 +7,7 @@
 
 ## Artifact inspected
 
-- Raw image: `/home/kako-jun/.codex/generated_images/01a15d7a-cc03-7c12-b781-c681f515408c/exec-f1ad40a1-0bf8-41ab-99d4-62367974f1fc.png`
+- Raw image: `［ローカルパス省略］/exec-f1ad40a1-0bf8-41ab-99d4-62367974f1fc.png`
 - SHA-256: `b8b675f091d06a6d4f65d27fa626db97c9114156393f659d877f190557ee1477`
 - Dimensions/mode: 1536×1024, RGBA, sRGB, 8-bit/channel
 - Alpha: minimum 0, maximum 254/255; all four corner pixels are `srgba(0,0,0,0)`.

@@ -24,7 +24,7 @@
 
 Issue #141 comment `6312292791` の引用プロンプト全文を対象とした。生成時の入力指定は以下の計画として照合した。
 
-- `referenced_image_paths: ["/home/kako-jun/repos/2026/sit-by-me/assets/images/summons/S006-awakening.webp"]`
+- `referenced_image_paths: ["［ローカルパス省略］"]`
 - `transparent_background: true`
 
 参照画像のパスは現存する第2形態画像に一致する。テキストでも参照用途を前段階の雲塊と円形の宇宙開口の痕跡に絞っている。透過要求はプロンプト文とツール設定の両方で明示されている。

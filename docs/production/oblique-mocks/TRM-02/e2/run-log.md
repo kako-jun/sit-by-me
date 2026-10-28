@@ -14,7 +14,7 @@ $(cat prompt-base.txt)" -i TRM-02-clean.png -i swatch.png
 ```
 
 - 生ログ（base64 画像入りで数MB）は先頭60行のみ `codex-takeN.log.txt` に縮約。codex は「引数が長すぎる」エラーの後、分割して復号保存する方式に切り替えて保存した（4テイクとも同様）。
-- 本物確認（画像を見ずに）: 各テイクの sha256 が `~/.codex/generated_images/` の本ラン中に増えたファイルと一致、色数 8万〜9.7万、ログに magick/PIL 等の偽造呼び出し 0。詳細は `metrics.json` の provenance。
+- 本物確認（画像を見ずに）: 各テイクの sha256 が `［ホーム相対パス省略］/generated_images/` の本ラン中に増えたファイルと一致、色数 8万〜9.7万、ログに magick/PIL 等の偽造呼び出し 0。詳細は `metrics.json` の provenance。
 
 | take | sha256 | codex generated_images 由来 |
 |---|---|---|

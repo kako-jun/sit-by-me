@@ -5,7 +5,7 @@
 - Stage: `contract/prompt` only; no edit or generation performed
 - Canonical source commit: `64bb973967e41475ef55678e9ce7d10dd413dc4a`
 - Prompt reviewed: `/tmp/sit-m102-bg-prompt.txt` (exact text below)
-- Image 1 inspected and identified as the blocked edit candidate: `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-93cc91ed-9428-41e2-931f-c82a07a002de.png`, 1536×1024 RGBA, SHA-256 `ce7d1174cea24b4a2833c0667ad4082b4d3f9671eb3e643a18319433850919db`; visible radial brown/gray backdrop is the only targeted change. The machine already has the requested oblique pose and visible components.
+- Image 1 inspected and identified as the blocked edit candidate: `［ローカルパス省略］/exec-93cc91ed-9428-41e2-931f-c82a07a002de.png`, 1536×1024 RGBA, SHA-256 `ce7d1174cea24b4a2833c0667ad4082b4d3f9671eb3e643a18319433850919db`; visible radial brown/gray backdrop is the only targeted change. The machine already has the requested oblique pose and visible components.
 - Canonical M102 source: `assets/images/enemies/M102.webp` (adopted); this prompt edits the separate blocked candidate and forbids changing the canonical file.
 - Previous reviews: `20261021-M102-edit-contract-prompt.md` (pass); `20261021-M102-raw-image-93cc91ed.md` (blocker: radial background/alpha and box overflow).
 

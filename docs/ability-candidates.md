@@ -44,7 +44,7 @@
 
 ### 1-2. name-name の現状で、組み合わせ爆発に足りない点（事実。確認元付き）
 
-確認元: `/home/kako-jun/repos/2025/name-name`（HEAD `fb9c9531`）の docs/spec/markdown-v0.1.md、docs/design/enemy-ai.md、docs/architecture.md、および sit-by-me docs/ff-battle-rules.md §8（コード読みを含む）。
+確認元: name-name リポ（HEAD `fb9c9531`）の docs/spec/markdown-v0.1.md、docs/design/enemy-ai.md、docs/architecture.md、および sit-by-me docs/ff-battle-rules.md §8（コード読みを含む）。
 
 | 項目 | できる／できない | 根拠 |
 |---|---|---|
@@ -659,7 +659,7 @@ kako-jun の案: 後半はお金の使い道がないだろうから、**ジョ�
 
 1. **1 つ決めるごとに、§10 の台帳に 1 行追記する**。列: ID、仮称（ゲーム内の名前は決定後）、人物、型、採否（候補／採用／保留／却下）、決定日と根拠、実装の可否（name-name の対応状況）、関連 Issue。
 2. **決定は decisions.md に 1 行**（日付つき）。ability-candidates.md の候補表は「候補のまま」残し、採否は台帳側に置く（候補表と決定の二重管理を避ける）。
-3. **name-name の実装可否の確認**: 追加のたびに、効果 DSL（spec 1898〜1914 行）で書けるか、`builtin` 送りか、新しい仕組み（§1-2 の Issue 候補）が要るかを台帳に書く。確認元は `/home/kako-jun/repos/2025/name-name/docs/spec/markdown-v0.1.md` と `docs/design/enemy-ai.md`。
+3. **name-name の実装可否の確認**: 追加のたびに、効果 DSL（spec 1898〜1914 行）で書けるか、`builtin` 送りか、新しい仕組み（§1-2 の Issue 候補）が要るかを台帳に書く。確認元は name-name リポの `docs/spec/markdown-v0.1.md` と `docs/design/enemy-ai.md`。
 4. **新しい組み合わせの検証**: アビリティを追加するたび、既存のジョブ・魔法・状態異常・属性との組み合わせで「壊れ」（ロック・無限ループ・オーバーフロー）が出ないかを確認する（§1-1 B3 の検証方法）。壊れ防止の上限（§1-1 B2）に引っかかった場合は、アビリティ側でなく上限側で止める。
 5. **名前**: 採用が決まった時点でゲーム内の名前（やさしい和語）と id（`sit_` ＋英単語 2〜3 語）を決める。FF の固有名・既存作品の技名は使わない。
 6. **ミニゲーム・特殊コマンドのチェック**: 追加時に §2 の 5・6 に抵触しないかを列で確認する（本書の cmd／MG 列を引き継ぐ）。

@@ -152,6 +152,10 @@ def verify(root):
             if is_bgm or relative in EXEMPT_OLD_ID_FILES or relative.startswith(OLD_ID_EXEMPT_PREFIXES):
                 continue
             for line in text.splitlines():
+                if relative == "docs/ledger/決定.yaml" and line.lstrip().startswith('"逐語":'):
+                    continue  # 決定表の逐語欄は原文の転記なので、当時の旧IDが原文のまま残るのが正しい
+                if relative == "docs/ledger-views/決定.md" and line.startswith("> "):
+                    continue  # 生成ビューの逐語引用（決定.yaml の逐語欄と同じ原文）
                 for phrase in EXEMPT_OLD_ID_PHRASES:
                     line = line.replace(phrase, '')
                 for found in OLD_TOKEN_ANY.finditer(line):

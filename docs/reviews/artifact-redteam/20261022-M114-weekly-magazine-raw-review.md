@@ -4,7 +4,7 @@
 - Target: M114 18禁の成人向け週刊誌（目隠しされた表紙）
 - Stage: raw-image
 - Source: `docs/monsters.md:116,224`; `docs/dungeon-enemies.md` M114 entry; `docs/reviews/artifact-redteam/20261022-M114-weekly-magazine-contract-prompt.md`; `.claude/skills/sit-enemy-sprite/SKILL.md`; `.claude/skills/sit-artifact-redteam/SKILL.md`
-- Candidate: `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-fa7c7b39-3307-4c5a-ac00-c298fb6c0b24.png`
+- Candidate: `［ローカルパス省略］/exec-fa7c7b39-3307-4c5a-ac00-c298fb6c0b24.png`
 - Candidate remains unadopted; this review does not make an adoption decision.
 
 ## Measurements

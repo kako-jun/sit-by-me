@@ -7,7 +7,7 @@
 
 ## Artifact inspected
 
-- Candidate: `/home/kako-jun/.codex/generated_images/01a15d7a-cc03-7c12-b781-c681f515408c/exec-a7817c61-9f47-42e7-87ee-ef5fa318b008.png`
+- Candidate: `［ローカルパス省略］/exec-a7817c61-9f47-42e7-87ee-ef5fa318b008.png`
 - SHA-256: `05afc78b2c8344de617ab8b86d3cfa7152cf1be3196766b064c9501e18c19d94`
 - Dimensions/mode: 1536×1024, RGBA sRGB.
 - Alpha: min=0, max=254/255 (0.996078). Corner alpha values: TL=0, TR=0, BL=0, BR=1/255. `alpha > 0` bbox is the full 1536×1024 canvas because of sparse edge pixels. On each outermost edge, every nonzero alpha value is at most 1/255; counts are top=17, bottom=77, left=87, right=1 pixels. These edge traces are not visibly clipping the cloud or gold motifs at original size and, under the user's explicit tolerance, do not block this review.

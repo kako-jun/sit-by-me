@@ -33,6 +33,23 @@ class IssueProvenanceTests(YamlFixture):
     def verify(self, *arguments):
         return self.cli("verify_domain_ledger.py", *arguments)
 
+    def test_private_repository_name_is_redacted_but_raw_hash_is_kept(self):
+        body = "参照は freeza/output/a.png と freeza の記録"
+        sources, _ = P.build(snapshot(body), [])
+        row = sources[0]
+        self.assertNotIn("freeza", row["本文"])
+        self.assertIn("［私的リポジトリ省略］/output/a.png", row["本文"])
+        self.assertEqual(row["本文SHA256"], hashlib.sha256(body.encode("utf-8")).hexdigest())
+        self.assertNotEqual(row["本文SHA256"], row["安全化SHA256"])
+        self.assertIn("私的リポジトリ2件", row["備考"])
+
+    def test_persona_name_and_session_numbers_are_redacted(self):
+        body = "kako-jun 依頼でフリーザ選定。session1145 の決定と session1149 の記録"
+        text, counts = P.safe_text(body)
+        self.assertEqual(text, "kako-jun 依頼で［私的リポジトリ省略］選定。［セッション番号省略］ の決定と ［セッション番号省略］ の記録")
+        self.assertEqual(counts, {"私的リポジトリ": 1, "セッション番号": 2})
+        self.assertEqual(P.safe_text(text)[0], text)
+
     def test_sources_cover_body_empty_body_comments_and_exclude_prs(self):
         sources, claims, path = self.install()
         self.assertEqual({s["出典ID"] for s in sources}, {"ISSUE-1-BODY", "ISSUE-1-C11", "ISSUE-2-BODY"})

@@ -6,7 +6,7 @@
 - Verdict: **blocker; do not adopt this candidate**
 - Canonical base: `64bb973967e41475ef55678e9ce7d10dd413dc4a`
 - Exact prompt revision reviewed: `docs/reviews/artifact-redteam/20261021-M133-contract-prompt-actual.md` (short second-call text; this report does not claim the candidate used the earlier longer prompt)
-- Candidate inspected in place: `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-6ffdcb7d-5665-4b01-ac7e-9ceb517bbe89.png`
+- Candidate inspected in place: `［ローカルパス省略］/exec-6ffdcb7d-5665-4b01-ac7e-9ceb517bbe89.png`
 - Candidate SHA-256: `e44329ea38102f334bd37ced2fec2b76ca5e36430c8beb239098c463b389ff9b`
 - No edit, conversion, adoption, deletion, or move was performed.
 

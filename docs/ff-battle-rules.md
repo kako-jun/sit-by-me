@@ -1,6 +1,6 @@
 # FF5・FF6 の戦闘ルール調査（属性・状態異常・リフレク・ダメージの乱数）
 
-調査日: 2026-10-15 / 依頼: kako-jun / 担当: 参謀（freeza）のサブエージェント
+調査日: 2026-10-15 / 依頼: kako-jun / 担当: 参謀のサブエージェント
 
 **sit-by-me はこれらを参照して設計する（FF の固有名はゲーム内の名前にしない）。** この文書は事実の記録であり、**採否の決定は含まない**（採否は kako-jun）。
 
@@ -159,7 +159,7 @@
 
 ## 8. name-name の現行実装との対応（事実の一覧。コードは変えていない）
 
-調査対象: `/home/kako-jun/repos/2025/name-name`（調査時点 HEAD `fb9c9531`）の `docs/spec/markdown-v0.1.md`、`docs/design/enemy-ai.md`、`frontend/src/game/spellDsl.ts`、`builtin.ts`、`parser/src/models.rs`。
+調査対象: name-name リポ（調査時点 HEAD `fb9c9531`）の `docs/spec/markdown-v0.1.md`、`docs/design/enemy-ai.md`、`frontend/src/game/spellDsl.ts`、`builtin.ts`、`parser/src/models.rs`。
 
 | 項目 | FF5/FF6 | name-name 現行 |
 |---|---|---|

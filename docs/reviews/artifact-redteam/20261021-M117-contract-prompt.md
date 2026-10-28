@@ -45,7 +45,7 @@
 
 > Edit reference image 1, the unadopted M117 candidate, preserving the same one nonhuman feathered bogey creature, its brown feather textures, color palette, body proportions, limbs, pose, scale, and full transparent cutout. Change only the yaw of the head and torso so each is exactly 45° from camera-front toward screen-right (+x). For BOTH head and torso, make the front-facing plane plainly visible and the right-side plane separately visible; the face must be a three-quarter view, never a side profile. If eyes are visible, aim their gaze toward +x. Retain the same hooked beak and single creature identity. Keep all original content exclusions: no human, child, victim, kidnapping scene/prop, clothing, text, logo, scene, floor, base, shadow, frame, border, or other figure. Transparent background. gridClass 1x1. Use the realistic generated-object treatment. Do not add location, ability, element, or story details.
 
-- Reference image 1: `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-1722c419-5251-4ac6-8035-5c1a26cdcf06.png` (unadopted design/identity reference only; raw review `20261021-M117-raw-image-1722c419.md` found the head and torso angle noncompliant).
+- Reference image 1: `［ローカルパス省略］/exec-1722c419-5251-4ac6-8035-5c1a26cdcf06.png` (unadopted design/identity reference only; raw review `20261021-M117-raw-image-1722c419.md` found the head and torso angle noncompliant).
 
 ### Checks and disposition
 
@@ -101,7 +101,7 @@ Before this review I read both raw-image reports: `20261021-M117-raw-image-1722c
 
 > Edit reference image 1, the latest M117 candidate. Preserve the exact same nonhuman feathered bogey creature, appearance, facial features, both visible eyes and +x gaze, existing head and torso yaw/visible planes (the already reviewed 45° three-quarter orientation), brown palette, feather detail, body proportions, pose, limbs, and expression. Make no other changes. Uniformly scale the complete creature to 80% of its current height and center it on the transparent 1254×1254 px canvas. Keep the entire silhouette, including every crest feather and all talon tips, within the canvas, with no feature cut off. No new objects, clothing, text, background, floor, shadow, base, border, frame, people, or kidnapping props. gridClass 1x1. Use realistic generated-object rendering. Do not add location, ability, element, or story details.
 
-- Reference image: `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-59acb47b-47bc-4e0e-89d0-a508e138ec52.png`, the latest unadopted M117 v3 candidate; use only as identity/orientation reference. Raw review: `20261021-M117-raw-image-59acb47b.md`.
+- Reference image: `［ローカルパス省略］/exec-59acb47b-47bc-4e0e-89d0-a508e138ec52.png`, the latest unadopted M117 v3 candidate; use only as identity/orientation reference. Raw review: `20261021-M117-raw-image-59acb47b.md`.
 
 ### Checks and disposition
 

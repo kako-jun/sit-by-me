@@ -5,7 +5,7 @@
 - Stage: `contract/prompt`; no image generated
 - Canonical source commit: `64bb973967e41475ef55678e9ce7d10dd413dc4a`
 - Prompt reviewed: `/tmp/sit-m102-retry3-prompt.txt` (verbatim below)
-- Image 1 inspected: prior edited M102 candidate `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-93cc91ed-9428-41e2-931f-c82a07a002de.png`, 1536×1024; identity/parts reference only. Its radial background, near-profile pose, oversized composition and second visible track are explicitly rejected.
+- Image 1 inspected: prior edited M102 candidate `［ローカルパス省略］/exec-93cc91ed-9428-41e2-931f-c82a07a002de.png`, 1536×1024; identity/parts reference only. Its radial background, near-profile pose, oversized composition and second visible track are explicitly rejected.
 - Canonical image inspected: `assets/images/enemies/M102.webp`, 640×271 WebP.
 
 ## Source checks

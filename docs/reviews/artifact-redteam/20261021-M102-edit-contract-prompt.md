@@ -5,7 +5,7 @@
 - Stage: `contract/prompt` only; no image edit or generation performed
 - Canonical source commit: `64bb973967e41475ef55678e9ce7d10dd413dc4a`
 - Prompt reviewed: `/tmp/sit-m102-edit-prompt.txt` (exact text below)
-- Supplied edit reference inspected: `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-ab073035-0e2c-4753-a355-04d5729352f8.png`, 1536×1024 RGBA, SHA-256 `919614838e67158aef77594bea093cf7d6a8d89156143d0603405acb6fa46922`; reference-only for yellow drill identity, rear machinery, arm/hoses and helical bit. Its profile-like projection, second visible track, oversized crop, glow/background and alpha residue are explicitly rejected.
+- Supplied edit reference inspected: `［ローカルパス省略］/exec-ab073035-0e2c-4753-a355-04d5729352f8.png`, 1536×1024 RGBA, SHA-256 `919614838e67158aef77594bea093cf7d6a8d89156143d0603405acb6fa46922`; reference-only for yellow drill identity, rear machinery, arm/hoses and helical bit. Its profile-like projection, second visible track, oversized crop, glow/background and alpha residue are explicitly rejected.
 - Canonical image inspected: `assets/images/enemies/M102.webp`, 640×271 WebP, SHA-256 `710c7902be52ae82b197aed6c5b1658ff033515f37e6890af851b1a0eb2ba467`.
 - Prior reports: `20261021-M102-retry-contract-prompt.md` (pass); `20261021-M102-raw-image-ab073035.md` (blockers: missing drill front plane, second visible track, oversized image/margins, edge alpha).
 
