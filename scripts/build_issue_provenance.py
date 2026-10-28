@@ -35,7 +35,8 @@ WINDOWS_USER_PATH = re.compile(r"(?i)\b[A-Z]:[\\/](?:Users|Documents and Setting
 TEMP_PATH = re.compile(r"(?<![\w])/tmp/[^\s`'\"<>、。，；;）)]+")
 PRIVATE_APP_PATH = re.compile(r"~?/\.(?:codex|claude)(?:/[^\s`'\"<>、。，；;）)]+)?")
 SESSION_UUID = re.compile(r"(?i)\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b")
-PRIVATE_REPO = re.compile(r"freeza(?=[/ ]|の|側|`|\b)", re.I)
+PRIVATE_REPO = re.compile(r"freeza(?=[/ ]|の|側|`|\b)|フリーザ", re.I)
+PRIVATE_SESSION = re.compile(r"(?<![\w])session\d{3,4}(?!\d)", re.I)
 TOKEN = re.compile(r"\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9_]{20,}\b")
 QUOTE = re.compile(r"[「『]([^」』]{2,500})[」』]")
 WORKLOG = re.compile(r"結果|これからやること|実施|進捗|完了|レビュー|検証|テスト|着手|作業")
@@ -70,6 +71,7 @@ def safe_text(body: str) -> tuple[str, dict[str, int]]:
         ("セッションID", SESSION_UUID),
         ("トークン", TOKEN),
         ("私的リポジトリ", PRIVATE_REPO),
+        ("セッション番号", PRIVATE_SESSION),
     ]:
         body, count = pattern.subn(f"［{label}省略］", body)
         if count:

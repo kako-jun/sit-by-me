@@ -22,7 +22,7 @@
 ## 審査した実ファイル
 
 - 直前形態参照: `assets/images/summons/S006-awakening.webp` (1536×1024, sRGBA)。実ピクセルを開いて確認した。中央の暗い宇宙状の穴、灰色の積乱雲、周囲の金箔風雲形がある。
-- 旧候補: `/home/kako-jun/.codex/generated_images/01a15d7a-cc03-7c12-b781-c681f515408c/exec-b3a45070-7326-4e7f-946f-19bf17df64a8.png`
+- 旧候補: `［ローカルパス省略］/exec-b3a45070-7326-4e7f-946f-19bf17df64a8.png`
 - SHA-256: `ca4e865295e0ecd25493a774192063d6544d885efaf83b7d813c37e0d9a77ad3`
 - 旧prompt: #141 comment 6312292791。参照は `S006-awakening.webp`、imagegen設定 `transparent_background: true` と記録されている。完全prompt本文は同Issueコメント参照。
 

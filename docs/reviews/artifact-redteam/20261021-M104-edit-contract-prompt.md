@@ -5,7 +5,7 @@
 - Stage: `contract/prompt` only; no image edit or generation performed
 - Canonical source commit: `64bb973967e41475ef55678e9ce7d10dd413dc4a`
 - Prompt reviewed: `/tmp/sit-m104-edit-prompt.txt` (exact text below)
-- Supplied edit reference inspected: `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-fd5cec7e-f602-42cf-93ae-5c2ac99b0257.png`, 1536×1024 RGBA, SHA-256 `707087a2af2c2e1ab5ae3fee554df1fb12a9d7cff0156854a745dc06a7b493e2`; its bicycle identity, blue paint and aged metal are reference-only. Its side-on projection, glow/background, edge residue, scale and framing are explicitly rejected.
+- Supplied edit reference inspected: `［ローカルパス省略］/exec-fd5cec7e-f602-42cf-93ae-5c2ac99b0257.png`, 1536×1024 RGBA, SHA-256 `707087a2af2c2e1ab5ae3fee554df1fb12a9d7cff0156854a745dc06a7b493e2`; its bicycle identity, blue paint and aged metal are reference-only. Its side-on projection, glow/background, edge residue, scale and framing are explicitly rejected.
 - Canonical image inspected for M104 identity: `assets/images/enemies/M104.webp`, 640×418 RGBA/WebP, SHA-256 `5a18c6801cde0341238beff09b216a60a4c368a2a767c45df03bd82cb8841285`.
 - Prior reviews: `20261021-M104-retry-contract-prompt.md` (pass); `20261021-M104-raw-image-fd5cec7e.md` (blockers: profile-like yaw, excessive size, insufficient margins and edge alpha).
 

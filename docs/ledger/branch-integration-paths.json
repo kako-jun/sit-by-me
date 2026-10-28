@@ -20758,9 +20758,9 @@
     {
       "branch": "155-c001-kindergarten-diagonal-walk",
       "commit": "59bcdfa0ff5ea76c588884ea6c1747010317b769",
-      "path": "docs/operations/notes/20261024-session1157-sit-by-me-c001-field-walk.md",
+      "path": "docs/production/20261024-c001-field-walk.md",
       "source_blob": "6ad6d2c4255bc328cb8a6a0f16b4570476f1e2f5",
-      "current_destination": "docs/operations/notes/20261024-session1157-sit-by-me-c001-field-walk.md",
+      "current_destination": "docs/production/20261024-c001-field-walk.md",
       "decision": "Reconciled and squashed as PR157 into main ae90c04; conflict kept YAML placement IDs and source walk convention"
     },
     {

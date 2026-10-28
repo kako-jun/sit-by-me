@@ -159,7 +159,7 @@
 
 ## 8. name-name の現行実装との対応（事実の一覧。コードは変えていない）
 
-調査対象: `/home/kako-jun/repos/2025/name-name`（調査時点 HEAD `fb9c9531`）の `docs/spec/markdown-v0.1.md`、`docs/design/enemy-ai.md`、`frontend/src/game/spellDsl.ts`、`builtin.ts`、`parser/src/models.rs`。
+調査対象: name-name リポ（調査時点 HEAD `fb9c9531`）の `docs/spec/markdown-v0.1.md`、`docs/design/enemy-ai.md`、`frontend/src/game/spellDsl.ts`、`builtin.ts`、`parser/src/models.rs`。
 
 | 項目 | FF5/FF6 | name-name 現行 |
 |---|---|---|

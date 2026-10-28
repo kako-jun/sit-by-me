@@ -21,7 +21,7 @@
 - 領域台帳の検査: [verify_domain_ledger.py](../scripts/verify_domain_ledger.py)、[verify_content_ledger.py](../scripts/verify_content_ledger.py)。`--require-reviewed` はIssueの意味点検が全件終わるまで失敗する。[移行の閉鎖条件](ledger/migration-closure.md) を形式移行の合格と区別する。
 - 敵・人物・BGM・刀の全列ビュー: [コンテンツ](ledger/views/content.md)（[content_ledger_views.py](../scripts/content_ledger_views.py)）。生成入力は [content_ledger.py](../scripts/content_ledger.py) の `query KIND ID --gate`。
 - 領域台帳の回帰検証: [content](../tests/test_content_ledger.py)、[domain](../tests/test_domain_ledger.py)、[Issue provenance](../tests/test_issue_provenance.py)、[typed paths](../tests/test_ledger_typed.py)。
-- 共通fixture: [ledger_test_support.py](../tests/ledger_test_support.py)。PR #157に含まれる制作履歴: [C001歩行セット](operations/notes/20261024-session1157-sit-by-me-c001-field-walk.md)（記載のマージ待ちは当時の状態）。
+- 共通fixture: [ledger_test_support.py](../tests/ledger_test_support.py)。PR #157に含まれる制作履歴: [C001歩行セット](production/20261024-c001-field-walk.md)（記載のマージ待ちは当時の状態）。
 - Issueの凍結出典からの再生成: [build_issue_provenance.py](../scripts/build_issue_provenance.py)（`build|check --from-json SNAPSHOT`）。原文と安全化本文のハッシュを区別し、自動抽出を本人の決定と誤認しない。
 - 移行用の一回限りのツール（再実行禁止）: [MAP移行](../.claude/skills/sit-field-background/tools/ledger_map_migrate_once.py)、[体内移行](../.claude/skills/sit-field-background/tools/ledger_body_migrate_once.py)、[コンテンツ移行](../scripts/content_ledger_migrate_once.py)。現行の体内入力は [body_geometry.py](../.claude/skills/sit-field-background/tools/body_geometry.py) がYAMLから読む。
 - 人が読むビュー（台帳から生成。手編集禁止。`ledger_views.py build|check`）: [MAP 一覧](ledger-views/MAP.md)、[建物](ledger-views/建物.md)、[決定](ledger-views/決定.md)、[未決](ledger-views/未決.md)、[採用要素](ledger-views/採用要素.md)、[接続](ledger-views/接続.md)
@@ -100,7 +100,7 @@
 | [未決](ledger/未決.yaml) | 1952 | 未決（要確認）の一覧。 | 未決ID / 対象テーブル / 対象ID / キー / 内容 / 状態 / 解決決定ID |
 | [キー別名](ledger/キー別名.yaml) | 20 | 列名・キー名の別名と正規名。 | 正規名 / 別名 / 対象テーブル / 説明 |
 | [Issue点検](ledger/Issue点検.yaml) | 480 | Issue の決定候補と決定表の突合結果（audit_issue_decisions.rb が更新。分類=決定表に反映済み／未反映(要取込み)／決定でない／対象外）。 | Issue番号 / コメントURL / 候補の要約 / 分類 / 決定ID / 備考 |
-| [ファイル配置](ledger/ファイル配置.yaml) | 55 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
+| [ファイル配置](ledger/ファイル配置.yaml) | 54 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
 | [描画定数](ledger/描画定数.yaml) | 28 | 斜めツール（oblique_mock.py・oblique_topology.py）の寸法・視点・幅クラス・窓種別・台座の飾りの位置。コードはここを読む。 | 定数ID / グループ / 値 / 単位 / 説明 / コード内の名前 |
 | [プロンプト文面](ledger/プロンプト文面.yaml) | 144 | imagegen 用プロンプト・接続表・窓一覧・接続図に出る文面（{名前}=変数の差し込み口）。コードは oblique_text.text で読み、文面を直接持たない。 | 文面ID / 区分 / 文面 / 変数 / 使用箇所 / 備考 |
 | [制作規約](ledger/制作規約.yaml) | 8 | 制作規約の台帳。元資料の提案と確定状態を区別して保持する。 | 規約ID / 対象種別 / 対象ID / 区分 / 内容 / 確度 / 根拠 |
@@ -221,7 +221,6 @@
 | asset-weapons | 画像正本 | 復元した旧刀マスター画像。採用・所有者は未決 | 許可 | assets/images |
 | ledger-branch-audit | 監査文書 | 関連枝の捕捉時点のGit比較・除外理由。ゲーム情報の正本ではない。 | リンク |  |
 | ledger-resume | 監査文書 | WIP再開条件と検証入口 | リンク |  |
-| production-session-note | 制作履歴 | 統合済み制作作業の履歴。台帳の現行採否と区別する。 | リンク |  |
 | asset-effect-candidates | 画像候補 | 戦闘演出（詠唱・ヒット・ダメージ数字）の候補画像。採否は素材台帳の状態に従う | 許可 | assets/images |
 | asset-effect-character | 画像候補 | 人物別の演出候補画像（魔法・移動・端末の光） | 許可 | assets/images |
 | asset-field-emotion | 画像正本 | フィールドの人物に添える感情吹き出し（採用）。256x256 透過PNG | 許可 | assets/images |

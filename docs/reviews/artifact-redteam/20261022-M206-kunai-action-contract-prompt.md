@@ -4,7 +4,7 @@
 - Stage: contract/prompt
 - Status: awaiting independent prompt review before generating a new candidate
 - Grid class: `1x2` (`docs/monsters.md` §3-7)
-- Read-only reference: previous unadopted M206 candidate `exec-5b7f8edf-9bc0-4fbb-bc7a-1bf8c4ea2d19.png` at `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/`
+- Read-only reference: previous unadopted M206 candidate `exec-5b7f8edf-9bc0-4fbb-bc7a-1bf8c4ea2d19.png` at `［ローカルパス省略］/`
 - Output role: one separate, unadopted candidate. Do not alter the adopted `assets/images/enemies/M206.webp` or the prior candidate.
 - User change request: make the movement more intense and give both M206 and M209 a ninja weapon. M206 receives a kunai; M209 receives a shuriken.
 

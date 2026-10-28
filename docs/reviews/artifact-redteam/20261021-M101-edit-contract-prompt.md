@@ -5,7 +5,7 @@
 - Stage: `contract/prompt` only; no image edit or generation performed
 - Canonical source commit: `64bb973967e41475ef55678e9ce7d10dd413dc4a`
 - Prompt reviewed: `/tmp/sit-m101-edit-prompt.txt` (exact text below)
-- Supplied edit reference inspected: `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-e63460aa-374d-41a0-8e7f-a234a1ffa7b8.png`, 1536×1024 RGBA, SHA-256 `571afcaaed12f481c442c7f825d64e3a9920981588ebb26cc89682f0bee021a4`; its road-roller identity, parts, view, paint and machine-top snow are reference-only. Its oversized composition, glow/background and alpha residue are explicitly rejected.
+- Supplied edit reference inspected: `［ローカルパス省略］/exec-e63460aa-374d-41a0-8e7f-a234a1ffa7b8.png`, 1536×1024 RGBA, SHA-256 `571afcaaed12f481c442c7f825d64e3a9920981588ebb26cc89682f0bee021a4`; its road-roller identity, parts, view, paint and machine-top snow are reference-only. Its oversized composition, glow/background and alpha residue are explicitly rejected.
 - Canonical image inspected: `assets/images/enemies/M101.webp`, 640×393 WebP; SHA-256 `4ad83ad1fdcf0db8400c332d97fc28964ea69e13dc571b66f3387341273ad6b6`.
 - Prior reviews: `20261021-M101-retry2-contract-prompt.md` (pass); `20261021-M101-raw-image-e63460aa.md` (blocker: oversized, margins insufficient, alpha reaches left/bottom edges).
 

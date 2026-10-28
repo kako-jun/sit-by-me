@@ -6,7 +6,7 @@
 - Verdict: **blocker: near-profile orientation and scale/margins fail; edge alpha residue**
 - Canonical source commit: `64bb973967e41475ef55678e9ce7d10dd413dc4a`
 - Passed contract reviewed: `docs/reviews/artifact-redteam/20261021-M104-retry-contract-prompt.md`
-- Candidate inspected in place: `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-fd5cec7e-f602-42cf-93ae-5c2ac99b0257.png`
+- Candidate inspected in place: `［ローカルパス省略］/exec-fd5cec7e-f602-42cf-93ae-5c2ac99b0257.png`
 - Candidate SHA-256: `707087a2af2c2e1ab5ae3fee554df1fb12a9d7cff0156854a745dc06a7b493e2`
 - No edit, conversion, move, deletion, or adoption was performed.
 

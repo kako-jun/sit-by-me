@@ -5,7 +5,7 @@
 - Stage: `contract/prompt` only; no image edit or generation performed
 - Canonical source commit: `64bb973967e41475ef55678e9ce7d10dd413dc4a`
 - Prompt reviewed: `/tmp/sit-m133-edit-prompt.txt` (exact text below)
-- Supplied edit reference inspected: `/home/kako-jun/.codex/generated_images/01a15ccc-868c-7f60-8889-229de4286e8f/exec-263b8baf-64cf-4149-8054-4224cbc454d7.png`, 1536×1024 RGBA, SHA-256 `af7b25b7cfec3201cbf7cdd833c69c0e27de11eb84824b229a68f5514691afd2`; its four mushroom forms, colors, pale stems and spores are reference-only. The radial glow, background pixels and failed framing are explicitly excluded.
+- Supplied edit reference inspected: `［ローカルパス省略］/exec-263b8baf-64cf-4149-8054-4224cbc454d7.png`, 1536×1024 RGBA, SHA-256 `af7b25b7cfec3201cbf7cdd833c69c0e27de11eb84824b229a68f5514691afd2`; its four mushroom forms, colors, pale stems and spores are reference-only. The radial glow, background pixels and failed framing are explicitly excluded.
 - Canonical image inspected: `assets/images/enemies/M133.webp`, 640×466 WebP, SHA-256 `2984bd3d1899eb90999c6579962dacaa7a164aa7f1b2ea0781e78ab7e1be9fbe`; used to confirm the same four-mushroom/spore identity and prohibit environmental parts from the edit reference.
 - Prior reports: `20261021-M133-retry2-contract-prompt.md` (pass); `20261021-M133-raw-image-263b8baf.md` (blocker: radial background/alpha outside box and subject vertical overflow).
 

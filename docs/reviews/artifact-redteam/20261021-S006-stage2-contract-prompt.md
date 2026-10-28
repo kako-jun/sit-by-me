@@ -86,7 +86,7 @@ The textual prompt correction resolves the unsupported cosmic-detail minor and m
 
 ### Current contract and prompt
 
-Issue #141 comment `6312135944` supplies the full current prompt. It specifies a transparent, isolated stage-2 sprite; a roughly circular, indistinct abyss opening with a cosmic interior continuing inward; gray cloud with yellow beginning and orange not yet dominant; and the gold-leaf-like abstract cloud motif. It excludes dragon/animal silhouettes, skull, dragon-shaped lightning, scenery, frame, base, and ground shadow. Comment `6312163197` specifies the actual tool input `referenced_image_paths: ["/home/kako-jun/repos/2026/sit-by-me/assets/images/summons/S006-cloud.webp"]` and limits its role to continuity of the cloud mass and silhouette.
+Issue #141 comment `6312135944` supplies the full current prompt. It specifies a transparent, isolated stage-2 sprite; a roughly circular, indistinct abyss opening with a cosmic interior continuing inward; gray cloud with yellow beginning and orange not yet dominant; and the gold-leaf-like abstract cloud motif. It excludes dragon/animal silhouettes, skull, dragon-shaped lightning, scenery, frame, base, and ground shadow. Comment `6312163197` specifies the actual tool input `referenced_image_paths: ["［ローカルパス省略］"]` and limits its role to continuity of the cloud mass and silhouette.
 
 I opened the actual reference image at original resolution. It is a 1536×1024 WebP showing a single dark gray cumulonimbus with a broad, layered upper crown and a deeper stacked cloud mass below. The upper cloud spreads laterally; the lower body gathers into dense rounded layers. The image corners have alpha 0 and the measured alpha range is 0–0.996078, so the dark areas visible in the viewer are not evidence of an opaque backdrop. This is an appropriate reference for the requested cloud-mass/silhouette continuity. The prompt explicitly forbids copying its backdrop, and the tool parameter passes this file as pixels rather than merely naming its path.
 
@@ -126,7 +126,7 @@ The current S006 row (`docs/monsters.md:88`) and art-direction row (`docs/art-di
 
 ### Current disposition
 
-**Pass for contract/prompt; eligible to generate one stage-2 candidate with the recorded request settings.** The ready-to-send request must use `referenced_image_paths: ["/home/kako-jun/repos/2026/sit-by-me/assets/images/summons/S006-cloud.webp"]` and `transparent_background: true`, as separately recorded in #141. No actual generation call was part of this review. Generated-pixel checks, alpha measurements, crop, and human adoption remain pending and require their own reviews.
+**Pass for contract/prompt; eligible to generate one stage-2 candidate with the recorded request settings.** The ready-to-send request must use `referenced_image_paths: ["［ローカルパス省略］"]` and `transparent_background: true`, as separately recorded in #141. No actual generation call was part of this review. Generated-pixel checks, alpha measurements, crop, and human adoption remain pending and require their own reviews.
 
 ### Sources inspected
 
