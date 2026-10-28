@@ -290,11 +290,14 @@ def check_source_coverage(data, require_reviewed: false)
     errors << "Issue命題 #{claim['命題ID']}: 安全化出典に抜粋が無い" unless excerpt.empty? || source['本文'].include?(excerpt)
     next unless claim['分類'] == '決定反映'
 
-    decision = decisions[claim['決定ID']]
-    if decision.nil?
-      errors << "Issue命題 #{claim['命題ID']}: 決定IDが無い"
-    elsif !decision['出典URL'].split(';').map(&:strip).include?(source['URL'])
-      errors << "Issue命題 #{claim['命題ID']}: 決定の出典URLと一致しない"
+    # 決定IDは ';' 区切りで複数指定できる（節に複数の決定が混在する場合）。各IDを個別に検査する
+    claim['決定ID'].split(';').map(&:strip).reject(&:empty?).each do |decision_id|
+      decision = decisions[decision_id]
+      if decision.nil?
+        errors << "Issue命題 #{claim['命題ID']}: 決定IDが無い（#{decision_id}）"
+      elsif !decision['出典URL'].split(';').map(&:strip).include?(source['URL'])
+        errors << "Issue命題 #{claim['命題ID']}: 決定の出典URLと一致しない（#{decision_id}）"
+      end
     end
   end
   unresolved = claims.count { |claim| claim['分類'] == '要確認' }
