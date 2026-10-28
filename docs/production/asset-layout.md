@@ -48,7 +48,7 @@
 | 斜め視点マスク（runtime切替前） | 配置ID `asset-field-masks` | 実在パス例: `assets/images/fields/masks/TRM-02-{mask,traversal-edit,mask-overlay}.webp`。寺町の斜め視点（#144）。形式は体内マスクと同じ（mask・edit は可逆WebP、overlay は非可逆）。入力JSON・結果は `docs/production/oblique-masks/`。台帳は blocked 維持（ready にしない） |
 | 戦闘背景 | 配置ID `asset-battle-backgrounds` | 実在パス例: `assets/images/battle-backgrounds/BGxxx.webp`（現存はBG001・BG005のみ。BG002〜004・006〜009は削除済みで、復元は git 履歴 `1bb09d0` から。戦闘背景の新規作成は別件）。下表 |
 | フィールド感情吹き出し | 配置ID `asset-field-emotion` | 実在パス例: `assets/images/effects/field-emotion/field-emotion-{exclaim,question,dots}.png`。256x256 透過PNG（#170、[registry](../field-emotion-registry.md)）。配置は暫定（#139 と整合時に再検討） |
-| 人物共通の採用素材 | 配置ID `asset-shared-adopted` | 実在パス例: `assets/images/characters/shared/anonymous-elder-woman.webp`。透過切り抜き WebP。`-v数字` で終わる名は不可（候補は `shared/candidates/`） |
+| 人物共通の採用素材 | 配置ID `asset-shared-adopted` | 実在パス例: `assets/images/characters/shared/anonymous-elder-woman.webp`、`anonymous-kid-girl-short.webp`。透過切り抜き WebP。`-v数字` で終わる名は不可（候補は `shared/candidates/`） |
 | ブランド | 配置ID `asset-brand` | 実在パス例: `assets/images/brand/logo.svg`（正本）、`logo.png`（SVG派生、WebP化しない）。暫定の文字ロゴ（SIT BY ME）。ゲームIDではない。のち差し替え予定 |
 
 | C ID | 元人名prefix | 登場人物 |
