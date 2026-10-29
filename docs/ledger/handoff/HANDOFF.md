@@ -29,7 +29,7 @@ kako-jun「csvが本当にいいのか？yamlとかのほうが管理しやす�
   - (e) 旧mdは見出し行の列名で読む（`scripts/md_table.rb`）: build_map_prompt.rb・verify_map_ledger.rb・map_graph.rb・render_map_atlas.rb。**第2段階で置換済み**: render_sunnyland_topology.rb（サニーランドのMAP仕様は列名で確認し、接続は台帳参照）。未対応: render_body_topology.rb・render_late_topology.rb。
   - (f) 畳の記述を TRM.no-tatami と整合、確定済みの戸口の位置・幅のTBDを台帳参照に、TRM-05 寝室方針の3表重複を決定ID参照に、`teramachi-rebuild-candidates.md` を参照のみに、寺町の legacy status を『台帳』に（verify_map_ledger が強制）。
   - (h) 運用を SKILL.md・tools/README・INDEX 冒頭に明記。(i) `docs/ledger-views/*.md`（`ledger_views.py build|check`。verify_ledger.rb が検査）。
-- 残り: (g) 測定器、(j) 既定値の統合、Issue点検の未反映（要取込み）60 件の裁定（台帳未反映・決定化候補55件は kako-jun の裁定待ち。379件→60件に仕分け済み）、建物表の入れ子化、独立レビュー（opus）→PR。第2段階（体内・全MAP）。
+- 残り: (g) 測定器、(j) 既定値の統合、Issue点検の未反映（要取込み）38 件の裁定（台帳未反映・決定化候補は kako-jun の裁定待ち。379件→38件に仕分け済み。決定化したら該当行の【手動】を外すか分類を「決定表に反映済み」＋決定IDに更新する。【手動】行は `--write` でも検査でも保持・除外されるため、自動では反映済みに上がらず verify_ledger の警告件数が古いまま残る）、建物表の入れ子化、独立レビュー（opus）→PR。第2段階（体内・全MAP）。
 
 # 【handoff/ の削除手順（第2段階以降で実施。ここには手順だけ書く。削除そのものはまだしない）】
 `docs/ledger/handoff/` の各ファイルの行き先（吸収してから `git rm`。1コミットずつ、`ledger_index.py build`・`ruby scripts/verify_index_reachable.rb` を通す）:
