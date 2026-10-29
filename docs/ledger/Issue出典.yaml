@@ -7757,6 +7757,42 @@
     - アクスタ枠・台座・影を壊さない。
   "点検状態": "確認済み"
   "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-53-C6502053694"
+  "Issue番号": "53"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/53#issuecomment-6502053694"
+  "投稿日": "2026-10-29T16:14:13Z"
+  "本文SHA256": "e57977ee2ec6776d3d3adfc29f3ebc092187e59a839b5c5a6ba2dd866aeaa91a"
+  "安全化SHA256": "e57977ee2ec6776d3d3adfc29f3ebc092187e59a839b5c5a6ba2dd866aeaa91a"
+  "本文": |-
+    name-name 側で切り分けと修正を行いました（着手前コメントが前後しましたが、実施内容を記録します）。
+
+    **実施**: 寺町サンプルの本番ビルドを DPR=1 / DPR=2 で開き、歩行スプライトの描画を比較。
+
+    **切り分け結果**
+    - 原因（確定に近い・実測）: `Application.init` に `resolution`/`autoDensity` が無く、canvas のバッファは常に 1536x1024（等倍）。DPR=2 では CSS 1176px × 2 = 2352 物理 px に引き伸ばされ（約 1.5 倍拡大）、背景より情報量の多いキャラ画像（原画 284x396 を約 1/3 に縮めて描画）がぼける。`resolution=devicePixelRatio` + `autoDensity` で DPR=2 のキャラの目鼻・服の線が明確に締まった。
+    - mipmap + linear（戦闘のモンスターと同じ設定）は**採用しない**: DPR=1 で顔がつぶれて逆にぼける（A/B で確認）。縮小のギザつきは減るが「ぼやけ」の訴えには逆効果。
+    - 「アクスタ」の描画経路自体は fieldSample に無い（name-name#861 未実装）ため、今回の対象は歩行スプライト（主人公・NPC・同行者）。
+
+    **修正**: name-name PR（`fieldSample/main.ts` の Application.init のみ）。実機（高 DPR 端末）での目視は残るので、この Issue は閉じません。
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-53-C6502538424"
+  "Issue番号": "53"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/53#issuecomment-6502538424"
+  "投稿日": "2026-10-29T16:35:22Z"
+  "本文SHA256": "b0a36be42fa0e71aab781d5c93f5e9641e7e09ab04c816389ea49e16cbca0125"
+  "安全化SHA256": "b0a36be42fa0e71aab781d5c93f5e9641e7e09ab04c816389ea49e16cbca0125"
+  "本文": |-
+    追加切り分け（name-name#1013 レビュー対応）: 戦闘で `spriteStyle:"acrylic"` を使い DPR=2 で A/B（本番ビルド・playwright、before=origin/main、after=PR）。
+
+    - before: 戦闘の canvas バッファは 800x450（CSS 800）で、DPR=2 では 2 倍に引き伸ばされる。**味方（アクスタ内の人物・枠・台座）もモンスターも同様にぼける**（人物領域 Laplacian 分散 79、モンスター領域 54）。枠・台座だけ鮮明でアクスタ内の人物だけがぼける、という差は再現しなかった。
+    - after: バッファ 1600x900（CSS 800）。人物 626、モンスター 600。目鼻・服の線・枠の縁とも明確に締まった。
+    - 味方・モンスターとも BattleScreen の `applyBattleTextureFilter`（mipmap + linear）を通る経路で、アクスタ内だけテクスチャ設定が違う形跡は無い。
+    - よって今回の修正（描画解像度）は「#53 の症状の一部（DPR 引き伸ばし）」には効いたが、「アクスタ内の人物だけ」という訴えの真因だと断定はできない。実機で、DPR=1 でも起きるか・モンスターとの差が残るかの確認が必要です（残る場合は、アクスタ内の人物の原画縮小率/アルファ縁/パディングの個別調査）。
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
 - "出典ID": "ISSUE-54-BODY"
   "Issue番号": "54"
   "種別": "本文"
@@ -7786,6 +7822,30 @@
     - 横長・縦長・2×2の各1体で、指定グリッドどおりに描画・選択・ターゲット・当たり判定が一致する。
     - 実機戦闘で確認する。
     - 素材を増やさず、既存footprint定義をrendererが一貫して消費する。
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-54-C6500117402"
+  "Issue番号": "54"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/54#issuecomment-6500117402"
+  "投稿日": "2026-10-29T14:56:12Z"
+  "本文SHA256": "6d7bd17d962ce5dc59d36d3c652941c092cb668a835ebc6085976a35ac7f5696"
+  "安全化SHA256": "6d7bd17d962ce5dc59d36d3c652941c092cb668a835ebc6085976a35ac7f5696"
+  "本文": "これからやること: name-name の統合サンプル設定(寺町サンプル teramachi.sample.json)に atb / cross(commandLayout+commands) / enemyGrid+monsters.size\
+    \ / motion の配線を行い、config.ts に任意の motion を追加して BattleScreen へ渡す。同等性検査テストも追加し PR を出す。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-54-C6500525125"
+  "Issue番号": "54"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/54#issuecomment-6500525125"
+  "投稿日": "2026-10-29T15:12:21Z"
+  "本文SHA256": "6141dd8bba0266abe0340ea4111e012ef700ad61bc1b9ed984059f44b3fdae72"
+  "安全化SHA256": "6141dd8bba0266abe0340ea4111e012ef700ad61bc1b9ed984059f44b3fdae72"
+  "本文": "結果: name-name PR https://github.com/kako-jun/name-name/pull/1009 を出した(Refs のみ・未マージ)。寺町サンプルに atb:on / commandLayout:cross+commands4つ\
+    \ / enemyGrid:4x2+monsters.size(M001=1x1, M008=1x2) / motion:snappy(+presentation ff, windowStyle ff-blue)を配線し、config.ts\
+    \ に任意の battle.motion を追加。同等性テストを teramachiSample.test.ts に追加(設定を外すと落ちることを確認)。本番ビルドを Playwright で目視: 十字コマンド・ATBゲージと番の味方・敵のグリッド配置・被弾演出を確認。残る目視:\
+    \ 2桁ダメージの桁バウンス、複数敵の遭遇群、kako-jun による実機サインオフ。"
   "点検状態": "確認済み"
   "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
 - "出典ID": "ISSUE-55-BODY"
@@ -7823,6 +7883,30 @@
   "本文": "演出方針を追加する。エンカウント遷移は単なる画面切替でなく、戦闘へズームする途中で粗いモザイクへ移る。これは #64 の共通モザイク演出言語に従う。"
   "点検状態": "確認済み"
   "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。節の意味分類は自動抽出で再点検が必要。 要確認の命題は kako-jun 本人の決定・判断として確認済み（2026-10-29、https://github.com/kako-jun/sit-by-me/issues/156#issuecomment-6481417143）。"
+- "出典ID": "ISSUE-55-C6501895898"
+  "Issue番号": "55"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/55#issuecomment-6501895898"
+  "投稿日": "2026-10-29T16:07:29Z"
+  "本文SHA256": "c5ad7d9430e97301ae2ef976fdb0c98b15b88f3112737f4366047e397d58a7ea"
+  "安全化SHA256": "c5ad7d9430e97301ae2ef976fdb0c98b15b88f3112737f4366047e397d58a7ea"
+  "本文": "これからやること(name-name): fieldSample のエンカウント→戦闘に FieldBattleTransition を配線、battle_transition 設定(none|ff|ff-mosaic、未指定=none)、演出中の二重入力・二重エンカウント抑止、戦闘後復帰の整合。寺町サンプルは\
+    \ ff-mosaic。見た目の値は既存の仮値(#803 測定待ち)を使う。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-55-C6502065982"
+  "Issue番号": "55"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/55#issuecomment-6502065982"
+  "投稿日": "2026-10-29T16:14:46Z"
+  "本文SHA256": "070c67cf3933f2fbf3a7819b122298f9993d4c952e614e468d53ae4bd4c43b44"
+  "安全化SHA256": "070c67cf3933f2fbf3a7819b122298f9993d4c952e614e468d53ae4bd4c43b44"
+  "本文": |-
+    name-name PR: https://github.com/kako-jun/name-name/pull/1014
+    配線: fieldSample のエンカウント(今すぐエンカウント含む)→戦闘に FieldBattleTransition を配線。設定は battle.transition(none|ff|ff-mosaic、未指定=none)。寺町サンプルは ff-mosaic。演出中は歩行・タップ・二重エンカウントを無視。戦闘終了も黒を経由して復帰。実ブラウザでズーム+モザイク→戦闘→逃走で黒経由→フィールド復帰を確認。
+    残り: 見た目の最終目視と、時間・ズーム量の合意(#803 測定待ち。現状は既存の仮値)。
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
 - "出典ID": "ISSUE-56-BODY"
   "Issue番号": "56"
   "種別": "本文"
@@ -7855,6 +7939,41 @@
     #65 で、十字配置だけでなく魔法・アイテムを含む統合フィールドサンプルへの配線を完了条件にしました。このIssueでは寺町の代表 field JSON に明示的に `commandLayout: "cross"` を入れ、#65 の menu 配線後に同一の遭遇戦で確認してください。
   "点検状態": "確認済み"
   "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-56-C6500117851"
+  "Issue番号": "56"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/56#issuecomment-6500117851"
+  "投稿日": "2026-10-29T14:56:13Z"
+  "本文SHA256": "6d7bd17d962ce5dc59d36d3c652941c092cb668a835ebc6085976a35ac7f5696"
+  "安全化SHA256": "6d7bd17d962ce5dc59d36d3c652941c092cb668a835ebc6085976a35ac7f5696"
+  "本文": "これからやること: name-name の統合サンプル設定(寺町サンプル teramachi.sample.json)に atb / cross(commandLayout+commands) / enemyGrid+monsters.size\
+    \ / motion の配線を行い、config.ts に任意の motion を追加して BattleScreen へ渡す。同等性検査テストも追加し PR を出す。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-56-C6500526031"
+  "Issue番号": "56"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/56#issuecomment-6500526031"
+  "投稿日": "2026-10-29T15:12:23Z"
+  "本文SHA256": "6141dd8bba0266abe0340ea4111e012ef700ad61bc1b9ed984059f44b3fdae72"
+  "安全化SHA256": "6141dd8bba0266abe0340ea4111e012ef700ad61bc1b9ed984059f44b3fdae72"
+  "本文": "結果: name-name PR https://github.com/kako-jun/name-name/pull/1009 を出した(Refs のみ・未マージ)。寺町サンプルに atb:on / commandLayout:cross+commands4つ\
+    \ / enemyGrid:4x2+monsters.size(M001=1x1, M008=1x2) / motion:snappy(+presentation ff, windowStyle ff-blue)を配線し、config.ts\
+    \ に任意の battle.motion を追加。同等性テストを teramachiSample.test.ts に追加(設定を外すと落ちることを確認)。本番ビルドを Playwright で目視: 十字コマンド・ATBゲージと番の味方・敵のグリッド配置・被弾演出を確認。残る目視:\
+    \ 2桁ダメージの桁バウンス、複数敵の遭遇群、kako-jun による実機サインオフ。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-56-C6501696870"
+  "Issue番号": "56"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/56#issuecomment-6501696870"
+  "投稿日": "2026-10-29T15:58:58Z"
+  "本文SHA256": "4efd439c3606d2c1fc6bfdb2d3dff999a905be55d8e6b591dfaeb5ca38ccbf2e"
+  "安全化SHA256": "4efd439c3606d2c1fc6bfdb2d3dff999a905be55d8e6b591dfaeb5ca38ccbf2e"
+  "本文": "追記(name-name PR #1009 最終状態): 十字コマンド(cross)は 4 コマンド限定のため、特技(skill)とは両立しない。サンプルは たたかう・じゅもん・どうぐ・にげる の 4 つにし、skill は外した(skills\
+    \ も未同梱)。#65 の README 更新と立位/車椅子設定での通しは未了(代役サンプルで配線済み)。main とのコンフリクトも解消済み。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
 - "出典ID": "ISSUE-57-BODY"
   "Issue番号": "57"
   "種別": "本文"
@@ -7875,6 +7994,30 @@
     - 戦闘不能・勝利・敗北・複数体enemy footprintと整合する。
   "点検状態": "確認済み"
   "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-57-C6500118324"
+  "Issue番号": "57"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/57#issuecomment-6500118324"
+  "投稿日": "2026-10-29T14:56:14Z"
+  "本文SHA256": "6d7bd17d962ce5dc59d36d3c652941c092cb668a835ebc6085976a35ac7f5696"
+  "安全化SHA256": "6d7bd17d962ce5dc59d36d3c652941c092cb668a835ebc6085976a35ac7f5696"
+  "本文": "これからやること: name-name の統合サンプル設定(寺町サンプル teramachi.sample.json)に atb / cross(commandLayout+commands) / enemyGrid+monsters.size\
+    \ / motion の配線を行い、config.ts に任意の motion を追加して BattleScreen へ渡す。同等性検査テストも追加し PR を出す。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-57-C6500526663"
+  "Issue番号": "57"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/57#issuecomment-6500526663"
+  "投稿日": "2026-10-29T15:12:24Z"
+  "本文SHA256": "6141dd8bba0266abe0340ea4111e012ef700ad61bc1b9ed984059f44b3fdae72"
+  "安全化SHA256": "6141dd8bba0266abe0340ea4111e012ef700ad61bc1b9ed984059f44b3fdae72"
+  "本文": "結果: name-name PR https://github.com/kako-jun/name-name/pull/1009 を出した(Refs のみ・未マージ)。寺町サンプルに atb:on / commandLayout:cross+commands4つ\
+    \ / enemyGrid:4x2+monsters.size(M001=1x1, M008=1x2) / motion:snappy(+presentation ff, windowStyle ff-blue)を配線し、config.ts\
+    \ に任意の battle.motion を追加。同等性テストを teramachiSample.test.ts に追加(設定を外すと落ちることを確認)。本番ビルドを Playwright で目視: 十字コマンド・ATBゲージと番の味方・敵のグリッド配置・被弾演出を確認。残る目視:\
+    \ 2桁ダメージの桁バウンス、複数敵の遭遇群、kako-jun による実機サインオフ。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
 - "出典ID": "ISSUE-58-BODY"
   "Issue番号": "58"
   "種別": "本文"
@@ -7893,6 +8036,31 @@
     - 上下左右＋4斜めの8方向スプライトを移動方向に対応して選ぶ。
     - 斜め左向きの反転規約を含め、standing / wheelchair・男女主人公で実機確認する。
     - アクスタ表現と#53の人物テクスチャ鮮明化を両立させる。
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-58-C6502910639"
+  "Issue番号": "58"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/58#issuecomment-6502910639"
+  "投稿日": "2026-10-29T16:51:13Z"
+  "本文SHA256": "880cb56d5425fd4b71f952de746f6ce4a23df63cacb52e228d385f240bd24dde"
+  "安全化SHA256": "880cb56d5425fd4b71f952de746f6ce4a23df63cacb52e228d385f240bd24dde"
+  "本文": "これからやること(name-name 側): 戦闘 acrylic の生成(板・台座・影)を BattleScreen から共有モジュールに切り出し(挙動不変のリファクタ、別コミット)、fieldSample の歩行スプライト(主人公・同行者)に明示オプション\
+    \ spriteStyle:\"acrylic\" で適用する(未指定=従来描画)。足元座標・歩行マスク・端リンク・移動速度・前景オクルージョンは変えない。寺町サンプルの見た目は変更しない。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-58-C6503334323"
+  "Issue番号": "58"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/58#issuecomment-6503334323"
+  "投稿日": "2026-10-29T17:09:58Z"
+  "本文SHA256": "7d5e0ac349e01fa35fa801a0ce8c110c036b9bbef0e149186c38b1f27e25e5f4"
+  "安全化SHA256": "7d5e0ac349e01fa35fa801a0ce8c110c036b9bbef0e149186c38b1f27e25e5f4"
+  "本文": |-
+    name-name 側の実装 PR を出した: https://github.com/kako-jun/name-name/pull/1017
+
+    済み: 戦闘 acrylic の部品生成・配置を共有モジュール化(挙動不変。戦闘 acrylic のスクリーンショットが origin/main のビルドとバイト一致)。フィールド設定の最上位に `spriteStyle: "acrylic"` を追加し、主人公・同行者の足元に板・台座・地面の影を付ける(未指定=従来描画、歩行・8方向・停止・DPR1/2 を実ブラウザで確認)。足元座標・歩行マスク・移動速度・前面オクルージョンは不変。
+    残り: sit-by-me の実素材(大人の共通立ち絵 1024x1536 など)でのアクスタ化の目視確認、NPC のアクスタ化(name-name#861 側)。#58 は close しない。
   "点検状態": "確認済み"
   "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
 - "出典ID": "ISSUE-59-BODY"
@@ -7920,6 +8088,41 @@
     - 停止時は歩行途中の片足フレームで止まらない。
     - 8方向の立位主人公で実機目視確認する。
     - 車椅子は別の回転／駆動アニメーションとして扱い、歩行フレームを流用しない。
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-59-C6500118228"
+  "Issue番号": "59"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/59#issuecomment-6500118228"
+  "投稿日": "2026-10-29T14:56:14Z"
+  "本文SHA256": "3c3f478bb6d1159e3f5d5522de9258dfec938005c80c2c718a70090610d083b8"
+  "安全化SHA256": "3c3f478bb6d1159e3f5d5522de9258dfec938005c80c2c718a70090610d083b8"
+  "本文": "これからやること(name-name側): walkFrame を周期配列方式にする。立位は [0,1,2,1](接地A→通過→接地B→通過)、停止は通過コマ(1)、車椅子は別周期(従来の [0,1,2] 相当を維持)。config\
+    \ の player に任意の cycle / idleFrame を足し、未指定=現行挙動で後方互換。同行者も同じ周期関数を使う。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-59-C6500669713"
+  "Issue番号": "59"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/59#issuecomment-6500669713"
+  "投稿日": "2026-10-29T15:18:08Z"
+  "本文SHA256": "653e2d0a143403d6105211269e43f6db13e18405e2681f0b04065aa68c43aa0e"
+  "安全化SHA256": "653e2d0a143403d6105211269e43f6db13e18405e2681f0b04065aa68c43aa0e"
+  "本文": "name-name PR を出した: https://github.com/kako-jun/name-name/pull/1011 (Refs のみ)。walkFrame を周期配列化し、player.cycle / idleFrame\
+    \ を任意で追加(未指定=従来の [0,1,2]・停止0、車椅子は影響なし)。立位は cycle [0,1,2,1]・idleFrame 1 で 接地A→通過→接地B→通過、停止は通過コマ。同行者も同じ周期。残り: (1) sit-by-me\
+    \ 側の立位フィールド設定に cycle/idleFrame を書く (2) 実ブラウザでの8方向の目視確認(未実施)。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-59-C6500830031"
+  "Issue番号": "59"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/59#issuecomment-6500830031"
+  "投稿日": "2026-10-29T15:24:33Z"
+  "本文SHA256": "30ff88b7c4a4c727004c68962103490f4ef6f28ae902dad4a1efadcabfcecd05"
+  "安全化SHA256": "30ff88b7c4a4c727004c68962103490f4ef6f28ae902dad4a1efadcabfcecd05"
+  "本文": "name-name PR #1011 にレビュー対応を追加。(1) 同行者は主人公と周期を共有せず companion.cycle / companion.idleFrame で別指定(未指定=従来 [0,1,2]・停止0)。同行者は車椅子の主人公を押す立位の人のため。(2)\
+    \ この PR だけでは同梱サンプルのどれにも効果は出ない(主人公は車椅子=cycle を書かない側、立位主人公のフィールド設定がまだ無い)。(3) 立位設定(主人公 cycle [0,1,2,1]+idleFrame 1、同行者は companion\
+    \ 側)が揃って目視確認するまで #59 は「直った」と言えない。(4) 立位NPCの停止コマ(spec『立ち止まりは1コマ目』)は仕様変更のため別 Issue #185 に起票。"
   "点検状態": "確認済み"
   "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
 - "出典ID": "ISSUE-60-BODY"
@@ -8039,6 +8242,49 @@
   "本文": "演出方針を追加する。edge link接触でのマップ遷移は、接触判定後に短い粗いモザイクを経由して次MAPへ入る。単なるフェードにしない。詳細は #64。"
   "点検状態": "確認済み"
   "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。節の意味分類は自動抽出で再点検が必要。 要確認の命題は kako-jun 本人の決定・判断として確認済み（2026-10-29、https://github.com/kako-jun/sit-by-me/issues/156#issuecomment-6481417143）。"
+- "出典ID": "ISSUE-61-C6502910065"
+  "Issue番号": "61"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/61#issuecomment-6502910065"
+  "投稿日": "2026-10-29T16:51:11Z"
+  "本文SHA256": "f5c513ca9d58983b99a4d102ecece74daa43ed41145e6f524cc6281557b34552"
+  "安全化SHA256": "f5c513ca9d58983b99a4d102ecece74daa43ed41145e6f524cc6281557b34552"
+  "本文": "【name-name 側 作業予告】edge link 発火条件を完了条件(各edgeで接触時に一度だけ遷移/range外・blocked edgeで発火しない/往復ループなし/立位・車椅子・assist)と照合し、単体テストと本番ビルドの実ブラウザで実測する。満たさない項目があれば最小修正(既存\
+    \ edgeThreshold の挙動は後方互換)、満たしていればテスト追加と調査記録のみ。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-61-C6503131237"
+  "Issue番号": "61"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/61#issuecomment-6503131237"
+  "投稿日": "2026-10-29T17:00:59Z"
+  "本文SHA256": "9a42c8cab622dd3d1b7e5bbd8ae374f2664ba437443278b3baa1fbd755840d08"
+  "安全化SHA256": "9a42c8cab622dd3d1b7e5bbd8ae374f2664ba437443278b3baa1fbd755840d08"
+  "本文": |-
+    【name-name 側 調査結果】PR https://github.com/kako-jun/name-name/pull/1016
+    edge link 発火条件を完了条件と照合(単体+本番ビルドの実ブラウザ・実マスク)。実装変更は不要と判断し、テスト追加とdocs明記のみ。
+    - 各edge接触で一度だけ発火(完全退出は不要): 満たす(右 shrine-street→canal 実機、4辺は単体)
+    - range外・端が黒: 発火しない(正しい)。range境界は閉区間
+    - 往復ループ: なし(着地は edgeThreshold×3 内側、押し続けても戻らない)
+    - 斜め・停止中: 正しく動作
+    - 立位/車椅子/assist: 判定式は足元座標+マスクのみで共通
+    - 注意: 足元は点判定のため、マスクの白が画像端から edgeThreshold(6px)より内側で終わる列は発火しない。寺町サンプル実マスクの range 上では数列のみ(右1/118、坂上端2/397、銭湯下端0/606)。素材側は『リンクrangeの白を端まで伸ばす』運用(docsに明記)。
+    - 残り: 実素材マスクでの全リンク目視(この Issue は open のまま)。モザイク演出は #64。
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-61-C6503543248"
+  "Issue番号": "61"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/61#issuecomment-6503543248"
+  "投稿日": "2026-10-29T17:19:31Z"
+  "本文SHA256": "2724eceef791d0265127107d3ca79fe459034d065b550a80f46e257edfcdbc01"
+  "安全化SHA256": "2724eceef791d0265127107d3ca79fe459034d065b550a80f46e257edfcdbc01"
+  "本文": "【訂正と修正結果】先の『edge link は条件を満たす』は top 辺で誤りでした(足元1点判定のため、slope→銭湯の上端では絵が画面外へ完全に消える foot y≈2.7 まで遷移せず、頭が届く y≈141 から約135px押し込んでいた)。name-name\
+    \ PR https://github.com/kako-jun/name-name/pull/1016 で修正: 接触を身体の外縁(top=頭、left/right=左右の縁、bottom=足元)で判定、着地は身体の分だけ内側に置く。設定\
+    \ edgeContact: \"body\"(既定)|\"foot\"(従来)。実機(本番ビルド+実素材): slope 上押しで foot y=137 で発火、銭湯→slope の着地でキャラが見える、往復ピンポンなし、left/right/bottom・range外OK。未対応:\
+    \ assist 着地の細部、体内マップ(画像内側の縁)は #187。この Issue は実素材での目視が残るため open のまま。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
 - "出典ID": "ISSUE-62-BODY"
   "Issue番号": "62"
   "種別": "本文"
@@ -8106,6 +8352,27 @@
   "本文": "敵の攻撃については本Issueの「攻撃pose」要件を上書きする。敵を右へ移動させて殴らせない。敵の攻撃通知は #64 の粗いモザイク変化→アクスタ復帰で行う。味方キャラは既存攻撃poseを再生する。"
   "点検状態": "確認済み"
   "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。節の意味分類は自動抽出で再点検が必要。 要確認の命題は kako-jun 本人の決定・判断として確認済み（2026-10-29、https://github.com/kako-jun/sit-by-me/issues/156#issuecomment-6481417143）。"
+- "出典ID": "ISSUE-63-C6500107064"
+  "Issue番号": "63"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/63#issuecomment-6500107064"
+  "投稿日": "2026-10-29T14:55:47Z"
+  "本文SHA256": "31f3f0a2c09d8e170780a98ad1a122c3a75b8805836dbdb7dcd83c349b3ceb8d"
+  "安全化SHA256": "31f3f0a2c09d8e170780a98ad1a122c3a75b8805836dbdb7dcd83c349b3ceb8d"
+  "本文": "これからやること(name-name): 敵の攻撃では敵を右へ踏み出させず、敵アクスタ自身が samplePixelatePulse で一瞬粗いモザイク化して戻る通知に変える。味方の攻撃pose・被弾モザイクは維持。倒れ絵の無い敵の半透明化は現状維持(可逆)とし、PRに明記する。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-63-C6500526594"
+  "Issue番号": "63"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/63#issuecomment-6500526594"
+  "投稿日": "2026-10-29T15:12:24Z"
+  "本文SHA256": "6fac42fc8a26af174b19024d0dfdc347ad62e03acf148cf19bde235f208f0b90"
+  "安全化SHA256": "6fac42fc8a26af174b19024d0dfdc347ad62e03acf148cf19bde235f208f0b90"
+  "本文": "name-name PR https://github.com/kako-jun/name-name/pull/1010 を出した(Refs のみ・未マージ)。済み: 敵の攻撃は踏み出さず、攻撃した敵自身が既存値(hitMosaicMs/MaxSize)で自己モザイク化して戻る。味方の攻撃pose・被弾モザイクは不変。default\
+    \ モーションはモザイクなし(hitMosaicMs=0)。残り: 実ブラウザ目視、倒れ絵無し敵の半透明(現状維持にした・要判断)、MAP遷移/メニュー遷移モザイク。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
 - "出典ID": "ISSUE-64-BODY"
   "Issue番号": "64"
   "種別": "本文"
@@ -8145,6 +8412,49 @@
   "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。節の意味分類は自動抽出で再点検が必要。 要確認の命題は kako-jun 本人の決定・判断として確認済み（2026-10-29、https://github.com/kako-jun/sit-by-me/issues/156#issuecomment-6481417143）。\
     \ 要確認の命題は kako-jun 本人の決定・判断として確認済み（2026-10-29、https://github.com/kako-jun/sit-by-me/issues/156#issuecomment-6481417143）。\
     \ 要確認の命題は kako-jun 本人の決定・判断として確認済み（2026-10-29、https://github.com/kako-jun/sit-by-me/issues/156#issuecomment-6481417143）。"
+- "出典ID": "ISSUE-64-C6500107518"
+  "Issue番号": "64"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/64#issuecomment-6500107518"
+  "投稿日": "2026-10-29T14:55:48Z"
+  "本文SHA256": "31f3f0a2c09d8e170780a98ad1a122c3a75b8805836dbdb7dcd83c349b3ceb8d"
+  "安全化SHA256": "31f3f0a2c09d8e170780a98ad1a122c3a75b8805836dbdb7dcd83c349b3ceb8d"
+  "本文": "これからやること(name-name): 敵の攻撃では敵を右へ踏み出させず、敵アクスタ自身が samplePixelatePulse で一瞬粗いモザイク化して戻る通知に変える。味方の攻撃pose・被弾モザイクは維持。倒れ絵の無い敵の半透明化は現状維持(可逆)とし、PRに明記する。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-64-C6500527227"
+  "Issue番号": "64"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/64#issuecomment-6500527227"
+  "投稿日": "2026-10-29T15:12:26Z"
+  "本文SHA256": "6fac42fc8a26af174b19024d0dfdc347ad62e03acf148cf19bde235f208f0b90"
+  "安全化SHA256": "6fac42fc8a26af174b19024d0dfdc347ad62e03acf148cf19bde235f208f0b90"
+  "本文": "name-name PR https://github.com/kako-jun/name-name/pull/1010 を出した(Refs のみ・未マージ)。済み: 敵の攻撃は踏み出さず、攻撃した敵自身が既存値(hitMosaicMs/MaxSize)で自己モザイク化して戻る。味方の攻撃pose・被弾モザイクは不変。default\
+    \ モーションはモザイクなし(hitMosaicMs=0)。残り: 実ブラウザ目視、倒れ絵無し敵の半透明(現状維持にした・要判断)、MAP遷移/メニュー遷移モザイク。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-64-C6500948513"
+  "Issue番号": "64"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/64#issuecomment-6500948513"
+  "投稿日": "2026-10-29T15:29:20Z"
+  "本文SHA256": "870c27095490c496a9573571aaf6e285bd263c96075573da8af50b005d6fcd39"
+  "安全化SHA256": "870c27095490c496a9573571aaf6e285bd263c96075573da8af50b005d6fcd39"
+  "本文": "name-name PR #1010 レビュー反映: 敵の自己モザイクは通常攻撃(attack)のみ。物理系 skill を「攻撃」とみなすかは裁定待ち。モザイク有効(snappy)時のみ敵は踏み出さず攻撃ポーズも止め、default\
+    \ は従来どおり踏み出す。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-64-C6501287832"
+  "Issue番号": "64"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/64#issuecomment-6501287832"
+  "投稿日": "2026-10-29T15:42:26Z"
+  "本文SHA256": "9926f6b88767a723578ffc1a041fd1a9873b331958838ee5e8ccfa2a9a44810e"
+  "安全化SHA256": "9926f6b88767a723578ffc1a041fd1a9873b331958838ee5e8ccfa2a9a44810e"
+  "本文": "前提の注記(name-name PR #1010): sit-by-me には battle_motion 設定がまだ無く、採用時に `battle_motion: snappy` を明示しないと「敵が踏み出さない」にならない。default\
+    \ は従来の踏み出しのまま、snappy 指定で自己モザイクになる。寺町サンプルは PR #1009 で motion:\"snappy\" にする予定。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
 - "出典ID": "ISSUE-65-BODY"
   "Issue番号": "65"
   "種別": "本文"
@@ -8205,6 +8515,52 @@
     - field sample schema に `spells` / `items` を正式追加し、`commandLayout` とともに `BattleScreen` へ渡す。
     - sample 用のアイテムは試作所持数を明示する。未実装の本編 inventory を装った無反応ボタンにしない。
     - field sample と battle-sample の機能同等性を自動テストし、各追加機能の統合サンプル到達を継続的に検査する。
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-65-C6500119535"
+  "Issue番号": "65"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/65#issuecomment-6500119535"
+  "投稿日": "2026-10-29T14:56:17Z"
+  "本文SHA256": "6d7bd17d962ce5dc59d36d3c652941c092cb668a835ebc6085976a35ac7f5696"
+  "安全化SHA256": "6d7bd17d962ce5dc59d36d3c652941c092cb668a835ebc6085976a35ac7f5696"
+  "本文": "これからやること: name-name の統合サンプル設定(寺町サンプル teramachi.sample.json)に atb / cross(commandLayout+commands) / enemyGrid+monsters.size\
+    \ / motion の配線を行い、config.ts に任意の motion を追加して BattleScreen へ渡す。同等性検査テストも追加し PR を出す。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-65-C6500527703"
+  "Issue番号": "65"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/65#issuecomment-6500527703"
+  "投稿日": "2026-10-29T15:12:27Z"
+  "本文SHA256": "6141dd8bba0266abe0340ea4111e012ef700ad61bc1b9ed984059f44b3fdae72"
+  "安全化SHA256": "6141dd8bba0266abe0340ea4111e012ef700ad61bc1b9ed984059f44b3fdae72"
+  "本文": "結果: name-name PR https://github.com/kako-jun/name-name/pull/1009 を出した(Refs のみ・未マージ)。寺町サンプルに atb:on / commandLayout:cross+commands4つ\
+    \ / enemyGrid:4x2+monsters.size(M001=1x1, M008=1x2) / motion:snappy(+presentation ff, windowStyle ff-blue)を配線し、config.ts\
+    \ に任意の battle.motion を追加。同等性テストを teramachiSample.test.ts に追加(設定を外すと落ちることを確認)。本番ビルドを Playwright で目視: 十字コマンド・ATBゲージと番の味方・敵のグリッド配置・被弾演出を確認。残る目視:\
+    \ 2桁ダメージの桁バウンス、複数敵の遭遇群、kako-jun による実機サインオフ。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-65-C6500934870"
+  "Issue番号": "65"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/65#issuecomment-6500934870"
+  "投稿日": "2026-10-29T15:28:48Z"
+  "本文SHA256": "51be2e247b2860cf0b50bb13a9fb385587a43095f774b7bb90698214011203bd"
+  "安全化SHA256": "51be2e247b2860cf0b50bb13a9fb385587a43095f774b7bb90698214011203bd"
+  "本文": "追記(name-name PR #1009 のレビュー対応): commands を attack/spell/item/escape に直し spells/items を同梱して全コマンドが機能することを本番ビルドで確認(2桁ダメージの桁ずらし跳ねも確認)。#65\
+    \ が挙げる teamachi-diorama-standing-enemygrid.field.json はどちらのリポにも存在しないため、name-name 同梱の寺町サンプルを代役として配線済み。未了: README の検証URL/操作手順更新、立位・車椅子の両設定での通し(立位設定の素材が未整備)。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-65-C6501697340"
+  "Issue番号": "65"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/65#issuecomment-6501697340"
+  "投稿日": "2026-10-29T15:58:59Z"
+  "本文SHA256": "4efd439c3606d2c1fc6bfdb2d3dff999a905be55d8e6b591dfaeb5ca38ccbf2e"
+  "安全化SHA256": "4efd439c3606d2c1fc6bfdb2d3dff999a905be55d8e6b591dfaeb5ca38ccbf2e"
+  "本文": "追記(name-name PR #1009 最終状態): 十字コマンド(cross)は 4 コマンド限定のため、特技(skill)とは両立しない。サンプルは たたかう・じゅもん・どうぐ・にげる の 4 つにし、skill は外した(skills\
+    \ も未同梱)。#65 の README 更新と立位/車椅子設定での通しは未了(代役サンプルで配線済み)。main とのコンフリクトも解消済み。"
   "点検状態": "確認済み"
   "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
 - "出典ID": "ISSUE-66-BODY"
@@ -19450,6 +19806,30 @@
     追加の素材指定（2026-10-27）: ダメージ・回復の数字は黒枠、ビビッドな影、ゲームらしい角張った文字。素材制作は #169、一覧は `docs/battle-effects-registry.md`。この Issue の桁ごとの時間差バウンスと両立させる。
   "点検状態": "確認済み"
   "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-62-C6500118938"
+  "Issue番号": "62"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/62#issuecomment-6500118938"
+  "投稿日": "2026-10-29T14:56:16Z"
+  "本文SHA256": "6d7bd17d962ce5dc59d36d3c652941c092cb668a835ebc6085976a35ac7f5696"
+  "安全化SHA256": "6d7bd17d962ce5dc59d36d3c652941c092cb668a835ebc6085976a35ac7f5696"
+  "本文": "これからやること: name-name の統合サンプル設定(寺町サンプル teramachi.sample.json)に atb / cross(commandLayout+commands) / enemyGrid+monsters.size\
+    \ / motion の配線を行い、config.ts に任意の motion を追加して BattleScreen へ渡す。同等性検査テストも追加し PR を出す。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-62-C6500527188"
+  "Issue番号": "62"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/62#issuecomment-6500527188"
+  "投稿日": "2026-10-29T15:12:25Z"
+  "本文SHA256": "6141dd8bba0266abe0340ea4111e012ef700ad61bc1b9ed984059f44b3fdae72"
+  "安全化SHA256": "6141dd8bba0266abe0340ea4111e012ef700ad61bc1b9ed984059f44b3fdae72"
+  "本文": "結果: name-name PR https://github.com/kako-jun/name-name/pull/1009 を出した(Refs のみ・未マージ)。寺町サンプルに atb:on / commandLayout:cross+commands4つ\
+    \ / enemyGrid:4x2+monsters.size(M001=1x1, M008=1x2) / motion:snappy(+presentation ff, windowStyle ff-blue)を配線し、config.ts\
+    \ に任意の battle.motion を追加。同等性テストを teramachiSample.test.ts に追加(設定を外すと落ちることを確認)。本番ビルドを Playwright で目視: 十字コマンド・ATBゲージと番の味方・敵のグリッド配置・被弾演出を確認。残る目視:\
+    \ 2桁ダメージの桁バウンス、複数敵の遭遇群、kako-jun による実機サインオフ。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
 - "出典ID": "ISSUE-67-C6434576123"
   "Issue番号": "67"
   "種別": "コメント"
@@ -26188,6 +26568,16 @@
   "本文": "これからやること: 独立レビュー指摘4件の修正(#180本文の未決起票、.D.行の追加、MIGRATION-RESUMEの時点明記)と、C6499425829 を含む最新の未取込みコメントの取込み"
   "点検状態": "確認済み"
   "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-156-C6501890713"
+  "Issue番号": "156"
+  "種別": "コメント"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/156#issuecomment-6501890713"
+  "投稿日": "2026-10-29T16:07:16Z"
+  "本文SHA256": "b98028c0a85b32d8422280fa9d8fd8c0dba0f9f3d916cfa12f106966080b3841"
+  "安全化SHA256": "b98028c0a85b32d8422280fa9d8fd8c0dba0f9f3d916cfa12f106966080b3841"
+  "本文": "これからやること: Issue点検の未反映379件を出典・命題台帳と突合して分類確定"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
 - "出典ID": "ISSUE-165-BODY"
   "Issue番号": "165"
   "種別": "本文"
@@ -31554,5 +31944,43 @@
   "本文SHA256": "805f0f4be8f661be9d29e5ec6ed90b9ac1d8b12eacd5b46f9a44f2d86b2327df"
   "安全化SHA256": "805f0f4be8f661be9d29e5ec6ed90b9ac1d8b12eacd5b46f9a44f2d86b2327df"
   "本文": "C033（E04）の三面マスター候補を作成し、FORM-055・A-1100 に紐付けた。三面・冬服・傘を目視確認。独立レビュー・採用は未了。"
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-185-BODY"
+  "Issue番号": "185"
+  "種別": "本文"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/185"
+  "投稿日": "2026-10-29T15:24:09Z"
+  "本文SHA256": "b940cab8a5f10d25bf6167273b7ac710f833406fd90068ee43ef3c499f6f7658"
+  "安全化SHA256": "b940cab8a5f10d25bf6167273b7ac710f833406fd90068ee43ef3c499f6f7658"
+  "本文": |
+    ## 背景
+    name-name のフィールド (`frontend/src/fieldSample/main.ts` 約368行) は、NPC の立ち止まりを `def.sprites[f][0]`（1コマ目＝接地位相）で描く。name-name の spec (`docs/spec/markdown-v0.1.md` 2587行付近) も「立ち止まりは1コマ目」と書いている。
+
+    ## 問題
+    sit-by-me のキャラスプライト仕様（`.claude/skills/sit-character-sprite/SKILL.md` §7）では、frame1・3 が接地位相、frame2 が通過位相。立位の人物は通過コマ（2コマ目）で止まるのが自然で、主人公側は kako-jun/sit-by-me#59 で `player.idleFrame` により通過コマ停止にできるようになる（name-name PR kako-jun/name-name#1011）。NPC だけ接地コマで止まり、主人公と見た目の止まり方が揃わない。
+
+    ## やること
+    - name-name 側で NPC の停止コマを指定できるようにする（または立位 NPC の既定を通過コマにする）。これは spec の「立ち止まりは1コマ目」を変える仕様変更なので、spec・docs・既存テストも合わせて更新する。
+    - 影響範囲の確認: 既存の NPC 設定（寺町サンプル等）の見た目が変わらないよう、未指定は従来どおりにするか、一括で切り替えるかを決める。
+
+    ## 参照
+    - kako-jun/sit-by-me#59
+    - kako-jun/name-name#1011
+  "点検状態": "確認済み"
+  "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
+- "出典ID": "ISSUE-187-BODY"
+  "Issue番号": "187"
+  "種別": "本文"
+  "URL": "https://github.com/kako-jun/sit-by-me/issues/187"
+  "投稿日": "2026-10-29T17:19:06Z"
+  "本文SHA256": "1602411774a88923f32214977f9c699b62fad6a78b40848cb800b0932d83c27d"
+  "安全化SHA256": "1602411774a88923f32214977f9c699b62fad6a78b40848cb800b0932d83c27d"
+  "本文": |-
+    sit-by-me#61(edge link を接触で発火)の name-name 側修正(PR kako-jun/name-name#1016)のレビューで見つかった、#61 の範囲外の観察。
+
+    体内マップ(BDY-01〜06)の links は、画像の端ではなく画像内側の縁(模型天面の縁)にある。ランタイムの端リンクは画像の端(left/right/top/bottom の辺)からの距離で判定するため、画像内側の縁にあるリンクは現状の仕組みでは発火しない/扱えない。
+
+    決めること: 内側の縁をリンクにするなら、辺でなくマスク上の領域・ゾーンで発火する別の仕組み(出口ゾーンなど)が必要か、体内マップの背景を端まで描く運用にするか。#61 では扱わない。
   "点検状態": "確認済み"
   "備考": "GitHub API原文のSHA256を保持。本文は安全化済み。全命題を精読して分類済み（命題表を参照）。"
