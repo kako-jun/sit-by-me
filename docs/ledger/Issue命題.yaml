@@ -11879,6 +11879,36 @@
   "未決ID": ""
   "参照先": ""
   "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-53-C6502053694.S001"
+  "出典ID": "ISSUE-53-C6502053694"
+  "位置": "行1-10"
+  "要点": "name-name 側で切り分けと修正を行いました（着手前コメントが前後しましたが、実施内容を記録します）。"
+  "原文抜粋": "name-name 側で切り分けと修正を行いました（着手前コメントが前後しましたが、実施内容を記録します）。\n\n**実施**: 寺町サンプルの本番ビルドを DPR=1 / DPR=2 で開き、歩行スプライトの描画を比較。\n\
+    \n**切り分け結果**\n- 原因（確定に近い・実測）: `Application.init` に `resolution`/`autoDensity` が無く、canvas のバッファは常に 1536x1024（等倍）。DPR=2\
+    \ では CSS 1176px × 2 = 2352 物理 px に引き伸ばされ（約 1.5 倍拡大）、背景より情報量の多いキャラ画像（原画 284x396 を約 1/3 に縮めて描画）がぼける。`resolution=devicePixelRatio`\
+    \ + `autoDensity` で DPR=2 のキャラの目鼻・服の線が明確に締まった。\n- "
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-53-C6502538424.S001"
+  "出典ID": "ISSUE-53-C6502538424"
+  "位置": "行1-6"
+  "要点": "追加切り分け（name-name#1013 レビュー対応）: 戦闘で `spriteStyle:\"acrylic\"` を使い DPR=2 で A/B（本番ビルド・playwright、before=origin/main、after=PR）。"
+  "原文抜粋": |-
+    追加切り分け（name-name#1013 レビュー対応）: 戦闘で `spriteStyle:"acrylic"` を使い DPR=2 で A/B（本番ビルド・playwright、before=origin/main、after=PR）。
+
+    - before: 戦闘の canvas バッファは 800x450（CSS 800）で、DPR=2 では 2 倍に引き伸ばされる。**味方（アクスタ内の人物・枠・台座）もモンスターも同様にぼける**（人物領域 Laplacian 分散 79、モンスター領域 54）。枠・台座だけ鮮明でアクスタ内の人物だけがぼける、という差は再現しなかった。
+    - after: バッファ 1600x900（CSS 800）。人物 626、モンスター 600。目鼻・服の線・枠の縁とも明確に締まった。
+    - 味方・モンスターとも BattleScreen の `applyB
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
 - "命題ID": "ISSUE-54-BODY.S001"
   "出典ID": "ISSUE-54-BODY"
   "位置": "行1-4"
@@ -11935,6 +11965,34 @@
     - 横長・縦長・2×2の各1体で、指定グリッドどおりに描画・選択・ターゲット・当たり判定が一致する。
     - 実機戦闘で確認する。
     - 素材を増やさず、既存footprint定義をrendererが一貫して消費する。
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-54-C6500117402.S001"
+  "出典ID": "ISSUE-54-C6500117402"
+  "位置": "行1-1"
+  "要点": "これからやること: name-name の統合サンプル設定(寺町サンプル teramachi.sample.json)に atb / cross(commandLayout+commands) / enemyGrid+monsters.size\
+    \ / motion の配線を行い、config.ts に任意の motion を追加して BattleScreen "
+  "原文抜粋": "これからやること: name-name の統合サンプル設定(寺町サンプル teramachi.sample.json)に atb / cross(commandLayout+commands) / enemyGrid+monsters.size\
+    \ / motion の配線を行い、config.ts に任意の motion を追加して BattleScreen へ渡す。同等性検査テストも追加し PR を出す。"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-54-C6500525125.S001"
+  "出典ID": "ISSUE-54-C6500525125"
+  "位置": "行1-1"
+  "要点": "結果: name-name PR https://github.com/kako-jun/name-name/pull/1009 を出した(Refs のみ・未マージ)。寺町サンプルに atb:on / commandLayout:cross+commands4つ\
+    \ / enemyGrid:4x2+monsters.size(M001=1x1, M008=1x2"
+  "原文抜粋": "結果: name-name PR https://github.com/kako-jun/name-name/pull/1009 を出した(Refs のみ・未マージ)。寺町サンプルに atb:on / commandLayout:cross+commands4つ\
+    \ / enemyGrid:4x2+monsters.size(M001=1x1, M008=1x2) / motion:snappy(+presentation ff, windowStyle ff-blue)を配線し、config.ts\
+    \ に任意の battle.motion を追加。同等性テストを teramachiSample.test.ts に追加(設定を外すと落ちることを確認)。本番ビルドを Playwright で目視: 十字コマンド・ATBゲージと番の味方・敵のグリッド配置・被弾演出を確認。残る目視:\
+    \ 2桁ダメージの桁バ"
   "帰属": "話者未確定"
   "分類": "作業記録"
   "決定ID": ""
@@ -11998,6 +12056,33 @@
   "未決ID": ""
   "参照先": ""
   "備考": "【本人確認済み 2026-10-29】【手動】Issue記録の決定文を kako-jun 本人の決定・判断として決定表へ反映（確認の出典 https://github.com/kako-jun/sit-by-me/issues/156#issuecomment-6481417143）。節内の命題は意味単位で分けた。"
+- "命題ID": "ISSUE-55-C6501895898.S001"
+  "出典ID": "ISSUE-55-C6501895898"
+  "位置": "行1-1"
+  "要点": "これからやること(name-name): fieldSample のエンカウント→戦闘に FieldBattleTransition を配線、battle_transition 設定(none|ff|ff-mosaic、未指定=none)、演出中の二重入力・二重エンカウント抑止、戦闘後復帰の整合。寺町サンプルは\
+    \ ff-mosaic。見た目の値は既存の仮値(#"
+  "原文抜粋": "これからやること(name-name): fieldSample のエンカウント→戦闘に FieldBattleTransition を配線、battle_transition 設定(none|ff|ff-mosaic、未指定=none)、演出中の二重入力・二重エンカウント抑止、戦闘後復帰の整合。寺町サンプルは\
+    \ ff-mosaic。見た目の値は既存の仮値(#803 測定待ち)を使う。"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-55-C6502065982.S001"
+  "出典ID": "ISSUE-55-C6502065982"
+  "位置": "行1-3"
+  "要点": "name-name PR: https://github.com/kako-jun/name-name/pull/1014"
+  "原文抜粋": |-
+    name-name PR: https://github.com/kako-jun/name-name/pull/1014
+    配線: fieldSample のエンカウント(今すぐエンカウント含む)→戦闘に FieldBattleTransition を配線。設定は battle.transition(none|ff|ff-mosaic、未指定=none)。寺町サンプルは ff-mosaic。演出中は歩行・タップ・二重エンカウントを無視。戦闘終了も黒を経由して復帰。実ブラウザでズーム+モザイク→戦闘→逃走で黒経由→フィールド復帰を確認。
+    残り: 見た目の最終目視と、時間・ズーム量の合意(#803 測定待ち。現状は既存の仮値)。
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
 - "命題ID": "ISSUE-55-C6207158316.D.SIT.mosaic-field-to-battle-zoom"
   "出典ID": "ISSUE-55-C6207158316"
   "位置": "既存決定の出典URL"
@@ -12054,6 +12139,47 @@
   "未決ID": ""
   "参照先": ""
   "備考": "【精読】調査結果・作業進捗の記録（AI）。決定を含まない。"
+- "命題ID": "ISSUE-56-C6500117851.S001"
+  "出典ID": "ISSUE-56-C6500117851"
+  "位置": "行1-1"
+  "要点": "これからやること: name-name の統合サンプル設定(寺町サンプル teramachi.sample.json)に atb / cross(commandLayout+commands) / enemyGrid+monsters.size\
+    \ / motion の配線を行い、config.ts に任意の motion を追加して BattleScreen "
+  "原文抜粋": "これからやること: name-name の統合サンプル設定(寺町サンプル teramachi.sample.json)に atb / cross(commandLayout+commands) / enemyGrid+monsters.size\
+    \ / motion の配線を行い、config.ts に任意の motion を追加して BattleScreen へ渡す。同等性検査テストも追加し PR を出す。"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-56-C6500526031.S001"
+  "出典ID": "ISSUE-56-C6500526031"
+  "位置": "行1-1"
+  "要点": "結果: name-name PR https://github.com/kako-jun/name-name/pull/1009 を出した(Refs のみ・未マージ)。寺町サンプルに atb:on / commandLayout:cross+commands4つ\
+    \ / enemyGrid:4x2+monsters.size(M001=1x1, M008=1x2"
+  "原文抜粋": "結果: name-name PR https://github.com/kako-jun/name-name/pull/1009 を出した(Refs のみ・未マージ)。寺町サンプルに atb:on / commandLayout:cross+commands4つ\
+    \ / enemyGrid:4x2+monsters.size(M001=1x1, M008=1x2) / motion:snappy(+presentation ff, windowStyle ff-blue)を配線し、config.ts\
+    \ に任意の battle.motion を追加。同等性テストを teramachiSample.test.ts に追加(設定を外すと落ちることを確認)。本番ビルドを Playwright で目視: 十字コマンド・ATBゲージと番の味方・敵のグリッド配置・被弾演出を確認。残る目視:\
+    \ 2桁ダメージの桁バ"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-56-C6501696870.S001"
+  "出典ID": "ISSUE-56-C6501696870"
+  "位置": "行1-1"
+  "要点": "追記(name-name PR #1009 最終状態): 十字コマンド(cross)は 4 コマンド限定のため、特技(skill)とは両立しない。サンプルは たたかう・じゅもん・どうぐ・にげる の 4 つにし、skill は外した(skills\
+    \ も未同梱)。#65 の README 更新と立位/車椅子設定での通しは未了(代役サンプルで配線済み)。main と"
+  "原文抜粋": "追記(name-name PR #1009 最終状態): 十字コマンド(cross)は 4 コマンド限定のため、特技(skill)とは両立しない。サンプルは たたかう・じゅもん・どうぐ・にげる の 4 つにし、skill\
+    \ は外した(skills も未同梱)。#65 の README 更新と立位/車椅子設定での通しは未了(代役サンプルで配線済み)。main とのコンフリクトも解消済み。"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
 - "命題ID": "ISSUE-57-BODY.S001"
   "出典ID": "ISSUE-57-BODY"
   "位置": "行1-4"
@@ -12085,6 +12211,34 @@
   "未決ID": ""
   "参照先": ""
   "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-57-C6500118324.S001"
+  "出典ID": "ISSUE-57-C6500118324"
+  "位置": "行1-1"
+  "要点": "これからやること: name-name の統合サンプル設定(寺町サンプル teramachi.sample.json)に atb / cross(commandLayout+commands) / enemyGrid+monsters.size\
+    \ / motion の配線を行い、config.ts に任意の motion を追加して BattleScreen "
+  "原文抜粋": "これからやること: name-name の統合サンプル設定(寺町サンプル teramachi.sample.json)に atb / cross(commandLayout+commands) / enemyGrid+monsters.size\
+    \ / motion の配線を行い、config.ts に任意の motion を追加して BattleScreen へ渡す。同等性検査テストも追加し PR を出す。"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-57-C6500526663.S001"
+  "出典ID": "ISSUE-57-C6500526663"
+  "位置": "行1-1"
+  "要点": "結果: name-name PR https://github.com/kako-jun/name-name/pull/1009 を出した(Refs のみ・未マージ)。寺町サンプルに atb:on / commandLayout:cross+commands4つ\
+    \ / enemyGrid:4x2+monsters.size(M001=1x1, M008=1x2"
+  "原文抜粋": "結果: name-name PR https://github.com/kako-jun/name-name/pull/1009 を出した(Refs のみ・未マージ)。寺町サンプルに atb:on / commandLayout:cross+commands4つ\
+    \ / enemyGrid:4x2+monsters.size(M001=1x1, M008=1x2) / motion:snappy(+presentation ff, windowStyle ff-blue)を配線し、config.ts\
+    \ に任意の battle.motion を追加。同等性テストを teramachiSample.test.ts に追加(設定を外すと落ちることを確認)。本番ビルドを Playwright で目視: 十字コマンド・ATBゲージと番の味方・敵のグリッド配置・被弾演出を確認。残る目視:\
+    \ 2桁ダメージの桁バ"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
 - "命題ID": "ISSUE-58-BODY.S001"
   "出典ID": "ISSUE-58-BODY"
   "位置": "行1-4"
@@ -12110,6 +12264,34 @@
     - 上下左右＋4斜めの8方向スプライトを移動方向に対応して選ぶ。
     - 斜め左向きの反転規約を含め、standing / wheelchair・男女主人公で実機確認する。
     - アクスタ表現と#53の人物テクスチャ鮮明化を両立させる。
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-58-C6502910639.S001"
+  "出典ID": "ISSUE-58-C6502910639"
+  "位置": "行1-1"
+  "要点": "これからやること(name-name 側): 戦闘 acrylic の生成(板・台座・影)を BattleScreen から共有モジュールに切り出し(挙動不変のリファクタ、別コミット)、fieldSample の歩行スプライト(主人公・同行者)に明示オプション\
+    \ spriteStyle:\"acrylic\" で適用する(未指定=従来描画)。足元座標・歩行マスク・"
+  "原文抜粋": "これからやること(name-name 側): 戦闘 acrylic の生成(板・台座・影)を BattleScreen から共有モジュールに切り出し(挙動不変のリファクタ、別コミット)、fieldSample の歩行スプライト(主人公・同行者)に明示オプション\
+    \ spriteStyle:\"acrylic\" で適用する(未指定=従来描画)。足元座標・歩行マスク・端リンク・移動速度・前景オクルージョンは変えない。寺町サンプルの見た目は変更しない。"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-58-C6503334323.S001"
+  "出典ID": "ISSUE-58-C6503334323"
+  "位置": "行1-4"
+  "要点": "name-name 側の実装 PR を出した: https://github.com/kako-jun/name-name/pull/1017"
+  "原文抜粋": |-
+    name-name 側の実装 PR を出した: https://github.com/kako-jun/name-name/pull/1017
+
+    済み: 戦闘 acrylic の部品生成・配置を共有モジュール化(挙動不変。戦闘 acrylic のスクリーンショットが origin/main のビルドとバイト一致)。フィールド設定の最上位に `spriteStyle: "acrylic"` を追加し、主人公・同行者の足元に板・台座・地面の影を付ける(未指定=従来描画、歩行・8方向・停止・DPR1/2 を実ブラウザで確認)。足元座標・歩行マスク・移動速度・前面オクルージョンは不変。
+    残り: sit-by-me の実素材(大人の共通立ち絵 1024x1536 など)でのアクスタ化の目視確認、NPC のアクスタ化(name-name#861 側)。#58 は close しない。
   "帰属": "話者未確定"
   "分類": "作業記録"
   "決定ID": ""
@@ -12158,6 +12340,47 @@
     - 停止時は歩行途中の片足フレームで止まらない。
     - 8方向の立位主人公で実機目視確認する。
     - 車椅子は別の回転／駆動アニメーションとして扱い、歩行フレームを流用しない。
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-59-C6500118228.S001"
+  "出典ID": "ISSUE-59-C6500118228"
+  "位置": "行1-1"
+  "要点": "これからやること(name-name側): walkFrame を周期配列方式にする。立位は [0,1,2,1](接地A→通過→接地B→通過)、停止は通過コマ(1)、車椅子は別周期(従来の [0,1,2] 相当を維持)。config\
+    \ の player に任意の cycle / idleFrame を足し、未指定=現行挙動で後方互換。同行者も同じ周期関数を使う"
+  "原文抜粋": "これからやること(name-name側): walkFrame を周期配列方式にする。立位は [0,1,2,1](接地A→通過→接地B→通過)、停止は通過コマ(1)、車椅子は別周期(従来の [0,1,2] 相当を維持)。config\
+    \ の player に任意の cycle / idleFrame を足し、未指定=現行挙動で後方互換。同行者も同じ周期関数を使う。"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-59-C6500669713.S001"
+  "出典ID": "ISSUE-59-C6500669713"
+  "位置": "行1-1"
+  "要点": "name-name PR を出した: https://github.com/kako-jun/name-name/pull/1011 (Refs のみ)。walkFrame を周期配列化し、player.cycle / idleFrame\
+    \ を任意で追加(未指定=従来の [0,1,2]・停止0、車椅子は影響なし)。立位は cycle [0,1,2,1]・idl"
+  "原文抜粋": "name-name PR を出した: https://github.com/kako-jun/name-name/pull/1011 (Refs のみ)。walkFrame を周期配列化し、player.cycle / idleFrame\
+    \ を任意で追加(未指定=従来の [0,1,2]・停止0、車椅子は影響なし)。立位は cycle [0,1,2,1]・idleFrame 1 で 接地A→通過→接地B→通過、停止は通過コマ。同行者も同じ周期。残り: (1) sit-by-me\
+    \ 側の立位フィールド設定に cycle/idleFrame を書く (2) 実ブラウザでの8方向の目視確認(未実施)。"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-59-C6500830031.S001"
+  "出典ID": "ISSUE-59-C6500830031"
+  "位置": "行1-1"
+  "要点": "name-name PR #1011 にレビュー対応を追加。(1) 同行者は主人公と周期を共有せず companion.cycle / companion.idleFrame で別指定(未指定=従来 [0,1,2]・停止0)。同行者は車椅子の主人公を押す立位の人のため。(2)\
+    \ この PR だけでは同梱サンプルのどれにも効果は出ない(主人公は車椅子=cycle"
+  "原文抜粋": "name-name PR #1011 にレビュー対応を追加。(1) 同行者は主人公と周期を共有せず companion.cycle / companion.idleFrame で別指定(未指定=従来 [0,1,2]・停止0)。同行者は車椅子の主人公を押す立位の人のため。(2)\
+    \ この PR だけでは同梱サンプルのどれにも効果は出ない(主人公は車椅子=cycle を書かない側、立位主人公のフィールド設定がまだ無い)。(3) 立位設定(主人公 cycle [0,1,2,1]+idleFrame 1、同行者は companion\
+    \ 側)が揃って目視確認するまで #59 は「直った」と言えない。(4) 立位NPCの停止コマ(spec『立ち止まりは1コマ目』)は仕様変更のため別 Issue #185 に起票。"
   "帰属": "話者未確定"
   "分類": "作業記録"
   "決定ID": ""
@@ -12364,6 +12587,53 @@
   "未決ID": ""
   "参照先": ""
   "備考": "【本人確認済み 2026-10-29】【手動】Issue記録の決定文を kako-jun 本人の決定・判断として決定表へ反映（確認の出典 https://github.com/kako-jun/sit-by-me/issues/156#issuecomment-6481417143）。節内の命題は意味単位で分けた。"
+- "命題ID": "ISSUE-61-C6502910065.S001"
+  "出典ID": "ISSUE-61-C6502910065"
+  "位置": "行1-1"
+  "要点": "【name-name 側 作業予告】edge link 発火条件を完了条件(各edgeで接触時に一度だけ遷移/range外・blocked edgeで発火しない/往復ループなし/立位・車椅子・assist)と照合し、単体テストと本番ビルドの実ブラウザで実測する。満たさない項目があれば最小修正(既存\
+    \ edgeThreshold の挙動は後方互換)、満たしていれ"
+  "原文抜粋": "【name-name 側 作業予告】edge link 発火条件を完了条件(各edgeで接触時に一度だけ遷移/range外・blocked edgeで発火しない/往復ループなし/立位・車椅子・assist)と照合し、単体テストと本番ビルドの実ブラウザで実測する。満たさない項目があれば最小修正(既存\
+    \ edgeThreshold の挙動は後方互換)、満たしていればテスト追加と調査記録のみ。"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-61-C6503131237.S001"
+  "出典ID": "ISSUE-61-C6503131237"
+  "位置": "行1-9"
+  "要点": "【name-name 側 調査結果】PR https://github.com/kako-jun/name-name/pull/1016"
+  "原文抜粋": |-
+    【name-name 側 調査結果】PR https://github.com/kako-jun/name-name/pull/1016
+    edge link 発火条件を完了条件と照合(単体+本番ビルドの実ブラウザ・実マスク)。実装変更は不要と判断し、テスト追加とdocs明記のみ。
+    - 各edge接触で一度だけ発火(完全退出は不要): 満たす(右 shrine-street→canal 実機、4辺は単体)
+    - range外・端が黒: 発火しない(正しい)。range境界は閉区間
+    - 往復ループ: なし(着地は edgeThreshold×3 内側、押し続けても戻らない)
+    - 斜め・停止中: 正しく動作
+    - 立位/車椅子/assist: 判定式は足元座標+マスクのみで共通
+    - 注意: 足元は点判定のため、マスクの白が画像端から edgeThreshold(6px)より内側で終わる列は発火しない
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】調査結果の報告。末尾の『素材側はリンクrangeの白を端まで伸ばす運用』はAIの提案で、話者表記がなく決定にしない。この調査の『満たす』判断は後続コメント C6503543248 で訂正された。"
+- "命題ID": "ISSUE-61-C6503543248.S001"
+  "出典ID": "ISSUE-61-C6503543248"
+  "位置": "行1-1"
+  "要点": "【訂正と修正結果】先の『edge link は条件を満たす』は top 辺で誤りでした(足元1点判定のため、slope→銭湯の上端では絵が画面外へ完全に消える foot y≈2.7 まで遷移せず、頭が届く y≈141 から約135px押し込んでいた)。name-name\
+    \ PR https://github.com/kako-jun/name-name/pul"
+  "原文抜粋": "【訂正と修正結果】先の『edge link は条件を満たす』は top 辺で誤りでした(足元1点判定のため、slope→銭湯の上端では絵が画面外へ完全に消える foot y≈2.7 まで遷移せず、頭が届く y≈141 から約135px押し込んでいた)。name-name\
+    \ PR https://github.com/kako-jun/name-name/pull/1016 で修正: 接触を身体の外縁(top=頭、left/right=左右の縁、bottom=足元)で判定、着地は身体の分だけ内側に置く。設定\
+    \ edgeContact: \"body\"(既定)|\"foot\"(従来)。実機(本番ビルド+実素材): slope 上押しで foot y=137 で発火、銭湯→slope の着地でキャラが見える、往復ピンポンなし、left/right/bottom・range外OK。未対応:\
+    \ assist "
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": "未決:U-2903"
+  "備考": "【精読】edge link 修正の報告（訂正を含む）。体内マップの内側の縁は #187 / U-2903 で別扱い。"
 - "命題ID": "ISSUE-61-C6207158633.D.SIT.mosaic-map-edge-transition"
   "出典ID": "ISSUE-61-C6207158633"
   "位置": "既存決定の出典URL"
@@ -12549,6 +12819,30 @@
   "未決ID": ""
   "参照先": ""
   "備考": "【本人確認済み 2026-10-29】【手動】Issue記録の決定文を kako-jun 本人の決定・判断として決定表へ反映（確認の出典 https://github.com/kako-jun/sit-by-me/issues/156#issuecomment-6481417143）。節内の命題は意味単位で分けた。"
+- "命題ID": "ISSUE-63-C6500107064.S001"
+  "出典ID": "ISSUE-63-C6500107064"
+  "位置": "行1-1"
+  "要点": "これからやること(name-name): 敵の攻撃では敵を右へ踏み出させず、敵アクスタ自身が samplePixelatePulse で一瞬粗いモザイク化して戻る通知に変える。味方の攻撃pose・被弾モザイクは維持。倒れ絵の無い敵の半透明化は現状維持(可逆)とし、PRに明記する。"
+  "原文抜粋": "これからやること(name-name): 敵の攻撃では敵を右へ踏み出させず、敵アクスタ自身が samplePixelatePulse で一瞬粗いモザイク化して戻る通知に変える。味方の攻撃pose・被弾モザイクは維持。倒れ絵の無い敵の半透明化は現状維持(可逆)とし、PRに明記する。"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-63-C6500526594.S001"
+  "出典ID": "ISSUE-63-C6500526594"
+  "位置": "行1-1"
+  "要点": "name-name PR https://github.com/kako-jun/name-name/pull/1010 を出した(Refs のみ・未マージ)。済み: 敵の攻撃は踏み出さず、攻撃した敵自身が既存値(hitMosaicMs/MaxSize)で自己モザイク化して戻る。味方の攻撃pose・被弾モザイクは不変。default\
+    \ モーションはモザイクなし"
+  "原文抜粋": "name-name PR https://github.com/kako-jun/name-name/pull/1010 を出した(Refs のみ・未マージ)。済み: 敵の攻撃は踏み出さず、攻撃した敵自身が既存値(hitMosaicMs/MaxSize)で自己モザイク化して戻る。味方の攻撃pose・被弾モザイクは不変。default\
+    \ モーションはモザイクなし(hitMosaicMs=0)。残り: 実ブラウザ目視、倒れ絵無し敵の半透明(現状維持にした・要判断)、MAP遷移/メニュー遷移モザイク。"
+  "帰属": "話者未確定"
+  "分類": "未決反映"
+  "決定ID": ""
+  "未決ID": "U-2904"
+  "参照先": ""
+  "備考": "【精読】PR報告。倒れ絵無し敵の半透明化は『現状維持・要判断』と本文にあり、未決 U-2904 に含めた。決定にしない。"
 - "命題ID": "ISSUE-63-C6207158973.D.SIT.mosaic-enemy-attack-notice"
   "出典ID": "ISSUE-63-C6207158973"
   "位置": "既存決定の出典URL"
@@ -12631,6 +12925,56 @@
     - 各適用箇所が同じ演出語彙に見えつつ、遷移と攻撃を取り違えない強さに調整される。
     - アクスタの輪郭・台座・透明感がモザイク後に破綻せず戻る。
     - 実機でフィールド、メニュー、MAP遷移、戦闘突入、敵攻撃を連続確認する。
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-64-C6500107518.S001"
+  "出典ID": "ISSUE-64-C6500107518"
+  "位置": "行1-1"
+  "要点": "これからやること(name-name): 敵の攻撃では敵を右へ踏み出させず、敵アクスタ自身が samplePixelatePulse で一瞬粗いモザイク化して戻る通知に変える。味方の攻撃pose・被弾モザイクは維持。倒れ絵の無い敵の半透明化は現状維持(可逆)とし、PRに明記する。"
+  "原文抜粋": "これからやること(name-name): 敵の攻撃では敵を右へ踏み出させず、敵アクスタ自身が samplePixelatePulse で一瞬粗いモザイク化して戻る通知に変える。味方の攻撃pose・被弾モザイクは維持。倒れ絵の無い敵の半透明化は現状維持(可逆)とし、PRに明記する。"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-64-C6500527227.S001"
+  "出典ID": "ISSUE-64-C6500527227"
+  "位置": "行1-1"
+  "要点": "name-name PR https://github.com/kako-jun/name-name/pull/1010 を出した(Refs のみ・未マージ)。済み: 敵の攻撃は踏み出さず、攻撃した敵自身が既存値(hitMosaicMs/MaxSize)で自己モザイク化して戻る。味方の攻撃pose・被弾モザイクは不変。default\
+    \ モーションはモザイクなし"
+  "原文抜粋": "name-name PR https://github.com/kako-jun/name-name/pull/1010 を出した(Refs のみ・未マージ)。済み: 敵の攻撃は踏み出さず、攻撃した敵自身が既存値(hitMosaicMs/MaxSize)で自己モザイク化して戻る。味方の攻撃pose・被弾モザイクは不変。default\
+    \ モーションはモザイクなし(hitMosaicMs=0)。残り: 実ブラウザ目視、倒れ絵無し敵の半透明(現状維持にした・要判断)、MAP遷移/メニュー遷移モザイク。"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-64-C6500948513.S001"
+  "出典ID": "ISSUE-64-C6500948513"
+  "位置": "行1-1"
+  "要点": "name-name PR #1010 レビュー反映: 敵の自己モザイクは通常攻撃(attack)のみ。物理系 skill を「攻撃」とみなすかは裁定待ち。モザイク有効(snappy)時のみ敵は踏み出さず攻撃ポーズも止め、default\
+    \ は従来どおり踏み出す。"
+  "原文抜粋": "name-name PR #1010 レビュー反映: 敵の自己モザイクは通常攻撃(attack)のみ。物理系 skill を「攻撃」とみなすかは裁定待ち。モザイク有効(snappy)時のみ敵は踏み出さず攻撃ポーズも止め、default\
+    \ は従来どおり踏み出す。"
+  "帰属": "話者未確定"
+  "分類": "未決反映"
+  "決定ID": ""
+  "未決ID": "U-2904"
+  "参照先": ""
+  "備考": "【精読】物理系 skill を『攻撃』とみなすかは裁定待ちと本文にある。未決として起票。"
+- "命題ID": "ISSUE-64-C6501287832.S001"
+  "出典ID": "ISSUE-64-C6501287832"
+  "位置": "行1-1"
+  "要点": "前提の注記(name-name PR #1010): sit-by-me には battle_motion 設定がまだ無く、採用時に `battle_motion: snappy` を明示しないと「敵が踏み出さない」にならない。default\
+    \ は従来の踏み出しのまま、snappy 指定で自己モザイクになる。寺町サンプルは PR #1009 で motion:"
+  "原文抜粋": "前提の注記(name-name PR #1010): sit-by-me には battle_motion 設定がまだ無く、採用時に `battle_motion: snappy` を明示しないと「敵が踏み出さない」にならない。default\
+    \ は従来の踏み出しのまま、snappy 指定で自己モザイクになる。寺町サンプルは PR #1009 で motion:\"snappy\" にする予定。"
   "帰属": "話者未確定"
   "分類": "作業記録"
   "決定ID": ""
@@ -12820,6 +13164,60 @@
   "未決ID": ""
   "参照先": ""
   "備考": "【手動】作業・進捗・文書構成の記録。決定を含まない。"
+- "命題ID": "ISSUE-65-C6500119535.S001"
+  "出典ID": "ISSUE-65-C6500119535"
+  "位置": "行1-1"
+  "要点": "これからやること: name-name の統合サンプル設定(寺町サンプル teramachi.sample.json)に atb / cross(commandLayout+commands) / enemyGrid+monsters.size\
+    \ / motion の配線を行い、config.ts に任意の motion を追加して BattleScreen "
+  "原文抜粋": "これからやること: name-name の統合サンプル設定(寺町サンプル teramachi.sample.json)に atb / cross(commandLayout+commands) / enemyGrid+monsters.size\
+    \ / motion の配線を行い、config.ts に任意の motion を追加して BattleScreen へ渡す。同等性検査テストも追加し PR を出す。"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-65-C6500527703.S001"
+  "出典ID": "ISSUE-65-C6500527703"
+  "位置": "行1-1"
+  "要点": "結果: name-name PR https://github.com/kako-jun/name-name/pull/1009 を出した(Refs のみ・未マージ)。寺町サンプルに atb:on / commandLayout:cross+commands4つ\
+    \ / enemyGrid:4x2+monsters.size(M001=1x1, M008=1x2"
+  "原文抜粋": "結果: name-name PR https://github.com/kako-jun/name-name/pull/1009 を出した(Refs のみ・未マージ)。寺町サンプルに atb:on / commandLayout:cross+commands4つ\
+    \ / enemyGrid:4x2+monsters.size(M001=1x1, M008=1x2) / motion:snappy(+presentation ff, windowStyle ff-blue)を配線し、config.ts\
+    \ に任意の battle.motion を追加。同等性テストを teramachiSample.test.ts に追加(設定を外すと落ちることを確認)。本番ビルドを Playwright で目視: 十字コマンド・ATBゲージと番の味方・敵のグリッド配置・被弾演出を確認。残る目視:\
+    \ 2桁ダメージの桁バ"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-65-C6500934870.S001"
+  "出典ID": "ISSUE-65-C6500934870"
+  "位置": "行1-1"
+  "要点": "追記(name-name PR #1009 のレビュー対応): commands を attack/spell/item/escape に直し spells/items を同梱して全コマンドが機能することを本番ビルドで確認(2桁ダメージの桁ずらし跳ねも確認)。#65\
+    \ が挙げる teamachi-diorama-standing-enemygrid.field"
+  "原文抜粋": "追記(name-name PR #1009 のレビュー対応): commands を attack/spell/item/escape に直し spells/items を同梱して全コマンドが機能することを本番ビルドで確認(2桁ダメージの桁ずらし跳ねも確認)。#65\
+    \ が挙げる teamachi-diorama-standing-enemygrid.field.json はどちらのリポにも存在しないため、name-name 同梱の寺町サンプルを代役として配線済み。未了: README の検証URL/操作手順更新、立位・車椅子の両設定での通し(立位設定の素材が未整備)。"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-65-C6501697340.S001"
+  "出典ID": "ISSUE-65-C6501697340"
+  "位置": "行1-1"
+  "要点": "追記(name-name PR #1009 最終状態): 十字コマンド(cross)は 4 コマンド限定のため、特技(skill)とは両立しない。サンプルは たたかう・じゅもん・どうぐ・にげる の 4 つにし、skill は外した(skills\
+    \ も未同梱)。#65 の README 更新と立位/車椅子設定での通しは未了(代役サンプルで配線済み)。main と"
+  "原文抜粋": "追記(name-name PR #1009 最終状態): 十字コマンド(cross)は 4 コマンド限定のため、特技(skill)とは両立しない。サンプルは たたかう・じゅもん・どうぐ・にげる の 4 つにし、skill\
+    \ は外した(skills も未同梱)。#65 の README 更新と立位/車椅子設定での通しは未了(代役サンプルで配線済み)。main とのコンフリクトも解消済み。"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
 - "命題ID": "ISSUE-66-BODY.S001"
   "出典ID": "ISSUE-66-BODY"
   "位置": "行1-7"
@@ -30193,6 +30591,34 @@
   "未決ID": ""
   "参照先": ""
   "備考": "【手動】本文の kako-jun 表記に基づく決定への紐付け。"
+- "命題ID": "ISSUE-62-C6500118938.S001"
+  "出典ID": "ISSUE-62-C6500118938"
+  "位置": "行1-1"
+  "要点": "これからやること: name-name の統合サンプル設定(寺町サンプル teramachi.sample.json)に atb / cross(commandLayout+commands) / enemyGrid+monsters.size\
+    \ / motion の配線を行い、config.ts に任意の motion を追加して BattleScreen "
+  "原文抜粋": "これからやること: name-name の統合サンプル設定(寺町サンプル teramachi.sample.json)に atb / cross(commandLayout+commands) / enemyGrid+monsters.size\
+    \ / motion の配線を行い、config.ts に任意の motion を追加して BattleScreen へ渡す。同等性検査テストも追加し PR を出す。"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-62-C6500527188.S001"
+  "出典ID": "ISSUE-62-C6500527188"
+  "位置": "行1-1"
+  "要点": "結果: name-name PR https://github.com/kako-jun/name-name/pull/1009 を出した(Refs のみ・未マージ)。寺町サンプルに atb:on / commandLayout:cross+commands4つ\
+    \ / enemyGrid:4x2+monsters.size(M001=1x1, M008=1x2"
+  "原文抜粋": "結果: name-name PR https://github.com/kako-jun/name-name/pull/1009 を出した(Refs のみ・未マージ)。寺町サンプルに atb:on / commandLayout:cross+commands4つ\
+    \ / enemyGrid:4x2+monsters.size(M001=1x1, M008=1x2) / motion:snappy(+presentation ff, windowStyle ff-blue)を配線し、config.ts\
+    \ に任意の battle.motion を追加。同等性テストを teramachiSample.test.ts に追加(設定を外すと落ちることを確認)。本番ビルドを Playwright で目視: 十字コマンド・ATBゲージと番の味方・敵のグリッド配置・被弾演出を確認。残る目視:\
+    \ 2桁ダメージの桁バ"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
 - "命題ID": "ISSUE-67-C6434576123.S001"
   "出典ID": "ISSUE-67-C6434576123"
   "位置": "行1-1"
@@ -37238,6 +37664,17 @@
   "未決ID": ""
   "参照先": ""
   "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-156-C6501890713.S001"
+  "出典ID": "ISSUE-156-C6501890713"
+  "位置": "行1-1"
+  "要点": "これからやること: Issue点検の未反映379件を出典・命題台帳と突合して分類確定"
+  "原文抜粋": "これからやること: Issue点検の未反映379件を出典・命題台帳と突合して分類確定"
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
 - "命題ID": "ISSUE-165-BODY.S001"
   "出典ID": "ISSUE-165-BODY"
   "位置": "行1-4"
@@ -42796,6 +43233,76 @@
   "未決ID": ""
   "参照先": ""
   "備考": "【精読】作業・進捗・文書構成の記録。kako-jun の決定・指示の表明を含まない。"
+- "命題ID": "ISSUE-185-BODY.S001"
+  "出典ID": "ISSUE-185-BODY"
+  "位置": "行1-3"
+  "要点": "背景"
+  "原文抜粋": |-
+    ## 背景
+    name-name のフィールド (`frontend/src/fieldSample/main.ts` 約368行) は、NPC の立ち止まりを `def.sprites[f][0]`（1コマ目＝接地位相）で描く。name-name の spec (`docs/spec/markdown-v0.1.md` 2587行付近) も「立ち止まりは1コマ目」と書いている。
+  "帰属": "話者未確定"
+  "分類": "提案"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】name-name 側の現状の記述（背景）。話者表記がなく決定にしない。未決 U-2902。"
+- "命題ID": "ISSUE-185-BODY.S002"
+  "出典ID": "ISSUE-185-BODY"
+  "位置": "行4-6"
+  "要点": "問題"
+  "原文抜粋": |-
+    ## 問題
+    sit-by-me のキャラスプライト仕様（`.claude/skills/sit-character-sprite/SKILL.md` §7）では、frame1・3 が接地位相、frame2 が通過位相。立位の人物は通過コマ（2コマ目）で止まるのが自然で、主人公側は kako-jun/sit-by-me#59 で `player.idleFrame` により通過コマ停止にできるようになる（name-name PR kako-jun/name-name#1011）。NPC だけ接地コマで止まり、主人公と見た目の止まり方が揃わない。
+  "帰属": "話者未確定"
+  "分類": "提案"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】立位NPCの停止コマの問題提起（AIによる記述）。話者表記がなく決定にしない。未決 U-2902。"
+- "命題ID": "ISSUE-185-BODY.S003"
+  "出典ID": "ISSUE-185-BODY"
+  "位置": "行7-10"
+  "要点": "やること"
+  "原文抜粋": |-
+    ## やること
+    - name-name 側で NPC の停止コマを指定できるようにする（または立位 NPC の既定を通過コマにする）。これは spec の「立ち止まりは1コマ目」を変える仕様変更なので、spec・docs・既存テストも合わせて更新する。
+    - 影響範囲の確認: 既存の NPC 設定（寺町サンプル等）の見た目が変わらないよう、未指定は従来どおりにするか、一括で切り替えるかを決める。
+  "帰属": "話者未確定"
+  "分類": "未決反映"
+  "決定ID": ""
+  "未決ID": "U-2902"
+  "参照先": ""
+  "備考": "【精読】NPC停止コマの扱い（仕様変更を伴う）は未決として起票。決定にしない。"
+- "命題ID": "ISSUE-185-BODY.S004"
+  "出典ID": "ISSUE-185-BODY"
+  "位置": "行11-13"
+  "要点": "参照"
+  "原文抜粋": |-
+    ## 参照
+    - kako-jun/sit-by-me#59
+    - kako-jun/name-name#1011
+  "帰属": "話者未確定"
+  "分類": "作業記録"
+  "決定ID": ""
+  "未決ID": ""
+  "参照先": ""
+  "備考": "【精読】参照先の列挙。"
+- "命題ID": "ISSUE-187-BODY.S001"
+  "出典ID": "ISSUE-187-BODY"
+  "位置": "行1-5"
+  "要点": "sit-by-me#61(edge link を接触で発火)の name-name 側修正(PR kako-jun/name-name#1016)のレビューで見つかった、#61 の範囲外の観察。"
+  "原文抜粋": |-
+    sit-by-me#61(edge link を接触で発火)の name-name 側修正(PR kako-jun/name-name#1016)のレビューで見つかった、#61 の範囲外の観察。
+
+    体内マップ(BDY-01〜06)の links は、画像の端ではなく画像内側の縁(模型天面の縁)にある。ランタイムの端リンクは画像の端(left/right/top/bottom の辺)からの距離で判定するため、画像内側の縁にあるリンクは現状の仕組みでは発火しない/扱えない。
+
+    決めること: 内側の縁をリンクにするなら、辺でなくマスク上の領域・ゾーンで発火する別の仕組み(出口ゾーンなど)が必要か、体内マップの背景を端まで描く運用にするか。#61 では扱わない。
+  "帰属": "話者未確定"
+  "分類": "未決反映"
+  "決定ID": ""
+  "未決ID": "U-2903"
+  "参照先": ""
+  "備考": "【精読】体内マップの内側の縁リンクの扱いは未決として起票。決定にしない。"
 - "命題ID": "ISSUE-1-C6312704798.D.SIT.M001.independent-design"
   "出典ID": "ISSUE-1-C6312704798"
   "位置": "既存決定の出典URL"
