@@ -14,14 +14,14 @@
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "8b209ced2a78567c6522b259d196ceaaa13180d9f314aa0c73708f29a30a8ba9",
+  "input_sha": "e1fa3724f4e769fb2fee5c97334d857dbccbfa81e061a6de7877b99d5b9e49a0",
   "references": [],
   "row_id": "TRM-12",
   "tables": "docs/ledger/*.yaml"
  },
  "map_id": "TRM-12",
  "plan": "docs/production/oblique-mocks/TRM-12-plan.json",
- "plan_sha256": "120c09f37e9c1bf4dbeeafb11d077bb43b520d53ecbe3031a8fb3af4391dbfad",
+ "plan_sha256": "6b398b5932e80426fd856d34e54546eefb337eec2c9dac9f743de8039260ec45",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -30,7 +30,7 @@
      1
     ]
    },
-   "input_sha": "5bafac9b7b478d37cc29ae14d93091a652e3316d613582c211e77e7a1f5f0b65",
+   "input_sha": "b7a6abee097f803daada44076b3c9ab46f1ddb7ccbd623a62024a037b8ab648a",
    "outputs": {
     "TRM-12-exits.png": "4dd52bed2bd5aa1635426c6de52048e19ac36171ad807cb1d7ab4da1de39c9f0",
     "TRM-12-mask.json": "35c29b091f1d72686e0c3ea59b25f2bcccbe7103b5158902244494a2a2e86caf",
@@ -40,7 +40,7 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "5bafac9b7b478d37cc29ae14d93091a652e3316d613582c211e77e7a1f5f0b65",
+   "input_sha": "b7a6abee097f803daada44076b3c9ab46f1ddb7ccbd623a62024a037b8ab648a",
    "outputs": {
     "TRM-12-clean.png": "0d132cccd01f409708a9bd3d3764941539ebd9a8f2b2eebe01c080b1ffa98935",
     "TRM-12-review.png": "02e90f3e4a0110c9f866483a14ff2ac122c96b32238e72c73ba53b4d4e123feb"
@@ -48,7 +48,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "5bafac9b7b478d37cc29ae14d93091a652e3316d613582c211e77e7a1f5f0b65",
+   "input_sha": "b7a6abee097f803daada44076b3c9ab46f1ddb7ccbd623a62024a037b8ab648a",
    "outputs": {
     "TRM-12-occlusion-depth.png": "2eb521c3ec320ec391054c1540fad030d6140ba93273c333c45d4f0a0504dc97",
     "TRM-12-occlusion-edit.png": "f5e954176a463079b09291384d823b1a844efa15a536734360fb06bc0e4798de",
@@ -59,16 +59,16 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "3d4c12f49eb7b161a431892f5b004220d6048b8531f0c54e998675b802e3d7be",
+   "input_sha": "c9ee3e94b3d51d13f77d6d32c16a134e39ad913f46e4e1b15574b6ced3462660",
    "outputs": {
-    "TRM-12-edit-prompt.txt": "1befc6b0b00d698393ee6d650237cbe04a6710375f595dd9e3a9f0ea191505d9"
+    "TRM-12-edit-prompt.txt": "a9ca82c7d33c0a9ff10db0ea7f70dce064c2fe229ce881b8ec3777d9176f246d"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "d93a22954aab4840f5d8ceff82ec523db0f99101d74aedf859f92b5ae64baf16",
+   "input_sha": "728e951cbad2e11566326fd3015b673fa4cb125a7cf36338f1caa9733e8c79c8",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -76,12 +76,12 @@
     "既定（要確認）: 北壁の窓（掃き出し・幅240・中央）。種別・位置・個数は既定（要確認）。",
     "車椅子の回転余地: 居間の中央に直径150の空きを残した（家具は壁沿い・食卓は右寄り）。直径は既定。",
     "TRM-12 は事故後〜壮年の時期の部屋（map-specifications）。モックは時期差を持たない。",
-    "既定（要確認）: 家具4点（ソファ・食卓・テレビ台・棚）の見た目は台帳に無く、名称だけを見た目に書いた（#191。平面モックの検査が『見た目（look）かpool.kindsのkind』を要求するため）。素材・色・小物は装飾プールの許可（工作の装飾）に任せ、形は箱のまま。家具の見た目は検証が要求したのに台帳に無かったため、品目名だけを書いた（見た目の決定ではない）。",
+    "既定（要確認）: 家具4点（ソファ・食卓・テレビ台・棚）の見た目は台帳に無く、平面モックの検査が『見た目（look）かpool.kindsのkind』を要求するため、品目名だけを書いた（#191。見た目の決定ではない）。素材・色・小物は装飾プールの許可（工作の装飾）に任せ、形は箱のまま。",
     "既定（要確認）: TRM-12.door"
    ]
   },
   "wire": {
-   "input_sha": "f7598a5161968a02b0c0ae2b82c9c14793c2fa01ed8f0dc56a88566ab12dbfd0",
+   "input_sha": "a567d93d0cd9156584e3702502e81f8e0c9631f2ad6591507609e7b8e2ca1c8b",
    "outputs": {
     "wire-TRM-12.png": "2533cb85e3bbbd7424b39634f420a2e12b44737ce93e3ed2273d43040ef9e3e8"
    },

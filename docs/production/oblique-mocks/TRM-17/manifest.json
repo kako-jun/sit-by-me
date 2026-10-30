@@ -10,7 +10,7 @@
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "ea7b4ad56f87aca6c63ebbbe69a1de54f31fe93b698171ac7fb488765ea83398",
+  "input_sha": "b7d9f6a1720622eb762dbf144a0e6ba71c32e804d6db8efcd4d858ae7e06f47e",
   "references": [
    [
     "TRM-03",
@@ -63,9 +63,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "8a98f47b893551905f71c7ec496927c268a50560bf6944e7bfb4b8822bdf1073",
+   "input_sha": "32e0134a0ace52b261cf49f498bac769c3f8b3791cb6cf11cb551e9c5b2a34a0",
    "outputs": {
-    "TRM-17-edit-prompt.txt": "650936ddcb03902c56a4f6367d6a3f3cfa3a708db3bb7954da260c33cd454aad"
+    "TRM-17-edit-prompt.txt": "c1bbbd8c116c37b2f36003218e69ef7841875bf24bd9a37a6037e4b62db74a53"
    },
    "status": "blocked",
    "unadopted_dependencies": [
