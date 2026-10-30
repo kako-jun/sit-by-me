@@ -39,6 +39,7 @@ class LedgerVerifier
     check_required
     check_aliases
     check_decisions
+    check_area_fixed
     check_buildings
     check_windows
     check_confirmed_edges
@@ -372,6 +373,35 @@ class LedgerVerifier
     from_text = d['出典'].scan(/#(\d+)/).flatten.uniq.sort
     from_urls = urls.map { |u| u[ISSUE_URL_RE, 1] }.compact.uniq.sort
     err("決定 #{id}: 出典の Issue 番号 #{from_text.inspect} と出典URL の Issue 番号 #{from_urls.inspect} が食い違う") unless from_text == from_urls
+  end
+
+  # エリア固定（机・台座・木）の整合（#195）。台帳段階=対象の全エリアが 机の天面・台座を持ち、エリア固定の値に別エリアの名称・MAP ID が混ざらない
+  # （混ざると、そのエリアの MAP のプロンプトへ別エリアの内容が漏れる）。決定参照は有効な決定を指す。
+  AREA_FIXED_REQUIRED = %w[name desk.look desk.grain slab.look].freeze
+
+  def check_area_fixed
+    areas = @t['エリア']
+    fixed = @t['エリア固定'].group_by { |r| r['エリアID'] }
+    codes = areas.to_h { |a| [a['エリアID'], a['区域コード']] }
+    areas.each do |a|
+      next unless a['台帳段階'] == '対象'
+
+      rows = (fixed[a['エリアID']] || []).to_h { |r| [r['項目'], r['値']] }
+      AREA_FIXED_REQUIRED.each do |k|
+        err("エリア固定 #{a['エリアID']}: 項目 #{k} が無い（対象エリアは机の天面・台座を持つ）") if rows[k].to_s.strip.empty?
+      end
+      others = areas.reject { |o| o['エリアID'] == a['エリアID'] }
+      (fixed[a['エリアID']] || []).each do |r|
+        next if r['型'] != '文'
+
+        others.each do |o|
+          err("エリア固定 #{a['エリアID']}.#{r['項目']}: 別エリアの名称『#{o['名称']}』が混ざっている（プロンプトへ漏れる）") if o['名称'].to_s.size >= 2 && r['値'].include?(o['名称'])
+          err("エリア固定 #{a['エリアID']}.#{r['項目']}: 別エリアの MAP ID（#{codes[o['エリアID']]}-）が混ざっている") if r['値'].match?(/\b#{Regexp.escape(codes[o['エリアID']])}-\d/)
+        end
+      end
+    end
+    unknown = fixed.keys - areas.map { |a| a['エリアID'] }
+    unknown.each { |k| err("エリア固定: 未知のエリアID #{k}") }
   end
 
   def check_buildings

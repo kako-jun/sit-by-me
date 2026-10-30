@@ -22,6 +22,8 @@
 #   (vi)  時期差分MAP（-kids・-fire など。台帳 時期差分 に行があるもの）は、基準MAPを依存MAPに持ち、REFERENCE IMAGES に基準MAPの行
 #         （確定画像のパス、未採用なら『未確定』）と台帳 プロンプト文面.PR.reference.base-era の使い方の文が現れる（#193）。
 #         TRM-05-kids・TRM-05-fire は台帳側の依存を消されても検出するよう、基準MAPをここにもハードコードする
+#   (vii) エリア固定（#195）: 装飾プールを持つMAPのプロンプトに、そのプールのエリアの エリア固定（机の天面・台座の素材・木の種類と見た目）が全部現れ、
+#         別エリアのエリア固定の本文（そのエリア固有の台座・木）は現れない（他エリアの素材の漏れ）。エリア固定を持たない・プールが無いMAPは対象外
 require 'json'
 require 'open3'
 require 'shellwords'
@@ -94,6 +96,7 @@ class PromptReflection
       check_free_text(id)
       check_window_rows(id)
       check_base_reference(id)
+      check_area_fixed(id)
     end
     check_anchors
     self
@@ -323,6 +326,38 @@ class PromptReflection
 
       if pos.size != exp.size || pos.zip(exp).any? { |a, b| (a - b).abs > 0.015 }
         err(map_id, "建物窓列 #{rid}（壁 #{wall}）: WINDOWS 節の位置 #{pos} が台帳（先頭比・間隔比）の #{exp.map { |x| x.round(2) }} と一致しない")
+      end
+    end
+  end
+
+  # ---- (vii) エリア固定
+  AREA_FIXED_ITEMS = /\A(?:desk\.look|slab\.look|trees\.(?:pine|deadtree|kinds\[\d+\])\.(?:label|look))\z/.freeze
+
+  def area_fixed_texts(area)
+    @t['エリア固定'].select { |r| r['エリアID'] == area && r['型'] == '文' && r['項目'].match?(AREA_FIXED_ITEMS) && !r['値'].to_s.strip.empty? }.map { |r| [r['項目'], r['値']] }
+  end
+
+  def pool_area_of(map_id)
+    row = @t['MAP'].find { |m| m['MAP_ID'] == base_of(map_id) }
+    pid = row && row['装飾プールID']
+    return nil if pid.to_s.empty? || %w[未決(要確認) 該当なし なし].include?(pid)
+
+    @t['装飾プール'].find { |r| r['プールID'] == pid && r['項目'] == 'area' }&.fetch('値')
+  end
+
+  def check_area_fixed(map_id)
+    area = pool_area_of(map_id)
+    return if area.nil?
+
+    own = area_fixed_texts(area)
+    err(map_id, "エリア固定: エリア #{area} の エリア固定（机・台座・木）が台帳に無い") if own.empty?
+    own.each { |item, text| err(map_id, "エリア固定 #{area}.#{item} がプロンプトに現れない（机・台座・木の固定が落ちた）") unless @prompt.include?(text) }
+    own_texts = own.map(&:last)
+    @t['エリア固定'].map { |r| r['エリアID'] }.uniq.reject { |a| a == area }.each do |other|
+      area_fixed_texts(other).each do |item, text|
+        next if own_texts.include?(text) # 全エリア共通の同じ机など、自エリアにも同文があるものは漏れではない
+
+        err(map_id, "エリア固定 #{other}.#{item} が別エリア #{area} のMAPのプロンプトに漏れている") if @prompt.include?(text)
       end
     end
   end

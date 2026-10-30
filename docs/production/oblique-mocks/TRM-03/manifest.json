@@ -102,7 +102,7 @@
   "prompt": {
    "input_sha": "0cc1979ceffb3fc7528e8326c91617c06bd9049b67b75d2bf1bc3d5c2db2f735",
    "outputs": {
-    "TRM-03-edit-prompt.txt": "515d1d8a6707914ce2be726e29f29433205074b5d59a693ab0ae2ddb97c91315"
+    "TRM-03-edit-prompt.txt": "c61caaf275f76200bfd44e2e49968e8c0ca597628f1e684b152ba3eb61a269d7"
    },
    "status": "blocked",
    "unadopted_dependencies": [

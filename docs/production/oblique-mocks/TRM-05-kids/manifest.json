@@ -98,7 +98,7 @@
    "blocked_base": "TRM-05",
    "input_sha": "371689e7056525235cba0edf513300706b1ee947f9f243fb5a1e4ecd43c2ad98",
    "outputs": {
-    "TRM-05-kids-edit-prompt.txt": "a4844309bc17f9f0a625e28e5086958ec0f2c31b550d7b503dcf6dc6a887730b"
+    "TRM-05-kids-edit-prompt.txt": "d2c6cd49243af4fa843b2d71942d067c44d7533765ce7061ed7d629f54a2b5d6"
    },
    "status": "blocked",
    "unadopted_dependencies": [

@@ -723,7 +723,7 @@ uv run python3 scripts/content_ledger_views.py build で更新する。
 | A-034 | TRM-03 | 背景(没) |  | 没 | 2026-10-23 | e2 の4テイク。削除済み（内部が確定していない段階での生成のため） |  |  |
 | A-035 | TRM-05 | 背景(没) |  | 没 | 2026-10-23 | 基準・-kids・-fire の e2 生成物。削除済み。-fire は4テイク中3枚が『上半分だけが燃える』を守らず没（決定 TRM-05-fire.upper-half） |  |  |
 | A-036 | TRM-01 | 背景(旧) |  | 没 | 2026-10-23 | legacy/TRM-01.webp とマスク3枚。TRM-01 廃止に伴い削除（決定 TRM-08.top-closed）。履歴は git |  |  |
-| A-037 | BG001 | battle-backgrounds | assets/images/battle-backgrounds/BG001.webp | 現存（採否未照合） |  | 現存ファイル登録。採用判定を追加しない。所有者が空なら未決。 | 372cd6a21f6a9359d705a22f3fe0b6c7782b7317c83d2c72d95c4b3a5ac066d6 |  |
+| A-037 | BG001 | battle-backgrounds | assets/images/battle-backgrounds/BG001.webp | 没 | 2026-10-30 | 没（暫定残置・上書き予定）。比率はよいが立体の描き方が不自然なため没（決定 BG001.rejected-provisional-keep、Issue #197）。削除せず暫定として残置し、よりよい戦闘背景ができたら同じパスに上書きする。カメラの立体の参考にしない（比率のみ）。 | 372cd6a21f6a9359d705a22f3fe0b6c7782b7317c83d2c72d95c4b3a5ac066d6 |  |
 | A-038 | BG005 | battle-backgrounds |  | 没 | 2026-10-21 | 旧パス assets/images/battle-backgrounds/BG005.webp。git 19ab92a に記録された没指定に従い削除。sha256は削除直前のWebP。以前の採用は履歴で、現在の参照には使わない。 | 1aa39413de86a3350182b18f22af369cc43f1fcdde3c0e0923208f5c97afca13 |  |
 | A-039 | BRAND | brand | assets/images/brand/logo.png | 現存（採否未照合） |  | 現存ファイル登録。採用判定を追加しない。所有者が空なら未決。 | b112330aa782d9ca88e9771877c8c38c41f00a6c37f01df4556630d03d355074 |  |
 | A-040 | BRAND | brand | assets/images/brand/logo.svg | 現存（採否未照合） |  | 現存ファイル登録。採用判定を追加しない。所有者が空なら未決。 | 38a6d07bc454c04c92f8e463823e010b4c15573ca7cdfe272d52a5976dd9a800 |  |

@@ -422,7 +422,7 @@
 - "配置ID": "asset-battle-backgrounds"
   "パターン": "assets/images/battle-backgrounds/BG\\d{3}\\.webp"
   "種別": "画像正本"
-  "用途": "戦闘背景（現存はBG001。BG005は没・削除）"
+  "用途": "戦闘背景（現存はBG001（没・暫定残置）。BG005は没・削除）"
   "所有表": "素材"
   "生成元": ""
   "到達": "許可"
