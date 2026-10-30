@@ -672,6 +672,158 @@ class PromptReflectionTests(unittest.TestCase):
         self.assertIn("検査したMAP（1）: TRM-05", r.stdout)
 
 
+    # ---- 時期差分MAPは基準MAPの確定画像を参照に含める（#193）
+    BASE_LINE = "- 基準MAP TRM-05 の確定画像は、このMAP（{era}）と同じ部屋・同じ建物の別時期。"
+
+    def probe(self):
+        r = subprocess.run(self.probe_cmd(), shell=True, env={**os.environ, "LEDGER_ROOT": str(self.work)}, capture_output=True, text=True, cwd=self.work)
+        self.assertEqual(r.returncode, 0, r.stderr)
+        return {rec["map_id"]: rec["prompt"] for rec in json.loads(r.stdout)}
+
+    def adopt_base(self):
+        """合成の採用状態: 素材表に TRM-05 の採用済み背景画像の行を足す（実ファイルは作らない・実台帳は変えない）。"""
+        rows = self.rows("素材")
+        rows.append(dict.fromkeys(ledger_io.SCHEMA["素材"], "") | {"素材ID": "A-TEST-193", "所有者ID": "TRM-05", "種別": "背景(屋内)", "状態": "採用",
+                                                              "パス": "assets/images/fields/reference/synthetic-trm05-adopted.webp", "sha256": "ab" * 32})
+        self.save("素材", rows)
+
+    def build_variant(self, era):
+        out = Path(self.scratch.name) / f"out-{era}"
+        cmd = self.probe_cmd().replace("oblique_prompt_probe.py", "oblique_build.py")
+        plan = shlex.quote(str(self.work / "docs/production/oblique-mocks/TRM-05-plan.json"))
+        r = subprocess.run(f"{cmd} {plan} --variant {era} --out {shlex.quote(str(out))}", shell=True, env={**os.environ, "LEDGER_ROOT": str(self.work)}, capture_output=True, text=True, cwd=self.work)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        key = f"TRM-05-{era}"
+        man = json.loads((out / key / "manifest.json").read_text(encoding="utf-8"))
+        return man["stages"]["prompt"], (out / key / f"{key}-edit-prompt.txt").read_text(encoding="utf-8")
+
+    def test_era_variants_blocked_until_base_is_adopted(self):
+        for era in ("kids", "fire"):
+            prompt = self.probe()[f"TRM-05-{era}"]
+            self.assertIn("- TRM-05: 未確定（依存MAPが採用されるまで", prompt)
+            self.assertIn(self.BASE_LINE.format(era=era), prompt)
+            stage, text = self.build_variant(era)
+            self.assertEqual(stage["status"], "blocked")
+            self.assertIn("TRM-05", stage["unadopted_dependencies"])
+            self.assertEqual(stage["blocked_base"], "TRM-05")
+            self.assertIn("# BLOCKED（基準の採用待ち）", text)
+
+    def test_era_variants_carry_base_image_after_adoption(self):
+        self.adopt_base()
+        for era in ("kids", "fire"):
+            prompt = self.probe()[f"TRM-05-{era}"]
+            self.assertIn("- TRM-05: assets/images/fields/reference/synthetic-trm05-adopted.webp（sha256 abababababab）", prompt)
+            self.assertNotIn("TRM-05: 未確定", prompt)
+            self.assertIn(self.BASE_LINE.format(era=era), prompt)
+            self.assertIn("- TRM-04: assets/images/fields/reference/", prompt)  # 採用要素の元MAP（本堂）の参照は落とさない
+            stage, text = self.build_variant(era)
+            self.assertEqual(stage["status"], "ok")
+            self.assertEqual(stage["unadopted_dependencies"], [])
+            self.assertNotIn("blocked_base", stage)
+            self.assertNotIn("# BLOCKED", text)
+        self.assertEqual(self.verify().returncode, 0)  # 採用後も検証は PASS
+
+    def test_e2_schedule_check_refuses_blocked_prompt_even_if_base_is_canonical(self):
+        # --adopt --canonical だけ（素材表は未採用）でも親は『確定』になるが、プロンプト段が blocked のままなら起動を拒否する（#193）
+        ob = self.work / "docs/production/oblique-mocks"
+        (ob / "TRM-05").mkdir()
+        (ob / "TRM-05/manifest.json").write_text(json.dumps({"adoption": {"canonical": "docs/ledger/未決.yaml"}}), encoding="utf-8")
+        (ob / "TRM-05-kids").mkdir()
+        mf = ob / "TRM-05-kids/manifest.json"
+
+        def check():
+            cmd = f"{shlex.quote(sys.executable)} -I {shlex.quote(str(self.work / '.claude/skills/sit-field-background/tools/oblique_e2_schedule.py'))} check TRM-05-kids"
+            return subprocess.run(cmd, shell=True, capture_output=True, text=True, cwd=self.work)
+
+        mf.write_text(json.dumps({"stages": {"prompt": {"status": "blocked", "unadopted_dependencies": ["TRM-05"]}}}), encoding="utf-8")
+        r = check()
+        self.assertEqual(r.returncode, 1, r.stdout + r.stderr)
+        self.assertIn("プロンプトが blocked", r.stderr)
+        mf.write_text(json.dumps({"stages": {"prompt": {"status": "ok"}}}), encoding="utf-8")
+        r = check()
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+
+    def _sched(self, *args):
+        tool = self.work / ".claude/skills/sit-field-background/tools/oblique_e2_schedule.py"
+        return subprocess.run([sys.executable, "-I", str(tool), *args], capture_output=True, text=True, cwd=self.work)
+
+    def test_e2_schedule_list_and_launch_exclude_blocked_prompt(self):
+        # 基準だけ canonical・素材表は未採用（プロンプト段 blocked）。check と同じ判定を list／launch も使う。
+        # 使わないと list が『起動可』と出し launch が起動して、run.sh が check で落ちる（エラーは e2-launch.log にしか出ない）（#193）
+        ob = self.work / "docs/production/oblique-mocks"
+        (ob / "TRM-05").mkdir()
+        (ob / "TRM-05/manifest.json").write_text(json.dumps({"adoption": {"canonical": "docs/ledger/未決.yaml"}}), encoding="utf-8")
+        (ob / "TRM-05-kids").mkdir()
+        mf = ob / "TRM-05-kids/manifest.json"
+        mf.write_text(json.dumps({"stages": {"prompt": {"status": "blocked", "unadopted_dependencies": ["TRM-05"]}}}), encoding="utf-8")
+
+        def kids_row(out):
+            return next(l for l in out.splitlines() if l.startswith("TRM-05-kids "))
+
+        r = self._sched("list")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        row = kids_row(r.stdout)
+        self.assertIn("プロンプトが blocked（再生成が必要", row)
+        self.assertNotIn(" 可 ", row)
+        r = self._sched("launch", "--dry-run")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertNotIn("[dry-run] TRM-05-kids", r.stdout)
+        self.assertIn("スキップ TRM-05-kids", r.stdout)
+        self.assertIn("プロンプトが blocked", r.stdout)
+        # blocked でなければ起動可・launch の対象になる
+        mf.write_text(json.dumps({"stages": {"prompt": {"status": "ok"}}}), encoding="utf-8")
+        self.assertIn(" 可 ", kids_row(self._sched("list").stdout))
+        r = self._sched("launch", "--dry-run")
+        self.assertIn("[dry-run] TRM-05-kids", r.stdout)
+        self.assertNotIn("スキップ TRM-05-kids", r.stdout)
+
+    def test_base_map_itself_is_not_blocked_by_itself(self):
+        self.assertNotIn("基準MAP TRM-05 の確定画像は", self.probe()["TRM-05"])
+
+    def test_era_variant_without_base_dependency_in_ledger_is_detected(self):
+        self.delete_rows("時期差分", lambda r: r["MAP_ID"] == "TRM-05" and r["時期"] == "kids" and r["項目"] == "依存")
+        self.assertDetects("TRM-05-kids", "依存に基準MAP TRM-05 が無い")
+
+    def test_era_variant_plan_dropping_base_reference_is_detected(self):
+        plan = self.work / "docs/production/oblique-mocks/TRM-05-plan.json"
+        doc = json.loads(plan.read_text(encoding="utf-8"))
+        doc["variants"]["fire"]["depends_on"] = []
+        plan.write_text(json.dumps(doc, ensure_ascii=False), encoding="utf-8")
+        self.assertDetects("TRM-05-fire", "基準MAP TRM-05 が REFERENCE IMAGES に現れない")
+
+    def test_base_reference_usage_sentence_removed_from_ledger_is_detected(self):
+        # 文面行が台帳から消えると、プロンプトを導出するツール側が止まる（検査 (vi) の tpl.nil? 分岐の手前）。特定のメッセージで検出されること
+        self.delete_rows("プロンプト文面", lambda r: r["文面ID"] == "PR.reference.base-era")
+        self.assertDetects("PR.reference.base-era")
+
+    def test_base_reference_usage_sentence_missing_from_prompt_is_detected_by_check_vi(self):
+        # 台帳には文面があるのにプロンプトへ入らない（生成側の脱落）。検査 (vi) の『使い方の文が REFERENCE IMAGES 節に現れない』分岐を直接通す
+        q = self.work / ".claude/skills/sit-field-background/tools/ledger_query.py"
+        text = q.read_text(encoding="utf-8")
+        line = "        L_.append(X.base_era_reference(base, map_id[len(base) + 1:]))\n"
+        self.assertIn(line, text)
+        q.write_text(text.replace(line, "        pass\n"), encoding="utf-8")
+        self.assertDetects("基準参照の使い方の文（プロンプト文面.PR.reference.base-era）が REFERENCE IMAGES 節に現れない")
+
+
+class E2RunMarkerTests(unittest.TestCase):
+    """oblique_e2_run.sh が imagegen に渡さない末尾（DRAFT/BLOCKED）の始まりを sed で探す行マーカーが、
+    台帳が出す全 edit-prompt の行に一致すること。元バグ（『台帳ゲート』と書いて一致せず削除が空振りした）を検出できなかったための回帰テスト（#193）。"""
+
+    def test_run_script_marker_matches_every_edit_prompt(self):
+        import re
+        script = (ROOT / ".claude/skills/sit-field-background/tools/oblique_e2_run.sh").read_text(encoding="utf-8")
+        m = re.search(r"^LEDGER_MARKER_RE='([^']+)'$", script, re.M)
+        self.assertIsNotNone(m, "run.sh に LEDGER_MARKER_RE の定義が無い")
+        self.assertIn('sed "/$LEDGER_MARKER_RE/,\\$d"', script, "run.sh が LEDGER_MARKER_RE で削除していない")
+        marker = re.compile(m.group(1))
+        prompts = sorted((ROOT / "docs/production/oblique-mocks").glob("*/*-edit-prompt.txt"))
+        self.assertTrue(prompts)
+        for p in prompts:
+            lines = p.read_text(encoding="utf-8").splitlines()
+            self.assertTrue(any(marker.search(l) for l in lines), f"{p.name}: run.sh の削除マーカー {m.group(1)!r} に一致する行が無い")
+
+
 class IssueAuditBase(unittest.TestCase):
     """audit_issue_decisions.rb のテスト共通土台。audit_issue_decisions.rb: Issue の決定候補を決定表と突合して分類し、Issue点検.yaml の過不足を検出する（--from-json でオフライン）。"""
 

@@ -449,6 +449,9 @@ def validate_plan(p):
                 E.append(f"depends_on が自己参照: {p.get('map_id')}")
             if len(set(dep)) != len(dep):
                 E.append("depends_on に重複がある")
+            # ※ depends_on が無い変種はこの規則の外（上の if dep is not None の中）。素通りしないよう、台帳側は verify_prompt_reflects_ledger.rb の検査 (vi) が、起動側は dependency-graph.json と plan の一致検査（oblique_e2_schedule.py graph）が補う
+            if p.get("variant") and base not in dep:  # 同じ部屋・建物の別時期は基準MAPの確定画像を必ず参照する（#193）
+                E.append(f"時期差分MAP {p.get('map_id')} の depends_on に基準MAP {base} が無い（別時期の同一性のため基準の確定画像を参照に含める）")
     return E, Wn
 
 
@@ -645,6 +648,7 @@ def build_one(plan_path, outroot, variant=None, from_stage=None, force=False, lo
         return man, ["必須キー欠落: " + "; ".join(miss)]
     ledger_text, ledger_mat = LQ.sections(key, p.get("depends_on", []))
     unadopted = [d for d, pth in [(d_, pth_) for d_, pth_, _ in LQ.Ledger().references(key, p.get("depends_on", []))] if not pth]
+    blocked_base = LQ.base_of(key) if variant and LQ.base_of(key) in unadopted else ""  # 基準の採用待ち（#193）
     plan_sha = sha_file(plan_path) + (f"+{variant}" if variant else "")
     tool_mock = src_sha("oblique_mock.py")
     tool_topo = src_sha("oblique_mock.py", "oblique_topology.py")
@@ -701,8 +705,10 @@ def build_one(plan_path, outroot, variant=None, from_stage=None, force=False, lo
                 f.write(X.text("PR.trailer.counts", nd=len(ledger_mat['decisions']), ni=len(ledger_mat['inherits'])) + "\n")
                 if unadopted:
                     f.write(X.text("PR.trailer.draft", maps=", ".join(unadopted)) + "\n")
+                    if blocked_base:
+                        f.write(X.text("PR.trailer.blocked-base", base=blocked_base) + "\n")
             files = [fn]
-            extra = {"unadopted_dependencies": unadopted}
+            extra = {"unadopted_dependencies": unadopted, **({"blocked_base": blocked_base} if blocked_base else {})}
         man["stages"][st] = {"input_sha": inputs[st], "status": "ok" if st != "prompt" or not extra.get("unadopted_dependencies") else "blocked",
                              "outputs": {fn: sha_file(os.path.join(out, fn)) for fn in files}, **extra}
         log(f"[{key}] {st}: 実行 → {', '.join(files)}")

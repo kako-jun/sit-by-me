@@ -11,6 +11,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ledger_io as L  # noqa: E402
+import oblique_text as X  # noqa: E402
 
 VARIANT_RE = re.compile(r"-(kids|fire|burnt|wc)$")
 
@@ -195,6 +196,9 @@ def sections(map_id, depends=None):
     refs = led.references(map_id, depends or [])
     L_ += ["", "REFERENCE IMAGES（依存MAPの確定画像。位置・配置はモックが正本。扉・材質・家具・装飾のデザインだけを参考にし、構図はコピーしない）:"]
     L_ += [(f"- {d}: {p}（sha256 {s[:12]}）" if p else f"- {d}: 未確定（依存MAPが採用されるまでこのMAPの生成は起動しない）") for d, p, s in refs] or ["- なし（依存MAPなし）"]
+    base = base_of(map_id)
+    if base != map_id and base in (depends or []):  # 同じ部屋・建物の別時期: 基準の確定画像の使い方（文面は台帳 プロンプト文面.PR.reference.base-era）
+        L_.append(X.base_era_reference(base, map_id[len(base) + 1:]))
     ft = led.free_texts(map_id)
     if ft:
         L_ += ["", "FEATURES（固有の特徴（台帳の自由記述）。そのまま入れる）:"] + [f"- {who}: {t}" for who, t in ft]

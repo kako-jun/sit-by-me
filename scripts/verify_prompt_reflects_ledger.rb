@@ -19,6 +19,9 @@
 #   (iv)  建物窓列に紐づく窓（渡り廊下棟の連窓など）が、その窓を持つ全MAP（屋内・外観）の WINDOWS 節に個数・位置つきで一致して現れる
 #   (v)   回帰アンカー: 過去に漏れた事例（畳・化石の石・-fire の勝手口・火事版の上半分・渡り廊下の窓列）を台帳側の件数に依らず
 #         固定の期待で検査する（台帳から記述を消されても検出するため、ここに期待をハードコードする）
+#   (vi)  時期差分MAP（-kids・-fire など。台帳 時期差分 に行があるもの）は、基準MAPを依存MAPに持ち、REFERENCE IMAGES に基準MAPの行
+#         （確定画像のパス、未採用なら『未確定』）と台帳 プロンプト文面.PR.reference.base-era の使い方の文が現れる（#193）。
+#         TRM-05-kids・TRM-05-fire は台帳側の依存を消されても検出するよう、基準MAPをここにもハードコードする
 require 'json'
 require 'open3'
 require 'shellwords'
@@ -90,6 +93,7 @@ class PromptReflection
       check_inherits(id)
       check_free_text(id)
       check_window_rows(id)
+      check_base_reference(id)
     end
     check_anchors
     self
@@ -214,6 +218,29 @@ class PromptReflection
       elsif refs.none? { |l| l.start_with?("- #{a['元MAP']}: #{path}") }
         err(map_id, "採用要素 #{aid}: 元MAP #{a['元MAP']} の採用画像 #{path} が REFERENCE IMAGES に現れない（plan の depends_on か素材表を確認）")
       end
+    end
+  end
+
+  # ---- (vi)
+  REQUIRED_BASE = { 'TRM-05-kids' => 'TRM-05', 'TRM-05-fire' => 'TRM-05' }.freeze
+
+  def check_base_reference(map_id)
+    era = era_of(map_id)
+    return if era.empty?
+
+    base = base_of(map_id)
+    in_ledger = @t['時期差分'].any? { |r| r['MAP_ID'] == base && r['時期'] == era }
+    return unless in_ledger || REQUIRED_BASE.key?(map_id)
+
+    deps = @t['時期差分'].select { |r| r['MAP_ID'] == base && r['時期'] == era && r['項目'] == '依存' }.flat_map { |r| split(r['値']) }
+    err(map_id, "時期差分MAPの依存に基準MAP #{base} が無い（台帳 時期差分.依存。基準の確定画像を参照に含める #193）") unless deps.include?(base)
+    refs = section('REFERENCE IMAGES（')
+    err(map_id, "基準MAP #{base} が REFERENCE IMAGES に現れない（時期差分MAPは基準の確定画像、未採用なら『未確定』で blocked を示す）") unless refs.any? { |l| l.start_with?("- #{base}: ") }
+    tpl = @t['プロンプト文面'].find { |r| r['文面ID'] == 'PR.reference.base-era' }
+    if tpl.nil?
+      err(map_id, '台帳 プロンプト文面.PR.reference.base-era が無い')
+    elsif refs.none? { |l| l == tpl['文面'].gsub('{base}', base).gsub('{era}', era) }
+      err(map_id, "基準参照の使い方の文（プロンプト文面.PR.reference.base-era）が REFERENCE IMAGES 節に現れない")
     end
   end
 

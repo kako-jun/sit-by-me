@@ -6,10 +6,10 @@
 
 使い方（リポ直下で。`uv run python3 -I`）:
   oblique_e2_schedule.py list                 全MAPの依存・確定・起動可否
-  oblique_e2_schedule.py check MAP            親が全て確定済みか（未確定なら理由を出して終了コード1）
+  oblique_e2_schedule.py check MAP            親が全て確定済みか、かつ manifest のプロンプト段が blocked でないか（どちらかなら理由を出して終了コード1）。list／launch も同じ判定（blockers）を使う
   oblique_e2_schedule.py refs MAP             確定済みの親の正本画像を `PARENT=path` で列挙（参考画像）
   oblique_e2_schedule.py graph                グラフの検証（循環・存在しないID・自己参照・plan との不一致）
-  oblique_e2_schedule.py launch [--dry-run]   起動可能で未確定のMAPを並列にバックグラウンド起動（oblique_e2_run.sh MAP 4）
+  oblique_e2_schedule.py launch [--dry-run]   起動可能（親が確定済みでプロンプトが blocked でない）で未確定のMAPを並列にバックグラウンド起動（oblique_e2_run.sh MAP 4）。blocked は理由を出して外す
 """
 import json, os, re, subprocess, sys
 from pathlib import Path
@@ -91,13 +91,28 @@ def status(maps, mid):
     return deps, miss
 
 
+def blockers(maps, mid):
+    """起動できない理由の一覧（空なら起動可）。list／check／launch が共有する唯一の判定（#193）。
+    親が未確定、または manifest のプロンプト段が blocked（台帳の素材表に基準/依存の採用行が無いまま生成した=古い。
+    --adopt --canonical は素材表に触れないので、確定印だけ進んでもプロンプトは参照画像のパスを持たない）。"""
+    _, miss = status(maps, mid)
+    out = []
+    if miss:
+        out.append(f"親が未確定: {', '.join(miss)}")
+    pr = manifest_of(mid).get("stages", {}).get("prompt", {})
+    if pr.get("status") == "blocked":
+        un = ", ".join(pr.get("unadopted_dependencies", []))
+        out.append(f"プロンプトが blocked（再生成が必要。台帳の素材表に未採用の依存: {un}）")
+    return out
+
+
 def cmd_list(maps):
     print(f"{'MAP':12} {'depends_on':28} {'確定':4} {'起動可':6} 備考")
     for k in maps:
-        deps, miss = status(maps, k)
-        ok = not miss
-        note = ("親が未確定: " + ",".join(miss)) if miss else ("plan なし（別ブランチ）" if not has_plan(k) else "")
-        print(f"{k:12} {','.join(deps) or '-':28} {'済' if confirmed(k) else '-':4} {'可' if ok and not confirmed(k) and has_plan(k) else '-':6} {note}")
+        deps, _ = status(maps, k)
+        bl = blockers(maps, k)
+        note = "／".join(bl) if bl else ("plan なし（別ブランチ）" if not has_plan(k) else "")
+        print(f"{k:12} {','.join(deps) or '-':28} {'済' if confirmed(k) else '-':4} {'可' if not bl and not confirmed(k) and has_plan(k) else '-':6} {note}")
 
 
 def cmd_check(maps, mid):
@@ -109,6 +124,10 @@ def cmd_check(maps, mid):
     deps, miss = status(maps, mid)
     if miss:
         print(f"ERROR: {mid} は起動できない。親が未確定: {', '.join(miss)}（依存: {', '.join(deps)}）。先に親を確定（採用→--adopt --canonical）してから", file=sys.stderr)
+        sys.exit(1)
+    bl = blockers(maps, mid)
+    if bl:
+        print(f"ERROR: {mid} は起動できない。{'／'.join(bl)}。素材表に採用行を入れて oblique_build.py でプロンプトを再生成してから起動する（--adopt --canonical は素材表に触れない）", file=sys.stderr)
         sys.exit(1)
     print(f"OK: {mid} の親は全て確定済み（{', '.join(deps) or '依存なし'}）")
 
@@ -128,8 +147,13 @@ def cmd_launch(maps, dry):
     run = ROOT / ".claude/skills/sit-field-background/tools/oblique_e2_run.sh"
     procs = []
     for k in maps:
-        deps, miss = status(maps, k)
-        if miss or confirmed(k) or not has_plan(k):
+        deps, _ = status(maps, k)
+        bl = blockers(maps, k)
+        if bl:
+            if not confirmed(k) and has_plan(k):
+                print(f"スキップ {k}: {'／'.join(bl)}")
+            continue
+        if confirmed(k) or not has_plan(k):
             continue
         print(("[dry-run] " if dry else "起動 ") + f"{k}（親: {', '.join(deps) or 'なし'}）")
         if not dry:
