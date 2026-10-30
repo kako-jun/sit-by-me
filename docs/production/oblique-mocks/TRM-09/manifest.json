@@ -5,14 +5,14 @@
    "TRM.trees-pine",
    "TRM.desk",
    "TRM.decor-fill",
-   "TRM.default-decor-pool",
-   "TRM.default-wall-material",
-   "TRM.default-windows",
-   "TRM.default-era-diff"
+   "TRM.default-decor-pool-exterior",
+   "TRM.default-wall-material-exterior",
+   "TRM.default-windows-exterior",
+   "TRM-09.default-era-diff"
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "45d8ac8069b15e399ecdd1811001e20098f4bb3fc98f14aba8ebf5a0fcd78544",
+  "input_sha": "1564eec2103cedf8e3956f2e62b3b7ea57867f18783bd4abb3b2df34114c9a83",
   "references": [],
   "row_id": "TRM-09",
   "tables": "docs/ledger/*.yaml"
@@ -60,9 +60,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "1b149485e753e1924408e6376708d4b13760c5c78caf09ef46d1f8df9de5e504",
+   "input_sha": "63cc7c4e30c39abe4f1df6d49485513b923d6de306fea284a6ae4a00c3b34362",
    "outputs": {
-    "TRM-09-edit-prompt.txt": "6c4223d9da00017df89cbc885dd9b3e94be10538a6b107cac1e3de911c1eed56"
+    "TRM-09-edit-prompt.txt": "ff857c0c7e6605792b4191b97fb48ed00841d9eb197926abb43ae993edd0a882"
    },
    "status": "ok",
    "unadopted_dependencies": []

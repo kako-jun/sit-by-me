@@ -236,14 +236,14 @@
   "既定（要確認）: 北壁の窓（掃き出し・幅240・中央）。種別・位置・個数は既定（要確認）。",
   "車椅子の回転余地: 居間の中央に直径150の空きを残した（家具は壁沿い・食卓は右寄り）。直径は既定。",
   "TRM-12 は事故後〜壮年の時期の部屋（map-specifications）。モックは時期差を持たない。",
-  "既定（要確認）: 家具4点（ソファ・食卓・テレビ台・棚）の見た目は台帳に無く、名称だけを見た目に書いた（#191。平面モックの検査が『見た目（look）かpool.kindsのkind』を要求するため）。素材・色・小物は装飾プールの許可（工作の装飾）に任せ、形は箱のまま。（決定 TRM.default-decor-pool）"
+  "既定（要確認）: 家具4点（ソファ・食卓・テレビ台・棚）の見た目は台帳に無く、名称だけを見た目に書いた（#191。平面モックの検査が『見た目（look）かpool.kindsのkind』を要求するため）。素材・色・小物は装飾プールの許可（工作の装飾）に任せ、形は箱のまま。家具の見た目は検証が要求したのに台帳に無かったため、品目名だけを書いた（見た目の決定ではない）。"
  ],
  "decor_pool": "teramachi-winter",
  "depends_on": [],
  "_provenance": {
   "source": "MAP:TRM-12|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "d4d9c8c4c5a1ee596dfae9bcfb169d70f8bb266055853db24ce868ac7648e3ba",
-  "generated_at": "2026-10-30T11:15",
+  "input_sha": "82bdea526c3c2fbc29d0af8f52bfe44a7c38e8a698203468079b70d5f728c497",
+  "generated_at": "2026-10-30T12:03",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-12-plan",
   "do_not_edit": true

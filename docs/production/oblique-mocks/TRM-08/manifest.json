@@ -6,11 +6,11 @@
    "TRM.desk",
    "TRM.decor-fill",
    "TRM-08.top-closed",
-   "TRM.default-decor-pool"
+   "TRM.default-decor-pool-exterior"
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "5d72596bfe2b45e7b94e10ffbb6411f2a8d701756e46d84a4816c7c5b2c0d394",
+  "input_sha": "7445abb73f6c0f18d64cd9970db9e6f87b36ca31d1c2c79cba4c7b9e4d2a68b9",
   "references": [],
   "row_id": "TRM-08",
   "tables": "docs/ledger/*.yaml"
@@ -58,9 +58,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "7db4d9dda49ef714dc4e0a16946e73ae8df2f29be0f6f2e2c68413e36b4a488d",
+   "input_sha": "109737e876bf2aa5004983f6daf020430d6b448e05d6ad6b4a33202e9f04e934",
    "outputs": {
-    "TRM-08-edit-prompt.txt": "68845c380ba05f7ecca640e801ffae8cfe628d6db58678c6a47a41d203f59046"
+    "TRM-08-edit-prompt.txt": "dada99c79459c24f367b628d57c9c7a0d2b7f203e55220095f85dc41060fd8ca"
    },
    "status": "ok",
    "unadopted_dependencies": []

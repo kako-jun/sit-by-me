@@ -5,12 +5,12 @@
    "TRM.trees-pine",
    "TRM.desk",
    "TRM.decor-fill",
-   "TRM.default-decor-pool",
-   "TRM.default-door-design"
+   "TRM.default-decor-pool-exterior",
+   "TRM-06.default-door-design"
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "b7c0c19c19c3ff140786f0937b068bfd6359990dae6fb697e2cbe5eed17430df",
+  "input_sha": "9bcf7f0a15578afaf4ed6aff166952801bbede08037f0a40e4486e02ca8ef508",
   "references": [
    [
     "TRM-05",
@@ -70,9 +70,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "bf523a5a39cdccf28086bd59e8b0ab5d6c23c14da37119fb8fea79572ce37284",
+   "input_sha": "bfccdc8c38387aee623d33423829d025170052fcfc914bf6583eb28077eb2eeb",
    "outputs": {
-    "TRM-06-edit-prompt.txt": "24074cef36b251abc86f171000ee600747e46767f526954d91e78ac59d58f6d2"
+    "TRM-06-edit-prompt.txt": "795dbcdbbcb7e0f07b28e896d226f96227de5a21e1d1c3bbd7e64068d7203c3a"
    },
    "status": "blocked",
    "unadopted_dependencies": [

@@ -349,7 +349,7 @@
   "既定（要確認）: 端の出入口の辺上の位置（x または y）は台帳に無く、相手MAPの出入口と一致する値を置いた。接続図の整合検査（位置差24単位以内・幅一致）に通る。位置を変えるときは相手MAPも同時に直す。",
   "既定（要確認）: 道の形・建物・塀・用水・橋・石段の位置と寸法は設計に無く、旧 legacy 画像（参照専用）の概略構図を参考にした。屋根は箱の天面色で表し、形は省略。",
   "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・擁壁・雪の壁）。歩行マスクでは黒。",
-  "既定（要確認）: 屋外MAPは decor_pool（装飾プール）を付けていない。装飾（木の本数・屋根・民家の見た目・路面の look）は、全体レビューの承認後に採用済み画像と合わせて決める。edit-prompt は簡易版（箱と床の記述のみ）。",
+  "既定（要確認）: 屋外MAP（TRM-06〜11・13〜17）の plan には decor_pool（teramachi-winter-exterior。決定 TRM.default-decor-pool-exterior）を付けてある。個別の装飾（木の本数・屋根・民家の見た目・路面の look）は、全体レビューの承認後に採用済み画像と合わせて決める（未決 U-053）。",
   "既定（要確認）: 勝手口 TRM-05.door-back⇄TRM-06.door-house（1人分幅・決定済み）の TRM-06 側の位置・向き（住居の東面・中央）。",
   "TRM-03.event-kiss（園庭のキス→BDY-01.event-mouth）は台帳 v2 のとおり TRM-03 起点（旧 TRM-01.event-kiss）。TRM-03 の plan は変更せず、接続図の仮想端点（園庭の中央 x1230・y1060）として描く。"
  ],
@@ -584,8 +584,8 @@
  ],
  "_provenance": {
   "source": "接続|接続図設定|MAP.設計意図(寺町全体のみ)",
-  "input_sha": "ad2568dc25ac529fcc0ec8fb28ff11202b4d7ec00c9f7b206023a87fdf89d672",
-  "generated_at": "2026-10-26T22:45",
+  "input_sha": "24caf90d779606aa41674d6a3abfb1f15a2c64149f9a7e89d0f508783882f63e",
+  "generated_at": "2026-10-30T12:03",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-connections-teramachi",
   "do_not_edit": true

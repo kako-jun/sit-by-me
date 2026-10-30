@@ -5,15 +5,15 @@
    "TRM.trees-pine",
    "TRM.desk",
    "TRM.decor-fill",
-   "TRM.default-decor-pool",
-   "TRM.default-wall-material",
-   "TRM.default-windows",
-   "TRM.default-door-design",
-   "TRM.default-era-diff"
+   "TRM.default-decor-pool-exterior",
+   "TRM.default-wall-material-exterior",
+   "TRM.default-windows-exterior",
+   "TRM.default-door-design-apartment",
+   "TRM.default-era-diff-none"
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "acc7782eec3df5330ac91dea56d9145a1856df2a3d4b6404ea53933f34b890e5",
+  "input_sha": "e712e0b28eb7fbbcaf6635fb4ce29ac78f93b0ee1ba47db88cd0df32b681aa05",
   "references": [
    [
     "TRM-12",
@@ -25,7 +25,7 @@
  },
  "map_id": "TRM-11",
  "plan": "docs/production/oblique-mocks/TRM-11-plan.json",
- "plan_sha256": "226a0545e3f7823d70297b938f02500b350d9f3cc663fc1b4092ba1e99fb5fe6",
+ "plan_sha256": "94386145aacc8cd2748d9c7116571cb3b7c9e2bef6456ebc2d3c86536c9cb215",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -40,7 +40,7 @@
      1
     ]
    },
-   "input_sha": "0675a7b5710fe855f9825a7ad0d762264e8d2bce62a7fd319dd0768fbcbb4768",
+   "input_sha": "60063928ac8134e58f5c856f2ae21631dad49869b7bbac4777a03f77d1797e67",
    "outputs": {
     "TRM-11-exits.png": "a5fa2381d78b3d309e77bc82eb228e983ec53d9fbd5108fa5f85301ea951d64b",
     "TRM-11-mask.json": "debbbaefecb0c491fa9172d54db661e5c9911d19d0493ee09657c44a70de41ad",
@@ -50,7 +50,7 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "0675a7b5710fe855f9825a7ad0d762264e8d2bce62a7fd319dd0768fbcbb4768",
+   "input_sha": "60063928ac8134e58f5c856f2ae21631dad49869b7bbac4777a03f77d1797e67",
    "outputs": {
     "TRM-11-clean.png": "413ee6c43abdefb682d487d54f95cfab708f4a89d510d45c82e73cd6b5907a9f",
     "TRM-11-review.png": "218114f6dddfcc277299fb68f266364e6e6f6357d58d8f2ef26ea7a890df3120"
@@ -58,7 +58,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "0675a7b5710fe855f9825a7ad0d762264e8d2bce62a7fd319dd0768fbcbb4768",
+   "input_sha": "60063928ac8134e58f5c856f2ae21631dad49869b7bbac4777a03f77d1797e67",
    "outputs": {
     "TRM-11-occlusion-depth.png": "145ce5ecfdbb1ab4de3df34328ed22f585e4e2bea81c73661880360366430cb6",
     "TRM-11-occlusion-edit.png": "572dce373340c2cde4982cb60e91d683364c17af0f5926a9a2b95784283a85ed",
@@ -69,9 +69,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "f8c75ce97c750975cc6625ae8df05eb9ae5178f2dc758c621127887f60dba52b",
+   "input_sha": "5061ceadb1c9470f20c1eafa801ee56d942a6a34af731319cbdc36501a4c338f",
    "outputs": {
-    "TRM-11-edit-prompt.txt": "d5ffecdd8445bd74ae8199ed3debfe16a723684fe5f87a63a7b1fef6ebc4cec2"
+    "TRM-11-edit-prompt.txt": "4a47dc552a0130749e39499ddd4b31db137214d7673d0adab76c3a32b7f94e6b"
    },
    "status": "blocked",
    "unadopted_dependencies": [
@@ -80,7 +80,7 @@
   },
   "validate": {
    "errors": [],
-   "input_sha": "983bc08caae4a02c50d1e73623fac8a3e553b74660ba1d0d20694d47af608fdf",
+   "input_sha": "72b065022c60a9958a9a850de4108d40533ea6673f6f0e8ede61ff1bd68d2a16",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -93,7 +93,7 @@
    ]
   },
   "wire": {
-   "input_sha": "e7e8d7e4a9e01899d6e3b2ff2463e6d66cc43a0388625a6490fb7c233c8611da",
+   "input_sha": "7541dd336f476eee64d3c23c13d5366999581e4a3ed10543100c5ac463299e9d",
    "outputs": {
     "wire-TRM-11.png": "de75abcfa24a956f58cea810167e680e990d60b985a7cd9674ad55352e308dd3"
    },

@@ -5,23 +5,23 @@
    "TRM.trees-pine",
    "TRM.desk",
    "TRM.decor-fill",
-   "TRM.default-decor-pool",
-   "TRM.default-wall-material",
-   "TRM.default-floor-material",
-   "TRM.default-windows",
-   "TRM.default-door-design",
-   "TRM.default-era-diff"
+   "TRM-12.default-decor-pool",
+   "TRM-12.default-wall-material",
+   "TRM-12.default-floor-material",
+   "TRM-12.default-windows",
+   "TRM.default-door-design-apartment",
+   "TRM.default-era-diff-none"
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "a91d9445bdee91f1c110fa706afd12d2a1daca8fc334d7d579f64f8b81008307",
+  "input_sha": "8b209ced2a78567c6522b259d196ceaaa13180d9f314aa0c73708f29a30a8ba9",
   "references": [],
   "row_id": "TRM-12",
   "tables": "docs/ledger/*.yaml"
  },
  "map_id": "TRM-12",
  "plan": "docs/production/oblique-mocks/TRM-12-plan.json",
- "plan_sha256": "d9303d9851f69b7b8eef145fb3a87c584cc2728a23780558b75f218b08f8fe81",
+ "plan_sha256": "120c09f37e9c1bf4dbeeafb11d077bb43b520d53ecbe3031a8fb3af4391dbfad",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -30,7 +30,7 @@
      1
     ]
    },
-   "input_sha": "4d1b13641725f46c1713753886be23b36118002e938ecaa983ab272a4dd18384",
+   "input_sha": "5bafac9b7b478d37cc29ae14d93091a652e3316d613582c211e77e7a1f5f0b65",
    "outputs": {
     "TRM-12-exits.png": "4dd52bed2bd5aa1635426c6de52048e19ac36171ad807cb1d7ab4da1de39c9f0",
     "TRM-12-mask.json": "35c29b091f1d72686e0c3ea59b25f2bcccbe7103b5158902244494a2a2e86caf",
@@ -40,7 +40,7 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "4d1b13641725f46c1713753886be23b36118002e938ecaa983ab272a4dd18384",
+   "input_sha": "5bafac9b7b478d37cc29ae14d93091a652e3316d613582c211e77e7a1f5f0b65",
    "outputs": {
     "TRM-12-clean.png": "0d132cccd01f409708a9bd3d3764941539ebd9a8f2b2eebe01c080b1ffa98935",
     "TRM-12-review.png": "02e90f3e4a0110c9f866483a14ff2ac122c96b32238e72c73ba53b4d4e123feb"
@@ -48,7 +48,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "4d1b13641725f46c1713753886be23b36118002e938ecaa983ab272a4dd18384",
+   "input_sha": "5bafac9b7b478d37cc29ae14d93091a652e3316d613582c211e77e7a1f5f0b65",
    "outputs": {
     "TRM-12-occlusion-depth.png": "2eb521c3ec320ec391054c1540fad030d6140ba93273c333c45d4f0a0504dc97",
     "TRM-12-occlusion-edit.png": "f5e954176a463079b09291384d823b1a844efa15a536734360fb06bc0e4798de",
@@ -59,16 +59,16 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "27912c66a4856366bbf73c129203be6b38384a852f3051494720ed0624a416d1",
+   "input_sha": "3d4c12f49eb7b161a431892f5b004220d6048b8531f0c54e998675b802e3d7be",
    "outputs": {
-    "TRM-12-edit-prompt.txt": "3eaf0f34234202eaae4c2a632781f66b7fd3b9d7a3c39d3aef111794d474a13f"
+    "TRM-12-edit-prompt.txt": "1befc6b0b00d698393ee6d650237cbe04a6710375f595dd9e3a9f0ea191505d9"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "369f6e92a0df7abad3f2ec6c5da75adec42323adc4c96c31ff7ba8ee2cfe6372",
+   "input_sha": "d93a22954aab4840f5d8ceff82ec523db0f99101d74aedf859f92b5ae64baf16",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -76,12 +76,12 @@
     "既定（要確認）: 北壁の窓（掃き出し・幅240・中央）。種別・位置・個数は既定（要確認）。",
     "車椅子の回転余地: 居間の中央に直径150の空きを残した（家具は壁沿い・食卓は右寄り）。直径は既定。",
     "TRM-12 は事故後〜壮年の時期の部屋（map-specifications）。モックは時期差を持たない。",
-    "既定（要確認）: 家具4点（ソファ・食卓・テレビ台・棚）の見た目は台帳に無く、名称だけを見た目に書いた（#191。平面モックの検査が『見た目（look）かpool.kindsのkind』を要求するため）。素材・色・小物は装飾プールの許可（工作の装飾）に任せ、形は箱のまま。（決定 TRM.default-decor-pool）",
+    "既定（要確認）: 家具4点（ソファ・食卓・テレビ台・棚）の見た目は台帳に無く、名称だけを見た目に書いた（#191。平面モックの検査が『見た目（look）かpool.kindsのkind』を要求するため）。素材・色・小物は装飾プールの許可（工作の装飾）に任せ、形は箱のまま。家具の見た目は検証が要求したのに台帳に無かったため、品目名だけを書いた（見た目の決定ではない）。",
     "既定（要確認）: TRM-12.door"
    ]
   },
   "wire": {
-   "input_sha": "4f7e5e9a21507c2368eb223833e9d3e468433bdb3f7509f84379a860f951b56c",
+   "input_sha": "f7598a5161968a02b0c0ae2b82c9c14793c2fa01ed8f0dc56a88566ab12dbfd0",
    "outputs": {
     "wire-TRM-12.png": "2533cb85e3bbbd7424b39634f420a2e12b44737ce93e3ed2273d43040ef9e3e8"
    },
