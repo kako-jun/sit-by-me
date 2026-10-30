@@ -98,7 +98,7 @@
    "blocked_base": "TRM-05",
    "input_sha": "a80c241c6684a716d8efcf3f7f55c2d1d5457b495e6ba9317e1fb586206a189a",
    "outputs": {
-    "TRM-05-fire-edit-prompt.txt": "16cd1595319b0dfc94711141b7494dc630610074f128cff8ed651137f9c85693"
+    "TRM-05-fire-edit-prompt.txt": "b15cd3ae8273ac5e7a8c09704378d6a368f8cb9a039f95cc569339bf34d8a712"
    },
    "status": "blocked",
    "unadopted_dependencies": [
