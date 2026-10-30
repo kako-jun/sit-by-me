@@ -11,7 +11,7 @@
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "546fee55281a5dda3ad6884929ef940c3cd79fff5204fd474c86d014b2785d62",
+  "input_sha": "128c5580c7bdaa980af16aca8e6f82fc152ab1166032d1fd8d18f84eba358409",
   "references": [],
   "row_id": "TRM-14",
   "tables": "docs/ledger/*.yaml"
@@ -30,7 +30,7 @@
      1
     ]
    },
-   "input_sha": "b9b911f6c52f9d04171e911a85c2890a853fc10e0447d790cd2abc978b5c2236",
+   "input_sha": "dc303515d0d43ac746f1ec50e91a7264a96b69c1a6a97ec4b3a534b55f16c688",
    "outputs": {
     "TRM-14-exits.png": "2386ac8fa2180f8be7960e8c65523c56020fde76814a23182c125ba19a0adef3",
     "TRM-14-mask.json": "3225b141232fec1e9fcd92933e9a46ffdd6bc430a36c649764baee33e036084d",
@@ -40,7 +40,7 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "b9b911f6c52f9d04171e911a85c2890a853fc10e0447d790cd2abc978b5c2236",
+   "input_sha": "dc303515d0d43ac746f1ec50e91a7264a96b69c1a6a97ec4b3a534b55f16c688",
    "outputs": {
     "TRM-14-clean.png": "cb1190e993f2c5556898b542ed07591d5a1142b855575f8d18856e0528f04629",
     "TRM-14-review.png": "5beb1b9fa2e6fdcc5deab0ffc33ff3dcdfdd0f408c60a7ef11945af1eba14b9a"
@@ -48,7 +48,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "b9b911f6c52f9d04171e911a85c2890a853fc10e0447d790cd2abc978b5c2236",
+   "input_sha": "dc303515d0d43ac746f1ec50e91a7264a96b69c1a6a97ec4b3a534b55f16c688",
    "outputs": {
     "TRM-14-occlusion-depth.png": "fab443cfd102a32890f380bb70e29ccdb721edc51e2ba29f6f766d11863fa765",
     "TRM-14-occlusion-edit.png": "0979fbc0e1f0f17121b03705f546c2012d61168a9f6e7e001beab78a0c4f4a7b",
@@ -59,16 +59,16 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "64cd3e2d0ef8e05fd675eecf116a74a8ce340748494a6e7668b98cf2d8433a6b",
+   "input_sha": "e8309d08ef091048e4d1928dc055f5b79d1e7470e3981be16a07d674a78fd8a2",
    "outputs": {
-    "TRM-14-edit-prompt.txt": "7e0e1994e1806275187720de0f165d1e32d1c08453838ceaaf455778c49f2245"
+    "TRM-14-edit-prompt.txt": "86bc3d749ec9247bb77fa81ca479a2332c7c96e047e6fead05c877b0acb608c3"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "337ddff292dc1cf62453488d163f1a90bba44c4aca25729a628e0d2ef83d5e54",
+   "input_sha": "2c060327eac0e47b0a363591d4fdb290225125c60930ad35475a08fbc5dcc8f5",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -79,7 +79,7 @@
    ]
   },
   "wire": {
-   "input_sha": "8bd2eca2548bcdedd7c8d2097b8d8a70ca76e1d807a0c2e5d1c2202806a223e6",
+   "input_sha": "9b8d6d35d26543f397c9da01e87632efd5028083f5230ec22628b0943383bc60",
    "outputs": {
     "wire-TRM-14.png": "1c60e68244a7e143ac49e4fff57cc82cee07c423cd077359db2391b43e5a35aa"
    },
