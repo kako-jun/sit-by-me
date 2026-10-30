@@ -1109,7 +1109,7 @@
   "決定参照": ""
 - "図ID": "寺町全体"
   "項目": "cross_assumptions[4]"
-  "値": "既定（要確認）: 屋外MAP（TRM-06〜11・13〜17）の plan には decor_pool（teramachi-winter-exterior。決定 TRM.default-decor-pool-exterior）を付けてある。個別の装飾（木の本数・屋根・民家の見た目・路面の look）は、全体レビューの承認後に採用済み画像と合わせて決める（未決 U-053）。"
+  "値": "既定（要確認）: 屋外MAP（TRM-06〜11・13〜17）の plan には decor_pool（teramachi-winter-exterior。決定 TRM.default-decor-pool-exterior）を付けてある。個別の装飾（木の本数・屋根・民家の見た目・路面の look）は、全体レビューの承認後に採用済み画像と合わせて決める（未決 U-2907）。"
   "型": "文"
   "決定参照": ""
 - "図ID": "寺町全体"
