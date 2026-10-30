@@ -1,0 +1,89 @@
+{
+ "ledger": {
+  "decisions": [
+   "TRM.trees-draw",
+   "TRM.trees-pine",
+   "TRM.desk",
+   "TRM.decor-fill",
+   "TRM.default-decor-pool-exterior",
+   "TRM.default-wall-material-exterior",
+   "TRM.default-era-diff-none"
+  ],
+  "era_suffix": null,
+  "inherits": [],
+  "input_sha": "a70e08a86debb7756f82c6b014c3dc5dc1134f6b4193ad82bdd24f1c0cf52281",
+  "references": [],
+  "row_id": "TRM-10",
+  "tables": "docs/ledger/*.yaml"
+ },
+ "map_id": "TRM-10",
+ "plan": "docs/production/oblique-mocks/TRM-10-plan.json",
+ "plan_sha256": "69d47de80335d3c200f3801a24bd16b4ef6fee097b01dcd013db0a073943541d",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-10.bottom": [
+     1
+    ],
+    "TRM-10.top": [
+     1
+    ]
+   },
+   "input_sha": "9f8f15275e0b618adbdc86308252e2629fde3c1d522613020de0df0fb484036a",
+   "outputs": {
+    "TRM-10-exits.png": "569fe6de4b8d94da1c26dce1c23f56115e610a531c80aba9b98014c3258e44c5",
+    "TRM-10-mask.json": "b0c74b4160b524fdd3a6065e9ad01454ff8d29d3bfe6ac1fe8763c18333b5671",
+    "TRM-10-mask.png": "d5d3e479f3fa4ad25328a5e1f6e059310eda6c236ebaba0af96ce28daa28936c"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "9f8f15275e0b618adbdc86308252e2629fde3c1d522613020de0df0fb484036a",
+   "outputs": {
+    "TRM-10-clean.png": "eff394a3bc9c573ba922b7106dab25580f3ced50316e6c0e68849f4b40d4a57d",
+    "TRM-10-review.png": "b1c141b59affbc887a78a35f5e38ea26c45a097130e2a92c1f8bca5e0a7f8e4c"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "9f8f15275e0b618adbdc86308252e2629fde3c1d522613020de0df0fb484036a",
+   "outputs": {
+    "TRM-10-occlusion-depth.png": "e062c709de4ea544463df294474f9183922521f99169086b98004427484c21f9",
+    "TRM-10-occlusion-edit.png": "5809419d137553908b6cfc3882fe706bbdeff408b1c0639227a97c649d3d3ea6",
+    "TRM-10-occlusion-overlay.png": "117574cd72f832918b312ed7d648fc91d98ca6735afed397e0fcf2a740bcf3a5",
+    "TRM-10-occlusion.json": "6e91e57ebf055e6c8ccd9d97aacdb01e8adbfc759876ee4e80ecfd19e530271b",
+    "TRM-10-occlusion.png": "03a81206c13203a2bdcc44991204b81072f3f7837d4a9d014209fcd89d43f1cc"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "20c5a99cb1a2d8468e73cc2f9b56ab3451fb626b2151aeb5d70a76a31b9d3d7d",
+   "outputs": {
+    "TRM-10-edit-prompt.txt": "0dfff903ebdad1d6078c848fa1e026cf7fd151d9f7dd3a6acbf040dd26b559e6"
+   },
+   "status": "ok",
+   "unadopted_dependencies": []
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "20fd619c0e8f699c807604ef35f5235ef600c8125424fe07e59ea899c06bec77",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+    "既定（要確認）: 蛇行の形（上 x1100 → 左へ折り返す → 下 x900。幅160）・雪囲いの位置・民家4軒は設計に無い（台帳は『犀川側へ蛇行する車椅子主路。石段なし』のみ）。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+    "スロープの勾配・段差は平面モックに出ない（見下ろし図）。台帳『途中の急段差なし』。",
+    "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。"
+   ]
+  },
+  "wire": {
+   "input_sha": "1c261354b060a0e3a914867236e8581d742d224e5fedfd6533cabd717a19d889",
+   "outputs": {
+    "wire-TRM-10.png": "da07b573b41ce334d3375b3a6e6407736baa0d1498e15990bd2a7490669c91be"
+   },
+   "status": "ok"
+  }
+ }
+}

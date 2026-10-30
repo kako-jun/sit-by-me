@@ -473,7 +473,8 @@ def coord_section(p, pool):
     exterior = any(w.get("kind") == "building" for w in ws)
     x0 = min(w["rect"][0] for w in ws); y0 = min(w["rect"][1] for w in ws); x1 = max(w["rect"][2] for w in ws); y1 = max(w["rect"][3] for w in ws)
     ground = [M.proj(x0, y0), M.proj(x1, y0), M.proj(x1, y1), M.proj(x0, y1)]
-    hb = max(w["h"] for w in ws if M.is_h(w) and w["rect"][1] == y0); hf = max(w["h"] for w in ws if M.is_h(w) and w["rect"][3] == y1)
+    # 外周の辺に接する横長の壁が無いMAP（屋外の道。辺は閉鎖の塀が部分的に覆うだけ）は高さ0（上端=接地線）。屋内はどちらの辺にも壁がある
+    hb = max((w["h"] for w in ws if M.is_h(w) and w["rect"][1] == y0), default=0); hf = max((w["h"] for w in ws if M.is_h(w) and w["rect"][3] == y1), default=0)
     top = [M.proj(x0, y0, hb), M.proj(x1, y0, hb), M.proj(x1, y1, hf), M.proj(x0, y1, hf)]
     if exterior:  # 外観: 建物ごとに接地線と上端（屋根は上端の外形に収める）
         for w in ws:

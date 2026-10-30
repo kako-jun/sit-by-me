@@ -580,9 +580,17 @@ class PromptReflectionTests(unittest.TestCase):
             self.assertIn(n, r.stderr)
 
     def test_clean_ledger_passes_and_reports_gated_maps(self):
+        # 現行の台帳は寺町 TRM-06〜17 の未決を既定(要確認)で解消済み（#191）なので、ゲート停止は 0 で TRM-06〜17 も検査対象に入る
         r = self.verify()
         self.assertEqual(r.returncode, 0, r.stderr + r.stdout)
         self.assertIn("PASS", r.stdout)
+        self.assertNotIn("ゲートで停止（対象外）", r.stdout)
+        self.assertIn("ゲート停止 0", r.stdout)
+        self.assertIn("TRM-06", r.stdout.split("検査したMAP")[1].splitlines()[0])
+        # 必須キーを未決に戻した MAP はゲートで止まり、対象外として報告される
+        self.edit_row("MAP", "MAP_ID", "TRM-06", **{"壁材": "未決(要確認)"})
+        r = self.verify()
+        self.assertEqual(r.returncode, 0, r.stderr + r.stdout)
         self.assertIn("ゲートで停止（対象外）: TRM-06", r.stdout)
         self.assertNotIn("検査したMAP（0）", r.stdout)
 
@@ -657,6 +665,7 @@ class PromptReflectionTests(unittest.TestCase):
         self.assertDetects("要点が DECISIONS 節に逐語で現れない")
 
     def test_gated_map_is_reported_not_checked(self):
+        self.edit_row("MAP", "MAP_ID", "TRM-06", **{"壁材": "未決(要確認)"})
         r = self.verify("--maps", "TRM-06,TRM-05")
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertIn("ゲートで停止（対象外）: TRM-06", r.stdout)
@@ -883,6 +892,7 @@ class MissingKeysGateTests(LedgerCopyBase):
                               capture_output=True, text=True, cwd=self.work)
 
     def test_gated_map_reports_missing_keys(self):
+        self.edit_row("MAP", "MAP_ID", "TRM-06", **{"壁材": "未決(要確認)"})
         r = self.missing("TRM-06")
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertIn("MISSING:[", r.stdout)
@@ -1399,10 +1409,11 @@ class ConfirmedEdgeBasisTests(LedgerCopyBase):
 
 
 class GatedMapsScopeTests(LedgerCopyBase):
-    """ゲートで止まる MAP（必須キー未決。現状は TRM-06〜17）はプロンプト反映検査の対象外。未決が解消してゲートが開いた MAP は自動で対象に入る。
+    """ゲートで止まる MAP（必須キー未決。現状は無し。TRM-06〜17 は #191 で解消）はプロンプト反映検査の対象外。未決が解消してゲートが開いた MAP は自動で対象に入る。
     対象外であることは INDEX と tools/README に明記されている。"""
 
     def test_gated_maps_are_skipped_and_reported(self):
+        self.edit_row("MAP", "MAP_ID", "TRM-15", **{"壁材": "未決(要確認)"})
         r = self.verify_prompt()
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertIn("ゲートで停止（対象外）: TRM-15", r.stdout)
@@ -1410,7 +1421,7 @@ class GatedMapsScopeTests(LedgerCopyBase):
 
     def test_a_map_whose_undecided_keys_are_resolved_enters_the_check_automatically(self):
         # 生成済みの TRM-02 に必須キーの未決を作ってゲートを閉じ（対象外になる）、解消して開ける（自動で対象に戻る）。
-        # 屋外MAP（TRM-06〜17）で試せないのは、床が多角形のMAPは今の v4 プロンプト導出器が未対応でゲートが開いても導出に失敗するため（別件）
+        # 屋外MAP（TRM-06〜17）も同じ（台帳の現状でゲートが開いて検査対象に入っている。test_clean_ledger_passes_and_reports_gated_maps）
         original = next(r for r in self.rows("MAP") if r["MAP_ID"] == "TRM-02")["壁材"]
         self.edit_row("MAP", "MAP_ID", "TRM-02", **{"壁材": "未決(要確認)"})
         closed = self.verify_prompt()

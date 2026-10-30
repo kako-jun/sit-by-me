@@ -1,0 +1,120 @@
+{
+ "schema": "sit-oblique-mock-occlusion/1",
+ "map_id": "TRM-11",
+ "size": [
+  1672,
+  941
+ ],
+ "rule": "スプライトの足元y < depth[画素] の画素だけ、occlusion の白で隠す。奥壁・キャラの体が重ならない物は出さない。戸口の開口は抜く。歩行マスクとは別レイヤー（前景に隠れる床を通行不能にしない）。",
+ "char_px": [
+  67,
+  100
+ ],
+ "occluders": [
+  {
+   "id": "closure-w1",
+   "kind": "wall",
+   "base_y": 286,
+   "area_px": 2747,
+   "body_overlap_px": 2377
+  },
+  {
+   "id": "closure-e1",
+   "kind": "wall",
+   "base_y": 286,
+   "area_px": 2708,
+   "body_overlap_px": 2260
+  },
+  {
+   "id": "closure-w1",
+   "kind": "wall",
+   "base_y": 345,
+   "area_px": 2870,
+   "body_overlap_px": 2433
+  },
+  {
+   "id": "closure-e1",
+   "kind": "wall",
+   "base_y": 345,
+   "area_px": 2760,
+   "body_overlap_px": 2308
+  },
+  {
+   "id": "closure-w1",
+   "kind": "wall",
+   "base_y": 406,
+   "area_px": 2996,
+   "body_overlap_px": 2479
+  },
+  {
+   "id": "closure-e1",
+   "kind": "wall",
+   "base_y": 406,
+   "area_px": 2879,
+   "body_overlap_px": 2354
+  },
+  {
+   "id": "closure-w1",
+   "kind": "wall",
+   "base_y": 469,
+   "area_px": 3114,
+   "body_overlap_px": 2502
+  },
+  {
+   "id": "closure-e1",
+   "kind": "wall",
+   "base_y": 469,
+   "area_px": 2998,
+   "body_overlap_px": 2441
+  },
+  {
+   "id": "slide",
+   "kind": "box",
+   "base_y": 470,
+   "area_px": 9951,
+   "body_overlap_px": 8423
+  },
+  {
+   "id": "closure-e1",
+   "kind": "wall",
+   "base_y": 477,
+   "area_px": 1317,
+   "body_overlap_px": 874
+  },
+  {
+   "id": "closure-w1",
+   "kind": "wall",
+   "base_y": 533,
+   "area_px": 3244,
+   "body_overlap_px": 2626
+  },
+  {
+   "id": "closure-w1",
+   "kind": "wall",
+   "base_y": 600,
+   "area_px": 3370,
+   "body_overlap_px": 2138
+  },
+  {
+   "id": "bike",
+   "kind": "box",
+   "base_y": 628,
+   "area_px": 32005,
+   "body_overlap_px": 4612
+  },
+  {
+   "id": "closure-e2",
+   "kind": "wall",
+   "base_y": 635,
+   "area_px": 3393,
+   "body_overlap_px": 1165
+  },
+  {
+   "id": "closure-w1",
+   "kind": "wall",
+   "base_y": 668,
+   "area_px": 3462,
+   "body_overlap_px": 336
+  }
+ ]
+}

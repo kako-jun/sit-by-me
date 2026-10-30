@@ -1,0 +1,71 @@
+{
+ "schema": "sit-oblique-mock-occlusion/1",
+ "map_id": "TRM-07",
+ "size": [
+  1672,
+  941
+ ],
+ "rule": "スプライトの足元y < depth[画素] の画素だけ、occlusion の白で隠す。奥壁・キャラの体が重ならない物は出さない。戸口の開口は抜く。歩行マスクとは別レイヤー（前景に隠れる床を通行不能にしない）。",
+ "char_px": [
+  67,
+  100
+ ],
+ "occluders": [
+  {
+   "id": "fence-w",
+   "kind": "wall",
+   "base_y": 395,
+   "area_px": 55581,
+   "body_overlap_px": 316
+  },
+  {
+   "id": "fence-e",
+   "kind": "wall",
+   "base_y": 395,
+   "area_px": 55517,
+   "body_overlap_px": 243
+  },
+  {
+   "id": "sanmon",
+   "kind": "wall",
+   "base_y": 395,
+   "area_px": 5036,
+   "body_overlap_px": 4876
+  },
+  {
+   "id": "sanmon",
+   "kind": "wall",
+   "base_y": 395,
+   "area_px": 4832,
+   "body_overlap_px": 4672
+  },
+  {
+   "id": "closure-e2",
+   "kind": "wall",
+   "base_y": 722,
+   "area_px": 3509,
+   "body_overlap_px": 294
+  },
+  {
+   "id": "house-1",
+   "kind": "wall",
+   "base_y": 814,
+   "area_px": 85166,
+   "body_overlap_px": 858
+  },
+  {
+   "id": "house-2",
+   "kind": "wall",
+   "base_y": 814,
+   "area_px": 66619,
+   "body_overlap_px": 1254
+  },
+  {
+   "id": "house-3",
+   "kind": "wall",
+   "base_y": 814,
+   "area_px": 80100,
+   "body_overlap_px": 2178
+  }
+ ]
+}

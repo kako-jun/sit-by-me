@@ -150,7 +150,8 @@
     350
    ],
    "id": "sofa",
-   "label": "ソファ"
+   "label": "ソファ",
+   "look": "ソファ。箱の高さ・範囲は変えない。"
   },
   {
    "blocked": true,
@@ -163,7 +164,8 @@
     680
    ],
    "id": "table",
-   "label": "食卓"
+   "label": "食卓",
+   "look": "食卓。箱の高さ・範囲は変えない。"
   },
   {
    "blocked": true,
@@ -176,7 +178,8 @@
     640
    ],
    "id": "tv",
-   "label": "テレビ台"
+   "label": "テレビ台",
+   "look": "テレビ台（テレビを載せる低い台）。箱の高さ・範囲は変えない。"
   },
   {
    "blocked": true,
@@ -189,7 +192,8 @@
     760
    ],
    "id": "shelf",
-   "label": "棚"
+   "label": "棚",
+   "look": "棚。箱の高さ・範囲は変えない。"
   }
  ],
  "doors": [
@@ -231,13 +235,15 @@
   "既定（要確認）: 部屋の大きさ・間取り（玄関左下・居間・窓際は北壁の窓の下）・家具の位置は設計に無い（台帳は『玄関→居間→窓際で、段差なし・車椅子の回転余地』のみ）。",
   "既定（要確認）: 北壁の窓（掃き出し・幅240・中央）。種別・位置・個数は既定（要確認）。",
   "車椅子の回転余地: 居間の中央に直径150の空きを残した（家具は壁沿い・食卓は右寄り）。直径は既定。",
-  "TRM-12 は事故後〜壮年の時期の部屋（map-specifications）。モックは時期差を持たない。"
+  "TRM-12 は事故後〜壮年の時期の部屋（map-specifications）。モックは時期差を持たない。",
+  "既定（要確認）: 家具4点（ソファ・食卓・テレビ台・棚）の見た目は台帳に無く、平面モックの検査が『見た目（look）かpool.kindsのkind』を要求するため、品目名だけを書いた（#191。見た目の決定ではない）。素材・色・小物は装飾プールの許可（工作の装飾）に任せ、形は箱のまま。"
  ],
+ "decor_pool": "teramachi-winter-apartment",
  "depends_on": [],
  "_provenance": {
   "source": "MAP:TRM-12|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "668a6d313fa92a31c685d9dbb28f269855129d143a0afd48839ec7ebf4ce4ec0",
-  "generated_at": "2026-10-24T04:46",
+  "input_sha": "078910710b0c7f168476160cfffc96d1db5ab950679f460eac84d78c4ec061fa",
+  "generated_at": "2026-10-30T12:38",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-12-plan",
   "do_not_edit": true

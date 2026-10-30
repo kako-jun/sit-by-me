@@ -14,7 +14,7 @@
 
 表の一覧・行数・列は下の生成ビューを見る。関連:
 - 引き継ぎ（一時。第1段階の完了時に台帳へ吸収して削除）: [HANDOFF](ledger/handoff/HANDOFF.md)
-- 検証: `ruby scripts/verify_ledger.rb`（スキーマ・外部キー・鮮度）、`ruby scripts/audit_issue_decisions.rb`（Issue の決定候補と決定表の突合。結果は台帳の Issue点検.yaml）、`ruby scripts/verify_prompt_reflects_ledger.rb`（台帳の決定・採用要素・自由記述・窓列がプロンプトに漏れなく出るか。必須キー未決のMAP〔現状は TRM-06〜17〕は『ゲートで停止』としてプロンプト反映検査の対象外。未決が解消してゲートが開いたMAPは自動で対象に入る）、`ruby scripts/verify_index_reachable.rb`（INDEX 到達性）
+- 検証: `ruby scripts/verify_ledger.rb`（スキーマ・外部キー・鮮度）、`ruby scripts/audit_issue_decisions.rb`（Issue の決定候補と決定表の突合。結果は台帳の Issue点検.yaml）、`ruby scripts/verify_prompt_reflects_ledger.rb`（台帳の決定・採用要素・自由記述・窓列がプロンプトに漏れなく出るか。必須キー未決のMAP〔現状は無し。TRM-06〜17 は #191 で既定(要確認)を決定表へ入れて解消〕は『ゲートで停止』としてプロンプト反映検査の対象外。未決が解消してゲートが開いたMAPは自動で対象に入る）、`ruby scripts/verify_index_reachable.rb`（INDEX 到達性）
 - ツール: [tools/README](../.claude/skills/sit-field-background/tools/README.md)
 - 素材の付随表: [素材共有](ledger/素材共有.yaml)（所有者以外の利用関係）、[素材更新](ledger/素材更新.yaml)（素材移行SHAから現物SHAへのSHA連鎖。検査ロジックは [asset_chain.py](../scripts/asset_chain.py)）、[素材メタデータ](ledger/素材メタデータ.yaml)・[素材メタデータ値](ledger/素材メタデータ値.yaml)（画像用JSONの安全化済み正本。[asset_metadata.py](../scripts/asset_metadata.py) の `build|check` で導出・検査）
 - 全派生物の再生成・鮮度検査: [build_ledger.py](../scripts/build_ledger.py) の `build|check`。MAPの元資料表は [map_source_views.py](../scripts/map_source_views.py) と [文書ビュー.yaml](ledger/文書ビュー.yaml) が管理する。
@@ -51,7 +51,7 @@
 ## スクリプト・テスト
 
 - scripts: [asset_chain.py](../scripts/asset_chain.py), [asset_metadata.py](../scripts/asset_metadata.py), [audit_issue_decisions.rb](../scripts/audit_issue_decisions.rb), [build_map_prompt.rb](../scripts/build_map_prompt.rb), [fetch_bgm_sources.py](../scripts/fetch_bgm_sources.py), [ledger_required_keys.rb](../scripts/ledger_required_keys.rb), [ledger_yaml.rb](../scripts/ledger_yaml.rb), [make_logo.py](../scripts/make_logo.py), [map_graph.rb](../scripts/map_graph.rb), [md_table.rb](../scripts/md_table.rb), [render_body_topology.rb](../scripts/render_body_topology.rb), [render_late_topology.rb](../scripts/render_late_topology.rb), [render_map_atlas.rb](../scripts/render_map_atlas.rb), [render_sunnyland_topology.rb](../scripts/render_sunnyland_topology.rb), [svg_to_png.py](../scripts/svg_to_png.py), [verify_asset_layout.py](../scripts/verify_asset_layout.py), [verify_ledger.rb](../scripts/verify_ledger.rb), [verify_index_reachable.rb](../scripts/verify_index_reachable.rb), [verify_prompt_reflects_ledger.rb](../scripts/verify_prompt_reflects_ledger.rb), [verify_map_atlas.rb](../scripts/verify_map_atlas.rb), [verify_map_id_renumber.py](../scripts/verify_map_id_renumber.py), [verify_map_ledger.rb](../scripts/verify_map_ledger.rb), [verify_overseas_progression.rb](../scripts/verify_overseas_progression.rb)
-- tests: [test_asset_metadata.py](../tests/test_asset_metadata.py), [test_asset_migration.py](../tests/test_asset_migration.py), [test_body_topology.py](../tests/test_body_topology.py), [test_ledger.py](../tests/test_ledger.py), [test_map_atlas.py](../tests/test_map_atlas.py), [test_map_id_renumber.py](../tests/test_map_id_renumber.py), [test_map_topology.py](../tests/test_map_topology.py), [test_overseas_progression.py](../tests/test_overseas_progression.py)
+- tests: [test_asset_metadata.py](../tests/test_asset_metadata.py), [test_asset_migration.py](../tests/test_asset_migration.py), [test_body_topology.py](../tests/test_body_topology.py), [test_ledger.py](../tests/test_ledger.py), [test_map_atlas.py](../tests/test_map_atlas.py), [test_map_id_renumber.py](../tests/test_map_id_renumber.py), [test_map_topology.py](../tests/test_map_topology.py), [test_oblique_empty_edges.py](../tests/test_oblique_empty_edges.py), [test_overseas_progression.py](../tests/test_overseas_progression.py)
 
 ## スキルとツール
 
@@ -84,11 +84,11 @@
 | [要素](ledger/要素.yaml) | 304 | MAP 内の要素（家具・物・樹木など）。 | MAP_ID / 適用時期 / 要素ID / 種別 / 名称 / 建物部位ID / 見た目 / 決定参照 / 属性JSON / 特徴(自由記述) |
 | [窓](ledger/窓.yaml) | 32 | MAP の壁の窓。 | 窓ID / MAP_ID / 適用時期 / 壁 / 壁側 / 中心 / 幅 / 種別 / 窓台 / 高さ / 状態 / 沿い範囲 / 建物窓列ID / 連番 / 備考 / 決定参照 / 属性JSON / 特徴(自由記述) |
 | [時期差分](ledger/時期差分.yaml) | 16 | MAP の時期ごとの差分。 | MAP_ID / 時期 / 項目 / 値 / 決定参照 |
-| [既定値](ledger/既定値.yaml) | 89 | 仮置きの既定値（要確認）。 | 既定ID / MAP_ID / 適用時期 / 内容 / 決定参照 |
+| [既定値](ledger/既定値.yaml) | 90 | 仮置きの既定値（要確認）。 | 既定ID / MAP_ID / 適用時期 / 内容 / 決定参照 |
 | [エリア固定](ledger/エリア固定.yaml) | 22 | エリア単位で固定する指定（机の天面・木の種類・台座など）。 | エリアID / 項目 / 値 / 型 / 決定参照 |
-| [装飾プール](ledger/装飾プール.yaml) | 80 | 装飾プールの設定。 | プールID / 項目 / 値 / 型 / 決定参照 |
-| [語彙](ledger/語彙.yaml) | 132 | 許す・禁じる語彙と英語プロンプト断片。 | 語彙ID / グループ / 値 / 英語断片 / 説明 |
-| [決定](ledger/決定.yaml) | 584 | kako-jun の決定（逐語・出典つき）。status に関係なくプロンプトへ入る。 | 決定ID / 日付 / 対象種別 / 対象ID / 対象名 / 決定の要点 / 逐語 / 出典 / 出典URL / 状態 / 置換先 / プロンプト出力 / 必須語 / 禁止語 / 対象MAP / 備考 / 特徴(自由記述) |
+| [装飾プール](ledger/装飾プール.yaml) | 118 | 装飾プールの設定。 | プールID / 項目 / 値 / 型 / 決定参照 |
+| [語彙](ledger/語彙.yaml) | 134 | 許す・禁じる語彙と英語プロンプト断片。 | 語彙ID / グループ / 値 / 英語断片 / 説明 |
+| [決定](ledger/決定.yaml) | 597 | kako-jun の決定（逐語・出典つき）。status に関係なくプロンプトへ入る。 | 決定ID / 日付 / 対象種別 / 対象ID / 対象名 / 決定の要点 / 逐語 / 出典 / 出典URL / 状態 / 置換先 / プロンプト出力 / 必須語 / 禁止語 / 対象MAP / 備考 / 特徴(自由記述) |
 | [採用要素](ledger/採用要素.yaml) | 6 | 採用画像から次の絵へ継承する要素。 | 採用要素ID / 素材ID / 元MAP / 要素 / 内容 / 継承先MAP / 継承方法 / 状態 / 確認語 / 決定参照 / 特徴(自由記述) |
 | [素材](ledger/素材.yaml) | 1055 | 素材（画像・マスクなど。没も行で保持）。 | 素材ID / 所有者ID / 種別 / パス / 状態 / 日付 / 来歴 / sha256 / 特徴(自由記述) |
 | [素材共有](ledger/素材共有.yaml) | 3 | 所有者以外の人物・敵・召喚獣が同一素材を利用する明示的な関係。素材行を複製せず、出典を保持する。 | 共有ID / 利用者ID / 素材ID / 根拠 |
@@ -97,12 +97,12 @@
 | [素材メタデータ値](ledger/素材メタデータ値.yaml) | 704 | 画像用JSONをJSONポインタ・型・値へ分解したYAML正本。JSONは再構築して生成する。 | メタデータID / JSONポインタ / 型 / 値 |
 | [生成物](ledger/生成物.yaml) | 26 | 派生物（JSON）の登録と鮮度検査用ハッシュ。 | 生成物ID / 種別 / パス / 元の表 / 入力ハッシュ / 生成日時 / 再生成コマンド / 備考 |
 | [必須キー](ledger/必須キー.yaml) | 142 | 対象テーブルごとの必須キー定義。 | 対象テーブル / キー / 必須度 / 条件 / 語彙グループ / 説明 |
-| [未決](ledger/未決.yaml) | 1960 | 未決（要確認）の一覧。 | 未決ID / 対象テーブル / 対象ID / キー / 内容 / 状態 / 解決決定ID |
+| [未決](ledger/未決.yaml) | 1962 | 未決（要確認）の一覧。 | 未決ID / 対象テーブル / 対象ID / キー / 内容 / 状態 / 解決決定ID |
 | [キー別名](ledger/キー別名.yaml) | 20 | 列名・キー名の別名と正規名。 | 正規名 / 別名 / 対象テーブル / 説明 |
 | [Issue点検](ledger/Issue点検.yaml) | 525 | Issue の決定候補と決定表の突合結果（audit_issue_decisions.rb が更新。分類=決定表に反映済み／未反映(要取込み)／決定でない／対象外）。 | Issue番号 / コメントURL / 候補の要約 / 分類 / 決定ID / 備考 |
 | [ファイル配置](ledger/ファイル配置.yaml) | 54 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
 | [描画定数](ledger/描画定数.yaml) | 28 | 斜めツール（oblique_mock.py・oblique_topology.py）の寸法・視点・幅クラス・窓種別・台座の飾りの位置。コードはここを読む。 | 定数ID / グループ / 値 / 単位 / 説明 / コード内の名前 |
-| [プロンプト文面](ledger/プロンプト文面.yaml) | 144 | imagegen 用プロンプト・接続表・窓一覧・接続図に出る文面（{名前}=変数の差し込み口）。コードは oblique_text.text で読み、文面を直接持たない。 | 文面ID / 区分 / 文面 / 変数 / 使用箇所 / 備考 |
+| [プロンプト文面](ledger/プロンプト文面.yaml) | 145 | imagegen 用プロンプト・接続表・窓一覧・接続図に出る文面（{名前}=変数の差し込み口）。コードは oblique_text.text で読み、文面を直接持たない。 | 文面ID / 区分 / 文面 / 変数 / 使用箇所 / 備考 |
 | [制作規約](ledger/制作規約.yaml) | 8 | 制作規約の台帳。元資料の提案と確定状態を区別して保持する。 | 規約ID / 対象種別 / 対象ID / 区分 / 内容 / 確度 / 根拠 |
 | [図配置](ledger/図配置.yaml) | 129 | MAPの接続模式図上の順序と座標。地理的な実距離ではない。 | 配置ID / エリアID / MAP_ID / 順番 / X / Y / 図ラベル / 備考 |
 | [エリア構造](ledger/エリア構造.yaml) | 16 | area JSON の体内部位分類など、模式図座標では表せない構造値。経路・型・値で保持する。 | 経路 / 型 / 値 / 根拠 |

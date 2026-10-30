@@ -1,0 +1,96 @@
+{
+ "ledger": {
+  "decisions": [
+   "TRM.trees-draw",
+   "TRM.trees-pine",
+   "TRM.desk",
+   "TRM.decor-fill",
+   "TRM.default-decor-pool-exterior",
+   "TRM.default-wall-material-exterior"
+  ],
+  "era_suffix": null,
+  "inherits": [],
+  "input_sha": "b7d9f6a1720622eb762dbf144a0e6ba71c32e804d6db8efcd4d858ae7e06f47e",
+  "references": [
+   [
+    "TRM-03",
+    null
+   ]
+  ],
+  "row_id": "TRM-17",
+  "tables": "docs/ledger/*.yaml"
+ },
+ "map_id": "TRM-17",
+ "plan": "docs/production/oblique-mocks/TRM-17-plan.json",
+ "plan_sha256": "f0e6df6b14c3b9ed1a0fa5c2ad76ed1a544133bdaaa0b7e947e351a698d0fe69",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-17.bottom": [
+     1
+    ],
+    "TRM-17.top": [
+     1
+    ]
+   },
+   "input_sha": "7357846c5e0979b8b2c9c52ef4e10116d8060022fa19e99db61c5a946c074894",
+   "outputs": {
+    "TRM-17-exits.png": "ab1a60bc35d2fb67b665fcdf5e5a2f0f42a113b3f2878acc83f93efff6478e0c",
+    "TRM-17-mask.json": "1e071582dd8c03c7634b66de3c400361e6365d24abb37180f901db45bd7f50fc",
+    "TRM-17-mask.png": "a3998f85161419c7075ac71dbdcb196c79383f28e38bdf506436852ee4ec16f4"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "7357846c5e0979b8b2c9c52ef4e10116d8060022fa19e99db61c5a946c074894",
+   "outputs": {
+    "TRM-17-clean.png": "067da68236675a77a1fc4a1f38ebaf8680cba982302fee8ea778b8c6be8a2acf",
+    "TRM-17-review.png": "22998d9a348168b3046ad03feca0773c2ed606dae47884e6bb876f765798938d"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "7357846c5e0979b8b2c9c52ef4e10116d8060022fa19e99db61c5a946c074894",
+   "outputs": {
+    "TRM-17-occlusion-depth.png": "5b5ad2d6c9d7483a12fab1fd5424735ffb9e62e7de46fdbafafe9786d56c150f",
+    "TRM-17-occlusion-edit.png": "448f220152f3d173c66574ff7f6152da3ff567d6d46118bdab781b4ecfa88c29",
+    "TRM-17-occlusion-overlay.png": "1f69a2ca091c5863dc1ea2ec01547fd66cfe777c8361367c3d6c4271c9577589",
+    "TRM-17-occlusion.json": "b4f4b7c7140235b6402482699d7683755c1879d95ec6bcc6dd6630bc50edceda",
+    "TRM-17-occlusion.png": "53aefc295a2f4bd1e9f902df8c2deb8120083f0f7733a7f0ae9865617c205d36"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "32e0134a0ace52b261cf49f498bac769c3f8b3791cb6cf11cb551e9c5b2a34a0",
+   "outputs": {
+    "TRM-17-edit-prompt.txt": "c1bbbd8c116c37b2f36003218e69ef7841875bf24bd9a37a6037e4b62db74a53"
+   },
+   "status": "blocked",
+   "unadopted_dependencies": [
+    "TRM-03"
+   ]
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "3a9243939a8c21c476d94de599ae561501117c39cf15e7299811d500de2becf6",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+    "既定（要確認）: 坂の形（下 x1000 → 西へ折り返し → 北東へ → 上 x900。幅160）・細い用水・擁壁・寺の屋根・民家は設計に無い（台帳は『用水と黒瓦を見上げる坂・擁壁と石積み・坂の上に寺の屋根』）。",
+    "坂の勾配（上り）は見下ろし図に出ない。主坂は車椅子でも連続通行できる幅（台帳）。枝（脇道・石段の小路）は作らない（台帳: 枝は作らない。旧版の石段の小路の宝箱は撤回扱い）。",
+    "TRM-17 の上端の接続先 KRB-10.bottom は寺町の外（コンビニ）。旧 3.2 の図（left/top）は ledger v2（TRM-16.top↔TRM-17.bottom・TRM-17.top↔KRB-10.bottom）と食い違うため、v2 に従った。",
+    "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。"
+   ]
+  },
+  "wire": {
+   "input_sha": "17e0a20a42dddb1aea6e8947f1e899a58f71b721e27e8784a82cf57d846f2391",
+   "outputs": {
+    "wire-TRM-17.png": "2e701ce80ccd3abb968eca808af9cab7986971962e2381a1b66fd228aced121c"
+   },
+   "status": "ok"
+  }
+ }
+}

@@ -1,0 +1,127 @@
+{
+ "schema": "sit-oblique-mock-occlusion/1",
+ "map_id": "TRM-06",
+ "size": [
+  1672,
+  941
+ ],
+ "rule": "スプライトの足元y < depth[画素] の画素だけ、occlusion の白で隠す。奥壁・キャラの体が重ならない物は出さない。戸口の開口は抜く。歩行マスクとは別レイヤー（前景に隠れる床を通行不能にしない）。",
+ "char_px": [
+  67,
+  100
+ ],
+ "occluders": [
+  {
+   "id": "dobei-e",
+   "kind": "wall",
+   "base_y": 130,
+   "area_px": 3014,
+   "body_overlap_px": 2864
+  },
+  {
+   "id": "dobei-e",
+   "kind": "wall",
+   "base_y": 185,
+   "area_px": 3104,
+   "body_overlap_px": 2949
+  },
+  {
+   "id": "dobei-e",
+   "kind": "wall",
+   "base_y": 241,
+   "area_px": 3239,
+   "body_overlap_px": 3084
+  },
+  {
+   "id": "house",
+   "kind": "wall",
+   "base_y": 252,
+   "area_px": 60102,
+   "body_overlap_px": 4916
+  },
+  {
+   "id": "dobei-e",
+   "kind": "wall",
+   "base_y": 299,
+   "area_px": 3301,
+   "body_overlap_px": 3146
+  },
+  {
+   "id": "house",
+   "kind": "wall",
+   "base_y": 311,
+   "area_px": 62606,
+   "body_overlap_px": 3635
+  },
+  {
+   "id": "dobei-e",
+   "kind": "wall",
+   "base_y": 359,
+   "area_px": 3504,
+   "body_overlap_px": 3326
+  },
+  {
+   "id": "house",
+   "kind": "wall",
+   "base_y": 371,
+   "area_px": 64737,
+   "body_overlap_px": 1567
+  },
+  {
+   "id": "dobei-e",
+   "kind": "wall",
+   "base_y": 420,
+   "area_px": 3678,
+   "body_overlap_px": 3452
+  },
+  {
+   "id": "house",
+   "kind": "wall",
+   "base_y": 432,
+   "area_px": 66516,
+   "body_overlap_px": 5316
+  },
+  {
+   "id": "dobei-e",
+   "kind": "wall",
+   "base_y": 483,
+   "area_px": 3745,
+   "body_overlap_px": 3531
+  },
+  {
+   "id": "house",
+   "kind": "wall",
+   "base_y": 496,
+   "area_px": 69171,
+   "body_overlap_px": 5448
+  },
+  {
+   "id": "dobei-e",
+   "kind": "wall",
+   "base_y": 496,
+   "area_px": 2079,
+   "body_overlap_px": 1914
+  },
+  {
+   "id": "house",
+   "kind": "wall",
+   "base_y": 535,
+   "area_px": 59775,
+   "body_overlap_px": 4489
+  },
+  {
+   "id": "closure-e2",
+   "kind": "wall",
+   "base_y": 677,
+   "area_px": 3450,
+   "body_overlap_px": 328
+  },
+  {
+   "id": "neighbor-se",
+   "kind": "wall",
+   "base_y": 798,
+   "area_px": 129622,
+   "body_overlap_px": 1518
+  }
+ ]
+}
