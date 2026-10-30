@@ -1,0 +1,50 @@
+{
+ "schema": "sit-oblique-mock-occlusion/1",
+ "map_id": "TRM-17",
+ "size": [
+  1672,
+  941
+ ],
+ "rule": "スプライトの足元y < depth[画素] の画素だけ、occlusion の白で隠す。奥壁・キャラの体が重ならない物は出さない。戸口の開口は抜く。歩行マスクとは別レイヤー（前景に隠れる床を通行不能にしない）。",
+ "char_px": [
+  67,
+  100
+ ],
+ "occluders": [
+  {
+   "id": "retaining-w",
+   "kind": "wall",
+   "base_y": 383,
+   "area_px": 35184,
+   "body_overlap_px": 223
+  },
+  {
+   "id": "retaining-m",
+   "kind": "wall",
+   "base_y": 420,
+   "area_px": 35892,
+   "body_overlap_px": 2040
+  },
+  {
+   "id": "retaining-w",
+   "kind": "wall",
+   "base_y": 445,
+   "area_px": 36485,
+   "body_overlap_px": 210
+  },
+  {
+   "id": "closure-s1",
+   "kind": "wall",
+   "base_y": 837,
+   "area_px": 60162,
+   "body_overlap_px": 806
+  },
+  {
+   "id": "closure-s2",
+   "kind": "wall",
+   "base_y": 837,
+   "area_px": 1630,
+   "body_overlap_px": 1315
+  }
+ ]
+}

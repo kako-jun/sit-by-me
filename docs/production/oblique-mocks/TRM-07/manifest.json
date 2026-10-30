@@ -1,0 +1,99 @@
+{
+ "ledger": {
+  "decisions": [
+   "TRM.trees-draw",
+   "TRM.trees-pine",
+   "TRM.desk",
+   "TRM.decor-fill",
+   "TRM.default-decor-pool"
+  ],
+  "era_suffix": null,
+  "inherits": [],
+  "input_sha": "bbfbe8d9c088c9b9e96a053144d725488cd98c2440d21c9e1768249e03cb193c",
+  "references": [
+   [
+    "TRM-03",
+    null
+   ]
+  ],
+  "row_id": "TRM-07",
+  "tables": "docs/ledger/*.yaml"
+ },
+ "map_id": "TRM-07",
+ "plan": "docs/production/oblique-mocks/TRM-07-plan.json",
+ "plan_sha256": "dd2e25a00f910d08709b33dbb432658ccfd69fc17b85f8bb995c271161d5310f",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-07.left": [
+     1
+    ],
+    "TRM-07.right": [
+     1
+    ],
+    "TRM-07.top": [
+     1
+    ]
+   },
+   "input_sha": "6c4ba7e692a10d33ea0f5ca2a422abc8dd027a6aa8f7089f33c3e0943821b9fc",
+   "outputs": {
+    "TRM-07-exits.png": "a9ccfef7557f79cafc9092714bb66dde1b4caef17c8fd1034189d268b4e57a80",
+    "TRM-07-mask.json": "159bb019914e2402293be1701b8804db5cba584a0c3895a2e669df9d01a4f59b",
+    "TRM-07-mask.png": "52d5f456db1f772021afb1c9bd20a14de0a2785be269a27b3cbe456cf110679b"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "6c4ba7e692a10d33ea0f5ca2a422abc8dd027a6aa8f7089f33c3e0943821b9fc",
+   "outputs": {
+    "TRM-07-clean.png": "bd04d7d78d335243debf301430a8b601b1f7ef56430fe1313f9ac9332b04c0aa",
+    "TRM-07-review.png": "9d61bc8cfc92e916541801117758eb4768d470feca20c1e862236ba0fa6380c8"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "6c4ba7e692a10d33ea0f5ca2a422abc8dd027a6aa8f7089f33c3e0943821b9fc",
+   "outputs": {
+    "TRM-07-occlusion-depth.png": "31240826484cfdff118d10d9ae23de9b88f549d41012aac5358cb7eb3949f5de",
+    "TRM-07-occlusion-edit.png": "76b4887e3cb872af88457307360d30420281fbcbd8f3e30eb1afb5ee4ecf1df7",
+    "TRM-07-occlusion-overlay.png": "78f24e5ec8b9955539a8cbf8e3533312e062b17265e5e8bec134715d0e3b3eb9",
+    "TRM-07-occlusion.json": "988294efef36ef7f4e9ea50f5f46c1872ab895cb81f9e0e11238e5c792b8e14b",
+    "TRM-07-occlusion.png": "31119f5a752fc93126a18a0929d2b4c0492f8f51f2bb7b6f8b3a696326701067"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "e8cf67b12a7afbb778ddbd30b5dc114ab7976aae2f3a334abf98973028e82afc",
+   "outputs": {
+    "TRM-07-edit-prompt.txt": "c16b6c1c9f39a954215a0df8444336e44c16246c531ee5e65ab67224f06ba7c4"
+   },
+   "status": "blocked",
+   "unadopted_dependencies": [
+    "TRM-03"
+   ]
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "390194f637b3d3bf879fc122a4c1bc9402a0103fec56d0cc1ede8394143464c0",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+    "既定（要確認）: 道の幅: 狭い道=132（キャラ2人分。車椅子の最小）、街路=160、広い道=260（既定・要確認）。 TRM-07 は広い道（幅260）で、左右の出入口の幅も260（TRM-15.right・TRM-08.left と一致）。",
+    "既定（要確認）: 長塀の位置（y560〜600）・山門の大きさ（幅200・高さ150）・道の位置（y730〜990）・民家3軒の位置は設計に無い。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+    "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。（下は台帳『bottomは閉鎖』）",
+    "山門の位置（中央より北寄り）と TRM-03.bottom との接続位置 x800 は台帳・TRM-03 既存値に従った。",
+    "既定（要確認）: TRM-07.opening-sanmon"
+   ]
+  },
+  "wire": {
+   "input_sha": "8d7bc1da2518d7e958c6b9e814855913377fa9dc4b44d4de8999ac5def5a8eeb",
+   "outputs": {
+    "wire-TRM-07.png": "9640fb8762f19d38efc2896180f4d45c43f25de532febddd63cf599a83b8e107"
+   },
+   "status": "ok"
+  }
+ }
+}

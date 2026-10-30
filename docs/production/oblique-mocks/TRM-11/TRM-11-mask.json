@@ -1,0 +1,118 @@
+{
+ "schema": "sit-oblique-mock-mask/1",
+ "map_id": "TRM-11",
+ "size": [
+  1672,
+  941
+ ],
+ "white_components": 1,
+ "door_width_plan": 132,
+ "exits": [
+  {
+   "id": "TRM-11.door",
+   "partner": "TRM-12.door",
+   "wall_side": "south",
+   "plan_patch": [
+    210.0,
+    90,
+    342.0,
+    660.0
+   ],
+   "image_polygon": [
+    [
+     337,
+     103
+    ],
+    [
+     451,
+     103
+    ],
+    [
+     415,
+     432
+    ],
+    [
+     292,
+     432
+    ],
+    [
+     315,
+     177
+    ]
+   ],
+   "status": "default"
+  },
+  {
+   "id": "TRM-11.top",
+   "partner": "TRM-10.bottom",
+   "wall_side": "north",
+   "plan_patch": [
+    820.0,
+    0,
+    980.0,
+    70
+   ],
+   "image_polygon": [
+    [
+     862,
+     55
+    ],
+    [
+     998,
+     55
+    ],
+    [
+     999,
+     92
+    ],
+    [
+     862,
+     92
+    ]
+   ],
+   "status": "default"
+  },
+  {
+   "id": "TRM-11.right",
+   "partner": "TRM-13.left",
+   "wall_side": "east",
+   "plan_patch": [
+    1530,
+    734.0,
+    1600,
+    866.0
+   ],
+   "image_polygon": [
+    [
+     1526,
+     479
+    ],
+    [
+     1592,
+     479
+    ],
+    [
+     1605,
+     565
+    ],
+    [
+     1538,
+     565
+    ]
+   ],
+   "status": "default"
+  }
+ ],
+ "exit_components": {
+  "TRM-11.door": [
+   1
+  ],
+  "TRM-11.top": [
+   1
+  ],
+  "TRM-11.right": [
+   1
+  ]
+ },
+ "note": "平面図から導いた。床=白・blocked=黒（壁・blocked の箱は画像上の覆いも黒）・戸口と開口=白"
+}

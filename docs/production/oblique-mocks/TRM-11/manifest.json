@@ -1,0 +1,103 @@
+{
+ "ledger": {
+  "decisions": [
+   "TRM.trees-draw",
+   "TRM.trees-pine",
+   "TRM.desk",
+   "TRM.decor-fill",
+   "TRM.default-decor-pool",
+   "TRM.default-wall-material",
+   "TRM.default-windows",
+   "TRM.default-door-design",
+   "TRM.default-era-diff"
+  ],
+  "era_suffix": null,
+  "inherits": [],
+  "input_sha": "acc7782eec3df5330ac91dea56d9145a1856df2a3d4b6404ea53933f34b890e5",
+  "references": [
+   [
+    "TRM-12",
+    null
+   ]
+  ],
+  "row_id": "TRM-11",
+  "tables": "docs/ledger/*.yaml"
+ },
+ "map_id": "TRM-11",
+ "plan": "docs/production/oblique-mocks/TRM-11-plan.json",
+ "plan_sha256": "226a0545e3f7823d70297b938f02500b350d9f3cc663fc1b4092ba1e99fb5fe6",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-11.door": [
+     1
+    ],
+    "TRM-11.right": [
+     1
+    ],
+    "TRM-11.top": [
+     1
+    ]
+   },
+   "input_sha": "0675a7b5710fe855f9825a7ad0d762264e8d2bce62a7fd319dd0768fbcbb4768",
+   "outputs": {
+    "TRM-11-exits.png": "a5fa2381d78b3d309e77bc82eb228e983ec53d9fbd5108fa5f85301ea951d64b",
+    "TRM-11-mask.json": "debbbaefecb0c491fa9172d54db661e5c9911d19d0493ee09657c44a70de41ad",
+    "TRM-11-mask.png": "dace9741e0df115d73c6ed80a0e6d583bc40d588e0e7d2cd4f13e71cc5485440"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "0675a7b5710fe855f9825a7ad0d762264e8d2bce62a7fd319dd0768fbcbb4768",
+   "outputs": {
+    "TRM-11-clean.png": "413ee6c43abdefb682d487d54f95cfab708f4a89d510d45c82e73cd6b5907a9f",
+    "TRM-11-review.png": "218114f6dddfcc277299fb68f266364e6e6f6357d58d8f2ef26ea7a890df3120"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "0675a7b5710fe855f9825a7ad0d762264e8d2bce62a7fd319dd0768fbcbb4768",
+   "outputs": {
+    "TRM-11-occlusion-depth.png": "145ce5ecfdbb1ab4de3df34328ed22f585e4e2bea81c73661880360366430cb6",
+    "TRM-11-occlusion-edit.png": "572dce373340c2cde4982cb60e91d683364c17af0f5926a9a2b95784283a85ed",
+    "TRM-11-occlusion-overlay.png": "2c3f6e1885383aaea51306ba2d3d22b831d2f7385e53543cd4a212cf9a4c4f15",
+    "TRM-11-occlusion.json": "29a7e6553e4d7f18a1f9cbc4ecf555d95628e4ccdb56d51f7601375cf42579d3",
+    "TRM-11-occlusion.png": "89d0b7ead786ec2812316355bd3227ca5d7903ee56f13519b999375c6b391204"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "f8c75ce97c750975cc6625ae8df05eb9ae5178f2dc758c621127887f60dba52b",
+   "outputs": {
+    "TRM-11-edit-prompt.txt": "d5ffecdd8445bd74ae8199ed3debfe16a723684fe5f87a63a7b1fef6ebc4cec2"
+   },
+   "status": "blocked",
+   "unadopted_dependencies": [
+    "TRM-12"
+   ]
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "983bc08caae4a02c50d1e73623fac8a3e553b74660ba1d0d20694d47af608fdf",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+    "既定（要確認）: 棟の配置（A・B棟を北に2つ・C棟を南に長く）・遊具・自転車置き場・石段口の位置は設計に無い（台帳は『県営住宅中庭。石段は立位期のみ』のみ）。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+    "既定（要確認）: 棟入口 TRM-11.door はA棟の南面・x276（比0.30）。出入口はキャラ2人分（決定済み）。",
+    "TRM-11.right は石段口（立位期だけ通れる。3値マスク assist はこの段では出さない）。台帳『立位期だけの石段』。",
+    "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。（左・下はC棟と塀で閉鎖）",
+    "既定（要確認）: TRM-11.door"
+   ]
+  },
+  "wire": {
+   "input_sha": "e7e8d7e4a9e01899d6e3b2ff2463e6d66cc43a0388625a6490fb7c233c8611da",
+   "outputs": {
+    "wire-TRM-11.png": "de75abcfa24a956f58cea810167e680e990d60b985a7cd9674ad55352e308dd3"
+   },
+   "status": "ok"
+  }
+ }
+}
