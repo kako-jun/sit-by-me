@@ -672,6 +672,77 @@ class PromptReflectionTests(unittest.TestCase):
         self.assertIn("検査したMAP（1）: TRM-05", r.stdout)
 
 
+    # ---- 時期差分MAPは基準MAPの確定画像を参照に含める（#193）
+    BASE_LINE = "- 基準MAP TRM-05 の確定画像は、このMAP（{era}）と同じ部屋・同じ建物の別時期。"
+
+    def probe(self):
+        r = subprocess.run(self.probe_cmd(), shell=True, env={**os.environ, "LEDGER_ROOT": str(self.work)}, capture_output=True, text=True, cwd=self.work)
+        self.assertEqual(r.returncode, 0, r.stderr)
+        return {rec["map_id"]: rec["prompt"] for rec in json.loads(r.stdout)}
+
+    def adopt_base(self):
+        """合成の採用状態: 素材表に TRM-05 の採用済み背景画像の行を足す（実ファイルは作らない・実台帳は変えない）。"""
+        rows = self.rows("素材")
+        rows.append(dict.fromkeys(ledger_io.SCHEMA["素材"], "") | {"素材ID": "A-TEST-193", "所有者ID": "TRM-05", "種別": "背景(屋内)", "状態": "採用",
+                                                              "パス": "assets/images/fields/reference/synthetic-trm05-adopted.webp", "sha256": "ab" * 32})
+        self.save("素材", rows)
+
+    def build_variant(self, era):
+        out = Path(self.scratch.name) / f"out-{era}"
+        cmd = self.probe_cmd().replace("oblique_prompt_probe.py", "oblique_build.py")
+        plan = shlex.quote(str(self.work / "docs/production/oblique-mocks/TRM-05-plan.json"))
+        r = subprocess.run(f"{cmd} {plan} --variant {era} --out {shlex.quote(str(out))}", shell=True, env={**os.environ, "LEDGER_ROOT": str(self.work)}, capture_output=True, text=True, cwd=self.work)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        key = f"TRM-05-{era}"
+        man = json.loads((out / key / "manifest.json").read_text(encoding="utf-8"))
+        return man["stages"]["prompt"], (out / key / f"{key}-edit-prompt.txt").read_text(encoding="utf-8")
+
+    def test_era_variants_blocked_until_base_is_adopted(self):
+        for era in ("kids", "fire"):
+            prompt = self.probe()[f"TRM-05-{era}"]
+            self.assertIn("- TRM-05: 未確定（依存MAPが採用されるまで", prompt)
+            self.assertIn(self.BASE_LINE.format(era=era), prompt)
+            stage, text = self.build_variant(era)
+            self.assertEqual(stage["status"], "blocked")
+            self.assertIn("TRM-05", stage["unadopted_dependencies"])
+            self.assertEqual(stage["blocked_base"], "TRM-05")
+            self.assertIn("# BLOCKED（基準の採用待ち）", text)
+
+    def test_era_variants_carry_base_image_after_adoption(self):
+        self.adopt_base()
+        for era in ("kids", "fire"):
+            prompt = self.probe()[f"TRM-05-{era}"]
+            self.assertIn("- TRM-05: assets/images/fields/reference/synthetic-trm05-adopted.webp（sha256 abababababab）", prompt)
+            self.assertNotIn("TRM-05: 未確定", prompt)
+            self.assertIn(self.BASE_LINE.format(era=era), prompt)
+            self.assertIn("- TRM-04: assets/images/fields/reference/", prompt)  # 採用要素の元MAP（本堂）の参照は落とさない
+            stage, text = self.build_variant(era)
+            self.assertEqual(stage["status"], "ok")
+            self.assertEqual(stage["unadopted_dependencies"], [])
+            self.assertNotIn("blocked_base", stage)
+            self.assertNotIn("# BLOCKED", text)
+        self.assertEqual(self.verify().returncode, 0)  # 採用後も検証は PASS
+
+    def test_base_map_itself_is_not_blocked_by_itself(self):
+        self.assertNotIn("基準MAP TRM-05 の確定画像は", self.probe()["TRM-05"])
+
+    def test_era_variant_without_base_dependency_in_ledger_is_detected(self):
+        self.delete_rows("時期差分", lambda r: r["MAP_ID"] == "TRM-05" and r["時期"] == "kids" and r["項目"] == "依存")
+        self.assertDetects("TRM-05-kids", "依存に基準MAP TRM-05 が無い")
+
+    def test_era_variant_plan_dropping_base_reference_is_detected(self):
+        plan = self.work / "docs/production/oblique-mocks/TRM-05-plan.json"
+        doc = json.loads(plan.read_text(encoding="utf-8"))
+        doc["variants"]["fire"]["depends_on"] = []
+        plan.write_text(json.dumps(doc, ensure_ascii=False), encoding="utf-8")
+        self.assertDetects("TRM-05-fire", "基準MAP TRM-05 が REFERENCE IMAGES に現れない")
+
+    def test_base_reference_usage_sentence_removed_from_ledger_is_detected(self):
+        self.delete_rows("プロンプト文面", lambda r: r["文面ID"] == "PR.reference.base-era")
+        r = self.verify()
+        self.assertNotEqual(r.returncode, 0)
+
+
 class IssueAuditBase(unittest.TestCase):
     """audit_issue_decisions.rb のテスト共通土台。audit_issue_decisions.rb: Issue の決定候補を決定表と突合して分類し、Issue点検.yaml の過不足を検出する（--from-json でオフライン）。"""
 
