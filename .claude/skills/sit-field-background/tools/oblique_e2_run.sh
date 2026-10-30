@@ -11,14 +11,18 @@ set -u
 MAP=${1:?MAP}; N=${2:-4}; ROUND=${3:-e2}
 ROOT=$(git rev-parse --show-toplevel); cd "$ROOT"
 M=docs/production/oblique-mocks/$MAP
-OUT=$M/$ROUND; mkdir -p "$OUT" "$M/e2"
+OUT=$M/$ROUND
 PROMPT=${4:-$OUT/prompt.txt}
 SW=$M/e2/swatch.png
 GI=$HOME/.codex/generated_images
-[ -f "$SW" ] || cp verification/body-layout/BDY-material-swatch-corrugated-edge.png "$SW"
 SCHED="uv run python3 -I .claude/skills/sit-field-background/tools/oblique_e2_schedule.py"
 # 依存グラフ: 親が全て確定済みでなければ起動しない（直列）。確定済みの親の正本画像を参考画像（扉・材質・家具・装飾のデザインの参考のみ）として自動で付ける
+# 拒否された実行が副作用（空ディレクトリ・swatch のコピー）を残さないよう、check を mkdir／cp より先に実行する
 $SCHED check "$MAP" || exit 1
+mkdir -p "$OUT" "$M/e2"
+[ -f "$SW" ] || cp verification/body-layout/BDY-material-swatch-corrugated-edge.png "$SW"
+# プロンプトの『台帳の出所』行（台帳 プロンプト文面.yaml が出す DRAFT/BLOCKED 末尾の始まり）。スクリプトと生成側の文字列が乖離しないよう tests/test_ledger.py が全 edit-prompt との一致を縛る
+LEDGER_MARKER_RE='^# ---- 台帳の出所'
 REFS=(-i "$M/$MAP-clean.png" -i "$SW")
 NREF=2
 PARENT_IDS=()
@@ -31,9 +35,16 @@ Image.open(sys.argv[1]).convert('RGB').save(sys.argv[2])" "$PPATH" "$OUT/ref-$PI
   REFS+=(-i "$PPATH"); NREF=$((NREF+1)); PARENT_IDS+=("$PID")
 done < <($SCHED refs "$MAP")
 if [ ! -f "$PROMPT" ]; then
-  sed '/^# ---- 台帳の出所/,$d' "$M/$MAP-edit-prompt.txt" > "$PROMPT"
+  sed "/$LEDGER_MARKER_RE/,\$d" "$M/$MAP-edit-prompt.txt" > "$PROMPT"
+  # プロンプトの REFERENCE IMAGES 節に載るが添付しない MAP（親でないもの。例: 時期差分MAPの本堂 TRM-04）=テキスト参照のみ
+  TEXT_ONLY=()
+  while read -r TID; do
+    [ -z "$TID" ] && continue
+    case " ${PARENT_IDS[*]:-} " in *" $TID "*) continue;; esac
+    TEXT_ONLY+=("$TID")
+  done < <(awk '/^REFERENCE IMAGES/{f=1;next} f&&/^$/{exit} f&&/^- [A-Z][A-Z][A-Z]-[0-9][0-9](-[a-z]+)?: /{sub(/^- /,"");sub(/:.*/,"");print}' "$PROMPT")
   {
-  echo; echo "REFERENCE IMAGES（参考画像の役割。全部で $NREF 枚）:"
+  echo; echo "ATTACHED IMAGES（添付画像の役割。全部で $NREF 枚）:"
   echo "1. 1枚目 = 編集元（EDIT TARGET）: 色付きの箱で作った間取りのクリーンモック。位置・大きさ（COORDINATES の座標・層の境界・壁・戸口・窓・家具の箱・開口）は**この画像だけが正本**。表面を工作の細かな装飾で塗り直す。"
   echo "2. 2枚目 = 素材見本（MATERIAL SWATCH）: 段ボール断面・マスキングテープ・ちぎれた紙の細い帯。台座の前縁の質感の参考のみ。色をそのまま写さない。"
   N3=3
@@ -42,7 +53,9 @@ if [ ! -f "$PROMPT" ]; then
     echo "$N3. $N3 枚目 = 確定済みの $PID の採用画像（参考のみ）: **扉・材質・家具・装飾のデザイン**の参考にする。構図・配置・位置・大きさはコピーしない（位置は1枚目のクリーンモックが正本）。この MAP と接続する扉・渡り廊下・共有する家具は $PID と同じデザインにする。外観の渡り廊下・扉は確定済みの内部と一致させる。"
     N3=$((N3+1))
   done
-  echo "※ 添付画像は上の $NREF 枚だけ。プロンプト中の REFERENCE IMAGES 節に別のMAP（例: TRM-04）のパス・sha256 が書かれていても、添付が無いものはテキスト上の参照にすぎない（画像として見えていない）。添付した親（上の3枚目以降）の画像だけを参考にする。"
+  if [ "${#TEXT_ONLY[@]}" -gt 0 ]; then
+    echo "※ 添付画像は上の $NREF 枚だけ。プロンプト中の REFERENCE IMAGES 節に ${TEXT_ONLY[*]} のパス・sha256 が書かれていても、添付が無いものはテキスト上の参照にすぎない（画像として見えていない）。"
+  fi
   echo; echo "OUTPUT: one image, 1672x941 landscape (if exactly that size is impossible, the nearest allowed size with the same aspect ratio). Do not crop, rotate, zoom or re-frame the mock."
   } >> "$PROMPT"
 fi
