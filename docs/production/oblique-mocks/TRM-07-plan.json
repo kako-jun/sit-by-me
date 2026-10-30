@@ -309,13 +309,14 @@
   "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。（下は台帳『bottomは閉鎖』）",
   "山門の位置（中央より北寄り）と TRM-03.bottom との接続位置 x800 は台帳・TRM-03 既存値に従った。"
  ],
+ "decor_pool": "teramachi-winter-exterior",
  "depends_on": [
   "TRM-03"
  ],
  "_provenance": {
   "source": "MAP:TRM-07|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "b10e60f6758cc1522b2f1970a05dd1726f5de83904b9b6cb8543ace2430670a8",
-  "generated_at": "2026-10-24T04:51",
+  "input_sha": "f387e968e6db341ff1f6076c1beec5b708cfb2c5d69cc65748f28f208f0b1f1c",
+  "generated_at": "2026-10-30T11:15",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-07-plan",
   "do_not_edit": true
