@@ -92,7 +92,7 @@ def status(maps, mid):
 
 
 def blockers(maps, mid):
-    """起動できない理由の一覧（空なら起動可）。list／check／launch／refs が共有する唯一の判定（#193）。
+    """起動できない理由の一覧（空なら起動可）。list／check／launch が共有する唯一の判定（#193）。
     親が未確定、または manifest のプロンプト段が blocked（台帳の素材表に基準/依存の採用行が無いまま生成した=古い。
     --adopt --canonical は素材表に触れないので、確定印だけ進んでもプロンプトは参照画像のパスを持たない）。"""
     _, miss = status(maps, mid)
