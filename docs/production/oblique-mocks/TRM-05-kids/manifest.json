@@ -35,19 +35,23 @@
    "TRM-04.outer-trees",
    "TRM-05.mikan"
   ],
-  "input_sha": "de89e91b1c90d442e8c5ae56d8f94ba296eebf736282f7b57e981927193ebb09",
+  "input_sha": "de88ff8d66933a9e1039ab54e7382e9ee72b56d9168b8af87b1e5c6f9c50b8b2",
   "references": [
+   [
+    "TRM-05",
+    null
+   ],
    [
     "TRM-04",
     "46027605e2631821ab653cab27c147b8bb5eb5e3dff002130dbb90e634efa81d"
    ]
   ],
   "row_id": "TRM-05",
-  "tables": "docs/ledger/*.csv"
+  "tables": "docs/ledger/*.yaml"
  },
  "map_id": "TRM-05-kids",
  "plan": "docs/production/oblique-mocks/TRM-05-plan.json",
- "plan_sha256": "804452a745fc57bcb785f17e6928f14d8e95a5364e6dd61aed79b1a4b82a6c74+kids",
+ "plan_sha256": "15db22b3fd51bea28de3f6326379858f32d5c6d6d064c3e4c9860c9624bb271a+kids",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -62,7 +66,7 @@
      1
     ]
    },
-   "input_sha": "4e3f9bff5f36b933db642aa6d6e50f41f71bf364bed1df19fbd53a151b762b94",
+   "input_sha": "040c0d4f6705943a01565090bf409e3964158d59f1ff2bc07afd0e5cfa096b45",
    "outputs": {
     "TRM-05-kids-exits.png": "a8abbbd787c24b34faacad0739b963f5e12c568aaa61c1701a4bf99b86071f13",
     "TRM-05-kids-mask.json": "eeb26a4d6580a59c0ac8b71afc8e98bc9ce70d227dcd15912c795f4891388ce0",
@@ -72,7 +76,7 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "4e3f9bff5f36b933db642aa6d6e50f41f71bf364bed1df19fbd53a151b762b94",
+   "input_sha": "040c0d4f6705943a01565090bf409e3964158d59f1ff2bc07afd0e5cfa096b45",
    "outputs": {
     "TRM-05-kids-clean.png": "162c04028636492805c04af79c71d7565c50d0cd008025f87e196515393b7860",
     "TRM-05-kids-review.png": "111151699217d23b0450c63cd00df4f200072532274b6cc17effbfa8dda7db8a"
@@ -80,7 +84,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "4e3f9bff5f36b933db642aa6d6e50f41f71bf364bed1df19fbd53a151b762b94",
+   "input_sha": "040c0d4f6705943a01565090bf409e3964158d59f1ff2bc07afd0e5cfa096b45",
    "outputs": {
     "TRM-05-kids-occlusion-depth.png": "3fe559baf24c45d91ed1166c5e6864c36ff618706781b70508aadabdc03246eb",
     "TRM-05-kids-occlusion-edit.png": "c5efe0e6b277136538c6dd47e57d3b1f024d1ca12ce60936f847f8101879751a",
@@ -91,16 +95,19 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "2daf9d529bae2d2e978997a98c2a3ae030b58c3eaef4b259c2dbe252cf26bf53",
+   "blocked_base": "TRM-05",
+   "input_sha": "371689e7056525235cba0edf513300706b1ee947f9f243fb5a1e4ecd43c2ad98",
    "outputs": {
-    "TRM-05-kids-edit-prompt.txt": "4197daa70518f12a0f3161071cac187d304092ac8e29a822a040a395d8d531df"
+    "TRM-05-kids-edit-prompt.txt": "f6fbb94f6d5615672fe91516af3b039a87e254ac52261478cee92bc11616913a"
    },
-   "status": "ok",
-   "unadopted_dependencies": []
+   "status": "blocked",
+   "unadopted_dependencies": [
+    "TRM-05"
+   ]
   },
   "validate": {
    "errors": [],
-   "input_sha": "4ab1ae3f63184123f9ec6f832f6540d76a7464a47e32ab78b53f3947efe19598",
+   "input_sha": "9e5506cf0d0d3cef44c24abf4ec7e6ad07410fe7665d3915e02f0669aa2b5093",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -119,7 +126,7 @@
    ]
   },
   "wire": {
-   "input_sha": "cd419b3dc33913dbecf9aa4c30d99c5dd9bed932d5a9e0f943373bea7dcb765d",
+   "input_sha": "dd8326985c4a87dadc775019c3319a90f4d8207e81e991267565642c8ee07376",
    "outputs": {
     "wire-TRM-05-kids.png": "9bf2129345690a166682128d58ee1d86477990aaf1f62da55be34aa043ca30af"
    },
