@@ -17,9 +17,15 @@ description: Sit by Me の戦闘背景を、対応フィールドMAPと既存戦
 
 床板、幕、書き割りを、見栄えのために直線・直交・等間隔・格子へ正規化してはならない。形・数・位置は参照画像または原文にあるものだけを使う。
 
+## エリア固定と戦闘背景（kako-jun 2026-10-30、決定 BTL.bg-same-area-fixed-closer-shallower）
+
+**戦闘背景＝マップと同じエリア固定＋より寄り・見下ろし角が浅い。** 机の天面・台座・木・外周は台帳 `docs/ledger/エリア固定.yaml`（エリア表の4列、決定 `<区域コード>.area-fixed`／寺町は `TRM.desk`・`TRM.trees-pine`）を正とし、戦闘の場所のエリアのものをそのまま使う（寺町なら温かい茶色の板張りの机〔板目は横〕・段ボール＋綿の雪の台座・松と枯木が、戦闘背景にも同じに載る）。エリア固定が未決の項目（例: 金沢駅の木）は生成を止める。マップとの違いはカメラだけ: 構図がもっと寄る・見下ろし角が浅い。寄りの倍率・俯角の数値は未決（U-2912）で、BG001.webp と下の右端y規則を正とし、数値を発明しない。
+
+**混同防止**: `sit-field-background` の斜めモック（oblique 系。真上寄りの見下ろし約42度・モック座標・COORDINATES）は戦闘背景に流用しない。戦闘背景のカメラは上の規則と BG001.webp から取る。なお、戦闘背景のプロンプトを台帳から組む経路は現状無い（戦闘背景用の表も無い）ため、エリア固定は生成入力へ手で渡す（台帳の値を逐語で）。
+
 ## ミニチュア材料・道具の固定宣言
 
-劇の背景では「手作り舞台」「ミニチュア」だけで生成せず、床=`balsa wood` または `popsicle sticks` をクラフトナイフで切断、書き割り=`corrugated cardboard` と `matte poster paint`、幕=`felt` または `tissue paper`、固定=`masking tape`・PVA接着剤、土台=`foamboard` と露出段ボール断面を対象ごとに指定する。屋外背景は対応MAP原文と `sit-field-background` の対象別材料・加工法を使い、劇場床・幕・書き割りを追加しない。実物素材やCG均一面で代替しない。指定した材料・切断面・テープ・接着剤・土台断面のうち三つ以上を原寸の証拠座標で確認できなければ `failed` として記録し、採用候補へ進めない。
+下の材料は**劇の背景**の指定。屋外・エリアの背景の机・台座・木は上のエリア固定が優先する。劇の背景では「手作り舞台」「ミニチュア」だけで生成せず、床=`balsa wood` または `popsicle sticks` をクラフトナイフで切断、書き割り=`corrugated cardboard` と `matte poster paint`、幕=`felt` または `tissue paper`、固定=`masking tape`・PVA接着剤、土台=`foamboard` と露出段ボール断面を対象ごとに指定する。屋外背景は対応MAP原文と `sit-field-background` の対象別材料・加工法を使い、劇場床・幕・書き割りを追加しない。実物素材やCG均一面で代替しない。指定した材料・切断面・テープ・接着剤・土台断面のうち三つ以上を原寸の証拠座標で確認できなければ `failed` として記録し、採用候補へ進めない。
 
 開始前に `docs/content-registry.md` から対象の戦闘・MAP IDを確定し、対象MAPの原文、`docs/art-direction.md`、対応する戦闘レイアウトJSONのキャラ・敵・UIの安全領域を読む。 対戦相手の敵IDまたは召喚獣IDが確定している場合は `uv run python3 scripts/content_ledger.py query enemy Mxxx --gate` または `query summon Sxxx --gate` を実行し、配置・戦闘パターン案・適用決定を生成入力へ渡す。ゲート失敗ならその対象の生成を止める。劇の場合は `docs/roadmap.md` の劇背景決定も読む。
 
