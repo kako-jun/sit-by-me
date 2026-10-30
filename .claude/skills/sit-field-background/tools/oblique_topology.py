@@ -28,6 +28,8 @@ WCN = {k: X.text("TP.wname." + k) for k in ("2people", "1.5people", "1person")} 
 
 def width_text(doors):
     """戸口の width_class から幅の説明文を導出する（ハードコードしない）。"""
+    if not doors:  # 戸口の無い屋外MAP（出入りは画像の辺だけ）
+        return X.text("TP.width-none")
     g = {}
     for d in doors:
         g.setdefault(d.get("width_class", M.WIDTH_DEFAULT), []).append(d["id"].split(".", 1)[-1] if len(doors) == 1 else d["id"])
