@@ -51,7 +51,7 @@
 ## スクリプト・テスト
 
 - scripts: [asset_chain.py](../scripts/asset_chain.py), [asset_metadata.py](../scripts/asset_metadata.py), [audit_issue_decisions.rb](../scripts/audit_issue_decisions.rb), [build_map_prompt.rb](../scripts/build_map_prompt.rb), [fetch_bgm_sources.py](../scripts/fetch_bgm_sources.py), [ledger_required_keys.rb](../scripts/ledger_required_keys.rb), [ledger_yaml.rb](../scripts/ledger_yaml.rb), [make_logo.py](../scripts/make_logo.py), [map_graph.rb](../scripts/map_graph.rb), [md_table.rb](../scripts/md_table.rb), [render_body_topology.rb](../scripts/render_body_topology.rb), [render_late_topology.rb](../scripts/render_late_topology.rb), [render_map_atlas.rb](../scripts/render_map_atlas.rb), [render_sunnyland_topology.rb](../scripts/render_sunnyland_topology.rb), [svg_to_png.py](../scripts/svg_to_png.py), [verify_asset_layout.py](../scripts/verify_asset_layout.py), [verify_ledger.rb](../scripts/verify_ledger.rb), [verify_index_reachable.rb](../scripts/verify_index_reachable.rb), [verify_prompt_reflects_ledger.rb](../scripts/verify_prompt_reflects_ledger.rb), [verify_map_atlas.rb](../scripts/verify_map_atlas.rb), [verify_map_id_renumber.py](../scripts/verify_map_id_renumber.py), [verify_map_ledger.rb](../scripts/verify_map_ledger.rb), [verify_overseas_progression.rb](../scripts/verify_overseas_progression.rb)
-- tests: [test_asset_metadata.py](../tests/test_asset_metadata.py), [test_asset_migration.py](../tests/test_asset_migration.py), [test_body_topology.py](../tests/test_body_topology.py), [test_ledger.py](../tests/test_ledger.py), [test_map_atlas.py](../tests/test_map_atlas.py), [test_map_id_renumber.py](../tests/test_map_id_renumber.py), [test_map_topology.py](../tests/test_map_topology.py), [test_overseas_progression.py](../tests/test_overseas_progression.py)
+- tests: [test_asset_metadata.py](../tests/test_asset_metadata.py), [test_asset_migration.py](../tests/test_asset_migration.py), [test_body_topology.py](../tests/test_body_topology.py), [test_ledger.py](../tests/test_ledger.py), [test_map_atlas.py](../tests/test_map_atlas.py), [test_map_id_renumber.py](../tests/test_map_id_renumber.py), [test_map_topology.py](../tests/test_map_topology.py), [test_oblique_empty_edges.py](../tests/test_oblique_empty_edges.py), [test_overseas_progression.py](../tests/test_overseas_progression.py)
 
 ## スキルとツール
 
@@ -88,7 +88,7 @@
 | [エリア固定](ledger/エリア固定.yaml) | 22 | エリア単位で固定する指定（机の天面・木の種類・台座など）。 | エリアID / 項目 / 値 / 型 / 決定参照 |
 | [装飾プール](ledger/装飾プール.yaml) | 80 | 装飾プールの設定。 | プールID / 項目 / 値 / 型 / 決定参照 |
 | [語彙](ledger/語彙.yaml) | 133 | 許す・禁じる語彙と英語プロンプト断片。 | 語彙ID / グループ / 値 / 英語断片 / 説明 |
-| [決定](ledger/決定.yaml) | 590 | kako-jun の決定（逐語・出典つき）。status に関係なくプロンプトへ入る。 | 決定ID / 日付 / 対象種別 / 対象ID / 対象名 / 決定の要点 / 逐語 / 出典 / 出典URL / 状態 / 置換先 / プロンプト出力 / 必須語 / 禁止語 / 対象MAP / 備考 / 特徴(自由記述) |
+| [決定](ledger/決定.yaml) | 597 | kako-jun の決定（逐語・出典つき）。status に関係なくプロンプトへ入る。 | 決定ID / 日付 / 対象種別 / 対象ID / 対象名 / 決定の要点 / 逐語 / 出典 / 出典URL / 状態 / 置換先 / プロンプト出力 / 必須語 / 禁止語 / 対象MAP / 備考 / 特徴(自由記述) |
 | [採用要素](ledger/採用要素.yaml) | 6 | 採用画像から次の絵へ継承する要素。 | 採用要素ID / 素材ID / 元MAP / 要素 / 内容 / 継承先MAP / 継承方法 / 状態 / 確認語 / 決定参照 / 特徴(自由記述) |
 | [素材](ledger/素材.yaml) | 1055 | 素材（画像・マスクなど。没も行で保持）。 | 素材ID / 所有者ID / 種別 / パス / 状態 / 日付 / 来歴 / sha256 / 特徴(自由記述) |
 | [素材共有](ledger/素材共有.yaml) | 3 | 所有者以外の人物・敵・召喚獣が同一素材を利用する明示的な関係。素材行を複製せず、出典を保持する。 | 共有ID / 利用者ID / 素材ID / 根拠 |
@@ -97,7 +97,7 @@
 | [素材メタデータ値](ledger/素材メタデータ値.yaml) | 704 | 画像用JSONをJSONポインタ・型・値へ分解したYAML正本。JSONは再構築して生成する。 | メタデータID / JSONポインタ / 型 / 値 |
 | [生成物](ledger/生成物.yaml) | 26 | 派生物（JSON）の登録と鮮度検査用ハッシュ。 | 生成物ID / 種別 / パス / 元の表 / 入力ハッシュ / 生成日時 / 再生成コマンド / 備考 |
 | [必須キー](ledger/必須キー.yaml) | 142 | 対象テーブルごとの必須キー定義。 | 対象テーブル / キー / 必須度 / 条件 / 語彙グループ / 説明 |
-| [未決](ledger/未決.yaml) | 1960 | 未決（要確認）の一覧。 | 未決ID / 対象テーブル / 対象ID / キー / 内容 / 状態 / 解決決定ID |
+| [未決](ledger/未決.yaml) | 1962 | 未決（要確認）の一覧。 | 未決ID / 対象テーブル / 対象ID / キー / 内容 / 状態 / 解決決定ID |
 | [キー別名](ledger/キー別名.yaml) | 20 | 列名・キー名の別名と正規名。 | 正規名 / 別名 / 対象テーブル / 説明 |
 | [Issue点検](ledger/Issue点検.yaml) | 525 | Issue の決定候補と決定表の突合結果（audit_issue_decisions.rb が更新。分類=決定表に反映済み／未反映(要取込み)／決定でない／対象外）。 | Issue番号 / コメントURL / 候補の要約 / 分類 / 決定ID / 備考 |
 | [ファイル配置](ledger/ファイル配置.yaml) | 54 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
