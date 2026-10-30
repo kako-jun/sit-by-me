@@ -4,7 +4,7 @@
 # 使い方: [REF_IMAGE=git:REV:PATH] [DRY_RUN=1] oblique_e2_run.sh MAP [N=4] [ROUND(既定 e2)] [PROMPT_FILE]  （DRY_RUN=1 は生成せずプロンプトと参考画像だけ確認）
 #  例 A案（文章のみ。参照=クリーンモック＋素材見本）:
 #       oblique_e2_run.sh TRM-02 4 e2/round2a
-# プロンプト既定: <MAP>-edit-prompt.txt（台帳ゲート行より前。見た目と許す/禁じる装飾を含む。oblique_build.py が生成）＋参照・出力の節。
+# プロンプト既定: <MAP>-edit-prompt.txt（『# ---- 台帳の出所 ----』行より前=DRAFT/BLOCKED の末尾は imagegen に渡さない。見た目と許す/禁じる装飾を含む。oblique_build.py が生成）＋参照・出力の節。
 # 前提: プロンプト先頭で $imagegen を明示起動（しないと ImageMagick 偽造PNGを掴む）。生成画像は目視しない（数値のみ）。
 # 測定の基準画像: REF_IMAGE。装飾量・層の測定は基準画像があるときだけ出る。
 set -u
@@ -31,7 +31,7 @@ Image.open(sys.argv[1]).convert('RGB').save(sys.argv[2])" "$PPATH" "$OUT/ref-$PI
   REFS+=(-i "$PPATH"); NREF=$((NREF+1)); PARENT_IDS+=("$PID")
 done < <($SCHED refs "$MAP")
 if [ ! -f "$PROMPT" ]; then
-  sed '/^# ---- 台帳ゲート/,$d' "$M/$MAP-edit-prompt.txt" > "$PROMPT"
+  sed '/^# ---- 台帳の出所/,$d' "$M/$MAP-edit-prompt.txt" > "$PROMPT"
   {
   echo; echo "REFERENCE IMAGES（参考画像の役割。全部で $NREF 枚）:"
   echo "1. 1枚目 = 編集元（EDIT TARGET）: 色付きの箱で作った間取りのクリーンモック。位置・大きさ（COORDINATES の座標・層の境界・壁・戸口・窓・家具の箱・開口）は**この画像だけが正本**。表面を工作の細かな装飾で塗り直す。"
@@ -42,6 +42,7 @@ if [ ! -f "$PROMPT" ]; then
     echo "$N3. $N3 枚目 = 確定済みの $PID の採用画像（参考のみ）: **扉・材質・家具・装飾のデザイン**の参考にする。構図・配置・位置・大きさはコピーしない（位置は1枚目のクリーンモックが正本）。この MAP と接続する扉・渡り廊下・共有する家具は $PID と同じデザインにする。外観の渡り廊下・扉は確定済みの内部と一致させる。"
     N3=$((N3+1))
   done
+  echo "※ 添付画像は上の $NREF 枚だけ。プロンプト中の REFERENCE IMAGES 節に別のMAP（例: TRM-04）のパス・sha256 が書かれていても、添付が無いものはテキスト上の参照にすぎない（画像として見えていない）。添付した親（上の3枚目以降）の画像だけを参考にする。"
   echo; echo "OUTPUT: one image, 1672x941 landscape (if exactly that size is impossible, the nearest allowed size with the same aspect ratio). Do not crop, rotate, zoom or re-frame the mock."
   } >> "$PROMPT"
 fi

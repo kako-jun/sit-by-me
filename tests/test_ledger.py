@@ -723,6 +723,26 @@ class PromptReflectionTests(unittest.TestCase):
             self.assertNotIn("# BLOCKED", text)
         self.assertEqual(self.verify().returncode, 0)  # 採用後も検証は PASS
 
+    def test_e2_schedule_check_refuses_blocked_prompt_even_if_base_is_canonical(self):
+        # --adopt --canonical だけ（素材表は未採用）でも親は『確定』になるが、プロンプト段が blocked のままなら起動を拒否する（#193）
+        ob = self.work / "docs/production/oblique-mocks"
+        (ob / "TRM-05").mkdir()
+        (ob / "TRM-05/manifest.json").write_text(json.dumps({"adoption": {"canonical": "docs/ledger/未決.yaml"}}), encoding="utf-8")
+        (ob / "TRM-05-kids").mkdir()
+        mf = ob / "TRM-05-kids/manifest.json"
+
+        def check():
+            cmd = f"{shlex.quote(sys.executable)} -I {shlex.quote(str(self.work / '.claude/skills/sit-field-background/tools/oblique_e2_schedule.py'))} check TRM-05-kids"
+            return subprocess.run(cmd, shell=True, capture_output=True, text=True, cwd=self.work)
+
+        mf.write_text(json.dumps({"stages": {"prompt": {"status": "blocked", "unadopted_dependencies": ["TRM-05"]}}}), encoding="utf-8")
+        r = check()
+        self.assertEqual(r.returncode, 1, r.stdout + r.stderr)
+        self.assertIn("プロンプト段が blocked", r.stderr)
+        mf.write_text(json.dumps({"stages": {"prompt": {"status": "ok"}}}), encoding="utf-8")
+        r = check()
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+
     def test_base_map_itself_is_not_blocked_by_itself(self):
         self.assertNotIn("基準MAP TRM-05 の確定画像は", self.probe()["TRM-05"])
 
@@ -738,9 +758,18 @@ class PromptReflectionTests(unittest.TestCase):
         self.assertDetects("TRM-05-fire", "基準MAP TRM-05 が REFERENCE IMAGES に現れない")
 
     def test_base_reference_usage_sentence_removed_from_ledger_is_detected(self):
+        # 文面行が台帳から消えると、プロンプトを導出するツール側が止まる（検査 (vi) の tpl.nil? 分岐の手前）。特定のメッセージで検出されること
         self.delete_rows("プロンプト文面", lambda r: r["文面ID"] == "PR.reference.base-era")
-        r = self.verify()
-        self.assertNotEqual(r.returncode, 0)
+        self.assertDetects("PR.reference.base-era")
+
+    def test_base_reference_usage_sentence_missing_from_prompt_is_detected_by_check_vi(self):
+        # 台帳には文面があるのにプロンプトへ入らない（生成側の脱落）。検査 (vi) の『使い方の文が REFERENCE IMAGES 節に現れない』分岐を直接通す
+        q = self.work / ".claude/skills/sit-field-background/tools/ledger_query.py"
+        text = q.read_text(encoding="utf-8")
+        line = "        L_.append(X.base_era_reference(base, map_id[len(base) + 1:]))\n"
+        self.assertIn(line, text)
+        q.write_text(text.replace(line, "        pass\n"), encoding="utf-8")
+        self.assertDetects("基準参照の使い方の文（プロンプト文面.PR.reference.base-era）が REFERENCE IMAGES 節に現れない")
 
 
 class IssueAuditBase(unittest.TestCase):

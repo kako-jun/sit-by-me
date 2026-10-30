@@ -6,7 +6,7 @@
 
 使い方（リポ直下で。`uv run python3 -I`）:
   oblique_e2_schedule.py list                 全MAPの依存・確定・起動可否
-  oblique_e2_schedule.py check MAP            親が全て確定済みか（未確定なら理由を出して終了コード1）
+  oblique_e2_schedule.py check MAP            親が全て確定済みか、かつ manifest のプロンプト段が blocked でないか（どちらかなら理由を出して終了コード1）
   oblique_e2_schedule.py refs MAP             確定済みの親の正本画像を `PARENT=path` で列挙（参考画像）
   oblique_e2_schedule.py graph                グラフの検証（循環・存在しないID・自己参照・plan との不一致）
   oblique_e2_schedule.py launch [--dry-run]   起動可能で未確定のMAPを並列にバックグラウンド起動（oblique_e2_run.sh MAP 4）
@@ -109,6 +109,10 @@ def cmd_check(maps, mid):
     deps, miss = status(maps, mid)
     if miss:
         print(f"ERROR: {mid} は起動できない。親が未確定: {', '.join(miss)}（依存: {', '.join(deps)}）。先に親を確定（採用→--adopt --canonical）してから", file=sys.stderr)
+        sys.exit(1)
+    pr = manifest_of(mid).get("stages", {}).get("prompt", {})
+    if pr.get("status") == "blocked":  # プロンプト段が blocked（台帳の素材表に基準/依存の採用行が無いまま生成した）=古い。確定印（manifest の canonical）だけ進んでも、素材表が未採用ならプロンプトは参照画像のパスを持たない（#193）
+        print(f"ERROR: {mid} のプロンプト段が blocked（台帳の素材表に未採用の依存: {', '.join(pr.get('unadopted_dependencies', []))}）。素材表に採用行を入れて oblique_build.py でプロンプトを再生成してから起動する（--adopt --canonical は素材表に触れない）", file=sys.stderr)
         sys.exit(1)
     print(f"OK: {mid} の親は全て確定済み（{', '.join(deps) or '依存なし'}）")
 
