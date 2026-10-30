@@ -296,8 +296,8 @@
  ],
  "_provenance": {
   "source": "MAP:TRM-11|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "8e011234a35642dfda5ed8b2d32890645cda8baa42c6a987677f7b7ed8f653b8",
-  "generated_at": "2026-10-30T12:03",
+  "input_sha": "cd3527aff268b57dcd0bdfd5098cdb1b521a1e427dcc425169f126cb97bea260",
+  "generated_at": "2026-10-30T16:38",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-11-plan",
   "do_not_edit": true
