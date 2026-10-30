@@ -398,6 +398,44 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
         self.assertIn("W1: 仕切り", r.stdout)
 
 
+    def edit_fixed(self, change):
+        p = self.work / "docs/ledger/エリア固定.yaml"
+        rows = ledger_io.parse("エリア固定", p.read_text(encoding="utf-8"))
+        change(rows)
+        p.write_text(ledger_io.dumps("エリア固定", rows), encoding="utf-8")
+
+    def test_clean_area_fixed_has_no_error(self):
+        self.assertNotIn("エリア固定", self.verify().stderr)
+
+    def test_target_area_without_desk_is_reported(self):
+        self.edit_fixed(lambda rows: rows.__setitem__(slice(None), [r for r in rows if not (r["エリアID"] == "city" and r["項目"] == "desk.look")]))
+        self.assertIn("エリア固定 city: 項目 desk.look が無い", self.verify().stderr)
+
+    def test_area_without_slab_is_reported(self):
+        self.edit_fixed(lambda rows: rows.__setitem__(slice(None), [r for r in rows if not (r["エリアID"] == "overseas" and r["項目"] == "slab.look")]))
+        self.assertIn("エリア固定 overseas: 項目 slab.look が無い", self.verify().stderr)
+
+    def test_other_area_name_mixed_into_area_fixed_is_reported(self):
+        def mix(rows):
+            for r in rows:
+                if r["エリアID"] == "uchinada" and r["項目"] == "slab.look":
+                    r["値"] += "（寺町・寺院と住居と同じ）"
+        self.edit_fixed(mix)
+        self.assertIn("エリア固定 uchinada.slab.look: 別エリアの名称『寺町・寺院と住居』が混ざっている", self.verify().stderr)
+
+    def test_other_area_map_id_mixed_into_area_fixed_is_reported(self):
+        def mix(rows):
+            for r in rows:
+                if r["エリアID"] == "garden" and r["項目"] == "perimeter.policy":
+                    r["値"] += "（TRM-06 と同じ）"
+        self.edit_fixed(mix)
+        self.assertIn("エリア固定 garden.perimeter.policy: 別エリアの MAP ID（TRM-）が混ざっている", self.verify().stderr)
+
+    def test_unknown_area_in_area_fixed_is_reported(self):
+        self.edit_fixed(lambda rows: rows.append({"エリアID": "nowhere", "項目": "name", "値": "x", "型": "文", "決定参照": ""}))
+        self.assertIn("エリア固定: 未知のエリアID nowhere", self.verify().stderr)
+
+
 class LegacyMdReaderTests(unittest.TestCase):
     """旧 md を読む scripts は見出し行の列名で読む（md_table.rb）。列の並び替えで壊れず、台帳管理のMAPは台帳で止まる。"""
 
@@ -804,6 +842,55 @@ class PromptReflectionTests(unittest.TestCase):
         self.assertIn(line, text)
         q.write_text(text.replace(line, "        pass\n"), encoding="utf-8")
         self.assertDetects("基準参照の使い方の文（プロンプト文面.PR.reference.base-era）が REFERENCE IMAGES 節に現れない")
+
+
+    # ---- (vii) エリア固定（#195）。机・台座・木が落ちない／別エリアのエリア固定が漏れない
+    def edit_pools_json(self, change):
+        path = self.work / "docs/production/oblique-mocks/decor-pools.json"
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        change(doc)
+        path.write_text(json.dumps(doc, ensure_ascii=False), encoding="utf-8")
+
+    def test_area_fixed_dropped_from_prompt_is_detected(self):
+        # 机・台座・木のどれが落ちても、そのMAPで検出される（装飾プールが エリア固定 を継承しなくなった状態を再現）
+        def drop(doc):
+            doc["areas"]["teramachi"]["slab"]["look"] = "別の台座"
+        self.edit_pools_json(drop)
+        self.assertDetects("エリア固定 teramachi.slab.look がプロンプトに現れない")
+
+    def test_area_fixed_tree_dropped_from_prompt_is_detected(self):
+        def drop(doc):
+            doc["areas"]["teramachi"]["trees"]["deadtree"]["look"] = "別の木"
+        self.edit_pools_json(drop)
+        self.assertDetects("エリア固定 teramachi.trees.deadtree.look がプロンプトに現れない")
+
+    def test_other_area_materials_leaking_into_prompt_are_detected(self):
+        # 寺町のMAPに別エリア（city）固有の木の見た目が載った状態
+        city_look = next(r["値"] for r in self.rows("エリア固定") if r["エリアID"] == "city" and r["項目"] == "trees.kinds[0].look")
+
+        def leak(doc):
+            doc["areas"]["teramachi"]["trees"]["deadtree"]["look"] = city_look
+        self.edit_pools_json(leak)
+        self.assertDetects("エリア固定 city.trees.kinds[0].look が別エリア teramachi のMAPのプロンプトに漏れている")
+
+    def test_pool_without_area_fixed_rows_is_detected(self):
+        self.delete_rows("エリア固定", lambda r: r["エリアID"] == "teramachi" and r["項目"].startswith("trees."))
+        self.assertDetects("エリア teramachi", "エリア固定")
+
+    def test_every_teramachi_prompt_carries_the_horizontal_grain_consistently(self):
+        # 決定 TRM.desk とエリア固定 desk.look/desk.grain の板目の向きが食い違わない（決定は『縦横』ではなく『横』）
+        decision = next(r["決定の要点"] for r in self.rows("決定") if r["決定ID"] == "TRM.desk")
+        self.assertNotIn("縦横", decision)
+        self.assertIn("横に走る板目", decision)
+        for r in self.rows("エリア固定"):
+            if r["エリアID"] == "teramachi" and r["項目"] == "desk.grain":
+                self.assertEqual(r["値"], "horizontal")
+        look = next(r["値"] for r in self.rows("エリア固定") if r["エリアID"] == "teramachi" and r["項目"] == "desk.look")
+        self.assertIn("（横）", look)
+        for mid in (f"TRM-{n:02d}" for n in range(6, 18)):
+            text = (ROOT / f"docs/production/oblique-mocks/{mid}/{mid}-edit-prompt.txt").read_text(encoding="utf-8")
+            self.assertNotIn("縦横に走る", text, mid)
+            self.assertIn("横に走る板目", text, mid)
 
 
 class E2RunMarkerTests(unittest.TestCase):
@@ -1593,6 +1680,81 @@ class GatedMapsScopeTests(LedgerCopyBase):
             text = (ROOT / rel).read_text(encoding="utf-8")
             self.assertIn("TRM-06〜17", text, rel)
             self.assertIn("プロンプト反映検査の対象外", text, rel)
+
+
+class AreaFixedAllAreasTests(unittest.TestCase):
+    """#195: 全エリアの エリア固定（机の天面・台座・木・外周）が台帳に揃い、エリア表の4列と矛盾せず、未決は理由つきで未決表に残っている。"""
+
+    COLUMNS = ("机の天面の材質", "台座の素材", "木の種類", "外周の装飾方針")
+
+    @classmethod
+    def setUpClass(cls):
+        def read(table):
+            return ledger_io.parse(table, (ROOT / f"docs/ledger/{table}.yaml").read_text(encoding="utf-8"))
+        cls.areas = read("エリア")
+        cls.fixed = {}
+        for r in read("エリア固定"):
+            cls.fixed.setdefault(r["エリアID"], {})[r["項目"]] = r["値"]
+        cls.decisions = {r["決定ID"]: r for r in read("決定")}
+        cls.undecided = read("未決")
+        cls.vocab = {(r["グループ"], r["値"]) for r in read("語彙")}
+
+    def test_all_fifteen_areas_have_area_fixed_rows(self):
+        self.assertEqual(len(self.areas), 15)
+        for a in self.areas:
+            rows = self.fixed.get(a["エリアID"], {})
+            for k in ("name", "status", "desk.look", "desk.grain", "slab.look"):
+                self.assertTrue(rows.get(k), f"{a['エリアID']}: エリア固定 {k} が無い")
+            self.assertIn(rows["desk.grain"], ("horizontal", "vertical"))
+
+    def test_area_columns_are_filled_or_left_undecided_with_a_reason(self):
+        for a in self.areas:
+            for col in self.COLUMNS:
+                v = a[col]
+                if v == "未決(要確認)":
+                    open_rows = [u for u in self.undecided if u["対象テーブル"] == "エリア" and u["対象ID"] == a["エリアID"] and u["キー"] == col and u["状態"] == "未決"]
+                    self.assertEqual(len(open_rows), 1, f"{a['エリアID']}.{col}: 未決のまま残すなら未決表に1行が要る")
+                    self.assertIn("【未決のまま残す理由】", open_rows[0]["内容"], f"{a['エリアID']}.{col}")
+                else:
+                    self.assertIn((col, v), self.vocab, f"{a['エリアID']}.{col}={v!r} が語彙に無い")
+
+    def test_every_area_other_than_teramachi_has_its_area_fixed_decision(self):
+        for a in self.areas:
+            if a["エリアID"] == "teramachi":
+                continue
+            d = self.decisions.get(f"{a['区域コード']}.area-fixed")
+            self.assertIsNotNone(d, a["エリアID"])
+            self.assertEqual(d["対象ID"], a["エリアID"])
+            self.assertEqual(d["状態"], "有効")
+            self.assertIn("既定(要確認)", d["決定の要点"])
+            self.assertIn("kako-jun", d["逐語"] + d["出典"] + d["備考"])
+            self.assertEqual(self.fixed[a["エリアID"]]["status_note"].split("】")[0], "【既定(要確認)")
+            # 決定の対象MAPは、そのエリアのMAPだけ（他エリアのMAPのプロンプトへ決定が出ない）
+            prefix = a["区域コード"] + "-"
+            for m in filter(None, d["対象MAP"].split(";")):
+                self.assertTrue(m.startswith(prefix), f"{d['決定ID']}: 対象MAP {m} が別エリア")
+            if d["プロンプト出力"] == "必須":
+                self.assertTrue(d["必須語"] and d["必須語"] in d["決定の要点"])
+
+    def test_resolved_area_undecided_rows_point_to_the_area_decision(self):
+        by_id = {a["エリアID"]: a for a in self.areas}
+        for u in self.undecided:
+            if u["対象テーブル"] == "エリア" and u["状態"] == "解決済み" and u["対象ID"] in by_id:
+                self.assertEqual(u["解決決定ID"], by_id[u["対象ID"]]["区域コード"] + ".area-fixed", u["未決ID"])
+
+    def test_tree_kinds_stay_within_their_totals(self):
+        for aid, rows in self.fixed.items():
+            if aid == "teramachi":
+                continue
+            idx = sorted({int(k.split("[")[1].split("]")[0]) for k in rows if k.startswith("trees.kinds[")})
+            if not idx:
+                self.assertIn(rows["trees.status"], ("undecided", "none"), aid)
+                continue
+            lo = sum(int(rows[f"trees.kinds[{i}].count[0]"]) for i in idx)
+            hi = sum(int(rows[f"trees.kinds[{i}].count[1]"]) for i in idx)
+            self.assertGreaterEqual(lo, int(rows["trees.total[0]"]), aid)
+            self.assertLessEqual(hi, int(rows["trees.total[1]"]), aid)
+            self.assertTrue(rows["trees.forbid"], aid)
 
 
 class HandoffAndDocsFollowTests(unittest.TestCase):
