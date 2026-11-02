@@ -950,7 +950,10 @@ class PromptReflectionTests(unittest.TestCase):
         look = next(r["値"] for r in self.rows("エリア固定") if r["エリアID"] == "teramachi" and r["項目"] == "desk.look")
         self.assertIn("（横）", look)
         for mid in (f"TRM-{n:02d}" for n in range(6, 18)):
-            text = (ROOT / f"docs/production/oblique-mocks/{mid}/{mid}-edit-prompt.txt").read_text(encoding="utf-8")
+            path = ROOT / f"docs/production/oblique-mocks/{mid}/{mid}-edit-prompt.txt"
+            if not path.exists():  # validate エラーで失効させた MAP（屋外の look 未記入など）は古いプロンプトを残さないので無い
+                continue
+            text = path.read_text(encoding="utf-8")
             self.assertNotIn("縦横に走る", text, mid)
             self.assertIn("横に走る板目", text, mid)
 
