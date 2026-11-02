@@ -520,7 +520,8 @@ def door_section(p):
     WN = {k: X.text("PR.door.wname." + k) for k in ("1person", "1.5people", "2people")}
     ds = [d for d in p["doors"] if not d.get("passage")]
     ps = [d for d in p["doors"] if d.get("passage")]
-    L = [X.text("PR.door.head", n=len(ds))]
+    form = (load_decor(p) or {}).get("door_form") or X.text("PR.door.form")  # 装飾プールの door_form（無ければ既定の文面）
+    L = [X.text("PR.door.head", n=len(ds), form=form)]
     for d in ds:
         _, panel, _ = M.door_geom(p, d)
         w = M.wall_by_id(p, d["wall"])
