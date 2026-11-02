@@ -40,6 +40,7 @@ class LedgerVerifier
     check_aliases
     check_decisions
     check_area_fixed
+    check_area_landscape
     check_buildings
     check_windows
     check_confirmed_edges
@@ -146,7 +147,7 @@ class LedgerVerifier
   UNIQUE = {
     'エリア' => ['エリアID'], 'MAP' => ['MAP_ID'], '建物' => ['建物ID'], '建物部位' => ['部位ID'], '建物窓列' => ['窓列ID'],
     '端' => %w[端ID 適用時期], '窓' => %w[窓ID 適用時期], '要素' => %w[MAP_ID 適用時期 要素ID], '決定' => ['決定ID'], '採用要素' => ['採用要素ID'],
-    '素材' => ['素材ID'], '生成物' => ['生成物ID'], '語彙' => ['語彙ID'], '未決' => ['未決ID'], '既定値' => ['既定ID'], 'ファイル配置' => ['配置ID'], 'Issue点検' => ['コメントURL'], '描画定数' => ['定数ID'], 'プロンプト文面' => ['文面ID']
+    '素材' => ['素材ID'], '生成物' => ['生成物ID'], '語彙' => ['語彙ID'], '未決' => ['未決ID'], '既定値' => ['既定ID'], 'ファイル配置' => ['配置ID'], 'Issue点検' => ['コメントURL'], 'エリア景観' => ['エリアID'], '描画定数' => ['定数ID'], 'プロンプト文面' => ['文面ID']
   }.freeze
 
   def check_unique
@@ -402,6 +403,34 @@ class LedgerVerifier
     end
     unknown = fixed.keys - areas.map { |a| a['エリアID'] }
     unknown.each { |k| err("エリア固定: 未知のエリアID #{k}") }
+  end
+
+  # エリア景観（#191、kako-jun 2026-11-02）: エリアごとに『実際にどんな景色か』を調べた結果と、冬の景色の仮想表現。プロンプトには出さない（他MAPへ漏れる必須語を作らない）。
+  # 検査: エリアIDが エリア に在る・体内（作成済みで対象外）の行が無い・各行に出典URLか『出典なし（理由）』・冬の景色の仮想表現の各行に【仮想】・
+  # 台帳段階=対象のエリア（体内を除く）が全て揃っている。
+  AREA_LANDSCAPE_EXEMPT = %w[body].freeze
+
+  def check_area_landscape
+    areas = @t['エリア']
+    rows = @t['エリア景観']
+    rows.each do |r|
+      id = r['エリアID']
+      err("エリア景観 #{id}: 未知のエリアID（エリア表に無い）") unless areas.any? { |a| a['エリアID'] == id }
+      err("エリア景観 #{id}: 体内は作成済みで対象外（行を作らない）") if AREA_LANDSCAPE_EXEMPT.include?(id)
+      src = r['出典'].to_s
+      err("エリア景観 #{id}: 出典に URL（http で始まる）も『出典なし（理由）』も無い") unless src.match?(%r{https?://}) || src.lines.any? { |l| l.strip.start_with?('出典なし（') && l.strip.end_with?('）') }
+      virt = r['冬の景色の仮想表現'].to_s.lines.map(&:strip).reject(&:empty?)
+      err("エリア景観 #{id}: 冬の景色の仮想表現が空") if virt.empty?
+      virt.each { |ln| err("エリア景観 #{id}: 冬の景色の仮想表現の行に【仮想】が無い（行頭に付けて事実と仮想を区別する）: #{ln[0, 30]}…") unless ln.start_with?('【仮想】') }
+    end
+    # 空表でも完全性を問う（表を空にして検査を黙って通すことを許さない）
+    have = rows.map { |r| r['エリアID'] }
+    areas.each do |a|
+      next unless a['台帳段階'] == '対象'
+      next if AREA_LANDSCAPE_EXEMPT.include?(a['エリアID'])
+
+      err("エリア景観: 台帳段階=対象のエリア #{a['エリアID']} の行が無い") unless have.include?(a['エリアID'])
+    end
   end
 
   def check_buildings
