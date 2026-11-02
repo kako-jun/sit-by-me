@@ -13,11 +13,12 @@
    "TRM-12.danchi-decor-pool",
    "TRM-12.layout-2dk",
    "TRM-12.floor-unspecified",
-   "TRM-12.windows-two-rooms"
+   "TRM-12.windows-two-rooms",
+   "TRM-12.entrance-concrete-floor"
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "d6625e20f361d31d3e9f631df2d5617c2e3d6df4043c145eec97b3d848f0272b",
+  "input_sha": "32da16e66d3ba5d4bed53db4cd42a2984797d9631df8900055cb847ca4817e49",
   "references": [],
   "row_id": "TRM-12",
   "tables": "docs/ledger/*.yaml"
@@ -62,16 +63,16 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "6a77fef28872e16341ecd778c72a4f726cf7ad23d09535f5efa0393f6fe94ef8",
+   "input_sha": "2c47e0a2080f8ad0ec3a5988e9306a83e1e337028a9914070c0f35d67b0461ef",
    "outputs": {
-    "TRM-12-edit-prompt.txt": "59f01a0bc88c5e6b0f2e438e90ac87e066fb89e09379bfae4771b98ea90dd7a3"
+    "TRM-12-edit-prompt.txt": "addf35b33868ab6c897519dfcf40dfe350f41c3be0ee833fb09033d5d3fa8ffb"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "8729286cf4ed90a9633314785851ab3a3dbff48bdc3372ad44c870bff6523db7",
+   "input_sha": "47683692a682c7410407a0fdb6386c827522b999234f36f34da6df7557279c35",
    "outputs": {},
    "status": "ok",
    "warnings": [
