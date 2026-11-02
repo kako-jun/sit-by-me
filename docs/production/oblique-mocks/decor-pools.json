@@ -63,6 +63,8 @@
   },
   "teramachi-winter-exterior": {
    "name": "寺町・冬の工作ジオラマ（外観MAP。屋根つき建物・境内）",
+   "outdoor": true,
+   "reality_note": "寺町の木は大きさが均等でない（TREES の枠で）。普通の木のほかに、飛び抜けて高い古木（巨木）を境内・門前などに混ぜる。",
    "geometry_fixed": "固定するのは幾何を決める要素だけ: 画像の寸法・視点・各層の境界（作業机/台座/台座の前縁/境内の地面/建物）・壁の位置と高さ・戸口の位置と幅と高さ・窓の位置と数と種別・家具の箱の位置と大きさと高さ。位置と大きさは下の COORDINATES の画素座標で与え、1画素も動かさない。『足さない・消さない・ずらさない』はこの要素に限る。",
    "fill_rule": "装飾を許すのは『指定のない面の内側』（壁の面・床の面・棚や机の上・舞台の背景・建物の外の雪面・作業机・台座の前縁）だけ。建物の輪郭（壁の外形・壁の高さ・柱の位置・戸口・窓・家具箱の外形）を描き直す許可ではない。これらの外形線は COORDINATES の画素座標どおりに描き、建物全体を上下左右へずらさない。面の内側は簡素にせず、自然な工作の装飾（素材の凹凸・継ぎ目・小物・植物）で十分に埋める。",
    "layers": {
@@ -782,8 +784,8 @@
  },
  "_provenance": {
   "source": "装飾プール|エリア固定|決定",
-  "input_sha": "44f52272f249a7f1773b4fb3f4f47ca72b17806f36a344f39921ac5d79f23ec9",
-  "generated_at": "2026-11-02T10:44",
+  "input_sha": "d089f8b31bf565a05aa2de012f18acd63543a63cd224fcb02473846e3b8851a6",
+  "generated_at": "2026-11-02T12:15",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-decor-pools",
   "do_not_edit": true

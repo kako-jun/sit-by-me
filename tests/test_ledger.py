@@ -618,18 +618,22 @@ class PromptReflectionTests(unittest.TestCase):
             self.assertIn(n, r.stderr)
 
     def test_clean_ledger_passes_and_reports_gated_maps(self):
-        # 現行の台帳は寺町 TRM-06〜17 の未決を既定(要確認)で解消済み（#191）なので、ゲート停止は 0 で TRM-06〜17 も検査対象に入る
+        # 屋外の TRM-06〜11・13〜17 は建物・塀・門の look が未記入（現実参照の調査結果の反映待ち。#191）なので生成は『look 未記入』で停止するが、
+        # プロンプトは組まれ反映検査は走る（検査対象に入る）。必須キー欠落のMAPだけが『ゲートで停止（対象外）』
         r = self.verify()
         self.assertEqual(r.returncode, 0, r.stderr + r.stdout)
         self.assertIn("PASS", r.stdout)
-        self.assertNotIn("ゲートで停止（対象外）", r.stdout)
-        self.assertIn("ゲート停止 0", r.stdout)
-        self.assertIn("TRM-06", r.stdout.split("検査したMAP")[1].splitlines()[0])
+        self.assertNotIn("ゲートで停止（対象外）: TRM-08", r.stdout)
+        self.assertIn("生成停止（反映検査は実施）: TRM-08", r.stdout)
+        self.assertIn("look 未記入", r.stdout)
+        checked = r.stdout.split("検査したMAP")[1].splitlines()[0]
+        self.assertIn("TRM-12", checked)
+        self.assertIn("TRM-06", checked)  # look 未記入の屋外MAPも反映検査の対象
         # 必須キーを未決に戻した MAP はゲートで止まり、対象外として報告される
-        self.edit_row("MAP", "MAP_ID", "TRM-06", **{"壁材": "未決(要確認)"})
+        self.edit_row("MAP", "MAP_ID", "TRM-12", **{"壁材": "未決(要確認)"})
         r = self.verify()
         self.assertEqual(r.returncode, 0, r.stderr + r.stdout)
-        self.assertIn("ゲートで停止（対象外）: TRM-06", r.stdout)
+        self.assertIn("ゲートで停止（対象外）: TRM-12", r.stdout)
         self.assertNotIn("検査したMAP（0）", r.stdout)
 
     # ---- 過去に漏れた4事例 + 渡り廊下の窓列
