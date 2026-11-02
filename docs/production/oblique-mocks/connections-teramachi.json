@@ -314,7 +314,7 @@
   },
   "TRM-12": {
    "kind": "屋内",
-   "design": "車椅子の回転余地がある県営住宅の団地室。TRM-11の棟入口からドア遷移。玄関→居間→窓際で、段差なし。"
+   "design": "車椅子の回転余地がある昭和の標準的な2DKの県営住宅の団地室。TRM-11の棟入口からドア遷移（入口は1つ。外は廊下）。玄関→台所（DK）→居室で、段差なし。両隣に部屋がある。"
   },
   "TRM-13": {
    "kind": "屋外",
@@ -584,8 +584,8 @@
  ],
  "_provenance": {
   "source": "接続|接続図設定|MAP.設計意図(寺町全体のみ)",
-  "input_sha": "251787382b5b2150526b6164e72df7699e317b28246d0bd1161175aa8577c7e7",
-  "generated_at": "2026-10-30T12:38",
+  "input_sha": "c51d11d79d0e8057e3e7e1981dcf8366f29f110d63979394d0aaae89501311d1",
+  "generated_at": "2026-11-02T12:15",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-connections-teramachi",
   "do_not_edit": true

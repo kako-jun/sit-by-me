@@ -25,6 +25,9 @@
 #         TRM-05-kids・TRM-05-fire は台帳側の依存を消されても検出するよう、基準MAPをここにもハードコードする
 #   (vii) エリア固定（#195）: 装飾プールを持つMAPのプロンプトに、そのプールのエリアの エリア固定（机の天面・台座の素材・木の種類と見た目）が全部現れ、
 #         別エリアのエリア固定の本文（そのエリア固有の台座・木）は現れない（他エリアの素材の漏れ）。エリア固定を持たない・プールが無いMAPは対象外
+#   (viii) コミット済みの edit-prompt（docs/production/oblique-mocks/MAP/MAP-edit-prompt.txt）の DECISIONS の決定ID一覧が、台帳から今出る一覧と一致する
+#         （包含検査では見えない『余分な決定・古さ』を検出する。古いプロンプトを imagegen に渡さないため。#191）。
+#         main の時点から古いままの MAP は KNOWN_STALE_COMMITTED に理由つきで明示して除外する（本検査では再生成しない）
 require 'json'
 require 'open3'
 require 'shellwords'
@@ -53,6 +56,10 @@ class PromptReflection
     { id: 'corridor-windows', maps: %w[TRM-03 TRM-04], decisions: %w[TRM.building-shared], words: %w[連窓],
       corridor: { 'BLD-TRM-corridor-w.south-wins' => 3, 'BLD-TRM-corridor-e.south-wins' => 3 }, what: '渡り廊下棟の窓列（屋内・外観で一致）' }
   ].freeze
+
+  # コミット済みの edit-prompt が古いまま（決定ID一覧が台帳と違う）なのに再生成しない MAP。理由つきで書く。再生成したら外す。
+  # 2026-11-02 時点: TRM-02〜05 は csv→yaml 移行後に未再生成だが、決定ID一覧は台帳と一致するので本検査には掛からない（空）。
+  KNOWN_STALE_COMMITTED = {}.freeze
 
   attr_reader :errors, :skipped, :stopped, :checked
 
@@ -101,6 +108,7 @@ class PromptReflection
       check_base_reference(id)
       check_area_fixed(id)
       check_reality(id)
+      check_committed_prompt(id)
     end
     check_anchors
     self
@@ -200,6 +208,26 @@ class PromptReflection
         err(map_id, "決定 #{did} の禁止語『#{w}』がプロンプトに現れる: 「#{hit.strip[0, 80]}」") if hit
       end
     end
+  end
+
+  # ---- (viii) コミット済み edit-prompt の決定ID一覧 == 台帳から今出る一覧
+  def decision_ids(lines) = lines.filter_map { |l| l[/\A- \[([^\]]+)\] /, 1] }
+
+  def check_committed_prompt(map_id)
+    path = File.join(@root, 'docs/production/oblique-mocks', map_id, "#{map_id}-edit-prompt.txt")
+    return unless File.exist?(path) # 無い（validate エラーで失効した等）なら起動もできない
+
+    committed = File.read(path, encoding: 'UTF-8').lines.map(&:chomp)
+    i = committed.index { |l| l.start_with?('DECISIONS（') }
+    had = i ? decision_ids(committed[(i + 1)..].take_while { |l| !l.strip.empty? }) : []
+    want = decision_ids(decision_lines)
+    return if had.sort == want.sort
+    return if KNOWN_STALE_COMMITTED.key?(map_id)
+
+    extra = had - want
+    miss = want - had
+    err(map_id, "コミット済み #{File.basename(path)} の決定ID一覧が台帳から今出る一覧と違う（古い。oblique_build.py を再実行）: " \
+                "余分=#{extra.empty? ? 'なし' : extra.join(',')} / 不足=#{miss.empty? ? 'なし' : miss.join(',')}")
   end
 
   # ---- (ii)

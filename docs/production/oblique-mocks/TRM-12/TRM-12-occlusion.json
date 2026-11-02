@@ -12,102 +12,109 @@
  ],
  "occluders": [
   {
-   "id": "wall-w",
-   "kind": "wall",
-   "base_y": 218,
-   "area_px": 5534,
-   "body_overlap_px": 4797
-  },
-  {
-   "id": "wall-e",
-   "kind": "wall",
-   "base_y": 218,
-   "area_px": 5411,
-   "body_overlap_px": 4691
-  },
-  {
-   "id": "sofa",
+   "id": "dresser",
    "kind": "box",
-   "base_y": 247,
-   "area_px": 18370,
-   "body_overlap_px": 4933
+   "base_y": 216,
+   "area_px": 7695,
+   "body_overlap_px": 3382
   },
   {
-   "id": "wall-w",
+   "id": "part-v",
    "kind": "wall",
-   "base_y": 276,
-   "area_px": 5776,
-   "body_overlap_px": 5511
+   "base_y": 239,
+   "area_px": 2640,
+   "body_overlap_px": 2525
   },
   {
-   "id": "wall-e",
+   "id": "part-v",
    "kind": "wall",
-   "base_y": 276,
-   "area_px": 5575,
-   "body_overlap_px": 5410
+   "base_y": 297,
+   "area_px": 2773,
+   "body_overlap_px": 2658
+  },
+  {
+   "id": "tv",
+   "kind": "box",
+   "base_y": 317,
+   "area_px": 6987,
+   "body_overlap_px": 4328
+  },
+  {
+   "id": "closet",
+   "kind": "box",
+   "base_y": 323,
+   "area_px": 17017,
+   "body_overlap_px": 7827
   },
   {
    "id": "wall-w",
    "kind": "wall",
    "base_y": 335,
    "area_px": 5913,
-   "body_overlap_px": 5615
+   "body_overlap_px": 4157
   },
   {
-   "id": "wall-e",
+   "id": "low-table",
+   "kind": "box",
+   "base_y": 341,
+   "area_px": 8549,
+   "body_overlap_px": 4868
+  },
+  {
+   "id": "part-v",
    "kind": "wall",
-   "base_y": 335,
-   "area_px": 5812,
-   "body_overlap_px": 5515
+   "base_y": 356,
+   "area_px": 2760,
+   "body_overlap_px": 2645
   },
   {
    "id": "wall-w",
    "kind": "wall",
    "base_y": 395,
    "area_px": 6114,
-   "body_overlap_px": 5781
+   "body_overlap_px": 3796
   },
   {
-   "id": "wall-e",
+   "id": "part-v",
    "kind": "wall",
-   "base_y": 395,
-   "area_px": 5914,
-   "body_overlap_px": 5581
+   "base_y": 408,
+   "area_px": 2683,
+   "body_overlap_px": 2568
   },
   {
-   "id": "tv",
-   "kind": "box",
-   "base_y": 420,
-   "area_px": 8030,
-   "body_overlap_px": 7745
+   "id": "part-h",
+   "kind": "wall",
+   "base_y": 422,
+   "area_px": 5682,
+   "body_overlap_px": 2517
   },
   {
-   "id": "table",
-   "kind": "box",
-   "base_y": 445,
-   "area_px": 27975,
-   "body_overlap_px": 8712
+   "id": "part-h",
+   "kind": "wall",
+   "base_y": 422,
+   "area_px": 13390,
+   "body_overlap_px": 4957
+  },
+  {
+   "id": "part-h",
+   "kind": "wall",
+   "base_y": 422,
+   "area_px": 17240,
+   "body_overlap_px": 2448
   },
   {
    "id": "wall-w",
    "kind": "wall",
    "base_y": 458,
    "area_px": 6262,
-   "body_overlap_px": 5913
+   "body_overlap_px": 5728
   },
   {
-   "id": "wall-e",
-   "kind": "wall",
-   "base_y": 458,
-   "area_px": 6191,
-   "body_overlap_px": 5713
-  },
-  {
-   "id": "shelf",
+   "id": "fridge",
    "kind": "box",
-   "base_y": 496,
-   "area_px": 11155,
-   "body_overlap_px": 10870
+   "base_y": 466,
+   "area_px": 8486,
+   "body_overlap_px": 4820
   },
   {
    "id": "wall-w",
@@ -117,11 +124,32 @@
    "body_overlap_px": 5912
   },
   {
-   "id": "wall-e",
-   "kind": "wall",
-   "base_y": 522,
-   "area_px": 6440,
-   "body_overlap_px": 5912
+   "id": "sink",
+   "kind": "box",
+   "base_y": 528,
+   "area_px": 7224,
+   "body_overlap_px": 4122
+  },
+  {
+   "id": "table",
+   "kind": "box",
+   "base_y": 555,
+   "area_px": 15929,
+   "body_overlap_px": 7615
+  },
+  {
+   "id": "stove",
+   "kind": "box",
+   "base_y": 580,
+   "area_px": 6633,
+   "body_overlap_px": 2805
+  },
+  {
+   "id": "chair-2",
+   "kind": "box",
+   "base_y": 586,
+   "area_px": 2228,
+   "body_overlap_px": 250
   },
   {
    "id": "wall-w",
@@ -131,25 +159,11 @@
    "body_overlap_px": 4854
   },
   {
-   "id": "wall-e",
-   "kind": "wall",
-   "base_y": 588,
-   "area_px": 6621,
-   "body_overlap_px": 4754
-  },
-  {
    "id": "wall-w",
    "kind": "wall",
    "base_y": 656,
    "area_px": 6950,
    "body_overlap_px": 2117
-  },
-  {
-   "id": "wall-e",
-   "kind": "wall",
-   "base_y": 656,
-   "area_px": 6876,
-   "body_overlap_px": 2263
   }
  ]
 }

@@ -6,6 +6,7 @@ root は環境変数 LEDGER_ROOT で差し替える（verify_index_reachable.rb�
 import json
 import os
 from pathlib import Path
+import re
 import shlex
 import shutil
 import subprocess
@@ -765,6 +766,18 @@ class PromptReflectionTests(unittest.TestCase):
             self.assertNotIn("# BLOCKED", text)
         self.assertEqual(self.verify().returncode, 0)  # 採用後も検証は PASS
 
+    def _fresh_prompt_sha(self, mid="TRM-05-kids", depends=("TRM-05",)):
+        # 起動判定と oblique_build が共有する導出（oblique_freshness）で、この作業コピーの今の入力から prompt 段の input_sha を出す
+        tools = self.work / ".claude/skills/sit-field-background/tools"
+        base = re.sub(r"-(kids|fire|burnt|wc)$", "", mid)
+        variant = mid[len(base) + 1:] or None
+        code = ("import sys;sys.path.insert(0,sys.argv[1]);import oblique_freshness as F;"
+                "print(F.current_prompt_sha(sys.argv[2],sys.argv[3].split(','),sys.argv[4],sys.argv[5] or None))")
+        r = subprocess.run([sys.executable, "-I", "-c", code, str(tools), mid, ",".join(depends), str(self.work / f"docs/production/oblique-mocks/{base}-plan.json"), variant or ""],
+                           capture_output=True, text=True, cwd=self.work, env={**os.environ, "LEDGER_ROOT": str(self.work)})
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        return r.stdout.strip()
+
     def test_e2_schedule_check_refuses_blocked_prompt_even_if_base_is_canonical(self):
         # --adopt --canonical だけ（素材表は未採用）でも親は『確定』になるが、プロンプト段が blocked のままなら起動を拒否する（#193）
         ob = self.work / "docs/production/oblique-mocks"
@@ -781,9 +794,54 @@ class PromptReflectionTests(unittest.TestCase):
         r = check()
         self.assertEqual(r.returncode, 1, r.stdout + r.stderr)
         self.assertIn("プロンプトが blocked", r.stderr)
-        mf.write_text(json.dumps({"stages": {"prompt": {"status": "ok"}}}), encoding="utf-8")
+        mf.write_text(json.dumps({"stages": {"prompt": {"status": "ok", "input_sha": self._fresh_prompt_sha()}}}), encoding="utf-8")
         r = check()
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+
+    def test_e2_schedule_check_refuses_validate_error_stale_and_outdated_prompt(self):
+        # 親が確定していても、validate エラー／プロンプト失効／入力 hash 不一致（古い）なら起動を拒否する（#191）
+        ob = self.work / "docs/production/oblique-mocks"
+        (ob / "TRM-05").mkdir()
+        (ob / "TRM-05/manifest.json").write_text(json.dumps({"adoption": {"canonical": "docs/ledger/未決.yaml"}}), encoding="utf-8")
+        (ob / "TRM-05-kids").mkdir()
+        mf = ob / "TRM-05-kids/manifest.json"
+        fresh = self._fresh_prompt_sha()
+
+        def check():
+            return self._sched("check", "TRM-05-kids")
+
+        def put(validate=None, prompt=None):
+            st = {}
+            if validate is not None:
+                st["validate"] = validate
+            if prompt is not None:
+                st["prompt"] = prompt
+            mf.write_text(json.dumps({"stages": st}), encoding="utf-8")
+
+        put({"status": "ok"}, {"status": "ok", "input_sha": fresh})
+        self.assertEqual(check().returncode, 0)
+        # validate=error（プロンプトの記録が ok で hash も合っていても拒否）
+        put({"status": "error", "errors": ["x"]}, {"status": "ok", "input_sha": fresh})
+        r = check()
+        self.assertEqual(r.returncode, 1, r.stdout + r.stderr)
+        self.assertIn("validate エラー", r.stderr)
+        # 失効（stale）
+        put({"status": "ok"}, {"status": "stale", "outputs": {}})
+        r = check()
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("失効", r.stderr)
+        # 入力 hash 不一致（plan・台帳が変わった後の古いプロンプト）
+        put({"status": "ok"}, {"status": "ok", "input_sha": "0" * 64})
+        r = check()
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("プロンプトが古い", r.stderr)
+        # 親が未確定でも validate エラーは理由に並ぶ
+        (ob / "TRM-05/manifest.json").write_text("{}", encoding="utf-8")
+        put({"status": "error", "errors": ["x"]}, {"status": "ok", "input_sha": fresh})
+        r = check()
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("親が未確定", r.stderr)
+        self.assertIn("validate エラー", r.stderr)
 
     def _sched(self, *args):
         tool = self.work / ".claude/skills/sit-field-background/tools/oblique_e2_schedule.py"
@@ -813,7 +871,7 @@ class PromptReflectionTests(unittest.TestCase):
         self.assertIn("スキップ TRM-05-kids", r.stdout)
         self.assertIn("プロンプトが blocked", r.stdout)
         # blocked でなければ起動可・launch の対象になる
-        mf.write_text(json.dumps({"stages": {"prompt": {"status": "ok"}}}), encoding="utf-8")
+        mf.write_text(json.dumps({"stages": {"prompt": {"status": "ok", "input_sha": self._fresh_prompt_sha()}}}), encoding="utf-8")
         self.assertIn(" 可 ", kids_row(self._sched("list").stdout))
         r = self._sched("launch", "--dry-run")
         self.assertIn("[dry-run] TRM-05-kids", r.stdout)
@@ -892,7 +950,10 @@ class PromptReflectionTests(unittest.TestCase):
         look = next(r["値"] for r in self.rows("エリア固定") if r["エリアID"] == "teramachi" and r["項目"] == "desk.look")
         self.assertIn("（横）", look)
         for mid in (f"TRM-{n:02d}" for n in range(6, 18)):
-            text = (ROOT / f"docs/production/oblique-mocks/{mid}/{mid}-edit-prompt.txt").read_text(encoding="utf-8")
+            path = ROOT / f"docs/production/oblique-mocks/{mid}/{mid}-edit-prompt.txt"
+            if not path.exists():  # validate エラーで失効させた MAP（屋外の look 未記入など）は古いプロンプトを残さないので無い
+                continue
+            text = path.read_text(encoding="utf-8")
             self.assertNotIn("縦横に走る", text, mid)
             self.assertIn("横に走る板目", text, mid)
 
