@@ -4,24 +4,27 @@
    "TRM.trees-draw",
    "TRM.trees-pine",
    "TRM.desk",
-   "TRM.decor-fill",
-   "TRM-12.default-decor-pool",
-   "TRM-12.default-wall-material",
-   "TRM-12.default-floor-material",
-   "TRM-12.default-windows",
-   "TRM.default-door-design-apartment",
-   "TRM.default-era-diff-none"
+   "TRM.default-era-diff-none",
+   "TRM-danchi.showa-white-concrete",
+   "TRM-12.neighbor-rooms",
+   "TRM-12.two-rooms-one-entrance",
+   "TRM-12.no-bathtub",
+   "TRM-danchi.door-design",
+   "TRM-12.danchi-decor-pool",
+   "TRM-12.layout-2dk",
+   "TRM-12.floor-unspecified",
+   "TRM-12.windows-two-rooms"
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "9174af9124f73c49215cc00b8ccc1bdbdce275f81526f98fe095f0d07bf67e98",
+  "input_sha": "d6625e20f361d31d3e9f631df2d5617c2e3d6df4043c145eec97b3d848f0272b",
   "references": [],
   "row_id": "TRM-12",
   "tables": "docs/ledger/*.yaml"
  },
  "map_id": "TRM-12",
  "plan": "docs/production/oblique-mocks/TRM-12-plan.json",
- "plan_sha256": "6b398b5932e80426fd856d34e54546eefb337eec2c9dac9f743de8039260ec45",
+ "plan_sha256": "7bd8362b06d9ba8f49bcdf420873b031c3fa8235d517b1e0c7cda9e9a4935e59",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -30,60 +33,65 @@
      1
     ]
    },
-   "input_sha": "4ae9f88f9700e93b68828c1f484d1cd13396bd961db718e83d3dbd7a7e823cbc",
+   "input_sha": "6db0b3bafc20bf4f4991441bfa13579f6b308b55ce966376964403d2a6f53dcc",
    "outputs": {
-    "TRM-12-exits.png": "4dd52bed2bd5aa1635426c6de52048e19ac36171ad807cb1d7ab4da1de39c9f0",
+    "TRM-12-exits.png": "dbe4358950b313805164b3b01683cac9eb4aa4c1bfb35d6ea39faf9897a3c129",
     "TRM-12-mask.json": "35c29b091f1d72686e0c3ea59b25f2bcccbe7103b5158902244494a2a2e86caf",
-    "TRM-12-mask.png": "aace252435977a08d74583038fcca41d0b02f6d3284791ec59f9af86eaa61f98"
+    "TRM-12-mask.png": "3dfc62cf1abfdbd86d23698ee4c450d5024ff6742b96f93d691a2b48aa87bab4"
    },
    "status": "ok",
    "white_components": 1
   },
   "mock": {
-   "input_sha": "4ae9f88f9700e93b68828c1f484d1cd13396bd961db718e83d3dbd7a7e823cbc",
+   "input_sha": "6db0b3bafc20bf4f4991441bfa13579f6b308b55ce966376964403d2a6f53dcc",
    "outputs": {
-    "TRM-12-clean.png": "0d132cccd01f409708a9bd3d3764941539ebd9a8f2b2eebe01c080b1ffa98935",
-    "TRM-12-review.png": "02e90f3e4a0110c9f866483a14ff2ac122c96b32238e72c73ba53b4d4e123feb"
+    "TRM-12-clean.png": "061488e21b01cbac05ceecce38f47ae2fab21053faffe85ea4babb082a6124ae",
+    "TRM-12-review.png": "2479ca21a51ef702dfafd3d58450a39eb9edd37c83e7e9a12462db946b7d273e"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "4ae9f88f9700e93b68828c1f484d1cd13396bd961db718e83d3dbd7a7e823cbc",
+   "input_sha": "6db0b3bafc20bf4f4991441bfa13579f6b308b55ce966376964403d2a6f53dcc",
    "outputs": {
-    "TRM-12-occlusion-depth.png": "2eb521c3ec320ec391054c1540fad030d6140ba93273c333c45d4f0a0504dc97",
-    "TRM-12-occlusion-edit.png": "f5e954176a463079b09291384d823b1a844efa15a536734360fb06bc0e4798de",
-    "TRM-12-occlusion-overlay.png": "764c1ef46bfbfe1c527e238929fe87a2ab632131c0393cfc764b4906eb8afc4a",
-    "TRM-12-occlusion.json": "3250ef25d4f5448280883499824dee310cac2b6d0fe7ca4f7ee2507f1bca5d9a",
-    "TRM-12-occlusion.png": "a57a4fe591163a8db758f6a92bf9c3c127c6c19cf103cf0735dee34bd8744792"
+    "TRM-12-occlusion-depth.png": "3a3dca2cb3b92e0232f76739bf0a010df5b5999927694e2e93c6f16064404247",
+    "TRM-12-occlusion-edit.png": "a602b179b879b5cb6393ed9640d63ad896370c682e729f2c825328e0fb1246d0",
+    "TRM-12-occlusion-overlay.png": "6052176da6321068e58a1823528e4795ee074fe0ac682ccf0c37493374d3e542",
+    "TRM-12-occlusion.json": "72b7909d90e1975648a471451e8ba489d1fa27fa17e87c0216525dddeff6b7b4",
+    "TRM-12-occlusion.png": "ee3d983332b6e996d7fad3003bd6c17cfe4c2d10a3284c8250a1604c988cefaa"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "8c8ecbc5c29a1f4b69bd26bc1ae78cd52fbbb4f807394ed08468bf1bc04871e4",
+   "input_sha": "2a95fe77fbc24919b49f7700aad15b72e634d8f8c12dbd3c181c01d0e6eedc4f",
    "outputs": {
-    "TRM-12-edit-prompt.txt": "3768ed6da4936297e0b1d26180013ae9f00b2437d5faa5ed340816fa77992e5f"
+    "TRM-12-edit-prompt.txt": "72029c2ac50b621aaf164058819decd91cd7352a8594c4cc37956d2a278b195f"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "21c98699780dda2814805662ed417debc372d16e3cd675d3b41a132d41050c5a",
+   "input_sha": "0b3538ba586f95c6f275a69bde79f3809462f6f58093165ed395a047e0bc627e",
    "outputs": {},
    "status": "ok",
    "warnings": [
-    "既定（要確認）: 部屋の大きさ・間取り（玄関左下・居間・窓際は北壁の窓の下）・家具の位置は設計に無い（台帳は『玄関→居間→窓際で、段差なし・車椅子の回転余地』のみ）。",
-    "既定（要確認）: 北壁の窓（掃き出し・幅240・中央）。種別・位置・個数は既定（要確認）。",
-    "車椅子の回転余地: 居間の中央に直径150の空きを残した（家具は壁沿い・食卓は右寄り）。直径は既定。",
+    "既定（要確認）: 間取りは昭和の標準的な2DK（台所兼食事室＋居室2）の自然な図面。根拠: 公営住宅の標準設計51C型（食寝分離・居室2つ＋広い台所。nomu.com）、公団の標準設計55型（2DK。UR）。金沢・石川の県営住宅の図面は確認できていないので、部屋の大きさ・並びは既定。（決定 TRM-12.layout-2dk）",
+    "既定（要確認）: 入口（ドア）は南壁に1つだけで、南壁の外が廊下（片廊下型。階段室型でなく、各戸の入口が廊下に面する。県営住宅が片廊下型かは確認できていない）。玄関から台所（DK）に入り、台所から居室A（居間）・居室B（寝室）へ入る。居室A・B間に直接の出入口は作らない。（決定 TRM-12.layout-2dk）",
+    "既定（要確認）: 北壁に居室A・居室Bそれぞれの掃き出し窓（幅200）。南壁（廊下側）に窓は作らない。窓の種類・サッシの材質は確認できていない。（決定 TRM-12.layout-2dk）",
     "TRM-12 は事故後〜壮年の時期の部屋（map-specifications）。モックは時期差を持たない。",
-    "既定（要確認）: 家具4点（ソファ・食卓・テレビ台・棚）の見た目は台帳に無く、平面モックの検査が『見た目（look）かpool.kindsのkind』を要求するため、品目名だけを書いた（#191。見た目の決定ではない）。素材・色・小物は装飾プールの許可（工作の装飾）に任せ、形は箱のまま。",
-    "既定（要確認）: TRM-12.door"
+    "車椅子の回転余地（直径150）: 台所の西半分（玄関の北）、居室Aの中央（x485〜635・y425〜575）、居室Bの南半分（x860〜1010・y440〜620）、台所の西側（x416〜760）に家具を置かず空けた。直径は既定。通路は経路（paths）で幅2人分を検証。（決定 TRM-12.layout-2dk）",
+    "既定（要確認）: 両隣に部屋がある（kako-jun 指示）。西壁・東壁は隣室との境の壁（窓も戸口も無い）。隣室は描かない。南北の位置関係（どの壁が隣か）は西・東と既定。（決定 TRM-12.layout-2dk）",
+    "既定（要確認）: 風呂なし（kako-jun 指示）。浴室・風呂場・シャワー室は描かない（バスタブ含む）。トイレは、調査で県営住宅の有無が確認できなかったので描かない（未決 U-2920）。（決定 TRM-12.layout-2dk）",
+    "既定（要確認）: 家具は昭和の標準的な品目の箱: 台所（東壁沿いに冷蔵庫・流し台・ガス台、中央寄りに食卓・椅子2。南の壁沿いは斜め視点で壁に隠れるため避けた）、居室A（テレビ台・たんす・卓）、居室B（布団2組・押入）。品目と位置は台帳に無く既定。流し台がステンレスなのは公団標準の調査に基づく。他は一般的な品目で出典は未確認。箱の見た目は工作の装飾に任せる。（決定 TRM-12.layout-2dk）",
+    "既定（要確認）: TRM-12.door",
+    "既定（要確認）: open-dk-a",
+    "既定（要確認）: open-dk-b"
    ]
   },
   "wire": {
-   "input_sha": "1e73937f9bde6446dae4e0acef9a50853fd8c13381bc77729881930c86c24e7e",
+   "input_sha": "8ce8e021f495122f4c54793317a9a904675e963aecba90316470a798ac78c534",
    "outputs": {
-    "wire-TRM-12.png": "2533cb85e3bbbd7424b39634f420a2e12b44737ce93e3ed2273d43040ef9e3e8"
+    "wire-TRM-12.png": "3fcd5d7b2500bc207f963971e426fb7e5288c305e265499b6613fc64c2d77e8a"
    },
    "status": "ok"
   }
