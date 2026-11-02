@@ -166,6 +166,39 @@ def validate_decor(p, E, Wn):
     for b in p["boxes"]:
         if not box_look(b, pool):
             E.append(f"boxes {b['id']}: look（または pool.kinds に載る kind）が必要")
+    if pool.get("outdoor"):
+        oe, ow = outdoor_look_problems(p, pool)
+        E.extend(oe); Wn.extend(ow)
+
+
+# 屋外MAPで実体（look）を必須にする種類（kako-jun 2026-11-02、Issue #191『モックは最低限の位置関係。それ以外は現実の写真を参考に具体的に』『境界はただの色にしない』）
+OUTDOOR_LOOK_KINDS = ("building", "fence", "retaining", "closure", "gate")
+# 歩けない理由として視覚的に読める語（段差・塀・閉じた門・水など）
+BLOCK_REASON_WORDS = ("土塀", "石垣", "生垣", "板塀", "塀", "垣", "縁石", "段差", "石段", "護岸", "擁壁", "崖", "門", "扉", "用水", "水路", "池", "川", "溝", "堀", "柵", "フェンス", "建物", "壁")
+# 『歩けない』と書いただけ・ただの地面、は実体にならない
+_GENERIC_GROUND = {"", "地面", "雪", "雪面", "雪の地面", "雪に覆われた地面", "雪に覆われた地面。"}
+
+
+def outdoor_look_problems(p, pool):
+    """屋外MAP（装飾プールの outdoor: true）の look ゲート。(errors, warnings)。
+    errors: kind=building/fence/retaining/closure/gate の壁、およびそれらの kind の box が look 空欄（生成を起動しない）。
+    warnings: 歩けない面（walkable:false）の look が空・ただの地面・歩けない理由（段差・塀・門・水など）を含まない。"""
+    E, Wn = [], []
+    for w in p.get("walls", []):
+        if w.get("kind") in OUTDOOR_LOOK_KINDS and not (w.get("look") or "").strip():
+            E.append(f"屋外MAP: 壁 {w['id']}（kind={w['kind']}）の look が空欄。台帳に現実の写真・資料を参考にした材質・色・形・経年・雪の載り方を書いてから生成する（Issue #191）")
+    for b in p.get("boxes", []):
+        if b.get("kind") in OUTDOOR_LOOK_KINDS and not (b.get("look") or "").strip():
+            E.append(f"屋外MAP: box {b['id']}（kind={b['kind']}）自身の look が空欄（kind の既定文では足りない）。現実参照の具体的な描写を書く（Issue #191）")
+    for f in p.get("floors", []):
+        if f.get("walkable", True):
+            continue
+        lk = re.sub(r"[（(]?歩けない[^）)]*[）)]?", "", f.get("look") or "").strip()
+        if lk in _GENERIC_GROUND:
+            Wn.append(f"屋外MAP: 歩けない面 {f['id']} の look が空・ただの地面。境界を色の違いだけにしない（土塀・石垣・生垣・縁石・段差・水など実体のある要素にする。Issue #191）")
+        elif not any(wd in lk for wd in BLOCK_REASON_WORDS) and not f.get("surface"):
+            Wn.append(f"屋外MAP: 歩けない面 {f['id']} の look に歩けない視覚的な理由（段差・塀・閉じた門・水など）が読めない。入れそうに見える面になっていないか（Issue #191）")
+    return E, Wn
 
 
 
@@ -551,6 +584,7 @@ def build_prompt(p, key, ledger_text=""):
              X.text("PR.role"),
              X.text("PR.geometry", text=pool["geometry_fixed"]),
              X.text("PR.fill", text=pool["fill_rule"]),
+             *([X.text("PR.reality")] if pool.get("outdoor") else []),
              door_section(p),
              X.text("PR.notext"), "",
              ledger_text, "",

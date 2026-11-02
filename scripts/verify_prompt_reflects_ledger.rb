@@ -97,6 +97,7 @@ class PromptReflection
       check_window_rows(id)
       check_base_reference(id)
       check_area_fixed(id)
+      check_reality(id)
     end
     check_anchors
     self
@@ -362,6 +363,20 @@ class PromptReflection
     end
   end
 
+  # 屋外MAP（装飾プール outdoor: true）は REALITY 節（現実参照・境界の実体・歩けない理由・木のばらつき。決定 SIT.real-reference-boundaries）が出る。
+  # 屋外MAPの look 未記入はゲート停止（@skipped）になるので、ここへ来るのは look が埋まった屋外MAPと屋内MAPだけ。
+  def check_reality(map_id)
+    outdoor = outdoor_pool?(map_id)
+    has = @prompt.include?('REALITY（屋外')
+    err(map_id, '屋外MAPのプロンプトに REALITY 節（現実参照・境界の実体）が無い') if outdoor && !has
+    err(map_id, '屋内MAPのプロンプトに屋外用 REALITY 節が混入している') if !outdoor && has
+  end
+
+  def outdoor_pool?(map_id)
+    pid = @t['MAP'].find { |m| m['MAP_ID'] == base_of(map_id) }&.fetch('装飾プールID', nil)
+    @t['装飾プール'].any? { |r| r['プールID'] == pid && r['項目'] == 'outdoor' && r['値'] == 'true' }
+  end
+
   # ---- (v)
   def check_anchors
     by_id = @records.to_h { |r| [r['map_id'], r] }
@@ -469,7 +484,7 @@ if $PROGRAM_NAME == __FILE__
   only = (i = ARGV.index('--maps')) ? ARGV[i + 1].split(',') : nil
   v = PromptReflection.new(load_records(ARGV, root), root: root, only: only).run
   v.check_cross_map
-  v.skipped.each { |id, miss| puts "ゲートで停止（対象外）: #{id}（必須キー欠落・未決 #{miss.size} 件: #{miss.first.to_s[0, 60]} …）" }
+  v.skipped.each { |id, miss| puts "ゲートで停止（対象外）: #{id}（ゲート理由: 必須キー欠落、または屋外MAPの建物・塀・門の look 未記入 #{miss.size} 件: #{miss.first.to_s[0, 60]} …）" }
   puts "検査したMAP（#{v.checked.size}）: #{v.checked.join(', ')}"
   if v.errors.empty?
     puts "PASS: プロンプトは台帳を漏れなく反映（検査MAP #{v.checked.size}・ゲート停止 #{v.skipped.size}・回帰アンカー #{PromptReflection::ANCHORS.size}）"

@@ -1,7 +1,7 @@
 """台帳から導出される imagegen 編集プロンプトを、ファイルに書かずに全MAP分 JSON で標準出力する（画像生成 API は呼ばない）。
 
 verify_prompt_reflects_ledger.rb が呼ぶ。oblique_build.build_one のプロンプト段と同じ導出
-（必須キー欠落ならゲート停止 → gated に欠落一覧、そうでなければ LQ.sections + build_prompt）。
+（必須キー欠落・屋外MAPの look 未記入ならゲート停止 → gated に欠落一覧、そうでなければ LQ.sections + build_prompt）。
   uv run --with numpy --with opencv-python-headless --with pillow python3 oblique_prompt_probe.py [PLANS_DIR]
 PLANS_DIR 既定: <LEDGER_ROOT or repo>/docs/production/oblique-mocks（*-plan.json とその variants を全部対象にする）
 """
@@ -28,8 +28,10 @@ def main():
             key = p["map_id"]
             rec = {"map_id": key, "plan": os.path.relpath(pp, LIO.REPO), "gated": [], "prompt": ""}
             miss = LQ.missing_keys(key)
-            if miss:
-                rec["gated"] = miss
+            pool = B.load_decor(p)
+            look_errs = B.outdoor_look_problems(p, pool)[0] if pool and pool.get("outdoor") else []
+            if miss or look_errs:  # 必須キー欠落、または屋外MAPの建物・塀・門の look 未記入（Issue #191）はゲート停止
+                rec["gated"] = miss + ["look 未記入: " + e for e in look_errs]
             else:
                 ledger_text, _ = LQ.sections(key, p.get("depends_on", []))
                 rec["prompt"] = B.build_prompt(p, key, ledger_text)
