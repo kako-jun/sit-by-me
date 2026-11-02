@@ -146,7 +146,7 @@ Sit by Me の4人（と子供3人、不良など人物）の絵を、生成 → 
 
 ## 9. 保存と命名
 
-- 人物IDは C001=オトン（旧otton）、C002=ナム（旧nam）、C003=シャー（旧shah）、C004=ペー子（旧peiko）。保存先は `assets/images/characters/Cxxx/`。旧名前接頭辞を同じ人物IDへ置換し、年齢・衣装・車椅子差分は保持する。マスターは `Cxxx/masters/Cxxx-{age}[-uniform|-wheelchair].webp`。
+- 人物IDは C001=オットン（旧otton）、C002=ナム（旧nam）、C003=シャー（旧shah）、C004=ペー子（旧peiko）。保存先は `assets/images/characters/Cxxx/`。旧名前接頭辞を同じ人物IDへ置換し、年齢・衣装・車椅子差分は保持する。マスターは `Cxxx/masters/Cxxx-{age}[-uniform|-wheelchair].webp`。
 - 戦闘ポーズは `Cxxx/poses/Cxxx-{variant}-{pose}.webp`。既存suffixの年齢・衣装・ポーズを落とさない。
 - 歩きは `Cxxx/walk/Cxxx-{variant}-walk-{dir}-{1,2,3}.webp`。既存suffixの方向・コマ番号を保持する。
 - 元のグリッド（切り出し前の原本）は保管しない（#68決定、2026-10-19。過去分は git 履歴 `1bb09d0` から復元）。切り出し結果の `poses/`・`walk/`・`masters/` は正本パスへ直接上書きし、`git add` は名指し

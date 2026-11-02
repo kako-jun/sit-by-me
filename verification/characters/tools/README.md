@@ -85,7 +85,7 @@ $T/key_walk.py <生成グリッド>/{C-ID}-elementary-walk-grid.png assets/image
 
 ## 車椅子の主人公（小学生）
 
-`{otton,nam}-elementary-wheelchair-grid.png`（戦闘 3x3）と `-walk.png`（移動 4x3、ハンドリムをこぐ）は、`masters/{name}-elementary-wheelchair.png` と立ちポーズのグリッドを参照して、透過のまま生成した。車椅子は斜めから見た形で出るので、向きは**椅子の向き（前輪のキャスターが敵側＝左）**で判定する。戦闘グリッドはオトンの 3・7・9 番、ナムの 5 番が右向きだったので反転した。移動はオトンの 2 行目・3 行目がどちらも右向きだったため、3 行目を反転して左向きにしている。
+`{otton,nam}-elementary-wheelchair-grid.png`（戦闘 3x3）と `-walk.png`（移動 4x3、ハンドリムをこぐ）は、`masters/{name}-elementary-wheelchair.png` と立ちポーズのグリッドを参照して、透過のまま生成した。車椅子は斜めから見た形で出るので、向きは**椅子の向き（前輪のキャスターが敵側＝左）**で判定する。戦闘グリッドはオットンの 3・7・9 番、ナムの 5 番が右向きだったので反転した。移動はオットンの 2 行目・3 行目がどちらも右向きだったため、3 行目を反転して左向きにしている。
 
 ```
 T="uv run --with pillow --with numpy --with scipy python3 -I verification/characters/tools"

@@ -19,7 +19,7 @@ CAND_DIR = CHARS_DIR / "shared/direction-candidates"
 LEDGER = REPO / "docs/ledger/人物形態.yaml"
 DEFAULT_OUT = "/tmp/claude-1001/-home-kako-jun-repos-private-freeza/8972dc36-4217-455f-8194-161a018a681e/scratchpad/walk-viewer"
 
-CHARS = OrderedDict([("C001", "オトン"), ("C002", "ナム"), ("C003", "シャー"), ("C004", "ペー子")])
+CHARS = OrderedDict([("C001", "オットン"), ("C002", "ナム"), ("C003", "シャー"), ("C004", "ペー子")])
 DIRS = ["down", "downleft", "left", "upleft", "up", "upright", "right", "downright"]
 FRAMES = [1, 2, 3]
 AGES = ["kindergarten", "elementary", "teen", "midlife", "adult"]
