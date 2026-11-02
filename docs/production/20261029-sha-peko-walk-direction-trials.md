@@ -60,3 +60,44 @@ C004青年の独立静止レビュー（白背景100×180）: downは `down-1-re
 C004 adult `downleft-2-direction-v2` は direction-v2の1を編集元に通過位相へ変更、`downleft-3-scale-v3` は両足接地へ編集後に等方拡大し足元を合わせた。独立静止レビューで1の踵上がり・2の通過・3の接地、斜め方向および頭頂/足元の整合を縮小で確認。実背景とライブ連続再生は未実施で候補のまま。
 
 C004 adult 背面は `up-2-scale-v2` / `up-3-scale-v2`、右向きは `right-2-align-v3` / `right-3-align-v4`、斜め後ろは `upleft-3-scale-v3` を作成。人物を縦横同率で拡縮し、必要なものは画像全体を平行移動して足元を合わせた。独立静止縮小レビューで各3位相の差と頭頂・足元が概ね揃うことを確認。右3は前方の靴底を見せる位相へ生成編集。いずれも未採用で実背景およびライブ連続再生は未了。
+
+## C004 adult 最終サイズ一括正規化パイロット（2026-11-02、候補・未採用）
+
+目的は C004 青年（FORM-026）の 8方向×3コマを、採用済み C001/C002 の歩行セットと同等の「方向間で身長・接地・横位置が揃う」状態にすること。imagegen は使っていない。理由は下記の欠陥一覧のとおり、残る欠陥が生成し直しでなく等方拡縮と平行移動で直せたため（assets-policy.md の許可内）。
+
+**現状ベスト候補の計測（共通キャンバス 218×382、alpha>5 の bbox 高さ）**
+
+| 方向 | 高さ | 接地線（下端 y） | 備考 |
+|---|---|---|---|
+| down | 359 | 377〜381 | 基準 |
+| downleft | 349〜357 | 366〜378 | 接地が最大15px浮く |
+| up | 339 | 380〜381 | |
+| upleft | 329〜330 | 361〜374 | 接地が最大20px浮く |
+| left | 328 | 366〜381 | left-3 は x=2〜216 で左右端に接触 |
+| right | 309 | 369 | down より 14% 低い。right-3 は x=8〜214 |
+
+採用済みの同年代セット（C004 小学生 218×382、C001/C002 小学生）は全方向の高さがほぼ等しく、下端が全コマ同一（C004 小学生は y=381）。C004 青年の候補はこれに対し方向間で身長が最大14%ずれ、接地線が最大20pxずれ、側面コマが共通キャンバスの端に接していた。各方向内の3コマの高さは揃っていた。C001/C002 青年は車椅子セット（307×388）で立ち姿の基準にならないため、基準線は C004 の採用済み歩行（接地 y=381）に合わせた。
+
+**処置（全24コマ。縦横同率の拡縮と平行移動のみ）**: 全コマを alpha bbox 高さ340px に統一、下端 y=381 に接地、横位置は上部55%（帽子・頭・肩）の重心をキャンバス中央に固定（歩幅による bbox 中心の揺れを抑えるため）、共通キャンバスは 256×382 に拡幅（right-3 / left-3 が拡大後に 218px へ収まらないため）。保存は WebP 品質85・アルファ保持。拡縮率は 0.947（down）〜1.100（right）。右斜め（downright / upright）は左斜めの左右ミラー。
+
+**位相の判断**: 採用済み C004 小学生 right 1/3、C001 小学生 downleft/upleft 1/3 も、先行する足の側は同じで接地の見え方と腕・脚の角度で区別する作りだった。C004 青年の left/right/downleft/upleft 1/3 も同水準なので生成し直さなかった。down と up は 1 と 3 で先行足が左右入れ替わっており、位相正本として問題なし。
+
+**成果物（すべて候補、未採用）**
+- コマ: `shared/direction-candidates/C004-adult-{up,upright,right,downright,down,downleft,left,upleft}-{1,2,3}-norm-v1.webp`（256×382 RGBA、24枚）
+- 一覧（方向×位相、最終サイズの 0.55 倍、赤線=接地 y=381）: `shared/direction-candidates/20261102-c004-adult-review/C004-adult-final-size-grid-{white,dark}.png`
+- 1-2-3-2 連続表示（8方向横並び）: 同ディレクトリ `C004-adult-loop-1232-{white,dark}.gif`
+
+**由来**（`-norm-v1` ← 編集元。いずれも direction-candidates 内）
+
+| 方向 | 1 | 2 | 3 |
+|---|---|---|---|
+| up | up-1-resume | up-2-scale-v2 | up-3-scale-v2 |
+| right | right-1-resume | right-2-align-v3 | right-3-align-v4 |
+| down | down-1-resume | down-2-scale-v2 | down-3-scale-v2 |
+| downleft | downleft-1-direction-v2 | downleft-2-direction-v2 | downleft-3-scale-v3 |
+| left | left-1-resume | left-2-scale-v2 | left-3-phase-v4 |
+| upleft | upleft-1-resume | upleft-2-resume | upleft-3-scale-v3 |
+| downright | downleft の同番号を左右反転 | 同左 | 同左 |
+| upright | upleft の同番号を左右反転 | 同左 | 同左 |
+
+編集元ファイル名は先頭に `C004-adult-` が付く。**未確認・残る点**: 独立レビュー、実背景での再生、downleft/upleft 各1/3 の先行足が同側であること（採用済み C001 斜めと同水準だが C004 青年として許容か未判定）、up の頭身が他方向よりやや小さく見えること（全高を揃えた副作用の可能性）、ミラー後の downright/upright は元の左斜めの採用前なので参考。
