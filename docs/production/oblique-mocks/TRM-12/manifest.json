@@ -1,7 +1,6 @@
 {
  "ledger": {
   "decisions": [
-   "TRM.no-tatami",
    "TRM.trees-draw",
    "TRM.trees-pine",
    "TRM.desk",
@@ -18,7 +17,7 @@
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "b1a0b28295009a66be026d7c0b7b54478c0952a5d6e8a6feb4ad46e688411f9c",
+  "input_sha": "d6625e20f361d31d3e9f631df2d5617c2e3d6df4043c145eec97b3d848f0272b",
   "references": [],
   "row_id": "TRM-12",
   "tables": "docs/ledger/*.yaml"
@@ -63,9 +62,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "08da5c2e193914b365b2a4d58320f0669daa2de1c9bad18b38731a43c2e9c372",
+   "input_sha": "38d4f995772f3fd9d27c656800cb7f5159cc573c14beaee20b2cc3e015d761d2",
    "outputs": {
-    "TRM-12-edit-prompt.txt": "361a241a472767bb9623b20962f5f40adf8651f20a5c33f6b1da8e1774cbb61e"
+    "TRM-12-edit-prompt.txt": "59f01a0bc88c5e6b0f2e438e90ac87e066fb89e09379bfae4771b98ea90dd7a3"
    },
    "status": "ok",
    "unadopted_dependencies": []
