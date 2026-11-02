@@ -585,7 +585,7 @@
   "検査": "画像ID規則"
   "備考": "候補の存在は採用を意味しない（採否は素材台帳の状態に従う）。Issue #180"
 - "配置ID": "asset-shared-direction-candidates"
-  "パターン": "assets/images/characters/shared/direction-candidates/(?:[A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+\\.(?:webp|png)"
+  "パターン": "assets/images/characters/shared/direction-candidates/(?:[A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+\\.(?:webp|png|gif)"
   "種別": "画像候補"
   "用途": "人物の歩行方向候補・レビュー用グリッド（C003/C004 等）"
   "所有表": "素材"
