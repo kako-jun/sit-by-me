@@ -47,6 +47,7 @@
 - 画像正本: [assets/images/](../assets/images/)（[ブランド素材の説明](../assets/images/brand/README.md)）（配置規則は [ファイル配置.yaml](ledger/ファイル配置.yaml) の `asset-*`）
 - 検証記録: [敵画像の透過監査](../verification/transparency-audit-20261022/audit-notes.md)、[キャラ素材の切り出し](../verification/characters/tools/README.md)
 - 独立レビュー（red-team）の日付記録: [reviews/artifact-redteam/](reviews/artifact-redteam/)
+- エリア景観の調査メモ（台帳『エリア景観』の出典）: [reference/area-landscape/](reference/area-landscape/README.md)
 
 ## スクリプト・テスト
 
@@ -97,10 +98,10 @@
 | [素材メタデータ値](ledger/素材メタデータ値.yaml) | 704 | 画像用JSONをJSONポインタ・型・値へ分解したYAML正本。JSONは再構築して生成する。 | メタデータID / JSONポインタ / 型 / 値 |
 | [生成物](ledger/生成物.yaml) | 26 | 派生物（JSON）の登録と鮮度検査用ハッシュ。 | 生成物ID / 種別 / パス / 元の表 / 入力ハッシュ / 生成日時 / 再生成コマンド / 備考 |
 | [必須キー](ledger/必須キー.yaml) | 146 | 対象テーブルごとの必須キー定義。 | 対象テーブル / キー / 必須度 / 条件 / 語彙グループ / 説明 |
-| [未決](ledger/未決.yaml) | 1981 | 未決（要確認）の一覧。 | 未決ID / 対象テーブル / 対象ID / キー / 内容 / 状態 / 解決決定ID |
+| [未決](ledger/未決.yaml) | 1982 | 未決（要確認）の一覧。 | 未決ID / 対象テーブル / 対象ID / キー / 内容 / 状態 / 解決決定ID |
 | [キー別名](ledger/キー別名.yaml) | 20 | 列名・キー名の別名と正規名。 | 正規名 / 別名 / 対象テーブル / 説明 |
 | [Issue点検](ledger/Issue点検.yaml) | 529 | Issue の決定候補と決定表の突合結果（audit_issue_decisions.rb が更新。分類=決定表に反映済み／未反映(要取込み)／決定でない／対象外）。 | Issue番号 / コメントURL / 候補の要約 / 分類 / 決定ID / 備考 |
-| [ファイル配置](ledger/ファイル配置.yaml) | 54 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
+| [ファイル配置](ledger/ファイル配置.yaml) | 55 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
 | [描画定数](ledger/描画定数.yaml) | 30 | 斜めツール（oblique_mock.py・oblique_topology.py）の寸法・視点・幅クラス・窓種別・台座の飾りの位置。コードはここを読む。 | 定数ID / グループ / 値 / 単位 / 説明 / コード内の名前 |
 | [プロンプト文面](ledger/プロンプト文面.yaml) | 169 | imagegen 用プロンプト・接続表・窓一覧・接続図に出る文面（{名前}=変数の差し込み口）。コードは oblique_text.text で読み、文面を直接持たない。 | 文面ID / 区分 / 文面 / 変数 / 使用箇所 / 備考 |
 | [制作規約](ledger/制作規約.yaml) | 8 | 制作規約の台帳。元資料の提案と確定状態を区別して保持する。 | 規約ID / 対象種別 / 対象ID / 区分 / 内容 / 確度 / 根拠 |
@@ -196,6 +197,7 @@
 | oblique-masks-doc | ドキュメント | 斜め視点マスクの入力・結果の説明 | リンク |  |
 | oblique-masks-data | 機械出力 | 斜め視点マスクの入力JSON・register・結果 | 許可 | docs/production/oblique-masks/README.md |
 | oblique-mocks | 派生物・機械出力 | 斜め視点の plan・decor-pools・connections・dependency-graph（台帳から導出する JSON）と、MAPごとのモック・マスク・生成テイクの測定結果 | 許可 | docs/production/oblique-mocks/connections.md |
+| reference-area-landscape | 調査メモ | エリア景観（台帳 エリア景観.yaml の出典欄が指す）と団地・寺町の作り方の調査メモ。作業メモの保管 | リンク |  |
 | reviews | レビュー記録 | 独立レビュー（red-team）の日付つき記録 | 許可 | docs/reviews/artifact-redteam |
 | verification-body-docs | 生成ドキュメント | 体内の整合表・全接続一覧（自動生成） | リンク |  |
 | verification-body-data | 機械出力 | 体内17MAPの検証画像・割付図・幾何・送信文 | 許可 | verification/body-layout/consistency.md |

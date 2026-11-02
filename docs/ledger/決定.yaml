@@ -10784,5 +10784,5 @@
   "必須語": ""
   "禁止語": ""
   "対象MAP": ""
-  "備考": "分類: process。調査資料（作業メモ）: area-landscape-A（city・station・castle現況・garden）・area-landscape-castle-edo（金沢城の江戸・幕末の姿。castle の景観はこちらを正とする）・area-landscape-B（mountain・school・uchinada・airport）・area-landscape-C（noto_train・noto_before・noto_after・sunnyland・overseas）・teramachi-real-landscape-research（寺町）。実装: 台帳 エリア景観.yaml（verify_ledger.rb の check_area_landscape）・SKILL.md『新しいエリア・MAP を作る手順（エリア景観）』。プロンプトには出さず（プロンプト出力=なし）、他MAPへ漏れる必須語は作らない。金沢城を江戸時代（幕末・1858年以降）にする決定は同 Issue のコメント 6569737985。"
+  "備考": "分類: process。調査資料（作業メモ。docs/reference/area-landscape/ に保管。一覧は同 README.md）: area-landscape-A（city・station・castle現況・garden）・area-landscape-castle-edo（金沢城の江戸・幕末の姿。castle の景観はこちらを正とする）・area-landscape-B（mountain・school・uchinada・airport）・area-landscape-C（noto_train・noto_before・noto_after・sunnyland・overseas）・teramachi-real-landscape-research（寺町）。実装: 台帳 エリア景観.yaml（verify_ledger.rb の check_area_landscape）・SKILL.md『新しいエリア・MAP を作る手順（エリア景観）』。プロンプトには出さず（プロンプト出力=なし）、他MAPへ漏れる必須語は作らない。金沢城を江戸時代（幕末・1858年以降）にする決定は同 Issue のコメント 6569737985。"
   "特徴(自由記述)": ""
