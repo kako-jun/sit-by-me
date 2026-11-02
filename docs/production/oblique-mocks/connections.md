@@ -6,12 +6,12 @@
 
 | 戸口A | Aの位置 | 戸口B | Bの位置 | 幅 | 位置整合 | 備考 |
 |---|---|---|---|---|---|---|
-| `TRM-05.door-hall` | 東壁 v=0.76（上下の中央より下寄り） | `TRM-04.door-west` | 西壁 v=0.76（上下の中央より下寄り） | 2人分（132単位） | OK（辺一致・幅一致・位置差0.00） | - |
-| `TRM-04.door-east` | 東壁 v=0.76（上下の中央より下寄り） | `TRM-02.door-west` | 西壁 v=0.76（上下の中央より下寄り） | 2人分（132単位） | OK（辺一致・幅一致・位置差0.00） | - |
+| `TRM-03.bottom` | 土台の南端 800 | `TRM-07.top` | （寺町の外・別MAP） | 2人分（132単位） | （外部ノード・整合検査なし） | 寺町の外への端点 |
+| `TRM-04.door-south` | 南壁 u=0.50（中央） | `TRM-03.door-main` | 南壁 u=0.50（中央） | 2人分（132単位） | OK（辺一致・幅一致・位置差0.00） | TRM-04.door-south は既定（要確認）・TRM-03.door-main は既定（要確認） |
 | `TRM-05.door-outside` | 南壁 u=0.29（中央より左寄り） | `TRM-03.door-residence` | 南壁 u=0.29（中央より左寄り） | 1.5人分（100単位） | OK（辺一致・幅一致・位置差0.00） | TRM-03.door-residence は既定（要確認） |
 | `TRM-02.door-outside` | 南壁 u=0.84（右寄り） | `TRM-03.door-playroom` | 南壁 u=0.84（右寄り） | 1.5人分（100単位） | OK（辺一致・幅一致・位置差0.00） | TRM-03.door-playroom は既定（要確認） |
-| `TRM-04.door-south` | 南壁 u=0.50（中央） | `TRM-03.door-main` | 南壁 u=0.50（中央） | 2人分（132単位） | OK（辺一致・幅一致・位置差0.00） | - |
-| `TRM-03.bottom` | 土台の南端 800 | `TRM-07.top` | （寺町の外・別MAP） | 2人分（132単位） | （外部ノード・整合検査なし） | 寺町の外への端点 |
+| `TRM-05.door-hall` | 東壁 v=0.76（上下の中央より下寄り） | `TRM-04.door-west` | 西壁 v=0.76（上下の中央より下寄り） | 2人分（132単位） | OK（辺一致・幅一致・位置差0.00） | - |
+| `TRM-04.door-east` | 東壁 v=0.76（上下の中央より下寄り） | `TRM-02.door-west` | 西壁 v=0.76（上下の中央より下寄り） | 2人分（132単位） | OK（辺一致・幅一致・位置差0.00） | - |
 | `TRM-05.door-back` | 北壁 u=0.04（中央より左寄り） | `TRM-06.door-house` | （寺町内・未制作MAP） | 1人分（66単位） | （外部ノード・整合検査なし） | 寺町内・未制作マップへの接続（点線の箱）・TRM-05-fire では無効（焼失・通行不可（火と燃えカスが残る）） |
 
 ## 戸口の一覧（スペック由来）
@@ -23,10 +23,10 @@
 | `TRM-05.door-back` | TRM-05 | north | 北壁 u=0.04（中央より左寄り） | `TRM-06.door-house` | 勝手口（裏口）。北壁の左端（x420〜486）。台所の並びは戸口の右隣に続く。戸口の前（室内側）は家具で塞がない（決定 TRM-05.door-back） |
 | `TRM-04.door-west` | TRM-04 | west | 西壁 v=0.76（上下の中央より下寄り） | `TRM-05.door-hall` | 住居へ。西壁・下寄り（v=0.76）。先は西廊下（決定 TRM.open-passage） |
 | `TRM-04.door-east` | TRM-04 | east | 東壁 v=0.76（上下の中央より下寄り） | `TRM-02.door-west` | 幼稚園へ。東壁・下寄り（v=0.76）。先は東廊下（決定 TRM.open-passage） |
-| `TRM-04.door-south` | TRM-04 | south | 南壁 u=0.50（中央） | `TRM-03.door-main` | 正面扉。南壁中央（台帳 ID は door-south） |
+| `TRM-04.door-south` | TRM-04 | south | 南壁 u=0.50（中央） | `TRM-03.door-main` | 正面扉。南壁中央（台帳 ID は door-south）。位置（南壁の中央）は kako-jun の発言ではなく司令塔の既定（#144 コメント 6355539302）で、kako-jun の確認待ち（未決 U-050）。幅は決定参照のとおり（決定 TRM.door-width, TRM.door-width-outside, TRM.mock-master） |
 | `TRM-02.door-west` | TRM-02 | west | 西壁 v=0.76（上下の中央より下寄り） | `TRM-04.door-east` | 本堂へ。西壁・上下の中央より下寄り（v=0.76）（決定 TRM.entrances） |
 | `TRM-02.door-outside` | TRM-02 | south | 南壁 u=0.84（右寄り） | `TRM-03.door-playroom` | 外へ。下辺の右端付近。扉前は空ける。幅100単位（1.5人分。接続の両側で一致）（決定 TRM.entrances, TRM.door-width-outside） |
-| `TRM-03.door-main` | TRM-03 | south | 南壁 u=0.50（中央） | `TRM-04.door-south` | 本堂の正面。建物の中央 |
+| `TRM-03.door-main` | TRM-03 | south | 南壁 u=0.50（中央） | `TRM-04.door-south` | 本堂の正面。建物の中央。位置は採用外観画像の読み取りと司令塔の既定（#144 コメント 6355539302『本堂の正面扉は南壁の中央』）で、kako-jun が位置を明示した発言は確認できていない（未決 U-050。相手端 TRM-04.door-south と同じ扉）。幅は決定参照のとおり（決定 TRM.door-width, TRM.door-width-outside, TRM.mock-master） |
 | `TRM-03.door-residence` | TRM-03 | south | 南壁 u=0.29（中央より左寄り） | `TRM-05.door-outside` | 住居の外への戸口。建物幅の0.29（内部の戸口と揃える）。幅100単位（1.5人分。接続の両側で一致）。境内側の位置は既定（要確認）（決定 TRM.entrances, TRM.door-width-outside） |
 | `TRM-03.door-playroom` | TRM-03 | south | 南壁 u=0.84（右寄り） | `TRM-02.door-outside` | 幼稚園の外への戸口。建物幅の0.84（内部の戸口と揃える）。幅100単位（1.5人分。接続の両側で一致）。境内側の位置は既定（要確認）（決定 TRM.entrances, TRM.door-width-outside） |
 | `TRM-03.bottom` | TRM-03 | south端 | 800 | `TRM-07.top` | 山門・南（TRM-07へ）  |

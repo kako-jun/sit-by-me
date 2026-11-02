@@ -38,8 +38,7 @@ STAGES = ["validate", "mock", "wire", "mask", "occlusion", "prompt"]
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 ID_RE = re.compile(r"^[A-Z]{3}-\d{2}\.[A-Za-z0-9-]+$")
-PROMPT_VERSION = "oblique-edit-prompt/5"
-DECOR_FILE = os.path.join(REPO, "docs", "production", "oblique-mocks", "decor-pools.json")
+from oblique_freshness import PROMPT_VERSION, DECOR_FILE, prompt_input_sha  # noqa: E402  プロンプト段の入力 hash は起動判定と共有
 DECOR_LAYER_KEYS = ("desk", "slab_edge", "outside", "building")
 DECOR_REQUIRED = ("geometry_fixed", "fill_rule", "layers", "surfaces", "kinds", "allow", "forbid", "trees")
 
@@ -108,6 +107,13 @@ def box_look(b, pool):
     return b.get("look") or ((pool or {}).get("kinds", {}).get(b.get("kind", "")) or "")
 
 
+# plan の最上位に置ける既知のキー（台帳 MAP.plan追加JSON から入るものを含む）。未知は警告（typo 検出）
+KNOWN_PLAN_KEYS = frozenset({
+    "schema", "map_id", "name", "subtitle", "source", "design", "floors", "walls", "boxes", "doors", "windows", "openings", "markers", "paths",
+    "closed_edges", "no_window_walls", "assumptions", "decor_pool", "depends_on", "indoor", "tree_zones", "variant", "variants", "annotations",
+    "sym_chamfer_room_px", "_hide_walls", "_provenance", "boundaries", "scenery_doors", "variation", "forbid_skip"})
+
+
 def validate_decor(p, E, Wn):
     pid = p.get("decor_pool")
     if not pid:
@@ -166,6 +172,67 @@ def validate_decor(p, E, Wn):
     for b in p["boxes"]:
         if not box_look(b, pool):
             E.append(f"boxes {b['id']}: look（または pool.kinds に載る kind）が必要")
+    if pool.get("outdoor"):
+        oe, ow = outdoor_look_problems(p, pool)
+        E.extend(oe); Wn.extend(ow)
+    # forbid_skip は build_prompt が全MAP（屋内も）に適用するので検査も全MAP
+    for sk in p.get("forbid_skip", []):
+        if not (isinstance(sk, dict) and sk.get("match") and sk.get("reason")):
+            E.append("forbid_skip の各要素に match（外す禁止項目の部分文字列）と reason が必要")
+            continue
+        hits = [f for f in pool.get("forbid", []) if sk["match"] in f]
+        if not hits:
+            E.append(f"forbid_skip の match『{sk['match']}』に当たる禁止項目がプールに無い")
+        elif len(hits) > 1:
+            Wn.append(f"forbid_skip の match『{sk['match']}』が禁止項目 {len(hits)} 件に一致（部分一致で意図しない項目も外れる。1件に絞る）")
+
+
+# 屋外MAPで実体（look）を必須にする種類（kako-jun 2026-11-02、Issue #191『モックは最低限の位置関係。それ以外は現実の写真を参考に具体的に』『境界はただの色にしない』）
+OUTDOOR_LOOK_KINDS = ("building", "fence", "retaining", "closure", "gate")
+# 歩けない理由として視覚的に読める語（段差・塀・閉じた門・水など）
+BLOCK_REASON_WORDS = ("土塀", "石垣", "生垣", "板塀", "縁石", "段差", "石段", "護岸", "擁壁", "断崖", "閉じた門", "閉じた扉", "門扉", "用水", "水路", "水面", "池の", "川面", "側溝", "堀", "柵", "フェンス", "建物", "外壁", "塀")
+# 『歩けない』と書いただけ・ただの地面、は実体にならない
+_GENERIC_GROUND = {"", "地面", "雪", "雪面", "雪の地面", "雪に覆われた地面", "雪に覆われた地面。"}
+
+
+def outdoor_look_problems(p, pool):
+    """屋外MAP（装飾プールの outdoor: true）の look ゲート。(errors, warnings)。
+    errors: kind=building/fence/retaining/closure/gate の壁、およびそれらの kind の box が look 空欄（生成を起動しない）。
+    warnings: 歩けない面（walkable:false）の look が空・ただの地面・歩けない理由（段差・塀・門・水など）を含まない。"""
+    E, Wn = [], []
+    for w in p.get("walls", []):
+        if w.get("kind") in OUTDOOR_LOOK_KINDS and not (w.get("look") or "").strip():
+            E.append(f"屋外MAP: 壁 {w['id']}（kind={w['kind']}）の look が空欄。台帳に現実の写真・資料を参考にした材質・色・形・経年・雪の載り方を書いてから生成する（Issue #191）")
+    for b in p.get("boxes", []):
+        if b.get("kind") in OUTDOOR_LOOK_KINDS and not (b.get("look") or "").strip():
+            E.append(f"屋外MAP: box {b['id']}（kind={b['kind']}）自身の look が空欄（kind の既定文では足りない）。現実参照の具体的な描写を書く（Issue #191）")
+    for f in p.get("floors", []):
+        if f.get("walkable", True):
+            continue
+        lk = re.sub(r"[（(]?歩けない[^）)]*[）)]?", "", f.get("look") or "").strip()
+        if lk in _GENERIC_GROUND:
+            Wn.append(f"屋外MAP: 歩けない面 {f['id']} の look が空・ただの地面。境界を色の違いだけにしない（土塀・石垣・生垣・縁石・段差・水など実体のある要素にする。Issue #191）")
+        elif not any(wd in lk for wd in BLOCK_REASON_WORDS) and not f.get("surface"):
+            Wn.append(f"屋外MAP: 歩けない面 {f['id']} の look に歩けない視覚的な理由（段差・塀・閉じた門・水など）が読めない。入れそうに見える面になっていないか（Issue #191）")
+    # 境界物の帯（歩ける床の外側）。plan.boundaries[]: {id, rect|poly, look}
+    for bd in p.get("boundaries", []):
+        if not (bd.get("look") or "").strip():
+            E.append(f"屋外MAP: boundaries {bd.get('id')} の look が空欄（土塀・石垣・生垣・縁石・段差・護岸などの実体を現実参照で書く）")
+        if not (bd.get("rect") or bd.get("poly")):
+            E.append(f"屋外MAP: boundaries {bd.get('id')} に rect または poly が無い（境界物を描く領域）")
+    if any(f.get("walkable", True) for f in p.get("floors", [])) and not p.get("boundaries"):
+        Wn.append("屋外MAP: plan に boundaries（歩ける床の外側の境界物の帯）が無い。床の色の切り替えだけの境界になる（Issue #191）")
+    # 景色としての扉・門・潜り戸（通行しない）。plan.scenery_doors[]: {id, wall|at, look}
+    for sd in p.get("scenery_doors", []):
+        if not (sd.get("look") or "").strip():
+            E.append(f"屋外MAP: scenery_doors {sd.get('id')} の look が空欄（閉じている・通行しない景色の扉の材質・形・状態）")
+    if not p.get("variation"):
+        Wn.append("屋外MAP: plan に variation（足跡・汚れ・土の露出・除雪の雪山・スノーポール・消雪パイプ・電柱など、このMAPの look から来る変化の語）が無い。単調になりやすい（Issue #191）")
+    if pool and pool.get("trees"):
+        tw = tree_room_warning(p, pool)
+        if tw:
+            Wn.append(tw)
+    return E, Wn
 
 
 
@@ -439,6 +506,9 @@ def validate_plan(p):
         if d.get("status") == "default":
             Wn.append(f"既定（要確認）: {d['id']}")
     validate_decor(p, E, Wn)
+    for k in p:  # 台帳 plan追加JSON の typo（boundries など）が黙って無視されないよう、未知の最上位キーは警告
+        if k not in KNOWN_PLAN_KEYS:
+            Wn.append(f"plan の最上位キー『{k}』は既知のキーに無い（typo なら無視される。新しいキーなら oblique_build.KNOWN_PLAN_KEYS に足す）")
     dep = p.get("depends_on")
     if dep is not None:
         base = re.sub(r"-(kids|fire|burnt|wc)$", "", p.get("map_id", ""))
@@ -449,6 +519,9 @@ def validate_plan(p):
                 E.append(f"depends_on が自己参照: {p.get('map_id')}")
             if len(set(dep)) != len(dep):
                 E.append("depends_on に重複がある")
+            # ※ depends_on が無い変種はこの規則の外（上の if dep is not None の中）。素通りしないよう、台帳側は verify_prompt_reflects_ledger.rb の検査 (vi) が、起動側は dependency-graph.json と plan の一致検査（oblique_e2_schedule.py graph）が補う
+            if p.get("variant") and base not in dep:  # 同じ部屋・建物の別時期は基準MAPの確定画像を必ず参照する（#193）
+                E.append(f"時期差分MAP {p.get('map_id')} の depends_on に基準MAP {base} が無い（別時期の同一性のため基準の確定画像を参照に含める）")
     return E, Wn
 
 
@@ -462,6 +535,98 @@ def _pts(poly):
     return " ".join(f"({round(x)},{round(y)})" for x, y in poly)
 
 
+def tree_band_sizes(p):
+    """木の帯（台座の上面の台形の内側で、建物・壁の外接矩形の外側）の画素座標と幅。coord_section の TREE PLACEMENT と検査が同じ値を使う。"""
+    tl, tr, br, bl = [tuple(map(float, q)) for q in M._DST]
+    ws = p["walls"]
+    if not ws:  # 壁が無い plan は建物の外接矩形が定まらない（帯を数えない）
+        return {}
+    x0 = min(w["rect"][0] for w in ws); y0 = min(w["rect"][1] for w in ws); x1 = max(w["rect"][2] for w in ws); y1 = max(w["rect"][3] for w in ws)
+    ground = [M.proj(x0, y0), M.proj(x1, y0), M.proj(x1, y1), M.proj(x0, y1)]
+    hb = max((w["h"] for w in ws if M.is_h(w) and w["rect"][1] == y0), default=0); hf = max((w["h"] for w in ws if M.is_h(w) and w["rect"][3] == y1), default=0)
+    top = [M.proj(x0, y0, hb), M.proj(x1, y0, hb), M.proj(x1, y1, hf), M.proj(x0, y1, hf)]
+    bx0, by0, bx1, by1 = _bbox([ground, top])
+    sx0, sy0 = int(min(tl[0], bl[0])), int(tl[1]); sx1, sy1 = int(max(tr[0], br[0])), int(bl[1])
+    return {"sx0": sx0, "sy0": sy0, "sx1": sx1, "sy1": sy1, "bx0": bx0, "by0": by0, "bx1": bx1, "by1": by1,
+            "top": by0 - sy0, "bottom": sy1 - by1, "left": bx0 - sx0, "right": sx1 - bx1}
+
+
+def tree_room_warning(p, pool):
+    """木の本数に対して置ける帯（または plan の tree_zones）が足りなければ警告文。木の要求と帯の矛盾を検出する（Issue #191）。"""
+    tr = pool["trees"]; need = tr["total"][0]
+    min_w, per = X.const_num("tree.min-band-px"), X.const_num("tree.min-area-per-tree")
+    if p.get("tree_zones"):
+        area = 0
+        for z in p["tree_zones"]:  # plan 単位の rect を画素へ射影してから px² で数える
+            bx0, by0, bx1, by1 = _bbox([M.rect_poly(z["rect"])])
+            area += max(0, bx1 - bx0) * max(0, by1 - by0)
+        what = "tree_zones の面積（画素に射影）"
+    else:
+        t = tree_band_sizes(p)
+        if not t:
+            return None
+        w_, h_ = t["sx1"] - t["sx0"], t["by1"] - t["by0"]
+        area = sum(wd * ln for wd, ln in ((t["top"], w_), (t["bottom"], w_), (t["left"], h_), (t["right"], h_)) if wd >= min_w)
+        what = f"木の帯（奥{t['top']}px・手前{t['bottom']}px・左{t['left']}px・右{t['right']}px。幅{min_w}px未満は使えない）の面積"
+    if area / max(need, 1) < per:
+        return f"屋外MAP: {what} {area}px² が木の最小本数 {need} 本（1本あたり {per}px² 必要）を満たせない。plan の tree_zones に民家の裏・塀の根元など実面積のある矩形を置くか、木の本数を MAP に合わせる（Issue #191）"
+    return None
+
+
+def walk_names(p):
+    """歩ける床（walkable で名前があるもの）の名前を『・』で並べた語。屋外MAPの文面の『歩く地面（○○）』に差し込む。名前が無ければ『歩く床』。"""
+    names = []
+    for f in p.get("floors", []):
+        lb = (f.get("label") or "").strip()
+        if f.get("walkable", True) and lb and lb not in names:
+            names.append(lb)
+    return "・".join(names) or "歩く床"
+
+
+def box_names(p):
+    """家具箱（OBJECTS）の名前を『・』で並べた語（重複は1つに）。箱が無ければ空。"""
+    names = []
+    for b in p.get("boxes", []):
+        lb = (b.get("label") or b.get("id") or "").strip()
+        if lb and lb not in names:
+            names.append(lb)
+    return "・".join(names)
+
+
+def outdoor_pool_for_plan(p, pool):
+    """屋外の装飾プールを plan に合わせた版にする（文面は台帳。ここは差し込みと出し分けだけ）。
+    - 『{歩く地面}』『{箱}』をこの MAP の歩ける床・箱の名前にする（その MAP に無い参道・墓地・遊具などを出さない）
+    - 全ての壁に look がある MAP は、LAYERS 建物行・SURFACES の wall／roof／door をプール既定（寄棟・漆喰・灰色の瓦）でなく『壁ごとの look に従う』にする
+    - 全ての床に look がある MAP は、SURFACES floor を『FLOORS の look に従う』にする
+    - plan の窓が0件の MAP は、SURFACES window をプール既定（木の桟の窓）でなく『窓は描かない』にする（窓が実在する MAP は従来どおり）
+    look が無い面があれば従来どおり既定を出す。屋外でないプールはそのまま返す。"""
+    if not pool.get("outdoor"):
+        return pool
+    import copy
+    q = copy.deepcopy(pool)
+    walk, boxes = walk_names(p), box_names(p)
+    sub = lambda t: t.replace("{歩く地面}", walk).replace("{箱}", boxes)  # noqa: E731
+    walls_looked = bool(p.get("walls")) and all((w.get("look") or "").strip() for w in p["walls"])
+    floors_looked = bool(p.get("floors")) and all((f.get("look") or "").strip() for f in p["floors"])
+    if walls_looked:
+        q["layers"]["building"]["look"] = X.text("PR.layer.building.from-look")
+        for k in ("wall", "roof", "door"):
+            if k in q["surfaces"]:
+                q["surfaces"][k] = X.text("PR.surfaces." + k + ".from-look")
+    if floors_looked and "floor" in q["surfaces"]:
+        q["surfaces"]["floor"] = X.text("PR.surfaces.floor.from-look")
+    if "window" in q["surfaces"]:  # 窓が0件ならプール既定の窓（細い木の桟…）を出さない（MAP KEYS『窓: 該当なし』・各壁の『窓は描かず』と矛盾する）
+        if not p.get("windows"):
+            q["surfaces"]["window"] = X.text("PR.surfaces.window.none")
+    q["_all_look"] = walls_looked and floors_looked and not p.get("windows")  # SURFACES の各項目が全部『look に従う』（見出し行の出し分け）
+    for ly in q["layers"].values():
+        ly["look"] = sub(ly["look"]); ly["fixed"] = sub(ly["fixed"])
+    q["allow"] = [sub(a) for a in q["allow"] if not ("{箱}" in a and not boxes)]
+    q["forbid"] = [sub(a) for a in q["forbid"]]
+    q["_walk"] = walk
+    return q
+
+
 def coord_section(p, pool):
     """幾何を画素座標で固定する節（plan とモックの射影から機械的に出す。手書き禁止）。画像 M.W x M.H_IMG・左上原点・x右・y下。文面は台帳『プロンプト文面』。"""
     tl, tr, br, bl = [tuple(map(float, q)) for q in M._DST]
@@ -473,12 +638,14 @@ def coord_section(p, pool):
     exterior = any(w.get("kind") == "building" for w in ws)
     x0 = min(w["rect"][0] for w in ws); y0 = min(w["rect"][1] for w in ws); x1 = max(w["rect"][2] for w in ws); y1 = max(w["rect"][3] for w in ws)
     ground = [M.proj(x0, y0), M.proj(x1, y0), M.proj(x1, y1), M.proj(x0, y1)]
-    hb = max(w["h"] for w in ws if M.is_h(w) and w["rect"][1] == y0); hf = max(w["h"] for w in ws if M.is_h(w) and w["rect"][3] == y1)
+    # 外周の辺に接する横長の壁が無いMAP（屋外の道。辺は閉鎖の塀が部分的に覆うだけ）は高さ0（上端=接地線）。屋内はどちらの辺にも壁がある
+    hb = max((w["h"] for w in ws if M.is_h(w) and w["rect"][1] == y0), default=0); hf = max((w["h"] for w in ws if M.is_h(w) and w["rect"][3] == y1), default=0)
     top = [M.proj(x0, y0, hb), M.proj(x1, y0, hb), M.proj(x1, y1, hf), M.proj(x0, y1, hf)]
     if exterior:  # 外観: 建物ごとに接地線と上端（屋根は上端の外形に収める）
         for w in ws:
             g_ = M.rect_poly(w["rect"]); t_ = M.rect_poly(w["rect"], w["h"])
-            L.append(X.text("PR.coord.building", id=w["id"], label=w.get("label") or "", h=w["h"], ground=_pts(g_), top=_pts(t_), bbox=_bbox([g_, t_])))
+            lb = w.get("label") or ""
+            L.append(X.text("PR.coord.building" if lb else "PR.coord.building.nolabel", id=w["id"], **({"label": lb} if lb else {}), h=w["h"], ground=_pts(g_), top=_pts(t_), bbox=_bbox([g_, t_])))
     else:
         L.append(X.text("PR.coord.ground", pts=_pts(ground)))
         L.append(X.text("PR.coord.top", hb=hb, hf=hf, pts=_pts(top)))
@@ -496,18 +663,22 @@ def coord_section(p, pool):
         L.append(X.text("PR.coord.box", id=b["id"], label=b.get("label") or "", bbox=_bbox(polys)))
     tr_ = pool["trees"]
     n_lo, n_hi = -(-tr_["total"][0] // 4), -(-tr_["total"][1] // 4)
-    bx0, by0, bx1, by1 = _bbox([ground, top])
-    sx0, sy0 = int(min(tl[0], bl[0])), int(tl[1]); sx1, sy1 = int(max(tr[0], br[0])), int(bl[1])
-    L += ["", X.text("PR.tree.head", tmin=tr_["total"][0], tmax=tr_["total"][1], pmin=tr_["pine"]["count"][0], pmax=tr_["pine"]["count"][1], dmin=tr_["deadtree"]["count"][0], dmax=tr_["deadtree"]["count"][1], nlo=n_lo, nhi=n_hi),
-          X.text("PR.tree.bands", sy0=sy0, by0=by0, sx0=sx0, sx1=sx1, by1=by1, sy1=sy1, bx0=bx0, bx1=bx1)]
-    if p.get("tree_zones"):  # 歩く地面の上に木を置かない MAP（外観）: 木を置ける帯を plan の矩形から出す
+    tb = tree_band_sizes(p)
+    sx0, sy0, sx1, sy1, bx0, by0, bx1, by1 = (tb[k] for k in ("sx0", "sy0", "sx1", "sy1", "bx0", "by0", "bx1", "by1"))
+    cnt = dict(tmin=tr_["total"][0], tmax=tr_["total"][1], pmin=tr_["pine"]["count"][0], pmax=tr_["pine"]["count"][1], dmin=tr_["deadtree"]["count"][0], dmax=tr_["deadtree"]["count"][1])
+    if p.get("tree_zones"):  # 歩く地面の上に木を置かない MAP（外観）: 木を置ける帯を plan の矩形から出す。『各辺に○本』『四辺』は出さない
         zs = [f"{z['id']}: {_bbox([M.rect_poly(z['rect'])])}" for z in p["tree_zones"]]
-        L[-1] = X.text("PR.tree.zones", zones="／".join(zs))
+        L += ["", X.text("PR.tree.head.zones", **cnt), X.text("PR.tree.zones", zones="／".join(zs), walk=walk_names(p))]
+    else:
+        L += ["", X.text("PR.tree.head", nlo=n_lo, nhi=n_hi, **cnt),
+              X.text("PR.tree.bands", sy0=sy0, by0=by0, sx0=sx0, sx1=sx1, by1=by1, sy1=sy1, bx0=bx0, bx1=bx1)]
     pats = []
     for d in p["doors"]:
         patch, _, _ = M.door_geom(p, d)
         pats.append(f"{d['id']}: {_pts(M.rect_poly(patch))}")
-    L.append(X.text("PR.keepout", pats="／".join(pats)))
+    if pats:  # 床パッチ（戸口の前）が無い MAP は行ごと出さない（コロンの後が空の行を作らない）
+        # 文面は既定が PR.keepout。プールが keepout を持てばそれ（例: 団地の室内は戸口の前が雪の地面でなく廊下の床）。差し込み口は {pats}
+        L.append((pool.get("keepout") or X.text("PR.keepout", pats="{pats}")).replace("{pats}", "／".join(pats)))
     return L
 
 
@@ -516,7 +687,8 @@ def door_section(p):
     WN = {k: X.text("PR.door.wname." + k) for k in ("1person", "1.5people", "2people")}
     ds = [d for d in p["doors"] if not d.get("passage")]
     ps = [d for d in p["doors"] if d.get("passage")]
-    L = [X.text("PR.door.head", n=len(ds))]
+    form = (load_decor(p) or {}).get("door_form") or X.text("PR.door.form")  # 装飾プールの door_form（無ければ既定の文面）
+    L = [X.text("PR.door.head", n=len(ds), form=form)]
     for d in ds:
         _, panel, _ = M.door_geom(p, d)
         w = M.wall_by_id(p, d["wall"])
@@ -538,16 +710,41 @@ def _obj_line(b, pool):
     return s + (X.text("PR.object.prompt-suffix", prompt=b["prompt"]) if b.get("prompt") else "")
 
 
+def scenery_sections(p):
+    """屋外MAPの節: 景色としての扉・門（通行戸口と別枠）／境界物の帯／変化の語。文面は台帳『プロンプト文面』、中身は plan（台帳 MAP の plan追加JSON）の look から来る語だけ。"""
+    blocks = []
+    sds = p.get("scenery_doors", [])
+    if sds:  # 一覧が空なら見出しも出さない（空見出しが『扉を足してよい』と読めるため）
+        blocks.append([X.text("PR.door.scenery-head")] + [X.text("PR.door.scenery-item", id=sd["id"], where=sd.get("wall") or sd.get("boundary") or "", look=sd["look"]) for sd in sds])
+    bds = p.get("boundaries", [])
+    if bds:
+        b = [X.text("PR.boundary.head")]
+        for bd in bds:
+            area = _bbox([M.rect_poly(bd["rect"])]) if bd.get("rect") else _bbox([[M.proj(x, y) for x, y in bd["poly"]]])
+            b.append(X.text("PR.boundary.item", id=bd["id"], bbox=area, look=bd["look"]))
+        blocks.append(b)
+    if p.get("variation"):
+        blocks.append([X.text("PR.variation.head")] + [X.text("PR.variation.item", v=v) for v in p["variation"]])
+    L = []
+    for b in blocks:
+        L += (["" ] if L else []) + b
+    L.append("")
+    return L
+
+
 def build_prompt(p, key, ledger_text=""):
     """imagegen 編集用プロンプト（決定論）。モック=編集元1枚。原文束は台帳（build_map_prompt.rb）に依存するので別セクション。
     文面はすべて台帳『プロンプト文面』（oblique_text.text）。ここは並べ方と差し込みだけ。"""
     pool = load_decor(p)
     if pool:
+        pool = outdoor_pool_for_plan(p, pool)
         L = [X.text("PR.title", version=PROMPT_VERSION, key=key), "",
              X.text("PR.role"),
              X.text("PR.geometry", text=pool["geometry_fixed"]),
              X.text("PR.fill", text=pool["fill_rule"]),
+             *([X.text("PR.reality")] + ([X.text("PR.reality.pool-note", text=pool["reality_note"])] if pool.get("reality_note") else []) if pool.get("outdoor") else []),
              door_section(p),
+             *(scenery_sections(p) if pool.get("outdoor") else []),
              X.text("PR.notext"), "",
              ledger_text, "",
              X.text("PR.layers-head")]
@@ -557,11 +754,11 @@ def build_prompt(p, key, ledger_text=""):
             L.append(X.text("PR.layer", label=ly.get("label", k), look=ly["look"], fixed=ly["fixed"]) + (X.text("PR.layer.areafixed", area=pool["area"]) if k in ("desk", "slab_edge") else ""))
         tr = pool["trees"]
         L += ["", X.text("PR.trees-head", status=X.text("PR.trees-status.default") if tr.get("status") == "default" else X.text("PR.trees-status.fixed")),
-              X.text("PR.trees-total", tmin=tr["total"][0], tmax=tr["total"][1], pmin=tr["pine"]["count"][0], pmax=tr["pine"]["count"][1], dmin=tr["deadtree"]["count"][0], dmax=tr["deadtree"]["count"][1]),
+              X.text("PR.trees-total.zones" if p.get("tree_zones") else "PR.trees-total", tmin=tr["total"][0], tmax=tr["total"][1], pmin=tr["pine"]["count"][0], pmax=tr["pine"]["count"][1], dmin=tr["deadtree"]["count"][0], dmax=tr["deadtree"]["count"][1]),
               X.text("PR.trees-kind", label=tr["pine"]["label"], look=tr["pine"]["look"]),
               X.text("PR.trees-kind", label=tr["deadtree"]["label"], look=tr["deadtree"]["look"]),
               X.text("PR.trees-forbid", forbid=tr["forbid"])]
-        L += ["", X.text("PR.surfaces-head")] + [X.text("PR.kv", k=k, v=v) for k, v in pool["surfaces"].items()]
+        L += ["", X.text("PR.surfaces-head")] + ([X.text("PR.surfaces.outdoor-note.all-look" if pool.get("_all_look") else "PR.surfaces.outdoor-note")] if pool.get("outdoor") else []) + [X.text("PR.kv", k=k, v=v) for k, v in pool["surfaces"].items()]
         for w in p["walls"]:
             if w.get("look"):
                 L.append(X.text("PR.wall-look", id=w["id"], look=w["look"]))
@@ -607,10 +804,18 @@ def build_prompt(p, key, ledger_text=""):
             L.append(X.text("PR.windows.wall", id=w["id"], label=w.get("label") or w.get("kind", "wall"), n=len(ws), kinds="・".join(sorted(kinds)), axis=ax, pos=pos, sill=ws[0]["sill"], h=ws[0]["height"], w=ws[0]["width"]))
     for nw in p.get("no_window_walls", []):
         L.append(X.text("PR.windows.none", wall=nw["wall"], reason=nw.get("reason", "")))
-    L += ["", X.text("PR.floors-head")] + [X.text("PR.floors.item", id=f["id"], label=f.get("label") or "", walk=X.text("PR.floors.walkable") if f.get("walkable", True) else X.text("PR.floors.blocked")) + (X.text("PR.floors.look", look=f["look"]) if f.get("look") else "") for f in p["floors"]]
+    L += ["", X.text("PR.floors-head")] + [X.text("PR.floors.item" if f.get("label") else "PR.floors.item.nolabel", id=f["id"], **({"label": f["label"]} if f.get("label") else {}), walk=X.text("PR.floors.walkable") if f.get("walkable", True) else X.text("PR.floors.blocked")) + (X.text("PR.floors.look", look=f["look"]) if f.get("look") else "") for f in p["floors"]]
     if pool:
         L += ["", X.text("PR.allowed-head")] + [f"- {a}" for a in pool["allow"]]
-        L += ["", X.text("PR.forbidden-head")] + [f"- {a}" for a in pool["forbid"]]
+        skips = [k["match"] for k in p.get("forbid_skip", [])]  # この MAP に当てはまらない禁止項目（reason つきで plan に明記したものだけ外す）
+        fb = []
+        for a in pool["forbid"]:
+            if any(m_ in a for m_ in skips):  # 外した行が『歩く地面への新規物』なら、この MAP の歩く床の名前で『木・雪山・電柱を置かない』に言い直す
+                if pool.get("_walk") and "歩く地面（" in a:
+                    fb.append(X.text("PR.forbid.walk-zones", walk=pool["_walk"]))
+                continue
+            fb.append(a)
+        L += ["", X.text("PR.forbidden-head")] + [f"- {a}" for a in fb]
     L += ["", X.text("PR.assumptions-head")] + [f"- {a}" for a in p.get("assumptions", [])]
     return "\n".join(L) + "\n"
 
@@ -644,6 +849,7 @@ def build_one(plan_path, outroot, variant=None, from_stage=None, force=False, lo
         return man, ["必須キー欠落: " + "; ".join(miss)]
     ledger_text, ledger_mat = LQ.sections(key, p.get("depends_on", []))
     unadopted = [d for d, pth in [(d_, pth_) for d_, pth_, _ in LQ.Ledger().references(key, p.get("depends_on", []))] if not pth]
+    blocked_base = LQ.base_of(key) if variant and LQ.base_of(key) in unadopted else ""  # 基準の採用待ち（#193）
     plan_sha = sha_file(plan_path) + (f"+{variant}" if variant else "")
     tool_mock = src_sha("oblique_mock.py")
     tool_topo = src_sha("oblique_mock.py", "oblique_topology.py")
@@ -654,7 +860,7 @@ def build_one(plan_path, outroot, variant=None, from_stage=None, force=False, lo
     inputs = {"validate": sha_bytes((plan_sha + tool_mock + src_sha("oblique_build.py")).encode()),
               "mock": sha_bytes((plan_sha + tool_mock).encode()), "wire": sha_bytes((plan_sha + tool_topo).encode()),
               "mask": sha_bytes((plan_sha + tool_mock).encode()), "occlusion": sha_bytes((plan_sha + tool_mock).encode()),
-              "prompt": sha_bytes((plan_sha + PROMPT_VERSION + tool_mock + (sha_file(DECOR_FILE) if os.path.exists(DECOR_FILE) else "") + ledger_text + json.dumps(ledger_mat, sort_keys=True)).encode())}
+              "prompt": prompt_input_sha(plan_sha, ledger_text, ledger_mat)}
     dirty = bool(force)
     errors = []
     for st in STAGES:
@@ -676,6 +882,13 @@ def build_one(plan_path, outroot, variant=None, from_stage=None, force=False, lo
                 log("   ERROR: " + e)
             if errs:
                 errors = errs
+                # 古いプロンプトを残さない: validate エラーでは再生成されないので、前回のプロンプト記録は失効にし、ファイルも消す（起動判定は stale を拒否する）
+                old_pr = man["stages"].get("prompt")
+                if old_pr is not None:
+                    for o in old_pr.get("outputs", {}):
+                        if os.path.exists(os.path.join(out, o)):
+                            os.remove(os.path.join(out, o))
+                    man["stages"]["prompt"] = {"status": "stale", "outputs": {}, "reason": "validate エラーのため前回のプロンプトは失効（ファイルも削除）。エラーを直して oblique_build.py を再実行する"}
                 save_manifest(mpath, man)
                 return man, errs
             continue
@@ -700,8 +913,10 @@ def build_one(plan_path, outroot, variant=None, from_stage=None, force=False, lo
                 f.write(X.text("PR.trailer.counts", nd=len(ledger_mat['decisions']), ni=len(ledger_mat['inherits'])) + "\n")
                 if unadopted:
                     f.write(X.text("PR.trailer.draft", maps=", ".join(unadopted)) + "\n")
+                    if blocked_base:
+                        f.write(X.text("PR.trailer.blocked-base", base=blocked_base) + "\n")
             files = [fn]
-            extra = {"unadopted_dependencies": unadopted}
+            extra = {"unadopted_dependencies": unadopted, **({"blocked_base": blocked_base} if blocked_base else {})}
         man["stages"][st] = {"input_sha": inputs[st], "status": "ok" if st != "prompt" or not extra.get("unadopted_dependencies") else "blocked",
                              "outputs": {fn: sha_file(os.path.join(out, fn)) for fn in files}, **extra}
         log(f"[{key}] {st}: 実行 → {', '.join(files)}")

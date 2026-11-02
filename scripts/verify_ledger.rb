@@ -39,6 +39,8 @@ class LedgerVerifier
     check_required
     check_aliases
     check_decisions
+    check_area_fixed
+    check_area_landscape
     check_buildings
     check_windows
     check_confirmed_edges
@@ -53,7 +55,7 @@ class LedgerVerifier
   end
 
   # 描画定数・プロンプト文面: 空値なし、変数列と本文の {名前} が一致、コード（oblique_*.py）が参照するIDが全て在り、どの行もコードから参照されている（死んだ行を残さない）
-  CODE_REF = /["']((?:PR|MK|TP)\.[A-Za-z0-9._-]*|(?:view|width|door|window|slab|occlusion|topology|battle|town)\.[A-Za-z0-9._-]*)["']/.freeze
+  CODE_REF = /["']((?:PR|MK|TP)\.[A-Za-z0-9._-]*|(?:view|width|door|window|slab|occlusion|topology|battle|town|tree)\.[A-Za-z0-9._-]*)["']/.freeze
 
   def check_code_texts
     texts = @t['プロンプト文面']
@@ -145,7 +147,7 @@ class LedgerVerifier
   UNIQUE = {
     'エリア' => ['エリアID'], 'MAP' => ['MAP_ID'], '建物' => ['建物ID'], '建物部位' => ['部位ID'], '建物窓列' => ['窓列ID'],
     '端' => %w[端ID 適用時期], '窓' => %w[窓ID 適用時期], '要素' => %w[MAP_ID 適用時期 要素ID], '決定' => ['決定ID'], '採用要素' => ['採用要素ID'],
-    '素材' => ['素材ID'], '生成物' => ['生成物ID'], '語彙' => ['語彙ID'], '未決' => ['未決ID'], '既定値' => ['既定ID'], 'ファイル配置' => ['配置ID'], 'Issue点検' => ['コメントURL'], '描画定数' => ['定数ID'], 'プロンプト文面' => ['文面ID']
+    '素材' => ['素材ID'], '生成物' => ['生成物ID'], '語彙' => ['語彙ID'], '未決' => ['未決ID'], '既定値' => ['既定ID'], 'ファイル配置' => ['配置ID'], 'Issue点検' => ['コメントURL'], 'エリア景観' => ['エリアID'], '描画定数' => ['定数ID'], 'プロンプト文面' => ['文面ID']
   }.freeze
 
   def check_unique
@@ -372,6 +374,63 @@ class LedgerVerifier
     from_text = d['出典'].scan(/#(\d+)/).flatten.uniq.sort
     from_urls = urls.map { |u| u[ISSUE_URL_RE, 1] }.compact.uniq.sort
     err("決定 #{id}: 出典の Issue 番号 #{from_text.inspect} と出典URL の Issue 番号 #{from_urls.inspect} が食い違う") unless from_text == from_urls
+  end
+
+  # エリア固定（机・台座・木）の整合（#195）。台帳段階=対象の全エリアが 机の天面・台座を持ち、エリア固定の値に別エリアの名称・MAP ID が混ざらない
+  # （混ざると、そのエリアの MAP のプロンプトへ別エリアの内容が漏れる）。決定参照は有効な決定を指す。
+  AREA_FIXED_REQUIRED = %w[name desk.look desk.grain slab.look].freeze
+
+  def check_area_fixed
+    areas = @t['エリア']
+    fixed = @t['エリア固定'].group_by { |r| r['エリアID'] }
+    codes = areas.to_h { |a| [a['エリアID'], a['区域コード']] }
+    areas.each do |a|
+      next unless a['台帳段階'] == '対象'
+
+      rows = (fixed[a['エリアID']] || []).to_h { |r| [r['項目'], r['値']] }
+      AREA_FIXED_REQUIRED.each do |k|
+        err("エリア固定 #{a['エリアID']}: 項目 #{k} が無い（対象エリアは机の天面・台座を持つ）") if rows[k].to_s.strip.empty?
+      end
+      others = areas.reject { |o| o['エリアID'] == a['エリアID'] }
+      (fixed[a['エリアID']] || []).each do |r|
+        next if r['型'] != '文'
+
+        others.each do |o|
+          err("エリア固定 #{a['エリアID']}.#{r['項目']}: 別エリアの名称『#{o['名称']}』が混ざっている（プロンプトへ漏れる）") if o['名称'].to_s.size >= 2 && r['値'].include?(o['名称'])
+          err("エリア固定 #{a['エリアID']}.#{r['項目']}: 別エリアの MAP ID（#{codes[o['エリアID']]}-）が混ざっている") if r['値'].match?(/\b#{Regexp.escape(codes[o['エリアID']])}-\d/)
+        end
+      end
+    end
+    unknown = fixed.keys - areas.map { |a| a['エリアID'] }
+    unknown.each { |k| err("エリア固定: 未知のエリアID #{k}") }
+  end
+
+  # エリア景観（#191、kako-jun 2026-11-02）: エリアごとに『実際にどんな景色か』を調べた結果と、冬の景色の仮想表現。プロンプトには出さない（他MAPへ漏れる必須語を作らない）。
+  # 検査: エリアIDが エリア に在る・体内（作成済みで対象外）の行が無い・各行に出典URLか『出典なし（理由）』・冬の景色の仮想表現の各行に【仮想】・
+  # 台帳段階=対象のエリア（体内を除く）が全て揃っている。
+  AREA_LANDSCAPE_EXEMPT = %w[body].freeze
+
+  def check_area_landscape
+    areas = @t['エリア']
+    rows = @t['エリア景観']
+    rows.each do |r|
+      id = r['エリアID']
+      err("エリア景観 #{id}: 未知のエリアID（エリア表に無い）") unless areas.any? { |a| a['エリアID'] == id }
+      err("エリア景観 #{id}: 体内は作成済みで対象外（行を作らない）") if AREA_LANDSCAPE_EXEMPT.include?(id)
+      src = r['出典'].to_s
+      err("エリア景観 #{id}: 出典に URL（http で始まる）も『出典なし（理由）』も無い") unless src.match?(%r{https?://}) || src.lines.any? { |l| l.strip.start_with?('出典なし（') && l.strip.end_with?('）') }
+      virt = r['冬の景色の仮想表現'].to_s.lines.map(&:strip).reject(&:empty?)
+      err("エリア景観 #{id}: 冬の景色の仮想表現が空") if virt.empty?
+      virt.each { |ln| err("エリア景観 #{id}: 冬の景色の仮想表現の行に【仮想】が無い（行頭に付けて事実と仮想を区別する）: #{ln[0, 30]}…") unless ln.start_with?('【仮想】') }
+    end
+    # 空表でも完全性を問う（表を空にして検査を黙って通すことを許さない）
+    have = rows.map { |r| r['エリアID'] }
+    areas.each do |a|
+      next unless a['台帳段階'] == '対象'
+      next if AREA_LANDSCAPE_EXEMPT.include?(a['エリアID'])
+
+      err("エリア景観: 台帳段階=対象のエリア #{a['エリアID']} の行が無い") unless have.include?(a['エリアID'])
+    end
   end
 
   def check_buildings

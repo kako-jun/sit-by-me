@@ -54,3 +54,8 @@ def text(tid, **kw):
     if names != set(kw):
         sys.exit(f"プロンプト文面 {tid}: 変数が合わない（文面の変数 {sorted(names)} / 渡した変数 {sorted(kw)}）")
     return _PH.sub(lambda m: str(kw[m.group(1)]), s)
+
+
+def base_era_reference(base, era):
+    """時期差分MAPの REFERENCE IMAGES 節に入る、基準MAPの確定画像の使い方の文（台帳 プロンプト文面.PR.reference.base-era。#193）。"""
+    return text("PR.reference.base-era", base=base, era=era)

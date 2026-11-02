@@ -8,7 +8,8 @@
 #   LEDGER_ROOT=/path/to/root ...                                 # root 差し替え（テスト用）
 #
 # プロンプトは tools/oblique_prompt_probe.py が oblique_build と同じ導出で作る（画像生成 API は呼ばない）。
-# 必須キーが揃わないMAPは oblique_build のゲートで止まるので『ゲートで停止』として対象外に表示する。
+# 必須キーが揃わないMAPはプロンプトを組めないので『ゲートで停止』として対象外に表示する。
+# 屋外MAPの建物・塀・門の look 未記入は生成の起動だけを止める理由（stopped）。プロンプトは組んで反映検査を走らせ、理由は別行で表示する。
 #
 # 検査（生成可能なMAPごと）:
 #   (i)   そのMAPに該当する有効な決定のうち プロンプト出力=必須 のものは、[決定ID] と決定の要点が逐語で DECISIONS 節に現れ、
@@ -19,6 +20,14 @@
 #   (iv)  建物窓列に紐づく窓（渡り廊下棟の連窓など）が、その窓を持つ全MAP（屋内・外観）の WINDOWS 節に個数・位置つきで一致して現れる
 #   (v)   回帰アンカー: 過去に漏れた事例（畳・化石の石・-fire の勝手口・火事版の上半分・渡り廊下の窓列）を台帳側の件数に依らず
 #         固定の期待で検査する（台帳から記述を消されても検出するため、ここに期待をハードコードする）
+#   (vi)  時期差分MAP（-kids・-fire など。台帳 時期差分 に行があるもの）は、基準MAPを依存MAPに持ち、REFERENCE IMAGES に基準MAPの行
+#         （確定画像のパス、未採用なら『未確定』）と台帳 プロンプト文面.PR.reference.base-era の使い方の文が現れる（#193）。
+#         TRM-05-kids・TRM-05-fire は台帳側の依存を消されても検出するよう、基準MAPをここにもハードコードする
+#   (vii) エリア固定（#195）: 装飾プールを持つMAPのプロンプトに、そのプールのエリアの エリア固定（机の天面・台座の素材・木の種類と見た目）が全部現れ、
+#         別エリアのエリア固定の本文（そのエリア固有の台座・木）は現れない（他エリアの素材の漏れ）。エリア固定を持たない・プールが無いMAPは対象外
+#   (viii) コミット済みの edit-prompt（docs/production/oblique-mocks/MAP/MAP-edit-prompt.txt）の DECISIONS の決定ID一覧が、台帳から今出る一覧と一致する
+#         （包含検査では見えない『余分な決定・古さ』を検出する。古いプロンプトを imagegen に渡さないため。#191）。
+#         main の時点から古いままの MAP は KNOWN_STALE_COMMITTED に理由つきで明示して除外する（本検査では再生成しない）
 require 'json'
 require 'open3'
 require 'shellwords'
@@ -48,7 +57,11 @@ class PromptReflection
       corridor: { 'BLD-TRM-corridor-w.south-wins' => 3, 'BLD-TRM-corridor-e.south-wins' => 3 }, what: '渡り廊下棟の窓列（屋内・外観で一致）' }
   ].freeze
 
-  attr_reader :errors, :skipped, :checked
+  # コミット済みの edit-prompt が古いまま（決定ID一覧が台帳と違う）なのに再生成しない MAP。理由つきで書く。再生成したら外す。
+  # 2026-11-02 時点: TRM-02〜05 は csv→yaml 移行後に未再生成だが、決定ID一覧は台帳と一致するので本検査には掛からない（空）。
+  KNOWN_STALE_COMMITTED = {}.freeze
+
+  attr_reader :errors, :skipped, :stopped, :checked
 
   def initialize(records, root: LedgerYaml::ROOT, only: nil)
     @root = root
@@ -56,6 +69,7 @@ class PromptReflection
     @records = records.select { |r| only.nil? || only.include?(r['map_id']) }
     @errors = []
     @skipped = []
+    @stopped = []
     @checked = []
   end
 
@@ -83,6 +97,7 @@ class PromptReflection
         @skipped << [id, rec['gated']]
         next
       end
+      @stopped << [id, rec['stopped']] unless rec['stopped'].to_a.empty?
       @checked << id
       @prompt = rec['prompt']
       @lines = @prompt.lines.map(&:chomp)
@@ -90,6 +105,10 @@ class PromptReflection
       check_inherits(id)
       check_free_text(id)
       check_window_rows(id)
+      check_base_reference(id)
+      check_area_fixed(id)
+      check_reality(id)
+      check_committed_prompt(id)
     end
     check_anchors
     self
@@ -191,6 +210,26 @@ class PromptReflection
     end
   end
 
+  # ---- (viii) コミット済み edit-prompt の決定ID一覧 == 台帳から今出る一覧
+  def decision_ids(lines) = lines.filter_map { |l| l[/\A- \[([^\]]+)\] /, 1] }
+
+  def check_committed_prompt(map_id)
+    path = File.join(@root, 'docs/production/oblique-mocks', map_id, "#{map_id}-edit-prompt.txt")
+    return unless File.exist?(path) # 無い（validate エラーで失効した等）なら起動もできない
+
+    committed = File.read(path, encoding: 'UTF-8').lines.map(&:chomp)
+    i = committed.index { |l| l.start_with?('DECISIONS（') }
+    had = i ? decision_ids(committed[(i + 1)..].take_while { |l| !l.strip.empty? }) : []
+    want = decision_ids(decision_lines)
+    return if had.sort == want.sort
+    return if KNOWN_STALE_COMMITTED.key?(map_id)
+
+    extra = had - want
+    miss = want - had
+    err(map_id, "コミット済み #{File.basename(path)} の決定ID一覧が台帳から今出る一覧と違う（古い。oblique_build.py を再実行）: " \
+                "余分=#{extra.empty? ? 'なし' : extra.join(',')} / 不足=#{miss.empty? ? 'なし' : miss.join(',')}")
+  end
+
   # ---- (ii)
   def check_inherits(map_id)
     inh = section('INHERITED ELEMENTS（')
@@ -214,6 +253,29 @@ class PromptReflection
       elsif refs.none? { |l| l.start_with?("- #{a['元MAP']}: #{path}") }
         err(map_id, "採用要素 #{aid}: 元MAP #{a['元MAP']} の採用画像 #{path} が REFERENCE IMAGES に現れない（plan の depends_on か素材表を確認）")
       end
+    end
+  end
+
+  # ---- (vi)
+  REQUIRED_BASE = { 'TRM-05-kids' => 'TRM-05', 'TRM-05-fire' => 'TRM-05' }.freeze
+
+  def check_base_reference(map_id)
+    era = era_of(map_id)
+    return if era.empty?
+
+    base = base_of(map_id)
+    in_ledger = @t['時期差分'].any? { |r| r['MAP_ID'] == base && r['時期'] == era }
+    return unless in_ledger || REQUIRED_BASE.key?(map_id)
+
+    deps = @t['時期差分'].select { |r| r['MAP_ID'] == base && r['時期'] == era && r['項目'] == '依存' }.flat_map { |r| split(r['値']) }
+    err(map_id, "時期差分MAPの依存に基準MAP #{base} が無い（台帳 時期差分.依存。基準の確定画像を参照に含める #193）") unless deps.include?(base)
+    refs = section('REFERENCE IMAGES（')
+    err(map_id, "基準MAP #{base} が REFERENCE IMAGES に現れない（時期差分MAPは基準の確定画像、未採用なら『未確定』で blocked を示す）") unless refs.any? { |l| l.start_with?("- #{base}: ") }
+    tpl = @t['プロンプト文面'].find { |r| r['文面ID'] == 'PR.reference.base-era' }
+    if tpl.nil?
+      err(map_id, '台帳 プロンプト文面.PR.reference.base-era が無い')
+    elsif refs.none? { |l| l == tpl['文面'].gsub('{base}', base).gsub('{era}', era) }
+      err(map_id, "基準参照の使い方の文（プロンプト文面.PR.reference.base-era）が REFERENCE IMAGES 節に現れない")
     end
   end
 
@@ -298,6 +360,52 @@ class PromptReflection
         err(map_id, "建物窓列 #{rid}（壁 #{wall}）: WINDOWS 節の位置 #{pos} が台帳（先頭比・間隔比）の #{exp.map { |x| x.round(2) }} と一致しない")
       end
     end
+  end
+
+  # ---- (vii) エリア固定
+  AREA_FIXED_ITEMS = /\A(?:desk\.look|slab\.look|trees\.(?:pine|deadtree|kinds\[\d+\])\.(?:label|look))\z/.freeze
+
+  def area_fixed_texts(area)
+    @t['エリア固定'].select { |r| r['エリアID'] == area && r['型'] == '文' && r['項目'].match?(AREA_FIXED_ITEMS) && !r['値'].to_s.strip.empty? }.map { |r| [r['項目'], r['値']] }
+  end
+
+  def pool_area_of(map_id)
+    row = @t['MAP'].find { |m| m['MAP_ID'] == base_of(map_id) }
+    pid = row && row['装飾プールID']
+    return nil if pid.to_s.empty? || %w[未決(要確認) 該当なし なし].include?(pid)
+
+    @t['装飾プール'].find { |r| r['プールID'] == pid && r['項目'] == 'area' }&.fetch('値')
+  end
+
+  def check_area_fixed(map_id)
+    area = pool_area_of(map_id)
+    return if area.nil?
+
+    own = area_fixed_texts(area)
+    err(map_id, "エリア固定: エリア #{area} の エリア固定（机・台座・木）が台帳に無い") if own.empty?
+    own.each { |item, text| err(map_id, "エリア固定 #{area}.#{item} がプロンプトに現れない（机・台座・木の固定が落ちた）") unless @prompt.include?(text) }
+    own_texts = own.map(&:last)
+    @t['エリア固定'].map { |r| r['エリアID'] }.uniq.reject { |a| a == area }.each do |other|
+      area_fixed_texts(other).each do |item, text|
+        next if own_texts.include?(text) # 全エリア共通の同じ机など、自エリアにも同文があるものは漏れではない
+
+        err(map_id, "エリア固定 #{other}.#{item} が別エリア #{area} のMAPのプロンプトに漏れている") if @prompt.include?(text)
+      end
+    end
+  end
+
+  # 屋外MAP（装飾プール outdoor: true）は REALITY 節（現実参照・境界の実体・歩けない理由・木のばらつき。決定 SIT.real-reference-boundaries）が出る。
+  # 屋外MAPは look 未記入で生成が止まっていても（@stopped）プロンプトは組まれるので、ここで REALITY 節を検査する。
+  def check_reality(map_id)
+    outdoor = outdoor_pool?(map_id)
+    has = @prompt.include?('REALITY（屋外')
+    err(map_id, '屋外MAPのプロンプトに REALITY 節（現実参照・境界の実体）が無い') if outdoor && !has
+    err(map_id, '屋内MAPのプロンプトに屋外用 REALITY 節が混入している') if !outdoor && has
+  end
+
+  def outdoor_pool?(map_id)
+    pid = @t['MAP'].find { |m| m['MAP_ID'] == base_of(map_id) }&.fetch('装飾プールID', nil)
+    @t['装飾プール'].any? { |r| r['プールID'] == pid && r['項目'] == 'outdoor' && r['値'] == 'true' }
   end
 
   # ---- (v)
@@ -407,10 +515,11 @@ if $PROGRAM_NAME == __FILE__
   only = (i = ARGV.index('--maps')) ? ARGV[i + 1].split(',') : nil
   v = PromptReflection.new(load_records(ARGV, root), root: root, only: only).run
   v.check_cross_map
-  v.skipped.each { |id, miss| puts "ゲートで停止（対象外）: #{id}（必須キー欠落・未決 #{miss.size} 件: #{miss.first.to_s[0, 60]} …）" }
+  v.skipped.each { |id, miss| puts "ゲートで停止（対象外）: #{id}（ゲート理由: 必須キー欠落 #{miss.size} 件: #{miss.first.to_s[0, 60]} …）" }
+  v.stopped.each { |id, why| puts "生成停止（反映検査は実施）: #{id}（理由: 屋外MAPの建物・塀・門の look 未記入 #{why.size} 件: #{why.first.to_s[0, 60]} …）" }
   puts "検査したMAP（#{v.checked.size}）: #{v.checked.join(', ')}"
   if v.errors.empty?
-    puts "PASS: プロンプトは台帳を漏れなく反映（検査MAP #{v.checked.size}・ゲート停止 #{v.skipped.size}・回帰アンカー #{PromptReflection::ANCHORS.size}）"
+    puts "PASS: プロンプトは台帳を漏れなく反映（検査MAP #{v.checked.size}・ゲート停止 #{v.skipped.size}・生成停止(look未記入) #{v.stopped.size}・回帰アンカー #{PromptReflection::ANCHORS.size}）"
   else
     warn "FAIL: #{v.errors.size} 件の漏れ"
     v.errors.each { |e| warn "  - #{e}" }

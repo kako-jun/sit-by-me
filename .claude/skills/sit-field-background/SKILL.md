@@ -30,6 +30,60 @@ Sit by Me のフィールド背景を、手作りのミニチュアに見える�
 5. **プロンプトの文面・寸法はコードに直書きしない**: 台帳の `プロンプト文面`・`描画定数` を直す（コードは `oblique_text.py` で読むだけ）。
 6. 変更したら `ruby scripts/verify_ledger.rb`（スキーマ・外部キー・鮮度・コードと台帳の対応）と `ruby scripts/verify_prompt_reflects_ledger.rb` を通す。入口と表の一覧は [docs/INDEX.md](../../../docs/INDEX.md)。
 
+## 必須ルール: モックは位置だけ・それ以外は現実参照・境界は実体にする（全エリア・全マップ共通。kako-jun 2026-11-02、Issue #191。決定 `SIT.real-reference-boundaries`・`TRM.tree-size-uneven`）
+
+kako-jun 指示（逐語）: 『モックは最低限こういう位置関係にしろというだけであって、それ以外の部分は現実の写真を参考に生成すべきだ。いまは道と私有地との境界がただの色なので段差すらなく入れても良さそうに見えるのに入れないという変なマップになっている。実際の寺町は古い土塀だらけなのだぞ』『ほかのマップでもこのルールは同様だ』『異常に高い古い木がある寺もおおいのだ。木のサイズは均等ではない』。寺町の独立7枚（28枚）はこれが原因で全没になった。
+
+1. **モック＝最低限の位置関係。** それ以外（建物の形・家・庭・道との境界・植栽・木の大きさ）は、**現実の写真・資料を参考にして具体的に台帳へ書く**（出典つき）。『装飾で埋める』『簡素にしない』とだけ書いて何を描くかを任せない（単調な絵になる）。
+2. **境界は実体にする。** 道と私有地・敷地・水際・段差の境目を『色の違いだけ』にしない。土塀・石垣・生垣・板塀・縁石・段差・石段・護岸・閉じた門や景色としての扉など、**実体のある要素**として `look` を持たせる。**歩けない場所は歩けなさそうに見える**（段差・塀・閉じた門・水などの視覚的な理由が要る）。`walkable:false` の面を『ただの地面（歩けない部分）』で済ませない。
+3. **屋外MAPの建物・塀・門・擁壁の `look` が空欄は不可（機械ゲート）。** plan の壁・box で kind が building／fence／retaining／closure／gate のものは、材質・色・形・経年・雪の載り方を現実参照で具体的に書く。空欄が1つでもあると `oblique_build.py` の validate がエラーで止まり、`oblique_prompt_probe.py` は生成の起動を止める理由として報告する（プロンプトは組み、反映検査は走らせる）。`oblique_build.outdoor_look_problems`。対象は装飾プールの `outdoor: true`＝屋外MAPだけ。屋内・体内MAPは対象外。TRM-03（屋外の外観）は look が埋まっているのでゲートは通るが、次回のプロンプトには REALITY・寺町の古木の文（PR.reality.pool-note）・SURFACES の屋外注記が載る（SCENERY DOORS・BOUNDARY・VARIATION は plan に `scenery_doors`・`boundaries`・`variation` が無い TRM-03 には出ない。これらのキーがある屋外MAPで出る。次回再生成でプロンプトが変わる。採用済みでもゲートの対象外にはならない）。歩けない面の `look` が空・ただの地面・歩けない理由を含まないときは警告。
+4. **木は均等にしない（寺町の決定 TRM.tree-size-uneven）。** 普通の木と、飛び抜けて高い古木（巨木）を混ぜる。寺町の屋外プールの `reality_note` で REALITY の直後に出す（他エリアには強制しない）。巨木の位置・本数は MAP ごとに現実の写真・資料で決める（寺の境内・門前など）。
+5. **参考写真は一般の景観として使う。** 観光地の有名寺院などの特徴を混ぜない（出典の本文で確認できる特徴だけを書き、混ざる恐れは注記する）。
+6. **参考写真は画像として渡さない**（kako-jun 2026-11-02「以前君が作っていた背景はそういう参考写真を渡さなくても良い感じだったのでそれと同様ならいい。今回もわたさない」。経緯は Issue #191 の記録コメント）。現実参照は台帳の look という**文章**で伝える。クリーンモック＋素材見本の2枚の編集方式は維持（文章のみへの回帰は位置ずれの前歴があり道MAPでは非推奨。以前の良い作り方との比較は Issue #191）。
+7. **塀・民家・路面の look をプロンプトに出す。** プール既定の『クリーム色の漆喰＋灰瓦』は look の無い面の既定にすぎない（屋外では SURFACES 節に注記が出る）。家ごとに外壁・屋根・状態を変える。
+8. **境界物の帯 `boundaries[]`**（plan追加JSON。`{id, rect|poly, look}`）: 歩ける床の外側に、土塀・石垣・生垣・板塀・縁石・段差・護岸などの実体を描く領域を座標で与える。プロンプトの BOUNDARY 節に出て、この帯は FORBIDDEN の『歩く床への新規物』の対象外。無いと警告。
+9. **通行する戸口と景色の扉を分ける。** DOORS（ピンク）は通行する戸口だけ。閉じた門・潜り戸・景色の扉は `scenery_doors[]`（`{id, wall|boundary, look}`）に書く。SCENERY DOORS 節は `scenery_doors` が空でなければ出て、一覧にある景色の扉だけを描く（通行しない・閉じている。一覧に無い扉を増やさない）。空なら見出しごと出ない。
+10. **木の帯と本数を整合させる。** TREE PLACEMENT の帯（または `tree_zones`。plan の矩形は画素へ射影して px² で数える）が木の最小本数を満たす面積でないと警告（`tree_room_warning`。幅40px未満の帯は使えない・1本3000px²）。民家の裏・塀の根元など実面積のある `tree_zones` を置く。
+11. **変化は肯定形で `variation[]` に**（足跡・汚れ・土の露出・除雪の雪山・赤白スノーポール・消雪パイプと錆・電柱 など）。**そのMAPの look から来る語だけ**（共通の既定語は持たない）。無いと警告。
+12. **禁止リストを MAP に合わせる。** エリア全体の禁止（寺の畳・屋根の外形・歩く地面への物 など）がMAPの要求と衝突するなら、plan の `forbid_skip: [{match, reason}]` で外す（match に当たる項目が無いとエラー。複数件に一致すると警告。屋内MAPも検査）。
+13. プロンプトには屋外MAPで `REALITY` 節（台帳 `プロンプト文面.PR.reality`）が出る。モックは位置の指定にすぎないこと・境界の実体・歩けない理由・木のばらつきを送信文に明記するため。**幾何の測定ゲートが通ることは見た目の良し悪しと無関係**（`pitfalls.md` F）。
+
+## 新しいエリア・MAP を作る手順（エリア景観。全エリア共通。kako-jun 2026-11-02、Issue #191。決定 `SIT.area-landscape-research`）
+
+kako-jun 指示（逐語）: 『エリアごとに、香林坊とはどんな景色か、兼六園とは？卯辰山とは？と調べて特徴を把握し、冬の景色を仮想的に表現しろということだ』。**エリア（または MAP）の look を書く前に、そのエリアが実際にどんな景色かを調べ、台帳の `エリア景観` 表（`docs/ledger/エリア景観.yaml`）に出典つきで書く**。体内（BDY）は作成済みで対象外（行を作らない）。プロンプトには出さない（look を具体化する材料で、他 MAP へ漏れる必須語は作らない）。
+
+1. **そのエリアが実際にどんな景色かを調べる。** 地名で検索して（行政・百科事典・観光協会・公式サイトの本文を開く。検索要約だけで済ませない）、**一言で言い当てる実体の特徴**（見れば「あそこだ」と分かる決め手）を把握する。観光寺院など別の場所の特徴が混ざっていないかも調べる。写真は画像として渡さない（本書「必須ルール」6）。
+2. **`エリア景観` に記入する（事実と仮想を分ける）。** 列: エリアID／一言で言い当てる特徴／実景の特徴（建物・道・境界・植栽・水辺・生活の痕跡。各行に `[複数出典][1出典][検索要約のみ][口コミ]` などの信頼度）／出典（URL。無ければ `出典なし（理由）`）／信頼度／冬の姿(確認できたもの)／冬の景色の仮想表現／描いてはいけないもの／確認できなかったこと／備考。**調査で確認できなかったことを事実として書かない**（「確認できなかったこと」に書く）。冬の景色の仮想表現は、MAP の見た目にそのまま書ける具体的な描写で、**各行に `【仮想】` を付ける**（付いていない行は `verify_ledger.rb` がエラー）。実景の根拠がある仮想は括弧で根拠を添える。決まっている設計（エリア固定の木・既存の決定）とは矛盾させない。
+3. **エリア固定と装飾プールを作る。** `エリア固定.yaml`（机・台座・木・外周。値は kako-jun と決める）→ `装飾プール.yaml`（下の『プールを作る手順』）。木の種類・外周は、エリア景観の実景（兼六園＝雪吊りの松、金沢駅＝松、内灘＝クロマツ＋アカシア）と矛盾させない。
+4. **MAP の建物・塀・門・境界・擁壁の look をエリア景観に基づいて具体化する**（#199 の屋外ルール＝本書「必須ルール」3。空欄は `oblique_build.py` が止める）。境界は色の違いにせず、そのエリアの実体（寺町なら土塀、城なら石垣、駅前なら除雪の雪山と縁石、砂丘なら砂止めの柵と風紋）にする。
+5. **モック承認→生成。** 本書「モック提示ゲート」と標準手順12工程のとおり（画像生成は kako-jun の合図まで起動しない）。
+
+**エリアごとの違いの例（同じ『エリア景観→look』の型。寺町だけが特別ではない）**
+
+| エリア | 一言で言い当てる特徴 | look に落とす具体（例） |
+|---|---|---|
+| 寺町 | 道沿いに途切れず続く古い土塀と戸室石の基礎、巨木のある寺 | 版築の土壁・暗い灰黒の釉薬瓦の笠（既定・要確認。釉薬瓦は出典なし）・剥落と再築の混在・菰を掛ける区間と掛けない区間（既定・要確認。菰掛けは長町の転用）・木の大きさを揃えない |
+| 兼六園 | 雪吊り（芯柱から放射状の縄の円錐）、唐崎松が代表格 | 割り箸の芯柱＋白糸の円錐・池は鏡のような灰青・石灯籠の二股の脚 |
+| 香林坊 | 百貨店と複合ビルが角を固める大交差点・バス停6地点 | 高さの違う紙箱のビル・除雪の雪山が縁石に沿う・車道は灰色の砂に白い砂の白線 |
+| 金沢城（江戸・幕末） | 天守のない白い城（白漆喰・海鼠壁・鉛瓦）と石垣の段々 | マッチ棒の塗り込め壁・アルミ箔の鉛瓦・戸室石の灰茶と灰青（近代の要素と復元工事は描かない） |
+| 金沢駅 | 2本の螺旋柱に反り屋根の鼓門と背後のガラス大屋根 | 茶色の丸棒に紐の螺旋・半透明プラ板の菱形格子・傘の人流 |
+
+**他エリアで使えるかの点検結果（2026-11-02、STN-01 の試運転。画像生成なし）。** 現状のツール・文面・プールは寺町（松＋枯木・本堂・土塀）に寄っており、次の順に止まる。止まるのは正しい動作で、**エリアごとの追加作業**として下の順に埋める。
+
+1. **必須キー**: MAP の屋内外・状態・描画方式・床材・壁材・窓・扉の意匠・工作の材質・時期差分・採用状態・装飾プールID・依存MAP と、端の壁側・幅クラスが `未決(要確認)` だと `oblique_build.py` は起動しない（MAP.yaml・端.yaml・未決.yaml を決めて埋める）。
+2. **装飾プールが無い**: `decor_pool <プールID> が decor-pools.json に無い`。エリアごとに新しいプールを作る（下の手順）。**寺町のプールは複製元にしてよいが、文面を書き換えずに使うと寺町が混ざる**（`geometry_fixed` の「境内の地面」、`layers.outside.label`、`surfaces.door` の「本堂の正面」、`kinds.bell`、`allow` の「松と枯木の2種」、`forbid` の寺町の松・机の文）。複製したら `寺`・`境内`・`本堂`・`松`・`枯木` を grep して全部そのエリアの言葉に直す。
+3. **エリア固定の机の実測**: `areas.<area>.desk` に `mean_rgb[3]` と `grain` が要る（寺町は採用済み4枚の実測）。他エリアは未実測で、エラーになる。机は全エリア共通の作業机（`エリア固定` 参照）なので、採用画像の実測後に足す（未決 U-2911）。
+4. **木の種類が松＋枯木の2種固定**: 非寺町エリアの木は `trees.kinds[]` 形式で記入済みだが、`validate_decor` と `build_prompt`（`PR.trees-*`・TREE PLACEMENT の文面「松◯本＋枯木◯本、松多め」）は `trees.pine` と `trees.deadtree` を決め打ちしており、`trees.pine に look と count が必要` で止まる。**非寺町エリアで最初に屋外プールを作るときに、この一般化（kinds 形式の読み込みと文面）が要る**（実装はこの作業の範囲外。未決 U-2911 の (3)）。
+5. **屋外 look ゲート**: 建物・塀・門・擁壁の look が空だと止まる（エリア景観から埋める）。`boundaries[]`・`variation[]` が無いと警告。
+
+**プールを作る手順（`outdoor: true` と `reality_note`）**
+
+- 装飾プールは `docs/ledger/装飾プール.yaml` の行 `{プールID, 項目, 値, 型, 決定参照}` の集まり（`oblique_build.py` が `ledger_build.py build` で `decor-pools.json` に導出）。プールIDは `<エリア>-winter-<屋内|exterior>`（例 `station-winter-exterior`）。`area` 行で `エリア固定` を継承する（机・台座・木はプール側で上書きしない）。
+- **`outdoor: true`（型=真偽）は屋外 MAP のプールだけに付ける**（屋内・体内には付けない）。付けると look ゲート（#199）・REALITY 節（と `reality_note`）・SCENERY DOORS 節が有効になる。現在 `true` なのは寺町の `teramachi-winter-exterior` と `teramachi-winter-danchi-exterior` だけ。
+- **`reality_note`（型=文）は REALITY の直後に出る『そのエリア固有の現実の補足』（`PR.reality.pool-note`）。無くてよい。** 寺町は木の大きさのばらつき（決定 `TRM.tree-size-uneven`）を書いている。他エリアでは、**エリア景観の『一言で言い当てる特徴』のうち、全 MAP で守らせたいもの**を1〜2文で書く（例。出典なし・仮の書き方: 兼六園＝「松は雪吊りをする。芯柱から放射状に縄を張る」、香林坊＝「車道は灰色の砂、白線は白い砂。歩道の端に除雪の雪山が連なる」）。**他エリアの特徴・寺町の古木の文を持ち込まない**（`verify_prompt_reflects_ledger.rb` が別エリアのエリア固定の本文の漏れを検査する）。決定参照にはそのエリアの決定IDを書く。
+- プールの必須項目: `geometry_fixed`・`fill_rule`・`layers`（desk／slab_edge／outside／building の look と fixed）・`surfaces`（wall／floor／door／window）・`kinds`・`allow`・`forbid`・`area`。屋外では `layers.outside.look`（建物の外の地面）をそのエリアの景観（砂浜・石畳・雪原など）に書く。
+- 書いたら `ruby scripts/verify_ledger.rb`・`ruby scripts/verify_prompt_reflects_ledger.rb`（既存プロンプトが不変であること）と、`oblique_prompt_probe.py` で『なぜ止まったか』を確認する。
+
 ## モック提示ゲート（絶対・最優先。このスキルの全行より優先）
 
 kako-jun 指示（2026-10-22、逐語）: 『モックを見せずに作ることはスキルで禁止にしろ』。
@@ -162,7 +216,7 @@ kako-jun 指示（2026-10-22、逐語）: 『モックを見せずに作るこ�
 ## 目標の見た目と共通の約束（要点。全文は `gates.md`）
 
 - 写真に見えてはいけない。身近な材料で無理やり再現した手作りの模型。**土台の板（foamboard＋corrugated 断面）とまわりの机が見えたまま**。真上寄りの俯瞰。空・地平線・消失点・人物・文字なし。
-- 机は木目にする（エリアで変えない）。装飾密度は寺町の幼稚園（TRM-02採用画像）級。装飾は地形・縁・机にだけ置き、歩く床は空ける。
+- 机は木目にする（エリアで変えない）。装飾密度は寺町の幼稚園（TRM-02採用画像）級。装飾は地形・縁・机にだけ置き、歩く床は空ける。ただし**『装飾で埋める』は何を描くかの具体指定（現実参照の look）が前提**。屋外は上の必須ルールの境界の実体を先に決める。
 - 通路的な背景（道だけの絵）は1つの町につきせいぜい1つ。残りは場所の個性を持たせる。
 
 ## 記録
@@ -191,12 +245,17 @@ kako-jun 指示（2026-10-22、逐語）: 『モックを見せずに作るこ�
 1. `docs/production/oblique-mocks/<MAP>-plan.json`（`sit-oblique-plan/1`）を書く。部屋の床・壁（高さつき）・戸口（壁・辺・位置・歩く側・相手の door ID）・家具の箱（高さ・blocked）・内部仕切りと開口。**窓は `windows[]`（壁・中心位置・幅・窓台高さ・高さ・種別=`floor`掃き出し/`waist`腰高・status=fixed/default）で個数・位置・種別をすべて明示し、各壁に `window_count`（実数と一致を検証）を持たせる。**モックの壁面に窓枠＋ガラスで描かれ（クリーン版にも。imagegen が窓をずらさない）、edit-prompt に個数・位置・種別が文章で出る。窓は見た目のみで歩行・オクルージョンに影響しない。一覧は `windows.md`（既定要確認の窓を kako-jun がレビュー）。寸法は台帳・kako-jun の決定から。**設計に無い所は発明せず、`status:"default"` と `assumptions` に『既定（要確認）』と書く**。時期別（-kids/-fire/-burnt）は `variants` の差分で書く。
 2. `connections.json` に MAP と接続を足す（外部の端点＝TRM-07・TRM-01・体内も）。
 3. `uv run --with numpy --with opencv-python-headless --with pillow python3 -I .claude/skills/sit-field-background/tools/oblique_build.py --all docs/production/oblique-mocks/connections.json`
+   - **plan は台帳から生成される**（`-plan.json` は `ledger_build.py build` の派生物で手編集禁止。上の 1. は台帳の `要素`・`端`・`窓` 行を書く意味）。必須キーに『未決(要確認)』があると `oblique_build.py` は起動しない。未決を埋めるときは、決定を先に `決定.yaml`（既定案は 状態=有効・要点の頭に『【既定(要確認)】』・備考に根拠）へ書き、`MAP.yaml` の該当セルを埋め、`未決.yaml` の行を `解決済み`＋`解決決定ID` にする（#191 の寺町 TRM-06〜17 が実例）。
+   - `--all connections.json` は幼稚園一式（TRM-02〜05）の接続図（`connection-diagram.png`・`overview.png`・`connections.md`）で、**入力が古いと TRM-02〜05 の各段も再生成する**（採用済み・承認済みの出力を変えたくないときは `--all` を使わず MAP ごとに実行する）。**寺町全体（TRM-02〜17）の接続図**は `oblique_town.py docs/production/oblique-mocks/connections-teramachi.json --out docs/production/oblique-mocks`（`teramachi-connection-diagram.png`・`teramachi-overview.png`・`teramachi-connections.md`・`teramachi-assumptions.md`。`--check-only` で検査だけ）。
+   - 戸口の無い屋外MAP（道・坂。出入りは画像の辺 `markers` だけ）も通る（ワイヤー図の幅注記は文面 `TP.width-none`、外周に接する横長の壁が無い辺は壁の高さ0で座標節を出す）。
 
 段階（`tools/oblique_build.py`）: validate（スキーマ・戸口の相手不一致・幅不足・戸口の前の障害物・到達不能をエラー）→ mock（クリーン／ラベル付き）→ wire（個別の白黒ワイヤー図）→ mask（歩行マスク）→ occlusion（手前オクルージョン）→ prompt（imagegen 編集用。台帳 `build_map_prompt.rb` が ready でなければ blocked と記録）→ **承認ゲート** → adopt（`--adopt IMAGE --take N`。寸法・sha256・プロンプト hash・モック hash を記録）→ verify（`--status`。採用後にスペックが変われば「再生成が要る」）。各段の入力 hash・出力 sha256 は `docs/production/oblique-mocks/<MAP>/manifest.json`。入力が変わらない段はスキップ、変わった段以降だけ再実行（`--from STAGE`・`--force`）。接続図・一覧・接続表は `--all` で横断生成（`connection-diagram.png`・`overview.png`・`connections.md`）。
 
-**依存順の直列方式（kako-jun 2026-10-23。並列の4MAP同時生成は誤りだった）: 直列か並列かは依存関係で決める。** 判定基準は『同じ建物・扉・家具・場所を複数枚で描くか』。共有するなら**1つ確定→その採用画像を参考画像として次へ**（確定画像は扉・材質・家具・装飾のデザインの参考のみ。構図・配置・位置・大きさはコピーしない＝位置は常にクリーンモックが正本）。共有しない通路的な独立マップは並列。寺町の依存: 本堂 TRM-04 → 住居 TRM-05 基準 → TRM-05-kids・-fire／本堂 → 幼稚園 TRM-02／内部（04・05・02）が全部確定 → 外観 TRM-03（扉・渡り廊下は内部と一致）→ 屋外の他MAP。依存グラフは `docs/production/oblique-mocks/dependency-graph.json`（plan の `depends_on` と一致。循環・存在しないID・自己参照はエラー）、要確認は `dependency-notes.md`。`oblique_e2_schedule.py list|check|refs|graph|launch` が『今起動できるMAP』を出し、親が未確定のMAPは `oblique_e2_run.sh` が起動を拒否し、確定済みの親の正本画像を参考画像（役割節つき）として自動で付ける。確定＝`oblique_build.py --adopt IMG --take N --canonical PATH`（manifest の adoption.canonical）。
+**依存順の直列方式（kako-jun 2026-10-23。並列の4MAP同時生成は誤りだった）: 直列か並列かは依存関係で決める。** 判定基準は『同じ建物・扉・家具・場所を複数枚で描くか』。共有するなら**1つ確定→その採用画像を参考画像として次へ**（確定画像は扉・材質・家具・装飾のデザインの参考のみ。構図・配置・位置・大きさはコピーしない＝位置は常にクリーンモックが正本）。共有しない通路的な独立マップは並列。寺町の依存: 本堂 TRM-04 → 住居 TRM-05 基準 → TRM-05-kids・-fire／本堂 → 幼稚園 TRM-02／内部（04・05・02）が全部確定 → 外観 TRM-03（扉・渡り廊下は内部と一致）→ 屋外の他MAP。依存グラフは `docs/production/oblique-mocks/dependency-graph.json`（plan の `depends_on` と一致。循環・存在しないID・自己参照はエラー）、要確認は `dependency-notes.md`。`oblique_e2_schedule.py list|check|refs|graph|launch` が『今起動できるMAP』を出し、親が未確定のMAPは `oblique_e2_run.sh` が起動を拒否し、確定済みの親の正本画像を参考画像（役割節つき）として自動で付ける。確定＝`oblique_build.py --adopt IMG --take N --canonical PATH`（manifest の adoption.canonical）。**同じ部屋・建物の別時期（-kids/-fire/-burnt/-wc。台帳 時期差分 に行があるもの）は、基準MAPの確定画像を REFERENCE IMAGES に必ず含める（#193）**: 台帳 時期差分.依存＝基準MAP が plan の変種の `depends_on` になり、`oblique_mock.load_plan` が基準MAPの依存（採用要素の元MAPなど）の前に足す。使い方の文は台帳 `プロンプト文面.PR.reference.base-era`（内装どうしは同一・時期差分だけ変える・外観と内装の比率は一致不要）。基準が未採用の間は edit-prompt 末尾に `# BLOCKED（基準の採用待ち）`、manifest の prompt 段は `blocked`（`blocked_base`）で、基準の採用後に再生成すると基準画像のパスが載る。未作成の -burnt・-wc（TRM-05-burnt・TRM-03-wc/-burnt）も規則の対象だが、台帳に 時期差分 の行が無く設計が未決（U-2908）なので生成不可。行（依存=基準MAP）を足せば自動で基準参照・blocked が効く。`verify_prompt_reflects_ledger.rb` の検査(vi)が基準参照の脱落を縛る。**『確定』には二つの層がある（#193）**: (a) 台帳 素材表の採用行（状態=採用・種別=背景*・パスあり）= プロンプトの REFERENCE IMAGES と `blocked`（manifest の prompt 段・edit-prompt 末尾の `# BLOCKED`）の根拠。(a) 単独では画像生成を止めない（助言）が、(a) が無いと prompt 段が `blocked` になり、その `blocked` を下の `check` が拒否する＝(a) は実質ゲートの一部。(b) manifest の `adoption.canonical` = `oblique_e2_schedule.py check` と `oblique_e2_run.sh` の実ゲート（親が確定済みでなければ起動拒否・確定済みの親の画像を添付）。`--adopt --canonical` は (b) だけを書き (a) に触れないので、**基準を採用したら、`--adopt --canonical` に加えて素材表に採用行を入れ、時期差分MAPのプロンプトを再生成する**（再生成しないとプロンプトは『未確定』『BLOCKED』のまま）。ズレは `e2_schedule` の共有判定（`blockers`）が止める: 親が未確定、またはその MAP の manifest prompt 段が `blocked` なら、`check` は拒否し、`list` は備考に理由を出して『起動可』にせず、`launch` は起動対象から外して理由を表示する。`oblique_e2_run.sh` はプロンプトを `# ---- 台帳の出所 ----` 行より前だけ imagegen に渡す（DRAFT/BLOCKED の末尾は渡さない）。添付は親の確定画像だけで、REFERENCE IMAGES 節に添付しないMAP（例: 時期差分MAPの TRM-04）のパスが書かれていてもテキスト上の参照にすぎない（run スクリプトが、そうしたMAP IDをプロンプトから動的に拾って添付画像の役割節〔ATTACHED IMAGES〕へその旨を明記する。該当が無いMAPでは出さない）。
 
-**標準手順（kako-jun 2026-10-23 確定）＝案1: 座標つき幾何固定文＋装飾許可＋エリア固定**。MAP を足すときは (1) 採用済み画像（git 履歴）を1回見て plan の box.look・walls.look・floors.look を書く（`decor_pool` は屋内=`teramachi-winter`・外観=`teramachi-winter-exterior`。エリア固定=机・木・台座は継承）、(2) `oblique_build.py` で edit-prompt v4（COORDINATES＋TREE PLACEMENT）を出す、(3) `oblique_e2_run.sh MAP 4`（`REF_IMAGE=git:REV:PATH` で装飾基準）で4テイク＋測定。MAPごとの生成は互いに独立なので3MAPを同時にバックグラウンドで回してよい。案3（別生成して合成）は不要。測定基準の変更（2026-10-23。家具は接地線／松の緑量は絶対 0.003）は `docs/production/oblique-mocks/TRM-02/e2/e2-report.md` に記録。外観は歩く地面に木を置けないので plan の `tree_zones`（木を置ける矩形）で限定する。e2 の生成画像・重ね画像は git に入れない（`.gitignore`）。
+**標準手順（kako-jun 2026-10-23 確定）＝案1: 座標つき幾何固定文＋装飾許可＋エリア固定**。MAP を足すときは (1) 採用済み画像（git 履歴）を1回見て plan の box.look・walls.look・floors.look を書く（`decor_pool` は屋内=`teramachi-winter`（団地室 TRM-12 だけ、昭和の量産型の白いコンクリートの団地専用の `teramachi-winter-danchi-interior`）・外観=`teramachi-winter-exterior`（県営住宅の中庭 TRM-11 だけ団地専用の `teramachi-winter-danchi-exterior`。決定 TRM-danchi.showa-white-concrete。団地に寺・幼稚園のプールを流用しない）。エリア固定=机・木・台座は継承）、(2) `oblique_build.py` で edit-prompt v4（COORDINATES＋TREE PLACEMENT）を出す、(3) `oblique_e2_run.sh MAP 4`（`REF_IMAGE=git:REV:PATH` で装飾基準）で4テイク＋測定。MAPごとの生成は互いに独立なので3MAPを同時にバックグラウンドで回してよい。案3（別生成して合成）は不要。測定基準の変更（2026-10-23。家具は接地線／松の緑量は絶対 0.003）は `docs/production/oblique-mocks/TRM-02/e2/e2-report.md` に記録。外観は歩く地面に木を置けないので plan の `tree_zones`（木を置ける矩形）で限定する。e2 の生成画像・重ね画像は git に入れない（`.gitignore`）。
+
+**寺町以外14エリアのエリア固定（#195、2026-10-30）**: 机の天面・台座・木・外周は `エリア固定.yaml` と決定 `<区域コード>.area-fixed`（既定(要確認)。根拠は決定の備考）に記入済み。机と台座の側面は全エリア共通の同じ作業机・段ボールの台座（設計資料『素材は全地区ジオラマ共通』。ただし体内は採用済みの現状で、机の濃淡が MAP ごとに違う（BDY.area-fixed／BDY.already-created））、台座の上面・木・外周はエリアごと（体内=紙粘土の地形・植物なし、海外=綿の雪を使わない荒れ地、内灘=砂まじりの雪、など）。金沢駅の木は松（kako-jun 指示「金沢駅の木は松だ」）、K空港の木は松（小松空港の空港前に松がある）、小学校の木は山の木（小木小学校の周囲の山の木。kako-jun 指示「小学校の周りは山だから山の木としかいえない」。樹種は特定しない）で確定し、金沢城は金沢市の公式資料の玉泉院丸庭園の植栽（松・モミジ）で埋めた（CST-09 本丸は資料ではスダジイ等の森だが、エリアは1組の木に固定するため松+モミジで統一・要確認）。木が未決で残るのは奥能登への鉄道（車内のみで外の景色なし）だけ。非寺町エリアの木は `trees.kinds[]` 形式で、oblique_build.py の装飾プール検証・プロンプト生成は松・枯木の2種固定のため、非寺町エリアで最初に装飾プールを作るときに一般化と mean_rgb の実測が要る（未決 U-2911）。机をエリアごとに変えるか（U-2909）、体内の机まわりのMAP別選択との食い違い（U-2910）は体内が作成済みのため対象外で解決（BDY.already-created）。検査は verify_ledger.rb（エリア固定の存在・別エリアの混入）と verify_prompt_reflects_ledger.rb の検査(vii)（机・台座・木が落ちない・別エリアの本文が漏れない）。戦闘背景も同じエリア固定を使う（`sit-battle-background`）。
 
 **テイク数は4で固定。自動の順位づけ・上位絞り込みはしない。採用判定は kako-jun が目視で行い、全4テイクを提示する（kako-jun 2026-10-23「４つでいいし人間が判定すればいい」）。測定値（幾何・装飾・エリア固定）は参考情報と不具合検出（崩れ・混入・偽造PNG）にのみ使い、合否で自動的にテイクを落とさない。metrics の表示は「基準内／基準超」（判定ではない）。**
 

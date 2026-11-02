@@ -1,0 +1,111 @@
+{
+ "ledger": {
+  "decisions": [
+   "TRM.trees-draw",
+   "TRM.trees-pine",
+   "TRM.desk",
+   "TRM.default-windows-exterior",
+   "TRM.default-era-diff-none",
+   "TRM-danchi.showa-white-concrete",
+   "TRM-danchi.door-design",
+   "TRM-11.danchi-decor-pool",
+   "TRM-11.danchi-block-spec",
+   "TRM-11.door-stairs-and-slope"
+  ],
+  "era_suffix": null,
+  "inherits": [],
+  "input_sha": "458ac337eb4f8f7b875508bf601cbb01c7624d878c89c36d3b6e4358ef5ce520",
+  "references": [
+   [
+    "TRM-12",
+    null
+   ]
+  ],
+  "row_id": "TRM-11",
+  "tables": "docs/ledger/*.yaml"
+ },
+ "map_id": "TRM-11",
+ "plan": "docs/production/oblique-mocks/TRM-11-plan.json",
+ "plan_sha256": "0fd27be042ed1804f06cc2a0e785e28011caa61a14a226b9246d84c48689cb8b",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-11.door": [
+     1
+    ],
+    "TRM-11.right": [
+     1
+    ],
+    "TRM-11.top": [
+     1
+    ]
+   },
+   "input_sha": "559f1345f5bb7c058538212be56d7fdc6d0a021f7cb7bb9cf4d6d0b0212d84c5",
+   "outputs": {
+    "TRM-11-exits.png": "efb5037939c9a1f5a0207e611bbef7aa6dec4c6dccaac11bb1b522337a8cc0c2",
+    "TRM-11-mask.json": "debbbaefecb0c491fa9172d54db661e5c9911d19d0493ee09657c44a70de41ad",
+    "TRM-11-mask.png": "4a7ec4b8fdf8161e84c16ab1d9a27855cdbc09e5bcf793a46f319511b15cb441"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "559f1345f5bb7c058538212be56d7fdc6d0a021f7cb7bb9cf4d6d0b0212d84c5",
+   "outputs": {
+    "TRM-11-clean.png": "d085a9e29bc90fde4b190508c314e313da8305d5b2c5c24746f9bdcf9f36234d",
+    "TRM-11-review.png": "cf76a9410be7d0a81b805f8a38b7fd90e32d42b8e87d98ae0b6dc5121d59f071"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "559f1345f5bb7c058538212be56d7fdc6d0a021f7cb7bb9cf4d6d0b0212d84c5",
+   "outputs": {
+    "TRM-11-occlusion-depth.png": "56429faab5006817cc5ec38acbd4691c9baedaee71fd419ca1b52c584318c9e5",
+    "TRM-11-occlusion-edit.png": "9ebeead4abf33dcc81bcb203eb430aeeb050dc5bcc33c4240fa3a3fcbaab3623",
+    "TRM-11-occlusion-overlay.png": "2bce816d09636d37fca71249202fabcce00777deaef20f8d7f640655fddabd39",
+    "TRM-11-occlusion.json": "3b5e57ce146074b92f93679eef955f6a1e36e3499e38777eca17e5be5f99073d",
+    "TRM-11-occlusion.png": "986d4009aa23dacf817c37fc4f35f4d9ac3d7e9a98a681afe25f4da4d40ce77d"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "aa1655ddbc8bb5b6ae45bb8df07da84dde6836e92030f1b5604567c937210475",
+   "outputs": {
+    "TRM-11-edit-prompt.txt": "87fbcdeeed63eb74216477d14e1f33ae1fce9b7e3aabfbc0825d762f297b7529"
+   },
+   "status": "blocked",
+   "unadopted_dependencies": [
+    "TRM-12"
+   ]
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "9340ed8ef350969f410e5680c32bd573a43f5a811f99d0962f3948e436503831",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
+    "既定（要確認）: 棟の配置（A・B棟を北に2つ・C棟を南に長く）・遊具・自転車置き場・石段口の位置は設計に無い（台帳は『県営住宅中庭。石段は立位期のみ』のみ）。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+    "既定（要確認）: 棟入口 TRM-11.door はA棟の南面・x276（比0.30）。出入口はキャラ2人分（決定済み）。",
+    "TRM-11.right は石段口（立位期だけ通れる。3値マスク assist はこの段では出さない）。台帳『立位期だけの石段』。",
+    "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。（左・下はC棟と塀で閉鎖）",
+    "既定（要確認）: 棟A・B・Cはすべて4階建の板状の棟（金沢市営緑住宅の4階建20棟・5階建13棟、昭和45〜49年度。県営平和町団地は昭和28年に3階建から。出典は決定 TRM-11.danchi-block-spec）。C棟のモックの高さが低いのはモックの設定で、階数は同じとした。（決定 TRM-11.danchi-block-spec）",
+    "既定（要確認）: 棟の型は片廊下型（各戸の入口が廊下に面する。kako-jun の指示で TRM-12 の入口は廊下に面し、承認コメント 6567812699 で『片廊下型で進める』と決定済み）。調査の事実として、公営・公団の中層は階段室型（1階2戸が共用階段）が標準で、県営住宅の棟が片廊下型かは確認できていない。1棟の戸数・廊下の長さ・階段の数は未確認（階段室型の24戸前後は片廊下型に当てはまらないので使わない）。棟の寸法・棟間・位置は現行のモックのまま（調査の目安: 棟間は高さの約1.8倍。モックは工作ジオラマなので縮尺を合わせない）。外壁の白は kako-jun の指示。屋根の形（陸屋根かは推測）・手すり材質・昭和の雪対策は未決。（決定 TRM-11.danchi-block-spec）",
+    "既定（要確認）: 棟入口 TRM-11.door（x210〜342）の前に、平らな踊り場（x210〜426・y380〜428）を置き、その南に約4段の階段（x210〜342・y428〜476）と車椅子用スロープ（x346〜426・y428〜524）を置く。階段とスロープの上端はどちらも踊り場に着き、踊り場が戸口に面する（車椅子はスロープ→踊り場→戸口、立てる時期は階段でも通れる）。位置はスロープを戸口の東側とした既定。歩行マスクは現行は全部白（階段=車椅子の時期は黒の3値化は後で実装。そのとき踊り場・スロープは通行可のまま保つ）。（決定 TRM-11.door-stairs-and-slope）",
+    "既定（要確認）: TRM-11.door",
+    "屋外MAP: 歩けない面 snow の look が空・ただの地面。境界を色の違いだけにしない（土塀・石垣・生垣・縁石・段差・水など実体のある要素にする。Issue #191）",
+    "屋外MAP: plan に boundaries（歩ける床の外側の境界物の帯）が無い。床の色の切り替えだけの境界になる（Issue #191）",
+    "屋外MAP: plan に variation（足跡・汚れ・土の露出・除雪の雪山・スノーポール・消雪パイプ・電柱など、このMAPの look から来る変化の語）が無い。単調になりやすい（Issue #191）",
+    "屋外MAP: 木の帯（奥-28px・手前13px・左21px・右20px。幅40px未満は使えない）の面積 0px² が木の最小本数 8 本（1本あたり 3000px² 必要）を満たせない。plan の tree_zones に民家の裏・塀の根元など実面積のある矩形を置くか、木の本数を MAP に合わせる（Issue #191）"
+   ]
+  },
+  "wire": {
+   "input_sha": "5a656315fe7073b3db94b254d4f30a8db836155e63f8fd58bd4ad2f35cff6ef8",
+   "outputs": {
+    "wire-TRM-11.png": "b5070e0bc4b9b9665c406a00a9fe97521b0dfd27b84446a31f7b778a965b866f"
+   },
+   "status": "ok"
+  }
+ }
+}

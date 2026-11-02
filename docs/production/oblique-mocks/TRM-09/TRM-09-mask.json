@@ -1,0 +1,81 @@
+{
+ "schema": "sit-oblique-mock-mask/1",
+ "map_id": "TRM-09",
+ "size": [
+  1672,
+  941
+ ],
+ "white_components": 1,
+ "door_width_plan": 132,
+ "exits": [
+  {
+   "id": "TRM-09.left",
+   "partner": "TRM-08.right",
+   "wall_side": "west",
+   "plan_patch": [
+    0,
+    470.0,
+    70,
+    730.0
+   ],
+   "image_polygon": [
+    [
+     118,
+     317
+    ],
+    [
+     181,
+     317
+    ],
+    [
+     155,
+     477
+    ],
+    [
+     89,
+     477
+    ]
+   ],
+   "status": "default"
+  },
+  {
+   "id": "TRM-09.bottom",
+   "partner": "TRM-10.top",
+   "wall_side": "south",
+   "plan_patch": [
+    1020.0,
+    1200,
+    1180.0,
+    1270
+   ],
+   "image_polygon": [
+    [
+     1058,
+     798
+    ],
+    [
+     1219,
+     798
+    ],
+    [
+     1223,
+     850
+    ],
+    [
+     1060,
+     850
+    ]
+   ],
+   "status": "default"
+  }
+ ],
+ "exit_components": {
+  "TRM-09.left": [
+   1
+  ],
+  "TRM-09.bottom": [
+   1
+  ]
+ },
+ "note": "平面図から導いた。床=白・blocked=黒（壁・blocked の箱は画像上の覆いも黒）・戸口と開口=白"
+}

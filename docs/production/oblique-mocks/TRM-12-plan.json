@@ -2,83 +2,111 @@
  "schema": "sit-oblique-plan/1",
  "map_id": "TRM-12",
  "name": "団地室",
- "subtitle": "屋内・県営住宅の室内。玄関→居間→窓際。段差なし・回転余地",
+ "subtitle": "屋内・県営住宅の室内（2DK）。玄関→台所→居室A（居間）・居室B（寝室）。段差なし・回転余地",
  "source": "台帳 map-topology v2 の接続行・map-specifications の寺町の行・map-asset-registry・teramachi-rebuild-candidates（TRM-01 は 2026-10-23 に TRM-03 へ統合・廃止）と Issue #51/#144 の決定。",
- "design": "車椅子の回転余地がある県営住宅の団地室。TRM-11の棟入口からドア遷移。玄関→居間→窓際で、段差なし。",
+ "design": "車椅子の回転余地がある昭和の標準的な2DKの県営住宅の団地室。TRM-11の棟入口からドア遷移（入口は1つ。外は廊下）。玄関→台所（DK）→居室で、段差なし。両隣に部屋がある。",
  "indoor": true,
  "floors": [
   {
-   "color": "#c9a77a",
+   "color": "#c9c2b4",
    "label_at": [
     600,
-    640
-   ],
-   "poly": [
-    [
-     416,
-     236
-    ],
-    [
-     1184,
-     236
-    ],
-    [
-     1184,
-     1010
-    ],
-    [
-     760,
-     1010
-    ],
-    [
-     760,
-     800
-    ],
-    [
-     416,
-     800
-    ]
-   ],
-   "walkable": true,
-   "id": "living",
-   "label": "居間"
-  },
-  {
-   "color": "#d6bb92",
-   "label_at": [
-    800,
-    320
+    440
    ],
    "rect": [
     416,
     236,
-    1184,
-    400
+    788,
+    620
    ],
    "walkable": true,
-   "id": "window-side",
-   "label": "窓際"
+   "id": "room-a",
+   "label": "居室A（居間）",
+   "look": "居室A（居間）の床。"
   },
   {
-   "color": "#b9b0a0",
+   "color": "#c4bdaf",
    "label_at": [
-    590,
-    930
+    1000,
+    440
+   ],
+   "rect": [
+    812,
+    236,
+    1184,
+    620
+   ],
+   "walkable": true,
+   "id": "room-b",
+   "label": "居室B（寝室）",
+   "look": "居室B（寝室）の床。"
+  },
+  {
+   "color": "#bfb9ab",
+   "label_at": [
+    560,
+    800
    ],
    "rect": [
     416,
-    800,
-    760,
+    644,
+    1184,
+    1010
+   ],
+   "walkable": true,
+   "id": "dk",
+   "label": "台所・食事室（DK）",
+   "look": "台所と食卓のある部屋（DK）の床。"
+  },
+  {
+   "color": "#a8a398",
+   "label_at": [
+    610,
+    975
+   ],
+   "rect": [
+    500,
+    940,
+    720,
     1010
    ],
    "walkable": true,
    "id": "genkan",
-   "label": "玄関（段差なし）"
+   "label": "玄関（段差なし）",
+   "look": "玄関の床（段差なし）。"
+  },
+  {
+   "color": "#6f8fb0",
+   "no_step": true,
+   "rect": [
+    836,
+    250,
+    936,
+    440
+   ],
+   "walkable": true,
+   "id": "futon-1",
+   "label": "布団",
+   "look": "掛け布団と枕の布団。"
+  },
+  {
+   "color": "#b06f78",
+   "no_step": true,
+   "rect": [
+    948,
+    250,
+    1048,
+    440
+   ],
+   "walkable": true,
+   "id": "futon-2",
+   "label": "布団",
+   "look": "掛け布団と枕の布団。"
   }
  ],
  "walls": [
   {
-   "color": "#d8c9a6",
+   "color": "#e6e4de",
    "h": 150,
    "kind": "wall",
    "label": "",
@@ -89,11 +117,12 @@
     236
    ],
    "top_color": null,
-   "window_count": 1,
-   "id": "wall-n"
+   "window_count": 2,
+   "id": "wall-n",
+   "look": "北壁: 居室A・居室Bそれぞれの掃き出し窓の壁。窓ガラス越しの外景は描かない。"
   },
   {
-   "color": "#d8c9a6",
+   "color": "#e6e4de",
    "h": 150,
    "kind": "wall",
    "label": "",
@@ -105,10 +134,11 @@
    ],
    "top_color": null,
    "window_count": 0,
-   "id": "wall-s"
+   "id": "wall-s",
+   "look": "南壁: 廊下に面した壁（壁の外が廊下。廊下は描かない）。玄関の扉がある。"
   },
   {
-   "color": "#d8c9a6",
+   "color": "#e6e4de",
    "h": 150,
    "kind": "wall",
    "label": "",
@@ -120,10 +150,11 @@
    ],
    "top_color": null,
    "window_count": 0,
-   "id": "wall-w"
+   "id": "wall-w",
+   "look": "西壁: 隣室との境の壁（両隣に部屋がある）。窓も戸口も無い。"
   },
   {
-   "color": "#d8c9a6",
+   "color": "#e6e4de",
    "h": 150,
    "kind": "wall",
    "label": "",
@@ -135,61 +166,194 @@
    ],
    "top_color": null,
    "window_count": 0,
-   "id": "wall-e"
+   "id": "wall-e",
+   "look": "東壁: 隣室との境の壁（両隣に部屋がある）。窓も戸口も無い。"
+  },
+  {
+   "h": 90,
+   "kind": "partition",
+   "rect": [
+    788,
+    236,
+    812,
+    620
+   ],
+   "window_count": 0,
+   "id": "part-v",
+   "label": "仕切り",
+   "look": "仕切り: 居室Aと居室Bを分ける、壁より低い仕切り。"
+  },
+  {
+   "h": 90,
+   "kind": "partition",
+   "rect": [
+    416,
+    620,
+    1184,
+    644
+   ],
+   "window_count": 0,
+   "id": "part-h",
+   "label": "仕切り",
+   "look": "仕切り: 居室A・Bと台所（DK）を分ける、壁より低い仕切り。"
   }
  ],
  "boxes": [
   {
    "blocked": true,
-   "color": "#8a6a58",
-   "h": 50,
+   "color": "#b8c4cc",
+   "h": 85,
    "rect": [
-    440,
-    270,
-    700,
-    350
+    1124,
+    713,
+    1184,
+    809
    ],
-   "id": "sofa",
-   "label": "ソファ"
+   "id": "sink",
+   "label": "流し台",
+   "look": "ステンレスの流し台。蛇口。"
+  },
+  {
+   "blocked": true,
+   "color": "#8a8a8a",
+   "h": 80,
+   "rect": [
+    1124,
+    809,
+    1184,
+    889
+   ],
+   "id": "stove",
+   "label": "ガス台",
+   "look": "ガスコンロを載せた台。"
+  },
+  {
+   "blocked": true,
+   "color": "#d8dcd8",
+   "h": 160,
+   "rect": [
+    1124,
+    660,
+    1184,
+    713
+   ],
+   "id": "fridge",
+   "label": "冷蔵庫",
+   "look": "冷蔵庫。"
   },
   {
    "blocked": true,
    "color": "#a37b4a",
    "h": 55,
    "rect": [
-    820,
-    520,
-    1040,
-    680
+    976,
+    730,
+    1116,
+    850
    ],
    "id": "table",
-   "label": "食卓"
+   "label": "食卓",
+   "look": "食卓。"
+  },
+  {
+   "blocked": true,
+   "color": "#8a6a46",
+   "h": 40,
+   "rect": [
+    1000,
+    858,
+    1040,
+    898
+   ],
+   "id": "chair-1",
+   "label": "椅子",
+   "look": "食卓の椅子。"
+  },
+  {
+   "blocked": true,
+   "color": "#8a6a46",
+   "h": 40,
+   "rect": [
+    1052,
+    858,
+    1092,
+    898
+   ],
+   "id": "chair-2",
+   "label": "椅子",
+   "look": "食卓の椅子。"
   },
   {
    "blocked": true,
    "color": "#555a60",
    "h": 60,
    "rect": [
-    1110,
-    480,
-    1170,
-    640
+    416,
+    330,
+    476,
+    470
    ],
    "id": "tv",
-   "label": "テレビ台"
+   "label": "テレビ台",
+   "look": "テレビ台（テレビを載せる低い台）。"
   },
   {
    "blocked": true,
-   "color": "#8a6a46",
-   "h": 90,
+   "color": "#7a5a3a",
+   "h": 100,
    "rect": [
-    440,
-    560,
+    416,
+    236,
     500,
-    760
+    296
    ],
-   "id": "shelf",
-   "label": "棚"
+   "id": "dresser",
+   "label": "たんす",
+   "look": "たんす（引き出しが並ぶ）。"
+  },
+  {
+   "blocked": true,
+   "color": "#a37b4a",
+   "h": 35,
+   "rect": [
+    640,
+    420,
+    760,
+    510
+   ],
+   "id": "low-table",
+   "label": "卓",
+   "look": "居間の低い卓。"
+  },
+  {
+   "blocked": true,
+   "color": "#cfc8b8",
+   "h": 180,
+   "rect": [
+    1104,
+    300,
+    1184,
+    480
+   ],
+   "id": "closet",
+   "label": "押入",
+   "look": "押入（布団をしまう収納）。"
+  }
+ ],
+ "paths": [
+  {
+   "from": "TRM-12.door",
+   "min_width": 132,
+   "to": "open-dk-a",
+   "id": "door-to-room-a",
+   "look": "【既定(要確認)】団地室 TRM-12 の間取りは昭和の標準的な2DK（入口の玄関→台所兼食事室（DK）→居室A（居間）・居室B（寝室））の自然な図面。入口は南壁に1つだけ（外は廊下）。両隣に部屋がある（西壁・東壁は隣室との境）。浴室は描かない。"
+  },
+  {
+   "from": "TRM-12.door",
+   "min_width": 132,
+   "to": "open-dk-b",
+   "id": "door-to-room-b",
+   "look": "【既定(要確認)】団地室 TRM-12 の間取りは昭和の標準的な2DK（入口の玄関→台所兼食事室（DK）→居室A（居間）・居室B（寝室））の自然な図面。入口は南壁に1つだけ（外は廊下）。両隣に部屋がある（西壁・東壁は隣室との境）。浴室は描かない。"
   }
  ],
  "doors": [
@@ -206,12 +370,40 @@
    "partner": "TRM-11.door",
    "width_class": "2people",
    "status": "default",
-   "note": "県営住宅の玄関（TRM-11.door と同じ比 0.30。外から見て南壁）。位置は台帳に無く既定（要確認）。段差なし"
+   "note": "団地室の入口（ドアは1つだけ）。入口壁（南壁）の外が廊下（片廊下型の玄関。廊下は描かない）。TRM-11.door と同じ比 0.30。位置は台帳に無く既定（要確認）。段差なし（決定 TRM-12.two-rooms-one-entrance）"
+  }
+ ],
+ "openings": [
+  {
+   "id": "open-dk-a",
+   "wall": "part-h",
+   "wall_side": "south",
+   "face": "north",
+   "center": 560,
+   "along_ref": [
+    416,
+    1184
+   ],
+   "status": "default",
+   "note": "既定（要確認）: 台所（DK）↔居室A（居間）の出入口。幅は2人分（車椅子の通行）。（決定 TRM-12.layout-2dk）"
+  },
+  {
+   "id": "open-dk-b",
+   "wall": "part-h",
+   "wall_side": "south",
+   "face": "north",
+   "center": 878,
+   "along_ref": [
+    416,
+    1184
+   ],
+   "status": "default",
+   "note": "既定（要確認）: 台所（DK）↔居室B（寝室）の出入口。幅は2人分（車椅子の通行）。居室AとBの間に直接の出入口は作らない（調査で確認できず）。（決定 TRM-12.layout-2dk）"
   }
  ],
  "windows": [
   {
-   "id": "TRM-12.win-n1",
+   "id": "TRM-12.win-n-a",
    "wall": "wall-n",
    "wall_side": "north",
    "status": "default",
@@ -219,25 +411,46 @@
     380,
     1220
    ],
-   "note": "窓際の掃き出し窓（既定・要確認）",
-   "center": 800,
-   "width": 240,
+   "note": "既定（要確認）: 居室の掃き出し窓（TRM-11 の棟にベランダがある台帳の記述に合わせた）。窓の種類・サッシの材質は調査で確認できていない。外景は描かない（決定 TRM-12.windows-two-rooms）",
+   "center": 602,
+   "width": 200,
+   "kind": "floor",
+   "sill": 0,
+   "height": 130
+  },
+  {
+   "id": "TRM-12.win-n-b",
+   "wall": "wall-n",
+   "wall_side": "north",
+   "status": "default",
+   "along_ref": [
+    380,
+    1220
+   ],
+   "note": "既定（要確認）: 居室の掃き出し窓（TRM-11 の棟にベランダがある台帳の記述に合わせた）。窓の種類・サッシの材質は調査で確認できていない。外景は描かない（決定 TRM-12.windows-two-rooms）",
+   "center": 998,
+   "width": 200,
    "kind": "floor",
    "sill": 0,
    "height": 130
   }
  ],
  "assumptions": [
-  "既定（要確認）: 部屋の大きさ・間取り（玄関左下・居間・窓際は北壁の窓の下）・家具の位置は設計に無い（台帳は『玄関→居間→窓際で、段差なし・車椅子の回転余地』のみ）。",
-  "既定（要確認）: 北壁の窓（掃き出し・幅240・中央）。種別・位置・個数は既定（要確認）。",
-  "車椅子の回転余地: 居間の中央に直径150の空きを残した（家具は壁沿い・食卓は右寄り）。直径は既定。",
-  "TRM-12 は事故後〜壮年の時期の部屋（map-specifications）。モックは時期差を持たない。"
+  "既定（要確認）: 間取りは昭和の標準的な2DK（台所兼食事室＋居室2）の自然な図面。根拠: 公営住宅の標準設計51C型（食寝分離・居室2つ＋広い台所。nomu.com）、公団の標準設計55型（2DK。UR）。金沢・石川の県営住宅の図面は確認できていないので、部屋の大きさ・並びは既定。（決定 TRM-12.layout-2dk）",
+  "既定（要確認）: 入口（ドア）は南壁に1つだけで、南壁の外が廊下（片廊下型。階段室型でなく、各戸の入口が廊下に面する。県営住宅が片廊下型かは確認できていない）。玄関から台所（DK）に入り、台所から居室A（居間）・居室B（寝室）へ入る。居室A・B間に直接の出入口は作らない。（決定 TRM-12.layout-2dk）",
+  "既定（要確認）: 北壁に居室A・居室Bそれぞれの掃き出し窓（幅200）。南壁（廊下側）に窓は作らない。窓の種類・サッシの材質は確認できていない。（決定 TRM-12.layout-2dk）",
+  "TRM-12 は事故後〜壮年の時期の部屋（map-specifications）。モックは時期差を持たない。",
+  "車椅子の回転余地（直径150）: 台所の西半分（玄関の北）、居室Aの中央（x485〜635・y425〜575）、居室Bの南半分（x860〜1010・y440〜620）、台所の西側（x416〜760）に家具を置かず空けた。直径は既定。通路は経路（paths）で幅2人分を検証。（決定 TRM-12.layout-2dk）",
+  "既定（要確認）: 両隣に部屋がある（kako-jun 指示）。西壁・東壁は隣室との境の壁（窓も戸口も無い）。隣室は描かない。南北の位置関係（どの壁が隣か）は西・東と既定。（決定 TRM-12.layout-2dk）",
+  "既定（要確認）: 風呂なし（kako-jun 指示）。浴室・風呂場・シャワー室は描かない（バスタブ含む）。トイレは、調査で県営住宅の有無が確認できなかったので描かない（未決 U-2920）。（決定 TRM-12.layout-2dk）",
+  "既定（要確認）: 家具は昭和の標準的な品目の箱: 台所（東壁沿いに冷蔵庫・流し台・ガス台、中央寄りに食卓・椅子2。南の壁沿いは斜め視点で壁に隠れるため避けた）、居室A（テレビ台・たんす・卓）、居室B（布団2組・押入）。品目と位置は台帳に無く既定。流し台がステンレスなのは公団標準の調査に基づく。他は一般的な品目で出典は未確認。箱の見た目は工作の装飾に任せる。（決定 TRM-12.layout-2dk）"
  ],
+ "decor_pool": "teramachi-winter-danchi-interior",
  "depends_on": [],
  "_provenance": {
   "source": "MAP:TRM-12|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "668a6d313fa92a31c685d9dbb28f269855129d143a0afd48839ec7ebf4ce4ec0",
-  "generated_at": "2026-10-24T04:46",
+  "input_sha": "163d57a441b17fb845716d8e30b9242f056108efb82fbc25d4c13797651e3f8d",
+  "generated_at": "2026-11-02T12:15",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-12-plan",
   "do_not_edit": true

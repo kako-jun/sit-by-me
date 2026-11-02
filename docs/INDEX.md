@@ -14,7 +14,7 @@
 
 表の一覧・行数・列は下の生成ビューを見る。関連:
 - 引き継ぎ（一時。第1段階の完了時に台帳へ吸収して削除）: [HANDOFF](ledger/handoff/HANDOFF.md)
-- 検証: `ruby scripts/verify_ledger.rb`（スキーマ・外部キー・鮮度）、`ruby scripts/audit_issue_decisions.rb`（Issue の決定候補と決定表の突合。結果は台帳の Issue点検.yaml）、`ruby scripts/verify_prompt_reflects_ledger.rb`（台帳の決定・採用要素・自由記述・窓列がプロンプトに漏れなく出るか。必須キー未決のMAP〔現状は TRM-06〜17〕は『ゲートで停止』としてプロンプト反映検査の対象外。未決が解消してゲートが開いたMAPは自動で対象に入る）、`ruby scripts/verify_index_reachable.rb`（INDEX 到達性）
+- 検証: `ruby scripts/verify_ledger.rb`（スキーマ・外部キー・鮮度）、`ruby scripts/audit_issue_decisions.rb`（Issue の決定候補と決定表の突合。結果は台帳の Issue点検.yaml）、`ruby scripts/verify_prompt_reflects_ledger.rb`（台帳の決定・採用要素・自由記述・窓列がプロンプトに漏れなく出るか。必須キー未決のMAP〔現状は無し。TRM-06〜17 は #191 で既定(要確認)を決定表へ入れて解消〕は『ゲートで停止』としてプロンプト反映検査の対象外。未決が解消してゲートが開いたMAPは自動で対象に入る）、`ruby scripts/verify_index_reachable.rb`（INDEX 到達性）
 - ツール: [tools/README](../.claude/skills/sit-field-background/tools/README.md)
 - 素材の付随表: [素材共有](ledger/素材共有.yaml)（所有者以外の利用関係）、[素材更新](ledger/素材更新.yaml)（素材移行SHAから現物SHAへのSHA連鎖。検査ロジックは [asset_chain.py](../scripts/asset_chain.py)）、[素材メタデータ](ledger/素材メタデータ.yaml)・[素材メタデータ値](ledger/素材メタデータ値.yaml)（画像用JSONの安全化済み正本。[asset_metadata.py](../scripts/asset_metadata.py) の `build|check` で導出・検査）
 - 全派生物の再生成・鮮度検査: [build_ledger.py](../scripts/build_ledger.py) の `build|check`。MAPの元資料表は [map_source_views.py](../scripts/map_source_views.py) と [文書ビュー.yaml](ledger/文書ビュー.yaml) が管理する。
@@ -47,18 +47,19 @@
 - 画像正本: [assets/images/](../assets/images/)（[ブランド素材の説明](../assets/images/brand/README.md)）（配置規則は [ファイル配置.yaml](ledger/ファイル配置.yaml) の `asset-*`）
 - 検証記録: [敵画像の透過監査](../verification/transparency-audit-20261022/audit-notes.md)、[キャラ素材の切り出し](../verification/characters/tools/README.md)
 - 独立レビュー（red-team）の日付記録: [reviews/artifact-redteam/](reviews/artifact-redteam/)
+- エリア景観の調査メモ（台帳『エリア景観』の出典）: [reference/area-landscape/](reference/area-landscape/README.md)
 
 ## スクリプト・テスト
 
 - scripts: [asset_chain.py](../scripts/asset_chain.py), [asset_metadata.py](../scripts/asset_metadata.py), [audit_issue_decisions.rb](../scripts/audit_issue_decisions.rb), [build_map_prompt.rb](../scripts/build_map_prompt.rb), [fetch_bgm_sources.py](../scripts/fetch_bgm_sources.py), [ledger_required_keys.rb](../scripts/ledger_required_keys.rb), [ledger_yaml.rb](../scripts/ledger_yaml.rb), [make_logo.py](../scripts/make_logo.py), [map_graph.rb](../scripts/map_graph.rb), [md_table.rb](../scripts/md_table.rb), [render_body_topology.rb](../scripts/render_body_topology.rb), [render_late_topology.rb](../scripts/render_late_topology.rb), [render_map_atlas.rb](../scripts/render_map_atlas.rb), [render_sunnyland_topology.rb](../scripts/render_sunnyland_topology.rb), [svg_to_png.py](../scripts/svg_to_png.py), [verify_asset_layout.py](../scripts/verify_asset_layout.py), [verify_ledger.rb](../scripts/verify_ledger.rb), [verify_index_reachable.rb](../scripts/verify_index_reachable.rb), [verify_prompt_reflects_ledger.rb](../scripts/verify_prompt_reflects_ledger.rb), [verify_map_atlas.rb](../scripts/verify_map_atlas.rb), [verify_map_id_renumber.py](../scripts/verify_map_id_renumber.py), [verify_map_ledger.rb](../scripts/verify_map_ledger.rb), [verify_overseas_progression.rb](../scripts/verify_overseas_progression.rb)
-- tests: [test_asset_metadata.py](../tests/test_asset_metadata.py), [test_asset_migration.py](../tests/test_asset_migration.py), [test_body_topology.py](../tests/test_body_topology.py), [test_ledger.py](../tests/test_ledger.py), [test_map_atlas.py](../tests/test_map_atlas.py), [test_map_id_renumber.py](../tests/test_map_id_renumber.py), [test_map_topology.py](../tests/test_map_topology.py), [test_overseas_progression.py](../tests/test_overseas_progression.py)
+- tests: [test_asset_metadata.py](../tests/test_asset_metadata.py), [test_asset_migration.py](../tests/test_asset_migration.py), [test_body_topology.py](../tests/test_body_topology.py), [test_ledger.py](../tests/test_ledger.py), [test_map_atlas.py](../tests/test_map_atlas.py), [test_map_id_renumber.py](../tests/test_map_id_renumber.py), [test_map_topology.py](../tests/test_map_topology.py), [test_oblique_empty_edges.py](../tests/test_oblique_empty_edges.py), [test_oblique_outdoor_look_gate.py](../tests/test_oblique_outdoor_look_gate.py), [test_overseas_progression.py](../tests/test_overseas_progression.py)
 
 ## スキルとツール
 
 - 回収した制作ツール: [layout_guide.py](../.claude/skills/sit-field-background/tools/layout_guide.py)、[oblique_town.py](../.claude/skills/sit-field-background/tools/oblique_town.py)、[pasteback.py](../.claude/skills/sit-field-background/tools/pasteback.py)、[battle_base.py](../.claude/skills/sit-battle-background/tools/battle_base.py)。[マップ上の敵立ち絵](../.claude/skills/sit-map-enemy-sprite/SKILL.md)。
 
 - スキル手順書: [フィールド背景](../.claude/skills/sit-field-background/SKILL.md)（[gates](../.claude/skills/sit-field-background/gates.md)、[pitfalls](../.claude/skills/sit-field-background/pitfalls.md)、[issue-template](../.claude/skills/sit-field-background/issue-template.md)、[体内の付録](../.claude/skills/sit-field-background/body-appendix.md)、[エージェント定義](../.claude/skills/sit-field-background/agents/openai.yaml)）、[フィールドマスク](../.claude/skills/sit-field-mask/SKILL.md)、[red-team](../.claude/skills/sit-artifact-redteam/SKILL.md)、[戦闘背景](../.claude/skills/sit-battle-background/SKILL.md)、[キャラ](../.claude/skills/sit-character-sprite/SKILL.md)、[敵](../.claude/skills/sit-enemy-sprite/SKILL.md)、[召喚獣](../.claude/skills/sit-summon-sprite/SKILL.md)、[戦闘演出](../.claude/skills/sit-battle-effect/SKILL.md)（[エージェント定義](../.claude/skills/sit-battle-effect/agents/openai.yaml)）
-- フィールド背景のツール（一覧と使い方は [tools/README](../.claude/skills/sit-field-background/tools/README.md)）: [body_floor_overlay.py](../.claude/skills/sit-field-background/tools/body_floor_overlay.py), [body_geometry_json.py](../.claude/skills/sit-field-background/tools/body_geometry_json.py), [body_layout.py](../.claude/skills/sit-field-background/tools/body_layout.py), [body_mask_export.py](../.claude/skills/sit-field-background/tools/body_mask_export.py), [body_register.py](../.claude/skills/sit-field-background/tools/body_register.py), [body_sheet.py](../.claude/skills/sit-field-background/tools/body_sheet.py), [body_step_scan.py](../.claude/skills/sit-field-background/tools/body_step_scan.py), [build_body_prompt.py](../.claude/skills/sit-field-background/tools/build_body_prompt.py), [check_body_image.py](../.claude/skills/sit-field-background/tools/check_body_image.py), [ledger_build.py](../.claude/skills/sit-field-background/tools/ledger_build.py), [ledger_csv_to_yaml_once.py](../.claude/skills/sit-field-background/tools/ledger_csv_to_yaml_once.py), [ledger_flat.py](../.claude/skills/sit-field-background/tools/ledger_flat.py), [ledger_index.py](../.claude/skills/sit-field-background/tools/ledger_index.py), [ledger_views.py](../.claude/skills/sit-field-background/tools/ledger_views.py), [ledger_io.py](../.claude/skills/sit-field-background/tools/ledger_io.py), [ledger_migrate_once.py](../.claude/skills/sit-field-background/tools/ledger_migrate_once.py), [ledger_query.py](../.claude/skills/sit-field-background/tools/ledger_query.py), [ledger_write_rows.py](../.claude/skills/sit-field-background/tools/ledger_write_rows.py), [oblique_build.py](../.claude/skills/sit-field-background/tools/oblique_build.py), [oblique_common.py](../.claude/skills/sit-field-background/tools/oblique_common.py), [oblique_e2_measure.py](../.claude/skills/sit-field-background/tools/oblique_e2_measure.py), [oblique_e2_schedule.py](../.claude/skills/sit-field-background/tools/oblique_e2_schedule.py), [oblique_mask.py](../.claude/skills/sit-field-background/tools/oblique_mask.py), [oblique_mock.py](../.claude/skills/sit-field-background/tools/oblique_mock.py), [oblique_prompt_probe.py](../.claude/skills/sit-field-background/tools/oblique_prompt_probe.py), [oblique_text.py](../.claude/skills/sit-field-background/tools/oblique_text.py), [oblique_register.py](../.claude/skills/sit-field-background/tools/oblique_register.py), [oblique_topology.py](../.claude/skills/sit-field-background/tools/oblique_topology.py), [oblique_e2_run.sh](../.claude/skills/sit-field-background/tools/oblique_e2_run.sh)
+- フィールド背景のツール（一覧と使い方は [tools/README](../.claude/skills/sit-field-background/tools/README.md)）: [body_floor_overlay.py](../.claude/skills/sit-field-background/tools/body_floor_overlay.py), [body_geometry_json.py](../.claude/skills/sit-field-background/tools/body_geometry_json.py), [body_layout.py](../.claude/skills/sit-field-background/tools/body_layout.py), [body_mask_export.py](../.claude/skills/sit-field-background/tools/body_mask_export.py), [body_register.py](../.claude/skills/sit-field-background/tools/body_register.py), [body_sheet.py](../.claude/skills/sit-field-background/tools/body_sheet.py), [body_step_scan.py](../.claude/skills/sit-field-background/tools/body_step_scan.py), [build_body_prompt.py](../.claude/skills/sit-field-background/tools/build_body_prompt.py), [check_body_image.py](../.claude/skills/sit-field-background/tools/check_body_image.py), [ledger_build.py](../.claude/skills/sit-field-background/tools/ledger_build.py), [ledger_csv_to_yaml_once.py](../.claude/skills/sit-field-background/tools/ledger_csv_to_yaml_once.py), [ledger_flat.py](../.claude/skills/sit-field-background/tools/ledger_flat.py), [ledger_index.py](../.claude/skills/sit-field-background/tools/ledger_index.py), [ledger_views.py](../.claude/skills/sit-field-background/tools/ledger_views.py), [ledger_io.py](../.claude/skills/sit-field-background/tools/ledger_io.py), [ledger_migrate_once.py](../.claude/skills/sit-field-background/tools/ledger_migrate_once.py), [ledger_query.py](../.claude/skills/sit-field-background/tools/ledger_query.py), [ledger_write_rows.py](../.claude/skills/sit-field-background/tools/ledger_write_rows.py), [oblique_build.py](../.claude/skills/sit-field-background/tools/oblique_build.py), [oblique_common.py](../.claude/skills/sit-field-background/tools/oblique_common.py), [oblique_e2_measure.py](../.claude/skills/sit-field-background/tools/oblique_e2_measure.py), [oblique_e2_schedule.py](../.claude/skills/sit-field-background/tools/oblique_e2_schedule.py), [oblique_freshness.py](../.claude/skills/sit-field-background/tools/oblique_freshness.py), [oblique_mask.py](../.claude/skills/sit-field-background/tools/oblique_mask.py), [oblique_mock.py](../.claude/skills/sit-field-background/tools/oblique_mock.py), [oblique_prompt_probe.py](../.claude/skills/sit-field-background/tools/oblique_prompt_probe.py), [oblique_text.py](../.claude/skills/sit-field-background/tools/oblique_text.py), [oblique_register.py](../.claude/skills/sit-field-background/tools/oblique_register.py), [oblique_topology.py](../.claude/skills/sit-field-background/tools/oblique_topology.py), [oblique_e2_run.sh](../.claude/skills/sit-field-background/tools/oblique_e2_run.sh)
 
 ## 台帳の生成ビュー
 
@@ -78,34 +79,35 @@
 | [建物窓列](ledger/建物窓列.yaml) | 5 | 建物の壁ごとの窓列。 | 窓列ID / 建物ID / 部位ID / 個数 / 先頭比 / 間隔比 / 幅比 / 窓台比 / 高さ比 / 窓種別 / 理由 / 決定参照 / 特徴(自由記述) |
 | [建物関係](ledger/建物関係.yaml) | 4 | 建物どうしの関係（渡り廊下で接続など）。 | 通番 / 建物A / 建物B / 関係 / 方角 / 接続端ID / 決定参照 / 特徴(自由記述) |
 | [建物時期差分](ledger/建物時期差分.yaml) | 4 | 建物の時期ごとの差分。 | 建物ID / 時期 / 部位ID / 差分 / 内容 / 決定参照 / 特徴(自由記述) |
-| [端](ledger/端.yaml) | 277 | MAP の端（戸口・開口・縁）。 | 端ID / MAP_ID / 適用時期 / 種別 / 壁 / 壁側 / 面 / 中心 / 沿い範囲 / 相手端 / 幅クラス / 状態 / 通路 / 建物部位ID / 備考 / 決定参照 / 属性JSON / 特徴(自由記述) |
+| [端](ledger/端.yaml) | 279 | MAP の端（戸口・開口・縁）。 | 端ID / MAP_ID / 適用時期 / 種別 / 壁 / 壁側 / 面 / 中心 / 沿い範囲 / 相手端 / 幅クラス / 状態 / 通路 / 建物部位ID / 備考 / 決定参照 / 属性JSON / 特徴(自由記述) |
 | [接続](ledger/接続.yaml) | 137 | 端と端の接続。図は ; 区切りで複数の接続図に属せる。属性JSON は {図ID: {辺の出力キー: 値(null=その図では出さない)}} で図ごとの上書きを持つ。 | 端A / 端B / 種別 / 期待 / ラベル / 方角A / 方角B / 外部 / 無効時期 / 図 / 主路・状態 / 出典注記 / 決定参照 / 属性JSON / 特徴(自由記述) |
 | [接続図設定](ledger/接続図設定.yaml) | 223 | 接続図の描画設定（図ID×項目）。 | 図ID / 項目 / 値 / 型 / 決定参照 |
-| [要素](ledger/要素.yaml) | 304 | MAP 内の要素（家具・物・樹木など）。 | MAP_ID / 適用時期 / 要素ID / 種別 / 名称 / 建物部位ID / 見た目 / 決定参照 / 属性JSON / 特徴(自由記述) |
-| [窓](ledger/窓.yaml) | 32 | MAP の壁の窓。 | 窓ID / MAP_ID / 適用時期 / 壁 / 壁側 / 中心 / 幅 / 種別 / 窓台 / 高さ / 状態 / 沿い範囲 / 建物窓列ID / 連番 / 備考 / 決定参照 / 属性JSON / 特徴(自由記述) |
+| [要素](ledger/要素.yaml) | 323 | MAP 内の要素（家具・物・樹木など）。 | MAP_ID / 適用時期 / 要素ID / 種別 / 名称 / 建物部位ID / 見た目 / 決定参照 / 属性JSON / 特徴(自由記述) |
+| [窓](ledger/窓.yaml) | 33 | MAP の壁の窓。 | 窓ID / MAP_ID / 適用時期 / 壁 / 壁側 / 中心 / 幅 / 種別 / 窓台 / 高さ / 状態 / 沿い範囲 / 建物窓列ID / 連番 / 備考 / 決定参照 / 属性JSON / 特徴(自由記述) |
 | [時期差分](ledger/時期差分.yaml) | 16 | MAP の時期ごとの差分。 | MAP_ID / 時期 / 項目 / 値 / 決定参照 |
-| [既定値](ledger/既定値.yaml) | 89 | 仮置きの既定値（要確認）。 | 既定ID / MAP_ID / 適用時期 / 内容 / 決定参照 |
-| [エリア固定](ledger/エリア固定.yaml) | 22 | エリア単位で固定する指定（机の天面・木の種類・台座など）。 | エリアID / 項目 / 値 / 型 / 決定参照 |
-| [装飾プール](ledger/装飾プール.yaml) | 80 | 装飾プールの設定。 | プールID / 項目 / 値 / 型 / 決定参照 |
-| [語彙](ledger/語彙.yaml) | 136 | 許す・禁じる語彙と英語プロンプト断片。 | 語彙ID / グループ / 値 / 英語断片 / 説明 |
-| [決定](ledger/決定.yaml) | 581 | kako-jun の決定（逐語・出典つき）。status に関係なくプロンプトへ入る。 | 決定ID / 日付 / 対象種別 / 対象ID / 対象名 / 決定の要点 / 逐語 / 出典 / 出典URL / 状態 / 置換先 / プロンプト出力 / 必須語 / 禁止語 / 対象MAP / 備考 / 特徴(自由記述) |
+| [既定値](ledger/既定値.yaml) | 96 | 仮置きの既定値（要確認）。 | 既定ID / MAP_ID / 適用時期 / 内容 / 決定参照 |
+| [エリア固定](ledger/エリア固定.yaml) | 264 | エリア単位で固定する指定（机の天面・木の種類・台座など）。 | エリアID / 項目 / 値 / 型 / 決定参照 |
+| [装飾プール](ledger/装飾プール.yaml) | 150 | 装飾プールの設定。 | プールID / 項目 / 値 / 型 / 決定参照 |
+| [語彙](ledger/語彙.yaml) | 170 | 許す・禁じる語彙と英語プロンプト断片。 | 語彙ID / グループ / 値 / 英語断片 / 説明 |
+| [決定](ledger/決定.yaml) | 635 | kako-jun の決定（逐語・出典つき）。status に関係なくプロンプトへ入る。 | 決定ID / 日付 / 対象種別 / 対象ID / 対象名 / 決定の要点 / 逐語 / 出典 / 出典URL / 状態 / 置換先 / プロンプト出力 / 必須語 / 禁止語 / 対象MAP / 備考 / 特徴(自由記述) |
 | [採用要素](ledger/採用要素.yaml) | 6 | 採用画像から次の絵へ継承する要素。 | 採用要素ID / 素材ID / 元MAP / 要素 / 内容 / 継承先MAP / 継承方法 / 状態 / 確認語 / 決定参照 / 特徴(自由記述) |
-| [素材](ledger/素材.yaml) | 1305 | 素材（画像・マスクなど。没も行で保持）。 | 素材ID / 所有者ID / 種別 / パス / 状態 / 日付 / 来歴 / sha256 / 特徴(自由記述) |
+| [素材](ledger/素材.yaml) | 1306 | 素材（画像・マスクなど。没も行で保持）。 | 素材ID / 所有者ID / 種別 / パス / 状態 / 日付 / 来歴 / sha256 / 特徴(自由記述) |
 | [素材共有](ledger/素材共有.yaml) | 3 | 所有者以外の人物・敵・召喚獣が同一素材を利用する明示的な関係。素材行を複製せず、出典を保持する。 | 共有ID / 利用者ID / 素材ID / 根拠 |
 | [素材更新](ledger/素材更新.yaml) | 143 | 元の素材移行SHAを保持したまま後続の上流更新を記録するSHA連鎖。出典commitと出典パスを必須とする。 | 更新ID / 素材ID / パス / 旧sha256 / 新sha256 / 出典commit / 出典パス / 根拠 |
 | [素材メタデータ](ledger/素材メタデータ.yaml) | 7 | 上流の画像用JSONを安全化してYAML正本に変換した出典とハッシュ。原文の秘匿値は保持しない。 | メタデータID / パス / 所有者ID / 原文sha256 / 安全化sha256 / 出典commit / 安全化方針 |
 | [素材メタデータ値](ledger/素材メタデータ値.yaml) | 704 | 画像用JSONをJSONポインタ・型・値へ分解したYAML正本。JSONは再構築して生成する。 | メタデータID / JSONポインタ / 型 / 値 |
 | [生成物](ledger/生成物.yaml) | 26 | 派生物（JSON）の登録と鮮度検査用ハッシュ。 | 生成物ID / 種別 / パス / 元の表 / 入力ハッシュ / 生成日時 / 再生成コマンド / 備考 |
-| [必須キー](ledger/必須キー.yaml) | 142 | 対象テーブルごとの必須キー定義。 | 対象テーブル / キー / 必須度 / 条件 / 語彙グループ / 説明 |
-| [未決](ledger/未決.yaml) | 1955 | 未決（要確認）の一覧。 | 未決ID / 対象テーブル / 対象ID / キー / 内容 / 状態 / 解決決定ID |
+| [必須キー](ledger/必須キー.yaml) | 146 | 対象テーブルごとの必須キー定義。 | 対象テーブル / キー / 必須度 / 条件 / 語彙グループ / 説明 |
+| [未決](ledger/未決.yaml) | 1982 | 未決（要確認）の一覧。 | 未決ID / 対象テーブル / 対象ID / キー / 内容 / 状態 / 解決決定ID |
 | [キー別名](ledger/キー別名.yaml) | 20 | 列名・キー名の別名と正規名。 | 正規名 / 別名 / 対象テーブル / 説明 |
-| [Issue点検](ledger/Issue点検.yaml) | 480 | Issue の決定候補と決定表の突合結果（audit_issue_decisions.rb が更新。分類=決定表に反映済み／未反映(要取込み)／決定でない／対象外）。 | Issue番号 / コメントURL / 候補の要約 / 分類 / 決定ID / 備考 |
-| [ファイル配置](ledger/ファイル配置.yaml) | 57 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
-| [描画定数](ledger/描画定数.yaml) | 28 | 斜めツール（oblique_mock.py・oblique_topology.py）の寸法・視点・幅クラス・窓種別・台座の飾りの位置。コードはここを読む。 | 定数ID / グループ / 値 / 単位 / 説明 / コード内の名前 |
-| [プロンプト文面](ledger/プロンプト文面.yaml) | 144 | imagegen 用プロンプト・接続表・窓一覧・接続図に出る文面（{名前}=変数の差し込み口）。コードは oblique_text.text で読み、文面を直接持たない。 | 文面ID / 区分 / 文面 / 変数 / 使用箇所 / 備考 |
+| [Issue点検](ledger/Issue点検.yaml) | 529 | Issue の決定候補と決定表の突合結果（audit_issue_decisions.rb が更新。分類=決定表に反映済み／未反映(要取込み)／決定でない／対象外）。 | Issue番号 / コメントURL / 候補の要約 / 分類 / 決定ID / 備考 |
+| [ファイル配置](ledger/ファイル配置.yaml) | 58 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
+| [描画定数](ledger/描画定数.yaml) | 30 | 斜めツール（oblique_mock.py・oblique_topology.py）の寸法・視点・幅クラス・窓種別・台座の飾りの位置。コードはここを読む。 | 定数ID / グループ / 値 / 単位 / 説明 / コード内の名前 |
+| [プロンプト文面](ledger/プロンプト文面.yaml) | 169 | imagegen 用プロンプト・接続表・窓一覧・接続図に出る文面（{名前}=変数の差し込み口）。コードは oblique_text.text で読み、文面を直接持たない。 | 文面ID / 区分 / 文面 / 変数 / 使用箇所 / 備考 |
 | [制作規約](ledger/制作規約.yaml) | 8 | 制作規約の台帳。元資料の提案と確定状態を区別して保持する。 | 規約ID / 対象種別 / 対象ID / 区分 / 内容 / 確度 / 根拠 |
 | [図配置](ledger/図配置.yaml) | 129 | MAPの接続模式図上の順序と座標。地理的な実距離ではない。 | 配置ID / エリアID / MAP_ID / 順番 / X / Y / 図ラベル / 備考 |
 | [エリア構造](ledger/エリア構造.yaml) | 16 | area JSON の体内部位分類など、模式図座標では表せない構造値。経路・型・値で保持する。 | 経路 / 型 / 値 / 根拠 |
+| [エリア景観](ledger/エリア景観.yaml) | 14 | エリアごとの実景の特徴（出典・信頼度つき）と冬の景色の仮想表現（【仮想】明記）。1行=1エリア。MAP の見た目（look）を具体化する前に読む。プロンプトには出さない。 | エリアID / 一言で言い当てる特徴 / 実景の特徴 / 出典 / 信頼度 / 冬の姿(確認できたもの) / 冬の景色の仮想表現 / 描いてはいけないもの / 確認できなかったこと / 備考 |
 | [MAP仕様](ledger/MAP仕様.yaml) | 132 | MAPごとの個別仕様。原表の各行を名前付き列として保持し、MAP行へ重複転記しない。 | 仕様ID / MAP_ID / 原文ID表記 / 節 / 時期 / 一言特徴 / 経路・通行 / 暫定固定 / 原文列名 / 根拠 / 決定参照 / 特徴(自由記述) |
 | [文書ビュー](ledger/文書ビュー.yaml) | 29 | 文書ビューの台帳。元資料の提案と確定状態を区別して保持する。 | ビューID / パス / 元の表 / ヘッダーJSON / 行参照 / 根拠 |
 | [MAP契約](ledger/MAP契約.yaml) | 258 | 旧MAP仕様・契約表の移行先。参考、旧状態、既存素材、通行条件、未決の出典を保持する。 | 契約ID / MAP_ID / 資料区分 / 参照ID / 旧状態 / 画像識別子 / mask・出力 / 具体的TBD / 通行・接続 / 素材状態 / 根拠 / 特徴(自由記述) |
@@ -136,8 +138,8 @@
 | [刀能力配分案](ledger/刀能力配分案.yaml) | 20 | 刀能力配分案の台帳。元資料の提案と確定状態を区別して保持する。 | 配分ID / 人物ID / 刀候補ID / 能力候補ID / 型 / 根拠 / 状態 |
 | [ジョブ候補](ledger/ジョブ候補.yaml) | 4 | ジョブ候補の台帳。元資料の提案と確定状態を区別して保持する。 | 候補ID / 役割 / 人物ID / 履歴 / 候補プール / 根拠 / 状態 |
 | [魔法](ledger/魔法.yaml) | 8 | 魔法の台帳。元資料の提案と確定状態を区別して保持する。 | 魔法ID / 属性 / 魔法名 / 効果 / 根拠 / 状態 |
-| [Issue出典](ledger/Issue出典.yaml) | 1988 | 全Issue本文・コメントの安全化済み出典。原文SHA256と安全化SHA256を区別する。 | 出典ID / Issue番号 / 種別 / URL / 投稿日 / 本文SHA256 / 安全化SHA256 / 本文 / 点検状態 / 備考 |
-| [Issue命題](ledger/Issue命題.yaml) | 3143 | Issue中の命題を分類し、決定・未決・既存台帳へ関連づける。 | 命題ID / 出典ID / 位置 / 要点 / 原文抜粋 / 帰属 / 分類 / 決定ID / 未決ID / 参照先 / 備考 |
+| [Issue出典](ledger/Issue出典.yaml) | 2065 | 全Issue本文・コメントの安全化済み出典。原文SHA256と安全化SHA256を区別する。 | 出典ID / Issue番号 / 種別 / URL / 投稿日 / 本文SHA256 / 安全化SHA256 / 本文 / 点検状態 / 備考 |
+| [Issue命題](ledger/Issue命題.yaml) | 3234 | Issue中の命題を分類し、決定・未決・既存台帳へ関連づける。 | 命題ID / 出典ID / 位置 / 要点 / 原文抜粋 / 帰属 / 分類 / 決定ID / 未決ID / 参照先 / 備考 |
 
 ### 台帳から導出した派生物（手編集禁止）
 
@@ -195,6 +197,7 @@
 | oblique-masks-doc | ドキュメント | 斜め視点マスクの入力・結果の説明 | リンク |  |
 | oblique-masks-data | 機械出力 | 斜め視点マスクの入力JSON・register・結果 | 許可 | docs/production/oblique-masks/README.md |
 | oblique-mocks | 派生物・機械出力 | 斜め視点の plan・decor-pools・connections・dependency-graph（台帳から導出する JSON）と、MAPごとのモック・マスク・生成テイクの測定結果 | 許可 | docs/production/oblique-mocks/connections.md |
+| reference-area-landscape | 調査メモ | エリア景観（台帳 エリア景観.yaml の出典欄が指す）と団地・寺町の作り方の調査メモ。作業メモの保管 | リンク |  |
 | reviews | レビュー記録 | 独立レビュー（red-team）の日付つき記録 | 許可 | docs/reviews/artifact-redteam |
 | verification-body-docs | 生成ドキュメント | 体内の整合表・全接続一覧（自動生成） | リンク |  |
 | verification-body-data | 機械出力 | 体内17MAPの検証画像・割付図・幾何・送信文 | 許可 | verification/body-layout/consistency.md |
@@ -214,7 +217,7 @@
 | asset-field-legacy-masks | 画像正本 | 旧接続の検証専用マスク（可逆WebP） | 許可 | assets/images |
 | asset-field-reference | 画像正本 | 外観参照・採用基準状態（kebab-case・非可逆WebP品質85） | 許可 | assets/images |
 | asset-field-masks | 画像正本 | 体内・寺町（斜め視点）のマスク（mask・edit は可逆、overlay は非可逆。runtime 切替前） | 許可 | assets/images |
-| asset-battle-backgrounds | 画像正本 | 戦闘背景（現存はBG001。BG005は没・削除） | 許可 | assets/images |
+| asset-battle-backgrounds | 画像正本 | 戦闘背景（現存はBG001（没・暫定残置）。BG005は没・削除） | 許可 | assets/images |
 | asset-brand | 画像正本 | ブランド（暫定の文字ロゴ。svg が正本・png は派生） | 許可 | assets/images |
 | ledger-closure | 監査文書 | Issue #156 の元資料ごとの移行先と未解決ゲート | リンク |  |
 | ledger-content-view | 台帳の生成ビュー | 非MAPコンテンツ24表の検索ビュー | リンク |  |

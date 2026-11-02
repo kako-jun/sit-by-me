@@ -6,6 +6,7 @@ root は環境変数 LEDGER_ROOT で差し替える（verify_index_reachable.rb�
 import json
 import os
 from pathlib import Path
+import re
 import shlex
 import shutil
 import subprocess
@@ -398,6 +399,100 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
         self.assertIn("W1: 仕切り", r.stdout)
 
 
+    def edit_fixed(self, change):
+        p = self.work / "docs/ledger/エリア固定.yaml"
+        rows = ledger_io.parse("エリア固定", p.read_text(encoding="utf-8"))
+        change(rows)
+        p.write_text(ledger_io.dumps("エリア固定", rows), encoding="utf-8")
+
+    def test_clean_area_fixed_has_no_error(self):
+        self.assertNotIn("エリア固定", self.verify().stderr)
+
+    def test_target_area_without_desk_is_reported(self):
+        self.edit_fixed(lambda rows: rows.__setitem__(slice(None), [r for r in rows if not (r["エリアID"] == "city" and r["項目"] == "desk.look")]))
+        self.assertIn("エリア固定 city: 項目 desk.look が無い", self.verify().stderr)
+
+    def test_area_without_slab_is_reported(self):
+        self.edit_fixed(lambda rows: rows.__setitem__(slice(None), [r for r in rows if not (r["エリアID"] == "overseas" and r["項目"] == "slab.look")]))
+        self.assertIn("エリア固定 overseas: 項目 slab.look が無い", self.verify().stderr)
+
+    def test_other_area_name_mixed_into_area_fixed_is_reported(self):
+        def mix(rows):
+            for r in rows:
+                if r["エリアID"] == "uchinada" and r["項目"] == "slab.look":
+                    r["値"] += "（寺町・寺院と住居と同じ）"
+        self.edit_fixed(mix)
+        self.assertIn("エリア固定 uchinada.slab.look: 別エリアの名称『寺町・寺院と住居』が混ざっている", self.verify().stderr)
+
+    def test_other_area_map_id_mixed_into_area_fixed_is_reported(self):
+        def mix(rows):
+            for r in rows:
+                if r["エリアID"] == "garden" and r["項目"] == "perimeter.policy":
+                    r["値"] += "（TRM-06 と同じ）"
+        self.edit_fixed(mix)
+        self.assertIn("エリア固定 garden.perimeter.policy: 別エリアの MAP ID（TRM-）が混ざっている", self.verify().stderr)
+
+    def test_unknown_area_in_area_fixed_is_reported(self):
+        self.edit_fixed(lambda rows: rows.append({"エリアID": "nowhere", "項目": "name", "値": "x", "型": "文", "決定参照": ""}))
+        self.assertIn("エリア固定: 未知のエリアID nowhere", self.verify().stderr)
+
+    # ---- エリア景観（#191）
+    def test_clean_area_landscape_has_no_error(self):
+        self.assertNotIn("エリア景観", self.verify().stderr)
+
+    def test_area_landscape_missing_target_area_is_reported(self):
+        self.edit_table("エリア景観", lambda rows: rows.__setitem__(slice(None), [r for r in rows if r["エリアID"] != "garden"]))
+        self.assertIn("エリア景観: 台帳段階=対象のエリア garden の行が無い", self.verify().stderr)
+
+    def test_area_landscape_empty_table_is_reported(self):
+        self.edit_table("エリア景観", lambda rows: rows.clear())
+        self.assertIn("エリア景観: 台帳段階=対象のエリア garden の行が無い", self.verify().stderr)
+
+    def test_area_landscape_virtual_marker_must_lead_the_line(self):
+        def mut(rows):
+            r = next(r for r in rows if r["エリアID"] == "garden")
+            r["冬の景色の仮想表現"] = "雪の松 【仮想】"
+        self.edit_table("エリア景観", mut)
+        self.assertIn("行頭に付けて", self.verify().stderr)
+
+    def test_area_landscape_body_row_is_reported(self):
+        def add(rows):
+            r = dict(rows[0]); r["エリアID"] = "body"; rows.append(r)
+        self.edit_table("エリア景観", add)
+        self.assertIn("エリア景観 body: 体内は作成済みで対象外", self.verify().stderr)
+
+    def test_area_landscape_unknown_area_is_reported(self):
+        def add(rows):
+            r = dict(rows[0]); r["エリアID"] = "nowhere"; rows.append(r)
+        self.edit_table("エリア景観", add)
+        self.assertIn("エリア景観 nowhere: 未知のエリアID", self.verify().stderr)
+
+    def test_area_landscape_without_source_is_reported(self):
+        def mut(rows):
+            next(r for r in rows if r["エリアID"] == "mountain")["出典"] = "調査メモのみ"
+        self.edit_table("エリア景観", mut)
+        self.assertIn("エリア景観 mountain: 出典に URL", self.verify().stderr)
+
+    def test_area_landscape_no_source_with_reason_is_accepted(self):
+        def mut(rows):
+            next(r for r in rows if r["エリアID"] == "overseas")["出典"] = "出典なし（実在モデルを特定しない設計）"
+        self.edit_table("エリア景観", mut)
+        self.assertNotIn("エリア景観 overseas: 出典", self.verify().stderr)
+
+    def test_area_landscape_virtual_line_without_marker_is_reported(self):
+        def mut(rows):
+            r = next(r for r in rows if r["エリアID"] == "uchinada")
+            r["冬の景色の仮想表現"] += "\n風車は白い3枚羽根で海を背にする"
+        self.edit_table("エリア景観", mut)
+        self.assertIn("エリア景観 uchinada: 冬の景色の仮想表現の行に【仮想】が無い", self.verify().stderr)
+
+    def test_area_landscape_required_key_blank_is_reported(self):
+        def mut(rows):
+            next(r for r in rows if r["エリアID"] == "station")["一言で言い当てる特徴"] = ""
+        self.edit_table("エリア景観", mut)
+        self.assertIn("エリア景観 station: 必須キー『一言で言い当てる特徴』が空欄", self.verify().stderr)
+
+
 class LegacyMdReaderTests(unittest.TestCase):
     """旧 md を読む scripts は見出し行の列名で読む（md_table.rb）。列の並び替えで壊れず、台帳管理のMAPは台帳で止まる。"""
 
@@ -580,10 +675,21 @@ class PromptReflectionTests(unittest.TestCase):
             self.assertIn(n, r.stderr)
 
     def test_clean_ledger_passes_and_reports_gated_maps(self):
+        # 屋外の TRM-06〜11・13〜17 は建物・塀・門の look を台帳に記入済み（決定 TRM.looks-from-real-reference。#191）なので『look 未記入』の生成停止は無い。
+        # 必須キー欠落のMAPだけが『ゲートで停止（対象外）』
         r = self.verify()
         self.assertEqual(r.returncode, 0, r.stderr + r.stdout)
         self.assertIn("PASS", r.stdout)
-        self.assertIn("ゲートで停止（対象外）: TRM-06", r.stdout)
+        self.assertNotIn("ゲートで停止（対象外）: TRM-08", r.stdout)
+        self.assertNotIn("生成停止（反映検査は実施）", r.stdout)
+        checked = r.stdout.split("検査したMAP")[1].splitlines()[0]
+        self.assertIn("TRM-12", checked)
+        self.assertIn("TRM-06", checked)  # 屋外MAPも反映検査の対象
+        # 必須キーを未決に戻した MAP はゲートで止まり、対象外として報告される
+        self.edit_row("MAP", "MAP_ID", "TRM-12", **{"壁材": "未決(要確認)"})
+        r = self.verify()
+        self.assertEqual(r.returncode, 0, r.stderr + r.stdout)
+        self.assertIn("ゲートで停止（対象外）: TRM-12", r.stdout)
         self.assertNotIn("検査したMAP（0）", r.stdout)
 
     # ---- 過去に漏れた4事例 + 渡り廊下の窓列
@@ -657,10 +763,272 @@ class PromptReflectionTests(unittest.TestCase):
         self.assertDetects("要点が DECISIONS 節に逐語で現れない")
 
     def test_gated_map_is_reported_not_checked(self):
+        self.edit_row("MAP", "MAP_ID", "TRM-06", **{"壁材": "未決(要確認)"})
         r = self.verify("--maps", "TRM-06,TRM-05")
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertIn("ゲートで停止（対象外）: TRM-06", r.stdout)
         self.assertIn("検査したMAP（1）: TRM-05", r.stdout)
+
+
+    # ---- 時期差分MAPは基準MAPの確定画像を参照に含める（#193）
+    BASE_LINE = "- 基準MAP TRM-05 の確定画像は、このMAP（{era}）と同じ部屋・同じ建物の別時期。"
+
+    def probe(self):
+        r = subprocess.run(self.probe_cmd(), shell=True, env={**os.environ, "LEDGER_ROOT": str(self.work)}, capture_output=True, text=True, cwd=self.work)
+        self.assertEqual(r.returncode, 0, r.stderr)
+        return {rec["map_id"]: rec["prompt"] for rec in json.loads(r.stdout)}
+
+    def adopt_base(self):
+        """合成の採用状態: 素材表に TRM-05 の採用済み背景画像の行を足す（実ファイルは作らない・実台帳は変えない）。"""
+        rows = self.rows("素材")
+        rows.append(dict.fromkeys(ledger_io.SCHEMA["素材"], "") | {"素材ID": "A-TEST-193", "所有者ID": "TRM-05", "種別": "背景(屋内)", "状態": "採用",
+                                                              "パス": "assets/images/fields/reference/synthetic-trm05-adopted.webp", "sha256": "ab" * 32})
+        self.save("素材", rows)
+
+    def build_variant(self, era):
+        out = Path(self.scratch.name) / f"out-{era}"
+        cmd = self.probe_cmd().replace("oblique_prompt_probe.py", "oblique_build.py")
+        plan = shlex.quote(str(self.work / "docs/production/oblique-mocks/TRM-05-plan.json"))
+        r = subprocess.run(f"{cmd} {plan} --variant {era} --out {shlex.quote(str(out))}", shell=True, env={**os.environ, "LEDGER_ROOT": str(self.work)}, capture_output=True, text=True, cwd=self.work)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        key = f"TRM-05-{era}"
+        man = json.loads((out / key / "manifest.json").read_text(encoding="utf-8"))
+        return man["stages"]["prompt"], (out / key / f"{key}-edit-prompt.txt").read_text(encoding="utf-8")
+
+    def test_era_variants_blocked_until_base_is_adopted(self):
+        for era in ("kids", "fire"):
+            prompt = self.probe()[f"TRM-05-{era}"]
+            self.assertIn("- TRM-05: 未確定（依存MAPが採用されるまで", prompt)
+            self.assertIn(self.BASE_LINE.format(era=era), prompt)
+            stage, text = self.build_variant(era)
+            self.assertEqual(stage["status"], "blocked")
+            self.assertIn("TRM-05", stage["unadopted_dependencies"])
+            self.assertEqual(stage["blocked_base"], "TRM-05")
+            self.assertIn("# BLOCKED（基準の採用待ち）", text)
+
+    def test_era_variants_carry_base_image_after_adoption(self):
+        self.adopt_base()
+        for era in ("kids", "fire"):
+            prompt = self.probe()[f"TRM-05-{era}"]
+            self.assertIn("- TRM-05: assets/images/fields/reference/synthetic-trm05-adopted.webp（sha256 abababababab）", prompt)
+            self.assertNotIn("TRM-05: 未確定", prompt)
+            self.assertIn(self.BASE_LINE.format(era=era), prompt)
+            self.assertIn("- TRM-04: assets/images/fields/reference/", prompt)  # 採用要素の元MAP（本堂）の参照は落とさない
+            stage, text = self.build_variant(era)
+            self.assertEqual(stage["status"], "ok")
+            self.assertEqual(stage["unadopted_dependencies"], [])
+            self.assertNotIn("blocked_base", stage)
+            self.assertNotIn("# BLOCKED", text)
+        self.assertEqual(self.verify().returncode, 0)  # 採用後も検証は PASS
+
+    def _fresh_prompt_sha(self, mid="TRM-05-kids", depends=("TRM-05",)):
+        # 起動判定と oblique_build が共有する導出（oblique_freshness）で、この作業コピーの今の入力から prompt 段の input_sha を出す
+        tools = self.work / ".claude/skills/sit-field-background/tools"
+        base = re.sub(r"-(kids|fire|burnt|wc)$", "", mid)
+        variant = mid[len(base) + 1:] or None
+        code = ("import sys;sys.path.insert(0,sys.argv[1]);import oblique_freshness as F;"
+                "print(F.current_prompt_sha(sys.argv[2],sys.argv[3].split(','),sys.argv[4],sys.argv[5] or None))")
+        r = subprocess.run([sys.executable, "-I", "-c", code, str(tools), mid, ",".join(depends), str(self.work / f"docs/production/oblique-mocks/{base}-plan.json"), variant or ""],
+                           capture_output=True, text=True, cwd=self.work, env={**os.environ, "LEDGER_ROOT": str(self.work)})
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        return r.stdout.strip()
+
+    def test_e2_schedule_check_refuses_blocked_prompt_even_if_base_is_canonical(self):
+        # --adopt --canonical だけ（素材表は未採用）でも親は『確定』になるが、プロンプト段が blocked のままなら起動を拒否する（#193）
+        ob = self.work / "docs/production/oblique-mocks"
+        (ob / "TRM-05").mkdir()
+        (ob / "TRM-05/manifest.json").write_text(json.dumps({"adoption": {"canonical": "docs/ledger/未決.yaml"}}), encoding="utf-8")
+        (ob / "TRM-05-kids").mkdir()
+        mf = ob / "TRM-05-kids/manifest.json"
+
+        def check():
+            cmd = f"{shlex.quote(sys.executable)} -I {shlex.quote(str(self.work / '.claude/skills/sit-field-background/tools/oblique_e2_schedule.py'))} check TRM-05-kids"
+            return subprocess.run(cmd, shell=True, capture_output=True, text=True, cwd=self.work)
+
+        mf.write_text(json.dumps({"stages": {"prompt": {"status": "blocked", "unadopted_dependencies": ["TRM-05"]}}}), encoding="utf-8")
+        r = check()
+        self.assertEqual(r.returncode, 1, r.stdout + r.stderr)
+        self.assertIn("プロンプトが blocked", r.stderr)
+        mf.write_text(json.dumps({"stages": {"prompt": {"status": "ok", "input_sha": self._fresh_prompt_sha()}}}), encoding="utf-8")
+        r = check()
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+
+    def test_e2_schedule_check_refuses_validate_error_stale_and_outdated_prompt(self):
+        # 親が確定していても、validate エラー／プロンプト失効／入力 hash 不一致（古い）なら起動を拒否する（#191）
+        ob = self.work / "docs/production/oblique-mocks"
+        (ob / "TRM-05").mkdir()
+        (ob / "TRM-05/manifest.json").write_text(json.dumps({"adoption": {"canonical": "docs/ledger/未決.yaml"}}), encoding="utf-8")
+        (ob / "TRM-05-kids").mkdir()
+        mf = ob / "TRM-05-kids/manifest.json"
+        fresh = self._fresh_prompt_sha()
+
+        def check():
+            return self._sched("check", "TRM-05-kids")
+
+        def put(validate=None, prompt=None):
+            st = {}
+            if validate is not None:
+                st["validate"] = validate
+            if prompt is not None:
+                st["prompt"] = prompt
+            mf.write_text(json.dumps({"stages": st}), encoding="utf-8")
+
+        put({"status": "ok"}, {"status": "ok", "input_sha": fresh})
+        self.assertEqual(check().returncode, 0)
+        # validate=error（プロンプトの記録が ok で hash も合っていても拒否）
+        put({"status": "error", "errors": ["x"]}, {"status": "ok", "input_sha": fresh})
+        r = check()
+        self.assertEqual(r.returncode, 1, r.stdout + r.stderr)
+        self.assertIn("validate エラー", r.stderr)
+        # 失効（stale）
+        put({"status": "ok"}, {"status": "stale", "outputs": {}})
+        r = check()
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("失効", r.stderr)
+        # 入力 hash 不一致（plan・台帳が変わった後の古いプロンプト）
+        put({"status": "ok"}, {"status": "ok", "input_sha": "0" * 64})
+        r = check()
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("プロンプトが古い", r.stderr)
+        # 親が未確定でも validate エラーは理由に並ぶ
+        (ob / "TRM-05/manifest.json").write_text("{}", encoding="utf-8")
+        put({"status": "error", "errors": ["x"]}, {"status": "ok", "input_sha": fresh})
+        r = check()
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("親が未確定", r.stderr)
+        self.assertIn("validate エラー", r.stderr)
+
+    def _sched(self, *args):
+        tool = self.work / ".claude/skills/sit-field-background/tools/oblique_e2_schedule.py"
+        return subprocess.run([sys.executable, "-I", str(tool), *args], capture_output=True, text=True, cwd=self.work)
+
+    def test_e2_schedule_list_and_launch_exclude_blocked_prompt(self):
+        # 基準だけ canonical・素材表は未採用（プロンプト段 blocked）。check と同じ判定を list／launch も使う。
+        # 使わないと list が『起動可』と出し launch が起動して、run.sh が check で落ちる（エラーは e2-launch.log にしか出ない）（#193）
+        ob = self.work / "docs/production/oblique-mocks"
+        (ob / "TRM-05").mkdir()
+        (ob / "TRM-05/manifest.json").write_text(json.dumps({"adoption": {"canonical": "docs/ledger/未決.yaml"}}), encoding="utf-8")
+        (ob / "TRM-05-kids").mkdir()
+        mf = ob / "TRM-05-kids/manifest.json"
+        mf.write_text(json.dumps({"stages": {"prompt": {"status": "blocked", "unadopted_dependencies": ["TRM-05"]}}}), encoding="utf-8")
+
+        def kids_row(out):
+            return next(l for l in out.splitlines() if l.startswith("TRM-05-kids "))
+
+        r = self._sched("list")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        row = kids_row(r.stdout)
+        self.assertIn("プロンプトが blocked（再生成が必要", row)
+        self.assertNotIn(" 可 ", row)
+        r = self._sched("launch", "--dry-run")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertNotIn("[dry-run] TRM-05-kids", r.stdout)
+        self.assertIn("スキップ TRM-05-kids", r.stdout)
+        self.assertIn("プロンプトが blocked", r.stdout)
+        # blocked でなければ起動可・launch の対象になる
+        mf.write_text(json.dumps({"stages": {"prompt": {"status": "ok", "input_sha": self._fresh_prompt_sha()}}}), encoding="utf-8")
+        self.assertIn(" 可 ", kids_row(self._sched("list").stdout))
+        r = self._sched("launch", "--dry-run")
+        self.assertIn("[dry-run] TRM-05-kids", r.stdout)
+        self.assertNotIn("スキップ TRM-05-kids", r.stdout)
+
+    def test_base_map_itself_is_not_blocked_by_itself(self):
+        self.assertNotIn("基準MAP TRM-05 の確定画像は", self.probe()["TRM-05"])
+
+    def test_era_variant_without_base_dependency_in_ledger_is_detected(self):
+        self.delete_rows("時期差分", lambda r: r["MAP_ID"] == "TRM-05" and r["時期"] == "kids" and r["項目"] == "依存")
+        self.assertDetects("TRM-05-kids", "依存に基準MAP TRM-05 が無い")
+
+    def test_era_variant_plan_dropping_base_reference_is_detected(self):
+        plan = self.work / "docs/production/oblique-mocks/TRM-05-plan.json"
+        doc = json.loads(plan.read_text(encoding="utf-8"))
+        doc["variants"]["fire"]["depends_on"] = []
+        plan.write_text(json.dumps(doc, ensure_ascii=False), encoding="utf-8")
+        self.assertDetects("TRM-05-fire", "基準MAP TRM-05 が REFERENCE IMAGES に現れない")
+
+    def test_base_reference_usage_sentence_removed_from_ledger_is_detected(self):
+        # 文面行が台帳から消えると、プロンプトを導出するツール側が止まる（検査 (vi) の tpl.nil? 分岐の手前）。特定のメッセージで検出されること
+        self.delete_rows("プロンプト文面", lambda r: r["文面ID"] == "PR.reference.base-era")
+        self.assertDetects("PR.reference.base-era")
+
+    def test_base_reference_usage_sentence_missing_from_prompt_is_detected_by_check_vi(self):
+        # 台帳には文面があるのにプロンプトへ入らない（生成側の脱落）。検査 (vi) の『使い方の文が REFERENCE IMAGES 節に現れない』分岐を直接通す
+        q = self.work / ".claude/skills/sit-field-background/tools/ledger_query.py"
+        text = q.read_text(encoding="utf-8")
+        line = "        L_.append(X.base_era_reference(base, map_id[len(base) + 1:]))\n"
+        self.assertIn(line, text)
+        q.write_text(text.replace(line, "        pass\n"), encoding="utf-8")
+        self.assertDetects("基準参照の使い方の文（プロンプト文面.PR.reference.base-era）が REFERENCE IMAGES 節に現れない")
+
+
+    # ---- (vii) エリア固定（#195）。机・台座・木が落ちない／別エリアのエリア固定が漏れない
+    def edit_pools_json(self, change):
+        path = self.work / "docs/production/oblique-mocks/decor-pools.json"
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        change(doc)
+        path.write_text(json.dumps(doc, ensure_ascii=False), encoding="utf-8")
+
+    def test_area_fixed_dropped_from_prompt_is_detected(self):
+        # 机・台座・木のどれが落ちても、そのMAPで検出される（装飾プールが エリア固定 を継承しなくなった状態を再現）
+        def drop(doc):
+            doc["areas"]["teramachi"]["slab"]["look"] = "別の台座"
+        self.edit_pools_json(drop)
+        self.assertDetects("エリア固定 teramachi.slab.look がプロンプトに現れない")
+
+    def test_area_fixed_tree_dropped_from_prompt_is_detected(self):
+        def drop(doc):
+            doc["areas"]["teramachi"]["trees"]["deadtree"]["look"] = "別の木"
+        self.edit_pools_json(drop)
+        self.assertDetects("エリア固定 teramachi.trees.deadtree.look がプロンプトに現れない")
+
+    def test_other_area_materials_leaking_into_prompt_are_detected(self):
+        # 寺町のMAPに別エリア（city）固有の木の見た目が載った状態
+        city_look = next(r["値"] for r in self.rows("エリア固定") if r["エリアID"] == "city" and r["項目"] == "trees.kinds[0].look")
+
+        def leak(doc):
+            doc["areas"]["teramachi"]["trees"]["deadtree"]["look"] = city_look
+        self.edit_pools_json(leak)
+        self.assertDetects("エリア固定 city.trees.kinds[0].look が別エリア teramachi のMAPのプロンプトに漏れている")
+
+    def test_pool_without_area_fixed_rows_is_detected(self):
+        self.delete_rows("エリア固定", lambda r: r["エリアID"] == "teramachi" and r["項目"].startswith("trees."))
+        self.assertDetects("エリア teramachi", "エリア固定")
+
+    def test_every_teramachi_prompt_carries_the_horizontal_grain_consistently(self):
+        # 決定 TRM.desk とエリア固定 desk.look/desk.grain の板目の向きが食い違わない（決定は『縦横』ではなく『横』）
+        decision = next(r["決定の要点"] for r in self.rows("決定") if r["決定ID"] == "TRM.desk")
+        self.assertNotIn("縦横", decision)
+        self.assertIn("横に走る板目", decision)
+        for r in self.rows("エリア固定"):
+            if r["エリアID"] == "teramachi" and r["項目"] == "desk.grain":
+                self.assertEqual(r["値"], "horizontal")
+        look = next(r["値"] for r in self.rows("エリア固定") if r["エリアID"] == "teramachi" and r["項目"] == "desk.look")
+        self.assertIn("（横）", look)
+        for mid in (f"TRM-{n:02d}" for n in range(6, 18)):
+            path = ROOT / f"docs/production/oblique-mocks/{mid}/{mid}-edit-prompt.txt"
+            if not path.exists():  # validate エラーで失効させた MAP（屋外の look 未記入など）は古いプロンプトを残さないので無い
+                continue
+            text = path.read_text(encoding="utf-8")
+            self.assertNotIn("縦横に走る", text, mid)
+            self.assertIn("横に走る板目", text, mid)
+
+
+class E2RunMarkerTests(unittest.TestCase):
+    """oblique_e2_run.sh が imagegen に渡さない末尾（DRAFT/BLOCKED）の始まりを sed で探す行マーカーが、
+    台帳が出す全 edit-prompt の行に一致すること。元バグ（『台帳ゲート』と書いて一致せず削除が空振りした）を検出できなかったための回帰テスト（#193）。"""
+
+    def test_run_script_marker_matches_every_edit_prompt(self):
+        import re
+        script = (ROOT / ".claude/skills/sit-field-background/tools/oblique_e2_run.sh").read_text(encoding="utf-8")
+        m = re.search(r"^LEDGER_MARKER_RE='([^']+)'$", script, re.M)
+        self.assertIsNotNone(m, "run.sh に LEDGER_MARKER_RE の定義が無い")
+        self.assertIn('sed "/$LEDGER_MARKER_RE/,\\$d"', script, "run.sh が LEDGER_MARKER_RE で削除していない")
+        marker = re.compile(m.group(1))
+        prompts = sorted((ROOT / "docs/production/oblique-mocks").glob("*/*-edit-prompt.txt"))
+        self.assertTrue(prompts)
+        for p in prompts:
+            lines = p.read_text(encoding="utf-8").splitlines()
+            self.assertTrue(any(marker.search(l) for l in lines), f"{p.name}: run.sh の削除マーカー {m.group(1)!r} に一致する行が無い")
 
 
 class IssueAuditBase(unittest.TestCase):
@@ -883,6 +1251,7 @@ class MissingKeysGateTests(LedgerCopyBase):
                               capture_output=True, text=True, cwd=self.work)
 
     def test_gated_map_reports_missing_keys(self):
+        self.edit_row("MAP", "MAP_ID", "TRM-06", **{"壁材": "未決(要確認)"})
         r = self.missing("TRM-06")
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertIn("MISSING:[", r.stdout)
@@ -1399,10 +1768,11 @@ class ConfirmedEdgeBasisTests(LedgerCopyBase):
 
 
 class GatedMapsScopeTests(LedgerCopyBase):
-    """ゲートで止まる MAP（必須キー未決。現状は TRM-06〜17）はプロンプト反映検査の対象外。未決が解消してゲートが開いた MAP は自動で対象に入る。
+    """ゲートで止まる MAP（必須キー未決。現状は無し。TRM-06〜17 は #191 で解消）はプロンプト反映検査の対象外。未決が解消してゲートが開いた MAP は自動で対象に入る。
     対象外であることは INDEX と tools/README に明記されている。"""
 
     def test_gated_maps_are_skipped_and_reported(self):
+        self.edit_row("MAP", "MAP_ID", "TRM-15", **{"壁材": "未決(要確認)"})
         r = self.verify_prompt()
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertIn("ゲートで停止（対象外）: TRM-15", r.stdout)
@@ -1410,7 +1780,7 @@ class GatedMapsScopeTests(LedgerCopyBase):
 
     def test_a_map_whose_undecided_keys_are_resolved_enters_the_check_automatically(self):
         # 生成済みの TRM-02 に必須キーの未決を作ってゲートを閉じ（対象外になる）、解消して開ける（自動で対象に戻る）。
-        # 屋外MAP（TRM-06〜17）で試せないのは、床が多角形のMAPは今の v4 プロンプト導出器が未対応でゲートが開いても導出に失敗するため（別件）
+        # 屋外MAP（TRM-06〜17）も同じ（台帳の現状でゲートが開いて検査対象に入っている。test_clean_ledger_passes_and_reports_gated_maps）
         original = next(r for r in self.rows("MAP") if r["MAP_ID"] == "TRM-02")["壁材"]
         self.edit_row("MAP", "MAP_ID", "TRM-02", **{"壁材": "未決(要確認)"})
         closed = self.verify_prompt()
@@ -1430,6 +1800,120 @@ class GatedMapsScopeTests(LedgerCopyBase):
             text = (ROOT / rel).read_text(encoding="utf-8")
             self.assertIn("TRM-06〜17", text, rel)
             self.assertIn("プロンプト反映検査の対象外", text, rel)
+
+
+class AreaFixedAllAreasTests(unittest.TestCase):
+    """#195: 全エリアの エリア固定（机の天面・台座・木・外周）が台帳に揃い、エリア表の4列と矛盾せず、未決は理由つきで未決表に残っている。"""
+
+    COLUMNS = ("机の天面の材質", "台座の素材", "木の種類", "外周の装飾方針")
+
+    @classmethod
+    def setUpClass(cls):
+        def read(table):
+            return ledger_io.parse(table, (ROOT / f"docs/ledger/{table}.yaml").read_text(encoding="utf-8"))
+        cls.areas = read("エリア")
+        cls.fixed = {}
+        for r in read("エリア固定"):
+            cls.fixed.setdefault(r["エリアID"], {})[r["項目"]] = r["値"]
+        cls.decisions = {r["決定ID"]: r for r in read("決定")}
+        cls.undecided = read("未決")
+        cls.vocab = {(r["グループ"], r["値"]) for r in read("語彙")}
+
+    def test_all_fifteen_areas_have_area_fixed_rows(self):
+        self.assertEqual(len(self.areas), 15)
+        for a in self.areas:
+            rows = self.fixed.get(a["エリアID"], {})
+            for k in ("name", "status", "desk.look", "desk.grain", "slab.look"):
+                self.assertTrue(rows.get(k), f"{a['エリアID']}: エリア固定 {k} が無い")
+            self.assertIn(rows["desk.grain"], ("horizontal", "vertical"))
+
+    def test_area_columns_are_filled_or_left_undecided_with_a_reason(self):
+        for a in self.areas:
+            for col in self.COLUMNS:
+                v = a[col]
+                if v == "未決(要確認)":
+                    open_rows = [u for u in self.undecided if u["対象テーブル"] == "エリア" and u["対象ID"] == a["エリアID"] and u["キー"] == col and u["状態"] == "未決"]
+                    self.assertEqual(len(open_rows), 1, f"{a['エリアID']}.{col}: 未決のまま残すなら未決表に1行が要る")
+                    self.assertIn("【未決のまま残す理由】", open_rows[0]["内容"], f"{a['エリアID']}.{col}")
+                else:
+                    self.assertIn((col, v), self.vocab, f"{a['エリアID']}.{col}={v!r} が語彙に無い")
+
+    def test_every_area_other_than_teramachi_has_its_area_fixed_decision(self):
+        for a in self.areas:
+            if a["エリアID"] == "teramachi":
+                continue
+            d = self.decisions.get(f"{a['区域コード']}.area-fixed")
+            self.assertIsNotNone(d, a["エリアID"])
+            self.assertEqual(d["対象ID"], a["エリアID"])
+            self.assertEqual(d["状態"], "有効")
+            self.assertIn("既定(要確認)", d["決定の要点"])
+            self.assertIn("kako-jun", d["逐語"] + d["出典"] + d["備考"])
+            self.assertEqual(self.fixed[a["エリアID"]]["status_note"].split("】")[0], "【既定(要確認)")
+            # 決定の対象MAPは、そのエリアのMAPだけ（他エリアのMAPのプロンプトへ決定が出ない）
+            prefix = a["区域コード"] + "-"
+            for m in filter(None, d["対象MAP"].split(";")):
+                self.assertTrue(m.startswith(prefix), f"{d['決定ID']}: 対象MAP {m} が別エリア")
+            if d["プロンプト出力"] == "必須":
+                self.assertTrue(d["必須語"] and d["必須語"] in d["決定の要点"])
+
+    def test_resolved_area_undecided_rows_point_to_the_area_decision(self):
+        by_id = {a["エリアID"]: a for a in self.areas}
+        for u in self.undecided:
+            if u["対象テーブル"] == "エリア" and u["状態"] == "解決済み" and u["対象ID"] in by_id:
+                self.assertEqual(u["解決決定ID"], by_id[u["対象ID"]]["区域コード"] + ".area-fixed", u["未決ID"])
+
+    def test_tree_kinds_stay_within_their_totals(self):
+        for aid, rows in self.fixed.items():
+            if aid == "teramachi":
+                continue
+            idx = sorted({int(k.split("[")[1].split("]")[0]) for k in rows if k.startswith("trees.kinds[")})
+            if not idx:
+                self.assertIn(rows["trees.status"], ("undecided", "none"), aid)
+                continue
+            lo = sum(int(rows[f"trees.kinds[{i}].count[0]"]) for i in idx)
+            hi = sum(int(rows[f"trees.kinds[{i}].count[1]"]) for i in idx)
+            self.assertGreaterEqual(lo, int(rows["trees.total[0]"]), aid)
+            self.assertLessEqual(hi, int(rows["trees.total[1]"]), aid)
+            self.assertTrue(rows["trees.forbid"], aid)
+
+
+class AreaLandscapeContentTests(unittest.TestCase):
+    """#191: エリア景観の実台帳。全対象エリア（体内を除く）が揃い、プロンプトに出ていない。"""
+
+    @classmethod
+    def setUpClass(cls):
+        def read(table):
+            return ledger_io.parse(table, (ROOT / f"docs/ledger/{table}.yaml").read_text(encoding="utf-8"))
+        cls.areas = read("エリア")
+        cls.rows = {r["エリアID"]: r for r in read("エリア景観")}
+
+    def test_every_area_except_body_has_a_landscape_row(self):
+        expected = {a["エリアID"] for a in self.areas if a["エリアID"] != "body"}
+        self.assertEqual(set(self.rows), expected)
+        self.assertNotIn("body", self.rows)
+
+    def test_castle_is_edo_period_and_noto_train_is_fictional_and_overseas_is_not_specified(self):
+        self.assertIn("江戸時代", self.rows["castle"]["一言で言い当てる特徴"])
+        self.assertIn("幕末", self.rows["castle"]["一言で言い当てる特徴"])
+        self.assertIn("架空", self.rows["noto_train"]["一言で言い当てる特徴"])
+        self.assertIn("特定しない", self.rows["overseas"]["備考"])
+        self.assertIn("記憶を正本", self.rows["sunnyland"]["備考"])
+
+    def test_real_line_name_is_not_written_in_noto_train_prose(self):
+        r = self.rows["noto_train"]
+        for col, v in r.items():
+            if col == "出典":
+                continue
+            for name in ("のと鉄道", "能登線", "NT100", "NT200", "NT800"):
+                self.assertNotIn(name, v, f"{col}")
+
+    def test_landscape_text_is_not_in_any_edit_prompt(self):
+        prompts = sorted((ROOT / "docs/production/oblique-mocks").glob("*/*-edit-prompt.txt"))
+        self.assertTrue(prompts)
+        for p in prompts:
+            text = p.read_text(encoding="utf-8")
+            for aid, r in self.rows.items():
+                self.assertNotIn(r["一言で言い当てる特徴"], text, f"{p.name} に {aid} のエリア景観が出ている（プロンプトには出さない）")
 
 
 class HandoffAndDocsFollowTests(unittest.TestCase):

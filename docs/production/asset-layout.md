@@ -46,7 +46,7 @@
 | 外観参照 | 配置ID `asset-field-reference` | 実在パス例: `assets/images/fields/reference/<kebab-case>.webp`。外観参照専用（平置き・小文字英数とハイフンのみ）。mapの「実行時参照」には使わない |
 | 体内マスク（runtime切替前） | 配置ID `asset-field-masks` | 実在パス例: `assets/images/fields/masks/BDY-NN-{mask,traversal-edit,mask-overlay}.webp`（17箇所×3=51ファイル）。`mask`・`traversal-edit` は**可逆WebP（VP8L）**、`mask-overlay` は確認用の**非可逆WebP**。体内17MAPのマスク（#142）。台帳は blocked 維持で runtime 未切替 |
 | 斜め視点マスク（runtime切替前） | 配置ID `asset-field-masks` | 実在パス例: `assets/images/fields/masks/TRM-02-{mask,traversal-edit,mask-overlay}.webp`。寺町の斜め視点（#144）。形式は体内マスクと同じ（mask・edit は可逆WebP、overlay は非可逆）。入力JSON・結果は `docs/production/oblique-masks/`。台帳は blocked 維持（ready にしない） |
-| 戦闘背景 | 配置ID `asset-battle-backgrounds` | 実在パス例: `assets/images/battle-backgrounds/BGxxx.webp`（現存はBG001・BG005のみ。BG002〜004・006〜009は削除済みで、復元は git 履歴 `1bb09d0` から。戦闘背景の新規作成は別件）。下表 |
+| 戦闘背景 | 配置ID `asset-battle-backgrounds` | 実在パス例: `assets/images/battle-backgrounds/BGxxx.webp`（現存はBG001のみ（没・暫定残置。決定 BG001.rejected-provisional-keep）。BG002〜004・006〜009は削除済み、BG005も没で削除済み（2026-10-21）で、復元は git 履歴 `1bb09d0` から。戦闘背景の新規作成は別件）。下表 |
 | フィールド感情吹き出し | 配置ID `asset-field-emotion` | 実在パス例: `assets/images/effects/field-emotion/field-emotion-{exclaim,question,dots}.png`。256x256 透過PNG（#170、[registry](../field-emotion-registry.md)）。配置は暫定（#139 と整合時に再検討） |
 | 人物共通の採用素材 | 配置ID `asset-shared-adopted` | 実在パス例: `assets/images/characters/shared/anonymous-elder-woman.webp`、`anonymous-kid-girl-short.webp`。透過切り抜き WebP。`-v数字` で終わる名は不可（候補は `shared/candidates/`） |
 | ブランド | 配置ID `asset-brand` | 実在パス例: `assets/images/brand/logo.svg`（正本）、`logo.png`（SVG派生、WebP化しない）。暫定の文字ロゴ（SIT BY ME）。ゲームIDではない。のち差し替え予定 |
@@ -60,8 +60,8 @@
 
 | BG ID | 元ファイル | 状態 |
 |---|---|---|
-| BG001 | bg-a.png | カメラ参照。旧状態を維持 |
-| BG005 | stage-b.png | 既存採用舞台 |
+| BG001 | bg-a.png | 没（比率はよいが立体が不自然）。暫定で残置し、よりよい戦闘背景ができたら同じパスに上書き予定。立体は参考にしない（比率のみ）。決定 BG001.rejected-provisional-keep |
+| BG005 | stage-b.png | 没・削除済み（2026-10-21）。現存しない |
 
 M001の旧640px透過画像は移動で品質再承認しない。今後の再生成は敵スキルの45°・4グリッド契約を使い、既存画像をそのまま新規約passと扱わない。
 

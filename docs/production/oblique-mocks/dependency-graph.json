@@ -1,6 +1,6 @@
 {
  "schema": "sit-oblique-deps/1",
- "note": "依存グラフ。判定基準=『同じ建物・扉・家具・場所を複数枚で描くか』。共有するなら先に確定した画像を参考画像として後続へ渡す（直列）。共有しないなら並列。屋内→屋外の順（扉・渡り廊下は室内が確定してから外観）。戸口で接続する2枚は扉を共有するので室内が親。道の端の連続（地面・用水の流れ）だけの接続は共有とみなさない（要確認の項目は dependency-notes.md）。TRM-01 は廃止（TRM-03 へ統合）。TRM-06〜17 の plan は別ブランチ teramachi-rest-mocks-20261023（読むだけ）。",
+ "note": "依存グラフ。判定基準=『同じ建物・扉・家具・場所を複数枚で描くか』。共有するなら先に確定した画像を参考画像として後続へ渡す（直列）。共有しないなら並列。屋内→屋外の順（扉・渡り廊下は室内が確定してから外観）。戸口で接続する2枚は扉を共有するので室内が親。道の端の連続（地面・用水の流れ）だけの接続は共有とみなさない（要確認の項目は dependency-notes.md）。TRM-01 は廃止（TRM-03 へ統合）。TRM-06〜17 の plan・モックは新台帳から再生成済み（#191）。",
  "maps": {
   "TRM-02": {
    "depends_on": [
@@ -118,8 +118,8 @@
  },
  "_provenance": {
   "source": "MAP.依存MAP|時期差分|接続図設定",
-  "input_sha": "5350b7c180dd8dff27af82af15bf55ffb0c989c242147043095a543814b51cc1",
-  "generated_at": "2026-10-25T18:45",
+  "input_sha": "a11ea36b182df7e0fdcde507dae30f0ce04a579588b4f09885e2bc97d9efe0e2",
+  "generated_at": "2026-10-30T11:15",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-dependency-graph",
   "do_not_edit": true

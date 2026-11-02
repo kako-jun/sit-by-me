@@ -1,0 +1,100 @@
+{
+ "ledger": {
+  "decisions": [
+   "TRM.trees-draw",
+   "TRM.trees-pine",
+   "TRM.desk",
+   "TRM.default-era-diff-none",
+   "TRM-danchi.showa-white-concrete",
+   "TRM-12.neighbor-rooms",
+   "TRM-12.two-rooms-one-entrance",
+   "TRM-12.no-bathtub",
+   "TRM-danchi.door-design",
+   "TRM-12.danchi-decor-pool",
+   "TRM-12.layout-2dk",
+   "TRM-12.floor-unspecified",
+   "TRM-12.windows-two-rooms",
+   "TRM-12.entrance-concrete-floor"
+  ],
+  "era_suffix": null,
+  "inherits": [],
+  "input_sha": "32da16e66d3ba5d4bed53db4cd42a2984797d9631df8900055cb847ca4817e49",
+  "references": [],
+  "row_id": "TRM-12",
+  "tables": "docs/ledger/*.yaml"
+ },
+ "map_id": "TRM-12",
+ "plan": "docs/production/oblique-mocks/TRM-12-plan.json",
+ "plan_sha256": "7326146849f6be8a6495e035c2235fcf1581ea218a07d150a65f87bd947fcde1",
+ "schema": "sit-oblique-manifest/1",
+ "stages": {
+  "mask": {
+   "exit_components": {
+    "TRM-12.door": [
+     1
+    ]
+   },
+   "input_sha": "a856639ecb5b0c776ed224b86db4579a8629fe66b7c2b788ef838a5c6904e67c",
+   "outputs": {
+    "TRM-12-exits.png": "dbe4358950b313805164b3b01683cac9eb4aa4c1bfb35d6ea39faf9897a3c129",
+    "TRM-12-mask.json": "35c29b091f1d72686e0c3ea59b25f2bcccbe7103b5158902244494a2a2e86caf",
+    "TRM-12-mask.png": "3dfc62cf1abfdbd86d23698ee4c450d5024ff6742b96f93d691a2b48aa87bab4"
+   },
+   "status": "ok",
+   "white_components": 1
+  },
+  "mock": {
+   "input_sha": "a856639ecb5b0c776ed224b86db4579a8629fe66b7c2b788ef838a5c6904e67c",
+   "outputs": {
+    "TRM-12-clean.png": "061488e21b01cbac05ceecce38f47ae2fab21053faffe85ea4babb082a6124ae",
+    "TRM-12-review.png": "2479ca21a51ef702dfafd3d58450a39eb9edd37c83e7e9a12462db946b7d273e"
+   },
+   "status": "ok"
+  },
+  "occlusion": {
+   "input_sha": "a856639ecb5b0c776ed224b86db4579a8629fe66b7c2b788ef838a5c6904e67c",
+   "outputs": {
+    "TRM-12-occlusion-depth.png": "3a3dca2cb3b92e0232f76739bf0a010df5b5999927694e2e93c6f16064404247",
+    "TRM-12-occlusion-edit.png": "a602b179b879b5cb6393ed9640d63ad896370c682e729f2c825328e0fb1246d0",
+    "TRM-12-occlusion-overlay.png": "6052176da6321068e58a1823528e4795ee074fe0ac682ccf0c37493374d3e542",
+    "TRM-12-occlusion.json": "72b7909d90e1975648a471451e8ba489d1fa27fa17e87c0216525dddeff6b7b4",
+    "TRM-12-occlusion.png": "ee3d983332b6e996d7fad3003bd6c17cfe4c2d10a3284c8250a1604c988cefaa"
+   },
+   "status": "ok"
+  },
+  "prompt": {
+   "input_sha": "2c47e0a2080f8ad0ec3a5988e9306a83e1e337028a9914070c0f35d67b0461ef",
+   "outputs": {
+    "TRM-12-edit-prompt.txt": "addf35b33868ab6c897519dfcf40dfe350f41c3be0ee833fb09033d5d3fa8ffb"
+   },
+   "status": "ok",
+   "unadopted_dependencies": []
+  },
+  "validate": {
+   "errors": [],
+   "input_sha": "47683692a682c7410407a0fdb6386c827522b999234f36f34da6df7557279c35",
+   "outputs": {},
+   "status": "ok",
+   "warnings": [
+    "既定（要確認）: 間取りは昭和の標準的な2DK（台所兼食事室＋居室2）の自然な図面。根拠: 公営住宅の標準設計51C型（食寝分離・居室2つ＋広い台所。nomu.com）、公団の標準設計55型（2DK。UR）。金沢・石川の県営住宅の図面は確認できていないので、部屋の大きさ・並びは既定。（決定 TRM-12.layout-2dk）",
+    "既定（要確認）: 入口（ドア）は南壁に1つだけで、南壁の外が廊下（片廊下型。階段室型でなく、各戸の入口が廊下に面する。県営住宅が片廊下型かは確認できていない）。玄関から台所（DK）に入り、台所から居室A（居間）・居室B（寝室）へ入る。居室A・B間に直接の出入口は作らない。（決定 TRM-12.layout-2dk）",
+    "既定（要確認）: 北壁に居室A・居室Bそれぞれの掃き出し窓（幅200）。南壁（廊下側）に窓は作らない。窓の種類・サッシの材質は確認できていない。（決定 TRM-12.layout-2dk）",
+    "TRM-12 は事故後〜壮年の時期の部屋（map-specifications）。モックは時期差を持たない。",
+    "車椅子の回転余地（直径150）: 台所の西半分（玄関の北）、居室Aの中央（x485〜635・y425〜575）、居室Bの南半分（x860〜1010・y440〜620）、台所の西側（x416〜760）に家具を置かず空けた。直径は既定。通路は経路（paths）で幅2人分を検証。（決定 TRM-12.layout-2dk）",
+    "既定（要確認）: 両隣に部屋がある（kako-jun 指示）。西壁・東壁は隣室との境の壁（窓も戸口も無い）。隣室は描かない。南北の位置関係（どの壁が隣か）は西・東と既定。（決定 TRM-12.layout-2dk）",
+    "既定（要確認）: 風呂なし（kako-jun 指示）。浴室・風呂場・シャワー室は描かない（バスタブ含む）。トイレは、調査で県営住宅の有無が確認できなかったので描かない（未決 U-2920）。（決定 TRM-12.layout-2dk）",
+    "既定（要確認）: 家具は昭和の標準的な品目の箱: 台所（東壁沿いに冷蔵庫・流し台・ガス台、中央寄りに食卓・椅子2。南の壁沿いは斜め視点で壁に隠れるため避けた）、居室A（テレビ台・たんす・卓）、居室B（布団2組・押入）。品目と位置は台帳に無く既定。流し台がステンレスなのは公団標準の調査に基づく。他は一般的な品目で出典は未確認。箱の見た目は工作の装飾に任せる。（決定 TRM-12.layout-2dk）",
+    "既定（要確認）: TRM-12.door",
+    "既定（要確認）: open-dk-a",
+    "既定（要確認）: open-dk-b"
+   ]
+  },
+  "wire": {
+   "input_sha": "b99983fb3640835a59a4574a83751f154d86752a5c64d239e7304a2ed51c3e01",
+   "outputs": {
+    "wire-TRM-12.png": "3fcd5d7b2500bc207f963971e426fb7e5288c305e265499b6613fc64c2d77e8a"
+   },
+   "status": "ok"
+  }
+ }
+}

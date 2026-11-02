@@ -89,6 +89,8 @@ def load_plan(path, variant=None):
             p[k] += v.get("add", {}).get(k, [])
         p["name"] = v.get("name", p["name"]); p["subtitle"] = v.get("subtitle", p.get("subtitle", ""))
         p["assumptions"] = p.get("assumptions", []) + v.get("assumptions", [])
+        if "depends_on" in v:  # 時期差分MAPの依存（台帳 時期差分.依存＝基準MAP）を先頭に足す。基準MAPの依存（採用要素の元MAPなど）は残す（#193）
+            p["depends_on"] = list(v["depends_on"]) + [d for d in p.get("depends_on", []) if d not in v["depends_on"]]
         p["variant"] = variant
         p["map_id"] = p["map_id"] + "-" + variant
     p.pop("variants", None)

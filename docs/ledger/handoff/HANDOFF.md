@@ -1,6 +1,6 @@
 # 現行台帳との照合（2026-10-26・WIP）
 
-表（docs/ledger/）67枚。決定581（有効571・訂正済み10）、`未決.yaml` に1955件、`ファイル配置.yaml`（54規則）。これは格納行数の実測であり、意味点検や移行の完了件数ではない。U-050を含む未決を維持し、Issue出典1988件・命題3143件は全命題を精読して分類済み（既存台帳参照45・決定反映919・作業記録1898・提案125・撤回・訂正43・未決反映113・要確認0）。出典の「点検状態」は全1988件が確認済み。話者表記がなく本人決定と読めなかった要確認38件は、kako-jun が「私の判断だ」と回答済み（Issue #156 のコメント https://github.com/kako-jun/sit-by-me/issues/156#issuecomment-6481417143、2026-10-29）で、本人の決定・判断として決定表へ反映した（既存決定6件へ紐付け、新規決定95件、うち訂正済み2件）。要確認は0件で、`verify_domain_ledger.py --require-reviewed` は通る。判定割れ・重複の疑いは該当決定の備考に「重複の疑い・未統合」と記録。docs/decisions.md の kako-jun 帰属行は最終精読で未取込を洗い出して取り込み済み。
+表（docs/ledger/）68枚。決定635（有効614・訂正済み21）、`未決.yaml` に1982件、`ファイル配置.yaml`（55規則）。これは格納行数の実測であり、意味点検や移行の完了件数ではない。U-050を含む未決を維持し、Issue出典2065件・命題3234件は全命題を精読して分類済み（既存台帳参照51・決定反映928・作業記録1962・提案127・撤回・訂正44・未決反映122・要確認0）。出典の「点検状態」は全2065件が確認済み。話者表記がなく本人決定と読めなかった要確認38件は、kako-jun が「私の判断だ」と回答済み（Issue #156 のコメント https://github.com/kako-jun/sit-by-me/issues/156#issuecomment-6481417143、2026-10-29）で、本人の決定・判断として決定表へ反映した（既存決定6件へ紐付け、新規決定95件、うち訂正済み2件）。「あとから書いたほうが訂正」（kako-jun、2026-10-29）で、日付の新しい決定を有効、古い決定を訂正済みとして衝突3組を解消した（水難事故・ジョブ・日本海の召喚獣の色）。続けて kako-jun の回答（2026-10-29）で、「都会を書いてるわけじゃないので問題ない」により SIT.story-stays-in-k-prefecture と SIT.second-loop-ending-tokyo-aspiration は矛盾なし、「大物に引かれてが正しい。釣れたことによって、落ちる」によりテトラポッドの上にジャンプして落ちたとする部分（SIT.noto-trip-winter-fishing-jump-fall に分割）を訂正済みにした。「使うほどは魔法のみ。アビリティはその刀を装備して戦闘終了で手にはいるapでのみ」によりAP成長は矛盾なし（SIT.post-battle-visible-growth と SIT.growth-mechanism-ff2）、「イマジナリーは全て最後まで曖昧。召喚獣だけじゃない」により青年編の種明かし（SIT.water-summon-youth-reveal に分割）を訂正済みにした。「日本のみじゃない」により『舞台は日本のみ』（SIT.setting-japan-only に分割）を訂正済みにし、東南アジア章・海外関連は有効のまま確認済み。確認待ちは決定表に残っていない。要確認は0件で、`verify_domain_ledger.py --require-reviewed` は通る。判定割れ・重複の疑いは該当決定の備考に「重複の疑い・未統合」と記録。docs/decisions.md の kako-jun 帰属行は最終精読で未取込を洗い出して取り込み済み。
 
 現在の件数・列・配置規則は [INDEXの生成ビュー](../../INDEX.md#台帳の生成ビュー) でも確認する。この節の実測と以下の歴史的スナップショットを混同しない。
 
@@ -29,7 +29,7 @@ kako-jun「csvが本当にいいのか？yamlとかのほうが管理しやす�
   - (e) 旧mdは見出し行の列名で読む（`scripts/md_table.rb`）: build_map_prompt.rb・verify_map_ledger.rb・map_graph.rb・render_map_atlas.rb。**第2段階で置換済み**: render_sunnyland_topology.rb（サニーランドのMAP仕様は列名で確認し、接続は台帳参照）。未対応: render_body_topology.rb・render_late_topology.rb。
   - (f) 畳の記述を TRM.no-tatami と整合、確定済みの戸口の位置・幅のTBDを台帳参照に、TRM-05 寝室方針の3表重複を決定ID参照に、`teramachi-rebuild-candidates.md` を参照のみに、寺町の legacy status を『台帳』に（verify_map_ledger が強制）。
   - (h) 運用を SKILL.md・tools/README・INDEX 冒頭に明記。(i) `docs/ledger-views/*.md`（`ledger_views.py build|check`。verify_ledger.rb が検査）。
-- 残り: (g) 測定器、(j) 既定値の統合、Issue点検の未反映（要取込み）378 件の仕分け（見出し『決定』の38件優先）、建物表の入れ子化、独立レビュー（opus）→PR。第2段階（体内・全MAP）。
+- 残り: (g) 測定器、(j) 既定値の統合、Issue点検の未反映（要取込み）37 件の裁定（台帳未反映・決定化候補は kako-jun の裁定待ち。379件→37件に仕分け済み。決定化したら該当行の【手動】を外すか分類を「決定表に反映済み」＋決定IDに更新する。【手動】行は `--write` でも検査でも保持・除外されるため、自動では反映済みに上がらず verify_ledger の警告件数が古いまま残る）、建物表の入れ子化、独立レビュー（opus）→PR。第2段階（体内・全MAP）。
 
 # 【handoff/ の削除手順（第2段階以降で実施。ここには手順だけ書く。削除そのものはまだしない）】
 `docs/ledger/handoff/` の各ファイルの行き先（吸収してから `git rm`。1コミットずつ、`ledger_index.py build`・`ruby scripts/verify_index_reachable.rb` を通す）:

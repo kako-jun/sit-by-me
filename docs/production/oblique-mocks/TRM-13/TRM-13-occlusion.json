@@ -1,0 +1,99 @@
+{
+ "schema": "sit-oblique-mock-occlusion/1",
+ "map_id": "TRM-13",
+ "size": [
+  1672,
+  941
+ ],
+ "rule": "スプライトの足元y < depth[画素] の画素だけ、occlusion の白で隠す。奥壁・キャラの体が重ならない物は出さない。戸口の開口は抜く。歩行マスクとは別レイヤー（前景に隠れる床を通行不能にしない）。",
+ "char_px": [
+  67,
+  100
+ ],
+ "occluders": [
+  {
+   "id": "retaining-w",
+   "kind": "wall",
+   "base_y": 108,
+   "area_px": 15201,
+   "body_overlap_px": 2370
+  },
+  {
+   "id": "retaining-e",
+   "kind": "wall",
+   "base_y": 108,
+   "area_px": 20751,
+   "body_overlap_px": 2288
+  },
+  {
+   "id": "retaining-w",
+   "kind": "wall",
+   "base_y": 162,
+   "area_px": 18570,
+   "body_overlap_px": 2957
+  },
+  {
+   "id": "retaining-e",
+   "kind": "wall",
+   "base_y": 162,
+   "area_px": 22975,
+   "body_overlap_px": 2486
+  },
+  {
+   "id": "retaining-w",
+   "kind": "wall",
+   "base_y": 218,
+   "area_px": 19154,
+   "body_overlap_px": 2911
+  },
+  {
+   "id": "retaining-e",
+   "kind": "wall",
+   "base_y": 218,
+   "area_px": 23539,
+   "body_overlap_px": 2436
+  },
+  {
+   "id": "retaining-e",
+   "kind": "wall",
+   "base_y": 235,
+   "area_px": 16259,
+   "body_overlap_px": 1638
+  },
+  {
+   "id": "retaining-w",
+   "kind": "wall",
+   "base_y": 276,
+   "area_px": 19860,
+   "body_overlap_px": 2980
+  },
+  {
+   "id": "retaining-w",
+   "kind": "wall",
+   "base_y": 335,
+   "area_px": 20572,
+   "body_overlap_px": 3041
+  },
+  {
+   "id": "retaining-w",
+   "kind": "wall",
+   "base_y": 395,
+   "area_px": 21118,
+   "body_overlap_px": 3064
+  },
+  {
+   "id": "retaining-w",
+   "kind": "wall",
+   "base_y": 420,
+   "area_px": 16174,
+   "body_overlap_px": 2163
+  },
+  {
+   "id": "house-sw",
+   "kind": "wall",
+   "base_y": 814,
+   "area_px": 129120,
+   "body_overlap_px": 1419
+  }
+ ]
+}
