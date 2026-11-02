@@ -108,6 +108,13 @@ def box_look(b, pool):
     return b.get("look") or ((pool or {}).get("kinds", {}).get(b.get("kind", "")) or "")
 
 
+# plan の最上位に置ける既知のキー（台帳 MAP.plan追加JSON から入るものを含む）。未知は警告（typo 検出）
+KNOWN_PLAN_KEYS = frozenset({
+    "schema", "map_id", "name", "subtitle", "source", "design", "floors", "walls", "boxes", "doors", "windows", "openings", "markers", "paths",
+    "closed_edges", "no_window_walls", "assumptions", "decor_pool", "depends_on", "indoor", "tree_zones", "variant", "variants", "annotations",
+    "sym_chamfer_room_px", "_hide_walls", "_provenance", "boundaries", "scenery_doors", "variation", "forbid_skip"})
+
+
 def validate_decor(p, E, Wn):
     pid = p.get("decor_pool")
     if not pid:
@@ -169,12 +176,22 @@ def validate_decor(p, E, Wn):
     if pool.get("outdoor"):
         oe, ow = outdoor_look_problems(p, pool)
         E.extend(oe); Wn.extend(ow)
+    # forbid_skip は build_prompt が全MAP（屋内も）に適用するので検査も全MAP
+    for sk in p.get("forbid_skip", []):
+        if not (isinstance(sk, dict) and sk.get("match") and sk.get("reason")):
+            E.append("forbid_skip の各要素に match（外す禁止項目の部分文字列）と reason が必要")
+            continue
+        hits = [f for f in pool.get("forbid", []) if sk["match"] in f]
+        if not hits:
+            E.append(f"forbid_skip の match『{sk['match']}』に当たる禁止項目がプールに無い")
+        elif len(hits) > 1:
+            Wn.append(f"forbid_skip の match『{sk['match']}』が禁止項目 {len(hits)} 件に一致（部分一致で意図しない項目も外れる。1件に絞る）")
 
 
 # 屋外MAPで実体（look）を必須にする種類（kako-jun 2026-11-02、Issue #191『モックは最低限の位置関係。それ以外は現実の写真を参考に具体的に』『境界はただの色にしない』）
 OUTDOOR_LOOK_KINDS = ("building", "fence", "retaining", "closure", "gate")
 # 歩けない理由として視覚的に読める語（段差・塀・閉じた門・水など）
-BLOCK_REASON_WORDS = ("土塀", "石垣", "生垣", "板塀", "塀", "垣", "縁石", "段差", "石段", "護岸", "擁壁", "崖", "門", "扉", "用水", "水路", "池", "川", "溝", "堀", "柵", "フェンス", "建物", "壁")
+BLOCK_REASON_WORDS = ("土塀", "石垣", "生垣", "板塀", "縁石", "段差", "石段", "護岸", "擁壁", "断崖", "閉じた門", "閉じた扉", "門扉", "用水", "水路", "水面", "池の", "川面", "側溝", "堀", "柵", "フェンス", "建物", "外壁", "塀")
 # 『歩けない』と書いただけ・ただの地面、は実体にならない
 _GENERIC_GROUND = {"", "地面", "雪", "雪面", "雪の地面", "雪に覆われた地面", "雪に覆われた地面。"}
 
@@ -216,11 +233,6 @@ def outdoor_look_problems(p, pool):
         tw = tree_room_warning(p, pool)
         if tw:
             Wn.append(tw)
-    for sk in p.get("forbid_skip", []):
-        if not (isinstance(sk, dict) and sk.get("match") and sk.get("reason")):
-            E.append("屋外MAP: forbid_skip の各要素に match（外す禁止項目の部分文字列）と reason が必要")
-        elif pool and not any(sk["match"] in f for f in pool.get("forbid", [])):
-            E.append(f"屋外MAP: forbid_skip の match『{sk['match']}』に当たる禁止項目がプールに無い")
     return E, Wn
 
 
@@ -495,6 +507,9 @@ def validate_plan(p):
         if d.get("status") == "default":
             Wn.append(f"既定（要確認）: {d['id']}")
     validate_decor(p, E, Wn)
+    for k in p:  # 台帳 plan追加JSON の typo（boundries など）が黙って無視されないよう、未知の最上位キーは警告
+        if k not in KNOWN_PLAN_KEYS:
+            Wn.append(f"plan の最上位キー『{k}』は既知のキーに無い（typo なら無視される。新しいキーなら oblique_build.KNOWN_PLAN_KEYS に足す）")
     dep = p.get("depends_on")
     if dep is not None:
         base = re.sub(r"-(kids|fire|burnt|wc)$", "", p.get("map_id", ""))
@@ -525,6 +540,8 @@ def tree_band_sizes(p):
     """木の帯（台座の上面の台形の内側で、建物・壁の外接矩形の外側）の画素座標と幅。coord_section の TREE PLACEMENT と検査が同じ値を使う。"""
     tl, tr, br, bl = [tuple(map(float, q)) for q in M._DST]
     ws = p["walls"]
+    if not ws:  # 壁が無い plan は建物の外接矩形が定まらない（帯を数えない）
+        return {}
     x0 = min(w["rect"][0] for w in ws); y0 = min(w["rect"][1] for w in ws); x1 = max(w["rect"][2] for w in ws); y1 = max(w["rect"][3] for w in ws)
     ground = [M.proj(x0, y0), M.proj(x1, y0), M.proj(x1, y1), M.proj(x0, y1)]
     hb = max((w["h"] for w in ws if M.is_h(w) and w["rect"][1] == y0), default=0); hf = max((w["h"] for w in ws if M.is_h(w) and w["rect"][3] == y1), default=0)
@@ -540,10 +557,15 @@ def tree_room_warning(p, pool):
     tr = pool["trees"]; need = tr["total"][0]
     min_w, per = X.const_num("tree.min-band-px"), X.const_num("tree.min-area-per-tree")
     if p.get("tree_zones"):
-        area = sum(max(0, z["rect"][2] - z["rect"][0]) * max(0, z["rect"][3] - z["rect"][1]) for z in p["tree_zones"])
-        what = "tree_zones の面積"
+        area = 0
+        for z in p["tree_zones"]:  # plan 単位の rect を画素へ射影してから px² で数える
+            bx0, by0, bx1, by1 = _bbox([M.rect_poly(z["rect"])])
+            area += max(0, bx1 - bx0) * max(0, by1 - by0)
+        what = "tree_zones の面積（画素に射影）"
     else:
         t = tree_band_sizes(p)
+        if not t:
+            return None
         w_, h_ = t["sx1"] - t["sx0"], t["by1"] - t["by0"]
         area = sum(wd * ln for wd, ln in ((t["top"], w_), (t["bottom"], w_), (t["left"], h_), (t["right"], h_)) if wd >= min_w)
         what = f"木の帯（奥{t['top']}px・手前{t['bottom']}px・左{t['left']}px・右{t['right']}px。幅{min_w}px未満は使えない）の面積"
@@ -631,18 +653,22 @@ def _obj_line(b, pool):
 
 def scenery_sections(p):
     """屋外MAPの節: 景色としての扉・門（通行戸口と別枠）／境界物の帯／変化の語。文面は台帳『プロンプト文面』、中身は plan（台帳 MAP の plan追加JSON）の look から来る語だけ。"""
-    L = [X.text("PR.door.scenery-head")]
-    for sd in p.get("scenery_doors", []):
-        where = sd.get("wall") or sd.get("boundary") or ""
-        L.append(X.text("PR.door.scenery-item", id=sd["id"], where=where, look=sd["look"]))
+    blocks = []
+    sds = p.get("scenery_doors", [])
+    if sds:  # 一覧が空なら見出しも出さない（空見出しが『扉を足してよい』と読めるため）
+        blocks.append([X.text("PR.door.scenery-head")] + [X.text("PR.door.scenery-item", id=sd["id"], where=sd.get("wall") or sd.get("boundary") or "", look=sd["look"]) for sd in sds])
     bds = p.get("boundaries", [])
     if bds:
-        L += ["", X.text("PR.boundary.head")]
+        b = [X.text("PR.boundary.head")]
         for bd in bds:
             area = _bbox([M.rect_poly(bd["rect"])]) if bd.get("rect") else _bbox([[M.proj(x, y) for x, y in bd["poly"]]])
-            L.append(X.text("PR.boundary.item", id=bd["id"], bbox=area, look=bd["look"]))
+            b.append(X.text("PR.boundary.item", id=bd["id"], bbox=area, look=bd["look"]))
+        blocks.append(b)
     if p.get("variation"):
-        L += ["", X.text("PR.variation.head")] + [X.text("PR.variation.item", v=v) for v in p["variation"]]
+        blocks.append([X.text("PR.variation.head")] + [X.text("PR.variation.item", v=v) for v in p["variation"]])
+    L = []
+    for b in blocks:
+        L += (["" ] if L else []) + b
     L.append("")
     return L
 
@@ -656,7 +682,7 @@ def build_prompt(p, key, ledger_text=""):
              X.text("PR.role"),
              X.text("PR.geometry", text=pool["geometry_fixed"]),
              X.text("PR.fill", text=pool["fill_rule"]),
-             *([X.text("PR.reality")] if pool.get("outdoor") else []),
+             *([X.text("PR.reality")] + ([X.text("PR.reality.pool-note", text=pool["reality_note"])] if pool.get("reality_note") else []) if pool.get("outdoor") else []),
              door_section(p),
              *(scenery_sections(p) if pool.get("outdoor") else []),
              X.text("PR.notext"), "",

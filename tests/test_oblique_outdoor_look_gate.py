@@ -63,7 +63,9 @@ class OutdoorLookGate(unittest.TestCase):
         self.assertFalse(any("look が空欄" in e for e in E))
 
     def test_approved_maps_are_not_gated(self):
-        # 承認済み・採用済みの TRM-02〜05（屋内・外観 TRM-03）は新ゲートで落ちない
+        # look ゲートで落ちないこと（承認・採用の有無とは無関係）。TRM-02/04/05 は屋内でゲート対象外、TRM-03 は屋外だが look が埋まっているので通る
+        # （通っても屋外の新節〔REALITY・SCENERY DOORS・SURFACES 注記〕はプロンプトに載る＝次回再生成で変わる）。
+        # TRM-12 は『モック承認取り消し→再モック→今日承認』の経緯で、モック承認は最新だが屋内なのでゲート対象外
         for path in PLANS:
             pid = Path(path).name.split("-plan")[0]
             if pid not in ("TRM-02", "TRM-03", "TRM-04", "TRM-05", "TRM-12"):
@@ -85,7 +87,7 @@ class OutdoorLookGate(unittest.TestCase):
 
     def test_reality_prompt_text_in_ledger(self):
         t = X.text("PR.reality")
-        for w in ("位置の指定にすぎない", "色の違いだけ", "歩けなさそう", "古木"):
+        for w in ("位置の指定にすぎない", "色の違いだけ", "歩けなさそう"):
             self.assertIn(w, t)
 
     def test_boundaries_and_scenery_doors_need_look(self):
@@ -100,11 +102,56 @@ class OutdoorLookGate(unittest.TestCase):
         self.assertTrue(any("variation" in w for w in warns))
 
     def test_forbid_skip_must_match_pool_forbid(self):
-        pool = {"outdoor": True, "forbid": ["畳を描かない"]}
-        _, _ = B.outdoor_look_problems(plan(), pool)
-        p = plan(); p["forbid_skip"] = [{"match": "畳", "reason": "屋外"}, {"match": "存在しない", "reason": "x"}, {"match": "畳"}]
-        errs, _ = B.outdoor_look_problems(p, pool)
-        self.assertEqual(len(errs), 2)
+        # 検査は validate_decor の一般部分（屋内プールも対象）
+        for pid, n_err in (("teramachi-winter-exterior", 2), ("teramachi-winter", 2)):
+            p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-03-plan.json"))
+            p["decor_pool"] = pid
+            p["forbid_skip"] = [{"match": "畳", "reason": "屋外"}, {"match": "存在しない", "reason": "x"}, {"match": "畳"}]
+            E, W = [], []
+            B.validate_decor(p, E, W)
+            self.assertEqual(len([e for e in E if "forbid_skip" in e]), n_err, pid)
+
+    def test_forbid_skip_multi_hit_warns(self):
+        p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-03-plan.json"))
+        pool = B.load_decor(p)
+        word = next(w for w in ("の", "を") if sum(1 for f in pool["forbid"] if w in f) > 1)
+        p["forbid_skip"] = [{"match": word, "reason": "x"}]
+        E, W = [], []
+        B.validate_decor(p, E, W)
+        self.assertTrue(any("forbid_skip" in w and "件に一致" in w for w in W))
+
+    def test_tree_zones_area_is_in_pixels(self):
+        p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-03-plan.json"))
+        pool = B.load_decor(p)
+        p["tree_zones"] = [{"id": "z", "rect": [0, 0, 1600, 100]}]
+        bx0, by0, bx1, by1 = B._bbox([M.rect_poly([0, 0, 1600, 100])])
+        w = B.tree_room_warning(p, pool)
+        self.assertTrue(w is None or f"{(bx1 - bx0) * (by1 - by0)}px²" in w, w)
+
+    def test_tree_band_sizes_without_walls_is_empty(self):
+        self.assertEqual(B.tree_band_sizes({"walls": []}), {})
+        self.assertIsNone(B.tree_room_warning({"walls": []}, {"trees": {"total": [4, 6]}}))
+
+    def test_scenery_heading_only_when_list_nonempty(self):
+        p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-03-plan.json"))
+        p["scenery_doors"] = []
+        self.assertNotIn("SCENERY DOORS", "\n".join(B.scenery_sections(p)))
+        p["scenery_doors"] = [{"id": "sd", "wall": "x", "look": "閉じた板戸の門"}]
+        t = "\n".join(B.scenery_sections(p))
+        self.assertIn("SCENERY DOORS", t)
+        self.assertNotIn("描いてよい", t)
+
+    def test_tree_size_note_only_in_teramachi_outdoor_pool(self):
+        self.assertNotIn("古木", X.text("PR.reality"))
+        for mid, want in (("TRM-03", True), ("TRM-02", False)):
+            p = M.load_plan(str(ROOT / f"docs/production/oblique-mocks/{mid}-plan.json"))
+            self.assertEqual("飛び抜けて高い古木" in B.build_prompt(p, mid), want, mid)
+
+    def test_unknown_plan_key_warns(self):
+        p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-03-plan.json"))
+        p["boundries"] = []
+        _, W = B.validate_plan(p)
+        self.assertTrue(any("boundries" in w for w in W))
 
     def test_tree_band_zero_width_warns_for_trm08_but_not_trm03(self):
         for mid, expect in (("TRM-08", True), ("TRM-03", False)):
