@@ -421,10 +421,9 @@ class LedgerVerifier
       err("エリア景観 #{id}: 出典に URL（http で始まる）も『出典なし（理由）』も無い") unless src.match?(%r{https?://}) || src.lines.any? { |l| l.strip.start_with?('出典なし（') && l.strip.end_with?('）') }
       virt = r['冬の景色の仮想表現'].to_s.lines.map(&:strip).reject(&:empty?)
       err("エリア景観 #{id}: 冬の景色の仮想表現が空") if virt.empty?
-      virt.each { |ln| err("エリア景観 #{id}: 冬の景色の仮想表現の行に【仮想】が無い（事実と仮想を区別する）: #{ln[0, 30]}…") unless ln.include?('【仮想】') }
+      virt.each { |ln| err("エリア景観 #{id}: 冬の景色の仮想表現の行に【仮想】が無い（行頭に付けて事実と仮想を区別する）: #{ln[0, 30]}…") unless ln.start_with?('【仮想】') }
     end
-    return if rows.empty? # 表の新設直後（記入前）は完全性を問わない。記入後は下の検査が効く
-
+    # 空表でも完全性を問う（表を空にして検査を黙って通すことを許さない）
     have = rows.map { |r| r['エリアID'] }
     areas.each do |a|
       next unless a['台帳段階'] == '対象'

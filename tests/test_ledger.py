@@ -444,6 +444,17 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
         self.edit_table("エリア景観", lambda rows: rows.__setitem__(slice(None), [r for r in rows if r["エリアID"] != "garden"]))
         self.assertIn("エリア景観: 台帳段階=対象のエリア garden の行が無い", self.verify().stderr)
 
+    def test_area_landscape_empty_table_is_reported(self):
+        self.edit_table("エリア景観", lambda rows: rows.clear())
+        self.assertIn("エリア景観: 台帳段階=対象のエリア garden の行が無い", self.verify().stderr)
+
+    def test_area_landscape_virtual_marker_must_lead_the_line(self):
+        def mut(rows):
+            r = next(r for r in rows if r["エリアID"] == "garden")
+            r["冬の景色の仮想表現"] = "雪の松 【仮想】"
+        self.edit_table("エリア景観", mut)
+        self.assertIn("行頭に付けて", self.verify().stderr)
+
     def test_area_landscape_body_row_is_reported(self):
         def add(rows):
             r = dict(rows[0]); r["エリアID"] = "body"; rows.append(r)
