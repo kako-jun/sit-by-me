@@ -76,15 +76,19 @@ class OutdoorLookGate(unittest.TestCase):
             errs = B.outdoor_look_problems(p, pool)[0] if pool and pool.get("outdoor") else []
             self.assertEqual(errs, [], pid)
 
-    def test_unfilled_outdoor_maps_are_gated(self):
-        # TRM-06〜17 のうち屋外は look 未記入のため止まる（調査結果を台帳に反映するまで意図どおり）
+    def test_filled_outdoor_maps_pass_gate(self):
+        # 寺町の屋外MAP（TRM-03・06〜11・13〜17）は look を台帳に記入済み（決定 TRM.looks-from-real-reference）。空欄に戻ったらここで止める
         gated = []
+        outdoor = 0
         for path in PLANS:
             p = M.load_plan(path)
             pool = B.load_decor(p)
-            if pool and pool.get("outdoor") and B.outdoor_look_problems(p, pool)[0]:
-                gated.append(p["map_id"])
-        self.assertIn("TRM-08", gated)
+            if pool and pool.get("outdoor"):
+                outdoor += 1
+                if B.outdoor_look_problems(p, pool)[0]:
+                    gated.append(p["map_id"])
+        self.assertGreater(outdoor, 0)
+        self.assertEqual(gated, [])
 
     def test_reality_prompt_text_in_ledger(self):
         t = X.text("PR.reality")
@@ -171,9 +175,14 @@ class OutdoorLookGate(unittest.TestCase):
         self.assertTrue(any("boundries" in w for w in W))
 
     def test_tree_band_zero_width_warns_for_trm08_but_not_trm03(self):
-        for mid, expect in (("TRM-08", True), ("TRM-03", False)):
-            p = M.load_plan(str(ROOT / f"docs/production/oblique-mocks/{mid}-plan.json"))
-            self.assertEqual(bool(B.tree_room_warning(p, B.load_decor(p))), expect, mid)
+        # TRM-08 は木の帯が実質ゼロ幅（道MAP）。tree_zones を外すと警告が出る。台帳の tree_zones（民家の裏・庭）がある現行の TRM-08 は警告なし
+        p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-08-plan.json"))
+        self.assertTrue(p.get("tree_zones"))
+        self.assertFalse(B.tree_room_warning(p, B.load_decor(p)))
+        p.pop("tree_zones")
+        self.assertTrue(B.tree_room_warning(p, B.load_decor(p)))
+        p3 = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-03-plan.json"))
+        self.assertFalse(B.tree_room_warning(p3, B.load_decor(p3)))
 
     def test_outdoor_prompt_has_new_sections_and_forbid_skip(self):
         p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-03-plan.json"))

@@ -26,7 +26,7 @@
  },
  "map_id": "TRM-11",
  "plan": "docs/production/oblique-mocks/TRM-11-plan.json",
- "plan_sha256": "af089571a9cec1556e46234393105a76b6993fc44bf3a2574709cc7ec7748129",
+ "plan_sha256": "0fd27be042ed1804f06cc2a0e785e28011caa61a14a226b9246d84c48689cb8b",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -41,50 +41,49 @@
      1
     ]
    },
-   "input_sha": "033cb25ad2a5d0c5b1cbfcfc7ac99444f71de383c642d3a186b44916e865824f",
+   "input_sha": "559f1345f5bb7c058538212be56d7fdc6d0a021f7cb7bb9cf4d6d0b0212d84c5",
    "outputs": {
-    "TRM-11-exits.png": "a5fa2381d78b3d309e77bc82eb228e983ec53d9fbd5108fa5f85301ea951d64b",
+    "TRM-11-exits.png": "efb5037939c9a1f5a0207e611bbef7aa6dec4c6dccaac11bb1b522337a8cc0c2",
     "TRM-11-mask.json": "debbbaefecb0c491fa9172d54db661e5c9911d19d0493ee09657c44a70de41ad",
-    "TRM-11-mask.png": "dace9741e0df115d73c6ed80a0e6d583bc40d588e0e7d2cd4f13e71cc5485440"
+    "TRM-11-mask.png": "4a7ec4b8fdf8161e84c16ab1d9a27855cdbc09e5bcf793a46f319511b15cb441"
    },
    "status": "ok",
    "white_components": 1
   },
   "mock": {
-   "input_sha": "033cb25ad2a5d0c5b1cbfcfc7ac99444f71de383c642d3a186b44916e865824f",
+   "input_sha": "559f1345f5bb7c058538212be56d7fdc6d0a021f7cb7bb9cf4d6d0b0212d84c5",
    "outputs": {
-    "TRM-11-clean.png": "333d9ab53f5fcb884938e9c6ccf611ac88160a43a94c1c493a2f9b5960668012",
-    "TRM-11-review.png": "d5203fa538ecba6a506008e0f6973f6f2f3390c23671464f79ab575138270aa2"
+    "TRM-11-clean.png": "d085a9e29bc90fde4b190508c314e313da8305d5b2c5c24746f9bdcf9f36234d",
+    "TRM-11-review.png": "cf76a9410be7d0a81b805f8a38b7fd90e32d42b8e87d98ae0b6dc5121d59f071"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "033cb25ad2a5d0c5b1cbfcfc7ac99444f71de383c642d3a186b44916e865824f",
+   "input_sha": "559f1345f5bb7c058538212be56d7fdc6d0a021f7cb7bb9cf4d6d0b0212d84c5",
    "outputs": {
-    "TRM-11-occlusion-depth.png": "145ce5ecfdbb1ab4de3df34328ed22f585e4e2bea81c73661880360366430cb6",
-    "TRM-11-occlusion-edit.png": "572dce373340c2cde4982cb60e91d683364c17af0f5926a9a2b95784283a85ed",
-    "TRM-11-occlusion-overlay.png": "f4e936594e75cf590957dd1277b65f648d310b04304f1a01caa971e7f2b5d8a0",
-    "TRM-11-occlusion.json": "29a7e6553e4d7f18a1f9cbc4ecf555d95628e4ccdb56d51f7601375cf42579d3",
-    "TRM-11-occlusion.png": "89d0b7ead786ec2812316355bd3227ca5d7903ee56f13519b999375c6b391204"
+    "TRM-11-occlusion-depth.png": "56429faab5006817cc5ec38acbd4691c9baedaee71fd419ca1b52c584318c9e5",
+    "TRM-11-occlusion-edit.png": "9ebeead4abf33dcc81bcb203eb430aeeb050dc5bcc33c4240fa3a3fcbaab3623",
+    "TRM-11-occlusion-overlay.png": "2bce816d09636d37fca71249202fabcce00777deaef20f8d7f640655fddabd39",
+    "TRM-11-occlusion.json": "3b5e57ce146074b92f93679eef955f6a1e36e3499e38777eca17e5be5f99073d",
+    "TRM-11-occlusion.png": "986d4009aa23dacf817c37fc4f35f4d9ac3d7e9a98a681afe25f4da4d40ce77d"
    },
    "status": "ok"
   },
   "prompt": {
-   "outputs": {},
-   "reason": "validate エラーのため前回のプロンプトは失効（ファイルも削除）。エラーを直して oblique_build.py を再実行する",
-   "status": "stale"
+   "input_sha": "3e9390bce50b72a295f76993404b9539ea3a62c990b213d57dd868a5a6269f11",
+   "outputs": {
+    "TRM-11-edit-prompt.txt": "dfc723ac8b3dbf3fe45ce44c8b43af503e5263bcf7005870cbe345a4834f2afa"
+   },
+   "status": "blocked",
+   "unadopted_dependencies": [
+    "TRM-12"
+   ]
   },
   "validate": {
-   "errors": [
-    "屋外MAP: 壁 closure-n1（kind=fence）の look が空欄。台帳に現実の写真・資料を参考にした材質・色・形・経年・雪の載り方を書いてから生成する（Issue #191）",
-    "屋外MAP: 壁 closure-n2（kind=fence）の look が空欄。台帳に現実の写真・資料を参考にした材質・色・形・経年・雪の載り方を書いてから生成する（Issue #191）",
-    "屋外MAP: 壁 closure-w1（kind=fence）の look が空欄。台帳に現実の写真・資料を参考にした材質・色・形・経年・雪の載り方を書いてから生成する（Issue #191）",
-    "屋外MAP: 壁 closure-e1（kind=fence）の look が空欄。台帳に現実の写真・資料を参考にした材質・色・形・経年・雪の載り方を書いてから生成する（Issue #191）",
-    "屋外MAP: 壁 closure-e2（kind=fence）の look が空欄。台帳に現実の写真・資料を参考にした材質・色・形・経年・雪の載り方を書いてから生成する（Issue #191）"
-   ],
-   "input_sha": "3ad66d52d852a8b444073f80b9e98820ece02f807aed86a03572a564bfb476ec",
+   "errors": [],
+   "input_sha": "4680e5460fe777f0fdf05c47843b89c9435420ae39e4ecef842b4af332ce68af",
    "outputs": {},
-   "status": "error",
+   "status": "ok",
    "warnings": [
     "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
     "既定（要確認）: 棟の配置（A・B棟を北に2つ・C棟を南に長く）・遊具・自転車置き場・石段口の位置は設計に無い（台帳は『県営住宅中庭。石段は立位期のみ』のみ）。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
@@ -102,9 +101,9 @@
    ]
   },
   "wire": {
-   "input_sha": "0d2716a6a122078bb32d929c9bae06bcafe44486f35e96552eef604b3041d7f2",
+   "input_sha": "5a656315fe7073b3db94b254d4f30a8db836155e63f8fd58bd4ad2f35cff6ef8",
    "outputs": {
-    "wire-TRM-11.png": "15b9f3ad727726438071c0389d98e3eaeb2406bb8075e7322dedc4b5e6ae6548"
+    "wire-TRM-11.png": "b5070e0bc4b9b9665c406a00a9fe97521b0dfd27b84446a31f7b778a965b866f"
    },
    "status": "ok"
   }

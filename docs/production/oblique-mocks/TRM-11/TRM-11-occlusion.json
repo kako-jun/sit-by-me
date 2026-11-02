@@ -26,6 +26,27 @@
    "body_overlap_px": 2260
   },
   {
+   "id": "landing-edge-w",
+   "kind": "wall",
+   "base_y": 320,
+   "area_px": 1394,
+   "body_overlap_px": 1304
+  },
+  {
+   "id": "landing-edge-mid",
+   "kind": "wall",
+   "base_y": 320,
+   "area_px": 273,
+   "body_overlap_px": 248
+  },
+  {
+   "id": "landing-edge-e",
+   "kind": "wall",
+   "base_y": 323,
+   "area_px": 1372,
+   "body_overlap_px": 1287
+  },
+  {
    "id": "closure-w1",
    "kind": "wall",
    "base_y": 345,
@@ -38,6 +59,13 @@
    "base_y": 345,
    "area_px": 2760,
    "body_overlap_px": 2308
+  },
+  {
+   "id": "landing-edge-e",
+   "kind": "wall",
+   "base_y": 349,
+   "area_px": 763,
+   "body_overlap_px": 678
   },
   {
    "id": "closure-w1",
