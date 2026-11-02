@@ -64,7 +64,8 @@ class OutdoorLookGate(unittest.TestCase):
 
     def test_approved_maps_are_not_gated(self):
         # look ゲートで落ちないこと（承認・採用の有無とは無関係）。TRM-02/04/05 は屋内でゲート対象外、TRM-03 は屋外だが look が埋まっているので通る
-        # （通っても屋外の新節〔REALITY・SCENERY DOORS・SURFACES 注記〕はプロンプトに載る＝次回再生成で変わる）。
+        # （通っても屋外の節〔REALITY・寺町の古木の文・SURFACES 注記〕はプロンプトに載る＝次回再生成で変わる。
+        #  SCENERY DOORS・BOUNDARY・VARIATION は TRM-03 の plan にそのキーが無いので出ない）。
         # TRM-12 は『モック承認取り消し→再モック→今日承認』の経緯で、モック承認は最新だが屋内なのでゲート対象外
         for path in PLANS:
             pid = Path(path).name.split("-plan")[0]
@@ -123,10 +124,26 @@ class OutdoorLookGate(unittest.TestCase):
     def test_tree_zones_area_is_in_pixels(self):
         p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-03-plan.json"))
         pool = B.load_decor(p)
+        # 小さい矩形なら警告が必ず出て、px² の面積（画素へ射影した外接矩形）が文中に出る
+        p["tree_zones"] = [{"id": "z", "rect": [0, 0, 10, 10]}]
+        bx0, by0, bx1, by1 = B._bbox([M.rect_poly([0, 0, 10, 10])])
+        w = B.tree_room_warning(p, pool)
+        self.assertIsNotNone(w)
+        self.assertIn(f"{(bx1 - bx0) * (by1 - by0)}px²", w)
+
+    def test_tree_zones_large_plan_rect_not_overestimated(self):
+        # plan 単位の大きな矩形は画素へ射影して数える。画素の面積が十分なら警告なし（plan 単位の数値のまま数えて過大評価していないことの確認用の下限）
+        p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-03-plan.json"))
+        pool = B.load_decor(p)
         p["tree_zones"] = [{"id": "z", "rect": [0, 0, 1600, 100]}]
         bx0, by0, bx1, by1 = B._bbox([M.rect_poly([0, 0, 1600, 100])])
+        area = (bx1 - bx0) * (by1 - by0)
+        need = pool["trees"]["total"][0] * B.X.const_num("tree.min-area-per-tree")
         w = B.tree_room_warning(p, pool)
-        self.assertTrue(w is None or f"{(bx1 - bx0) * (by1 - by0)}px²" in w, w)
+        if area >= need:
+            self.assertIsNone(w)
+        else:
+            self.assertIn(f"{area}px²", w)
 
     def test_tree_band_sizes_without_walls_is_empty(self):
         self.assertEqual(B.tree_band_sizes({"walls": []}), {})
