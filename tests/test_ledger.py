@@ -436,6 +436,51 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
         self.edit_fixed(lambda rows: rows.append({"エリアID": "nowhere", "項目": "name", "値": "x", "型": "文", "決定参照": ""}))
         self.assertIn("エリア固定: 未知のエリアID nowhere", self.verify().stderr)
 
+    # ---- エリア景観（#191）
+    def test_clean_area_landscape_has_no_error(self):
+        self.assertNotIn("エリア景観", self.verify().stderr)
+
+    def test_area_landscape_missing_target_area_is_reported(self):
+        self.edit_table("エリア景観", lambda rows: rows.__setitem__(slice(None), [r for r in rows if r["エリアID"] != "garden"]))
+        self.assertIn("エリア景観: 台帳段階=対象のエリア garden の行が無い", self.verify().stderr)
+
+    def test_area_landscape_body_row_is_reported(self):
+        def add(rows):
+            r = dict(rows[0]); r["エリアID"] = "body"; rows.append(r)
+        self.edit_table("エリア景観", add)
+        self.assertIn("エリア景観 body: 体内は作成済みで対象外", self.verify().stderr)
+
+    def test_area_landscape_unknown_area_is_reported(self):
+        def add(rows):
+            r = dict(rows[0]); r["エリアID"] = "nowhere"; rows.append(r)
+        self.edit_table("エリア景観", add)
+        self.assertIn("エリア景観 nowhere: 未知のエリアID", self.verify().stderr)
+
+    def test_area_landscape_without_source_is_reported(self):
+        def mut(rows):
+            next(r for r in rows if r["エリアID"] == "mountain")["出典"] = "調査メモのみ"
+        self.edit_table("エリア景観", mut)
+        self.assertIn("エリア景観 mountain: 出典に URL", self.verify().stderr)
+
+    def test_area_landscape_no_source_with_reason_is_accepted(self):
+        def mut(rows):
+            next(r for r in rows if r["エリアID"] == "overseas")["出典"] = "出典なし（実在モデルを特定しない設計）"
+        self.edit_table("エリア景観", mut)
+        self.assertNotIn("エリア景観 overseas: 出典", self.verify().stderr)
+
+    def test_area_landscape_virtual_line_without_marker_is_reported(self):
+        def mut(rows):
+            r = next(r for r in rows if r["エリアID"] == "uchinada")
+            r["冬の景色の仮想表現"] += "\n風車は白い3枚羽根で海を背にする"
+        self.edit_table("エリア景観", mut)
+        self.assertIn("エリア景観 uchinada: 冬の景色の仮想表現の行に【仮想】が無い", self.verify().stderr)
+
+    def test_area_landscape_required_key_blank_is_reported(self):
+        def mut(rows):
+            next(r for r in rows if r["エリアID"] == "station")["一言で言い当てる特徴"] = ""
+        self.edit_table("エリア景観", mut)
+        self.assertIn("エリア景観 station: 必須キー『一言で言い当てる特徴』が空欄", self.verify().stderr)
+
 
 class LegacyMdReaderTests(unittest.TestCase):
     """旧 md を読む scripts は見出し行の列名で読む（md_table.rb）。列の並び替えで壊れず、台帳管理のMAPは台帳で止まる。"""
@@ -1819,6 +1864,45 @@ class AreaFixedAllAreasTests(unittest.TestCase):
             self.assertGreaterEqual(lo, int(rows["trees.total[0]"]), aid)
             self.assertLessEqual(hi, int(rows["trees.total[1]"]), aid)
             self.assertTrue(rows["trees.forbid"], aid)
+
+
+class AreaLandscapeContentTests(unittest.TestCase):
+    """#191: エリア景観の実台帳。全対象エリア（体内を除く）が揃い、プロンプトに出ていない。"""
+
+    @classmethod
+    def setUpClass(cls):
+        def read(table):
+            return ledger_io.parse(table, (ROOT / f"docs/ledger/{table}.yaml").read_text(encoding="utf-8"))
+        cls.areas = read("エリア")
+        cls.rows = {r["エリアID"]: r for r in read("エリア景観")}
+
+    def test_every_area_except_body_has_a_landscape_row(self):
+        expected = {a["エリアID"] for a in self.areas if a["エリアID"] != "body"}
+        self.assertEqual(set(self.rows), expected)
+        self.assertNotIn("body", self.rows)
+
+    def test_castle_is_edo_period_and_noto_train_is_fictional_and_overseas_is_not_specified(self):
+        self.assertIn("江戸時代", self.rows["castle"]["一言で言い当てる特徴"])
+        self.assertIn("幕末", self.rows["castle"]["一言で言い当てる特徴"])
+        self.assertIn("架空", self.rows["noto_train"]["一言で言い当てる特徴"])
+        self.assertIn("特定しない", self.rows["overseas"]["備考"])
+        self.assertIn("記憶を正本", self.rows["sunnyland"]["備考"])
+
+    def test_real_line_name_is_not_written_in_noto_train_prose(self):
+        r = self.rows["noto_train"]
+        for col, v in r.items():
+            if col == "出典":
+                continue
+            for name in ("のと鉄道", "能登線", "NT100", "NT200", "NT800"):
+                self.assertNotIn(name, v, f"{col}")
+
+    def test_landscape_text_is_not_in_any_edit_prompt(self):
+        prompts = sorted((ROOT / "docs/production/oblique-mocks").glob("*/*-edit-prompt.txt"))
+        self.assertTrue(prompts)
+        for p in prompts:
+            text = p.read_text(encoding="utf-8")
+            for aid, r in self.rows.items():
+                self.assertNotIn(r["一言で言い当てる特徴"], text, f"{p.name} に {aid} のエリア景観が出ている（プロンプトには出さない）")
 
 
 class HandoffAndDocsFollowTests(unittest.TestCase):
