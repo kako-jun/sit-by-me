@@ -70,9 +70,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "d72ccdae9ab883a207070626d6f8babd75674b67f2271c324012cc18ca3370a8",
+   "input_sha": "3e9390bce50b72a295f76993404b9539ea3a62c990b213d57dd868a5a6269f11",
    "outputs": {
-    "TRM-11-edit-prompt.txt": "5222af136f953aa7874553c0539658dc94d14dcabaa93322ba56e0ff34127bcd"
+    "TRM-11-edit-prompt.txt": "dfc723ac8b3dbf3fe45ce44c8b43af503e5263bcf7005870cbe345a4834f2afa"
    },
    "status": "blocked",
    "unadopted_dependencies": [
@@ -81,7 +81,7 @@
   },
   "validate": {
    "errors": [],
-   "input_sha": "15eae1dbf615db2bac4e9c75cdcef15e07afa219c7e83a5d22026c704fc813d1",
+   "input_sha": "4680e5460fe777f0fdf05c47843b89c9435420ae39e4ecef842b4af332ce68af",
    "outputs": {},
    "status": "ok",
    "warnings": [

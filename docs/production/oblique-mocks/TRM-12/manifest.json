@@ -62,7 +62,7 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "38d4f995772f3fd9d27c656800cb7f5159cc573c14beaee20b2cc3e015d761d2",
+   "input_sha": "6a77fef28872e16341ecd778c72a4f726cf7ad23d09535f5efa0393f6fe94ef8",
    "outputs": {
     "TRM-12-edit-prompt.txt": "59f01a0bc88c5e6b0f2e438e90ac87e066fb89e09379bfae4771b98ea90dd7a3"
    },
@@ -71,7 +71,7 @@
   },
   "validate": {
    "errors": [],
-   "input_sha": "8dbcc7514e01509314538c75c7af76fdf5eff02640ed017af32a83911dcdd234",
+   "input_sha": "8729286cf4ed90a9633314785851ab3a3dbff48bdc3372ad44c870bff6523db7",
    "outputs": {},
    "status": "ok",
    "warnings": [
