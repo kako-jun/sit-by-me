@@ -573,6 +573,55 @@ def tree_room_warning(p, pool):
     return None
 
 
+def walk_names(p):
+    """歩ける床（walkable で名前があるもの）の名前を『・』で並べた語。屋外MAPの文面の『歩く地面（○○）』に差し込む。名前が無ければ『歩く床』。"""
+    names = []
+    for f in p.get("floors", []):
+        lb = (f.get("label") or "").strip()
+        if f.get("walkable", True) and lb and lb not in names:
+            names.append(lb)
+    return "・".join(names) or "歩く床"
+
+
+def box_names(p):
+    """家具箱（OBJECTS）の名前を『・』で並べた語（重複は1つに）。箱が無ければ空。"""
+    names = []
+    for b in p.get("boxes", []):
+        lb = (b.get("label") or b.get("id") or "").strip()
+        if lb and lb not in names:
+            names.append(lb)
+    return "・".join(names)
+
+
+def outdoor_pool_for_plan(p, pool):
+    """屋外の装飾プールを plan に合わせた版にする（文面は台帳。ここは差し込みと出し分けだけ）。
+    - 『{歩く地面}』『{箱}』をこの MAP の歩ける床・箱の名前にする（その MAP に無い参道・墓地・遊具などを出さない）
+    - 全ての壁に look がある MAP は、LAYERS 建物行・SURFACES の wall／roof／door をプール既定（寄棟・漆喰・灰色の瓦）でなく『壁ごとの look に従う』にする
+    - 全ての床に look がある MAP は、SURFACES floor を『FLOORS の look に従う』にする
+    look が無い面があれば従来どおり既定を出す。屋外でないプールはそのまま返す。"""
+    if not pool.get("outdoor"):
+        return pool
+    import copy
+    q = copy.deepcopy(pool)
+    walk, boxes = walk_names(p), box_names(p)
+    sub = lambda t: t.replace("{歩く地面}", walk).replace("{箱}", boxes)  # noqa: E731
+    walls_looked = bool(p.get("walls")) and all((w.get("look") or "").strip() for w in p["walls"])
+    floors_looked = bool(p.get("floors")) and all((f.get("look") or "").strip() for f in p["floors"])
+    if walls_looked:
+        q["layers"]["building"]["look"] = X.text("PR.layer.building.from-look")
+        for k in ("wall", "roof", "door"):
+            if k in q["surfaces"]:
+                q["surfaces"][k] = X.text("PR.surfaces." + k + ".from-look")
+    if floors_looked and "floor" in q["surfaces"]:
+        q["surfaces"]["floor"] = X.text("PR.surfaces.floor.from-look")
+    for ly in q["layers"].values():
+        ly["look"] = sub(ly["look"]); ly["fixed"] = sub(ly["fixed"])
+    q["allow"] = [sub(a) for a in q["allow"] if not ("{箱}" in a and not boxes)]
+    q["forbid"] = [sub(a) for a in q["forbid"]]
+    q["_walk"] = walk
+    return q
+
+
 def coord_section(p, pool):
     """幾何を画素座標で固定する節（plan とモックの射影から機械的に出す。手書き禁止）。画像 M.W x M.H_IMG・左上原点・x右・y下。文面は台帳『プロンプト文面』。"""
     tl, tr, br, bl = [tuple(map(float, q)) for q in M._DST]
@@ -610,11 +659,13 @@ def coord_section(p, pool):
     n_lo, n_hi = -(-tr_["total"][0] // 4), -(-tr_["total"][1] // 4)
     tb = tree_band_sizes(p)
     sx0, sy0, sx1, sy1, bx0, by0, bx1, by1 = (tb[k] for k in ("sx0", "sy0", "sx1", "sy1", "bx0", "by0", "bx1", "by1"))
-    L += ["", X.text("PR.tree.head", tmin=tr_["total"][0], tmax=tr_["total"][1], pmin=tr_["pine"]["count"][0], pmax=tr_["pine"]["count"][1], dmin=tr_["deadtree"]["count"][0], dmax=tr_["deadtree"]["count"][1], nlo=n_lo, nhi=n_hi),
-          X.text("PR.tree.bands", sy0=sy0, by0=by0, sx0=sx0, sx1=sx1, by1=by1, sy1=sy1, bx0=bx0, bx1=bx1)]
-    if p.get("tree_zones"):  # 歩く地面の上に木を置かない MAP（外観）: 木を置ける帯を plan の矩形から出す
+    cnt = dict(tmin=tr_["total"][0], tmax=tr_["total"][1], pmin=tr_["pine"]["count"][0], pmax=tr_["pine"]["count"][1], dmin=tr_["deadtree"]["count"][0], dmax=tr_["deadtree"]["count"][1])
+    if p.get("tree_zones"):  # 歩く地面の上に木を置かない MAP（外観）: 木を置ける帯を plan の矩形から出す。『各辺に○本』『四辺』は出さない
         zs = [f"{z['id']}: {_bbox([M.rect_poly(z['rect'])])}" for z in p["tree_zones"]]
-        L[-1] = X.text("PR.tree.zones", zones="／".join(zs))
+        L += ["", X.text("PR.tree.head.zones", **cnt), X.text("PR.tree.zones", zones="／".join(zs), walk=walk_names(p))]
+    else:
+        L += ["", X.text("PR.tree.head", nlo=n_lo, nhi=n_hi, **cnt),
+              X.text("PR.tree.bands", sy0=sy0, by0=by0, sx0=sx0, sx1=sx1, by1=by1, sy1=sy1, bx0=bx0, bx1=bx1)]
     pats = []
     for d in p["doors"]:
         patch, _, _ = M.door_geom(p, d)
@@ -678,6 +729,7 @@ def build_prompt(p, key, ledger_text=""):
     文面はすべて台帳『プロンプト文面』（oblique_text.text）。ここは並べ方と差し込みだけ。"""
     pool = load_decor(p)
     if pool:
+        pool = outdoor_pool_for_plan(p, pool)
         L = [X.text("PR.title", version=PROMPT_VERSION, key=key), "",
              X.text("PR.role"),
              X.text("PR.geometry", text=pool["geometry_fixed"]),
@@ -694,7 +746,7 @@ def build_prompt(p, key, ledger_text=""):
             L.append(X.text("PR.layer", label=ly.get("label", k), look=ly["look"], fixed=ly["fixed"]) + (X.text("PR.layer.areafixed", area=pool["area"]) if k in ("desk", "slab_edge") else ""))
         tr = pool["trees"]
         L += ["", X.text("PR.trees-head", status=X.text("PR.trees-status.default") if tr.get("status") == "default" else X.text("PR.trees-status.fixed")),
-              X.text("PR.trees-total", tmin=tr["total"][0], tmax=tr["total"][1], pmin=tr["pine"]["count"][0], pmax=tr["pine"]["count"][1], dmin=tr["deadtree"]["count"][0], dmax=tr["deadtree"]["count"][1]),
+              X.text("PR.trees-total.zones" if p.get("tree_zones") else "PR.trees-total", tmin=tr["total"][0], tmax=tr["total"][1], pmin=tr["pine"]["count"][0], pmax=tr["pine"]["count"][1], dmin=tr["deadtree"]["count"][0], dmax=tr["deadtree"]["count"][1]),
               X.text("PR.trees-kind", label=tr["pine"]["label"], look=tr["pine"]["look"]),
               X.text("PR.trees-kind", label=tr["deadtree"]["label"], look=tr["deadtree"]["look"]),
               X.text("PR.trees-forbid", forbid=tr["forbid"])]
@@ -748,7 +800,14 @@ def build_prompt(p, key, ledger_text=""):
     if pool:
         L += ["", X.text("PR.allowed-head")] + [f"- {a}" for a in pool["allow"]]
         skips = [k["match"] for k in p.get("forbid_skip", [])]  # この MAP に当てはまらない禁止項目（reason つきで plan に明記したものだけ外す）
-        L += ["", X.text("PR.forbidden-head")] + [f"- {a}" for a in pool["forbid"] if not any(m_ in a for m_ in skips)]
+        fb = []
+        for a in pool["forbid"]:
+            if any(m_ in a for m_ in skips):  # 外した行が『歩く地面への新規物』なら、この MAP の歩く床の名前で『木・雪山・電柱を置かない』に言い直す
+                if pool.get("_walk") and "歩く地面（" in a:
+                    fb.append(X.text("PR.forbid.walk-zones", walk=pool["_walk"]))
+                continue
+            fb.append(a)
+        L += ["", X.text("PR.forbidden-head")] + [f"- {a}" for a in fb]
     L += ["", X.text("PR.assumptions-head")] + [f"- {a}" for a in p.get("assumptions", [])]
     return "\n".join(L) + "\n"
 
