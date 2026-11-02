@@ -231,7 +231,8 @@
    ],
    "top_color": "#8a7a5a",
    "window_count": 0,
-   "id": "closure-n1"
+   "id": "closure-n1",
+   "look": "団地敷地の北側の境の塀（西側）。灰色のコンクリートブロック積み（大人の胸の高さ）の上に緑色の塗装の金網フェンスが載る。ブロックの目地に霜、塗装の剥げた錆、金網に雪が付き、一部の支柱は雪の重みで少し傾く。既定（要確認）。"
   },
   {
    "color": "#cdb98f",
@@ -246,7 +247,8 @@
    ],
    "top_color": "#8a7a5a",
    "window_count": 0,
-   "id": "closure-n2"
+   "id": "closure-n2",
+   "look": "団地敷地の北側の境の塀（東側）。灰色のコンクリートブロック積みの低い塀の上に、錆びた緑色の金網フェンス。根元に除雪した雪が寄せられ、ブロックの一部に欠けがある。既定（要確認）。"
   },
   {
    "color": "#cdb98f",
@@ -261,7 +263,8 @@
    "top_color": "#8a7a5a",
    "window_count": 0,
    "id": "closure-w1",
-   "label": "閉鎖（塀・擁壁）"
+   "label": "閉鎖（塀・擁壁）",
+   "look": "団地敷地の西の境の擁壁。打ち放しのコンクリートで、水垢の黒い縦筋と凍害のひび、水抜きの穴から氷柱。上端に雪と、錆びた金網フェンスの一部。段丘の縁に面する。既定（要確認）。"
   },
   {
    "color": "#cdb98f",
@@ -276,7 +279,8 @@
    ],
    "top_color": "#8a7a5a",
    "window_count": 0,
-   "id": "closure-e1"
+   "id": "closure-e1",
+   "look": "団地敷地の東の境の塀（北側）。灰色のコンクリートブロック積みの低い塀と、雪で丸く沈んだ刈り込みの常緑の生垣。ブロックの目地に霜。既定（要確認）。"
   },
   {
    "color": "#cdb98f",
@@ -291,7 +295,8 @@
    ],
    "top_color": "#8a7a5a",
    "window_count": 0,
-   "id": "closure-e2"
+   "id": "closure-e2",
+   "look": "団地敷地の東の境の塀（南側）。灰色のコンクリートブロック積みの低い塀の上に緑色の金網フェンス、根元に除雪の雪山。既定（要確認）。"
   }
  ],
  "boxes": [
@@ -401,8 +406,8 @@
  ],
  "_provenance": {
   "source": "MAP:TRM-11|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "1c501e55df908c3010a0e40c1bcc178410280236ded60c82c43d2d38b931a91b",
-  "generated_at": "2026-11-02T13:03",
+  "input_sha": "4a99ba2ecf9404ce535c60e1f0badfb28d7f337521f78ead668164cc9e58bccd",
+  "generated_at": "2026-11-02T13:36",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-11-plan",
   "do_not_edit": true
