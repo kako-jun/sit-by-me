@@ -38,8 +38,7 @@ STAGES = ["validate", "mock", "wire", "mask", "occlusion", "prompt"]
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 ID_RE = re.compile(r"^[A-Z]{3}-\d{2}\.[A-Za-z0-9-]+$")
-PROMPT_VERSION = "oblique-edit-prompt/5"
-DECOR_FILE = os.path.join(REPO, "docs", "production", "oblique-mocks", "decor-pools.json")
+from oblique_freshness import PROMPT_VERSION, DECOR_FILE, prompt_input_sha  # noqa: E402  プロンプト段の入力 hash は起動判定と共有
 DECOR_LAYER_KEYS = ("desk", "slab_edge", "outside", "building")
 DECOR_REQUIRED = ("geometry_fixed", "fill_rule", "layers", "surfaces", "kinds", "allow", "forbid", "trees")
 
@@ -794,7 +793,7 @@ def build_one(plan_path, outroot, variant=None, from_stage=None, force=False, lo
     inputs = {"validate": sha_bytes((plan_sha + tool_mock + src_sha("oblique_build.py")).encode()),
               "mock": sha_bytes((plan_sha + tool_mock).encode()), "wire": sha_bytes((plan_sha + tool_topo).encode()),
               "mask": sha_bytes((plan_sha + tool_mock).encode()), "occlusion": sha_bytes((plan_sha + tool_mock).encode()),
-              "prompt": sha_bytes((plan_sha + PROMPT_VERSION + tool_mock + (sha_file(DECOR_FILE) if os.path.exists(DECOR_FILE) else "") + ledger_text + json.dumps(ledger_mat, sort_keys=True)).encode())}
+              "prompt": prompt_input_sha(plan_sha, ledger_text, ledger_mat)}
     dirty = bool(force)
     errors = []
     for st in STAGES:
@@ -816,6 +815,13 @@ def build_one(plan_path, outroot, variant=None, from_stage=None, force=False, lo
                 log("   ERROR: " + e)
             if errs:
                 errors = errs
+                # 古いプロンプトを残さない: validate エラーでは再生成されないので、前回のプロンプト記録は失効にし、ファイルも消す（起動判定は stale を拒否する）
+                old_pr = man["stages"].get("prompt")
+                if old_pr is not None:
+                    for o in old_pr.get("outputs", {}):
+                        if os.path.exists(os.path.join(out, o)):
+                            os.remove(os.path.join(out, o))
+                    man["stages"]["prompt"] = {"status": "stale", "outputs": {}, "reason": "validate エラーのため前回のプロンプトは失効（ファイルも削除）。エラーを直して oblique_build.py を再実行する"}
                 save_manifest(mpath, man)
                 return man, errs
             continue
