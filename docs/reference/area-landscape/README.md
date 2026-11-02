@@ -7,6 +7,7 @@
 | [area-landscape-A.md](area-landscape-A.md) | city・station・castle（現況）・garden |
 | [area-landscape-castle-edo.md](area-landscape-castle-edo.md) | 金沢城の江戸・幕末の姿（castle の景観はこちらを正とする） |
 | [area-landscape-B.md](area-landscape-B.md) | mountain・school・uchinada・airport |
+| [school-noto-concrete.md](school-noto-concrete.md) | 小学校（school）の白いコンクリ校舎の追加調査（確認できた事実と確認できなかった点） |
 | [area-landscape-C.md](area-landscape-C.md) | noto_train・noto_before・noto_after・sunnyland・overseas |
 | [teramachi-real-landscape-research.md](teramachi-real-landscape-research.md) | 寺町の実景 |
 | [showa-danchi-research.md](showa-danchi-research.md) | 昭和の団地（全般） |
