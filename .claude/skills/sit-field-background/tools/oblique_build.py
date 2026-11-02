@@ -598,6 +598,7 @@ def outdoor_pool_for_plan(p, pool):
     - 『{歩く地面}』『{箱}』をこの MAP の歩ける床・箱の名前にする（その MAP に無い参道・墓地・遊具などを出さない）
     - 全ての壁に look がある MAP は、LAYERS 建物行・SURFACES の wall／roof／door をプール既定（寄棟・漆喰・灰色の瓦）でなく『壁ごとの look に従う』にする
     - 全ての床に look がある MAP は、SURFACES floor を『FLOORS の look に従う』にする
+    - plan の窓が0件の MAP は、SURFACES window をプール既定（木の桟の窓）でなく『窓は描かない』にする（窓が実在する MAP は従来どおり）
     look が無い面があれば従来どおり既定を出す。屋外でないプールはそのまま返す。"""
     if not pool.get("outdoor"):
         return pool
@@ -614,6 +615,10 @@ def outdoor_pool_for_plan(p, pool):
                 q["surfaces"][k] = X.text("PR.surfaces." + k + ".from-look")
     if floors_looked and "floor" in q["surfaces"]:
         q["surfaces"]["floor"] = X.text("PR.surfaces.floor.from-look")
+    if "window" in q["surfaces"]:  # 窓が0件ならプール既定の窓（細い木の桟…）を出さない（MAP KEYS『窓: 該当なし』・各壁の『窓は描かず』と矛盾する）
+        if not p.get("windows"):
+            q["surfaces"]["window"] = X.text("PR.surfaces.window.none")
+    q["_all_look"] = walls_looked and floors_looked and not p.get("windows")  # SURFACES の各項目が全部『look に従う』（見出し行の出し分け）
     for ly in q["layers"].values():
         ly["look"] = sub(ly["look"]); ly["fixed"] = sub(ly["fixed"])
     q["allow"] = [sub(a) for a in q["allow"] if not ("{箱}" in a and not boxes)]
@@ -639,7 +644,8 @@ def coord_section(p, pool):
     if exterior:  # 外観: 建物ごとに接地線と上端（屋根は上端の外形に収める）
         for w in ws:
             g_ = M.rect_poly(w["rect"]); t_ = M.rect_poly(w["rect"], w["h"])
-            L.append(X.text("PR.coord.building", id=w["id"], label=w.get("label") or "", h=w["h"], ground=_pts(g_), top=_pts(t_), bbox=_bbox([g_, t_])))
+            lb = w.get("label") or ""
+            L.append(X.text("PR.coord.building" if lb else "PR.coord.building.nolabel", id=w["id"], **({"label": lb} if lb else {}), h=w["h"], ground=_pts(g_), top=_pts(t_), bbox=_bbox([g_, t_])))
     else:
         L.append(X.text("PR.coord.ground", pts=_pts(ground)))
         L.append(X.text("PR.coord.top", hb=hb, hf=hf, pts=_pts(top)))
@@ -670,7 +676,9 @@ def coord_section(p, pool):
     for d in p["doors"]:
         patch, _, _ = M.door_geom(p, d)
         pats.append(f"{d['id']}: {_pts(M.rect_poly(patch))}")
-    L.append(X.text("PR.keepout", pats="／".join(pats)))
+    if pats:  # 床パッチ（戸口の前）が無い MAP は行ごと出さない（コロンの後が空の行を作らない）
+        # 文面は既定が PR.keepout。プールが keepout を持てばそれ（例: 団地の室内は戸口の前が雪の地面でなく廊下の床）。差し込み口は {pats}
+        L.append((pool.get("keepout") or X.text("PR.keepout", pats="{pats}")).replace("{pats}", "／".join(pats)))
     return L
 
 
@@ -750,7 +758,7 @@ def build_prompt(p, key, ledger_text=""):
               X.text("PR.trees-kind", label=tr["pine"]["label"], look=tr["pine"]["look"]),
               X.text("PR.trees-kind", label=tr["deadtree"]["label"], look=tr["deadtree"]["look"]),
               X.text("PR.trees-forbid", forbid=tr["forbid"])]
-        L += ["", X.text("PR.surfaces-head")] + ([X.text("PR.surfaces.outdoor-note")] if pool.get("outdoor") else []) + [X.text("PR.kv", k=k, v=v) for k, v in pool["surfaces"].items()]
+        L += ["", X.text("PR.surfaces-head")] + ([X.text("PR.surfaces.outdoor-note.all-look" if pool.get("_all_look") else "PR.surfaces.outdoor-note")] if pool.get("outdoor") else []) + [X.text("PR.kv", k=k, v=v) for k, v in pool["surfaces"].items()]
         for w in p["walls"]:
             if w.get("look"):
                 L.append(X.text("PR.wall-look", id=w["id"], look=w["look"]))
@@ -796,7 +804,7 @@ def build_prompt(p, key, ledger_text=""):
             L.append(X.text("PR.windows.wall", id=w["id"], label=w.get("label") or w.get("kind", "wall"), n=len(ws), kinds="・".join(sorted(kinds)), axis=ax, pos=pos, sill=ws[0]["sill"], h=ws[0]["height"], w=ws[0]["width"]))
     for nw in p.get("no_window_walls", []):
         L.append(X.text("PR.windows.none", wall=nw["wall"], reason=nw.get("reason", "")))
-    L += ["", X.text("PR.floors-head")] + [X.text("PR.floors.item", id=f["id"], label=f.get("label") or "", walk=X.text("PR.floors.walkable") if f.get("walkable", True) else X.text("PR.floors.blocked")) + (X.text("PR.floors.look", look=f["look"]) if f.get("look") else "") for f in p["floors"]]
+    L += ["", X.text("PR.floors-head")] + [X.text("PR.floors.item" if f.get("label") else "PR.floors.item.nolabel", id=f["id"], **({"label": f["label"]} if f.get("label") else {}), walk=X.text("PR.floors.walkable") if f.get("walkable", True) else X.text("PR.floors.blocked")) + (X.text("PR.floors.look", look=f["look"]) if f.get("look") else "") for f in p["floors"]]
     if pool:
         L += ["", X.text("PR.allowed-head")] + [f"- {a}" for a in pool["allow"]]
         skips = [k["match"] for k in p.get("forbid_skip", [])]  # この MAP に当てはまらない禁止項目（reason つきで plan に明記したものだけ外す）
