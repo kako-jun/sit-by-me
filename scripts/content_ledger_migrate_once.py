@@ -334,7 +334,7 @@ def bgm_tables() -> None:
 def people_tables() -> None:
     art = markdown("art-direction.md")
     head, rows = first_table(section(art, "## 4人の呼称と伏線", "## 人物素材"), "呼称")
-    prefixes = {"オトン": ("C001", "otton"), "ナム": ("C002", "nam"),
+    prefixes = {"オットン": ("C001", "otton"), "ナム": ("C002", "nam"),
                 "シャー": ("C003", "shah"), "ペー子": ("C004", "peiko")}
     people = []
     for source in rows:
@@ -428,11 +428,11 @@ def weapon_tables() -> None:
     write("刀候補", candidates)
     by_name = {r["刀名"].split("（")[0]: r["刀候補ID"] for r in candidates}
     allocation = section(text, "## 3. 割り当て案", "## 4. 採用に注意")
-    parts = re.split(r"(?=^### (?:ペー子|オトン|ナム|シャー))", allocation, flags=re.M)
-    person_id = {"ペー子": "C004", "オトン": "C001", "ナム": "C002", "シャー": "C003"}
+    parts = re.split(r"(?=^### (?:ペー子|オットン|ナム|シャー))", allocation, flags=re.M)
+    person_id = {"ペー子": "C004", "オットン": "C001", "ナム": "C002", "シャー": "C003"}
     assignments = []
     for part in parts:
-        m = re.match(r"### (ペー子|オトン|ナム|シャー)", part)
+        m = re.match(r"### (ペー子|オットン|ナム|シャー)", part)
         if not m:
             continue
         person = person_id[m.group(1)]
@@ -471,7 +471,7 @@ def ability_tables() -> None:
 
     proposal = section(text, "**配分案（20 枠）", "**型の集計")
     head, rows = first_table(proposal, "人物（時代）")
-    people = {"ペー子": "C004", "オトン": "C001", "ナム": "C002", "シャー": "C003"}
+    people = {"ペー子": "C004", "オットン": "C001", "ナム": "C002", "シャー": "C003"}
     current = ""
     allocations = []
     blade_rows = yaml.safe_load((LEDGER / "刀候補.yaml").read_text(encoding="utf-8"))

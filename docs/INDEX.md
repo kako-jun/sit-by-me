@@ -21,7 +21,7 @@
 - 領域台帳の検査: [verify_domain_ledger.py](../scripts/verify_domain_ledger.py)、[verify_content_ledger.py](../scripts/verify_content_ledger.py)。`--require-reviewed` はIssueの意味点検が全件終わるまで失敗する。[移行の閉鎖条件](ledger/migration-closure.md) を形式移行の合格と区別する。
 - 敵・人物・BGM・刀の全列ビュー: [コンテンツ](ledger/views/content.md)（[content_ledger_views.py](../scripts/content_ledger_views.py)）。生成入力は [content_ledger.py](../scripts/content_ledger.py) の `query KIND ID --gate`。
 - 領域台帳の回帰検証: [content](../tests/test_content_ledger.py)、[domain](../tests/test_domain_ledger.py)、[Issue provenance](../tests/test_issue_provenance.py)、[typed paths](../tests/test_ledger_typed.py)。
-- 共通fixture: [ledger_test_support.py](../tests/ledger_test_support.py)。PR #157に含まれる制作履歴: [C001歩行セット](production/20261024-c001-field-walk.md)（記載のマージ待ちは当時の状態）。
+- 共通fixture: [ledger_test_support.py](../tests/ledger_test_support.py)。PR #157に含まれる制作履歴: [C001歩行セット](production/20261024-c001-field-walk.md)（記載のマージ待ちは当時の状態）。 フィールドNPC・歩行方向の制作記録: [NPC候補](production/20261029-field-npc-candidates.md)、[シャー・ペー子の歩行方向試行](production/20261029-sha-peko-walk-direction-trials.md)。歩行確認ビューア: [walk_viewer.py](../scripts/walk_viewer.py)。
 - Issueの凍結出典からの再生成: [build_issue_provenance.py](../scripts/build_issue_provenance.py)（`build|check --from-json SNAPSHOT`）。原文と安全化本文のハッシュを区別し、自動抽出を本人の決定と誤認しない。
 - 移行用の一回限りのツール（再実行禁止）: [MAP移行](../.claude/skills/sit-field-background/tools/ledger_map_migrate_once.py)、[体内移行](../.claude/skills/sit-field-background/tools/ledger_body_migrate_once.py)、[コンテンツ移行](../scripts/content_ledger_migrate_once.py)。現行の体内入力は [body_geometry.py](../.claude/skills/sit-field-background/tools/body_geometry.py) がYAMLから読む。
 - 人が読むビュー（台帳から生成。手編集禁止。`ledger_views.py build|check`）: [MAP 一覧](ledger-views/MAP.md)、[建物](ledger-views/建物.md)、[決定](ledger-views/決定.md)、[未決](ledger-views/未決.md)、[採用要素](ledger-views/採用要素.md)、[接続](ledger-views/接続.md)
@@ -88,10 +88,10 @@
 | [既定値](ledger/既定値.yaml) | 96 | 仮置きの既定値（要確認）。 | 既定ID / MAP_ID / 適用時期 / 内容 / 決定参照 |
 | [エリア固定](ledger/エリア固定.yaml) | 264 | エリア単位で固定する指定（机の天面・木の種類・台座など）。 | エリアID / 項目 / 値 / 型 / 決定参照 |
 | [装飾プール](ledger/装飾プール.yaml) | 150 | 装飾プールの設定。 | プールID / 項目 / 値 / 型 / 決定参照 |
-| [語彙](ledger/語彙.yaml) | 166 | 許す・禁じる語彙と英語プロンプト断片。 | 語彙ID / グループ / 値 / 英語断片 / 説明 |
+| [語彙](ledger/語彙.yaml) | 170 | 許す・禁じる語彙と英語プロンプト断片。 | 語彙ID / グループ / 値 / 英語断片 / 説明 |
 | [決定](ledger/決定.yaml) | 635 | kako-jun の決定（逐語・出典つき）。status に関係なくプロンプトへ入る。 | 決定ID / 日付 / 対象種別 / 対象ID / 対象名 / 決定の要点 / 逐語 / 出典 / 出典URL / 状態 / 置換先 / プロンプト出力 / 必須語 / 禁止語 / 対象MAP / 備考 / 特徴(自由記述) |
 | [採用要素](ledger/採用要素.yaml) | 6 | 採用画像から次の絵へ継承する要素。 | 採用要素ID / 素材ID / 元MAP / 要素 / 内容 / 継承先MAP / 継承方法 / 状態 / 確認語 / 決定参照 / 特徴(自由記述) |
-| [素材](ledger/素材.yaml) | 1056 | 素材（画像・マスクなど。没も行で保持）。 | 素材ID / 所有者ID / 種別 / パス / 状態 / 日付 / 来歴 / sha256 / 特徴(自由記述) |
+| [素材](ledger/素材.yaml) | 1306 | 素材（画像・マスクなど。没も行で保持）。 | 素材ID / 所有者ID / 種別 / パス / 状態 / 日付 / 来歴 / sha256 / 特徴(自由記述) |
 | [素材共有](ledger/素材共有.yaml) | 3 | 所有者以外の人物・敵・召喚獣が同一素材を利用する明示的な関係。素材行を複製せず、出典を保持する。 | 共有ID / 利用者ID / 素材ID / 根拠 |
 | [素材更新](ledger/素材更新.yaml) | 143 | 元の素材移行SHAを保持したまま後続の上流更新を記録するSHA連鎖。出典commitと出典パスを必須とする。 | 更新ID / 素材ID / パス / 旧sha256 / 新sha256 / 出典commit / 出典パス / 根拠 |
 | [素材メタデータ](ledger/素材メタデータ.yaml) | 7 | 上流の画像用JSONを安全化してYAML正本に変換した出典とハッシュ。原文の秘匿値は保持しない。 | メタデータID / パス / 所有者ID / 原文sha256 / 安全化sha256 / 出典commit / 安全化方針 |
@@ -101,7 +101,7 @@
 | [未決](ledger/未決.yaml) | 1982 | 未決（要確認）の一覧。 | 未決ID / 対象テーブル / 対象ID / キー / 内容 / 状態 / 解決決定ID |
 | [キー別名](ledger/キー別名.yaml) | 20 | 列名・キー名の別名と正規名。 | 正規名 / 別名 / 対象テーブル / 説明 |
 | [Issue点検](ledger/Issue点検.yaml) | 529 | Issue の決定候補と決定表の突合結果（audit_issue_decisions.rb が更新。分類=決定表に反映済み／未反映(要取込み)／決定でない／対象外）。 | Issue番号 / コメントURL / 候補の要約 / 分類 / 決定ID / 備考 |
-| [ファイル配置](ledger/ファイル配置.yaml) | 55 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
+| [ファイル配置](ledger/ファイル配置.yaml) | 58 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
 | [描画定数](ledger/描画定数.yaml) | 30 | 斜めツール（oblique_mock.py・oblique_topology.py）の寸法・視点・幅クラス・窓種別・台座の飾りの位置。コードはここを読む。 | 定数ID / グループ / 値 / 単位 / 説明 / コード内の名前 |
 | [プロンプト文面](ledger/プロンプト文面.yaml) | 169 | imagegen 用プロンプト・接続表・窓一覧・接続図に出る文面（{名前}=変数の差し込み口）。コードは oblique_text.text で読み、文面を直接持たない。 | 文面ID / 区分 / 文面 / 変数 / 使用箇所 / 備考 |
 | [制作規約](ledger/制作規約.yaml) | 8 | 制作規約の台帳。元資料の提案と確定状態を区別して保持する。 | 規約ID / 対象種別 / 対象ID / 区分 / 内容 / 確度 / 根拠 |
@@ -128,8 +128,8 @@
 | [BGM旧スロット対応](ledger/BGM旧スロット対応.yaml) | 54 | BGM旧スロット対応の台帳。元資料の提案と確定状態を区別して保持する。 | 対応ID / 旧スロットID / 旧抽象名 / 現行スロットID / 扱い / 理由 |
 | [BGM録音](ledger/BGM録音.yaml) | 64 | BGM録音の台帳。元資料の提案と確定状態を区別して保持する。 | 録音行ID / 録音ID / 録音名 / 演奏者 / 録音年 / 楽章 / ファイルパス / ランク / ライセンス表記(原文) / 出典URL / クレジット文言 / ffprobeで実測した長さ(秒) / 形式 / 備考 |
 | [BGMフレーズ](ledger/BGMフレーズ.yaml) | 15 | BGMフレーズの台帳。元資料の提案と確定状態を区別して保持する。 | フレーズ行ID / 主題ID / 楽章 / 主題名 / 録音ID / 元録音ID / 開始秒 / 終了秒 / 気分(悲/楽/緊) / 割当スロット候補 / 出力ファイル / 要耳確認 |
-| [人物](ledger/人物.yaml) | 5 | 人物の台帳。元資料の提案と確定状態を区別して保持する。 | 人物ID / 呼称 / 旧接頭辞 / 牌 / 人物の芯 / 見た目の核 / 役割 / 根拠 / 特徴(自由記述) |
-| [人物形態](ledger/人物形態.yaml) | 31 | 人物形態の台帳。元資料の提案と確定状態を区別して保持する。 | 形態ID / 人物ID / 年齢 / 衣装 / 車椅子 / マスターパス / 状態 / 根拠 |
+| [人物](ledger/人物.yaml) | 50 | 人物の台帳。元資料の提案と確定状態を区別して保持する。 | 人物ID / 呼称 / 旧接頭辞 / 牌 / 人物の芯 / 見た目の核 / 役割 / 根拠 / 特徴(自由記述) |
+| [人物形態](ledger/人物形態.yaml) | 71 | 人物形態の台帳。元資料の提案と確定状態を区別して保持する。 | 形態ID / 人物ID / 年齢 / 衣装 / 車椅子 / マスターパス / 状態 / 根拠 |
 | [素材移行](ledger/素材移行.yaml) | 712 | 旧素材の移動・削除・剪定先を監査可能な行で保持し、manifest JSONを導出する。 | 旧パス / 新パス / 操作 / 理由 / sha256 / 剪定パス |
 | [素材移行設定](ledger/素材移行設定.yaml) | 8 | 素材移行設定の台帳。元資料の提案と確定状態を区別して保持する。 | 設定ID / 値 / 説明 |
 | [刀候補](ledger/刀候補.yaml) | 31 | 刀候補の台帳。元資料の提案と確定状態を区別して保持する。 | 刀候補ID / 刀名 / 種別 / 作者 / 時代 / 指定 / 所蔵 / 特徴 / 逸話 / 個性の素 / 確度 / 注 / 出典 / 状態 |
@@ -229,6 +229,9 @@
 | asset-field-emotion | 画像正本 | フィールドの人物に添える感情吹き出し（採用）。256x256 透過PNG | 許可 | assets/images |
 | asset-shared-adopted | 画像正本 | 人物共通（フィールドの汎用モブNPCなど、特定の C 管理IDを持たない人物）の採用素材。透過切り抜き WebP | 許可 | assets/images |
 | asset-shared-candidates | 画像候補 | 人物共通の外観候補（所有者は未決） | 許可 | assets/images |
+| asset-shared-npc-master-candidates | 画像候補 | フィールドNPCの三面マスター候補（C管理ID-年齢-master） | 許可 | assets/images |
+| asset-shared-candidates-webp | 画像候補 | フィールドNPC初期生成候補（人物スキル適用前） | 許可 | assets/images |
+| asset-shared-direction-candidates | 画像候補 | 人物の歩行方向候補・レビュー用グリッド（C003/C004 等） | 許可 | assets/images |
 | asset-weapon-candidates | 画像候補 | 人物別の刀（軌跡を含む）の候補画像 | 許可 | assets/images |
 | asset-metadata-json | 画像用メタデータ | 候補画像の付随JSON。素材メタデータ表から生成する安全化済み出力 | 許可 | assets/images |
 | output-sword-previews | プレビュー画像 | 刀候補20本と斬撃ポーズの重ね確認画像（採用判断の参考） | 許可 | output/battle-sword-previews/README.md |
