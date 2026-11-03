@@ -4,7 +4,9 @@
 人物 4 人 x 全形態 x 8 方向の歩行を静的 HTML で動かして目視確認する。
 使い方: uv run python3 scripts/walk_viewer.py --out <出力ディレクトリ>
 読み取り専用(リポの画像・台帳は変更しない)。出力先に img -> リポの画像 への symlink を作る。
-再生成すれば最新の候補が反映される。
+2026-11-03(#204)に歩行候補は全て正本(Cxxx/walk)へ採用済み。shared/direction-candidates に残るのは不採用の別版のみ。
+左右反転による代用は行わない(欠損方向は「なし(欠損)」と表示する)。
+再生成すれば最新の状態が反映される。
 """
 import argparse
 import html
@@ -24,8 +26,8 @@ DIRS = ["down", "downleft", "left", "upleft", "up", "upright", "right", "downrig
 FRAMES = [1, 2, 3]
 AGES = ["kindergarten", "elementary", "teen", "midlife", "adult"]
 AGE_JA = {"kindergarten": "幼稚園", "elementary": "小学生", "teen": "中学生", "midlife": "中年", "adult": "青年"}
-MIRROR = {"downright": "downleft", "upright": "upleft"}
-KINDS = ["正本", "候補", "反転", "なし"]
+MISSING = "なし(欠損)"
+KINDS = ["正本", "候補", MISSING]
 
 DIR_RE = "|".join(sorted(DIRS, key=len, reverse=True))
 AGE_RE = "|".join(AGES)
@@ -71,7 +73,7 @@ def newest(paths):
 
 
 def resolve(canon, cand, key):
-    """1コマ分の解決。None か dict(src,kind,name,flip,note)。"""
+    """1コマ分の解決。None か dict(path,kind,note)。"""
     c, age, wc, d, f = key
     cp = canon.get(key)
     cl = cand.get(key)
@@ -80,20 +82,12 @@ def resolve(canon, cand, key):
         if cl:
             n = newest(cl)
             if n.stat().st_mtime > cp.stat().st_mtime:
-                note = f"候補あり(正本より新しい): {n.name}"
+                note = f"未採用の別版候補あり(正本より新しい): {n.name}"
             else:
-                note = f"候補あり: {n.name}"
-        return dict(path=cp, kind="正本", flip=False, note=note)
+                note = f"未採用の別版候補あり: {n.name}"
+        return dict(path=cp, kind="正本", note=note)
     if cl:
-        return dict(path=newest(cl), kind="候補", flip=False, note="")
-    if d in MIRROR:
-        mk = (c, age, wc, MIRROR[d], f)
-        mp = canon.get(mk)
-        if mp:
-            return dict(path=mp, kind="反転", flip=True, note="左向き正本を反転")
-        ml = cand.get(mk)
-        if ml:
-            return dict(path=newest(ml), kind="反転", flip=True, note="左向き候補を反転")
+        return dict(path=newest(cl), kind="候補", note="")
     return None
 
 
@@ -135,12 +129,10 @@ def build():
                 frs = {f: resolve(canon, cand, (c, age, wc, d, f)) for f in FRAMES}
                 have = [f for f in FRAMES if frs[f]]
                 if not have:
-                    kind = "なし"
+                    kind = MISSING
                 else:
                     kinds = {frs[f]["kind"] for f in have}
-                    if "反転" in kinds:
-                        kind = "反転"
-                    elif "候補" in kinds:
+                    if "候補" in kinds:
                         kind = "候補"
                     else:
                         kind = "正本"
@@ -169,13 +161,12 @@ h1{font-size:20px} h2{font-size:17px;border-bottom:1px solid var(--line);padding
 .cell.paused{outline:2px solid #d8a13a}
 .stage{position:relative;width:calc(var(--w)*var(--z)*1px);height:calc(var(--h)*var(--z)*1px);background:var(--stage)}
 .stage img{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:auto;height:auto;zoom:var(--z);image-rendering:auto}
-.stage img.flip{transform:translateX(-50%) scaleX(-1)}
 .stage .guide{position:absolute;left:0;right:0;bottom:0;border-top:1px solid #ff3b6b;display:none;pointer-events:none}
 body.guides .stage .guide{display:block}
 .stage .none{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#ff8a8a;font-size:20px;border:2px dashed #7a3a3a}
 .meta{font-size:12px;color:var(--mut);word-break:break-all}
 .tag{display:inline-block;padding:0 6px;border-radius:3px;font-size:12px;color:#000}
-.tag.k0{background:#7be39a}.tag.k1{background:#ffd166}.tag.k2{background:#7cc4ff}.tag.k3{background:#ff8a8a}
+.tag.k0{background:#7be39a}.tag.k1{background:#ffd166}.tag.k2{background:#ff8a8a}
 .center{display:flex;align-items:center;justify-content:center;color:var(--mut);text-align:center}
 table{border-collapse:collapse} td,th{border:1px solid var(--line);padding:3px 10px;text-align:right} th{background:var(--card)} td:first-child,th:first-child{text-align:left}
 .note{color:var(--mut)} .ex li{font-family:monospace;font-size:12px}
@@ -199,7 +190,7 @@ const cells=[...document.querySelectorAll('.cell[data-frames]')].map(el=>({el,fr
 function show(c){const fr=c.fr;if(!fr.length)return;
  // 欠けコマがある場合は存在するコマだけを順に回す
  const idx=fr.length>=3?SEQ[tick%4]:(tick%fr.length);const g=fr[idx];
- c.img.src=g.s;c.img.classList.toggle('flip',g.f);c.now.textContent='コマ'+g.n+': '+g.name;}
+ c.img.src=g.s;c.now.textContent='コマ'+g.n+': '+g.name;}
 function step(){tick++;cells.forEach(c=>{if(!c.paused)show(c)});}
 function restart(){clearInterval(timer);if(playing)timer=setInterval(step,1000/(+document.getElementById('fps').value));}
 cells.forEach(c=>{c.el.addEventListener('click',()=>{c.paused=!c.paused;c.el.classList.toggle('paused',c.paused)});show(c)});
@@ -225,14 +216,14 @@ def cell_html(d, cell):
     kind = cell["kind"]
     ki = KINDS.index(kind)
     avail = [(f, frs[f]) for f in FRAMES if frs[f]]
-    data = [dict(s=rel(r["path"]), f=r["flip"], n=f, name=r["path"].name) for f, r in avail]
+    data = [dict(s=rel(r["path"]), n=f, name=r["path"].name) for f, r in avail]
     if not avail:
-        stage = '<div class="stage"><div class="none">なし</div><div class="guide"></div></div>'
+        stage = '<div class="stage"><div class="none">なし(欠損)</div><div class="guide"></div></div>'
         attr = ""
         extra = ""
     else:
         first = data[0]
-        stage = (f'<div class="stage"><img src="{first["s"]}" alt="{d}"{" class=flip" if first["f"] else ""}>'
+        stage = (f'<div class="stage"><img src="{first["s"]}" alt="{d}">'
                  f'<div class="guide"></div></div>')
         attr = f" data-frames='{html.escape(json.dumps(data), quote=True)}'"
         notes = []
@@ -294,8 +285,8 @@ def main():
                             w, h = max(w, sizes[p][0]), max(h, sizes[p][1])
         w, h = w or 310, h or 400
         body = [f'<h1>{c} {CHARS[c]} 歩行ビューア</h1>',
-                '<p class="note">コマ順 1→2→3→2。正本=assets/images/characters/{id}/walk、候補=shared/direction-candidates(同キーは更新時刻が最新)。'
-                '反転=左向きをCSSで左右反転(実ファイルなし)。</p>',
+                '<p class="note">コマ順 1→2→3→2。正本=assets/images/characters/{id}/walk、候補は全て採用済み。shared/direction-candidates に残る別版は不採用で、同じコマに正本があるときだけ注記に出す。'
+                '左右反転での代用は行わず、実ファイルが無い方向は「なし(欠損)」と表示する。</p>',
                 f'<style>:root{{--w:{w};--h:{h}}}</style>']
         have = {(a, wc) for a, wc, _ in secs}
         missing_led = [f'{AGE_JA.get(r.get("年齢"), r.get("年齢"))}/{r.get("衣装")}/{"車椅子" if r.get("車椅子") == "はい" else "車椅子なし"}'
