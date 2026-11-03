@@ -4,8 +4,7 @@
 人物 4 人 x 全形態 x 8 方向の歩行を静的 HTML で動かして目視確認する。
 使い方: uv run python3 scripts/walk_viewer.py --out <出力ディレクトリ>
 読み取り専用(リポの画像・台帳は変更しない)。出力先に img -> リポの画像 への symlink を作る。
-2026-11-03(#204)に歩行候補は全て正本(Cxxx/walk)へ採用済み。shared/direction-candidates に残るのは不採用の別版のみ。
-再生成すれば最新の状態が反映される。
+再生成すれば最新の候補が反映される。
 """
 import argparse
 import html
@@ -81,9 +80,9 @@ def resolve(canon, cand, key):
         if cl:
             n = newest(cl)
             if n.stat().st_mtime > cp.stat().st_mtime:
-                note = f"未採用の別版候補あり(正本より新しい): {n.name}"
+                note = f"候補あり(正本より新しい): {n.name}"
             else:
-                note = f"未採用の別版候補あり: {n.name}"
+                note = f"候補あり: {n.name}"
         return dict(path=cp, kind="正本", flip=False, note=note)
     if cl:
         return dict(path=newest(cl), kind="候補", flip=False, note="")
@@ -295,7 +294,7 @@ def main():
                             w, h = max(w, sizes[p][0]), max(h, sizes[p][1])
         w, h = w or 310, h or 400
         body = [f'<h1>{c} {CHARS[c]} 歩行ビューア</h1>',
-                '<p class="note">コマ順 1→2→3→2。正本=assets/images/characters/{id}/walk(候補は全て採用済み)。shared/direction-candidates に残る別版は不採用で、同じコマに正本があるときだけ注記に出す。'
+                '<p class="note">コマ順 1→2→3→2。正本=assets/images/characters/{id}/walk、候補=shared/direction-candidates(同キーは更新時刻が最新)。'
                 '反転=左向きをCSSで左右反転(実ファイルなし)。</p>',
                 f'<style>:root{{--w:{w};--h:{h}}}</style>']
         have = {(a, wc) for a, wc, _ in secs}
