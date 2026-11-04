@@ -1,12 +1,15 @@
 """アプリストア刀一覧用の派生画像の切り出し試作（sit-by-me #26、決定 SIT.appstore-weapon-list-image-is-derived-from-masters）。
 
-刀マスター（assets/images/weapons/masters/*.png）から機械的に派生画像を作る。採用版が決まるまで画像はリポに入れない。
-variant = 向き(diag/horiz) x にじみ(keep/cut/tight)。出力は --out の下に variant ごとのディレクトリと contact sheet。
+刀マスター（assets/images/weapons/masters/*.png）から機械的に派生画像を作る。
+採用版（kako-jun 2026-11-04）= horiz-cut（向き=水平、にじみ=なし）。既定でこれだけを出力する。
+他の variant（向き diag/horiz x にじみ keep/cut/tight）は --variant で、全 variant の contact sheet は --sheet で試作用に出せる。
 
-usage: uv run --with pillow --with numpy python3 -I scripts/derive_blade_appstore.py --out DIR
+usage: uv run --with pillow --with numpy python3 -I scripts/derive_blade_appstore.py --out DIR [--variant horiz-cut] [--sheet]
+採用版の置き場は assets/images/weapons/app-store/（--out にそのディレクトリを渡す）。
 """
 import argparse
 import math
+import re
 from pathlib import Path
 
 import numpy as np
@@ -16,6 +19,8 @@ REPO = Path(__file__).resolve().parents[1]
 MASTERS = REPO / 'assets/images/weapons/masters'
 PAD = 8
 CANVAS = {'diag': (384, 256), 'horiz': (512, 128)}  # 向きごとの統一キャンバス（contain で収める）
+VARIANTS = [(o, g) for o in ('diag', 'horiz') for g in ('keep', 'cut', 'tight')]
+ADOPTED = 'horiz-cut'  # 採用版（kako-jun 2026-11-04）
 CORE_ALPHA = 128  # 向きの推定・にじみ除去の「刀の実体」しきい値
 
 
@@ -75,12 +80,27 @@ def checker(w, h, c=16):
     return bg
 
 
+def derived_name(master):
+    """マスター名 -> 派生名。-reference(-master)?-vN を除き -appstore-v1.webp を付ける。"""
+    return re.sub(r'-reference(?:-master)?-v\d+$', '', master.stem) + '-appstore-v1.webp'
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--out', required=True)
-    out = Path(ap.parse_args().out)
-    variants = [(o, g) for o in ('diag', 'horiz') for g in ('keep', 'cut', 'tight')]
+    ap.add_argument('--variant', default=ADOPTED, choices=[f'{o}-{g}' for o, g in VARIANTS])
+    ap.add_argument('--sheet', action='store_true', help='全 variant の個別画像と contact sheet を出す（試作用）')
+    args = ap.parse_args()
+    out = Path(args.out)
     files = sorted(MASTERS.glob('*.png'))
+    if not args.sheet:
+        o, g = args.variant.split('-')
+        out.mkdir(parents=True, exist_ok=True)
+        for f in files:
+            make(Image.open(f), o, g).save(out / derived_name(f), lossless=True)
+        print(len(files), 'files ->', out)
+        return
+    variants = VARIANTS
     cell_w, cell_h, label_w = 260, 136, 230
     sheet = Image.new('RGB', (label_w + cell_w * len(variants), 24 + cell_h * len(files)), (20, 20, 22))
     d = ImageDraw.Draw(sheet)
@@ -93,7 +113,7 @@ def main():
             res = make(src, o, g)
             vd = out / f'{o}-{g}'
             vd.mkdir(parents=True, exist_ok=True)
-            res.save(vd / f.name.replace('.png', '.webp').replace('-reference', ''), lossless=True)
+            res.save(vd / derived_name(f), lossless=True)
             sc = min((cell_w - 4) / res.width, (cell_h - 4) / res.height)
             th = res.resize((round(res.width * sc), round(res.height * sc)), Image.LANCZOS)
             cell = checker(cell_w, cell_h)

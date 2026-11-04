@@ -10886,5 +10886,5 @@
   "必須語": ""
   "禁止語": ""
   "対象MAP": ""
-  "備考": "分類: layout。元画像の正本は asset-weapons（素材台帳 A-565〜A-584）。派生画像は未作成で、置き場・ID規則・元IDとの対応は未作成・未決。どの元画像がどの刀 id に対応するかの台帳も未決（未決表 U-1752〜U-1771）。関連する既存決定: SIT.shop-app-store-style。"
+  "備考": "分類: layout。元画像の正本は asset-weapons（素材台帳 A-565〜A-584）。派生画像は assets/images/weapons/app-store/（配置ID asset-weapons-app-store、素材台帳 A-1325〜A-1344、来歴に派生元 A-5xx）。採用: 水平・にじみなし（kako-jun 2026-11-04 の選択「水平でにじみなし」、variant=horiz-cut）。どの元画像がどの刀 id に対応するかの台帳も未決（未決表 U-1752〜U-1771）。関連する既存決定: SIT.shop-app-store-style。"
   "特徴(自由記述)": ""
