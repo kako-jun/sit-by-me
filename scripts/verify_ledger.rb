@@ -249,7 +249,7 @@ class LedgerVerifier
            ids('人物', '人物ID').include?(owner) ||
            ids('敵', '敵ID').include?(owner) ||
            ids('召喚獣', '召喚獣ID').include?(owner) ||
-           owner.match?(/\ABG\d{3}\z/) || owner == 'BRAND'
+           owner.match?(/\ABG\d{3}\z/) || %w[BRAND UI].include?(owner)
       err("素材 #{s['素材ID']} の所有者 #{owner} に対応する台帳行または素材名前空間が無い") unless ok
     end
     # 決定参照（全表）: 存在し、訂正済み・撤回済みの決定を参照していない
