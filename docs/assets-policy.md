@@ -12,6 +12,10 @@
 
 フィールドのモブ（汎用NPC）の法則は決定 `SIT.field-mob-era-rule`・`SIT.field-mob-kappa-boy` を正本とし、ここには再掲しない。置き場の運用: `anonymous-elder-woman.webp`（A-1054）は大人時代用、`anonymous-kid-girl-short.webp`（A-1055。C050 新マスター A-1135 へ置き換え予定）は子供時代用（中身が分からない中立名。アクスタ処理は未適用）。追加の種類・人数・絵の方針は未決（U-1839〜U-1841）。
 
+## UI素材
+
+ゲームUIの素材（手のカーソル・選択中の印の円錐。実写的でドット絵ではない）は `assets/images/ui/内容-v数字.webp` に置く（配置ID `asset-ui`、素材台帳 A-1345・A-1346。決定 SIT.ui-hand-cursor-and-select-cone-adopted-b が正本）。透過 lossless webp。
+
 ## 生成画像の方針
 
 人物、物、敵、召喚獣、マップは**実写っぽい生成画像**で作る。**背景だけは、実写に似せず、デフォルメされたジオラマ（模型）と分かる質感とサイズ感**にする（2026-10-14。art-direction.md）。実写素材・ストック素材との選択は行わない。人物は実在人物を参照せず、普通の人間の頭身にする。
