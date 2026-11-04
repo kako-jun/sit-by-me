@@ -94,8 +94,8 @@
 | [素材](ledger/素材.yaml) | 1324 | 素材（画像・マスクなど。没も行で保持）。 | 素材ID / 所有者ID / 種別 / パス / 状態 / 日付 / 来歴 / sha256 / 特徴(自由記述) |
 | [素材共有](ledger/素材共有.yaml) | 3 | 所有者以外の人物・敵・召喚獣が同一素材を利用する明示的な関係。素材行を複製せず、出典を保持する。 | 共有ID / 利用者ID / 素材ID / 根拠 |
 | [素材更新](ledger/素材更新.yaml) | 271 | 元の素材移行SHAを保持したまま後続の上流更新を記録するSHA連鎖。出典commitと出典パスを必須とする。 | 更新ID / 素材ID / パス / 旧sha256 / 新sha256 / 出典commit / 出典パス / 根拠 |
-| [素材メタデータ](ledger/素材メタデータ.yaml) | 7 | 上流の画像用JSONを安全化してYAML正本に変換した出典とハッシュ。原文の秘匿値は保持しない。 | メタデータID / パス / 所有者ID / 原文sha256 / 安全化sha256 / 出典commit / 安全化方針 |
-| [素材メタデータ値](ledger/素材メタデータ値.yaml) | 704 | 画像用JSONをJSONポインタ・型・値へ分解したYAML正本。JSONは再構築して生成する。 | メタデータID / JSONポインタ / 型 / 値 |
+| [素材メタデータ](ledger/素材メタデータ.yaml) | 10 | 上流の画像用JSONを安全化してYAML正本に変換した出典とハッシュ。原文の秘匿値は保持しない。 | メタデータID / パス / 所有者ID / 原文sha256 / 安全化sha256 / 出典commit / 安全化方針 |
+| [素材メタデータ値](ledger/素材メタデータ値.yaml) | 1293 | 画像用JSONをJSONポインタ・型・値へ分解したYAML正本。JSONは再構築して生成する。 | メタデータID / JSONポインタ / 型 / 値 |
 | [生成物](ledger/生成物.yaml) | 26 | 派生物（JSON）の登録と鮮度検査用ハッシュ。 | 生成物ID / 種別 / パス / 元の表 / 入力ハッシュ / 生成日時 / 再生成コマンド / 備考 |
 | [必須キー](ledger/必須キー.yaml) | 146 | 対象テーブルごとの必須キー定義。 | 対象テーブル / キー / 必須度 / 条件 / 語彙グループ / 説明 |
 | [未決](ledger/未決.yaml) | 1982 | 未決（要確認）の一覧。 | 未決ID / 対象テーブル / 対象ID / キー / 内容 / 状態 / 解決決定ID |
@@ -234,7 +234,7 @@
 | asset-shared-direction-candidates | 画像候補 | 人物の歩行方向候補・レビュー用グリッド（C003/C004 等） | 許可 | assets/images |
 | asset-weapon-candidates | 画像候補 | 人物別の刀（軌跡を含む）の候補画像 | 許可 | assets/images |
 | asset-metadata-json | 画像用メタデータ | 候補画像の付随JSON。素材メタデータ表から生成する安全化済み出力 | 許可 | assets/images |
-| output-sword-previews | プレビュー画像 | 刀候補20本と斬撃ポーズの重ね確認画像（採用判断の参考） | 許可 | output/battle-sword-previews/README.md |
+| output-sword-previews | プレビュー画像 | 刀候補20本と斬撃・戦闘ポーズ（ready/swing/slash/special/step）の重ね確認画像（採用判断の参考） | 許可 | output/battle-sword-previews/README.md |
 | output-sword-previews-readme | プレビュー説明 | 刀プレビューの読み方 | リンク |  |
 
 <!-- GENERATED:END ledger-views -->

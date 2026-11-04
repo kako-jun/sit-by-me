@@ -78,6 +78,16 @@
 - 戦闘人物の刀は人物画像へ焼き込まず、候補刀ごとの共通画像を前面レイヤーとして合成する。軌跡は既定で作らない。
 - ポーズ構造（立位・車椅子）ごとの少数の位置・縮尺・角度を使い、世代ごとに刀画像を増やさない。縮小表示で柄が拳の近くにあり、刀身全体が読めることを白・暗色背景で一覧確認する。指の完全な握りや厳密な重なりは求めない。
 - 回転後の柄アンカーは、回転前の画像寸法から回転後キャンバス座標へ変換して求める。固定割合による近似だけに頼らず、候補刀×全対象世代の縮小合成で手元・刀身の見え方を確認し、刃先が四辺から見切れていないか確認する。手が画面端近くにある場合、武器を小さくする前に刀身を画面内側へ向ける（C002 2026-10-27）。
+- **変換値の契約（name-name 実装者向けの正本）**: `assets/images/characters/Cxxx/battle-layers.json`（C001〜C004 で同じキー構成。読み手はこの1ファイルだけで全ポーズの変換値を解決できる。各JSONの `transform_convention` はここと同文）。
+  - 座標系: 透過クロップ済みの人物画像（`poses/` の WebP）に対する正規化座標。x は右、y は下。
+  - 適用順: ①刀画像を高さ＝`weapon_height_ratio`×人物画像の高さに縮小 → ②`flip_x` が true なら左右反転（柄アンカーの x は 1−x になる）→ ③画像中心まわりに `rotation_deg` 回転（キャンバス拡張あり。PIL `Image.rotate` と同じで、正の値は画面上の反時計回り）→ ④回転後の柄アンカー（刀カタログの `handle_center_normalized`。C002〜C004 は全刀 (0.82, 0.82)、C001 は刀ごとに異なる）が `handle_target` に一致するように配置。
+  - レイヤー順: 人物の上に刀。C001 だけ軌跡（trail）が最下層（`layer_order`）。
+  - 値の読み方（union）: `weapon_height_ratio`・`rotation_deg`・`handle_target` はそれぞれ「全構造に共通の値（scalar か {x,y}）」か「構造別オブジェクト {standing, wheelchair}」のどちらか。構造キーが無ければ全構造に適用する。構造は character_sets の `structure`。
+  - ready: `pose_layers.ready` はレイヤー一覧だけ。変換値の正本はトップレベルの `ready_weapon_transform` 1か所（二重管理しない）。
+  - swing-windup / swing-followthrough: `pose_layers` に置く（C001 は刀カタログ `shared_pose_transforms.poses` の値と同一の複写。C002〜C004 の正本はここ）。
+  - 刀を載せないポーズ: idle・hurt・down・cast・victory は人物のみ。車椅子の step も刀なし（ハンドリムを押す）。C001 の hurt/victory/cast は効果・スマホ発光レイヤー付き（効果カタログは C001 だけ）。
+  - 確認画像は `output/battle-sword-previews/Cxxx-battle-pose-matrix-{white,dark}.png`（代表セット×2刀）。見切れなしは全セット×全刀×全ポーズをスクリプトで検査（Issue #166 #167 #168）。
+  - **C001 のみの例外（name-name 実装者は C001 だけ次の3点を守る）**: (1) C001 の ready / slash / special / swing の変換値は、透過クロップ済み人物画像ではなく**パディング付きキャンバス基準で、見切れ未検証**（#165 由来）。クロップ済みの `poses/*.webp` にそのまま当てはめると刀が人物の外へはみ出す（再合成の実測: kindergarten の ready で x0 が -112〜-190）。C002〜C004 の値はクロップ済み画像基準で見切れ検査済み。(2) C001 の swing 画像は 768×1024 の未クロップで、`poses/` の `{prefix}-swing-*.webp` と名前が一致しない場合がある。ファイルの解決は `slash_animation.frame_files` を見る。(3) C001 の slash には候補刀別の上書き（`assets/images/weapons/C001/C001-blade-candidates.json` の `shared_pose_transforms.poses.slash.candidate_overrides`。onimaru は ratio 0.48・別 handle_target）があり、`battle-layers.json` には無い。C001 だけ刀カタログも参照して上書きを適用する。
 
 ### 年齢段階と衣装
 
