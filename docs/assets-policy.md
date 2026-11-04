@@ -78,6 +78,7 @@
 - 戦闘人物の刀は人物画像へ焼き込まず、候補刀ごとの共通画像を前面レイヤーとして合成する。軌跡は既定で作らない。
 - ポーズ構造（立位・車椅子）ごとの少数の位置・縮尺・角度を使い、世代ごとに刀画像を増やさない。縮小表示で柄が拳の近くにあり、刀身全体が読めることを白・暗色背景で一覧確認する。指の完全な握りや厳密な重なりは求めない。
 - 回転後の柄アンカーは、回転前の画像寸法から回転後キャンバス座標へ変換して求める。固定割合による近似だけに頼らず、候補刀×全対象世代の縮小合成で手元・刀身の見え方を確認し、刃先が四辺から見切れていないか確認する。手が画面端近くにある場合、武器を小さくする前に刀身を画面内側へ向ける（C002 2026-10-27）。
+- 変換値の契約は `assets/images/characters/Cxxx/battle-layers.json`（C001〜C004 で同じスキーマ。ポーズ別 layers・立位/車椅子別の weapon_height_ratio・rotation_deg・handle_target・flip_x・ready_weapon_transform・slash_animation）。C002〜C004 は ready / swing-windup / slash / swing-followthrough / special / step を整備し（車椅子の step は刀なし）、hurt / down / cast / victory は人物のみ（効果カタログは C001 だけ）。確認画像は `output/battle-sword-previews/Cxxx-battle-pose-matrix-{white,dark}.png`（Issue #166 #167 #168）。
 
 ### 年齢段階と衣装
 

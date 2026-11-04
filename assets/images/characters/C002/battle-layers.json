@@ -1,0 +1,322 @@
+{
+  "source_issue": 167,
+  "status": "candidate recipe; visual positioning is approximate and not final gameplay approval",
+  "coordinate_system": "normalized within each visible character cutout after transparent crop (the pose WebP files are already tight crops); x right, y down",
+  "transform_convention": "weapon image is scaled so its height = weapon_height_ratio x character image height, flipped horizontally first when flip_x is true, then rotated about its center by rotation_deg (PIL Image.rotate semantics: positive = counter-clockwise on screen) with expand; the rotated image is placed so its handle_center_normalized anchor (from the weapon catalog, rotated with the image) lands on handle_target x/y of the character image. Same convention as C001.",
+  "character_sets": [
+    {
+      "id": "kindergarten_snowwear",
+      "prefix": "C002",
+      "structure": "standing",
+      "age": "kindergarten"
+    },
+    {
+      "id": "kindergarten_uniform",
+      "prefix": "C002-uniform",
+      "structure": "standing",
+      "age": "kindergarten"
+    },
+    {
+      "id": "elementary_standing",
+      "prefix": "C002-elementary",
+      "structure": "standing",
+      "age": "elementary"
+    },
+    {
+      "id": "teen_standing",
+      "prefix": "C002-teen",
+      "structure": "standing",
+      "age": "teen"
+    },
+    {
+      "id": "adult_standing",
+      "prefix": "C002-adult",
+      "structure": "standing",
+      "age": "adult"
+    },
+    {
+      "id": "midlife_standing",
+      "prefix": "C002-midlife",
+      "structure": "standing",
+      "age": "midlife"
+    },
+    {
+      "id": "elementary_wheelchair",
+      "prefix": "C002-elementary-wheelchair",
+      "structure": "wheelchair",
+      "age": "elementary"
+    },
+    {
+      "id": "teen_wheelchair",
+      "prefix": "C002-teen-wheelchair",
+      "structure": "wheelchair",
+      "age": "teen"
+    },
+    {
+      "id": "adult_wheelchair",
+      "prefix": "C002-adult-wheelchair",
+      "structure": "wheelchair",
+      "age": "adult"
+    },
+    {
+      "id": "midlife_wheelchair",
+      "prefix": "C002-midlife-wheelchair",
+      "structure": "wheelchair",
+      "age": "midlife"
+    }
+  ],
+  "weapon_catalog": "assets/images/weapons/C002/C002-blade-candidates.json",
+  "layer_order": {
+    "slash_special": [
+      "character",
+      "weapon"
+    ],
+    "ready_swing": [
+      "character",
+      "weapon"
+    ],
+    "standing_step": [
+      "character",
+      "weapon"
+    ],
+    "wheelchair_step": [
+      "character"
+    ]
+  },
+  "pose_layers": {
+    "idle": [
+      "character"
+    ],
+    "ready": {
+      "layers": [
+        "character",
+        "weapon"
+      ],
+      "weapon_height_ratio": {
+        "standing": 0.45,
+        "wheelchair": 0.4
+      },
+      "rotation_deg": -205,
+      "handle_target": {
+        "standing": {
+          "x": 0.17,
+          "y": 0.25
+        },
+        "wheelchair": {
+          "x": 0.28,
+          "y": 0.26
+        }
+      },
+      "flip_x": false
+    },
+    "step": {
+      "standing": {
+        "layers": [
+          "character",
+          "weapon"
+        ],
+        "weapon_height_ratio": 0.42,
+        "flip_x": false,
+        "rotation_deg": -205,
+        "handle_target": {
+          "x": 0.09,
+          "y": 0.4
+        }
+      },
+      "wheelchair": {
+        "layers": [
+          "character"
+        ],
+        "weapon": "none; hands stay on pushrims"
+      }
+    },
+    "slash": {
+      "layers": [
+        "character",
+        "weapon"
+      ],
+      "weapon_height_ratio": {
+        "standing": 0.48,
+        "wheelchair": 0.42
+      },
+      "rotation_deg": -150,
+      "handle_target": {
+        "standing": {
+          "x": 0.16,
+          "y": 0.3
+        },
+        "wheelchair": {
+          "x": 0.15,
+          "y": 0.34
+        }
+      },
+      "flip_x": false
+    },
+    "hurt": [
+      "character"
+    ],
+    "down": [
+      "character"
+    ],
+    "cast": [
+      "character"
+    ],
+    "special": {
+      "layers": [
+        "character",
+        "weapon"
+      ],
+      "weapon_height_ratio": {
+        "standing": 0.45,
+        "wheelchair": 0.4
+      },
+      "rotation_deg": -200,
+      "handle_target": {
+        "standing": {
+          "x": 0.09,
+          "y": 0.1
+        },
+        "wheelchair": {
+          "x": 0.12,
+          "y": 0.1
+        }
+      },
+      "flip_x": false
+    },
+    "victory": [
+      "character"
+    ],
+    "swing-windup": {
+      "layers": [
+        "character",
+        "weapon"
+      ],
+      "weapon_height_ratio": {
+        "standing": 0.42,
+        "wheelchair": 0.38
+      },
+      "rotation_deg": -210,
+      "handle_target": {
+        "standing": {
+          "x": 0.12,
+          "y": 0.26
+        },
+        "wheelchair": {
+          "x": 0.22,
+          "y": 0.29
+        }
+      },
+      "flip_x": false
+    },
+    "swing-followthrough": {
+      "layers": [
+        "character",
+        "weapon"
+      ],
+      "weapon_height_ratio": {
+        "standing": 0.42,
+        "wheelchair": 0.38
+      },
+      "rotation_deg": -175,
+      "handle_target": {
+        "standing": {
+          "x": 0.1,
+          "y": 0.54
+        },
+        "wheelchair": {
+          "x": 0.08,
+          "y": 0.53
+        }
+      },
+      "flip_x": false
+    }
+  },
+  "ready_weapon_transform": {
+    "weapon_height_ratio": {
+      "standing": 0.45,
+      "wheelchair": 0.4
+    },
+    "rotation_deg": -205,
+    "handle_target": {
+      "standing": {
+        "x": 0.17,
+        "y": 0.25
+      },
+      "wheelchair": {
+        "x": 0.28,
+        "y": 0.26
+      }
+    },
+    "flip_x": false
+  },
+  "trail_rule": "No trail layer (KJ 2026-10-27: no trail by default).",
+  "weapon_selection": "All five weapon candidates in the catalog share these transforms (handle anchor (0.82, 0.82) is identical); verified in output previews with every candidate against every set (no blade tip outside the canvas).",
+  "preview": [
+    "output/battle-sword-previews/C002-battle-pose-matrix-white.png",
+    "output/battle-sword-previews/C002-battle-pose-matrix-dark.png"
+  ],
+  "preview_note": "Matrices show ready, swing-windup, slash, swing-followthrough, special, step; two weapons per representative set. Approximate hand-near-hilt placement; finger wrap and exact overlap are not required. Special and step blades point inward/down so they stay in frame and off the face.",
+  "follow_up": [
+    "Choose or confirm the final weapon assignment.",
+    "Check at the actual game display size once name-name integrates the battle runtime (name-name#1027)."
+  ],
+  "slash_animation": {
+    "status": "candidate; per-structure swing transforms are approximate; runtime integration and weapon assignment remain open",
+    "sequence": [
+      "ready",
+      "swing-windup",
+      "slash",
+      "swing-followthrough",
+      "ready"
+    ],
+    "weapon_and_trail": "weapon remains a separate layer; animate by per-frame transform; sword-hand alignment is approximate",
+    "frame_files": {
+      "C002": [
+        "C002-swing-windup.webp",
+        "C002-swing-followthrough.webp"
+      ],
+      "C002-uniform": [
+        "C002-uniform-swing-windup.webp",
+        "C002-uniform-swing-followthrough.webp"
+      ],
+      "C002-elementary": [
+        "C002-elementary-swing-windup.webp",
+        "C002-elementary-swing-followthrough.webp"
+      ],
+      "C002-teen": [
+        "C002-teen-swing-windup.webp",
+        "C002-teen-swing-followthrough.webp"
+      ],
+      "C002-adult": [
+        "C002-adult-swing-windup.webp",
+        "C002-adult-swing-followthrough.webp"
+      ],
+      "C002-midlife": [
+        "C002-midlife-swing-windup.webp",
+        "C002-midlife-swing-followthrough.webp"
+      ],
+      "C002-elementary-wheelchair": [
+        "C002-elementary-wheelchair-swing-windup.webp",
+        "C002-elementary-wheelchair-swing-followthrough.webp"
+      ],
+      "C002-teen-wheelchair": [
+        "C002-teen-wheelchair-swing-windup.webp",
+        "C002-teen-wheelchair-swing-followthrough.webp"
+      ],
+      "C002-adult-wheelchair": [
+        "C002-adult-wheelchair-swing-windup.webp",
+        "C002-adult-wheelchair-swing-followthrough.webp"
+      ],
+      "C002-midlife-wheelchair": [
+        "C002-midlife-wheelchair-swing-windup.webp",
+        "C002-midlife-wheelchair-swing-followthrough.webp"
+      ]
+    },
+    "weapon_transforms": {
+      "status": "preview candidate; one shared weapon image across age sets; position chosen by standing/wheelchair structure",
+      "source": "pose_layers.swing-windup / pose_layers.swing-followthrough",
+      "preview_weapon": "C002-muramasa-candidate.webp"
+    }
+  },
+  "effect_note": "No effect catalog for this character yet; hurt/down/cast/victory use the character layer alone."
+}
