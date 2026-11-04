@@ -297,6 +297,16 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
         p.write_text(ledger_io.dumps("ファイル配置", rows), encoding="utf-8")
         self.assertIn("所有表='存在しない表'", self.verify().stderr)
 
+    def test_ui_owner_is_a_material_namespace_but_unknown_owner_is_reported(self):
+        p = self.work / "docs/ledger/素材.yaml"
+        rows = ledger_io.parse("素材", p.read_text(encoding="utf-8"))
+        rows[0]["所有者ID"] = "UI"
+        p.write_text(ledger_io.dumps("素材", rows), encoding="utf-8")
+        self.assertNotIn("の所有者 UI に対応する", self.verify().stderr)
+        rows[0]["所有者ID"] = "NO-SUCH-OWNER"
+        p.write_text(ledger_io.dumps("素材", rows), encoding="utf-8")
+        self.assertIn("の所有者 NO-SUCH-OWNER に対応する", self.verify().stderr)
+
     def test_generated_path_without_layout_rule_is_reported(self):
         p = self.work / "docs/ledger/生成物.yaml"
         rows = ledger_io.parse("生成物", p.read_text(encoding="utf-8"))

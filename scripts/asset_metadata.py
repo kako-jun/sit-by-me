@@ -185,7 +185,7 @@ def ingest(source, path, owner, commit):
     require(git('cat-file', '-e', f'{commit}^{{commit}}')[0] == 0, f'--commit {commit} が git に存在しない')
     known = {r[key] for table, key in (('MAP', 'MAP_ID'), ('人物', '人物ID'), ('敵', '敵ID'), ('召喚獣', '召喚獣ID'))
              for r in ledger_io.read(table)}
-    require(owner and (re.sub(r'-(kids|fire|burnt|wc)\Z', '', owner) in known or re.fullmatch(r'BG\d{3}|BRAND', owner)),
+    require(owner and (re.sub(r'-(kids|fire|burnt|wc)\Z', '', owner) in known or re.fullmatch(r'BG\d{3}|BRAND|UI', owner)),
             f'--owner {owner!r} が台帳にない（MAP・人物・敵・召喚獣のID）')
     node = sanitize(loads(raw.decode('utf-8')))
     payload = output_bytes(node)
