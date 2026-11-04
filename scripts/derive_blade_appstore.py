@@ -1,4 +1,4 @@
-"""アプリストア刀一覧用の派生画像の切り出し試作（sit-by-me #26、決定 SIT.appstore-weapon-list-image-is-derived-from-masters）。
+"""アプリストア刀一覧用の派生画像（採用版）の生成元（sit-by-me #26、決定 SIT.appstore-weapon-list-image-is-derived-from-masters）。
 
 刀マスター（assets/images/weapons/masters/*.png）から機械的に派生画像を作る。
 採用版（kako-jun 2026-11-04）= horiz-cut（向き=水平、にじみ=なし）。既定でこれだけを出力する。
@@ -27,6 +27,8 @@ CORE_ALPHA = 128  # 向きの推定・にじみ除去の「刀の実体」しき
 def axis_angle_deg(alpha):
     """alpha>=CORE_ALPHA の画素の主成分軸の角度（度、画像座標 y 下向き、x 軸から）。"""
     ys, xs = np.nonzero(alpha >= CORE_ALPHA)
+    if len(xs) < 2:
+        raise ValueError(f'alpha>={CORE_ALPHA} の画素が足りず軸を推定できない（全面透過の画像）')
     pts = np.stack([xs - xs.mean(), ys - ys.mean()])
     w, v = np.linalg.eigh(np.cov(pts))
     vx, vy = v[:, 1]
@@ -59,6 +61,9 @@ def trim(im, thr=8):
 def make(im, orient, glow):
     im = im.convert('RGBA')
     if orient == 'horiz':
+        # 先端の向きは判定しない。前提: マスターは全て左下が柄・右上が先端（目視確認済み）なので、軸を水平にすると先端が右になる。
+        # 回転は premultiply なしの BICUBIC、続くリサイズ（LANCZOS）後の縁にもアンチエイリアスの半透明が1〜2px 出る。
+        # これは cut variant でも残る事実で、「にじみ（光のにじみ）なし」の仕様違反ではない。
         ang = axis_angle_deg(np.array(im.getchannel('A')))
         im = im.rotate(ang, resample=Image.BICUBIC, expand=True)  # 反時計回りに ang 度 = 軸を水平へ
     im = trim(apply_glow(im, glow))
