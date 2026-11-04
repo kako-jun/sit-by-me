@@ -87,6 +87,7 @@
   - swing-windup / swing-followthrough: `pose_layers` に置く（C001 は刀カタログ `shared_pose_transforms.poses` の値と同一の複写。C002〜C004 の正本はここ）。
   - 刀を載せないポーズ: idle・hurt・down・cast・victory は人物のみ。車椅子の step も刀なし（ハンドリムを押す）。C001 の hurt/victory/cast は効果・スマホ発光レイヤー付き（効果カタログは C001 だけ）。
   - 確認画像は `output/battle-sword-previews/Cxxx-battle-pose-matrix-{white,dark}.png`（代表セット×2刀）。見切れなしは全セット×全刀×全ポーズをスクリプトで検査（Issue #166 #167 #168）。
+  - **C001 のみの例外（name-name 実装者は C001 だけ次の3点を守る）**: (1) C001 の ready / slash / special / swing の変換値は、透過クロップ済み人物画像ではなく**パディング付きキャンバス基準で、見切れ未検証**（#165 由来）。クロップ済みの `poses/*.webp` にそのまま当てはめると刀が人物の外へはみ出す（再合成の実測: kindergarten の ready で x0 が -112〜-190）。C002〜C004 の値はクロップ済み画像基準で見切れ検査済み。(2) C001 の swing 画像は 768×1024 の未クロップで、`poses/` の `{prefix}-swing-*.webp` と名前が一致しない場合がある。ファイルの解決は `slash_animation.frame_files` を見る。(3) C001 の slash には候補刀別の上書き（`assets/images/weapons/C001/C001-blade-candidates.json` の `shared_pose_transforms.poses.slash.candidate_overrides`。onimaru は ratio 0.48・別 handle_target）があり、`battle-layers.json` には無い。C001 だけ刀カタログも参照して上書きを適用する。
 
 ### 年齢段階と衣装
 
