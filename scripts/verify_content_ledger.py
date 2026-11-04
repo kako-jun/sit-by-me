@@ -107,7 +107,7 @@ def check() -> None:
         assert hashlib.sha256((ROOT / row["パス"]).read_bytes()).hexdigest() == row["sha256"], row["パス"]
     restored = [r for r in present if r["パス"].startswith("assets/images/weapons/masters/")]
     assert len(restored) == 20
-    assert all(r["状態"] == "現存（採否未照合）" and r["来歴"].startswith("旧枝 ddb1c98:") for r in restored)
+    assert all(r["状態"] == "参照専用" and r["来歴"].startswith("旧枝 ddb1c98:") for r in restored)
     for filename in ("敵", "召喚獣", "敵配置"):
         assert not re.search(r"exec-[0-9a-f]{8}-[0-9a-f-]{27,}\.png",
                              (ROOT / "docs/ledger" / f"{filename}.yaml").read_text())
