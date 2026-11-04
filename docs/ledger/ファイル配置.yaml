@@ -488,7 +488,7 @@
 - "配置ID": "asset-weapons"
   "パターン": "assets/images/weapons/masters/[a-z0-9-]+\\.png"
   "種別": "画像正本"
-  "用途": "復元した旧刀マスター画像（元画像）。アプリストアの刀の一覧にはここから切り出した派生画像を使う（決定 SIT.appstore-weapon-list-image-is-derived-from-masters）。派生画像は asset-weapons-app-store。刀 id との対応（所有者）も未決"
+  "用途": "復元した旧刀マスター画像（元画像）。アプリストアの刀の一覧にはここから切り出した派生画像を使う（決定 SIT.appstore-weapon-list-image-is-derived-from-masters）。派生画像は asset-weapons-app-store。刀 id との対応（所有者）は決定済み（決定 SIT.blade-eras-assignment・台帳 刀配分案が正本）"
   "所有表": "素材"
   "生成元": ""
   "到達": "許可"
