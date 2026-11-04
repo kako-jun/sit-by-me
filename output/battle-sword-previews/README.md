@@ -11,4 +11,4 @@ Current character previews:
 
 The current matrices omit trail layers. Per user direction, the five older C001 broad curved trail assets are archived as unused legacy candidates.
 
-Battle-pose matrices (`Cxxx-battle-pose-matrix-{white,dark}.png`, C002-C004): representative sets x two swords, columns ready / swing-windup / slash / swing-followthrough / special / step. The transforms behind them are the per-character `assets/images/characters/Cxxx/battle-layers.json` (same schema as C001; `step` of wheelchair sets has no sword).
+Battle-pose matrices (`Cxxx-battle-pose-matrix-{white,dark}.png`, C002-C004): representative sets x two swords (all sets x all five swords x all poses were checked for blade-tip clipping by script, not shown), columns ready / swing-windup / slash / swing-followthrough / special / step. The transforms behind them are the per-character `assets/images/characters/Cxxx/battle-layers.json` (same schema as C001; `step` of wheelchair sets has no sword).

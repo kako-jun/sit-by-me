@@ -1,8 +1,8 @@
 {
   "source_issue": 166,
   "status": "candidate recipe; visual positioning is approximate and not final gameplay approval",
-  "coordinate_system": "normalized within each visible character cutout after transparent crop (the pose WebP files are already tight crops); x right, y down",
-  "transform_convention": "weapon image is scaled so its height = weapon_height_ratio x character image height, flipped horizontally first when flip_x is true, then rotated about its center by rotation_deg (PIL Image.rotate semantics: positive = counter-clockwise on screen) with expand; the rotated image is placed so its handle_center_normalized anchor (from the weapon catalog, rotated with the image) lands on handle_target x/y of the character image. Same convention as C001.",
+  "coordinate_system": "normalized within each visible character cutout after transparent crop; x right, y down",
+  "transform_convention": "Weapon transform convention (canonical text: docs/assets-policy.md, section 戦闘人物と刀の合成): 1) coordinates are normalized to the transparent-cropped character image (x right, y down). 2) The weapon image is scaled so its height = weapon_height_ratio x character image height. 3) If flip_x is true it is mirrored horizontally (the weapon's handle anchor x becomes 1 - x). 4) It is rotated about its center by rotation_deg with canvas expand; PIL Image.rotate semantics: positive = counter-clockwise on screen. 5) The rotated image is placed so its handle anchor (handle_center_normalized from the weapon catalog, transformed with the image) lands on handle_target. 6) Layer order follows layer_order / pose_layers (weapon drawn above character). Union values: weapon_height_ratio, rotation_deg and handle_target are each either a scalar/object that applies to every structure, or an object keyed by structure {standing, wheelchair}; a missing structure key means the value applies to all structures.",
   "character_sets": [
     {
       "id": "kindergarten_snowwear",
@@ -48,32 +48,16 @@
     "standing_step": [
       "character",
       "weapon"
-    ],
-    "wheelchair_step": [
-      "character"
     ]
   },
   "pose_layers": {
     "idle": [
       "character"
     ],
-    "ready": {
-      "layers": [
-        "character",
-        "weapon"
-      ],
-      "weapon_height_ratio": {
-        "standing": 0.42
-      },
-      "rotation_deg": -5,
-      "handle_target": {
-        "standing": {
-          "x": 0.63,
-          "y": 0.57
-        }
-      },
-      "flip_x": false
-    },
+    "ready": [
+      "character",
+      "weapon"
+    ],
     "step": {
       "standing": {
         "layers": [
@@ -181,15 +165,16 @@
         "y": 0.57
       }
     },
-    "flip_x": false
+    "flip_x": false,
+    "note": "canonical ready transform; pose_layers.ready is the layer list only (same as C001)"
   },
   "trail_rule": "No trail layer (KJ 2026-10-27: no trail by default).",
-  "weapon_selection": "All five weapon candidates in the catalog share these transforms (handle anchor (0.82, 0.82) is identical); verified in output previews with every candidate against every set (no blade tip outside the canvas).",
+  "weapon_selection": "All five weapon candidates in the catalog share these transforms (handle anchor (0.82, 0.82) is identical). Blade tips staying inside the canvas was checked by script for all sets x all five weapons x all six weapon poses; the preview PNGs show representative sets x two weapons only.",
   "preview": [
     "output/battle-sword-previews/C003-battle-pose-matrix-white.png",
     "output/battle-sword-previews/C003-battle-pose-matrix-dark.png"
   ],
-  "preview_note": "Matrices show ready, swing-windup, slash, swing-followthrough, special, step; two weapons per representative set. Approximate hand-near-hilt placement; finger wrap and exact overlap are not required. Special and step blades point inward/down so they stay in frame and off the face.",
+  "preview_note": "Matrices show ready, swing-windup, slash, swing-followthrough, special, step; two weapons per representative set (full set x weapon coverage was checked by script, not shown). Approximate hand-near-hilt placement; finger wrap and exact overlap are not required. Special and step blades point inward/down so they stay in frame and off the face.",
   "follow_up": [
     "Choose or confirm the final weapon assignment.",
     "Check at the actual game display size once name-name integrates the battle runtime (name-name#1027)."
