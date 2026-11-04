@@ -474,9 +474,9 @@
     },
     {
       "old": "assets/characters/poses/otton-down.png",
-      "new": "assets/images/characters/C001/poses/C001-down.webp",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "new": null,
+      "action": "delete",
+      "reason": "Deleted by #165 (2026-11-04): old one-piece set (person only, no baked sword); duplicate of the -character version. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
       "sha256": "73399aeb72ebf8fe05c0973355cf933069f56ffdc2c039d80808552eee429bdf"
     },
     {
@@ -488,9 +488,9 @@
     },
     {
       "old": "assets/characters/poses/otton-elementary-down.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-down.webp",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "new": null,
+      "action": "delete",
+      "reason": "Deleted by #165 (2026-11-04): old one-piece set (person only, no baked sword); duplicate of the -character version. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
       "sha256": "768448dfe25306d4a1ddd716bbf022edb98333786c4b6ea77fd587b70f8dd320"
     },
     {
@@ -502,9 +502,9 @@
     },
     {
       "old": "assets/characters/poses/otton-elementary-idle.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-idle.webp",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "new": null,
+      "action": "delete",
+      "reason": "Deleted by #165 (2026-11-04): old one-piece set (person only, no baked sword); duplicate of the -character version. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
       "sha256": "f06cb3f462021427c29fdc83bb3cf5d7fac19b12347a6956da5fe9fe144d0fc5"
     },
     {
@@ -551,9 +551,9 @@
     },
     {
       "old": "assets/characters/poses/otton-elementary-wheelchair-down.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-down.webp",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "new": null,
+      "action": "delete",
+      "reason": "Deleted by #165 (2026-11-04): old one-piece set (person only, no baked sword); duplicate of the -character version. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
       "sha256": "9820ce8229a50b89904652ce6ff30a4d0b6c6833e651c54d6548a2d587ec6b48"
     },
     {
@@ -565,9 +565,9 @@
     },
     {
       "old": "assets/characters/poses/otton-elementary-wheelchair-idle.png",
-      "new": "assets/images/characters/C001/poses/C001-elementary-wheelchair-idle.webp",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "new": null,
+      "action": "delete",
+      "reason": "Deleted by #165 (2026-11-04): old one-piece set (person only, no baked sword); duplicate of the -character version. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
       "sha256": "f61e64b0e742d290be3b4e17f6f44d8c400b28d9885aaa5ed5e3ac064d58befb"
     },
     {
@@ -607,16 +607,16 @@
     },
     {
       "old": "assets/characters/poses/otton-hurt.png",
-      "new": "assets/images/characters/C001/poses/C001-hurt.webp",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "new": null,
+      "action": "delete",
+      "reason": "Deleted by #165 (2026-11-04): old one-piece set (person only, no baked sword); duplicate of the -character version. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
       "sha256": "3714f98343c68904e296ddddf95219de622f608fd773fc4cb64bb8ca62ae4058"
     },
     {
       "old": "assets/characters/poses/otton-idle.png",
-      "new": "assets/images/characters/C001/poses/C001-idle.webp",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "new": null,
+      "action": "delete",
+      "reason": "Deleted by #165 (2026-11-04): old one-piece set (person only, no baked sword); duplicate of the -character version. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
       "sha256": "22e7e73774286dc66f9d51d5798531a1447a7143614cd98dd7ea2fe93bf86b0a"
     },
     {
@@ -656,23 +656,23 @@
     },
     {
       "old": "assets/characters/poses/otton-uniform-down.png",
-      "new": "assets/images/characters/C001/poses/C001-uniform-down.webp",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "new": null,
+      "action": "delete",
+      "reason": "Deleted by #165 (2026-11-04): old one-piece set (person only, no baked sword); duplicate of the -character version. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
       "sha256": "d476ea8753b36230c60b63374749141de5382a0117e6e99f2175d3cc4a1f13bc"
     },
     {
       "old": "assets/characters/poses/otton-uniform-hurt.png",
-      "new": "assets/images/characters/C001/poses/C001-uniform-hurt.webp",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "new": null,
+      "action": "delete",
+      "reason": "Deleted by #165 (2026-11-04): old one-piece set (person only, no baked sword); duplicate of the -character version. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
       "sha256": "6d5e8394255e17ac589d96e1710b5e0cb2cfc787216af6bd5a23f8161c944b64"
     },
     {
       "old": "assets/characters/poses/otton-uniform-idle.png",
-      "new": "assets/images/characters/C001/poses/C001-uniform-idle.webp",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "new": null,
+      "action": "delete",
+      "reason": "Deleted by #165 (2026-11-04): old one-piece set (person only, no baked sword); duplicate of the -character version. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
       "sha256": "408dd928de1a3bf7123e44b67bfbc23ca495ab11227b95a3b85eb5ed935911aa"
     },
     {
@@ -705,16 +705,16 @@
     },
     {
       "old": "assets/characters/poses/otton-uniform-victory.png",
-      "new": "assets/images/characters/C001/poses/C001-uniform-victory.webp",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "new": null,
+      "action": "delete",
+      "reason": "Deleted by #165 (2026-11-04): old one-piece set (person only, no baked sword); duplicate of the -character version. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
       "sha256": "b37945642dcd7304fd014423210f6325268f1871c223a5033b914b24526d8364"
     },
     {
       "old": "assets/characters/poses/otton-victory.png",
-      "new": "assets/images/characters/C001/poses/C001-victory.webp",
-      "action": "move",
-      "reason": "Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
+      "new": null,
+      "action": "delete",
+      "reason": "Deleted by #165 (2026-11-04): old one-piece set (person only, no baked sword); duplicate of the -character version. Earlier: Existing character; new management ID only. Age/outfit/pose/direction/frame retained.",
       "sha256": "9244453e3aa39e927659f2fc8347fbe744b91639c1ab075ab534920e9850841e"
     },
     {
