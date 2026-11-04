@@ -150,40 +150,43 @@
         "character",
         "weapon"
       ],
-      "weapon_height_ratio": 0.52,
-      "rotation_deg": -90,
+      "weapon_height_ratio": 0.42,
+      "rotation_deg": 110,
       "handle_target": {
         "standing": {
-          "x": 0.76,
-          "y": 0.25
+          "x": 0.86,
+          "y": 0.19
         },
         "wheelchair": {
-          "x": 0.8,
-          "y": 0.26
+          "x": 0.80,
+          "y": 0.22
         }
       },
       "flip_x": false,
-      "source": "copied from assets/images/weapons/C001/C001-blade-candidates.json#shared_pose_transforms.poses (values identical)"
+      "source": "Re-derived in #165 for the tight-cropped swing images (canvas = alpha bbox, same crop rule as C001 idle/ready/slash, normalized to that canvas); blade tips verified at least 2px inside all four edges for all 5 C001 candidate swords x all 7 sets."
     },
     "swing-followthrough": {
       "layers": [
         "character",
         "weapon"
       ],
-      "weapon_height_ratio": 0.52,
-      "rotation_deg": 90,
+      "weapon_height_ratio": 0.42,
+      "rotation_deg": {
+        "standing": 175,
+        "wheelchair": 165
+      },
       "handle_target": {
         "standing": {
-          "x": 0.22,
-          "y": 0.64
+          "x": 0.15,
+          "y": 0.51
         },
         "wheelchair": {
-          "x": 0.28,
+          "x": 0.15,
           "y": 0.43
         }
       },
       "flip_x": false,
-      "source": "copied from assets/images/weapons/C001/C001-blade-candidates.json#shared_pose_transforms.poses (values identical)"
+      "source": "Re-derived in #165 for the tight-cropped swing images (canvas = alpha bbox, same crop rule as C001 idle/ready/slash, normalized to that canvas); blade tips verified at least 2px inside all four edges for all 5 C001 candidate swords x all 7 sets."
     },
     "down": [
       "character"
@@ -267,7 +270,7 @@
     "Integrate the ready → swing-windup → slash → swing-followthrough → ready sequence in the battle runtime and verify timing/weapon transforms at display size."
   ],
   "slash_animation": {
-    "status": "candidate five-frame compositions previewed for all seven sets; per-structure swing transforms are approximate; runtime integration and weapon assignment remain open",
+    "status": "candidate five-frame compositions previewed for all seven sets; swing frames are tight-cropped to the same scale and crop rule as the other C001 poses (#165) with swing transforms re-derived for that canvas and clip-checked; runtime integration and weapon assignment remain open",
     "sequence": [
       "ready",
       "swing-windup",

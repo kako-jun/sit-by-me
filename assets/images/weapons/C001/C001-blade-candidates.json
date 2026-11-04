@@ -134,33 +134,38 @@
       },
       "swing-windup": {
         "weapon_anchor": "handle_center_normalized",
-        "weapon_height_ratio": 0.52,
-        "rotation_deg": -90,
+        "weapon_height_ratio": 0.42,
+        "rotation_deg": 110,
         "handle_target": {
           "standing": {
-            "x": 0.76,
-            "y": 0.25
+            "x": 0.86,
+            "y": 0.19
           },
           "wheelchair": {
-            "x": 0.8,
-            "y": 0.26
+            "x": 0.80,
+            "y": 0.22
           }
-        }
+        },
+        "note": "values re-derived in #165 for the tight-cropped swing images; identical to battle-layers.json pose_layers"
       },
       "swing-followthrough": {
         "weapon_anchor": "handle_center_normalized",
-        "weapon_height_ratio": 0.52,
-        "rotation_deg": 90,
+        "weapon_height_ratio": 0.42,
+        "rotation_deg": {
+          "standing": 175,
+          "wheelchair": 165
+        },
         "handle_target": {
           "standing": {
-            "x": 0.22,
-            "y": 0.64
+            "x": 0.15,
+            "y": 0.51
           },
           "wheelchair": {
-            "x": 0.28,
+            "x": 0.15,
             "y": 0.43
           }
-        }
+        },
+        "note": "values re-derived in #165 for the tight-cropped swing images; identical to battle-layers.json pose_layers"
       }
     },
     "preview": "output/battle-sword-previews/C001-slash-matrix-white.png",
