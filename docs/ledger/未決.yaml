@@ -13928,7 +13928,7 @@
   "対象テーブル": "全体"
   "対象ID": "sit-by-me"
   "キー": "住職の『自宅』のMAP・自宅以外に出る場面"
-  "内容": "住職（C009）は常に自宅にいると決まった（SIT.npc.monk-always-home）。能登旅行の引率〔story.md:78〕はNPC扱い（SIT.npc.monk-escort-is-npc）、病院・救急車の場面〔E017 付近〕はイベントでNPC配置の対象外（SIT.npc.ambulance-scene-is-event）と決まり、この2点は解決。残る未決: 自宅がどのMAPか（台帳上の住居は寺町の庫裏 TRM-05）、自宅の外に出るほかの場面の有無、引率で住職が立つMAP・位置・台詞。【kako-jun に確認】"
+  "内容": "住職（C009）は常に自宅にいると決まった（SIT.npc.monk-always-home）。自宅は幼稚園の自宅部分（台帳上は TRM-05 住居（庫裏））と決まり解決（SIT.npc.monk-home-kindergarten-residence）。能登旅行の引率はNPC扱い（SIT.npc.monk-escort-is-npc）、病院・救急車の場面はイベントでNPC配置の対象外（SIT.npc.ambulance-scene-is-event）と決まり解決。残る未決: 自宅の外に出るほかの場面の有無、引率で住職が立つMAP・位置・台詞。【kako-jun に確認】"
   "状態": "未決"
   "解決決定ID": ""
 - "未決ID": "U-2937"
