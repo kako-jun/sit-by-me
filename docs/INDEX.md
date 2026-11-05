@@ -33,6 +33,7 @@
 - 戦闘・成長: [FF 戦闘ルール調査](ff-battle-rules.md)、[刃（刀）候補](blades.md)、[アビリティ候補](ability-candidates.md)、[ラーニング時期配置](learning-schedule.md)、[ボスのギミック](boss-gimmicks.md)
 - 敵: [モンスター台帳](monsters.md)、[ダンジョン別の敵](dungeon-enemies.md)、[敵の割り当て案](enemy-allocation.md)
 - 台帳（md）: [コンテンツ台帳の目次](content-registry.md)、[シナリオ台帳](scenario-registry.md)、[フィールド画像台帳](map-asset-registry.md)
+- NPC の配置・会話: [NPC配置.yaml](ledger/NPC配置.yaml) / [NPCセリフ.yaml](ledger/NPCセリフ.yaml)（初稿。scenario-registry の地点IDに結び、後で調整する）
 - BGM: [BGMスロット表](bgm-registry.md)、[新世界より録音調査](bgm-sources-research.md)、[Suno 試験手順](bgm-suno-trial.md)、データ [bgm-phrases.csv](bgm-phrases.csv)・[bgm-sources.csv](bgm-sources.csv)
 
 ## MAP・フィールド背景
@@ -129,6 +130,8 @@
 | [BGM録音](ledger/BGM録音.yaml) | 64 | BGM録音の台帳。元資料の提案と確定状態を区別して保持する。 | 録音行ID / 録音ID / 録音名 / 演奏者 / 録音年 / 楽章 / ファイルパス / ランク / ライセンス表記(原文) / 出典URL / クレジット文言 / ffprobeで実測した長さ(秒) / 形式 / 備考 |
 | [BGMフレーズ](ledger/BGMフレーズ.yaml) | 15 | BGMフレーズの台帳。元資料の提案と確定状態を区別して保持する。 | フレーズ行ID / 主題ID / 楽章 / 主題名 / 録音ID / 元録音ID / 開始秒 / 終了秒 / 気分(悲/楽/緊) / 割当スロット候補 / 出力ファイル / 要耳確認 |
 | [人物](ledger/人物.yaml) | 52 | 人物の台帳。元資料の提案と確定状態を区別して保持する。 | 人物ID / 呼称 / 旧接頭辞 / 牌 / 人物の芯 / 見た目の核 / 役割 / 根拠 / 特徴(自由記述) |
+| [NPC配置](ledger/NPC配置.yaml) | 226 | シナリオ地点ごとのNPC配置。MAP・人物・出現条件を結ぶ。 | 配置ID / シナリオ地点ID / MAP_ID / NPC種別 / NPC対象ID / 配置種別 / 出現条件 / 位置 / 状態 / 決定参照 / 根拠 / 備考 |
+| [NPCセリフ](ledger/NPCセリフ.yaml) | 233 | シナリオ地点・MAP・人物・適用条件ごとのNPC台詞。 | セリフID / シナリオ地点ID / MAP_ID / NPC種別 / NPC対象ID / 適用条件 / 本文 / 出典 / 状態 / 備考 |
 | [人物形態](ledger/人物形態.yaml) | 71 | 人物形態の台帳。元資料の提案と確定状態を区別して保持する。 | 形態ID / 人物ID / 年齢 / 衣装 / 車椅子 / マスターパス / 状態 / 根拠 |
 | [素材移行](ledger/素材移行.yaml) | 712 | 旧素材の移動・削除・剪定先を監査可能な行で保持し、manifest JSONを導出する。 | 旧パス / 新パス / 操作 / 理由 / sha256 / 剪定パス |
 | [素材移行設定](ledger/素材移行設定.yaml) | 8 | 素材移行設定の台帳。元資料の提案と確定状態を区別して保持する。 | 設定ID / 値 / 説明 |
