@@ -957,7 +957,7 @@
   "遭遇状態": "ID案・未決"
   "画像状態": "採用: `assets/images/enemies/M025.webp`（元画像 `exec-［セッションID省略］.png`、1254×1254、WebP品質85・alpha保持、採用 2026-10-22）。[robot prompt review](reviews/artifact-redteam/20261022-M024-robot-prompt.md)、[previous M024/M025 prompt review](reviews/artifact-redteam/20261022-M024-M025-prompt.md)、[margin prompt review](reviews/artifact-redteam/20261022-M024-M025-margin-prompt.md) 採用フィールド絵: `assets/images/enemies/M024-field.webp`（2026-10-23、kako-jun承認）。[raw review](reviews/artifact-redteam/20261023-M024-map-front-raw.md)。"
   "根拠": "git 3c9f9e9e611caf988c48de59b7adf73d182441c1:docs/monsters.md §3-1; kako-jun 2026-10-22; [Systema HQの原則解説](https://www.russianmartialart.com/article_info.php?articles_id=54)、[Systema USAの痛み耐性に関する説明](https://www.systema.us/about)、docs/dungeon-enemies.md §6"
-  "特徴(自由記述)": ""
+  "特徴(自由記述)": "2026-11-05（#246）: NPCの中に紛れていて、話しかけると戦闘になる（ひっかけ。SIT.npc.systema-weapon-hidden-among-npcs）。NPCの中の人型の例外（SIT.npc.last-dungeon-npc-allowed の備考も参照。立つMAPは未決 = U-2944）。立つMAP・見た目の揃え方・台詞・紛れるNPCの数は未決（U-2944）。"
 - "敵ID": "M025"
   "名称": "**ヘルナルキッソス**（地獄の花。FF5のハリカルナッソスがモデル。すべて魔法攻撃を使い、これまでラーニングできなかったすべての魔法をラーニングできるようにする。最強魔法名は**ヘルキルデスベル**。名前決定 2026-10-22、効果・属性・対象は未決）。花形の調査参考: Kew掲載のラッパスイセン `Narcissus pseudonarcissus` は、外側の花被片6枚を中央のラッパ状の副花冠が囲む。絵の候補ではこの形を採用し、花弁6枚とラッパ状副花冠を持つ一輪、茎1本で表す。参照種の花色に合わせ、花弁は明るい黄色、ラッパ状副花冠は暗い黄色にする。花頭はカメラ正面を0°、真右横顔を90°とするヨー角45°で右向きにする。茎の中ほどに毒々しい紫色のリボン結びを1つ付け、リボン面に小さなドット絵風の可愛いドクロマークを描く。二本の細い紐を画像左（−x）へなびかせる。ラッパの開口部の内側だけをどす黒くし、花弁とラッパ外側の黄色は保つ。根・葉は付けない。戦闘枠は2x2（中ボス標準枠として採用）。"
   "分類": "物語の敵（中ボス候補）"
