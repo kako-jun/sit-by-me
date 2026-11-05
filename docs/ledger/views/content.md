@@ -631,7 +631,7 @@ uv run python3 scripts/content_ledger_views.py build で更新する。
 
 ## 人物と素材
 
-### 人物 (50件)
+### 人物 (52件)
 
 正本: [人物.yaml](../人物.yaml)
 
@@ -687,6 +687,8 @@ uv run python3 scripts/content_ledger_views.py build で更新する。
 | C007 | チュン |  |  |  |  | 子供世代の三番目 | docs/ledger/Issue命題.yaml; https://github.com/kako-jun/sit-by-me/issues/95 | 既存のID付け替え計画の割当案。詳細・形態・採否は未照合。 |
 | C008 | ホワ |  |  |  |  | 友人たちの子供 | docs/ledger/Issue命題.yaml; https://github.com/kako-jun/sit-by-me/issues/95 | 既存のID付け替え計画の割当案。詳細・形態・採否は未照合。 |
 | C010 | ペー子の親 |  |  |  |  | ペー子の親 | docs/ledger/Issue命題.yaml; https://github.com/kako-jun/sit-by-me/issues/95 | 既存のID付け替え計画の割当案。詳細・形態・採否は未照合。 |
+| C051 | 顔のない巨大な大人 |  |  |  |  | 子供時代にフィールドで見る、顔が影で見えない巨大な大人（親）。NPCとして扱う。 | https://github.com/kako-jun/sit-by-me/issues/246#issuecomment-6648669045; docs/story.md; 決定 SIT.field-npc-scope; 決定 SIT.npc.treat-as-npc | 名前・外見の詳細・三面マスターの要否は未決。大きさは子供の4倍・顔は影（story.md）。C009・C010 との関係は台帳に記述がない（未確認）。 |
+| C052 | 店の説明役（店員） |  |  |  |  | 香林坊の店で『初心者の館のように説明してくれる』役。NPCとして扱う。 | https://github.com/kako-jun/sit-by-me/issues/246#issuecomment-6648669045; docs/systems.md; 未決 U-2017; 決定 SIT.npc.treat-as-npc | 名前・外見・性別・三面マスターの要否・どの店に何人かは未決（U-2017 の店員の扱いは人物IDを立てるところまで決着。残りは未決のまま）。 |
 
 ### 人物形態 (71件)
 
