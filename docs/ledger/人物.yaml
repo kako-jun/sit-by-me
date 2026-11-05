@@ -468,4 +468,4 @@
   "見た目の核": ""
   "役割": "香林坊の店で『初心者の館のように説明してくれる』役。NPCとして扱う。"
   "根拠": "https://github.com/kako-jun/sit-by-me/issues/246#issuecomment-6648669045; docs/systems.md; 未決 U-2017; 決定 SIT.npc.treat-as-npc; 決定 SIT.warp-scene-few-adults"
-  "特徴(自由記述)": "名前・外見・性別・三面マスターの要否・どの店に何人かは未決。ワープの場面の大人は2人くらいでよい（SIT.warp-scene-few-adults）（U-2017 の店員の扱いは人物IDを立てるところまで決着。残りは未決のまま）。"
+  "特徴(自由記述)": "見た目は専用の絵を持たない（子供時代=共通の巨人・大人時代=老人モブのだれか。SIT.npc.clerk-appearance-shared）。名前・性別・どの店に何人かは未決。ワープの場面の大人は2人くらいでよい（SIT.warp-scene-few-adults）（U-2017 の店員の扱いは人物IDを立てるところまで決着。残りは未決のまま）。"
