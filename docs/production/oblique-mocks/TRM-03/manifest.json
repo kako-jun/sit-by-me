@@ -33,7 +33,7 @@
    "TRM-04.corridor-windows",
    "TRM-04.outer-trees"
   ],
-  "input_sha": "b62400d7c8079f391be786e14ff8b57aa7cb7f7169612a4c81c24a44059277e6",
+  "input_sha": "25ef13baf6d5e82a39704444b5d7b78e0bf6879c3921642071e994d35dd2af62",
   "references": [
    [
     "TRM-04",
@@ -41,7 +41,7 @@
    ],
    [
     "TRM-05",
-    null
+    "5a20af3fe9f284e5d431dbac5fb971cbdc297851f65a298c71ec9640e90f1443"
    ],
    [
     "TRM-02",
@@ -100,14 +100,12 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "98ef08244f54297247b25d9b72c9bdbd3cb8a57ceba11a9f823a039e34fba2b6",
+   "input_sha": "82e90a6ae72ab35e3ee488f8644a4e50ed10cba9fea70ade521b1570769838ae",
    "outputs": {
-    "TRM-03-edit-prompt.txt": "1cc6c6c7b1feebf25ff6803328964e957b36560cdb7e6e026d917a83cf559c1a"
+    "TRM-03-edit-prompt.txt": "d7c38c094541949e611027a78c90ecfa5c6992b60b7d8a646039db7a9d8aadf1"
    },
-   "status": "blocked",
-   "unadopted_dependencies": [
-    "TRM-05"
-   ]
+   "status": "ok",
+   "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],

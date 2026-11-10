@@ -36,11 +36,11 @@
    "TRM-04.outer-trees",
    "TRM-05.mikan"
   ],
-  "input_sha": "4a91face9ea66664aa8916d3efc119566dd6e79acee0e3d0bc61499cb8d0ab29",
+  "input_sha": "b388bfa4312cc17647ba16eba7c634527bfd9a160e09ac85cd276bf23f36a11e",
   "references": [
    [
     "TRM-05",
-    null
+    "5a20af3fe9f284e5d431dbac5fb971cbdc297851f65a298c71ec9640e90f1443"
    ],
    [
     "TRM-04",
@@ -96,15 +96,12 @@
    "status": "ok"
   },
   "prompt": {
-   "blocked_base": "TRM-05",
-   "input_sha": "ba6c380fe3ff159ab6bb9b9538859422439283a7cc2c3d919d27ca8b60e1ba6d",
+   "input_sha": "5a3c771f75a7315a5d13b564643d174e2cb1cf5685219588b3356c4621222f5a",
    "outputs": {
-    "TRM-05-kids-edit-prompt.txt": "a48c155dc8c0058eb4fc20e48c07b0001116fbea9e56a161b68ecadd4ea7729a"
+    "TRM-05-kids-edit-prompt.txt": "4e27028eb21b922a9f07f2d69be88cdd954e5aafad46a39cb27d1f912ce2a164"
    },
-   "status": "blocked",
-   "unadopted_dependencies": [
-    "TRM-05"
-   ]
+   "status": "ok",
+   "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
