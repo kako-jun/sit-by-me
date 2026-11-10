@@ -25,7 +25,8 @@
    "TRM.door-width-outside",
    "TRM-08.top-closed",
    "TRM.building-shared",
-   "TRM-03.keep-interior-door-window-shapes"
+   "TRM-03.keep-interior-door-window-shapes",
+   "TRM-03.grave-walkable-to-residence"
   ],
   "era_suffix": null,
   "inherits": [
@@ -34,7 +35,7 @@
    "TRM-04.corridor-windows",
    "TRM-04.outer-trees"
   ],
-  "input_sha": "de0debb86ba7d552c887da5656c8b52e7cd35061d71a99bc51a8bb3c6ec06915",
+  "input_sha": "b9d56323e41faa2035937de4c91eec700dfb855a2a059037ebf21788650f6d49",
   "references": [
    [
     "TRM-04",
@@ -101,9 +102,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "d34871c59d00d85493502a2579ed5bb06cf8d37af070e437c01e0d5c0ce876ad",
+   "input_sha": "a131ebd5c9068b27ee7af37c62221e14979962d82fd685e7ecc0b0df0127e99b",
    "outputs": {
-    "TRM-03-edit-prompt.txt": "ce8c9fdb6df7cce80aaf71c1d3e8e68d31ec6fcdfdc6109021fb5849fce6638e"
+    "TRM-03-edit-prompt.txt": "34c00793a08d8b49dfb53aa490b5d6390e0d52697290df50c4af9abf53de55e1"
    },
    "status": "ok",
    "unadopted_dependencies": []
