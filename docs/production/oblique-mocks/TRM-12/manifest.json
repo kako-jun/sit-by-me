@@ -14,11 +14,12 @@
    "TRM-12.layout-2dk",
    "TRM-12.floor-unspecified",
    "TRM-12.windows-two-rooms",
-   "TRM-12.entrance-concrete-floor"
+   "TRM-12.entrance-concrete-floor",
+   "SIT.pillow-one-per-futon-right"
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "32da16e66d3ba5d4bed53db4cd42a2984797d9631df8900055cb847ca4817e49",
+  "input_sha": "ba4e1798d6d145391af2880bb74e036bac66a6a654dad1be617152010b1e9029",
   "references": [],
   "row_id": "TRM-12",
   "tables": "docs/ledger/*.yaml"
@@ -63,9 +64,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "2c47e0a2080f8ad0ec3a5988e9306a83e1e337028a9914070c0f35d67b0461ef",
+   "input_sha": "ccedd8368ef5a119764a189a93ef3c7b38cf2890a380f206fa7010b2dcba8ba1",
    "outputs": {
-    "TRM-12-edit-prompt.txt": "addf35b33868ab6c897519dfcf40dfe350f41c3be0ee833fb09033d5d3fa8ffb"
+    "TRM-12-edit-prompt.txt": "11e23eaf9c509bb4f0d8883876ca5c06c9d5c1a47a44cc29dfa7b284b4852bf7"
    },
    "status": "ok",
    "unadopted_dependencies": []
