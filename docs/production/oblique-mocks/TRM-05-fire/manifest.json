@@ -39,7 +39,7 @@
    "TRM-04.outer-trees",
    "TRM-05.mikan"
   ],
-  "input_sha": "383284895ed897f10f81b2413a124c7ac5dec1f2aebe3724276cd99bde2728c2",
+  "input_sha": "5969e4af315d517deac5f1644826b6c2ec6b4f265a246b4f312d517225702f4d",
   "references": [
    [
     "TRM-05",
@@ -97,9 +97,9 @@
   },
   "prompt": {
    "blocked_base": "TRM-05",
-   "input_sha": "2fa3737923e3715a176428656627fd86300f111f31e3c066ff94fb75a6ee230e",
+   "input_sha": "20b4f1600ec623a7dc9301ef4e4e024b4900c431de0633c27ce0258ff89a5b3e",
    "outputs": {
-    "TRM-05-fire-edit-prompt.txt": "382c08b5374c0fbad7a49336bd44fcab2d8910c963c9c16b108163dc379e2b68"
+    "TRM-05-fire-edit-prompt.txt": "bfdacfb162dff1028a4752526a998960982bb7823d771f2f72ab1acfdf916f25"
    },
    "status": "blocked",
    "unadopted_dependencies": [

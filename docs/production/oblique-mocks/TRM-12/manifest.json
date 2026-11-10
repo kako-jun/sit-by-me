@@ -19,7 +19,7 @@
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "ba4e1798d6d145391af2880bb74e036bac66a6a654dad1be617152010b1e9029",
+  "input_sha": "e1d347b7c6d9e8f4b7614d6674eae939af5bcf24a3408e5fba4f549e8d654e7d",
   "references": [],
   "row_id": "TRM-12",
   "tables": "docs/ledger/*.yaml"
@@ -64,9 +64,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "ccedd8368ef5a119764a189a93ef3c7b38cf2890a380f206fa7010b2dcba8ba1",
+   "input_sha": "210c0f8136560fd35992d026fa07e309d6bb6dbe2c15caa43d3b200993972ec2",
    "outputs": {
-    "TRM-12-edit-prompt.txt": "11e23eaf9c509bb4f0d8883876ca5c06c9d5c1a47a44cc29dfa7b284b4852bf7"
+    "TRM-12-edit-prompt.txt": "1ea21ee52bfcd8f8bb8c68480a1d7fe3963ad4e8ac770dd625779ebe2fdff42d"
    },
    "status": "ok",
    "unadopted_dependencies": []
