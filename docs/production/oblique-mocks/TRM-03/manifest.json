@@ -33,7 +33,7 @@
    "TRM-04.corridor-windows",
    "TRM-04.outer-trees"
   ],
-  "input_sha": "6f7075d6c028174277fd110750cc9ce8f6c85fca2aae5e13d0921d03e14a43e3",
+  "input_sha": "b62400d7c8079f391be786e14ff8b57aa7cb7f7169612a4c81c24a44059277e6",
   "references": [
    [
     "TRM-04",
@@ -45,15 +45,15 @@
    ],
    [
     "TRM-02",
-    null
+    "673023d42f349cd9c8804b38a3a497f71dda0f8dbf74d8f7bb524b3a68b48201"
    ]
   ],
   "row_id": "TRM-03",
-  "tables": "docs/ledger/*.csv"
+  "tables": "docs/ledger/*.yaml"
  },
  "map_id": "TRM-03",
  "plan": "docs/production/oblique-mocks/TRM-03-plan.json",
- "plan_sha256": "7e3611e9037ca6e650880ce5fac3ebf9a568dc22e1fb8db776c7f47bc37f914f",
+ "plan_sha256": "b30e4a1d8d5b2fba82e841003a3b96448a3925123fcf6efdc8647cec5b578725",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -71,17 +71,17 @@
      1
     ]
    },
-   "input_sha": "2860b1f4c4180e339cbe951760f501d23c5590b91edf1c48d9a8a827ec76008f",
+   "input_sha": "cf1fdbdc5d4ce5b8515bc1611862569f1f4ac25f0bfb79b389a3564a6ad18e18",
    "outputs": {
     "TRM-03-exits.png": "ca752bbda523d004ca92bea85895612ade9fbfe53c0471fea188c228f656a79b",
-    "TRM-03-mask.json": "1b2800f991f5197fc4f555efb6f95ddee0b6c545d1dd6b437f5059e4bd8234b5",
+    "TRM-03-mask.json": "d97f808bd59f61ab5d26502a21cf6118f129d1a6532416296a1362bb0a0b55ac",
     "TRM-03-mask.png": "2b15b38c65d41426c60d347d2eeac2c5e817f7de5eb914dbaa5b0ea6f11b7c8b"
    },
    "status": "ok",
    "white_components": 1
   },
   "mock": {
-   "input_sha": "2860b1f4c4180e339cbe951760f501d23c5590b91edf1c48d9a8a827ec76008f",
+   "input_sha": "cf1fdbdc5d4ce5b8515bc1611862569f1f4ac25f0bfb79b389a3564a6ad18e18",
    "outputs": {
     "TRM-03-clean.png": "a71691ce5a9d6be2d845046dd48324c3b9916f2f07b24368e2029755306a0383",
     "TRM-03-review.png": "50d547cbba87211c02d5174db51f30bef777d583da06cce39e644e5536e3cdf9"
@@ -89,7 +89,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "2860b1f4c4180e339cbe951760f501d23c5590b91edf1c48d9a8a827ec76008f",
+   "input_sha": "cf1fdbdc5d4ce5b8515bc1611862569f1f4ac25f0bfb79b389a3564a6ad18e18",
    "outputs": {
     "TRM-03-occlusion-depth.png": "98e22144366b8565735eab2e7968c1e4c8d6de060e86696a11cc664ae2012c07",
     "TRM-03-occlusion-edit.png": "2d5be0a21b71a574588e12d1f444fbdef1d0f5b6094c30b8952bcd7d3713d72d",
@@ -100,19 +100,18 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "0cc1979ceffb3fc7528e8326c91617c06bd9049b67b75d2bf1bc3d5c2db2f735",
+   "input_sha": "98ef08244f54297247b25d9b72c9bdbd3cb8a57ceba11a9f823a039e34fba2b6",
    "outputs": {
-    "TRM-03-edit-prompt.txt": "c61caaf275f76200bfd44e2e49968e8c0ca597628f1e684b152ba3eb61a269d7"
+    "TRM-03-edit-prompt.txt": "1cc6c6c7b1feebf25ff6803328964e957b36560cdb7e6e026d917a83cf559c1a"
    },
    "status": "blocked",
    "unadopted_dependencies": [
-    "TRM-05",
-    "TRM-02"
+    "TRM-05"
    ]
   },
   "validate": {
    "errors": [],
-   "input_sha": "a606b1069502fb017ffa42be2116975cb1f6646fbf4307131d971f1e62c2cb89",
+   "input_sha": "112b0b5ab2cba6094590cb17b64ba68d4635c824de31a23a3c62761865ca4eaf",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -123,14 +122,17 @@
     "本堂の壁は window_count=0 で、窓は描かない。（決定 TRM.hall-no-window）",
     "渡り廊下棟（conn-w/conn-e）は屋内（TRM-04）の廊下と同じ建物行から導出する（閉じた壁・南壁に連窓3・木の板張りの床・低い瓦屋根）。屋根は箱の天面色で表し高さ70。柱・屋根の寸法は既定（要確認）。（決定 TRM.building-shared, TRM-03.corridor）",
     "住居・幼稚園の外への戸口（door-residence/door-playroom）の幅は100単位。内部側（TRM-05/TRM-02 の door-outside）も同幅。窓の位置は変えていない（重ならない）。（決定 TRM.door-width-outside）",
+    "既定（要確認）: TRM-03.door-main",
     "既定（要確認）: TRM-03.door-residence",
-    "既定（要確認）: TRM-03.door-playroom"
+    "既定（要確認）: TRM-03.door-playroom",
+    "屋外MAP: plan に boundaries（歩ける床の外側の境界物の帯）が無い。床の色の切り替えだけの境界になる（Issue #191）",
+    "屋外MAP: plan に variation（足跡・汚れ・土の露出・除雪の雪山・スノーポール・消雪パイプ・電柱など、このMAPの look から来る変化の語）が無い。単調になりやすい（Issue #191）"
    ]
   },
   "wire": {
-   "input_sha": "fd1d5c5b602092382b3dca75f0e470d35fa5b954cb700c18dd0aeb99ccbcaeb4",
+   "input_sha": "e87cad80fc8ec971acbf77a36ca56e72ac3833dc53bd198e83a8804f332a78bf",
    "outputs": {
-    "wire-TRM-03.png": "c80f78d87fd5d357c6aec780211110ec6f67a8e62057e4709b88223867bc08d5"
+    "wire-TRM-03.png": "c0afcafcba5ebb076e8d0dd6207150044ed3c4c60b2f35ee5a4c0355802d04ab"
    },
    "status": "ok"
   }
