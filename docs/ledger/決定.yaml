@@ -11668,7 +11668,7 @@
   "必須語": "ドアや窓の形"
   "禁止語": ""
   "対象MAP": "TRM-03"
-  "備考": "分類: door,window,process。既存の TRM.building-shared（建物表を正とし、屋内と外観が同じ行から導出）・TRM-04.door-design（扉のデザインの正本）と整合する。内装3つの確定: TRM-04=edit3（2026-11-10 再採用）、TRM-05=take4 の枕を直した edit3、TRM-02=take2。"
+  "備考": "分類: door,window,process。take3（r3 の4テイクのうち kako-jun が「take3」と選択。2026-11-10。https://github.com/kako-jun/sit-by-me/issues/191#issuecomment-6765978060）を採用候補とし、窓・ドアの形の差と墓の密度を局所編集で直す（TRM-03/take3-edit1*.png）。既存の TRM.building-shared（建物表を正とし、屋内と外観が同じ行から導出）・TRM-04.door-design（扉のデザインの正本）と整合する。内装3つの確定: TRM-04=edit3（2026-11-10 再採用）、TRM-05=take4 の枕を直した edit3、TRM-02=take2。"
   "特徴(自由記述)": ""
 - "決定ID": "TRM-03.grave-walkable-to-residence"
   "日付": "2026-11-10"
