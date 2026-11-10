@@ -34,6 +34,7 @@
 - 敵: [モンスター台帳](monsters.md)、[ダンジョン別の敵](dungeon-enemies.md)、[敵の割り当て案](enemy-allocation.md)
 - 台帳（md）: [コンテンツ台帳の目次](content-registry.md)、[シナリオ台帳](scenario-registry.md)、[フィールド画像台帳](map-asset-registry.md)
 - NPC の配置・会話: [NPC配置.yaml](ledger/NPC配置.yaml) / [NPCセリフ.yaml](ledger/NPCセリフ.yaml)（初稿。scenario-registry の地点IDに結び、後で調整する）
+- イベントの棚卸しと台帳設計の試作: [E001〜E029 の仮ファイル一覧](production/event-planning/README.md)（#254。正規化台帳への登録前）
 - BGM: [BGMスロット表](bgm-registry.md)、[新世界より録音調査](bgm-sources-research.md)、[Suno 試験手順](bgm-suno-trial.md)、データ [bgm-phrases.csv](bgm-phrases.csv)・[bgm-sources.csv](bgm-sources.csv)
 
 ## MAP・フィールド背景
@@ -102,7 +103,7 @@
 | [未決](ledger/未決.yaml) | 2003 | 未決（要確認）の一覧。 | 未決ID / 対象テーブル / 対象ID / キー / 内容 / 状態 / 解決決定ID |
 | [キー別名](ledger/キー別名.yaml) | 20 | 列名・キー名の別名と正規名。 | 正規名 / 別名 / 対象テーブル / 説明 |
 | [Issue点検](ledger/Issue点検.yaml) | 529 | Issue の決定候補と決定表の突合結果（audit_issue_decisions.rb が更新。分類=決定表に反映済み／未反映(要取込み)／決定でない／対象外）。 | Issue番号 / コメントURL / 候補の要約 / 分類 / 決定ID / 備考 |
-| [ファイル配置](ledger/ファイル配置.yaml) | 60 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
+| [ファイル配置](ledger/ファイル配置.yaml) | 63 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
 | [描画定数](ledger/描画定数.yaml) | 30 | 斜めツール（oblique_mock.py・oblique_topology.py）の寸法・視点・幅クラス・窓種別・台座の飾りの位置。コードはここを読む。 | 定数ID / グループ / 値 / 単位 / 説明 / コード内の名前 |
 | [プロンプト文面](ledger/プロンプト文面.yaml) | 169 | imagegen 用プロンプト・接続表・窓一覧・接続図に出る文面（{名前}=変数の差し込み口）。コードは oblique_text.text で読み、文面を直接持たない。 | 文面ID / 区分 / 文面 / 変数 / 使用箇所 / 備考 |
 | [制作規約](ledger/制作規約.yaml) | 8 | 制作規約の台帳。元資料の提案と確定状態を区別して保持する。 | 規約ID / 対象種別 / 対象ID / 区分 / 内容 / 確度 / 根拠 |
@@ -241,5 +242,8 @@
 | asset-metadata-json | 画像用メタデータ | 候補画像の付随JSON。素材メタデータ表から生成する安全化済み出力 | 許可 | assets/images |
 | output-sword-previews | プレビュー画像 | 刀候補20本と斬撃・戦闘ポーズ（ready/swing/slash/special/step）の重ね確認画像（採用判断の参考） | 許可 | output/battle-sword-previews/README.md |
 | output-sword-previews-readme | プレビュー説明 | 刀プレビューの読み方 | リンク |  |
+| event-ledger-prototype | イベント台帳の試作 | イベント単位の台帳の試作。正式な台帳ビルドへの登録は未了 | リンク |  |
+| event-planning-prototype | イベント棚卸しの試作 | 既存 E の整理用の枠と場面候補一覧 | リンク |  |
+| event-preview-prototype | 生成物の試作 | イベント台帳から生成した name-name 脚本のレビュー用プレビュー | リンク |  |
 
 <!-- GENERATED:END ledger-views -->
