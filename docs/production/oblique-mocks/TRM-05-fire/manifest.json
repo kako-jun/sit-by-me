@@ -39,7 +39,7 @@
    "TRM-04.outer-trees",
    "TRM-05.mikan"
   ],
-  "input_sha": "200db4c4d829aa09a74350ea9ee039a4d1d29cde0c93488911acd091eb5c677e",
+  "input_sha": "14f05dd09813d2ec82889497d51a50e31bcc914bac06eae2b62ca6d25bb82995",
   "references": [
    [
     "TRM-05",
@@ -47,7 +47,7 @@
    ],
    [
     "TRM-04",
-    "46027605e2631821ab653cab27c147b8bb5eb5e3dff002130dbb90e634efa81d"
+    "4d74dd71237216233d4daee79f5f4d9b41d425cbe075b8c5916df87c78efbaf1"
    ]
   ],
   "row_id": "TRM-05",
@@ -96,9 +96,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "83ca302d0f7e38fe50cdbcfb6e12b9a2dd42c1ecf96b2ddf0f0d73097401d507",
+   "input_sha": "95d24c1409df3fdbfe42ee8d3f765f7d68bcc8f4970707b61ff7c4a9d8b90e88",
    "outputs": {
-    "TRM-05-fire-edit-prompt.txt": "178c87a4f5871cd5a57ceccb75054ed46f8c6d17473058f1e5864de11d402353"
+    "TRM-05-fire-edit-prompt.txt": "d23d023582dee71b50fc1cd16ca8a32251ef466ed9c2446acc910435cf3732fd"
    },
    "status": "ok",
    "unadopted_dependencies": []

@@ -41,11 +41,11 @@
    "TRM-04.floor-planks",
    "TRM-04.outer-trees"
   ],
-  "input_sha": "dd34c5a9bdbf2e4da07129c6d347d8e2fbc745633e819d47111b9578a79b195f",
+  "input_sha": "199b079a98a04432e782ea9371681db6979edbb95a63959a4dee8761f4e78dd7",
   "references": [
    [
     "TRM-04",
-    "46027605e2631821ab653cab27c147b8bb5eb5e3dff002130dbb90e634efa81d"
+    "4d74dd71237216233d4daee79f5f4d9b41d425cbe075b8c5916df87c78efbaf1"
    ]
   ],
   "row_id": "TRM-02",
@@ -94,9 +94,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "426bd4e3f1d58389aeb802ae4f586b48e8bba10658f9be9d4c98c132be78f555",
+   "input_sha": "50a66a7b6c0a42287ba7b50498dd2813fc5548853295fa233c60c3e0c8add115",
    "outputs": {
-    "TRM-02-edit-prompt.txt": "3accde0bdb64a09dd57852338b14111ba2303146000beab34b45b0bc9a78709c"
+    "TRM-02-edit-prompt.txt": "834f3614a4e51e512a23c8aa3773c26952c36fdb25765ff441efc8f2a30d854f"
    },
    "status": "ok",
    "unadopted_dependencies": []

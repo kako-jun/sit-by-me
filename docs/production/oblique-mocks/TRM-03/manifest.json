@@ -33,11 +33,11 @@
    "TRM-04.corridor-windows",
    "TRM-04.outer-trees"
   ],
-  "input_sha": "25ef13baf6d5e82a39704444b5d7b78e0bf6879c3921642071e994d35dd2af62",
+  "input_sha": "30efc2d65292f0899cf70e08f002d507237ba8ed8f46a5a9b405b1b3fb025d37",
   "references": [
    [
     "TRM-04",
-    "46027605e2631821ab653cab27c147b8bb5eb5e3dff002130dbb90e634efa81d"
+    "4d74dd71237216233d4daee79f5f4d9b41d425cbe075b8c5916df87c78efbaf1"
    ],
    [
     "TRM-05",
@@ -100,9 +100,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "82e90a6ae72ab35e3ee488f8644a4e50ed10cba9fea70ade521b1570769838ae",
+   "input_sha": "5952c886603a0405f5525171e5bb5416e56c09b959334440336726e840b09273",
    "outputs": {
-    "TRM-03-edit-prompt.txt": "d7c38c094541949e611027a78c90ecfa5c6992b60b7d8a646039db7a9d8aadf1"
+    "TRM-03-edit-prompt.txt": "ed5243d07634459f8da62662f54f4696619aba0373205c64528f41ab4c212c06"
    },
    "status": "ok",
    "unadopted_dependencies": []

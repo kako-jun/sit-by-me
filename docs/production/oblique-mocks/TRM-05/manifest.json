@@ -50,11 +50,11 @@
    "TRM-04.outer-trees",
    "TRM-05.mikan"
   ],
-  "input_sha": "59cdffb95a9529470edcb4c92a697562233574b2607150c8d5f9f6704700d526",
+  "input_sha": "77609cab4079c814a2c6132149c7ac9848d3e3e7a10e40255ea4cfd9f67da744",
   "references": [
    [
     "TRM-04",
-    "46027605e2631821ab653cab27c147b8bb5eb5e3dff002130dbb90e634efa81d"
+    "4d74dd71237216233d4daee79f5f4d9b41d425cbe075b8c5916df87c78efbaf1"
    ]
   ],
   "row_id": "TRM-05",
@@ -106,9 +106,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "7d00068261ce91d0374928480443c9f49f8de53984f9a14c495aadedaafb4c1c",
+   "input_sha": "5e23e3bc30fb2853402f32fbc78b5115aa206ff637b946a59bde483011be186e",
    "outputs": {
-    "TRM-05-edit-prompt.txt": "21426787e26594cf79edf496ddf59e470a2584fc58175bff7160127372fdbe23"
+    "TRM-05-edit-prompt.txt": "9da7e722844f872e485c66b04236fa982233090efafe919c9435671adf6c634e"
    },
    "status": "ok",
    "unadopted_dependencies": []
