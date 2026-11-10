@@ -1,60 +1,60 @@
 Reading additional input from stdin...
-OpenAI Codex v0.163.0
+OpenAI Codex v0.167.0
 --------
-workdir: <repo>
-model: gpt-6-luna
+workdir: /home/kako-jun/repos/private/sit-by-me-regen
+model: gpt-6.1-terra
 provider: openai
 approval: never
 sandbox: workspace-write [workdir, /tmp, $TMPDIR] (network access enabled)
 reasoning effort: high
 reasoning summaries: none
-session id: <session-id>
+session id: 01a1c4b9-0991-79e3-8ec7-4aa715752465
 --------
 user
-Invoke the $imagegen skill and use the built-in image_gen tool at the HIGHEST quality (quality: high), edit-mode with the two attached reference images (image 1 = edit target mock, image 2 = material swatch), size 1672x941, then save the RE
+Invoke the $imagegen skill and use the built-in image_gen tool at the HIGHEST quality (quality: high), edit-mode with the 3 attached reference images in the order described below, size 1672x941, then save the REAL generated PNG (decode the 
 
-# oblique-edit-prompt/2 TRM-02
+# oblique-edit-prompt/5 TRM-02
 
-ROLE: 添付のモック画像（色付きの箱で作った間取りの斜め見下ろし図）を編集して、手作りミニチュア（段ボールの土台・雪・木の質感）の一枚絵に仕上げる。
-GEOMETRY (必ず保つ): 画像の寸法・視点・土台の台形・壁の位置と高さ・箱の位置と大きさ・戸口の位置と大きさを一切動かさない。足さない・消さない・ずらさない。
-DOORS: 濃いピンクの四角は戸口。その位置・幅・高さのまま、木の扉または開口として描く（高さはキャラ2人分。幅は戸口ごとに下記）。ピンクの色は残さない。
-NO TEXT: 画像に文字・矢印・ラベルを入れない。人物は入れない。
+ROLE: 添付のモック画像（色付きの箱で作った間取りの斜め見下ろし図）を編集して、手作りミニチュア（段ボールの台座・綿の雪・紙粘土の木・木目の床の工作）の一枚絵に仕上げる。モックは**位置と大きさを正確にするための型**で、見た目の完成形ではない。
+GEOMETRY（固定。ここだけが『足さない・消さない・ずらさない』）: 固定するのは幾何を決める要素だけ: 画像の寸法・視点・各層の境界（作業机/台座/台座の前縁/建物の外/建物）・壁の位置と高さ・戸口の位置と幅と高さ・窓の位置と数と種別・家具の箱の位置と大きさと高さ。位置と大きさは下の COORDINATES の画素座標で与え、1画素も動かさない。『足さない・消さない・ずらさない』はこの要素に限る。
+FILL（装飾。簡素にしない）: 装飾を許すのは『指定のない面の内側』（壁の面・床の面・棚や机の上・舞台の背景・建物の外の雪面・作業机・台座の前縁）だけ。建物の輪郭（壁の外形・壁の高さ・柱の位置・戸口・窓・家具箱の外形）を描き直す許可ではない。これらの外形線は COORDINATES の画素座標どおりに描き、建物全体を上下左右へずらさない。面の内側は簡素にせず、自然な工作の装飾（素材の凹凸・継ぎ目・小物・植物）で十分に埋める。
+DOORS（濃いピンクの四角が戸口。**全部で2個。1つも欠かさない・増やさない**。位置・幅・高さはモックのまま、木の板戸または開口として描く。高さはキャラ2人分。ピンクの色は残さない）:
+  - TRM-02.door-west: west壁（wall-w）・扉面の外接矩形 [348, 490, 358, 674]・幅キャラ2人分（132平面単位）。west壁に小さな扉を必ず1つ描く
+  - TRM-02.door-outside: south壁（wall-s）・扉面の外接矩形 [1127, 665, 1227, 762]・幅キャラ1.5人分（100平面単位）。south壁に小さな扉を必ず1つ描く
+NO TEXT: 画像に文字・数字・矢印・ラベルを入れない。人物は入れない。
 
-OBJECTS (色付きの箱 → 実物。位置・大きさは箱のまま):
-- stage（舞台（登れない））: 高さ30。登れない・通れない物
-- shelf-nw（棚(北西)）: 高さ110。登れない・通れない物
-- shelf-ne（棚(北東)）: 高さ110。登れない・通れない物
-- chair-w1（椅子）: 高さ50。登れない・通れない物
-- chair-w2（椅子）: 高さ50。登れない・通れない物
-- chair-w3（椅子）: 高さ50。登れない・通れない物
-- table-small（小机）: 高さ55。登れない・通れない物
-- toy-rack（おもちゃ棚）: 高さ120。登れない・通れない物
-- round-table（丸テーブル）: 高さ55。登れない・通れない物
+LEDGER（docs/ledger/*.yaml が唯一のマスター。決定・建物・継承要素は status（ready か否か）に関係なく全件入れる）:
 
-DOOR WIDTHS:
-- TRM-02.door-west: 幅キャラ2人分（132平面単位）・west壁
-- TRM-02.door-outside: 幅キャラ1.5人分（100平面単位）・south壁
+AREA FIXED（エリア『寺町・寺院と住居』の必須キー。全MAP共通・変えない）:
+- 机の天面の材質: 茶色の木の板張り(横目)（warm brown wooden plank work desk top, grain running left-right）
+- 台座の素材: 段ボール(波形断面)+綿の雪（corrugated cardboard slab edge with cotton snow top）
+- 木の種類: 松+枯木（snow-laden Japanese pine and bare deciduous tree only）
+- 外周の装飾方針: 綿の雪・雪から覗く草・木で埋める(白い素地を残さない)（fill the area outside the building with cotton snow, grass and trees）
 
-WINDOWS（個数・位置・種別を固定。ずらさない・増減しない・扉にしない。ガラス越しに見えるのは室内の床で、窓の中に雪や木を描かない）:
-- 壁 wall-s（wall）: 4枚の掃き出し窓（床まで届く引き違い・扉ではない）。left to right: #1 at 0.09, #2 at 0.27, #3 at 0.46, #4 at 0.64（壁沿いの比）。窓台高さ0・高さ130・幅140（平面単位）
+MAP KEYS（TRM-02 の必須キー）:
+- 屋内外: 屋内
+- 床材: 板張り(リノリウム可)
+- 壁材: 漆喰と木の柱・梁
+- 窓: 窓あり
+- 扉の意匠: 建物の扉に従う(→建物表)
+- 工作の材質: 標準(段ボール・紙粘土・綿の雪・木)
+- 時期差分: なし
 
-FLOORS:
-- hall（遊戯室の床）歩ける
+BUILDING BLD-TRM-youchien（幼稚園棟（遊戯室）。内側を描く。屋内と外観は同じ行から導出）:
+- 外形: 本堂の東（右）。住居より wider and deeper で屋根も大きい
+- 屋根: 灰色の瓦の寄棟（雪）
+- 外壁: クリーム色の漆喰と木の柱
+- 窓列: 南面に掃き出し窓4（枚数は仮）
+- 扉: 南面右端に木の戸（外への戸口）
+- 材質: 漆喰・木・瓦
+  - 部位 BLD-TRM-youchien.south-door（扉・南・閉）: 木の戸（1.5人幅）。掃き出し窓とは別に玄関の扉を1つ
+  - 部位 BLD-TRM-youchien.south-windows（窓列・南・閉）: 南面は床まで届く引き違いの掃き出し窓（扉ではない）
 
-ASSUMPTIONS（既定・要確認）:
-- 家具の位置・大きさは採用画像 v3 から概略で拾った（設計書に家具の寸法は無い）。
-- 壁の高さ 150（前壁・側壁）・160（奥壁）。戸口の高さ134（2人分）に対する余裕。前壁を戸口高に合わせたため手前の床が約30px 隠れる。
-- 丸テーブルの椅子・テーブルの椅子は省略。
-- 住居・幼稚園の外への戸口（TRM-03.door-residence/door-playroom、TRM-05.door-outside、TRM-02.door-outside）の幅をキャラ約1.5人分（100単位）に狭めた（既定・要確認。kako-jun 2026-10-23）。戸口の高さは2人分のまま。扉の左右の壁が増えたが、窓・家具との重なりは無い（検証済み）。
-
-
-REFERENCE IMAGES (exactly two):
-1. First image = the EDIT TARGET: the colored-box mock of the room. Keep its canvas, camera, every wall/door/window/furniture position and size exactly. Repaint its surfaces only.
-2. Second image = a thin MATERIAL SWATCH strip (corrugated cardboard edge, masking tape, torn paper). Use it only for the feel of the cardboard base edge and paper materials. Do not copy its colors literally and do not bring snow into the r
-No other style reference is given; the style is described in the text above (handmade miniature diorama: cardboard base, wood, paper).
-
-OUTPUT: one image, 1672x941 landscape (if exactly that size is impossible, the nearest allowed size with the same aspect ratio). Do not crop, rotate, zoom or re-frame the mock.
-warning: Codex is ignoring 1 unrecognized configuration setting. Check for typos or deprecated settings.
-  user (<home>/.codex/config.toml): `profiles.safe.sandbox_workspace_write` is ignored.
-warning: Codex is ignoring 1 unrecognized configuration setting. Check for typos or deprecated settings.
-  user (<home>/.codex/config.toml): `profiles.safe.sandbox_workspace_write` is ignored.
+DECISIONS（このMAPが対象の有効な決定。逐語は台帳）:
+- [TRM.left-right] 本堂に向かって（境内から北を見て）左＝西が住居（庫裏）、右＝東が幼稚園。旧「住居＝東・幼稚園＝西」は廃止。（必須語: 左）
+- [TRM.entrances] 住居 TRM-05 の出入口は2つ: 本堂からの入口（東壁側・上下の中央より下寄り）＋外への入口（下辺の中央より左寄りのダイニング側）。幼稚園 TRM-02 も2つ: 本堂へ（西壁側・上下の中央より下寄り）＋外へ（下辺の右端付近。木の扉）。外観 TRM-03 は住居・幼稚園の南面に外から入る玄関の扉を各1つ持つ（TRM-03.door-residence⇄TRM-05.door-outside、TRM-03.door-playroom⇄TR
+- [TRM.era-variants] 時期別の画像は新MAPを増やさず同一IDの画像差し替え。接尾辞: TRM-05=基準（中3・火事前）／-kids（幼稚園期。寝室1つ）／-fire（火事の時点。上半分が燃える）／-burnt（火事後。住居棟全焼）、TRM-03=基準／-wc（車椅子期。スロープ）／-burnt（火事後。住居棟が焼ける。本堂・幼稚園は無傷）。TRM-02（幼稚園）は無傷なので時期別の画像は作らない。本堂 TRM-04 の西の廊下は火事後も無傷。（必須語:
+- [TRM-05.rooms] 住居は父（園長先生）と幼馴染の2人暮らし。幼馴染の個室があり、化石が置かれる。台所・板の間（食卓）がある。幼稚園のトイレは住居と兼用でもよい（許容であり必須ではない。TRM-02 にトイレは必須としない）。（必須語: 個室）
+- [TRM-02.floor] 幼稚園の遊戯室の床は畳にせず、板張りまたはリノリウム（画像で確定）。舞台幕・小さな椅子の原文は維持。（禁止語: 畳）
+- [TRM.no-tatami] 畳（い草の敷物・畳の縁・い草色の床）を描かない。畳を使う部屋は無い（TRM-04=板張り、TRM-02=板張りかリノリウム、TRM-05=板張りかロールござ）。仏具と対照させる床も畳ではなく板張り。（必須語: い草 / 禁止語: 畳）
+- [TRM.windows-spec] 窓の位置・個数・種別を平面スペックで指定し、モックと prompt に出して固定する（ずらさない・増減しない・扉にしない）。住居棟の南面=腰高窓のみ（扉・窓・窓の順）、幼稚園棟の南面=掃き出し窓（枚数4は仮）。室内マップの窓は設計未指定のため既定（要確認）。（必須語: 窓）
