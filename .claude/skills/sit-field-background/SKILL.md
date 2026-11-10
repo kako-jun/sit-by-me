@@ -210,8 +210,10 @@ kako-jun 指示（2026-10-22、逐語）: 『モックを見せずに作るこ�
 - 入力: 変更したファイルだけ。
 - 出力: 日本語の `docs: ` 流儀のコミット、`git push origin <現ブランチ>`。PR は kako-jun が決めたタイミング（工程0の回答）で作る。
 - 合格条件: `git diff --cached` に**そのエリアのハンクだけ**がある。
-- ツール: `git add <名指し>`／別セッションの変更が同じファイルに混ざるときは `git add -p`（対象ハンクだけ）。
-- やってはいけないこと: `git add -A`・`git stash`・`reset --hard`・force push・main への直接 push。Co-Authored-By やAI痕跡をコミットに付ける。`--no-verify`。
+- ツール: `git add <名指し>`／別セッションの変更が同じファイルに混ざるときは `git add -p`（対象ハンクだけ）。コミット前に `git status --short` と `git diff --cached --stat` で入るファイルを確認し、混ざったものは `git restore --staged <file>`。
+- **採用コミットに入れるファイル**（`--adopt`・確定の二層〔(a) 素材表の採用行／(b) manifest の `adoption.canonical`〕に対応するもの）: 決定.yaml、素材表、生成物.yaml／生成ビュー、`oblique-mocks/<MAP>/manifest.json`、採用した正本 webp、再生成した edit-prompt。
+- **入れないファイル**: take*.png・候補・overlay・mask・diff・codex ログ・metrics などの作業ログ（その採用に不要なもの。別MAPの prompt.txt／metrics.json／ログ、参照用にコピーしただけの ref-*.png を含む）。元から未コミットの別作業のファイルも入れない。
+- やってはいけないこと: `git add -A`・`git add .`・**ディレクトリ指定の `git add`（`git add docs/…/` など。別作業の未コミットログや参照画像が混ざり、force push は権限でブロックされるので戻せない。TRM-04 再採用コミットで実害）**・コミット前の内容確認の省略・`git stash`・`reset --hard`・force push・main への直接 push。Co-Authored-By やAI痕跡をコミットに付ける。`--no-verify`。
 
 ## 目標の見た目と共通の約束（要点。全文は `gates.md`）
 
