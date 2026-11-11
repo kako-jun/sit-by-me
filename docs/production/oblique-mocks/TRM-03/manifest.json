@@ -49,7 +49,7 @@
    "TRM-04.corridor-windows",
    "TRM-04.outer-trees"
   ],
-  "input_sha": "b9d56323e41faa2035937de4c91eec700dfb855a2a059037ebf21788650f6d49",
+  "input_sha": "cd42c0755a962f5e3c2d31bf44d11673ec452327c719a04d688990f48ef49ef3",
   "references": [
    [
     "TRM-04",
@@ -57,11 +57,11 @@
    ],
    [
     "TRM-05",
-    "5a20af3fe9f284e5d431dbac5fb971cbdc297851f65a298c71ec9640e90f1443"
+    "2134bacb94878e2b0b99eac3b0d9a64f5baeea167559cb8b3e8027f68fd7da5c"
    ],
    [
     "TRM-02",
-    "673023d42f349cd9c8804b38a3a497f71dda0f8dbf74d8f7bb524b3a68b48201"
+    "6efc69bb916c68f79b3aa06cde23d484474562f91773df7586a6265e511275c5"
    ]
   ],
   "row_id": "TRM-03",
@@ -116,9 +116,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "a131ebd5c9068b27ee7af37c62221e14979962d82fd685e7ecc0b0df0127e99b",
+   "input_sha": "abb18500e8d11cc1f850d80025aa79203c3039b849c93346e9b7325878128cc6",
    "outputs": {
-    "TRM-03-edit-prompt.txt": "34c00793a08d8b49dfb53aa490b5d6390e0d52697290df50c4af9abf53de55e1"
+    "TRM-03-edit-prompt.txt": "5a4ed5c02eac06ab1c1ed98e47fe75e83c4dfdd52e3647794763216d137e70db"
    },
    "status": "ok",
    "unadopted_dependencies": []
