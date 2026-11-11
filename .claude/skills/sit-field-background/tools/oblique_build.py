@@ -955,7 +955,9 @@ def coord_section(p, pool):
     L = ["", X.text("PR.coord.head", W=M.W, H=M.H_IMG),
          X.text("PR.coord.slab-top", pts=_pts([tl, tr, br, bl])),
          X.text("PR.coord.slab-front", pts=_pts([bl, br, (br[0], br[1] + M.SLAB), (bl[0], bl[1] + M.SLAB)]))]
-    L.append(X.text("PR.coord.slab-props", tapes=" ".join(f"[{a},{b_},{c},{d_}]" for a, b_, c, d_ in M.SLAB_TAPES), glue=" ".join(f"[{a},{b_},{c},{d_}]" for a, b_, c, d_ in M.SLAB_GLUE)))
+    L.append(X.text("PR.coord.slab-flute"))
+    _t, _g = M.slab_props_text(p["map_id"])
+    L.append(X.text("PR.coord.slab-plain") if (_t, _g) == ("無し", "無し") else X.text("PR.coord.slab-props", seams=_t))
     ws = p["walls"]
     exterior = any(w.get("kind") == "building" for w in ws)
     x0 = min(w["rect"][0] for w in ws); y0 = min(w["rect"][1] for w in ws); x1 = max(w["rect"][2] for w in ws); y1 = max(w["rect"][3] for w in ws)
@@ -1060,7 +1062,26 @@ def seam_section(p):
     return ([X.text("PR.seam.head")] + ls + [""]) if ls else []
 
 
+CRAFT_WORDS = sorted((tuple(kv) for kv in X.const_json("craft.words")), key=lambda kv: -len(kv[0]))  # 実物語→工作語（長い語から）。台帳 描画定数 craft.words
+
+
+def craft_words(text):
+    """実物の材質語を工作の素材の言い方に置き換える（D-prime）。決定済みの意匠・形は変えない。"""
+    out = []
+    for line in text.split("\n"):
+        if not line.startswith("MINIATURE MATERIALS:"):  # 方針文は既に工作語で書いてある（置換すると二重になる）
+            for a, b in CRAFT_WORDS:
+                line = line.replace(a, b)
+        out.append(line)
+    return "\n".join(out)
+
+
 def build_prompt(p, key, ledger_text=""):
+    """送信用プロンプト = 組み立て（build_prompt_raw）の最後に実物語→工作語の置換を掛けたもの。"""
+    return craft_words(build_prompt_raw(p, key, ledger_text))
+
+
+def build_prompt_raw(p, key, ledger_text=""):
     """imagegen 編集用プロンプト（決定論）。モック=編集元1枚。原文束は台帳（build_map_prompt.rb）に依存するので別セクション。
     文面はすべて台帳『プロンプト文面』（oblique_text.text）。ここは並べ方と差し込みだけ。"""
     pool = load_decor(p)
@@ -1068,9 +1089,10 @@ def build_prompt(p, key, ledger_text=""):
         pool = outdoor_pool_for_plan(p, pool)
         L = [X.text("PR.title", version=PROMPT_VERSION, key=key), "",
              X.text("PR.role"),
+             X.text("PR.miniature"),
              X.text("PR.geometry", text=pool["geometry_fixed"]),
              X.text("PR.fill", text=pool["fill_rule"]),
-             *([X.text("PR.reality"), X.text("PR.reality.road-edge"), X.text("PR.reality.shosetsu")] + ([X.text("PR.reality.pool-note", text=pool["reality_note"])] if pool.get("reality_note") else []) + [X.text("PR.reality.miniature")] if pool.get("outdoor") else []),
+             *([X.text("PR.reality"), X.text("PR.reality.road-edge"), X.text("PR.reality.shosetsu")] + ([X.text("PR.reality.pool-note", text=pool["reality_note"])] if pool.get("reality_note") else []) if pool.get("outdoor") else []),
              door_section(p),
              *(scenery_sections(p) + seam_section(p) if pool.get("outdoor") else []),
              X.text("PR.notext"), "",
@@ -1080,6 +1102,9 @@ def build_prompt(p, key, ledger_text=""):
         for k in DECOR_LAYER_KEYS:
             ly = pool["layers"][k]
             L.append(X.text("PR.layer", label=ly.get("label", k), look=ly["look"], fixed=ly["fixed"]) + (X.text("PR.layer.areafixed", area=pool["area"]) if k in ("desk", "slab_edge") else ""))
+            if k == "desk":  # この MAP の机の上の置き物（0〜2個。決定 SIT.desk-props-random）
+                _it = M.desk_props_text(p["map_id"])
+                L.append(X.text("PR.desk-props", items=_it) if _it else X.text("PR.desk-props.none"))
         tr = pool["trees"]
         L += ["", X.text("PR.trees-head", status=X.text("PR.trees-status.default") if tr.get("status") == "default" else X.text("PR.trees-status.fixed")),
               X.text("PR.trees-total.zones" if p.get("tree_zones") else "PR.trees-total", tmin=tr["total"][0], tmax=tr["total"][1], pmin=tr["pine"]["count"][0], pmax=tr["pine"]["count"][1], dmin=tr["deadtree"]["count"][0], dmax=tr["deadtree"]["count"][1]),
