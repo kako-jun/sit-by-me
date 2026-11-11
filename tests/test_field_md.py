@@ -213,6 +213,11 @@ class Notation(FieldMdCase):
     def test_script_entry(self):
         self.assertIn("[フィールド: opening_battle @700,480]", self.out("play/script.md"))
 
+    def test_script_frontmatter_battle_is_ff_side(self):
+        # FF5・6 式の戦闘（docs/systems.md 7・14 行）。DQ 式（未指定）に戻さない
+        out = self.out("play/script.md")
+        self.assertIn("\nbattle_layout: Side\nbattle_presentation: ff\n---\n", out)
+
     def test_every_event_md_is_hidden_with_marker(self):
         for ident in EVENT_IDS:
             text = self.out(f"play/events/{ident}.md")

@@ -114,7 +114,10 @@ def render_event(record, records):
 
 def render_script(records):
     entry = records[ENTRY_EVENT]
-    head = _frontmatter("Sit by Me", ["battle_layout: Side"])
+    # 戦闘は FF5・6 式（DQ 式ではない。決定: docs/systems.md 7・14 行、kako-jun 2026-10-14）なので
+    # battle_presentation: ff。窓は呪文・特技名と勝敗メッセージだけを1行で出し、踏み出し・のけぞり・ダメージ数字の演出になる。
+    # 全場面共通の決定済みの値なので台帳の列にはしない。
+    head = _frontmatter("Sit by Me", ["battle_layout: Side", "battle_presentation: ff"])
     body = [
         "## start: はじまり",
         "",
