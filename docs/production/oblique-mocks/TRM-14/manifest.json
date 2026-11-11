@@ -61,7 +61,7 @@
   "prompt": {
    "input_sha": "39b93212a44ee2c3833af63a880dca6f0f49986b28fd6c34cb9e92a26cd12a8a",
    "outputs": {
-    "TRM-14-edit-prompt.txt": "f3d2ba1732442b0ea393e6742e5a7b48311d5b3b988fa511c6d75fc856d8d210"
+    "TRM-14-edit-prompt.txt": "80ba2ccc452f1c3cec54bba76c3cb9643638275b6f2111933c44a8870fb9d502"
    },
    "status": "ok",
    "unadopted_dependencies": []
