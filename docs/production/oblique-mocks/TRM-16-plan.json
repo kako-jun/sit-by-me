@@ -237,7 +237,7 @@
   {
    "id": "sd-temple-gate",
    "wall": "temple-gate",
-   "look": "寺の山門の閉じた扉。太い木の柱の間に、鉄の金具と太い閂のついた杉板の両開きの大扉が閉じる。扉の前の石畳の端から先に足跡はない。通行しない。"
+   "look": "寺の山門の閉じた扉。太い木の柱の間に、鉄の金具と太い閂のついた杉板の両開きの大扉が閉じる。扉の前の石畳の端から先に足跡はない。通行しない。扉の前は石畳が礎石の手前で終わり、一段高い礎石の段差が扉との間にあって上がれない。厚い雪の縁と錆びた閂で長く開けられていないと読める（段差は既定・要確認）。"
   },
   {
    "id": "sd-dobei-kuguri",
@@ -721,8 +721,8 @@
  ],
  "_provenance": {
   "source": "MAP:TRM-16|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "7da3446d8455b98c94a96796dd3079b73daf52e363345b3a6bceefab4757a22b",
-  "generated_at": "2026-11-11T15:13",
+  "input_sha": "e8c3d085cbcb8522b658d46ddc6ca3db21cc626656678515aa6fca29d02ff029",
+  "generated_at": "2026-11-11T15:53",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-16-plan",
   "do_not_edit": true

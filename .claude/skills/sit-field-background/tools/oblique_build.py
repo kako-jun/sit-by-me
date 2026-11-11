@@ -417,6 +417,75 @@ def seam_lines(p):
     return lines
 
 
+# 景色の扉の前面ゲート（Issue #191, kako-jun 2026-11-11『入れない景色としての扉をあたかも入れるような見た目にするな』。決定 SIT.scenery-door-not-enterable）
+DOOR_FRONT_REACH = 24      # 扉の載る壁・帯の外側のこの距離（単位）の帯を『扉の前』とみなす
+DOOR_FRONT_MIN_CELLS = 3   # 前面が歩ける床に境界なしで接するセル数（4x4単位）がこれ以上なら警告
+DOOR_STEP_WORDS = ("段差", "側溝", "溝", "縁石", "石積み", "基礎", "護岸", "石垣")
+
+
+def scenery_door_front_problems(p):
+    """scenery_doors の前面が、境界（boundaries・別の壁・blocked の箱・歩けない理由のある床）を挟まず歩ける床に接している扉。
+    [(扉ID, 扉の載る壁/帯ID, セル数)]。扉が boundaries の帯に載るときは、その帯の look に段差・側溝・縁石などがあれば挟んでいるとみなす。"""
+    import numpy as np
+    import cv2
+    c = EDGE_CELL
+    gw, gh = M.BASE_W // c, M.BASE_D // c
+
+    def mask_of(polys):
+        g = np.zeros((gh, gw), np.uint8)
+        for pl in polys:
+            cv2.fillPoly(g, [np.round(np.array(pl, dtype=float) / c).astype(np.int32)], 255)
+        return g
+
+    def shape(it):
+        if it.get("rect"):
+            return _rc(it["rect"])
+        if it.get("poly"):
+            return [tuple(q) for q in it["poly"]]
+        return None
+    walk = [M.floor_poly(f) for f in p.get("floors", []) if f.get("walkable", True) and not f.get("no_step") and ("rect" in f or "poly" in f)]
+    if not walk or not p.get("scenery_doors"):
+        return []
+    wmask = mask_of(walk)
+    hosts = {}
+    for w in p.get("walls", []):
+        if "rect" in w:
+            hosts[w["id"]] = ("wall", w)
+    for b in p.get("boundaries", []):
+        if shape(b):
+            hosts[b["id"]] = ("boundary", b)
+    for bx in p.get("boxes", []):
+        if "rect" in bx:
+            hosts[bx["id"]] = ("box", bx)
+    out = []
+    k = 2 * (DOOR_FRONT_REACH // c) + 1
+    for sd in p["scenery_doors"]:
+        ref = sd.get("wall") or sd.get("boundary") or sd.get("at")
+        kind, host = hosts.get(ref, (None, None))
+        if host is None:
+            continue
+        if any(wd in ((host.get("look") if kind in ("boundary", "wall") else "") or "") + (sd.get("look") or "") for wd in DOOR_STEP_WORDS):  # 扉の載る壁・帯、または扉の look に段差・溝・基礎などがある
+            continue
+        hm = mask_of([shape(host)])
+        # 他の境界の帯・壁・blocked の箱が前面を覆う（扉の載る壁そのものは除く）
+        cover = []
+        for b in p.get("boundaries", []):
+            if b.get("id") != ref and shape(b):
+                cover.append(shape(b))
+        for w in p.get("walls", []):
+            if w.get("id") != ref and "rect" in w:
+                cover.append(_rc(w["rect"]))
+        for bx in p.get("boxes", []):
+            if bx.get("id") != ref and bx.get("blocked") and "rect" in bx:
+                cover.append(_rc(bx["rect"]))
+        cm = mask_of(cover) if cover else np.zeros_like(hm)
+        front = (cv2.dilate(hm, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (k, k))) > 0) & (hm == 0) & (cm == 0) & (wmask > 0)
+        n = int(front.sum())
+        if n >= DOOR_FRONT_MIN_CELLS:
+            out.append((sd.get("id"), ref, n))
+    return out
+
+
 def outdoor_look_problems(p, pool):
     """屋外MAP（装飾プールの outdoor: true）の look ゲート。(errors, warnings)。
     errors: kind=building/fence/retaining/closure/gate の壁、およびそれらの kind の box が look 空欄（生成を起動しない）。
@@ -453,6 +522,8 @@ def outdoor_look_problems(p, pool):
     kinds_per = [edge_kinds(bd.get("look")) for bd in p.get("boundaries", [])]
     if len(kinds_per) >= 3 and all(k for k in kinds_per) and len({k[0] for k in kinds_per}) == 1 and all(set(k) == {kinds_per[0][0]} for k in kinds_per):
         Wn.append(f"屋外MAP: boundaries {len(kinds_per)} 本がすべて同じ種類（{kinds_per[0][0]}だけ）。道の縁は段差・側溝・縁石・土塀・石垣・板塀・生垣・護岸などを現実参照で区間ごとに使い分ける（決定 SIT.road-edge-solid-boundary、Issue #191）")
+    for sid, ref, n in scenery_door_front_problems(p):
+        Wn.append(f"屋外MAP: 景色の扉 {sid}（{ref}）の前が、境界（段差・塀・溝・植栽・雪囲いなど）を挟まず歩ける床に接している（約{n}セル）。入れるように見える（決定 SIT.scenery-door-not-enterable、Issue #191）")
     if not p.get("variation"):
         Wn.append("屋外MAP: plan に variation（足跡・汚れ・土の露出・除雪の雪山・スノーポール・消雪パイプ・電柱など、このMAPの look から来る変化の語）が無い。単調になりやすい（Issue #191）")
     if pool and pool.get("trees"):
@@ -999,7 +1070,7 @@ def build_prompt(p, key, ledger_text=""):
              X.text("PR.role"),
              X.text("PR.geometry", text=pool["geometry_fixed"]),
              X.text("PR.fill", text=pool["fill_rule"]),
-             *([X.text("PR.reality"), X.text("PR.reality.road-edge"), X.text("PR.reality.shosetsu")] + ([X.text("PR.reality.pool-note", text=pool["reality_note"])] if pool.get("reality_note") else []) if pool.get("outdoor") else []),
+             *([X.text("PR.reality"), X.text("PR.reality.road-edge"), X.text("PR.reality.shosetsu")] + ([X.text("PR.reality.pool-note", text=pool["reality_note"])] if pool.get("reality_note") else []) + [X.text("PR.reality.miniature")] if pool.get("outdoor") else []),
              door_section(p),
              *(scenery_sections(p) + seam_section(p) if pool.get("outdoor") else []),
              X.text("PR.notext"), "",
@@ -1073,7 +1144,7 @@ def build_prompt(p, key, ledger_text=""):
                 continue
             fb.append(a)
         if pool.get("outdoor"):  # 屋外の全MAP共通（決定 SIT.road-edge-solid-boundary・SIT.shosetsu-hole-only）。MAP ごとの plan には書かせない
-            fb += [X.text("PR.forbid.road-edge"), X.text("PR.forbid.shosetsu")]
+            fb += [X.text("PR.forbid.road-edge"), X.text("PR.forbid.shosetsu"), X.text("PR.forbid.miniature")]
         L += ["", X.text("PR.forbidden-head")] + [f"- {a}" for a in fb]
     L += ["", X.text("PR.assumptions-head")] + [f"- {a}" for a in p.get("assumptions", [])]
     return "\n".join(L) + "\n"

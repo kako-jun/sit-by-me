@@ -270,5 +270,34 @@ class RoadEdgeVariationAndSeams(unittest.TestCase):
         self.assertIn("土塀", t.split("TRM-08 と接する")[1].split("\n")[0])
 
 
+class MiniatureAndDoors(unittest.TestCase):
+    """決定 SIT.miniature-materials-not-photoreal・SIT.shosetsu-hole-only(位置)・SIT.scenery-door-not-enterable（2026-11-11）。"""
+
+    def test_outdoor_prompt_has_miniature_after_reality_and_shosetsu_centerline(self):
+        p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-08-plan.json"))
+        t = B.build_prompt(p, "TRM-08")
+        mini = X.text("PR.reality.miniature")
+        self.assertIn(mini, t)
+        self.assertGreater(t.index(mini), t.index("REALITY（屋外"))
+        self.assertIn("綿", mini)
+        self.assertIn("中央線の上", X.text("PR.reality.shosetsu"))
+        self.assertIn("入れない見た目", X.text("PR.door.scenery-head"))
+
+    def test_scenery_door_front_touching_walkable_floor_warns(self):
+        p = {"floors": [{"id": "road", "walkable": True, "rect": [0, 400, 1600, 700]}],
+             "walls": [{"id": "house", "kind": "building", "rect": [200, 300, 500, 398], "look": "民家"}],
+             "boxes": [], "boundaries": [], "scenery_doors": [{"id": "sd", "wall": "house", "look": "閉じた格子戸"}]}
+        self.assertEqual([x[0] for x in B.scenery_door_front_problems(p)], ["sd"])
+        p["scenery_doors"][0]["look"] = "閉じた格子戸。前に一段高い石の段差がある"
+        self.assertEqual(B.scenery_door_front_problems(p), [])
+        p["scenery_doors"][0]["look"] = "閉じた格子戸"
+        p["boundaries"] = [{"id": "b", "rect": [150, 396, 550, 440], "look": "低い生垣"}]
+        self.assertEqual(B.scenery_door_front_problems(p), [])
+
+    def test_existing_teramachi_plans_have_no_enterable_scenery_door(self):
+        for pp in glob.glob(str(ROOT / "docs/production/oblique-mocks/TRM-*-plan.json")):
+            self.assertEqual(B.scenery_door_front_problems(M.load_plan(pp)), [], pp)
+
+
 if __name__ == "__main__":
     unittest.main()
