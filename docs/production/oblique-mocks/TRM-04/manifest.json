@@ -1,9 +1,9 @@
 {
  "adoption": {
   "canonical": "assets/images/fields/reference/teramachi-main-hall-interior-trm04-adopted.webp",
-  "canonical_sha256": "4d74dd71237216233d4daee79f5f4d9b41d425cbe075b8c5916df87c78efbaf1",
-  "image": "docs/production/oblique-mocks/TRM-04/TRM-04-edit3.png",
-  "image_sha256": "f7135b22cffb5b340f2dfc8265553c1a7437449f335c2451971851bb6b233ff1",
+  "canonical_sha256": "033793e5d659792f1b8f2a4eb5ac54266b112a8fda38b46c02fe7c368502e982",
+  "image": "docs/production/oblique-mocks/TRM-04/e2/take4-baseclean.png",
+  "image_sha256": "4bef2db700c23e0798d3bf3171949662741a3eab43bfc0d1c48a65902b74de10",
   "mock_clean_sha256": "dac44eeea8b0d28840ee9293ece5dad252121506820d16f42549da7523e3500c",
   "plan_sha256": "82f3a57189ecbc68b4e94d8ec6e0ff698e94ce5af60020d2f61a8992ea81c9b3",
   "prompt_sha256": "4cbd7d0a1e580fa1608f7a6d0188a5119597aeaf20650f7dc6ea1e2b9a0d3a0f",

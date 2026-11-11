@@ -36,15 +36,15 @@
    "TRM-04.outer-trees",
    "TRM-05.mikan"
   ],
-  "input_sha": "957b8318edc1a008af5e6653a5277e0f83f5de1af533d248f61eb40094bb44ea",
+  "input_sha": "df8c9484ba1f58fff7f477c9ccc87ab364a6679284b740987115620c89084676",
   "references": [
    [
     "TRM-05",
-    "2134bacb94878e2b0b99eac3b0d9a64f5baeea167559cb8b3e8027f68fd7da5c"
+    "38e66605b17f0200ac91f8a17fe3c19b1caa6cb62b83330ba3f9a70feb9204ed"
    ],
    [
     "TRM-04",
-    "4d74dd71237216233d4daee79f5f4d9b41d425cbe075b8c5916df87c78efbaf1"
+    "033793e5d659792f1b8f2a4eb5ac54266b112a8fda38b46c02fe7c368502e982"
    ]
   ],
   "row_id": "TRM-05",
@@ -96,16 +96,16 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "3c01e79c784bac0919e45c436540c80063cca2a3b7417b48503994b8919d850b",
+   "input_sha": "aa658111ea15c7d6f629c83e74095cd9f0630b965296cc0ebeb4b7229c022878",
    "outputs": {
-    "TRM-05-kids-edit-prompt.txt": "2b9ca86ef8c86473be966f210cd8a1b61a83ef3085d3cb520fda7ac79cf3b2e1"
+    "TRM-05-kids-edit-prompt.txt": "cb3fc213d9ac7fab2f91b007c42f36638398535102b7ca042d74aca8d12322a6"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "40d42ecc05d3ab1a9c6ed3b2e243b4b6c5de2f3f081a6a86a54a5e9a7ec216e7",
+   "input_sha": "42dfbfbe850639997776182c2e09389e75f5b260917c579bc41db083545aa859",
    "outputs": {},
    "status": "ok",
    "warnings": [

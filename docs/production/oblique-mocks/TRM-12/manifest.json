@@ -1,12 +1,12 @@
 {
  "adoption": {
   "canonical": "assets/images/fields/reference/teramachi-danchi-room-trm12-adopted.webp",
-  "canonical_sha256": "ea155960e5545fcb1f8d080dbe83f7f3cf3d2dce08b9ce9b31edffed42c5c389",
-  "image": "docs/production/oblique-mocks/TRM-12/e2/take4-edit3.png",
-  "image_sha256": "bb0214f8522579446f9fbf44155db2ff882748e0dbe92a0e57172fa60512af02",
+  "canonical_sha256": "3b1341a20d8b4e491248b440de63c7a77d33a07a2557715891ebf55f26d2d25f",
+  "image": "docs/production/oblique-mocks/TRM-12/e2/take4-baseclean.png",
+  "image_sha256": "c8d7427de2c8b45d9dfa102c48aee6808bff5ced7503e440f5525c692012c3e4",
   "mock_clean_sha256": "a49571169b9686a3aae7a6c675dec87a6d24f949dd9723fb4b75b09a84f17795",
   "plan_sha256": "b4ba1d94c1fd696821de00e627145130ed05f75e3bc01c8b5323df2d0271892c",
-  "prompt_sha256": "cf208a8c681c7226eae09f751f5fee286ef5f878172bcf68b5e02fbcd1e2b44f",
+  "prompt_sha256": "a6a9f694f1f4bc9dd61d6e883944dd80476df1c444934b2a0088f04eaa11c67f",
   "size": [
    1672,
    941
@@ -88,7 +88,7 @@
   },
   "validate": {
    "errors": [],
-   "input_sha": "74de318af008f9ed10f24935ef96554f322b69c8bc280696942e18284197545a",
+   "input_sha": "84ea3dcd7c8b5a55715272199b77e010d3cd5302a909a2a2e1adfad7e0768b1d",
    "outputs": {},
    "status": "ok",
    "warnings": [

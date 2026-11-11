@@ -60,7 +60,7 @@ INHERITED ELEMENTS（継承する要素: 採用画像の良い点。参考画像
 - なし
 
 REFERENCE IMAGES（依存MAPの確定画像。位置・配置はモックが正本。扉・材質・家具・装飾のデザインだけを参考にし、構図はコピーしない）:
-- TRM-12: assets/images/fields/reference/teramachi-danchi-room-trm12-adopted.webp（sha256 ea155960e554）
+- TRM-12: assets/images/fields/reference/teramachi-danchi-room-trm12-adopted.webp（sha256 3b1341a20d8b）
 
 FEATURES（固有の特徴（台帳の自由記述）。そのまま入れる）:
 - MAP TRM-11: 県営住宅の棟は和風ではない。昭和に建てられた量産型の白いコンクリートの団地。
