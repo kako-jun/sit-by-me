@@ -91,7 +91,7 @@
 | [エリア固定](ledger/エリア固定.yaml) | 264 | エリア単位で固定する指定（机の天面・木の種類・台座など）。 | エリアID / 項目 / 値 / 型 / 決定参照 |
 | [装飾プール](ledger/装飾プール.yaml) | 150 | 装飾プールの設定。 | プールID / 項目 / 値 / 型 / 決定参照 |
 | [語彙](ledger/語彙.yaml) | 170 | 許す・禁じる語彙と英語プロンプト断片。 | 語彙ID / グループ / 値 / 英語断片 / 説明 |
-| [決定](ledger/決定.yaml) | 701 | kako-jun の決定（逐語・出典つき）。status に関係なくプロンプトへ入る。 | 決定ID / 日付 / 対象種別 / 対象ID / 対象名 / 決定の要点 / 逐語 / 出典 / 出典URL / 状態 / 置換先 / プロンプト出力 / 必須語 / 禁止語 / 対象MAP / 備考 / 特徴(自由記述) |
+| [決定](ledger/決定.yaml) | 702 | kako-jun の決定（逐語・出典つき）。status に関係なくプロンプトへ入る。 | 決定ID / 日付 / 対象種別 / 対象ID / 対象名 / 決定の要点 / 逐語 / 出典 / 出典URL / 状態 / 置換先 / プロンプト出力 / 必須語 / 禁止語 / 対象MAP / 備考 / 特徴(自由記述) |
 | [採用要素](ledger/採用要素.yaml) | 6 | 採用画像から次の絵へ継承する要素。 | 採用要素ID / 素材ID / 元MAP / 要素 / 内容 / 継承先MAP / 継承方法 / 状態 / 確認語 / 決定参照 / 特徴(自由記述) |
 | [素材](ledger/素材.yaml) | 1351 | 素材（画像・マスクなど。没も行で保持）。 | 素材ID / 所有者ID / 種別 / パス / 状態 / 日付 / 来歴 / sha256 / 特徴(自由記述) |
 | [素材共有](ledger/素材共有.yaml) | 3 | 所有者以外の人物・敵・召喚獣が同一素材を利用する明示的な関係。素材行を複製せず、出典を保持する。 | 共有ID / 利用者ID / 素材ID / 根拠 |
@@ -106,6 +106,7 @@
 | [ファイル配置](ledger/ファイル配置.yaml) | 69 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
 | [描画定数](ledger/描画定数.yaml) | 30 | 斜めツール（oblique_mock.py・oblique_topology.py）の寸法・視点・幅クラス・窓種別・台座の飾りの位置。コードはここを読む。 | 定数ID / グループ / 値 / 単位 / 説明 / コード内の名前 |
 | [プロンプト文面](ledger/プロンプト文面.yaml) | 177 | imagegen 用プロンプト・接続表・窓一覧・接続図に出る文面（{名前}=変数の差し込み口）。コードは oblique_text.text で読み、文面を直接持たない。 | 文面ID / 区分 / 文面 / 変数 / 使用箇所 / 備考 |
+| [戦闘背景](ledger/戦闘背景.yaml) | 2 | 戦闘背景の台帳（1行=1枚）。参照MAP・使う戦闘・カメラを持つ。エリア固定は継承。 | 背景ID / 名称 / エリア / 参照MAP / 使う戦闘 / カメラ / 状態 / 画像パス / 配信用複製 / 備考 |
 | [制作規約](ledger/制作規約.yaml) | 8 | 制作規約の台帳。元資料の提案と確定状態を区別して保持する。 | 規約ID / 対象種別 / 対象ID / 区分 / 内容 / 確度 / 根拠 |
 | [図配置](ledger/図配置.yaml) | 129 | MAPの接続模式図上の順序と座標。地理的な実距離ではない。 | 配置ID / エリアID / MAP_ID / 順番 / X / Y / 図ラベル / 備考 |
 | [エリア構造](ledger/エリア構造.yaml) | 16 | area JSON の体内部位分類など、模式図座標では表せない構造値。経路・型・値で保持する。 | 経路 / 型 / 値 / 根拠 |
@@ -234,7 +235,7 @@
 | asset-field-legacy-masks | 画像正本 | 旧接続の検証専用マスク（可逆WebP） | 許可 | assets/images |
 | asset-field-reference | 画像正本 | 外観参照・採用基準状態（kebab-case・非可逆WebP品質85） | 許可 | assets/images |
 | asset-field-masks | 画像正本 | 体内・寺町（斜め視点）のマスク（mask・edit は可逆、overlay は非可逆。runtime 切替前） | 許可 | assets/images |
-| asset-battle-backgrounds | 画像正本 | 戦闘背景（現存はBG001（没・暫定残置）。BG005は没・削除） | 許可 | assets/images |
+| asset-battle-backgrounds | 画像正本 | 戦闘背景（台帳は 戦闘背景.yaml。現存はBG001（没・暫定残置。BG011 採用後に削除）。BG005は没・削除） | 許可 | assets/images |
 | asset-brand | 画像正本 | ブランド（暫定の文字ロゴ。svg が正本・png は派生） | 許可 | assets/images |
 | asset-ui | 画像正本 | ゲームUI用の実写的な画像素材（手のカーソル・選択中の印の円錐など）。名前は 内容-v数字.webp | 許可 | assets/images |
 | ledger-closure | 監査文書 | Issue #156 の元資料ごとの移行先と未解決ゲート | リンク |  |
@@ -261,7 +262,7 @@
 | play-readme | 生成物の説明 | name-name の /play が読む md の置き場（play/）の説明。台帳から生成 | リンク |  |
 | play-field-md | 生成物（name-name 用 md） | イベント台帳から生成した一枚絵フィールド用の入口・共通定義・場面 md。name-name の scriptsDir=play として読まれる | 許可 | play/README.md |
 | field-character-forms | 生成物（人物の形態の目録JSON） | name-name の [人物の形態 目録=…] が読む、形態ごとのポーズ・歩行絵の一覧。素材のファイル名から生成 | 許可 | play/README.md |
-| field-play-background | 配信用の背景（再圧縮した複製） | name-name の /play の一枚絵フィールド用。採用画像（fields/reference/）を worker の raw 配信上限 1MiB に収めた複製。正本は元の採用画像 | 許可 | assets/images |
+| field-play-background | 配信用の背景（再圧縮した複製） | name-name の /play の一枚絵フィールド用。採用画像（fields/reference/）と戦闘背景（battle-backgrounds/、台帳 戦闘背景.yaml の配信用複製列）を worker の raw 配信上限 1MiB に収めた複製。正本は元の採用画像 | 許可 | assets/images |
 | resume-point-ledger | 再開点の台帳の試作 | セーブから途中の場面を再開するための再開点（場面・位置・パーティ・戦闘）。play/saves/ のセーブ JSON の正本 | 許可 | play/README.md |
 | play-resume-saves | 生成物（再開用セーブ JSON） | name-name の ?resume= で読むセーブ。再開点の台帳から生成 | 許可 | play/README.md |
 

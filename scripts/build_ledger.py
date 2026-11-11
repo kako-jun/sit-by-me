@@ -21,7 +21,7 @@ def run(action):
     existing = {r["生成物ID"]: r for r in L.read("生成物")}
     for ident, kind, relative, source, output in outputs:
         path = ROOT / relative
-        sha = L.sha(output)
+        sha = field_md.registered_sha(relative, output) if relative.startswith(("play/", "assets/field/")) else L.sha(output)
         if action == "check":
             if not path.is_file() or path.read_bytes() != output:
                 raise SystemExit(f"FAIL: {relative} is stale")

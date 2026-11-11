@@ -10,9 +10,11 @@ TBD が残る台帳（状態=blocked）からも骨組みは作れるが、block
 
 台帳の列（イベント台帳は既存の語に合わせる。許容値は下の定数で厳密に判定し、typo は FAIL にする）:
   背景画像・歩行マスク（assets/images からの相対）・出現位置（x,y）・発火条件（空 または 場面開始・1回）・
+  戦闘背景（任意。assets/images からの相対。name-name の `戦闘背景=` に出す。空なら出さない＝戦闘は黒背景。配信用複製の fields/play/ のパス）・
   行き先（そのイベント末尾に [場面移動:] を足す先のイベントID）・暫定（注記の正本。生成物の先頭コメントに出る）。
 """
 import argparse
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -120,7 +122,11 @@ def _scene_block(record, records):
     if _text(record, "背景画像"):
         if not _text(record, "歩行マスク"):
             raise SystemExit(f"{ident}: 背景画像 があるのに 歩行マスク がありません")
-        lines.append(f"[フィールドマップ 背景={_text(record, '背景画像')} マスク={_text(record, '歩行マスク')}]")
+        battle_bg = _text(record, "戦闘背景")
+        if re.search(r"[\s\]]", battle_bg):
+            raise SystemExit(f"{ident}: 戦闘背景 は空白と ] を含められない: {battle_bg!r}")
+        battle = f" 戦闘背景={battle_bg}" if battle_bg else ""
+        lines.append(f"[フィールドマップ 背景={_text(record, '背景画像')} マスク={_text(record, '歩行マスク')}{battle}]")
         lines.append(f"[プレイヤー {_position(record)}]")
         start = _text(record, "発火条件")
         if start not in ("", TRIGGER_AUTO_ONCE):
@@ -227,7 +233,7 @@ def render_readme(records):
         "|---|---|",
         *[f"| [{r}](saves/{r}.save.json) | {n} |" for r, n in resume_rows()],
         "",
-        "セーブからの再開直後は、既定では場面開始のトリガーを起こさない。`*_start` の再開点は `field.fireAuto: true`（name-name #1155）で、その場面のイベント（劇戦闘・約束の会話）を再開直後に起こす。#1155 が入るまでは歩けるだけ（各再開点の暫定に書く）。",
+        "セーブからの再開直後は、既定では場面開始のトリガーを起こさない。`*_start` の再開点は `field.fireAuto: true`（name-name Issue #1155）で、その場面のイベント（劇戦闘・約束の会話）を再開直後に起こす。#1155 が入るまでは歩けるだけ（各再開点の暫定に書く）。",
         "",
         "見た目の決定の一覧と、画面を見せてよい状態のチェックリスト: [demo-look-list.md](../docs/production/demo-look-list.md)",
         "",
@@ -245,6 +251,28 @@ def resume_rows():
         rows.append((path.stem, str(r["名称"]).replace("|", "/")))
     return rows
 
+
+
+def provenance_sha(doc):
+    """JSON 生成物の入力ハッシュ = `_provenance` を除いた本体の正規化 JSON の sha256。verify_ledger.rb が
+    最上位の `_provenance.input_sha` と生成物表の入力ハッシュの一致を要求するため、本体から導く（自己参照を避ける）。"""
+    body = {k: v for k, v in doc.items() if k != "_provenance"}
+    return hashlib.sha256(json.dumps(body, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
+
+
+def with_provenance(doc, indent=2):
+    """`_provenance.input_sha` を最上位の先頭に付けた JSON テキストを返す。"""
+    out = {"_provenance": {"input_sha": provenance_sha(doc)}, **doc}
+    return json.dumps(out, ensure_ascii=False, indent=indent) + "\n"
+
+
+def registered_sha(relative, output):
+    """生成物表に登録する入力ハッシュ。JSON は provenance の値、それ以外は出力全体の sha256。"""
+    if relative.endswith("sit-field-emotions.json"):
+        return ""  # render_emotions のコメント参照
+    if relative.endswith(".json"):
+        return provenance_sha(json.loads(output.decode("utf-8")))
+    return hashlib.sha256(output).hexdigest()
 
 
 def forms_manifest(listing):
@@ -278,9 +306,9 @@ def forms_manifest(listing):
                 entry["poses"][variant].sort(key=poses_order.index)
         characters[cid] = {**({"plainBaked": True} if cid == "C001" else {}), "forms": dict(sorted(forms.items()))}
     doc = {FORMS_GENERATED_KEY: "scripts/field_md.py が assets/images/characters の素材から生成。手で編集しない（#250）", "characters": characters}
-    text = json.dumps(doc, ensure_ascii=False, indent=2)
+    text = with_provenance(doc)
     text = re.sub(r"\[\s*((?:\"[a-z-]+\",?\s*)+)\]", lambda m: "[" + " ".join(m.group(1).split()).rstrip(",") + "]", text)
-    return text + "\n"
+    return text
 
 
 def render_forms():
@@ -303,6 +331,8 @@ def render_emotions():
         if not (ROOT / "assets/images" / rel).is_file():
             raise SystemExit(f"感情吹き出しの素材がありません: assets/images/{rel}")
         doc[kind] = {"image": rel}
+    # name-name は種類名のキーしか読まず、`_provenance` を足すと「image が空」の警告になる。
+    # そのため入力ハッシュは登録せず（registered_sha が空）、鮮度は field_md.py check のバイト一致で見る。
     return json.dumps(doc, ensure_ascii=False, indent=2) + "\n"
 
 

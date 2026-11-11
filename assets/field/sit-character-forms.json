@@ -1,4 +1,7 @@
 {
+  "_provenance": {
+    "input_sha": "38bb91ef93ba7f122a3923f133309298d7d28b18c164a283ef5d8dc2972289ae"
+  },
   "_generated": "scripts/field_md.py が assets/images/characters の素材から生成。手で編集しない（#250）",
   "characters": {
     "C001": {

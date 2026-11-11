@@ -29,7 +29,7 @@ name-name の worker が `scriptsDir=play` として `play/` 直下とサブデ�
 | [playground_walk](saves/playground_walk.save.json) | 運動場（劇の中止後の場面）を歩く |
 | [playroom_walk](saves/playroom_walk.save.json) | 遊戯室（お遊戯会の場面）を歩く |
 
-セーブからの再開直後は、既定では場面開始のトリガーを起こさない。`*_start` の再開点は `field.fireAuto: true`（name-name #1155）で、その場面のイベント（劇戦闘・約束の会話）を再開直後に起こす。#1155 が入るまでは歩けるだけ（各再開点の暫定に書く）。
+セーブからの再開直後は、既定では場面開始のトリガーを起こさない。`*_start` の再開点は `field.fireAuto: true`（name-name Issue #1155）で、その場面のイベント（劇戦闘・約束の会話）を再開直後に起こす。#1155 が入るまでは歩けるだけ（各再開点の暫定に書く）。
 
 見た目の決定の一覧と、画面を見せてよい状態のチェックリスト: [demo-look-list.md](../docs/production/demo-look-list.md)
 

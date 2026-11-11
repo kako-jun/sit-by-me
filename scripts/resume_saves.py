@@ -17,7 +17,7 @@ DIR = ROOT / "docs/ledger/再開点"
 SAVED_AT = "2026-01-01T00:00:00.000Z"  # 固定（決定的出力のため。実際の保存時刻ではない）
 PROVISIONAL = {"party_hp": 100, "monster_hp": 9999, "gold": 0}  # data.md の仮値と同じ
 FACINGS = ("up", "down", "left", "right", "upLeft", "upRight", "downLeft", "downRight")
-FIRE_AUTO = "場面開始を起こす"  # 再開直後の許容値（空欄=起こさない）。セーブの field.fireAuto（name-name #1155）
+FIRE_AUTO = "場面開始を起こす"  # 再開直後の許容値（空欄=起こさない）。セーブの field.fireAuto（name-name Issue #1155）
 ID_RE = re.compile(r"[a-z0-9_]+\Z")
 
 
@@ -81,7 +81,9 @@ def outputs(scenes):
     items = []
     for path in sorted(DIR.glob("*.yaml")):
         rec = _load(path)
-        text = json.dumps(save_of(rec, people, enemies, scenes), ensure_ascii=False, indent=2) + "\n"
+        import field_md  # 同じ scripts/ 内。_provenance の付け方は field_md が正本
+
+        text = field_md.with_provenance(save_of(rec, people, enemies, scenes))
         items.append((f"G-play-save-{path.stem}", "name-name 再開用セーブJSON", f"play/saves/{path.stem}.save.json",
                       f"再開点:{path.stem}|人物|敵", text.encode("utf-8")))
     return items
