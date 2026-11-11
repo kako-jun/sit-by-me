@@ -1,4 +1,18 @@
 {
+ "adoption": {
+  "canonical": "assets/images/fields/reference/teramachi-residence-trm05-adopted.webp",
+  "canonical_sha256": "2134bacb94878e2b0b99eac3b0d9a64f5baeea167559cb8b3e8027f68fd7da5c",
+  "image": "docs/production/oblique-mocks/TRM-05/e2/corridor-fit6-trm05.png",
+  "image_sha256": "20937a6c9914ba753bf50063382d8e49d7870b14d6db1684d882f1bcc4caeb50",
+  "mock_clean_sha256": "1fd10dde49255f18684b721dcfac3c25296ed7221e8ea59fc2403f2ed6eedfdc",
+  "plan_sha256": "f8f82a1d5fb3d27bdfbca2611f50145617ac8bb0447ac2941899ce63a8e3f132",
+  "prompt_sha256": "9da7e722844f872e485c66b04236fa982233090efafe919c9435671adf6c634e",
+  "size": [
+   1672,
+   941
+  ],
+  "take": 4
+ },
  "ledger": {
   "decisions": [
    "TRM.left-right",
@@ -25,7 +39,8 @@
    "TRM-05.futon-chest",
    "TRM-05.partition-openings",
    "TRM.open-passage",
-   "TRM.building-shared"
+   "TRM.building-shared",
+   "SIT.pillow-one-per-futon-right"
   ],
   "era_suffix": null,
   "inherits": [
@@ -35,19 +50,19 @@
    "TRM-04.outer-trees",
    "TRM-05.mikan"
   ],
-  "input_sha": "de89e91b1c90d442e8c5ae56d8f94ba296eebf736282f7b57e981927193ebb09",
+  "input_sha": "77609cab4079c814a2c6132149c7ac9848d3e3e7a10e40255ea4cfd9f67da744",
   "references": [
    [
     "TRM-04",
-    "46027605e2631821ab653cab27c147b8bb5eb5e3dff002130dbb90e634efa81d"
+    "4d74dd71237216233d4daee79f5f4d9b41d425cbe075b8c5916df87c78efbaf1"
    ]
   ],
   "row_id": "TRM-05",
-  "tables": "docs/ledger/*.csv"
+  "tables": "docs/ledger/*.yaml"
  },
  "map_id": "TRM-05",
  "plan": "docs/production/oblique-mocks/TRM-05-plan.json",
- "plan_sha256": "804452a745fc57bcb785f17e6928f14d8e95a5364e6dd61aed79b1a4b82a6c74",
+ "plan_sha256": "f8f82a1d5fb3d27bdfbca2611f50145617ac8bb0447ac2941899ce63a8e3f132",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -62,7 +77,7 @@
      1
     ]
    },
-   "input_sha": "56e5a5f5c07caeedd80c27873a6cab8452f70ed732f655ed58d2be0cda81fb4a",
+   "input_sha": "d4201d0a0cd6aa4aaa0d0f16f8ad6d1b9155359b118bee43687500edc01b9885",
    "outputs": {
     "TRM-05-exits.png": "f76b2c82272debdf4c85e115f8996fb5b5bd65110282e5aa5fcb5c579afec4ea",
     "TRM-05-mask.json": "1eac139f8f534c194eb5b73275e3fcaa02fb9e375d07e69257583eb70db45924",
@@ -72,7 +87,7 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "56e5a5f5c07caeedd80c27873a6cab8452f70ed732f655ed58d2be0cda81fb4a",
+   "input_sha": "d4201d0a0cd6aa4aaa0d0f16f8ad6d1b9155359b118bee43687500edc01b9885",
    "outputs": {
     "TRM-05-clean.png": "1fd10dde49255f18684b721dcfac3c25296ed7221e8ea59fc2403f2ed6eedfdc",
     "TRM-05-review.png": "eea9cd4308dc9c1317795fcdd7eed90336ac727b20eec82778e067221dacad57"
@@ -80,7 +95,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "56e5a5f5c07caeedd80c27873a6cab8452f70ed732f655ed58d2be0cda81fb4a",
+   "input_sha": "d4201d0a0cd6aa4aaa0d0f16f8ad6d1b9155359b118bee43687500edc01b9885",
    "outputs": {
     "TRM-05-occlusion-depth.png": "9783ea2b2800516751c8c710ca4652994a0ad67cd9743b4e814af11ae4f516fe",
     "TRM-05-occlusion-edit.png": "d0c21f9aeb53a3bb641064cc08e14e9dbcb4c8b67d5a98de926ac9444e000b00",
@@ -91,16 +106,16 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "76749a99e46c89b74a3607e8d67da1f4e1149cce2494ba9af82865960b100080",
+   "input_sha": "5e23e3bc30fb2853402f32fbc78b5115aa206ff637b946a59bde483011be186e",
    "outputs": {
-    "TRM-05-edit-prompt.txt": "c81d2ab00122e5d6a360edb1ffd0c666183a760db91d5aad3edf5032747dbaa6"
+    "TRM-05-edit-prompt.txt": "9da7e722844f872e485c66b04236fa982233090efafe919c9435671adf6c634e"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "cfd2da43e9aff2c7755eb54465cde35a537bf6fd783b7823bb04526ab6fdd1f3",
+   "input_sha": "d6444cb043adf82ed0bc8693ba7bc4a3190943a4927dca609a4776f57b5adb08",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -117,7 +132,7 @@
    ]
   },
   "wire": {
-   "input_sha": "15311dae7d5fb64ffea4a577ce172e066b01e06e7204bfac788283ac7df7e47d",
+   "input_sha": "8363b969a0b3b41e8a3a3296713cb0b1ab073a8a1b0d2c483512fc79798b5014",
    "outputs": {
     "wire-TRM-05.png": "8432c7c3655c68b83ec4509ec2a9a2208cebb959de09a5ad67ab98b452b008c7"
    },
