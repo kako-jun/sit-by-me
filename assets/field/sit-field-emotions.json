@@ -1,0 +1,11 @@
+{
+  "!": {
+    "image": "effects/field-emotion/field-emotion-exclaim.png"
+  },
+  "?": {
+    "image": "effects/field-emotion/field-emotion-question.png"
+  },
+  "...": {
+    "image": "effects/field-emotion/field-emotion-dots.png"
+  }
+}

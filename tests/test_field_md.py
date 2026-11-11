@@ -18,6 +18,7 @@ import yaml
 REAL = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REAL / "scripts"))
 import field_md  # noqa: E402
+import resume_saves  # noqa: E402
 
 EVENT_IDS = field_md.FIELD_EVENTS
 
@@ -30,8 +31,9 @@ class FieldMdCase(unittest.TestCase):
         (ledger / "イベント").mkdir(parents=True)
         for ident in EVENT_IDS:
             shutil.copy(REAL / "docs/ledger/イベント" / f"{ident}.yaml", ledger / "イベント")
-        for name in ("敵", "人物"):
+        for name in ("敵", "人物", "魔法"):
             shutil.copy(REAL / "docs/ledger" / f"{name}.yaml", ledger)
+        shutil.copytree(REAL / "docs/ledger/再開点", ledger / "再開点")
         shutil.copytree(REAL / "play", self.tmp / "play")
         shutil.copytree(REAL / "assets/field", self.tmp / "assets/field")
         # 目録の生成は素材のファイル名しか見ないので、空ファイルで足りる
@@ -42,8 +44,17 @@ class FieldMdCase(unittest.TestCase):
                 dst.mkdir(parents=True, exist_ok=True)
                 for f in src.glob("*.webp"):
                     (dst / f.name).touch()
+        # 感情吹き出しの宣言は素材の実在だけを見るので、空ファイルで足りる
+        emo = self.tmp / "assets/images/effects/field-emotion"
+        emo.mkdir(parents=True)
+        for name in field_md.EMOTIONS.values():
+            (emo / f"field-emotion-{name}.png").touch()
         saved = {k: getattr(field_md, k) for k in ("ROOT", "EVENTS", "OUT", "FORMS")}
         self.addCleanup(lambda: [setattr(field_md, k, v) for k, v in saved.items()])
+        saved_rs = {k: getattr(resume_saves, k) for k in ("ROOT", "DIR")}
+        self.addCleanup(lambda: [setattr(resume_saves, k, v) for k, v in saved_rs.items()])
+        resume_saves.ROOT = self.tmp
+        resume_saves.DIR = self.tmp / "docs/ledger/再開点"
         field_md.ROOT = self.tmp
         field_md.EVENTS = self.tmp / "docs/ledger/イベント"
         field_md.OUT = self.tmp / "play"
@@ -138,7 +149,7 @@ class InputValidation(FieldMdCase):
             with self.subTest(bad=bad):
                 path = self.event_path("play_cancelled_promise")
                 original = path.read_text(encoding="utf-8")
-                path.write_text(original.replace('"出現位置": "400,512"', f'"出現位置": "{bad}"'), encoding="utf-8")
+                path.write_text(original.replace('"出現位置": "1330,480"', f'"出現位置": "{bad}"'), encoding="utf-8")
                 with self.assertRaises(SystemExit) as cm:
                     field_md.outputs()
                 self.assertIn("出現位置", str(cm.exception))
@@ -146,7 +157,7 @@ class InputValidation(FieldMdCase):
 
     def test_destination_without_position(self):
         path = self.event_path("play_cancelled_promise")
-        path.write_text(path.read_text(encoding="utf-8").replace('"出現位置": "400,512"\n', ""), encoding="utf-8")
+        path.write_text(path.read_text(encoding="utf-8").replace('"出現位置": "1330,480"\n', ""), encoding="utf-8")
         with self.assertRaises(SystemExit) as cm:
             field_md.outputs()
         self.assertIn("出現位置", str(cm.exception))
@@ -182,7 +193,7 @@ class InputValidation(FieldMdCase):
         self.assertNotIn("[トリガー", self.out("play/events/play_cancelled_promise.md"))
 
     def test_background_without_mask(self):
-        self.edit_event("play_cancelled_promise", '"歩行マスク": "fields/legacy/masks/TRM-08-mask.webp"', '"歩行マスク": ""')
+        self.edit_event("play_cancelled_promise", '"歩行マスク": "fields/masks/TRM-03-exterior-mask.webp"', '"歩行マスク": ""')
         with self.assertRaises(SystemExit) as cm:
             field_md.outputs()
         self.assertIn("歩行マスク", str(cm.exception))
@@ -220,13 +231,13 @@ class Notation(FieldMdCase):
 
     def test_e002_scene_move_just_before_closing(self):
         lines = self.out("play/events/evacuation_after_play.md").rstrip("\n").split("\n")
-        self.assertEqual(lines[-2:], ["[場面移動: play_cancelled_promise @400,512]", "[/イベント]"])
+        self.assertEqual(lines[-2:], ["[場面移動: play_cancelled_promise @1330,480]", "[/イベント]"])
         self.assertNotIn("[トリガー", "\n".join(lines))  # 背景を持たない（E001 の結果から呼ぶ）
 
     def test_e003(self):
         text = self.out("play/events/play_cancelled_promise.md")
         self.assertIn("[トリガー auto scene=play_cancelled_promise once=true]", text)
-        self.assertIn("[プレイヤー @400,512]", text)
+        self.assertIn("[プレイヤー @1330,480]", text)
 
     def test_script_entry(self):
         self.assertIn("[フィールド: opening_battle @700,480]", self.out("play/script.md"))
@@ -251,7 +262,9 @@ class FormsManifest(unittest.TestCase):
 
     def test_snapshot(self):
         doc = json.loads(field_md.forms_manifest(self.LISTING))
+        self.assertEqual(doc["_provenance"]["input_sha"], field_md.provenance_sha(doc))  # verify_ledger.rb が要求する印
         self.assertEqual(doc, {
+            "_provenance": doc["_provenance"],
             field_md.FORMS_GENERATED_KEY: doc[field_md.FORMS_GENERATED_KEY],
             "characters": {
                 "C001": {"plainBaked": True, "forms": {"elementary": {
@@ -281,6 +294,45 @@ class StillBlocked(FieldMdCase):
         self.assertIn("暫定", self.out("play/script.md"))
         self.assertIn("暫定", self.out("play/data.md"))
         self.assertIn("blocked のまま", self.out("play/README.md"))
+
+
+class ResumeSaves(FieldMdCase):
+    def test_three_saves_generated_and_checked(self):
+        rels = [r for _, _, r, _, _ in field_md.outputs() if r.endswith(".save.json")]
+        self.assertEqual(sorted(rels), [f"play/saves/{n}.save.json" for n in ("opening_battle_fight", "opening_battle_start", "play_cancelled_promise_start", "playground_walk", "playroom_walk")])
+        self.run_check()
+
+    def test_unknown_person_or_scene_fails(self):
+        path = self.tmp / "docs/ledger/再開点/playroom_walk.yaml"
+        text = path.read_text(encoding="utf-8")
+        path.write_text(text.replace("C004", "C999"), encoding="utf-8")
+        with self.assertRaises(SystemExit):
+            field_md.outputs()
+        path.write_text(text.replace('"opening_battle"', '"no_such_scene"'), encoding="utf-8")
+        with self.assertRaises(SystemExit):
+            field_md.outputs()
+
+    def test_fire_auto_only_on_start_points(self):
+        import json
+
+        for name, expected in (("opening_battle_start", True), ("playroom_walk", False)):
+            field = json.loads(self.out(f"play/saves/{name}.save.json"))["rpg"]["field"]
+            self.assertEqual(field.get("fireAuto", False), expected)
+
+    def test_fire_auto_value_is_strict(self):
+        path = self.tmp / "docs/ledger/再開点/opening_battle_start.yaml"
+        path.write_text(path.read_text(encoding="utf-8").replace("場面開始を起こす", "起こす"), encoding="utf-8")
+        with self.assertRaises(SystemExit):
+            field_md.outputs()
+
+    def test_save_has_required_rpg_keys(self):
+        import json
+
+        rpg = json.loads(self.out("play/saves/opening_battle_fight.save.json"))["rpg"]
+        self.assertEqual(rpg["version"], 1)
+        self.assertEqual(rpg["equipment"], {})
+        self.assertEqual([p["id"] for p in rpg["party"]], ["C001", "C002", "C003", "C004"])
+        self.assertEqual(rpg["battle"]["enemies"][0]["id"], "M001")
 
 
 if __name__ == "__main__":
