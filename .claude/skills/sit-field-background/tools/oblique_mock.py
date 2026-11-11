@@ -349,7 +349,7 @@ def slab_props(map_id):
     tapes, glue = [], []
     for sx in seams:
         ln = rng.randint(*sp["tape_len"]); th = rng.randint(*sp["tape_h"]); ang = rng.randint(*sp["angle_deg"])
-        yc = rng.uniform(*sp["tape_y"]) + th / 2
+        yc = rng.uniform(*sp["tape_y"])
         a = math.radians(ang)
         pts = []
         for dx, dy in ((-ln / 2, -th / 2), (ln / 2, -th / 2), (ln / 2, th / 2), (-ln / 2, th / 2)):  # 継ぎ目に直交してまたぐ（ほぼ水平）
@@ -371,54 +371,23 @@ GLUE_JA = {"blob": "糊の小さなにじみ", "spot": "糊の小さな点"}
 DESK_SPEC = X.const_json("desk.props-spec")  # 作業机の上の置き物（台帳 描画定数 desk.props-spec）
 
 
-def _area_ids(map_id):
-    """同じエリア（MAP ID の接頭辞）の MAP ID（plan のファイルとその variants）の一覧。置き物の重複回避の全体集合。"""
-    import glob
-    pre = str(map_id).split("-")[0]
-    d = os.path.join(os.environ.get("LEDGER_ROOT") or os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "..")), "docs", "production", "oblique-mocks")
-    ids = {str(map_id)}
-    for pp in glob.glob(os.path.join(d, pre + "-*-plan.json")):
-        try:
-            with open(pp, encoding="utf-8") as f:
-                j = json.load(f)
-        except (OSError, ValueError):
-            continue
-        base = j.get("map_id")
-        if base:
-            ids.add(base)
-            ids |= {base + "-" + v for v in j.get("variants", {})}
-    return sorted(ids)
-
-
-_DESK_CACHE = {}
-
-
 def desk_props(map_id):
-    """作業机の上の置き物（工作の道具。ミニチュアの世界の物ではない）を、MAP ID を種にした決定的な乱数で 0〜2 個選ぶ。
-    同じエリアの先の MAP と同じ組み合わせ・配置（置き物が1つ以上のとき）にならないよう、重複したら種を替える。
-    [(種類ID, 種類の名前, 位置の緩い指定)]。位置は座標にせず机の隅・端の緩い指定。"""
+    """作業机の上の置き物（工作の道具。ミニチュアの世界の物ではない）を、MAP ID だけを種にした決定的な乱数で 0〜2 個選ぶ
+    （0 個が過半。置く理由が無い MAP に詰め込まない）。他の MAP の状態に依存しない。同じ組み合わせ・配置の衝突は tests が検出し、
+    台帳 desk.props-spec の seed_offsets（MAP ID→種のオフセット）で避ける。[(種類ID, 種類の名前, 位置の緩い語)]。"""
     import hashlib
     import random
-    ids = _area_ids(map_id)
-    key = tuple(ids)
-    if key not in _DESK_CACHE:
-        taken, res = set(), {}
-        for i in ids:
-            for attempt in range(100):
-                rng = random.Random(int(hashlib.sha256(f"desk-props:{i}:{attempt}".encode("utf-8")).hexdigest()[:12], 16))
-                n = rng.choices(DESK_SPEC["count"], weights=DESK_SPEC["count_weights"])[0]
-                kinds = rng.sample(DESK_SPEC["kinds"], n)
-                zones = rng.sample(DESK_SPEC["zones"], n)
-                items = tuple(sorted((k["id"], k["ja"], z) for k, z in zip(kinds, zones)))
-                combo = tuple(sorted(x[0] for x in items))
-                if not items or (items not in taken and combo not in taken):
-                    break
-            if items:
-                taken.add(items)
-                taken.add(combo)
-            res[i] = list(items)
-        _DESK_CACHE[key] = res
-    return _DESK_CACHE[key][str(map_id)]
+    off = DESK_SPEC.get("seed_offsets", {}).get(str(map_id), 0)
+    rng = random.Random(int(hashlib.sha256(f"desk-props:{map_id}:{off}".encode("utf-8")).hexdigest()[:12], 16))
+    n = rng.choices(DESK_SPEC["count"], weights=DESK_SPEC["count_weights"])[0]
+    kinds = rng.sample(DESK_SPEC["kinds"], n)
+    zones = rng.sample(DESK_SPEC["zones"], n)
+    return sorted((k["id"], k["ja"], z["ja"]) for k, z in zip(kinds, zones))
+
+
+def desk_zone_rect(ja):
+    """位置の緩い語に対応する机の面の余白の矩形（画像座標。検査用。台座・前縁・歩行領域に重ならない）。"""
+    return next(z["rect"] for z in DESK_SPEC["zones"] if z["ja"] == ja)
 
 
 def desk_props_text(map_id):

@@ -328,6 +328,9 @@ class SlabPropsRandom(unittest.TestCase):
         for i in self.IDS:
             pr = M.slab_props(i)
             self.assertLessEqual(len(pr["seams"]), 2)
+            y0, y1 = M.SLAB_SPEC["band_y"]
+            for it in pr["tapes"] + pr["glue"]:
+                self.assertTrue(y0 <= it["bbox"][1] and it["bbox"][3] <= y1, f"{i}: 前縁の帯 y={y0}〜{y1} からはみ出す {it['bbox']}")
             for t in pr["tapes"]:
                 self.assertIn(t["seam"], pr["seams"])
                 self.assertLessEqual(t["bbox"][0], t["seam"])
@@ -354,13 +357,12 @@ class SlabPropsRandom(unittest.TestCase):
 
 
 class DeskPropsRandom(unittest.TestCase):
-    """決定 SIT.desk-props-random: 作業机の上の置き物は MAP ごとにランダム（0個がある・同じ組み合わせにならない）。"""
+    """決定 SIT.desk-props-random: 作業机の上の置き物は MAP ごとに決まり、0個が過半・同じ組み合わせにならない・台座と歩行領域に重ならない。"""
 
     IDS = [Path(p).name.replace("-plan.json", "") for p in PLANS] + ["TRM-05-kids", "TRM-05-fire"]
 
-    def test_counts_zero_exists_and_combos_differ(self):
+    def test_counts_zero_majority_and_combos_differ_and_deterministic(self):
         allowed = {k["id"] for k in M.DESK_SPEC["kinds"]}
-        zones = set(M.DESK_SPEC["zones"])
         counts = []
         seen = set()
         for i in self.IDS:
@@ -370,14 +372,33 @@ class DeskPropsRandom(unittest.TestCase):
             self.assertEqual(pr, M.desk_props(i), "決定的でない")
             for kid, ja, z in pr:
                 self.assertIn(kid, allowed)
-                self.assertIn(z, zones)
-                self.assertNotIn("台座", z)
             self.assertEqual(len({z for _k, _j, z in pr}), len(pr), "同じ位置に2つ")
             if pr:
-                self.assertNotIn(tuple(pr), seen, f"{i}: 同じ組み合わせ・配置の MAP がある")
+                self.assertNotIn(tuple(pr), seen, f"{i}: 同じ組み合わせ・配置の MAP がある（desk.props-spec の seed_offsets で種を替える）")
                 seen.add(tuple(pr))
         self.assertGreater(counts.count(0) * 2, len(counts), "置き物0個の MAP が過半でない（置く理由が無い MAP に詰め込まない）")
         self.assertTrue(any(c >= 1 for c in counts))
+
+    def test_independent_of_other_maps(self):
+        a = M.desk_props("TRM-07")
+        self.assertEqual(a, M.desk_props("TRM-07"))
+        # 他の MAP ID の有無に依存しない（MAP ID だけが種）
+        import hashlib
+        self.assertEqual(M.desk_props("ZZZ-99"), M.desk_props("ZZZ-99"))
+
+    def test_zone_rects_do_not_overlap_slab_or_walkable(self):
+        import numpy as np
+        import cv2
+        quad = np.round(np.array(M._DST, dtype=float)).astype(np.int32)
+        mask = np.zeros((M.H_IMG, M.W), np.uint8)
+        cv2.fillPoly(mask, [quad], 255)                               # 台座の上面（歩行領域・建物はすべてこの内側）
+        y0, y1 = M.SLAB_SPEC["band_y"]
+        mask[y0:y1 + 1, quad[:, 0].min():quad[:, 0].max() + 1] = 255  # 台座の前縁の帯
+        for z in M.DESK_SPEC["zones"]:
+            x0, y0_, x1, y1_ = z["rect"]
+            self.assertTrue(0 <= x0 < x1 <= M.W and 0 <= y0_ < y1_ <= M.H_IMG, z)
+            self.assertEqual(int(mask[y0_:y1_, x0:x1].sum()), 0, f"{z['ja']} が台座・前縁に重なる")
+            self.assertEqual(M.desk_zone_rect(z["ja"]), z["rect"])
 
     def test_prompt_has_desk_props_line_and_not_in_mock(self):
         p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-07-plan.json"))
@@ -385,6 +406,7 @@ class DeskPropsRandom(unittest.TestCase):
         it = M.desk_props_text("TRM-07")
         self.assertIn(X.text("PR.desk-props", items=it) if it else X.text("PR.desk-props.none"), t)
         self.assertIn("縮尺は実物大", X.text("PR.desk-props", items="x"))
+        self.assertIn("置く理由のない物は置かない", X.text("PR.desk-props", items="x"))
 
 
 if __name__ == "__main__":
