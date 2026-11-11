@@ -20,14 +20,14 @@
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "547532e365e1566bb3175836c9b9738784f2f004f4fe2410aad99b8f7d39d30b",
+  "input_sha": "f43f1b79b54e2f53285ab265204f670579180d26de670228bf14c801a2ab9e3f",
   "references": [],
   "row_id": "TRM-12",
   "tables": "docs/ledger/*.yaml"
  },
  "map_id": "TRM-12",
  "plan": "docs/production/oblique-mocks/TRM-12-plan.json",
- "plan_sha256": "1edb594bffadd146cec9514b8de97c553071dc274cd6fbedd3571afa9db8f9bd",
+ "plan_sha256": "b4ba1d94c1fd696821de00e627145130ed05f75e3bc01c8b5323df2d0271892c",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -36,7 +36,7 @@
      1
     ]
    },
-   "input_sha": "2c2e4ef339d93377433a9eaeff954d472a0d623b00794d5b83587d52eae99dd7",
+   "input_sha": "9b306d9efeff4c3b12d5be19b5be05949f22d44317c22b04384722c2dfdeb40c",
    "outputs": {
     "TRM-12-exits.png": "dbe4358950b313805164b3b01683cac9eb4aa4c1bfb35d6ea39faf9897a3c129",
     "TRM-12-mask.json": "35c29b091f1d72686e0c3ea59b25f2bcccbe7103b5158902244494a2a2e86caf",
@@ -46,35 +46,35 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "2c2e4ef339d93377433a9eaeff954d472a0d623b00794d5b83587d52eae99dd7",
+   "input_sha": "9b306d9efeff4c3b12d5be19b5be05949f22d44317c22b04384722c2dfdeb40c",
    "outputs": {
-    "TRM-12-clean.png": "62a4e4ccd250c458d9d6d40a445c6d309d90419b108ae4bb00236b813720ba89",
-    "TRM-12-review.png": "98b3e4544e0fd5b163667af1b7ea9fb130bdedbb7ffa5d1ad13ac8bb4d18f3d5"
+    "TRM-12-clean.png": "a49571169b9686a3aae7a6c675dec87a6d24f949dd9723fb4b75b09a84f17795",
+    "TRM-12-review.png": "11aed470855c2698e9c14cad2ab06c8101fd2f4a4d8bc5d75e1aa73c32e756bc"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "2c2e4ef339d93377433a9eaeff954d472a0d623b00794d5b83587d52eae99dd7",
+   "input_sha": "9b306d9efeff4c3b12d5be19b5be05949f22d44317c22b04384722c2dfdeb40c",
    "outputs": {
     "TRM-12-occlusion-depth.png": "c0856d0933514ff79e1d70f374495e9c2b51b08ead2cd0a17844aa7dfd634960",
     "TRM-12-occlusion-edit.png": "a2f020293c1c192fc20e93cb69e71b9d8d48bcb69400079e574394a042861a3e",
-    "TRM-12-occlusion-overlay.png": "94d27ea744d6a1dc9aa9170b3eca731b18010a99763cb9d8a65ba2633027b01b",
+    "TRM-12-occlusion-overlay.png": "be4eaf1d904d164fd8d836b3743673dbaa78fc66e2ea92a817eecba06ed0e77f",
     "TRM-12-occlusion.json": "eef7031d902b9defd40daa5b15ec13891555bd812d5693855f43ac625c00dceb",
     "TRM-12-occlusion.png": "3b65952a470469ddecb2a55d3db43680411795fab70fbbc9df6d8c5c01475c82"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "39527d5ffaf4791addc91a6da74ba31d72280203401b8374380771009b1be134",
+   "input_sha": "561a8f2f419629ad3011e519e6cb841cd29fb79d70d91bb3d9138ce6b80f536c",
    "outputs": {
-    "TRM-12-edit-prompt.txt": "38b7d4c0ceb2fa14d6da14b9a464825d254ad786f67cf1e9c23170461dc0f457"
+    "TRM-12-edit-prompt.txt": "cf208a8c681c7226eae09f751f5fee286ef5f878172bcf68b5e02fbcd1e2b44f"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "4d462a3fba1003846e510bec5ad53150a7f3740c7e992530c44ae7ac3b0f2847",
+   "input_sha": "57d17e0dafca10d81bb339ee0c87522280b47be4e8c30ecfb50b6dcb6b236777",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -83,7 +83,7 @@
     "既定（要確認）: 北壁に居室A・居室Bそれぞれの掃き出し窓（幅200）。南壁（廊下側）に窓は作らない。窓の種類・サッシの材質は確認できていない。（決定 TRM-12.layout-2dk）",
     "TRM-12 は事故後〜壮年の時期の部屋（map-specifications）。モックは時期差を持たない。",
     "車椅子の回転余地（直径150）: 台所の西半分（玄関の北）、居室Aの中央（x485〜635・y425〜575）、居室Bの南半分（x860〜1010・y440〜620）、台所の西側（x416〜760）に家具を置かず空けた。直径は既定。通路は経路（paths）で幅2人分を検証。（決定 TRM-12.layout-2dk）",
-    "既定（要確認）: 両隣に部屋がある（kako-jun 指示）。西壁・東壁は隣室との境の壁（窓も戸口も無い。上から見て厚い鉄筋コンクリートの帯）。隣の住戸は中身を描かず、灰色のコンクリートの塊として台座の左右の端まで続ける（決定 TRM-12.neighbor-units-block）。南北の位置関係（どの壁が隣か）は西・東と既定。（決定 TRM-12.layout-2dk）",
+    "既定（要確認）: 両隣に部屋がある（kako-jun 指示）。西壁・東壁は隣室との境の壁（窓も戸口も無い。上から見て厚い鉄筋コンクリートの帯）。隣の住戸は中身を描かず、灰色のコンクリートの塊（部屋の壁より高く積まれ、上端は画面外で切れる）として台座の左右の端まで続ける（決定 TRM-12.neighbor-units-block）。南北の位置関係（どの壁が隣か）は西・東と既定。（決定 TRM-12.layout-2dk）",
     "既定（要確認）: 風呂なし（kako-jun 指示）。浴室・風呂場・シャワー室は描かない（バスタブ含む）。トイレは、調査で県営住宅の有無が確認できなかったので描かない（未決 U-2920）。（決定 TRM-12.layout-2dk）",
     "既定（要確認）: 家具は昭和の標準的な品目の箱: 台所（東壁沿いに冷蔵庫・流し台・ガス台、中央寄りに食卓・椅子2。南の壁沿いは斜め視点で壁に隠れるため避けた）、居室A（テレビ台・たんす・卓）、居室B（布団2組・押入）。品目と位置は台帳に無く既定。流し台がステンレスなのは公団標準の調査に基づく。他は一般的な品目で出典は未確認。箱の見た目は工作の装飾に任せる。（決定 TRM-12.layout-2dk）",
     "既定（要確認）: TRM-12.door",
@@ -92,9 +92,9 @@
    ]
   },
   "wire": {
-   "input_sha": "60402b5952630f248f78a0afecf9c7113ac76315e0fcd66d7c6c5585cf6b8b0c",
+   "input_sha": "1913489903d00d85216cef0ce543cabc18600591992831871da11e79b23949a7",
    "outputs": {
-    "wire-TRM-12.png": "71547a74e6c05fa942247bb11d6838611c4b6d64f56dfbce1e1ae6f32e4f4ae6"
+    "wire-TRM-12.png": "2417c5a95a3aef091c3fdeaef4a0b80c95d09fe2b99f05a2f833026415ade685"
    },
    "status": "ok"
   }

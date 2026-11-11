@@ -15,7 +15,7 @@
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "5b0a9124247b03d3f59be6f1a4ac0963581beca8b64dc32958ec524e748e3a85",
+  "input_sha": "9d99e73be4c0770d223a78f4e7264f9859f8a0f443adf760e397903ad918c121",
   "references": [
    [
     "TRM-12",
@@ -27,7 +27,7 @@
  },
  "map_id": "TRM-11",
  "plan": "docs/production/oblique-mocks/TRM-11-plan.json",
- "plan_sha256": "964335e847e3f2758e7a6097411f18780cac3a15bdb8b792fa6bc81bafc9d2ea",
+ "plan_sha256": "ef6422d1826dc1c70b5c0b2488a37726ee2149502aabfab48b9d1a2b10c485aa",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -42,38 +42,38 @@
      1
     ]
    },
-   "input_sha": "81e4a3da621d1e72e2ccaa0d9c80da16388e06ebdcec2b235ddee78ef38a264f",
+   "input_sha": "e0cde6962f81ebabcfca8b7ced55dfe8b47c7f2985c213735f59cff3c34f3494",
    "outputs": {
-    "TRM-11-exits.png": "efb5037939c9a1f5a0207e611bbef7aa6dec4c6dccaac11bb1b522337a8cc0c2",
-    "TRM-11-mask.json": "debbbaefecb0c491fa9172d54db661e5c9911d19d0493ee09657c44a70de41ad",
-    "TRM-11-mask.png": "4a7ec4b8fdf8161e84c16ab1d9a27855cdbc09e5bcf793a46f319511b15cb441"
+    "TRM-11-exits.png": "868406ad1af3db7c226d0433241bd0175d65a50f7eb249ca944985d9fe1d5270",
+    "TRM-11-mask.json": "e34952635f5a00e7d70d98926ff696cba074d243d4844752fea7e3f47700e39f",
+    "TRM-11-mask.png": "149200429382e470aba6f71e46995b5dc50158bd9cbcdeb37d73ce0b4f70fe79"
    },
    "status": "ok",
    "white_components": 1
   },
   "mock": {
-   "input_sha": "81e4a3da621d1e72e2ccaa0d9c80da16388e06ebdcec2b235ddee78ef38a264f",
+   "input_sha": "e0cde6962f81ebabcfca8b7ced55dfe8b47c7f2985c213735f59cff3c34f3494",
    "outputs": {
-    "TRM-11-clean.png": "a53cecc8319a654b09d7ac0a2f395769b07a5071005927c0c9d5ed612b830180",
-    "TRM-11-review.png": "b8d57c9e255debb5acddbbe66c28337e12ad51c031264c096c4eb3123c398ce2"
+    "TRM-11-clean.png": "ce28037e134aa85831fb622b683d5255dba40187ce45ef57f261ea83a2e474ad",
+    "TRM-11-review.png": "8c16a1a4b685c8b1ca9feb7cdb5ebf3798e6c66aaec89b903c2ecb2978ab3f08"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "81e4a3da621d1e72e2ccaa0d9c80da16388e06ebdcec2b235ddee78ef38a264f",
+   "input_sha": "e0cde6962f81ebabcfca8b7ced55dfe8b47c7f2985c213735f59cff3c34f3494",
    "outputs": {
     "TRM-11-occlusion-depth.png": "56429faab5006817cc5ec38acbd4691c9baedaee71fd419ca1b52c584318c9e5",
     "TRM-11-occlusion-edit.png": "9ebeead4abf33dcc81bcb203eb430aeeb050dc5bcc33c4240fa3a3fcbaab3623",
-    "TRM-11-occlusion-overlay.png": "c2d3003bc7f3f9554c0c431ea860f892e728e1e91c9e51f50a5e1be48de25cbe",
+    "TRM-11-occlusion-overlay.png": "ea3dfe55e98980b4465a3af448da8d7693be2a4a359345dfac6e4d0f254e8d67",
     "TRM-11-occlusion.json": "3b5e57ce146074b92f93679eef955f6a1e36e3499e38777eca17e5be5f99073d",
     "TRM-11-occlusion.png": "986d4009aa23dacf817c37fc4f35f4d9ac3d7e9a98a681afe25f4da4d40ce77d"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "b714767aff0f45ad3397d7d9507d9b630bbbcaa56b35dcd8e7b0da66ec947e48",
+   "input_sha": "7eac659b386cc2cab1f631b8b121d8ceeafe23f962c52e0ca80ee14c1c5b1b68",
    "outputs": {
-    "TRM-11-edit-prompt.txt": "30fcfd4570167659bdaa7dc3c0e5ba0a5de02fbff56d6382f86ee38888f10a63"
+    "TRM-11-edit-prompt.txt": "770c3c4cf56e0dbc3ee3f542642688e86e00a148c4bef620d1b6b22fa729e955"
    },
    "status": "blocked",
    "unadopted_dependencies": [
@@ -82,7 +82,7 @@
   },
   "validate": {
    "errors": [],
-   "input_sha": "cccf9709c48f037f33788aea73a302f3f93511601974c0f0d80797153ba8740b",
+   "input_sha": "e987a19b882c7f42239d2a077f771b5ffbc2994e63c3f33d38bff2d7994de436",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -102,9 +102,9 @@
    ]
   },
   "wire": {
-   "input_sha": "a44eaa5a3aa99f50165f898a7b776a4ef640ce1cfd49eac4a9e89ca7ba364f70",
+   "input_sha": "be1448bf8df6cf3f0143830b290e69f4cb00730acb4ef98b1b43ed94a450afb3",
    "outputs": {
-    "wire-TRM-11.png": "f049078f12443c3a6ba697ec7b9ecd5d10984f51c3482196fef1438d15d8f2eb"
+    "wire-TRM-11.png": "a8f694835e24713c6c0ebdd50026c17c70664dcb1c20024f55b226b19b2a1914"
    },
    "status": "ok"
   }
