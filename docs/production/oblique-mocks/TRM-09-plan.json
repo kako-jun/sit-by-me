@@ -81,7 +81,7 @@
   {
    "id": "sd-sento-entrance",
    "wall": "sento",
-   "look": "銭湯の玄関。無地の藍色の暖簾が下がり、木の格子戸が閉まっている。玄関脇に木の下駄箱の棚、敷居に雪。通行しない。"
+   "look": "銭湯の玄関。無地の藍色の暖簾が下がり、木の格子戸が閉まっている。玄関脇に木の下駄箱の棚、敷居に雪。通行しない。敷居の前に一段高い石の段差があり、前庭の床とはつながらない（段差は既定・要確認）。"
   },
   {
    "id": "sd-sento-woodshed",
@@ -414,8 +414,8 @@
  "depends_on": [],
  "_provenance": {
   "source": "MAP:TRM-09|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "82677fabf29734a8fb6b098dc628b392c0d882b7e5063e6b2b0d2c99a67c32a0",
-  "generated_at": "2026-11-11T14:55",
+  "input_sha": "90f1af08f70edec5049e65a678334024016be7e06af35e4a337c33c2a539696e",
+  "generated_at": "2026-11-11T15:53",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-09-plan",
   "do_not_edit": true

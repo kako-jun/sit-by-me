@@ -108,6 +108,7 @@ class PromptReflection
       check_base_reference(id)
       check_area_fixed(id)
       check_reality(id)
+      check_core_constraints(id)
       check_committed_prompt(id)
     end
     check_anchors
@@ -405,13 +406,34 @@ class PromptReflection
 
     # 屋外の全MAP共通の2文（道路の縁は実体の境界・消雪パイプは穴だけ。決定 SIT.road-edge-solid-boundary・SIT.shosetsu-hole-only）。
     # REALITY の直後の節と FORBIDDEN の行の両方が、台帳 プロンプト文面の文面どおりに入っていること（MAP ごとの plan に頼らない）
-    %w[PR.reality.road-edge PR.reality.shosetsu PR.forbid.road-edge PR.forbid.shosetsu].each do |tid|
+    %w[PR.reality.road-edge PR.reality.shosetsu PR.reality.miniature PR.forbid.road-edge PR.forbid.shosetsu PR.forbid.miniature].each do |tid|
       tpl = @t['プロンプト文面'].find { |r| r['文面ID'] == tid }
       if tpl.nil?
         err(map_id, "台帳 プロンプト文面.#{tid} が無い")
       elsif !@prompt.include?(tpl['文面'])
-        err(map_id, "屋外MAPのプロンプトに #{tid} の文（道路の縁は実体の境界／消雪パイプは穴だけ）が入っていない")
+        err(map_id, "屋外MAPのプロンプトに #{tid} の文（道路の縁は実体の境界／消雪パイプは穴だけ／工作の素材のミニチュア）が入っていない")
       end
+    end
+    # 工作の素材のミニチュア方針（綿の雪・工作）が REALITY の節より後ろ（同等以上の強さ）に出る（決定 SIT.miniature-materials-not-photoreal）
+    mini = @t['プロンプト文面'].find { |r| r['文面ID'] == 'PR.reality.miniature' }
+    if mini && @prompt.include?(mini['文面'])
+      err(map_id, 'ミニチュア方針文に『綿』『工作』が無い') unless mini['文面'].include?('綿') && mini['文面'].include?('工作')
+      err(map_id, 'ミニチュア方針文が REALITY 節より前にある（REALITY の後ろに出す）') if @prompt.index(mini['文面']) < @prompt.index('REALITY（屋外')
+    end
+  end
+
+  # 中核制約（手作りミニチュア・綿の雪・段ボール）が全MAP（屋内外）のプロンプトに入っていて、後から足した節（REALITY など）が
+  # それを打ち消していない（決定 SIT.miniature-materials-not-photoreal。新しい節を足すたびに自動で回る）。
+  CORE_WORDS = %w[手作りミニチュア 綿の雪 段ボール].freeze
+  # 実写・フォトリアルを肯定する文言／ミニチュアや綿や工作を打ち消す文言
+  PHOTOREAL_AFFIRM = /(?:実写|フォトリアル|写真のよう|実物のよう)[^。\n]{0,12}(?:で描|に描|仕上げ|にする|とする)/.freeze
+  CORE_NEGATE = /(?:ミニチュア|工作|綿|段ボール)(?:の素材)?(?:は|を)?[^。\n]{0,6}(?:ではなく|にしない|使わない|不要|描かない)|本物の雪|実物の雪/.freeze
+
+  def check_core_constraints(map_id)
+    CORE_WORDS.each { |w| err(map_id, "中核制約『#{w}』がプロンプトに無い（REALITY など後から足した節が押し流していないか）") unless @prompt.include?(w) }
+    @lines.each do |l|
+      err(map_id, "実写・フォトリアルを肯定する文言: #{l[0, 60]}") if l.match?(PHOTOREAL_AFFIRM) && !l.include?('描かない') && !l.include?('しない')
+      err(map_id, "中核制約（ミニチュア・綿・工作・段ボール）を打ち消す文言: #{l[0, 60]}") if l.match?(CORE_NEGATE) && !l.include?('描かない') && !l.include?('実写のような') && !l.start_with?('- ')
     end
   end
 
