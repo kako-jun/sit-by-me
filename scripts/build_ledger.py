@@ -17,8 +17,7 @@ def run(action):
                 for view, (table, path) in CSV_VIEWS.items()]
     field_outputs = field_md.outputs()
     outputs += field_outputs
-    if action == "build":
-        field_md.preflight(field_outputs)
+    field_md.preflight(field_outputs)
     existing = {r["生成物ID"]: r for r in L.read("生成物")}
     for ident, kind, relative, source, output in outputs:
         path = ROOT / relative

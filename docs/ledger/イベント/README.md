@@ -16,10 +16,10 @@
 
 ## 一枚絵フィールドで動く md の生成（#250 第一歩）
 
-`opening_battle`・`evacuation_after_play`・`play_cancelled_promise`（E001〜E003）だけ、[生成スクリプト](../../../scripts/field_md.py) が `uv run python3 scripts/build_ledger.py build` で [`play/`](../../../play/README.md) に name-name の /play 用 md を作る（`check` で鮮度を検査）。入口 `play/script.md`、共通定義 `play/data.md`、場面ごとの `play/events/<イベントID>.md`。**生成物は台帳が正本で、編集しない。** 状態 blocked は解除しない。
+`opening_battle`・`evacuation_after_play`・`play_cancelled_promise`（E001〜E003）だけ、[生成スクリプト](../../../scripts/field_md.py) が `uv run python3 scripts/build_ledger.py build` で [`play/`](../../../play/README.md) に name-name の /play 用 md を作る（`check` で鮮度・孤児・上書き防止を検査。単体なら `uv run python3 scripts/field_md.py check`）。入口 `play/script.md`、共通定義 `play/data.md`、場面ごとの `play/events/<イベントID>.md`。**生成物は台帳が正本で、編集しない。** 状態 blocked は解除しない。
 
-- 台帳に足した列: `背景`・`マスク`（`assets/images` からの相対）・`出現位置`（`x,y`・背景px）・`開始方式`（`場面開始・1回` で `[トリガー auto … once=true]`）・`移動先`（そのイベント末尾に `[場面移動:]` を足す。到着位置は移動先の `出現位置`）・`暫定`（生成物の先頭コメントに出る）。
-- 背景・マスク・座標・敵味方の数値は暫定。台帳 敵.yaml の「HP は極めて高い・数値は未決」と矛盾しない仮値を `data.md` に置く。味方の魔法・特技は劇戦闘用の具体が台帳に無いので空。
+- 台帳に足した列（既存の語に寄せた。厳密に判定し、typo は生成時に FAIL）: `背景画像`・`歩行マスク`（`assets/images` からの相対。背景があればマスク必須）・`出現位置`（`x,y`・背景px）・`発火条件`（空欄=別のイベントから起動、または `場面開始・1回` のどちらかだけ。後者で `[トリガー auto … once=true]`）・`行き先`（そのイベント末尾に `[場面移動:]` を足す先のイベントID。到着位置は行き先の `出現位置`）・`暫定`（暫定の正本。生成物の先頭コメントに出る）。
+- 暫定の項目と理由は各台帳の `暫定` 列が正本（opening_battle に敵・味方の数値の仮値の説明もある）。味方の魔法・特技は劇戦闘用の具体が台帳に無いので空。
 - name-name 側: worker の `sit-by-me` の `scriptsDir: "play"`（name-name #1144）で読まれる。`[場面移動:]` の行き先の読み込みは下記。
 
 ## name-name の記法と制約
