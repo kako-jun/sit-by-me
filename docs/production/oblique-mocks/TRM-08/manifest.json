@@ -1,12 +1,12 @@
 {
  "adoption": {
   "canonical": "assets/images/fields/reference/teramachi-road-well-canal-trm08-adopted.webp",
-  "canonical_sha256": "d35d2e688b9149f40d2d14ad1a9070c9a4a42b79d709a8b823da2cd59cee5c13",
-  "image": "docs/production/oblique-mocks/TRM-08/e2/take1-edit1.png",
-  "image_sha256": "5f0f793e5292bc4d22f457fabef918b340197c6ac60ddb83e107039e53874823",
-  "mock_clean_sha256": "2e9be3e92ab4d370a6dc9ace477d9b17f28653e8f4a336f2577a74c96381c871",
-  "plan_sha256": "861545cbc03ef4d1c83506f81bda65ead765a93eb2fdf50a214d27e27c6a8fe0",
-  "prompt_sha256": "ca0d16578ab3db5ee08af20c1c4b72d5db1b9a55db2208caf238c65ad78b392b",
+  "canonical_sha256": "42fcb8f2928e67fdbb4f159438b2c92023f72b8e21085cc999afe0f5f452254c",
+  "image": "docs/production/oblique-mocks/TRM-08/e2/take1-baseclean.png",
+  "image_sha256": "5bcb56c90784adff9a2f9c099bd9a154de04643096d4724a69192fd0d1ca83d7",
+  "mock_clean_sha256": "025e999fcc1b1904699c97940ca7f320a2958ef2f3c9ee08ba1dce3927a0b4fe",
+  "plan_sha256": "52409c0010d4e9f2f7897117ec540c59fb1f9532e3450ea051888661d33de7cc",
+  "prompt_sha256": "e2d936fb6c98984fd6860bd0172f9ae3876b2153cef66c1eba651fdc9468a73f",
   "size": [
    1672,
    941

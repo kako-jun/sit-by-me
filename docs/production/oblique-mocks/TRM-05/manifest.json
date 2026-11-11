@@ -1,12 +1,12 @@
 {
  "adoption": {
   "canonical": "assets/images/fields/reference/teramachi-residence-trm05-adopted.webp",
-  "canonical_sha256": "2134bacb94878e2b0b99eac3b0d9a64f5baeea167559cb8b3e8027f68fd7da5c",
-  "image": "docs/production/oblique-mocks/TRM-05/e2/corridor-fit6-trm05.png",
-  "image_sha256": "20937a6c9914ba753bf50063382d8e49d7870b14d6db1684d882f1bcc4caeb50",
-  "mock_clean_sha256": "1fd10dde49255f18684b721dcfac3c25296ed7221e8ea59fc2403f2ed6eedfdc",
+  "canonical_sha256": "38e66605b17f0200ac91f8a17fe3c19b1caa6cb62b83330ba3f9a70feb9204ed",
+  "image": "docs/production/oblique-mocks/TRM-05/e2/take4-baseclean.png",
+  "image_sha256": "aa32c2037146da62d80a0609bdf590ada9bc0a657c89537a003405edc0fd3b92",
+  "mock_clean_sha256": "c781584f4395d983567e805e679d632932def1d4b72d5da78d608363ebbc5392",
   "plan_sha256": "f8f82a1d5fb3d27bdfbca2611f50145617ac8bb0447ac2941899ce63a8e3f132",
-  "prompt_sha256": "9da7e722844f872e485c66b04236fa982233090efafe919c9435671adf6c634e",
+  "prompt_sha256": "6af6d06f96bf9efd5a51427485504000730b70708f907aa6e5943a9ffad0a129",
   "size": [
    1672,
    941
@@ -50,11 +50,11 @@
    "TRM-04.outer-trees",
    "TRM-05.mikan"
   ],
-  "input_sha": "4f8a272f34e2805285b58d60c9fbc4402173be40ceffb5a95407ac6c7dff3db9",
+  "input_sha": "032f0e6a566b69244d6c65f95c3db1773046ea4c9ca283fbdc4b6b98e8e30053",
   "references": [
    [
     "TRM-04",
-    "4d74dd71237216233d4daee79f5f4d9b41d425cbe075b8c5916df87c78efbaf1"
+    "033793e5d659792f1b8f2a4eb5ac54266b112a8fda38b46c02fe7c368502e982"
    ]
   ],
   "row_id": "TRM-05",
@@ -106,9 +106,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "bfbeac62099de708fc8d05b692d9eff3f59fed0ee5bff499504c0ac83732336f",
+   "input_sha": "4faac0b88fb30e15020581a95ea69b017d807226d5a164fe875006a6acd6eeac",
    "outputs": {
-    "TRM-05-edit-prompt.txt": "b1739b7d72e1892668c82cf9f45b57b025b50650bcab328aa44ab8580ca036b4"
+    "TRM-05-edit-prompt.txt": "6af6d06f96bf9efd5a51427485504000730b70708f907aa6e5943a9ffad0a129"
    },
    "status": "ok",
    "unadopted_dependencies": []

@@ -1,12 +1,12 @@
 {
  "adoption": {
   "canonical": "assets/images/fields/reference/teramachi-grounds-exterior-trm03-adopted.webp",
-  "canonical_sha256": "f01e5ebee81ad1264b043a584a0d1a03e9827b1f8ad985668b58f2fc00b17f06",
-  "image": "docs/production/oblique-mocks/TRM-03/take3-edit2.png",
-  "image_sha256": "7ba9e34faae01a6c9156475d5df55682cbe5a0c3e8e5349b52bc260004d147bb",
-  "mock_clean_sha256": "a71691ce5a9d6be2d845046dd48324c3b9916f2f07b24368e2029755306a0383",
-  "plan_sha256": "b30e4a1d8d5b2fba82e841003a3b96448a3925123fcf6efdc8647cec5b578725",
-  "prompt_sha256": "34c00793a08d8b49dfb53aa490b5d6390e0d52697290df50c4af9abf53de55e1",
+  "canonical_sha256": "debdc2deac1a783e824a31873e2a8fb9061186843d4bb4426403e9e8c18b93a4",
+  "image": "docs/production/oblique-mocks/TRM-03/e2/take3-baseclean.png",
+  "image_sha256": "95de94233c7f98abf8ce0cce2b95b78cc16d56bfc549ee4a4e9934d4abeb1d34",
+  "mock_clean_sha256": "cef6138f7bca7ffac299536f052aa0cd92271d08b5c67ab4a41cdec0cc54821d",
+  "plan_sha256": "0055b963b00ef445cfe1a5e07db7a956e97fc5f95134044c857c0bd3da332538",
+  "prompt_sha256": "71600287ea7969e54c01a27e59c61db10b09593b04f2ae6a08c1f8662fd54bfd",
   "size": [
    1672,
    941
@@ -49,19 +49,19 @@
    "TRM-04.corridor-windows",
    "TRM-04.outer-trees"
   ],
-  "input_sha": "cd42c0755a962f5e3c2d31bf44d11673ec452327c719a04d688990f48ef49ef3",
+  "input_sha": "a6fe462063e5b87ecaebdb53985b35dd1eda3c4f2e50944f95e17c13eee104b5",
   "references": [
    [
     "TRM-04",
-    "4d74dd71237216233d4daee79f5f4d9b41d425cbe075b8c5916df87c78efbaf1"
+    "033793e5d659792f1b8f2a4eb5ac54266b112a8fda38b46c02fe7c368502e982"
    ],
    [
     "TRM-05",
-    "2134bacb94878e2b0b99eac3b0d9a64f5baeea167559cb8b3e8027f68fd7da5c"
+    "38e66605b17f0200ac91f8a17fe3c19b1caa6cb62b83330ba3f9a70feb9204ed"
    ],
    [
     "TRM-02",
-    "6efc69bb916c68f79b3aa06cde23d484474562f91773df7586a6265e511275c5"
+    "b132eba5d2350b37526397798cd9ac622658e27d8997b6383bf9d6cec8ab50c5"
    ]
   ],
   "row_id": "TRM-03",
@@ -116,9 +116,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "60c98cba75758bf43dd1db95e2d0be77e8148e916a3640f749a863d64e18f7cc",
+   "input_sha": "a425fbd3de8c24ff10e4c50214d69d510286f504f69a00da563537a5e4d0fc5d",
    "outputs": {
-    "TRM-03-edit-prompt.txt": "0c7f756f3ba54ee0061d574f17f05a5f29e24d39a2ba3af813ab64ad03a08e18"
+    "TRM-03-edit-prompt.txt": "71600287ea7969e54c01a27e59c61db10b09593b04f2ae6a08c1f8662fd54bfd"
    },
    "status": "ok",
    "unadopted_dependencies": []

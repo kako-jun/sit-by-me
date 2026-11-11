@@ -1,12 +1,12 @@
 {
  "adoption": {
   "canonical": "assets/images/fields/reference/teramachi-kindergarten-playroom-trm02-adopted.webp",
-  "canonical_sha256": "6efc69bb916c68f79b3aa06cde23d484474562f91773df7586a6265e511275c5",
-  "image": "docs/production/oblique-mocks/TRM-02/e2/corridor-fit6-trm02.png",
-  "image_sha256": "6adf63bc557e9fd19511569c0a706df3c7237344a36a3e05ea7007d7ed178646",
-  "mock_clean_sha256": "3d3db7874e3610a08ea689c63e921898102035e008fc001dc2d78f830e1ad0bd",
+  "canonical_sha256": "b132eba5d2350b37526397798cd9ac622658e27d8997b6383bf9d6cec8ab50c5",
+  "image": "docs/production/oblique-mocks/TRM-02/e2/take2-baseclean.png",
+  "image_sha256": "5e45dfde6d200373dee6f5c2ecdbf2e28b6ca6e294867971c70e030f0ae8b971",
+  "mock_clean_sha256": "a4ba7b19c38f19052ee5685cafdb46b8a847e588958d18b33878ca43f5933bc4",
   "plan_sha256": "60e79967b1e7fc48a5668d90efc992f010fbe0d049d3554f3497cbc686d48c91",
-  "prompt_sha256": "834f3614a4e51e512a23c8aa3773c26952c36fdb25765ff441efc8f2a30d854f",
+  "prompt_sha256": "33e57a6180a4a5f9cf61298cf0b7a6ad765ca97145dad48c289f1dc5b2530163",
   "size": [
    1672,
    941
@@ -41,11 +41,11 @@
    "TRM-04.floor-planks",
    "TRM-04.outer-trees"
   ],
-  "input_sha": "199b079a98a04432e782ea9371681db6979edbb95a63959a4dee8761f4e78dd7",
+  "input_sha": "a4b947d692f9f87be39f4f252d8aa7449fe9e9d18bbdc731f98b51ec4dab9ef8",
   "references": [
    [
     "TRM-04",
-    "4d74dd71237216233d4daee79f5f4d9b41d425cbe075b8c5916df87c78efbaf1"
+    "033793e5d659792f1b8f2a4eb5ac54266b112a8fda38b46c02fe7c368502e982"
    ]
   ],
   "row_id": "TRM-02",
@@ -94,9 +94,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "1fe7a340cfa00d21a6f91dd741461b7df44bffb3a99558c66b9152257c7693fb",
+   "input_sha": "d1aed0d168ed31ac40c9aae722498bffe27d54bb52de36d1cef16c2a309b2f31",
    "outputs": {
-    "TRM-02-edit-prompt.txt": "3c4f2fa1cc2a5cc50408d35dab349ee3041aa1484cd92d682437d53f623695c0"
+    "TRM-02-edit-prompt.txt": "33e57a6180a4a5f9cf61298cf0b7a6ad765ca97145dad48c289f1dc5b2530163"
    },
    "status": "ok",
    "unadopted_dependencies": []
