@@ -7,4 +7,4 @@ battle_layout: Side
 
 ## start: はじまり
 
-[フィールド: opening_battle @768,512]
+[フィールド: opening_battle @700,480]

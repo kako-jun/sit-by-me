@@ -3,12 +3,12 @@ engine: name-name
 title: お遊戯会の劇戦闘
 hidden: true
 ---
-<!-- 生成物。台帳が正本。編集しない。 暫定: 背景・マスクは寺町の旧素材 TRM-07（山門の通り）を流用。本来の場所は幼稚園・遊戯室 TRM-02（採用画像は未生成）。出現位置は歩ける白画素の仮の点。味方の形態は elementary を流用（幼稚園期の歩行絵が無い）。敵・味方の数値（HP など）は data.md の仮値 -->
+<!-- 生成物。台帳が正本。編集しない。 暫定: 背景は採用済み TRM-02 遊戯室（正本 fields/reference/teramachi-kindergarten-playroom-trm02-adopted.webp）を worker の配信上限（1MiB）に収めるため WebP 再圧縮した複製（fields/play/）。マスクは TRM-02-mask.webp（採用画像と同寸 1672x941）。出現位置は歩ける白画素の仮の点。味方の形態は elementary を流用（幼稚園期の歩行絵が無い）。敵・味方の数値（HP など）は data.md の仮値 -->
 
 ## opening_battle: お遊戯会の劇戦闘
 
-[フィールドマップ 背景=fields/legacy/TRM-07.webp マスク=fields/legacy/masks/TRM-07-mask.webp]
-[プレイヤー @768,512]
+[フィールドマップ 背景=fields/play/teramachi-playroom-trm02-play.webp マスク=fields/masks/TRM-02-mask.webp]
+[プレイヤー @700,480]
 [トリガー auto scene=opening_battle once=true]
 
 [戦闘 opening_battle]
