@@ -15,7 +15,7 @@
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "9d99e73be4c0770d223a78f4e7264f9859f8a0f443adf760e397903ad918c121",
+  "input_sha": "213ddcd4632908bbc6b57e727ec1f8156ef14ddd5f481f930a625a473c68013d",
   "references": [
    [
     "TRM-12",
@@ -27,7 +27,7 @@
  },
  "map_id": "TRM-11",
  "plan": "docs/production/oblique-mocks/TRM-11-plan.json",
- "plan_sha256": "e81a7109fd93f29f04012f3a3f51e8f3863fc5e574793f06bcbf0790ac24332c",
+ "plan_sha256": "5079c906855434eb3b4dbbc8a208fc01515f04ab01c506b3fd0ece96298d13e9",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -42,7 +42,7 @@
      1
     ]
    },
-   "input_sha": "38155368856142e576887186d2bf408082744a368061118cade271472f3abc28",
+   "input_sha": "edc9b15e7f62b8dc5e1ec38b4809d9a832872c78af33c25aba0bc9a799d9c41b",
    "outputs": {
     "TRM-11-exits.png": "a5bfc9fdc7dfe46590ae5d9d208ee20c6ea9779dcd46bda62d994f84344d5a92",
     "TRM-11-mask.json": "cd200a5b87656600be454b9c61a952c6e1271aaf023afec5be4f6331a583aa82",
@@ -52,7 +52,7 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "38155368856142e576887186d2bf408082744a368061118cade271472f3abc28",
+   "input_sha": "edc9b15e7f62b8dc5e1ec38b4809d9a832872c78af33c25aba0bc9a799d9c41b",
    "outputs": {
     "TRM-11-clean.png": "effe0987933393d1656e6703ce8ba1d14a1654d9a81b21e4baf306a1949fb44c",
     "TRM-11-review.png": "dfc88458912703e2eda503f07086ca11d4ebff338e9cb099c8e1090317b35a45"
@@ -60,7 +60,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "38155368856142e576887186d2bf408082744a368061118cade271472f3abc28",
+   "input_sha": "edc9b15e7f62b8dc5e1ec38b4809d9a832872c78af33c25aba0bc9a799d9c41b",
    "outputs": {
     "TRM-11-occlusion-depth.png": "56429faab5006817cc5ec38acbd4691c9baedaee71fd419ca1b52c584318c9e5",
     "TRM-11-occlusion-edit.png": "9ebeead4abf33dcc81bcb203eb430aeeb050dc5bcc33c4240fa3a3fcbaab3623",
@@ -71,9 +71,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "2f51212ade1695496deec4e4df92373143e5dbd47b45d88993a0223cdbde7db6",
+   "input_sha": "5adeb86e3db9803868546316d193389b5b18ad2954ac4886f206b3c1e12595f5",
    "outputs": {
-    "TRM-11-edit-prompt.txt": "6591eda495a3b6a7c8faaa87ec2ae406cf18aec31195178a02fe00bd0cf09f27"
+    "TRM-11-edit-prompt.txt": "14b5c8a76625f3063ab2874bc14de884085f866933ad04ef088874652d9cc78e"
    },
    "status": "blocked",
    "unadopted_dependencies": [
@@ -82,7 +82,7 @@
   },
   "validate": {
    "errors": [],
-   "input_sha": "a8fd7e582265e785fa53781d2c765f1e6a0cdfd691b4a99d77c8853362de23b9",
+   "input_sha": "a7b502fbd719f43ce7cf99fe602e0dd044bb5b2d3c800ffcaaa21fa2277946fd",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -97,12 +97,11 @@
     "既定（要確認）: TRM-11.door",
     "屋外MAP: 歩けない面 snow の look が空・ただの地面。境界を色の違いだけにしない（土塀・石垣・生垣・縁石・段差・水など実体のある要素にする。Issue #191）",
     "屋外MAP: plan に boundaries（歩ける床の外側の境界物の帯）が無い。床の色の切り替えだけの境界になる（Issue #191）",
-    "屋外MAP: plan に variation（足跡・汚れ・土の露出・除雪の雪山・スノーポール・消雪パイプ・電柱など、このMAPの look から来る変化の語）が無い。単調になりやすい（Issue #191）",
-    "屋外MAP: 木の帯（奥-28px・手前13px・左21px・右20px。幅40px未満は使えない）の面積 0px² が木の最小本数 8 本（1本あたり 3000px² 必要）を満たせない。plan の tree_zones に民家の裏・塀の根元など実面積のある矩形を置くか、木の本数を MAP に合わせる（Issue #191）"
+    "屋外MAP: plan に variation（足跡・汚れ・土の露出・除雪の雪山・スノーポール・消雪パイプ・電柱など、このMAPの look から来る変化の語）が無い。単調になりやすい（Issue #191）"
    ]
   },
   "wire": {
-   "input_sha": "cf84bc4867c002e40f9fdb111cc57b9be38eb3700925650e44e559ca35f4388d",
+   "input_sha": "104f16bf1fdcb325681cf531ab7504d52f6e169f18700909919cc3167455111e",
    "outputs": {
     "wire-TRM-11.png": "cd41567c5592b888affb32b288f56fc3b43ff615db07ce061a31eefbf1331707"
    },
