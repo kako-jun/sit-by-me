@@ -1,4 +1,4 @@
-<!-- 生成物: docs/ledger/イベント/evacuation_after_play.yaml が正本。仮稿・ゲームへ接続しない。未決: 避難経路・操作復帰点 -->
+<!-- 生成物: docs/ledger/イベント/evacuation_after_play.yaml が正本。仮稿・ゲームへ接続しない。未決: 避難経路・操作復帰点、本来の場所（運動場）の背景・マスクと次の場面の座標 -->
 
 ## evacuation_after_play: 地震と避難（仮稿）
 

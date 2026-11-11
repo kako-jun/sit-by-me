@@ -98,12 +98,12 @@
 | [素材更新](ledger/素材更新.yaml) | 285 | 元の素材移行SHAを保持したまま後続の上流更新を記録するSHA連鎖。出典commitと出典パスを必須とする。 | 更新ID / 素材ID / パス / 旧sha256 / 新sha256 / 出典commit / 出典パス / 根拠 |
 | [素材メタデータ](ledger/素材メタデータ.yaml) | 10 | 上流の画像用JSONを安全化してYAML正本に変換した出典とハッシュ。原文の秘匿値は保持しない。 | メタデータID / パス / 所有者ID / 原文sha256 / 安全化sha256 / 出典commit / 安全化方針 |
 | [素材メタデータ値](ledger/素材メタデータ値.yaml) | 1299 | 画像用JSONをJSONポインタ・型・値へ分解したYAML正本。JSONは再構築して生成する。 | メタデータID / JSONポインタ / 型 / 値 |
-| [生成物](ledger/生成物.yaml) | 26 | 派生物（JSON）の登録と鮮度検査用ハッシュ。 | 生成物ID / 種別 / パス / 元の表 / 入力ハッシュ / 生成日時 / 再生成コマンド / 備考 |
+| [生成物](ledger/生成物.yaml) | 33 | 派生物（JSON）の登録と鮮度検査用ハッシュ。 | 生成物ID / 種別 / パス / 元の表 / 入力ハッシュ / 生成日時 / 再生成コマンド / 備考 |
 | [必須キー](ledger/必須キー.yaml) | 146 | 対象テーブルごとの必須キー定義。 | 対象テーブル / キー / 必須度 / 条件 / 語彙グループ / 説明 |
 | [未決](ledger/未決.yaml) | 2003 | 未決（要確認）の一覧。 | 未決ID / 対象テーブル / 対象ID / キー / 内容 / 状態 / 解決決定ID |
 | [キー別名](ledger/キー別名.yaml) | 20 | 列名・キー名の別名と正規名。 | 正規名 / 別名 / 対象テーブル / 説明 |
 | [Issue点検](ledger/Issue点検.yaml) | 529 | Issue の決定候補と決定表の突合結果（audit_issue_decisions.rb が更新。分類=決定表に反映済み／未反映(要取込み)／決定でない／対象外）。 | Issue番号 / コメントURL / 候補の要約 / 分類 / 決定ID / 備考 |
-| [ファイル配置](ledger/ファイル配置.yaml) | 63 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
+| [ファイル配置](ledger/ファイル配置.yaml) | 67 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
 | [描画定数](ledger/描画定数.yaml) | 30 | 斜めツール（oblique_mock.py・oblique_topology.py）の寸法・視点・幅クラス・窓種別・台座の飾りの位置。コードはここを読む。 | 定数ID / グループ / 値 / 単位 / 説明 / コード内の名前 |
 | [プロンプト文面](ledger/プロンプト文面.yaml) | 169 | imagegen 用プロンプト・接続表・窓一覧・接続図に出る文面（{名前}=変数の差し込み口）。コードは oblique_text.text で読み、文面を直接持たない。 | 文面ID / 区分 / 文面 / 変数 / 使用箇所 / 備考 |
 | [制作規約](ledger/制作規約.yaml) | 8 | 制作規約の台帳。元資料の提案と確定状態を区別して保持する。 | 規約ID / 対象種別 / 対象ID / 区分 / 内容 / 確度 / 根拠 |
@@ -175,6 +175,13 @@
 | G-asset-migration | 素材移行JSON | [docs/production/20261018-asset-migration.json](production/20261018-asset-migration.json) | `uv run python3 scripts/build_ledger.py build` |
 | G-bgm-sources-csv | BGM CSVビュー | [docs/bgm-sources.csv](bgm-sources.csv) | `uv run python3 scripts/build_ledger.py build` |
 | G-bgm-phrases-csv | BGM CSVビュー | [docs/bgm-phrases.csv](bgm-phrases.csv) | `uv run python3 scripts/build_ledger.py build` |
+| G-play-script | name-name 入口md | [play/script.md](../play/script.md) | `uv run python3 scripts/build_ledger.py build` |
+| G-play-data | name-name 共通定義md | [play/data.md](../play/data.md) | `uv run python3 scripts/build_ledger.py build` |
+| G-play-readme | play/ の説明 | [play/README.md](../play/README.md) | `uv run python3 scripts/build_ledger.py build` |
+| G-play-event-opening_battle | name-name 場面md | [play/events/opening_battle.md](../play/events/opening_battle.md) | `uv run python3 scripts/build_ledger.py build` |
+| G-play-event-evacuation_after_play | name-name 場面md | [play/events/evacuation_after_play.md](../play/events/evacuation_after_play.md) | `uv run python3 scripts/build_ledger.py build` |
+| G-play-event-play_cancelled_promise | name-name 場面md | [play/events/play_cancelled_promise.md](../play/events/play_cancelled_promise.md) | `uv run python3 scripts/build_ledger.py build` |
+| G-play-character-forms | 人物の形態の目録JSON | [assets/field/sit-character-forms.json](../assets/field/sit-character-forms.json) | `uv run python3 scripts/build_ledger.py build` |
 
 ### ファイル配置規則
 
@@ -245,5 +252,9 @@
 | event-ledger-prototype | イベント台帳の試作 | イベント単位の台帳の試作。正式な台帳ビルドへの登録は未了 | リンク |  |
 | event-planning-prototype | イベント棚卸しの試作 | 既存 E の整理用の枠と場面候補一覧 | リンク |  |
 | event-preview-prototype | 生成物の試作 | イベント台帳から生成した name-name 脚本のレビュー用プレビュー | リンク |  |
+| play-readme | 生成物の説明 | name-name の /play が読む md の置き場（play/）の説明。台帳から生成 | リンク |  |
+| play-field-md | 生成物（name-name 用 md） | イベント台帳から生成した一枚絵フィールド用の入口・共通定義・場面 md。name-name の scriptsDir=play として読まれる | 許可 | play/README.md |
+| field-character-forms | 生成物（人物の形態の目録JSON） | name-name の [人物の形態 目録=…] が読む、形態ごとのポーズ・歩行絵の一覧。素材のファイル名から生成 | 許可 | play/README.md |
+| field-play-background | 配信用の背景（再圧縮した複製） | name-name の /play の一枚絵フィールド用。採用画像（fields/reference/）を worker の raw 配信上限 1MiB に収めた複製。正本は元の採用画像 | 許可 | assets/images |
 
 <!-- GENERATED:END ledger-views -->

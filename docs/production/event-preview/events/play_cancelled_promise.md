@@ -1,4 +1,4 @@
-<!-- 生成物: docs/ledger/イベント/play_cancelled_promise.yaml が正本。仮稿・ゲームへ接続しない。未決: 台詞・卯辰山へ行く約束の細部 -->
+<!-- 生成物: docs/ledger/イベント/play_cancelled_promise.yaml が正本。仮稿・ゲームへ接続しない。未決: 台詞・卯辰山へ行く約束の細部、本来の場所（運動場）の背景・マスクと出現位置、操作の開始条件 -->
 
 ## play_cancelled_promise: 中止になった劇と約束（仮稿）
 
