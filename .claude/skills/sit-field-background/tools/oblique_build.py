@@ -277,6 +277,8 @@ EDGE_KIND_GROUPS = (
 )
 SEAM_SIDES = ("left", "right", "top", "bottom")
 SEAM_INSET = 70   # 端からこの距離（単位）内側で、道の幅を測る
+SEAM_EDGE_TOUCH = 16  # この距離（単位）以内に辺へ届く床だけを『辺に接する道』とみなす
+SEAM_NEAR_EDGE = 20   # 内側に境界が無いとき、端からこの距離の位置の塀・擁壁の帯を見る
 SEAM_REACH = 18   # 道の縁からこの距離（単位）外側にある境界を、つなぎ目の境界とみなす
 SEAM_SIDE_JA = {"left": "左", "right": "右", "top": "上", "bottom": "下"}
 SEAM_LOHI_JA = {"left": ("北", "南"), "right": ("北", "南"), "top": ("西", "東"), "bottom": ("西", "東")}
@@ -323,10 +325,14 @@ def seam_edges(p, side):
     import cv2
     c = 4
     g = np.zeros((M.BASE_D // c, M.BASE_W // c), np.uint8)
+    vert = side in ("left", "right")
     for f in p.get("floors", []):
         if f.get("walkable", True) and not f.get("no_step") and ("rect" in f or "poly" in f):
-            cv2.fillPoly(g, [np.round(np.array(M.floor_poly(f)) / c).astype(np.int32)], 255)
-    vert = side in ("left", "right")
+            pts = np.array(M.floor_poly(f), dtype=float)
+            # 辺に届いている床（道）だけを測る。中庭など辺に届かない広い床が道の幅を広げないため
+            reach = pts[:, 0].max() >= M.BASE_W - SEAM_EDGE_TOUCH if side == "right" else pts[:, 0].min() <= SEAM_EDGE_TOUCH if side == "left" else pts[:, 1].max() >= M.BASE_D - SEAM_EDGE_TOUCH if side == "bottom" else pts[:, 1].min() <= SEAM_EDGE_TOUCH
+            if reach:
+                cv2.fillPoly(g, [np.round(pts / c).astype(np.int32)], 255)
     if vert:
         x = SEAM_INSET if side == "left" else M.BASE_W - SEAM_INSET
         col = g[:, x // c]
@@ -340,6 +346,10 @@ def seam_edges(p, side):
     res = {"range": (lo, hi)}
     for nm, al in (("lo", lo - SEAM_REACH), ("hi", hi + SEAM_REACH)):
         its = _seam_items_at(p, x, al) if vert else _seam_items_at(p, al, y)
+        if not its:  # 端から SEAM_INSET の内側に無ければ、端の塀・擁壁の帯そのもの（端から SEAM_NEAR_EDGE の位置）を見る
+            nx = (SEAM_NEAR_EDGE if side == "left" else M.BASE_W - SEAM_NEAR_EDGE) if vert else None
+            ny = None if vert else (SEAM_NEAR_EDGE if side == "top" else M.BASE_D - SEAM_NEAR_EDGE)
+            its = _seam_items_at(p, nx, al) if vert else _seam_items_at(p, al, ny)
         # 境界の帯を先に、次に壁・箱・床（_seam_items_at の順）。最初の1つがつなぎ目の境界
         res[nm] = {"id": its[0][0], "look": its[0][1], "kinds": edge_kinds(its[0][1])} if its else {"id": None, "look": "", "kinds": []}
     return res

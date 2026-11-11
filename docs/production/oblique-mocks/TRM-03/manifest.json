@@ -69,7 +69,7 @@
  },
  "map_id": "TRM-03",
  "plan": "docs/production/oblique-mocks/TRM-03-plan.json",
- "plan_sha256": "b30e4a1d8d5b2fba82e841003a3b96448a3925123fcf6efdc8647cec5b578725",
+ "plan_sha256": "0055b963b00ef445cfe1a5e07db7a956e97fc5f95134044c857c0bd3da332538",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -87,7 +87,7 @@
      1
     ]
    },
-   "input_sha": "cf1fdbdc5d4ce5b8515bc1611862569f1f4ac25f0bfb79b389a3564a6ad18e18",
+   "input_sha": "344737720746b7ac0680329e54f2e045f09a78697ff57584932d62836ef1e867",
    "outputs": {
     "TRM-03-exits.png": "ca752bbda523d004ca92bea85895612ade9fbfe53c0471fea188c228f656a79b",
     "TRM-03-mask.json": "d97f808bd59f61ab5d26502a21cf6118f129d1a6532416296a1362bb0a0b55ac",
@@ -97,7 +97,7 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "cf1fdbdc5d4ce5b8515bc1611862569f1f4ac25f0bfb79b389a3564a6ad18e18",
+   "input_sha": "344737720746b7ac0680329e54f2e045f09a78697ff57584932d62836ef1e867",
    "outputs": {
     "TRM-03-clean.png": "a71691ce5a9d6be2d845046dd48324c3b9916f2f07b24368e2029755306a0383",
     "TRM-03-review.png": "50d547cbba87211c02d5174db51f30bef777d583da06cce39e644e5536e3cdf9"
@@ -105,7 +105,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "cf1fdbdc5d4ce5b8515bc1611862569f1f4ac25f0bfb79b389a3564a6ad18e18",
+   "input_sha": "344737720746b7ac0680329e54f2e045f09a78697ff57584932d62836ef1e867",
    "outputs": {
     "TRM-03-occlusion-depth.png": "98e22144366b8565735eab2e7968c1e4c8d6de060e86696a11cc664ae2012c07",
     "TRM-03-occlusion-edit.png": "2d5be0a21b71a574588e12d1f444fbdef1d0f5b6094c30b8952bcd7d3713d72d",
@@ -116,16 +116,16 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "e74363c70c2927e4285d75fa5af0a5edc7853b5e72d6181f2dda45d1f6fa5ec6",
+   "input_sha": "7f3f50f5926025f582edd025107156dd075aacea2c5376bc2dc92cee3b1f7da0",
    "outputs": {
-    "TRM-03-edit-prompt.txt": "c2addff8f99442252631d24d66e8b48c9bc85ab2c1eaee67bea8318de02d69f1"
+    "TRM-03-edit-prompt.txt": "5cd84b49ae93cf893ecca76d92f12bddec26b9eb24b606d8855eb3391f655f58"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "72a517b9242c1487b0290e785ce82eba0286898f49d967185a11d59bea599e92",
+   "input_sha": "c816143a6dae32a276df865843ad7ecf0a7753067b4d3a7cee6e3d34239c1072",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -138,15 +138,11 @@
     "住居・幼稚園の外への戸口（door-residence/door-playroom）の幅は100単位。内部側（TRM-05/TRM-02 の door-outside）も同幅。窓の位置は変えていない（重ならない）。（決定 TRM.door-width-outside）",
     "既定（要確認）: TRM-03.door-main",
     "既定（要確認）: TRM-03.door-residence",
-    "既定（要確認）: TRM-03.door-playroom",
-    "屋外MAP: plan に boundaries（歩ける床の外側の境界物の帯）が無い。床の色の切り替えだけの境界になる（Issue #191）",
-    "屋外MAP: 歩ける床 grounds の縁（長さ約824、範囲 [24, 424, 708, 1248]）に段差・塀・側溝・縁石・護岸などの実体（boundaries・壁・護岸の歩けない面）が付いていない。道の外側が歩けるように見える（決定 SIT.road-edge-solid-boundary、Issue #191）",
-    "屋外MAP: 歩ける床 grounds の縁（長さ約696、範囲 [892, 1248, 1588, 1248]）に段差・塀・側溝・縁石・護岸などの実体（boundaries・壁・護岸の歩けない面）が付いていない。道の外側が歩けるように見える（決定 SIT.road-edge-solid-boundary、Issue #191）",
-    "屋外MAP: plan に variation（足跡・汚れ・土の露出・除雪の雪山・スノーポール・消雪パイプ・電柱など、このMAPの look から来る変化の語）が無い。単調になりやすい（Issue #191）"
+    "既定（要確認）: TRM-03.door-playroom"
    ]
   },
   "wire": {
-   "input_sha": "e87cad80fc8ec971acbf77a36ca56e72ac3833dc53bd198e83a8804f332a78bf",
+   "input_sha": "f1e3d78189087024a56cea16d411fd0c061f7266247370c8085259c09f9c07a3",
    "outputs": {
     "wire-TRM-03.png": "c0afcafcba5ebb076e8d0dd6207150044ed3c4c60b2f35ee5a4c0355802d04ab"
    },
