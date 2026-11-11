@@ -33,3 +33,7 @@
 - 未確定の数値や未宣言のIDを使った完成品として生成しない。文字数・往復の制約も実表示を踏まえて設計する。
 
 旧 E の棚卸し・進捗: [仮ファイル一覧](../../production/event-planning/README.md)。初期設計: [全体棚卸しと試作](../../production/20261110-event-ledger-design-draft.md)。
+
+## 途中の場面から始める（再開点）
+
+オープニングを毎回通らず、任意の場面から確認するための仕組み（#250）。再開点は `docs/ledger/再開点/<再開点ID>.yaml`（場面ID・位置・向き・パーティ・戦闘）が正本で、[生成スクリプト](../../../scripts/resume_saves.py) が `play/saves/<再開点ID>.save.json` を作る（`field_md.py` の出力に含まれ、`build_ledger.py build` / `check` の対象）。台帳に実在する人物・敵だけを使う。手順は [play/README.md](../../../play/README.md)。

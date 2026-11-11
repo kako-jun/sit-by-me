@@ -18,6 +18,7 @@ import yaml
 REAL = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REAL / "scripts"))
 import field_md  # noqa: E402
+import resume_saves  # noqa: E402
 
 EVENT_IDS = field_md.FIELD_EVENTS
 
@@ -30,8 +31,9 @@ class FieldMdCase(unittest.TestCase):
         (ledger / "イベント").mkdir(parents=True)
         for ident in EVENT_IDS:
             shutil.copy(REAL / "docs/ledger/イベント" / f"{ident}.yaml", ledger / "イベント")
-        for name in ("敵", "人物"):
+        for name in ("敵", "人物", "魔法"):
             shutil.copy(REAL / "docs/ledger" / f"{name}.yaml", ledger)
+        shutil.copytree(REAL / "docs/ledger/再開点", ledger / "再開点")
         shutil.copytree(REAL / "play", self.tmp / "play")
         shutil.copytree(REAL / "assets/field", self.tmp / "assets/field")
         # 目録の生成は素材のファイル名しか見ないので、空ファイルで足りる
@@ -44,6 +46,10 @@ class FieldMdCase(unittest.TestCase):
                     (dst / f.name).touch()
         saved = {k: getattr(field_md, k) for k in ("ROOT", "EVENTS", "OUT", "FORMS")}
         self.addCleanup(lambda: [setattr(field_md, k, v) for k, v in saved.items()])
+        saved_rs = {k: getattr(resume_saves, k) for k in ("ROOT", "DIR")}
+        self.addCleanup(lambda: [setattr(resume_saves, k, v) for k, v in saved_rs.items()])
+        resume_saves.ROOT = self.tmp
+        resume_saves.DIR = self.tmp / "docs/ledger/再開点"
         field_md.ROOT = self.tmp
         field_md.EVENTS = self.tmp / "docs/ledger/イベント"
         field_md.OUT = self.tmp / "play"
@@ -263,6 +269,32 @@ class StillBlocked(FieldMdCase):
         self.assertIn("暫定", self.out("play/script.md"))
         self.assertIn("暫定", self.out("play/data.md"))
         self.assertIn("blocked のまま", self.out("play/README.md"))
+
+
+class ResumeSaves(FieldMdCase):
+    def test_three_saves_generated_and_checked(self):
+        rels = [r for _, _, r, _, _ in field_md.outputs() if r.endswith(".save.json")]
+        self.assertEqual(sorted(rels), [f"play/saves/{n}.save.json" for n in ("opening_battle_fight", "playground_walk", "playroom_walk")])
+        self.run_check()
+
+    def test_unknown_person_or_scene_fails(self):
+        path = self.tmp / "docs/ledger/再開点/playroom_walk.yaml"
+        text = path.read_text(encoding="utf-8")
+        path.write_text(text.replace("C004", "C999"), encoding="utf-8")
+        with self.assertRaises(SystemExit):
+            field_md.outputs()
+        path.write_text(text.replace('"opening_battle"', '"no_such_scene"'), encoding="utf-8")
+        with self.assertRaises(SystemExit):
+            field_md.outputs()
+
+    def test_save_has_required_rpg_keys(self):
+        import json
+
+        rpg = json.loads(self.out("play/saves/opening_battle_fight.save.json"))["rpg"]
+        self.assertEqual(rpg["version"], 1)
+        self.assertEqual(rpg["equipment"], {})
+        self.assertEqual([p["id"] for p in rpg["party"]], ["C001", "C002", "C003", "C004"])
+        self.assertEqual(rpg["battle"]["enemies"][0]["id"], "M001")
 
 
 if __name__ == "__main__":

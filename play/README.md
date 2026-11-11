@@ -13,5 +13,21 @@ name-name の worker が `scriptsDir=play` として `play/` 直下とサブデ�
 | [events/evacuation_after_play.md](events/evacuation_after_play.md) | [evacuation_after_play.yaml](../docs/ledger/イベント/evacuation_after_play.yaml) |
 | [events/play_cancelled_promise.md](events/play_cancelled_promise.md) | [play_cancelled_promise.yaml](../docs/ledger/イベント/play_cancelled_promise.yaml) |
 
+## 途中の場面から始める（デモ・確認の手順）
+
+オープニングを毎回通らない。**再開点を選んで `?resume=` で開く**（セーブ JSON は台帳 `docs/ledger/再開点/` から生成）。
+
+1. `play/saves/<再開点ID>.save.json`（下の一覧）を選ぶ。
+2. /play を開くのと同じオリジンのコンソールで `localStorage.setItem('name-name-save-field-0', <その JSON の中身>)`。
+3. `/play/sit-by-me?resume=0` を開く。
+
+| 再開点 | 内容 |
+|---|---|
+| [opening_battle_fight](saves/opening_battle_fight.save.json) | お遊戯会の劇戦闘の最中 |
+| [playground_walk](saves/playground_walk.save.json) | 運動場（劇の中止後の場面）を歩く |
+| [playroom_walk](saves/playroom_walk.save.json) | 遊戯室（お遊戯会の場面）を歩く |
+
+場面開始のトリガー（`場面開始・1回`）は、セーブからの再開直後は name-name の仕様で起こらない。そのため再開点から会話・劇戦闘は自動では始まらない（各再開点の暫定に書く）。
+
 人物の形態の目録（歩行絵・戦闘ポーズの一覧）: `assets/field/sit-character-forms.json`（素材のファイル名から生成）。
 
