@@ -108,7 +108,7 @@
   "prompt": {
    "input_sha": "c390367521f6bc2d5384e32d39f903425d57a87b4427696e776b55fa62bcd2d2",
    "outputs": {
-    "TRM-05-edit-prompt.txt": "1023f5b47b82f7d650b48af28b16b6af66af43482212a76f3b1b2e0076929d55"
+    "TRM-05-edit-prompt.txt": "caa324f9024cfdb0d0db8a1fc3bf03bf14377395fde5469ae05425a40eba2bf1"
    },
    "status": "ok",
    "unadopted_dependencies": []

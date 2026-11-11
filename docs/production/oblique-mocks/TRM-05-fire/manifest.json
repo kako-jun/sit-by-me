@@ -98,7 +98,7 @@
   "prompt": {
    "input_sha": "83c52aaeb2db468c7eb26c69ac0d10fb3e83db98d6ef38e6a0ccf76a752719f9",
    "outputs": {
-    "TRM-05-fire-edit-prompt.txt": "bd3fcbd0713f283897f61cb7e93ddc26483a4317be360748c24cb019f9c7f216"
+    "TRM-05-fire-edit-prompt.txt": "2bd417b9eccaa5c1410a165765a395a13312d3a1d82556651a1876078efd3835"
    },
    "status": "ok",
    "unadopted_dependencies": []

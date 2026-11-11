@@ -74,7 +74,7 @@
   "prompt": {
    "input_sha": "9085cf6c1938539e34f2e3025472a7015dd275d931c6c9def5727831541638db",
    "outputs": {
-    "TRM-08-edit-prompt.txt": "9784f2ad4fea4b6a7f0c3c42c3fc2bf5eb4740db2c9fa2212f4ca7ee057b4c48"
+    "TRM-08-edit-prompt.txt": "a4c82c8419aff6983f236bea19722e3cf8026f67fbc568b7c4ad9780ec2024df"
    },
    "status": "ok",
    "unadopted_dependencies": []
