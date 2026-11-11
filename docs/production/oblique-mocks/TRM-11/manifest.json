@@ -9,12 +9,13 @@
    "TRM-danchi.showa-white-concrete",
    "TRM-danchi.door-design",
    "TRM-11.danchi-decor-pool",
+   "TRM-11.danchi-facade-repeat",
    "TRM-11.danchi-block-spec",
    "TRM-11.door-stairs-and-slope"
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "458ac337eb4f8f7b875508bf601cbb01c7624d878c89c36d3b6e4358ef5ce520",
+  "input_sha": "213ddcd4632908bbc6b57e727ec1f8156ef14ddd5f481f930a625a473c68013d",
   "references": [
    [
     "TRM-12",
@@ -26,7 +27,7 @@
  },
  "map_id": "TRM-11",
  "plan": "docs/production/oblique-mocks/TRM-11-plan.json",
- "plan_sha256": "0fd27be042ed1804f06cc2a0e785e28011caa61a14a226b9246d84c48689cb8b",
+ "plan_sha256": "cb6d3f32366cd219f19e16f0bdda5e7e6789db602d96ff59a4419e17ff8f6c2a",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -41,38 +42,38 @@
      1
     ]
    },
-   "input_sha": "559f1345f5bb7c058538212be56d7fdc6d0a021f7cb7bb9cf4d6d0b0212d84c5",
+   "input_sha": "c9cdf64ccc72b3859b47d006af1aa7951671bfe4e218d01336911ef05ae72ad7",
    "outputs": {
-    "TRM-11-exits.png": "efb5037939c9a1f5a0207e611bbef7aa6dec4c6dccaac11bb1b522337a8cc0c2",
-    "TRM-11-mask.json": "debbbaefecb0c491fa9172d54db661e5c9911d19d0493ee09657c44a70de41ad",
-    "TRM-11-mask.png": "4a7ec4b8fdf8161e84c16ab1d9a27855cdbc09e5bcf793a46f319511b15cb441"
+    "TRM-11-exits.png": "a5bfc9fdc7dfe46590ae5d9d208ee20c6ea9779dcd46bda62d994f84344d5a92",
+    "TRM-11-mask.json": "cd200a5b87656600be454b9c61a952c6e1271aaf023afec5be4f6331a583aa82",
+    "TRM-11-mask.png": "c17f06501344167603406f9139f389cc0c478963068517729e3a4e32ee5f1340"
    },
    "status": "ok",
    "white_components": 1
   },
   "mock": {
-   "input_sha": "559f1345f5bb7c058538212be56d7fdc6d0a021f7cb7bb9cf4d6d0b0212d84c5",
+   "input_sha": "c9cdf64ccc72b3859b47d006af1aa7951671bfe4e218d01336911ef05ae72ad7",
    "outputs": {
-    "TRM-11-clean.png": "d085a9e29bc90fde4b190508c314e313da8305d5b2c5c24746f9bdcf9f36234d",
-    "TRM-11-review.png": "cf76a9410be7d0a81b805f8a38b7fd90e32d42b8e87d98ae0b6dc5121d59f071"
+    "TRM-11-clean.png": "effe0987933393d1656e6703ce8ba1d14a1654d9a81b21e4baf306a1949fb44c",
+    "TRM-11-review.png": "dfc88458912703e2eda503f07086ca11d4ebff338e9cb099c8e1090317b35a45"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "559f1345f5bb7c058538212be56d7fdc6d0a021f7cb7bb9cf4d6d0b0212d84c5",
+   "input_sha": "c9cdf64ccc72b3859b47d006af1aa7951671bfe4e218d01336911ef05ae72ad7",
    "outputs": {
     "TRM-11-occlusion-depth.png": "56429faab5006817cc5ec38acbd4691c9baedaee71fd419ca1b52c584318c9e5",
     "TRM-11-occlusion-edit.png": "9ebeead4abf33dcc81bcb203eb430aeeb050dc5bcc33c4240fa3a3fcbaab3623",
-    "TRM-11-occlusion-overlay.png": "2bce816d09636d37fca71249202fabcce00777deaef20f8d7f640655fddabd39",
+    "TRM-11-occlusion-overlay.png": "5ba2c020472187ba510c0e3a6cb667020e42d2268ad312fcb48e66da8250ba0f",
     "TRM-11-occlusion.json": "3b5e57ce146074b92f93679eef955f6a1e36e3499e38777eca17e5be5f99073d",
     "TRM-11-occlusion.png": "986d4009aa23dacf817c37fc4f35f4d9ac3d7e9a98a681afe25f4da4d40ce77d"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "aa1655ddbc8bb5b6ae45bb8df07da84dde6836e92030f1b5604567c937210475",
+   "input_sha": "dcabd4b4f0b8db7fc40028e52f1c2511e58f71fddcd29685350df5a9403aedd2",
    "outputs": {
-    "TRM-11-edit-prompt.txt": "87fbcdeeed63eb74216477d14e1f33ae1fce9b7e3aabfbc0825d762f297b7529"
+    "TRM-11-edit-prompt.txt": "8581f20e226c0ec4e82d23acd60c2279ad019183b4eb059d809476f7b43e5af6"
    },
    "status": "blocked",
    "unadopted_dependencies": [
@@ -81,7 +82,7 @@
   },
   "validate": {
    "errors": [],
-   "input_sha": "9340ed8ef350969f410e5680c32bd573a43f5a811f99d0962f3948e436503831",
+   "input_sha": "1a32f1a6befda0c5d222917f242b8f9bb4c02d91de32f5b0fb39da849c4fa0a9",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -96,14 +97,13 @@
     "既定（要確認）: TRM-11.door",
     "屋外MAP: 歩けない面 snow の look が空・ただの地面。境界を色の違いだけにしない（土塀・石垣・生垣・縁石・段差・水など実体のある要素にする。Issue #191）",
     "屋外MAP: plan に boundaries（歩ける床の外側の境界物の帯）が無い。床の色の切り替えだけの境界になる（Issue #191）",
-    "屋外MAP: plan に variation（足跡・汚れ・土の露出・除雪の雪山・スノーポール・消雪パイプ・電柱など、このMAPの look から来る変化の語）が無い。単調になりやすい（Issue #191）",
-    "屋外MAP: 木の帯（奥-28px・手前13px・左21px・右20px。幅40px未満は使えない）の面積 0px² が木の最小本数 8 本（1本あたり 3000px² 必要）を満たせない。plan の tree_zones に民家の裏・塀の根元など実面積のある矩形を置くか、木の本数を MAP に合わせる（Issue #191）"
+    "屋外MAP: plan に variation（足跡・汚れ・土の露出・除雪の雪山・スノーポール・消雪パイプ・電柱など、このMAPの look から来る変化の語）が無い。単調になりやすい（Issue #191）"
    ]
   },
   "wire": {
-   "input_sha": "5a656315fe7073b3db94b254d4f30a8db836155e63f8fd58bd4ad2f35cff6ef8",
+   "input_sha": "920e97a118e1339195bb60fa8c51742079eefde3fcdcc9a739ec1212eeecf9d1",
    "outputs": {
-    "wire-TRM-11.png": "b5070e0bc4b9b9665c406a00a9fe97521b0dfd27b84446a31f7b778a965b866f"
+    "wire-TRM-11.png": "cd41567c5592b888affb32b288f56fc3b43ff615db07ce061a31eefbf1331707"
    },
    "status": "ok"
   }

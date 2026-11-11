@@ -7,6 +7,7 @@
    "TRM.default-era-diff-none",
    "TRM-danchi.showa-white-concrete",
    "TRM-12.neighbor-rooms",
+   "TRM-12.neighbor-units-block",
    "TRM-12.two-rooms-one-entrance",
    "TRM-12.no-bathtub",
    "TRM-danchi.door-design",
@@ -19,14 +20,14 @@
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "e1d347b7c6d9e8f4b7614d6674eae939af5bcf24a3408e5fba4f549e8d654e7d",
+  "input_sha": "f43f1b79b54e2f53285ab265204f670579180d26de670228bf14c801a2ab9e3f",
   "references": [],
   "row_id": "TRM-12",
   "tables": "docs/ledger/*.yaml"
  },
  "map_id": "TRM-12",
  "plan": "docs/production/oblique-mocks/TRM-12-plan.json",
- "plan_sha256": "7326146849f6be8a6495e035c2235fcf1581ea218a07d150a65f87bd947fcde1",
+ "plan_sha256": "b4ba1d94c1fd696821de00e627145130ed05f75e3bc01c8b5323df2d0271892c",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -35,7 +36,7 @@
      1
     ]
    },
-   "input_sha": "a856639ecb5b0c776ed224b86db4579a8629fe66b7c2b788ef838a5c6904e67c",
+   "input_sha": "9b306d9efeff4c3b12d5be19b5be05949f22d44317c22b04384722c2dfdeb40c",
    "outputs": {
     "TRM-12-exits.png": "dbe4358950b313805164b3b01683cac9eb4aa4c1bfb35d6ea39faf9897a3c129",
     "TRM-12-mask.json": "35c29b091f1d72686e0c3ea59b25f2bcccbe7103b5158902244494a2a2e86caf",
@@ -45,35 +46,35 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "a856639ecb5b0c776ed224b86db4579a8629fe66b7c2b788ef838a5c6904e67c",
+   "input_sha": "9b306d9efeff4c3b12d5be19b5be05949f22d44317c22b04384722c2dfdeb40c",
    "outputs": {
-    "TRM-12-clean.png": "061488e21b01cbac05ceecce38f47ae2fab21053faffe85ea4babb082a6124ae",
-    "TRM-12-review.png": "2479ca21a51ef702dfafd3d58450a39eb9edd37c83e7e9a12462db946b7d273e"
+    "TRM-12-clean.png": "a49571169b9686a3aae7a6c675dec87a6d24f949dd9723fb4b75b09a84f17795",
+    "TRM-12-review.png": "11aed470855c2698e9c14cad2ab06c8101fd2f4a4d8bc5d75e1aa73c32e756bc"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "a856639ecb5b0c776ed224b86db4579a8629fe66b7c2b788ef838a5c6904e67c",
+   "input_sha": "9b306d9efeff4c3b12d5be19b5be05949f22d44317c22b04384722c2dfdeb40c",
    "outputs": {
-    "TRM-12-occlusion-depth.png": "3a3dca2cb3b92e0232f76739bf0a010df5b5999927694e2e93c6f16064404247",
-    "TRM-12-occlusion-edit.png": "a602b179b879b5cb6393ed9640d63ad896370c682e729f2c825328e0fb1246d0",
-    "TRM-12-occlusion-overlay.png": "6052176da6321068e58a1823528e4795ee074fe0ac682ccf0c37493374d3e542",
-    "TRM-12-occlusion.json": "72b7909d90e1975648a471451e8ba489d1fa27fa17e87c0216525dddeff6b7b4",
-    "TRM-12-occlusion.png": "ee3d983332b6e996d7fad3003bd6c17cfe4c2d10a3284c8250a1604c988cefaa"
+    "TRM-12-occlusion-depth.png": "c0856d0933514ff79e1d70f374495e9c2b51b08ead2cd0a17844aa7dfd634960",
+    "TRM-12-occlusion-edit.png": "a2f020293c1c192fc20e93cb69e71b9d8d48bcb69400079e574394a042861a3e",
+    "TRM-12-occlusion-overlay.png": "be4eaf1d904d164fd8d836b3743673dbaa78fc66e2ea92a817eecba06ed0e77f",
+    "TRM-12-occlusion.json": "eef7031d902b9defd40daa5b15ec13891555bd812d5693855f43ac625c00dceb",
+    "TRM-12-occlusion.png": "3b65952a470469ddecb2a55d3db43680411795fab70fbbc9df6d8c5c01475c82"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "210c0f8136560fd35992d026fa07e309d6bb6dbe2c15caa43d3b200993972ec2",
+   "input_sha": "561a8f2f419629ad3011e519e6cb841cd29fb79d70d91bb3d9138ce6b80f536c",
    "outputs": {
-    "TRM-12-edit-prompt.txt": "1ea21ee52bfcd8f8bb8c68480a1d7fe3963ad4e8ac770dd625779ebe2fdff42d"
+    "TRM-12-edit-prompt.txt": "cf208a8c681c7226eae09f751f5fee286ef5f878172bcf68b5e02fbcd1e2b44f"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "47683692a682c7410407a0fdb6386c827522b999234f36f34da6df7557279c35",
+   "input_sha": "74de318af008f9ed10f24935ef96554f322b69c8bc280696942e18284197545a",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -82,7 +83,7 @@
     "既定（要確認）: 北壁に居室A・居室Bそれぞれの掃き出し窓（幅200）。南壁（廊下側）に窓は作らない。窓の種類・サッシの材質は確認できていない。（決定 TRM-12.layout-2dk）",
     "TRM-12 は事故後〜壮年の時期の部屋（map-specifications）。モックは時期差を持たない。",
     "車椅子の回転余地（直径150）: 台所の西半分（玄関の北）、居室Aの中央（x485〜635・y425〜575）、居室Bの南半分（x860〜1010・y440〜620）、台所の西側（x416〜760）に家具を置かず空けた。直径は既定。通路は経路（paths）で幅2人分を検証。（決定 TRM-12.layout-2dk）",
-    "既定（要確認）: 両隣に部屋がある（kako-jun 指示）。西壁・東壁は隣室との境の壁（窓も戸口も無い）。隣室は描かない。南北の位置関係（どの壁が隣か）は西・東と既定。（決定 TRM-12.layout-2dk）",
+    "既定（要確認）: 両隣に部屋がある（kako-jun 指示）。西壁・東壁は隣室との境の壁（窓も戸口も無い。上から見て厚い鉄筋コンクリートの帯）。隣の住戸は中身を描かず、灰色のコンクリートの塊（部屋の壁より高く積まれ、上端は画面外で切れる）として台座の左右の端まで続ける（決定 TRM-12.neighbor-units-block）。南北の位置関係（どの壁が隣か）は西・東と既定。（決定 TRM-12.layout-2dk）",
     "既定（要確認）: 風呂なし（kako-jun 指示）。浴室・風呂場・シャワー室は描かない（バスタブ含む）。トイレは、調査で県営住宅の有無が確認できなかったので描かない（未決 U-2920）。（決定 TRM-12.layout-2dk）",
     "既定（要確認）: 家具は昭和の標準的な品目の箱: 台所（東壁沿いに冷蔵庫・流し台・ガス台、中央寄りに食卓・椅子2。南の壁沿いは斜め視点で壁に隠れるため避けた）、居室A（テレビ台・たんす・卓）、居室B（布団2組・押入）。品目と位置は台帳に無く既定。流し台がステンレスなのは公団標準の調査に基づく。他は一般的な品目で出典は未確認。箱の見た目は工作の装飾に任せる。（決定 TRM-12.layout-2dk）",
     "既定（要確認）: TRM-12.door",
@@ -91,9 +92,9 @@
    ]
   },
   "wire": {
-   "input_sha": "b99983fb3640835a59a4574a83751f154d86752a5c64d239e7304a2ed51c3e01",
+   "input_sha": "1913489903d00d85216cef0ce543cabc18600591992831871da11e79b23949a7",
    "outputs": {
-    "wire-TRM-12.png": "3fcd5d7b2500bc207f963971e426fb7e5288c305e265499b6613fc64c2d77e8a"
+    "wire-TRM-12.png": "2417c5a95a3aef091c3fdeaef4a0b80c95d09fe2b99f05a2f833026415ade685"
    },
    "status": "ok"
   }
