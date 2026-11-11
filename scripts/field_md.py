@@ -14,6 +14,7 @@ TBD が残る台帳（状態=blocked）からも骨組みは作れるが、block
   行き先（そのイベント末尾に [場面移動:] を足す先のイベントID）・暫定（注記の正本。生成物の先頭コメントに出る）。
 """
 import argparse
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -27,6 +28,27 @@ OUT = ROOT / "play"
 # play/ を scriptsDir にすれば、play/script.md（入口）・play/data.md・play/events/*.md が全部拾われる。
 FORMS = ROOT / "assets/field/sit-character-forms.json"
 TRIGGER_AUTO_ONCE = "場面開始・1回"  # 発火条件の許容値（空欄は「別イベントから起動」でトリガーなし）
+# 「FF の見た目」の定義（作品全体で共通。台帳の列にはしない）。決定の出典:
+#   戦闘は FF5・6 式・サイドビュー・ATB（待機/アクティブ）: docs/systems.md 7・14・25 行、decisions.md 170 行（kako-jun 2026-10-14）
+#   窓は FF 風の青（縦グラデ・白枠・白文字。色だけをテーマにする）: docs/systems.md 22 行、decisions.md 171 行
+#   キャラはアクスタ（板・台座・影。戦闘もフィールドの歩行絵も）: decisions.md 12・32 行
+#   基本コマンドは わざ／まほう／どうぐ／にげる（「たたかう」は無い）: docs/systems.md（2026-10-15 決定）
+#   未対応（一枚絵フィールドでは name-name が無視する。書かない）: battle_perspective / battle_horizon（遠近の擬似3D。docs/systems.md 戦闘節）、
+#   battle_command_labels（「じゅもん」→「まほう」の表示名。docs/systems.md）。name-name 側の Issue で追う
+#   敵名窓: FF 式（battle_enemy_list: window）。戦闘開始・終了は FF5/6 風の遷移（battle_transition: ff）
+# 戦闘背景（battle_background）は、採用済みのジオラマ背景が無いので書かない（別担当の準備待ち。黒で出さないための迂回は置かない）。
+FF_LOOK = [
+    "battle_layout: Side",
+    "battle_presentation: ff",
+    "battle_atb: on",
+    "battle_atb_mode: wait",
+    "window_style: ff-blue",
+    "sprite_style: acrylic",
+    "battle_enemy_list: window",
+    "battle_transition: ff",
+    "field_emotions: field/sit-field-emotions.json",
+    "battle_commands: skill, spell, item, escape",
+]
 ENTRY_EVENT = "opening_battle"
 FIELD_EVENTS = ("opening_battle", "evacuation_after_play", "play_cancelled_promise")
 PARTY = ("C001", "C002", "C003", "C004")
@@ -37,6 +59,10 @@ MARKER = "<!-- 生成物。台帳が正本。編集しない。"  # 先頭の固
 ID_RE = re.compile(r"[a-zA-Z0-9_-]+\Z")
 # 数値は仮値。敵.yaml の M001「HP は極めて高い（数値は未決）」と矛盾しないよう、仮の大きな値を置いただけ。
 PROVISIONAL_HP = {"monster": 9999, "party": 100}
+# 仮の能力値（台帳に数値が無い）。ATB のゲージと攻撃が動くよう 0 以外にしただけで、バランスを意味しない。
+PROVISIONAL_STATS = {"monster": {"ATK": 10, "DEF": 0, "AGI": 5}, "party": {"ATK": 20, "DEF": 5, "AGI": 10}}
+# 台帳 魔法.yaml に実在する魔法のうち、基本の攻撃（無属性）と回復。効果の数値は台帳に無いので仮値（暫定）。
+SPELLS = {"MAG-07": ("敵単体", "damage 40..60"), "MAG-08": ("味方単体", "heal 40..60")}
 
 
 def _load(path):
@@ -119,7 +145,7 @@ def render_event(record, records):
 
 def render_script(records):
     entry = records[ENTRY_EVENT]
-    head = _frontmatter("Sit by Me", ["battle_layout: Side"])
+    head = _frontmatter("Sit by Me", FF_LOOK)
     body = [
         "## start: はじまり",
         "",
@@ -139,6 +165,12 @@ def render_data(records):
         "",
         f"[人物の形態 目録={FORMS.relative_to(ROOT / 'assets')} 素材=characters]",
         f"[歩行絵 主人公 人物={PARTY[0]} 形態={FORM}]",
+        # 操作画像（手のカーソル=実写的な白手袋・選択中の印=白い磁器の円錐。ドット絵にしない）: docs/systems.md 8・22 行、assets-policy.md UI素材
+        "[操作画像 手=ui/hand-cursor-v1.webp 選択マーク=ui/select-mark-cone-v1.webp]",
+        # 通貨は円（ギルにしない）: docs/decisions.md 183 行
+        "[通貨名: 円]",
+        # フィールドメニュー 9 項目と順序（ロードは入れない）: docs/systems.md 88 行
+        "[メニュー: item, magic, equip, appstore, magicite, job, status, save, config]",
         "",
     ]
     for mid in monster_ids:
@@ -147,23 +179,30 @@ def render_data(records):
             f"[モンスター {mid}]",
             f"名前: {enemy['名称']}",
             f"HP: {PROVISIONAL_HP['monster']}",
+            *[f"{k}: {v}" for k, v in PROVISIONAL_STATS["monster"].items()],
             f"スプライト: {MONSTER_SPRITE.format(id=mid)}",
             "[/モンスター]",
             "",
         ]
+    magic = {r["魔法ID"]: r for r in _table("魔法")}
+    for sid, (target, effect) in SPELLS.items():
+        name = re.sub(r"[*]", "", magic[sid]["魔法名"]).split("（")[0].strip()
+        lines += [f"[呪文 {sid}]", f"名前: {name}", "MP: 0", f"対象: {target}", f"効果: {effect}", "[/呪文]", ""]
     for cid in PARTY:
-        # 魔法・特技は台帳（魔法.yaml）に劇戦闘用の具体が無い（systems.md: 保留）ので書かない。
+        # 劇戦闘への固定付与（最強級の魔法・アビリティ）は台帳に具体が無い（systems.md: 保留）ので書かない。
         lines += [
             f"[パーティ {cid}]",
             f"名前: {people[cid]['呼称']}",
             f"HP: {PROVISIONAL_HP['party']}",
             "MP: 0",
+            *[f"{k}: {v}" for k, v in PROVISIONAL_STATS["party"].items()],
+            *[f"習得: Lv1 {sid}" for sid in SPELLS],
             f"人物: {cid}",
             f"形態: {FORM}",
             "[/パーティ]",
             "",
         ]
-    note = "数値は台帳 opening_battle の暫定を参照（HP は仮値）。味方の魔法・特技は空"
+    note = "数値は台帳 opening_battle の暫定を参照（HP・ATK・DEF・AGI と魔法の効果は仮値）。魔法は台帳 魔法.yaml の MAG-07・MAG-08 だけ"
     return f"{head}\n{_head(note)}\n\n" + "\n".join(lines).rstrip() + "\n"
 
 
@@ -182,9 +221,58 @@ def render_readme(records):
         "",
         *rows,
         "",
+        "## 途中の場面から始める（デモ・確認の手順）",
+        "",
+        "オープニングを毎回通らない。**再開点を選んで `?resume=` で開く**（セーブ JSON は台帳 `docs/ledger/再開点/` から生成）。",
+        "",
+        "1. `play/saves/<再開点ID>.save.json`（下の一覧）を選ぶ。",
+        "2. /play を開くのと同じオリジンのコンソールで `localStorage.setItem('name-name-save-field-0', <その JSON の中身>)`。",
+        "3. `/play/sit-by-me?resume=0` を開く。",
+        "",
+        "| 再開点 | 内容 |",
+        "|---|---|",
+        *[f"| [{r}](saves/{r}.save.json) | {n} |" for r, n in resume_rows()],
+        "",
+        "セーブからの再開直後は、既定では場面開始のトリガーを起こさない。`*_start` の再開点は `field.fireAuto: true`（name-name Issue #1155）で、その場面のイベント（劇戦闘・約束の会話）を再開直後に起こす。#1155 が入るまでは歩けるだけ（各再開点の暫定に書く）。",
+        "",
+        "見た目の決定の一覧と、画面を見せてよい状態のチェックリスト: [demo-look-list.md](../docs/production/demo-look-list.md)",
+        "",
         "人物の形態の目録（歩行絵・戦闘ポーズの一覧）: `assets/field/sit-character-forms.json`（素材のファイル名から生成）。",
         "",
     ]) + "\n"
+
+
+def resume_rows():
+    import resume_saves
+
+    rows = []
+    for path in sorted(resume_saves.DIR.glob("*.yaml")):
+        r = yaml.safe_load(path.read_text(encoding="utf-8"))
+        rows.append((path.stem, str(r["名称"]).replace("|", "/")))
+    return rows
+
+
+
+def provenance_sha(doc):
+    """JSON 生成物の入力ハッシュ = `_provenance` を除いた本体の正規化 JSON の sha256。verify_ledger.rb が
+    最上位の `_provenance.input_sha` と生成物表の入力ハッシュの一致を要求するため、本体から導く（自己参照を避ける）。"""
+    body = {k: v for k, v in doc.items() if k != "_provenance"}
+    return hashlib.sha256(json.dumps(body, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
+
+
+def with_provenance(doc, indent=2):
+    """`_provenance.input_sha` を最上位の先頭に付けた JSON テキストを返す。"""
+    out = {"_provenance": {"input_sha": provenance_sha(doc)}, **doc}
+    return json.dumps(out, ensure_ascii=False, indent=indent) + "\n"
+
+
+def registered_sha(relative, output):
+    """生成物表に登録する入力ハッシュ。JSON は provenance の値、それ以外は出力全体の sha256。"""
+    if relative.endswith("sit-field-emotions.json"):
+        return ""  # render_emotions のコメント参照
+    if relative.endswith(".json"):
+        return provenance_sha(json.loads(output.decode("utf-8")))
+    return hashlib.sha256(output).hexdigest()
 
 
 def forms_manifest(listing):
@@ -218,9 +306,9 @@ def forms_manifest(listing):
                 entry["poses"][variant].sort(key=poses_order.index)
         characters[cid] = {**({"plainBaked": True} if cid == "C001" else {}), "forms": dict(sorted(forms.items()))}
     doc = {FORMS_GENERATED_KEY: "scripts/field_md.py が assets/images/characters の素材から生成。手で編集しない（#250）", "characters": characters}
-    text = json.dumps(doc, ensure_ascii=False, indent=2)
+    text = with_provenance(doc)
     text = re.sub(r"\[\s*((?:\"[a-z-]+\",?\s*)+)\]", lambda m: "[" + " ".join(m.group(1).split()).rstrip(",") + "]", text)
-    return text + "\n"
+    return text
 
 
 def render_forms():
@@ -230,6 +318,23 @@ def render_forms():
         listing[cid] = {"poses": [f.name for f in (base / "poses").glob(f"{cid}-*.webp")],
                         "walk": [f.name for f in (base / "walk").glob(f"{cid}-*-walk-*.webp")]}
     return forms_manifest(listing)
+
+
+EMOTIONS = {"!": "exclaim", "?": "question", "...": "dots"}  # 採用済みの3枚（docs/field-emotion-registry.md）
+
+
+def render_emotions():
+    """フィールドの感情吹き出しの宣言 JSON（name-name の field_emotions。種類名 → 宣言）。素材が実在しない種類は FAIL。"""
+    doc = {}
+    for kind, name in EMOTIONS.items():
+        rel = f"effects/field-emotion/field-emotion-{name}.png"
+        if not (ROOT / "assets/images" / rel).is_file():
+            raise SystemExit(f"感情吹き出しの素材がありません: assets/images/{rel}")
+        doc[kind] = {"image": rel}
+    # このファイルは種類名 → 宣言の形（name-name の field_emotions）なので、`_provenance` は足さない。
+    # 入力ハッシュは登録せず（registered_sha が空）、鮮度は field_md.py check のバイト一致で見る。
+    # （`_provenance` を足したときの name-name 側の警告の有無は未確認。）
+    return json.dumps(doc, ensure_ascii=False, indent=2) + "\n"
 
 
 def outputs():
@@ -243,8 +348,12 @@ def outputs():
     ]
     for ident in FIELD_EVENTS:
         items.append((f"G-play-event-{ident}", "name-name 場面md", f"play/events/{ident}.md", f"イベント台帳:{ident}", render_event(records[ident], records)))
+    items.append(("G-play-field-emotions", "感情吹き出しの宣言JSON", "assets/field/sit-field-emotions.json", "assets/images/effects/field-emotion", render_emotions()))
     items.append(("G-play-character-forms", "人物の形態の目録JSON", "assets/field/sit-character-forms.json", "assets/images/characters", render_forms()))
-    return [(a, b, c, d, e.encode("utf-8")) for a, b, c, d, e in items]
+    import resume_saves  # 再開点の台帳 → セーブJSON（同じ scripts/ 内）
+
+    scenes = {ident for ident, r in records.items() if _text(r, "背景画像")}
+    return [(a, b, c, d, e.encode("utf-8")) for a, b, c, d, e in items] + resume_saves.outputs(scenes)
 
 
 def preflight(items):
@@ -262,6 +371,8 @@ def preflight(items):
         path = ROOT / relative
         if not path.exists():
             continue
+        if relative.endswith(".save.json") or relative.endswith("sit-field-emotions.json"):
+            continue  # セーブ JSON は形式を足せない（鮮度の検査で手編集を検出する）。台帳が正本
         text = path.read_text(encoding="utf-8")
         marked = f'"{FORMS_GENERATED_KEY}"' in text if path.suffix == ".json" else MARKER in text
         if not marked:

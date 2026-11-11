@@ -3,12 +3,12 @@ engine: name-name
 title: 中止になった劇と約束
 hidden: true
 ---
-<!-- 生成物。台帳が正本。編集しない。 暫定: 背景・マスクは寺町の旧素材 TRM-08（井戸と用水が合流する道）を流用。本来は運動場（園庭）。出現位置は歩ける白画素の仮の点 -->
+<!-- 生成物。台帳が正本。編集しない。 暫定: 背景は採用済み TRM-03 境内（外装。園庭の遊具のある側を含む。正本 fields/reference/teramachi-grounds-exterior-trm03-adopted.webp）を使い、運動場の見立てとする（運動場の具体の MAP は要照合）。歩行マスクは TRM-03-exterior-mask.webp。出現位置は園庭側の歩ける白画素の仮の点 -->
 
 ## play_cancelled_promise: 中止になった劇と約束
 
-[フィールドマップ 背景=fields/legacy/TRM-08.webp マスク=fields/legacy/masks/TRM-08-mask.webp]
-[プレイヤー @400,512]
+[フィールドマップ 背景=fields/reference/teramachi-grounds-exterior-trm03-adopted.webp マスク=fields/masks/TRM-03-exterior-mask.webp]
+[プレイヤー @1330,480]
 [トリガー auto scene=play_cancelled_promise once=true]
 
 [イベント play_cancelled_promise]
