@@ -431,6 +431,10 @@ class PromptReflection
 
   def check_core_constraints(map_id)
     CORE_WORDS.each { |w| err(map_id, "中核制約『#{w}』がプロンプトに無い（REALITY など後から足した節が押し流していないか）") unless @prompt.include?(w) }
+    # 台座の前縁の飾り（テープ・糊の垂れ）はプロンプトに出さない（子どもの絵をテープで貼る等、台座以外の文は対象外）
+    @lines.select { |l| l.include?('台座') || l.include?('前縁') }.each do |l|
+      %w[マスキングテープ 糊の垂れ 白い糊 接着剤のはみ出し].each { |w| err(map_id, "台座の前縁の飾り『#{w}』がプロンプトにある（決定 SIT.base-edge-no-staged-decor）: #{l[0, 50]}") if l.include?(w) }
+    end
     @lines.each do |l|
       err(map_id, "実写・フォトリアルを肯定する文言: #{l[0, 60]}") if l.match?(PHOTOREAL_AFFIRM) && !l.include?('描かない') && !l.include?('しない')
       err(map_id, "中核制約（ミニチュア・綿・工作・段ボール）を打ち消す文言: #{l[0, 60]}") if l.match?(CORE_NEGATE) && !l.include?('描かない') && !l.include?('実写のような') && !l.start_with?('- ')

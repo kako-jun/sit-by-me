@@ -955,7 +955,7 @@ def coord_section(p, pool):
     L = ["", X.text("PR.coord.head", W=M.W, H=M.H_IMG),
          X.text("PR.coord.slab-top", pts=_pts([tl, tr, br, bl])),
          X.text("PR.coord.slab-front", pts=_pts([bl, br, (br[0], br[1] + M.SLAB), (bl[0], bl[1] + M.SLAB)]))]
-    L.append(X.text("PR.coord.slab-props", tapes=" ".join(f"[{a},{b_},{c},{d_}]" for a, b_, c, d_ in M.SLAB_TAPES), glue=" ".join(f"[{a},{b_},{c},{d_}]" for a, b_, c, d_ in M.SLAB_GLUE)))
+    L.append(X.text("PR.coord.slab-flute"))
     ws = p["walls"]
     exterior = any(w.get("kind") == "building" for w in ws)
     x0 = min(w["rect"][0] for w in ws); y0 = min(w["rect"][1] for w in ws); x1 = max(w["rect"][2] for w in ws); y1 = max(w["rect"][3] for w in ws)

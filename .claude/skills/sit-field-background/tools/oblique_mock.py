@@ -324,10 +324,6 @@ def table_bg(d, wire):
         y += hh
 
 
-SLAB_TAPES = [tuple(r) for r in X.const_json("slab.tapes")]  # 台座の前縁の上のマスキングテープ（画像座標）
-SLAB_GLUE = [tuple(r) for r in X.const_json("slab.glue")]    # 白い糊の垂れ
-
-
 def draw_slab(d, wire, props=True):
     tl, tr, br, bl = [tuple(map(float, q)) for q in _DST]
     top = [tl, tr, br, bl]
@@ -338,12 +334,6 @@ def draw_slab(d, wire, props=True):
     d.polygon(front, fill="#b98a4e", outline="#6e4a22")
     d.line([(bl[0], bl[1] + 8), (br[0], br[1] + 8)], fill="#a07238", width=3)
     d.polygon(top, fill="#f3f7fb")
-    if props:
-        # 机の上の小物は手前に固定（マステ4・糊4）
-        for r_ in SLAB_TAPES:
-            d.rectangle(list(r_), fill="#e2c78e", outline="#9a7a3a")
-        for r_ in SLAB_GLUE:
-            d.ellipse(list(r_), fill="#f6f6f6", outline="#cccccc")
 
 
 def center_of(poly):
