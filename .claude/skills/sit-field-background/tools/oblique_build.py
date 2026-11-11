@@ -1092,7 +1092,7 @@ def build_prompt_raw(p, key, ledger_text=""):
              X.text("PR.miniature"),
              X.text("PR.geometry", text=pool["geometry_fixed"]),
              X.text("PR.fill", text=pool["fill_rule"]),
-             *([X.text("PR.reality"), X.text("PR.reality.road-edge"), X.text("PR.reality.shosetsu")] + ([X.text("PR.reality.pool-note", text=pool["reality_note"])] if pool.get("reality_note") else []) if pool.get("outdoor") else []),
+             *([X.text("PR.reality"), X.text("PR.reality.road-edge"), X.text("PR.reality.shosetsu"), X.text("PR.reality.wire")] + ([X.text("PR.reality.pool-note", text=pool["reality_note"])] if pool.get("reality_note") else []) if pool.get("outdoor") else []),
              door_section(p),
              *(scenery_sections(p) + seam_section(p) if pool.get("outdoor") else []),
              X.text("PR.notext"), "",
@@ -1169,7 +1169,7 @@ def build_prompt_raw(p, key, ledger_text=""):
                 continue
             fb.append(a)
         if pool.get("outdoor"):  # 屋外の全MAP共通（決定 SIT.road-edge-solid-boundary・SIT.shosetsu-hole-only）。MAP ごとの plan には書かせない
-            fb += [X.text("PR.forbid.road-edge"), X.text("PR.forbid.shosetsu"), X.text("PR.forbid.miniature")]
+            fb += [X.text("PR.forbid.road-edge"), X.text("PR.forbid.shosetsu"), X.text("PR.forbid.wire"), X.text("PR.forbid.miniature")]
         L += ["", X.text("PR.forbidden-head")] + [f"- {a}" for a in fb]
     L += ["", X.text("PR.assumptions-head")] + [f"- {a}" for a in p.get("assumptions", [])]
     return "\n".join(L) + "\n"

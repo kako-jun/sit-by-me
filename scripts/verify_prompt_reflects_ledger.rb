@@ -411,7 +411,7 @@ class PromptReflection
 
     # 屋外の全MAP共通の2文（道路の縁は実体の境界・消雪パイプは穴だけ。決定 SIT.road-edge-solid-boundary・SIT.shosetsu-hole-only）。
     # REALITY の直後の節と FORBIDDEN の行の両方が、台帳 プロンプト文面の文面どおりに入っていること（MAP ごとの plan に頼らない）
-    %w[PR.reality.road-edge PR.reality.shosetsu PR.forbid.road-edge PR.forbid.shosetsu PR.forbid.miniature].each do |tid|
+    %w[PR.reality.road-edge PR.reality.shosetsu PR.reality.wire PR.forbid.road-edge PR.forbid.shosetsu PR.forbid.wire PR.forbid.miniature].each do |tid|
       tpl = @t['プロンプト文面'].find { |r| r['文面ID'] == tid }
       if tpl.nil?
         err(map_id, "台帳 プロンプト文面.#{tid} が無い")

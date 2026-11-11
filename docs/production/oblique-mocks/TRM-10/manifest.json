@@ -61,14 +61,14 @@
   "prompt": {
    "input_sha": "58ead74fe3151e4ec2e38a051cb7cb2e21399988c8c0cef588bb2a38d9aef97f",
    "outputs": {
-    "TRM-10-edit-prompt.txt": "ea3068a15c94931fb6a3b561748465a862156b4eb70cdd42acf86b87faca4437"
+    "TRM-10-edit-prompt.txt": "242e9391fbb8e43eb425cc1c8ceb630a85bdcf990e2a18925d51a0170e07be8a"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "b127c8306c22c0e3324ad1ea5cb9c4c8562f19214c2b50042dff55cbcb169a55",
+   "input_sha": "710e3edfbba545825ff60e492cbc7ad251b6c2b8265cb4428257af325cf45ce5",
    "outputs": {},
    "status": "ok",
    "warnings": [
