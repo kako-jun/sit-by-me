@@ -40,6 +40,12 @@ import sys
 Image.open(sys.argv[1]).convert('RGB').save(sys.argv[2])" "$PPATH" "$OUT/ref-$PID.png"; PPATH="$OUT/ref-$PID.png";; esac
   REFS+=(-i "$PPATH"); NREF=$((NREF+1)); PARENT_IDS+=("$PID")
 done < <($SCHED refs "$MAP")
+# EXTRA_REFS="ID=path ID=path"（任意）: 採用前の隣接MAPの絵を、つなぎ目の参考として追加で付ける（親ではないので生成のゲートには影響しない。道の縁の境界の種類・位置・用水の流れ・地面の材質だけを合わせる）
+EXTRA_IDS=()
+for KV in $(printf '%s\n' "${EXTRA_REFS:-}"); do
+  [ -z "$KV" ] && continue
+  REFS+=(-i "${KV#*=}"); NREF=$((NREF+1)); EXTRA_IDS+=("${KV%%=*}")
+done
 if [ ! -f "$PROMPT" ]; then
   sed "/$LEDGER_MARKER_RE/,\$d" "$M/$MAP-edit-prompt.txt" > "$PROMPT"
   # プロンプトの REFERENCE IMAGES 節に載るが添付しない MAP（親でないもの。例: 時期差分MAPの本堂 TRM-04）=テキスト参照のみ
@@ -57,6 +63,11 @@ if [ ! -f "$PROMPT" ]; then
   for PID in "${PARENT_IDS[@]:-}"; do
     [ -z "$PID" ] && continue
     echo "$N3. $N3 枚目 = 確定済みの $PID の採用画像（参考のみ）: **扉・材質・家具・装飾のデザイン**の参考にする。構図・配置・位置・大きさはコピーしない（位置は1枚目のクリーンモックが正本）。台座の前縁は COORDINATES の指定だけに従う（指定が無い MAP は素の段ボール断面。この画像の前縁の飾りは真似しない）。この MAP と接続する扉・渡り廊下・共有する家具は $PID と同じデザインにする。外観の渡り廊下・扉は確定済みの内部と一致させる。"
+    N3=$((N3+1))
+  done
+  for PID in "${EXTRA_IDS[@]:-}"; do
+    [ -z "$PID" ] && continue
+    echo "$N3. $N3 枚目 = 隣接する $PID の絵（つなぎ目の参考のみ）: この MAP と接する端で、道の両脇の境界の種類・位置・用水の流れる向きと位置・地面と雪の材質だけを合わせる。構図・建物・木・位置・大きさはコピーしない（位置は1枚目のクリーンモックが正本）。"
     N3=$((N3+1))
   done
   if [ "${#TEXT_ONLY[@]}" -gt 0 ]; then

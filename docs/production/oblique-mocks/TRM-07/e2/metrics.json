@@ -37,19 +37,19 @@
   {
    "take": "1",
    "file": "/home/kako-jun/repos/private/sit-by-me-r07/docs/production/oblique-mocks/TRM-07/e2/take1.png",
-   "resized_for_measure": true,
+   "resized_for_measure": false,
    "orig_size": [
-    1671,
+    1672,
     941
    ],
    "aspect_ok": true,
    "edge": {
-    "recall6_room": 0.779,
-    "recall6_shifted_baseline": 0.677,
-    "margin": 0.101,
-    "chamfer_room_px": 4.15,
-    "recall6_full": 0.692,
-    "gen_edge_density_room": 0.0995
+    "recall6_room": 0.739,
+    "recall6_shifted_baseline": 0.65,
+    "margin": 0.09,
+    "chamfer_room_px": 5.04,
+    "recall6_full": 0.672,
+    "gen_edge_density_room": 0.1049
    },
    "regions": {},
    "presence": {},
@@ -57,17 +57,17 @@
    "opening_floor": {
     "TRM-07.opening-sanmon": {
      "status": "floor-like",
-     "dE_to_floor": 10.5,
-     "dE_to_adjacent_wall": 14.5
+     "dE_to_floor": 10.8,
+     "dE_to_adjacent_wall": 16.7
     }
    },
-   "tatami_like_frac": 0.0001,
+   "tatami_like_frac": 0.0007,
    "floor": {
-    "lum_std": 61.96,
+    "lum_std": 64.38,
     "mean_rgb": [
-     149.7,
-     124.7,
-     111.8
+     141.7,
+     122.4,
+     112.8
     ],
     "mock_mean_rgb": [
      168.2,
@@ -77,15 +77,15 @@
    },
    "pink_residual_whole_image": 0.0,
    "provenance": {
-    "sha256": "827dbc1b2b5893656c865183a9078e47e35342880a6218e8bc33cabd79ea0df9",
-    "bytes": 3600573,
+    "sha256": "1388d957bf0f00c70d1d48fa43f6c37d1b2d50baaa4eb716371198e39c4c83ad",
+    "bytes": 3714211,
     "size": [
-     1671,
+     1672,
      941
     ],
     "mode": "RGB",
-    "unique_colors": 211079,
-    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a1cac9-598a-73e0-abda-60771ca43579/exec-204e9b0e-0bd8-4791-9d1c-9f1924a75bca.png",
+    "unique_colors": 208109,
+    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a1cb72-1f0b-7d42-9394-307b1cc7ab36/exec-0f1c54e1-33db-437a-81f4-3ce110118a58.png",
     "new_generated_images_in_run": 1,
     "log_mentions_unavailable": true,
     "log_fabrication_tool_calls": 0,

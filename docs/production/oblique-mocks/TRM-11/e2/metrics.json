@@ -1,0 +1,592 @@
+{
+ "map": "TRM-11",
+ "desk_inter_take": null,
+ "round": "e2",
+ "gates": {
+  "edge_recall_room_min": 0.6,
+  "edge_margin_min": 0.15,
+  "chamfer_room_max_px": 6.0,
+  "region_shift_max_px": 8,
+  "region_ok_ratio_min": 0.7,
+  "door_pink_residual_max": 0.02,
+  "window_white_green_max": 0.05,
+  "aspect_tol": 0.005
+ },
+ "takes_measured": 1,
+ "unreliable_regions": [],
+ "takes_pass": [
+  "1"
+ ],
+ "ref": null,
+ "ref_stats": {},
+ "takes_pass_decor": [],
+ "takes_pass_all": [],
+ "decor_gates": null,
+ "round2_needed": true,
+ "human_items": [
+  "窓の外に雪・木・空が描かれていないか（測定は窓ガラス内の白/緑の割合のみ。ガラス越しが室内の床に見えるかは目視）",
+  "床の模様の質（板張りに見えるか・不自然な模様がないか。測定は輝度の標準偏差のみ）",
+  "壁の見え方（厚み・材質・上端）と、戸口が木の扉/開口として自然か（ピンク残りは測定、造形は目視）",
+  "家具が実物（棚・椅子・机・舞台）として読めるか。人物・文字・矢印が入っていないか（文字有無は未測定）",
+  "質感が工作の素材（綿の雪・紙粘土・段ボール・紙やすり）か。実写のような質感・本物の雪になっていないか（屋根・塀・地面・枝の雪がすべて綿か。決定 SIT.miniature-materials-not-photoreal。採否の前に必ず挙げる）",
+  "消雪パイプの穴が道路の中央線の上だけにあるか（路肩・縁・私有地・石畳に無いか。水の噴射が無いか。決定 SIT.shosetsu-hole-only）",
+  "景色の扉（閉じた門・潜り戸・格子戸・土蔵の扉）が入れそうに見えないか（前に段・通路・足跡・石段・開いた隙間が無く、塀・段差・植栽・雪で塞がれているか。決定 SIT.scenery-door-not-enterable）",
+  "台座の前縁・飾りがわざとらしくないか（テープ・糊が等間隔・全マップ同位置・同じ形の繰り返しになっていないか。マップごとにばらついているか。決定 SIT.base-edge-decor-random）",
+  "鉄道模型のジオラマのような質感か（雪は繊維の見える綿、木は簡略化したスポンジの塊、塀・柵は爪楊枝・割り箸・マッチ棒、地面はターフ・おがくず。形は単純で縁が硬く、写真のように精密でないか）",
+  "段ボールの土台・雪・木の質感の様式（手作りミニチュアらしさ）"
+ ],
+ "takes": [
+  {
+   "take": "1",
+   "file": "/home/kako-jun/repos/private/sit-by-me-r07/docs/production/oblique-mocks/TRM-11/e2/take1.png",
+   "resized_for_measure": false,
+   "orig_size": [
+    1672,
+    941
+   ],
+   "aspect_ok": true,
+   "edge": {
+    "recall6_room": 0.928,
+    "recall6_shifted_baseline": 0.634,
+    "margin": 0.294,
+    "chamfer_room_px": 2.53,
+    "recall6_full": 0.842,
+    "gen_edge_density_room": 0.0988
+   },
+   "regions": {
+    "door:TRM-11.door": {
+     "shift": {
+      "best_score": 0.532,
+      "dx": 10,
+      "dy": -14,
+      "score_at_0": 0.311
+     },
+     "pink_residual": 0.0,
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-a-1": {
+     "shift": {
+      "best_score": 0.702,
+      "dx": -2,
+      "dy": 8,
+      "score_at_0": 0.536
+     },
+     "glass": {
+      "mean_rgb": [
+       111.2,
+       97.6,
+       90.3
+      ],
+      "white": 0.001,
+      "green": 0.0,
+      "px": 874
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-a-3": {
+     "shift": {
+      "best_score": 0.69,
+      "dx": -2,
+      "dy": 6,
+      "score_at_0": 0.614
+     },
+     "glass": {
+      "mean_rgb": [
+       117.6,
+       102.8,
+       94.2
+      ],
+      "white": 0.001,
+      "green": 0.0,
+      "px": 851
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-a-4": {
+     "shift": {
+      "best_score": 0.71,
+      "dx": -4,
+      "dy": 8,
+      "score_at_0": 0.515
+     },
+     "glass": {
+      "mean_rgb": [
+       113.2,
+       100.3,
+       93.9
+      ],
+      "white": 0.001,
+      "green": 0.0,
+      "px": 874
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-a-5": {
+     "shift": {
+      "best_score": 0.7,
+      "dx": -8,
+      "dy": 32,
+      "score_at_0": 0.392
+     },
+     "glass": {
+      "mean_rgb": [
+       119.1,
+       103.1,
+       93.7
+      ],
+      "white": 0.0,
+      "green": 0.0,
+      "px": 874
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-b-1": {
+     "shift": {
+      "best_score": 0.706,
+      "dx": 0,
+      "dy": 32,
+      "score_at_0": 0.511
+     },
+     "glass": {
+      "mean_rgb": [
+       116.6,
+       102.7,
+       94.9
+      ],
+      "white": 0.002,
+      "green": 0.0,
+      "px": 874
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-b-2": {
+     "shift": {
+      "best_score": 0.707,
+      "dx": -2,
+      "dy": 28,
+      "score_at_0": 0.486
+     },
+     "glass": {
+      "mean_rgb": [
+       115.5,
+       101.2,
+       93.6
+      ],
+      "white": 0.0,
+      "green": 0.0,
+      "px": 874
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-b-3": {
+     "shift": {
+      "best_score": 0.72,
+      "dx": 0,
+      "dy": 8,
+      "score_at_0": 0.529
+     },
+     "glass": {
+      "mean_rgb": [
+       117.1,
+       106.6,
+       102.6
+      ],
+      "white": 0.002,
+      "green": 0.0,
+      "px": 851
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-b-4": {
+     "shift": {
+      "best_score": 0.736,
+      "dx": -2,
+      "dy": 8,
+      "score_at_0": 0.509
+     },
+     "glass": {
+      "mean_rgb": [
+       117.5,
+       104.7,
+       98.2
+      ],
+      "white": 0.002,
+      "green": 0.0,
+      "px": 851
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-c-1": {
+     "shift": {
+      "best_score": 0.723,
+      "dx": -8,
+      "dy": 2,
+      "score_at_0": 0.628
+     },
+     "glass": {
+      "mean_rgb": [
+       131.2,
+       119.6,
+       115.1
+      ],
+      "white": 0.003,
+      "green": 0.0,
+      "px": 1161
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-c-2": {
+     "shift": {
+      "best_score": 0.722,
+      "dx": 2,
+      "dy": 2,
+      "score_at_0": 0.692
+     },
+     "glass": {
+      "mean_rgb": [
+       131.6,
+       124.3,
+       123.6
+      ],
+      "white": 0.013,
+      "green": 0.0,
+      "px": 1188
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-c-3": {
+     "shift": {
+      "best_score": 0.704,
+      "dx": -2,
+      "dy": 2,
+      "score_at_0": 0.681
+     },
+     "glass": {
+      "mean_rgb": [
+       130.5,
+       123.3,
+       123.0
+      ],
+      "white": 0.017,
+      "green": 0.0,
+      "px": 1161
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-c-4": {
+     "shift": {
+      "best_score": 0.726,
+      "dx": 2,
+      "dy": 2,
+      "score_at_0": 0.663
+     },
+     "glass": {
+      "mean_rgb": [
+       129.6,
+       122.3,
+       122.4
+      ],
+      "white": 0.01,
+      "green": 0.0,
+      "px": 1161
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-c-5": {
+     "shift": {
+      "best_score": 0.722,
+      "dx": 2,
+      "dy": 2,
+      "score_at_0": 0.673
+     },
+     "glass": {
+      "mean_rgb": [
+       132.9,
+       123.9,
+       121.6
+      ],
+      "white": 0.007,
+      "green": 0.0,
+      "px": 1188
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-c-6": {
+     "shift": {
+      "best_score": 0.711,
+      "dx": 4,
+      "dy": 2,
+      "score_at_0": 0.657
+     },
+     "glass": {
+      "mean_rgb": [
+       129.5,
+       121.9,
+       121.3
+      ],
+      "white": 0.012,
+      "green": 0.0,
+      "px": 1161
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-c-7": {
+     "shift": {
+      "best_score": 0.713,
+      "dx": 4,
+      "dy": 2,
+      "score_at_0": 0.671
+     },
+     "glass": {
+      "mean_rgb": [
+       130.7,
+       122.2,
+       121.2
+      ],
+      "white": 0.006,
+      "green": 0.0,
+      "px": 1161
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-c-8": {
+     "shift": {
+      "best_score": 0.718,
+      "dx": 2,
+      "dy": 2,
+      "score_at_0": 0.665
+     },
+     "glass": {
+      "mean_rgb": [
+       131.2,
+       123.2,
+       122.3
+      ],
+      "white": 0.011,
+      "green": 0.0,
+      "px": 1188
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-c-9": {
+     "shift": {
+      "best_score": 0.732,
+      "dx": 0,
+      "dy": 2,
+      "score_at_0": 0.702
+     },
+     "glass": {
+      "mean_rgb": [
+       128.8,
+       120.9,
+       119.7
+      ],
+      "white": 0.007,
+      "green": 0.0,
+      "px": 1161
+     },
+     "unreliable_self_check": false
+    },
+    "window:TRM-11.win-c-10": {
+     "shift": {
+      "best_score": 0.7,
+      "dx": 2,
+      "dy": 2,
+      "score_at_0": 0.645
+     },
+     "glass": {
+      "mean_rgb": [
+       128.4,
+       120.6,
+       119.5
+      ],
+      "white": 0.015,
+      "green": 0.0,
+      "px": 1161
+     },
+     "unreliable_self_check": false
+    },
+    "box:slide": {
+     "shift": {
+      "best_score": 0.679,
+      "dx": 28,
+      "dy": -34,
+      "score_at_0": 0.386
+     },
+     "unreliable_self_check": false
+    },
+    "box:sandbox": {
+     "shift": {
+      "best_score": 0.736,
+      "dx": -16,
+      "dy": 14,
+      "score_at_0": 0.353
+     },
+     "unreliable_self_check": false
+    },
+    "box:bike": {
+     "shift": {
+      "best_score": 0.749,
+      "dx": 2,
+      "dy": -8,
+      "score_at_0": 0.67
+     },
+     "unreliable_self_check": false
+    }
+   },
+   "presence": {
+    "door:TRM-11.door": {
+     "status": "MISSING",
+     "dE_vs_wall": 11.5,
+     "edge_ratio": 0.73
+    },
+    "window:TRM-11.win-a-1": {
+     "status": "present",
+     "dE_vs_wall": 21.4,
+     "edge_ratio": 1.84
+    },
+    "window:TRM-11.win-a-3": {
+     "status": "present",
+     "dE_vs_wall": 19.7,
+     "edge_ratio": 1.14
+    },
+    "window:TRM-11.win-a-4": {
+     "status": "present",
+     "dE_vs_wall": 21.3,
+     "edge_ratio": 1.52
+    },
+    "window:TRM-11.win-a-5": {
+     "status": "present",
+     "dE_vs_wall": 17.2,
+     "edge_ratio": 0.96
+    },
+    "window:TRM-11.win-b-1": {
+     "status": "present",
+     "dE_vs_wall": 20.8,
+     "edge_ratio": 1.6
+    },
+    "window:TRM-11.win-b-2": {
+     "status": "present",
+     "dE_vs_wall": 20.5,
+     "edge_ratio": 1.95
+    },
+    "window:TRM-11.win-b-3": {
+     "status": "present",
+     "dE_vs_wall": 20.5,
+     "edge_ratio": 2.23
+    },
+    "window:TRM-11.win-b-4": {
+     "status": "present",
+     "dE_vs_wall": 19.9,
+     "edge_ratio": 1.67
+    },
+    "window:TRM-11.win-c-1": {
+     "status": "present",
+     "dE_vs_wall": 16.7,
+     "edge_ratio": 2.56
+    },
+    "window:TRM-11.win-c-2": {
+     "status": "present",
+     "dE_vs_wall": 20.2,
+     "edge_ratio": 3.63
+    },
+    "window:TRM-11.win-c-3": {
+     "status": "present",
+     "dE_vs_wall": 21.0,
+     "edge_ratio": 3.04
+    },
+    "window:TRM-11.win-c-4": {
+     "status": "present",
+     "dE_vs_wall": 21.4,
+     "edge_ratio": 3.08
+    },
+    "window:TRM-11.win-c-5": {
+     "status": "present",
+     "dE_vs_wall": 19.8,
+     "edge_ratio": 2.86
+    },
+    "window:TRM-11.win-c-6": {
+     "status": "present",
+     "dE_vs_wall": 20.7,
+     "edge_ratio": 2.47
+    },
+    "window:TRM-11.win-c-7": {
+     "status": "present",
+     "dE_vs_wall": 19.6,
+     "edge_ratio": 2.07
+    },
+    "window:TRM-11.win-c-8": {
+     "status": "present",
+     "dE_vs_wall": 20.4,
+     "edge_ratio": 2.77
+    },
+    "window:TRM-11.win-c-9": {
+     "status": "present",
+     "dE_vs_wall": 20.5,
+     "edge_ratio": 2.7
+    },
+    "window:TRM-11.win-c-10": {
+     "status": "present",
+     "dE_vs_wall": 19.2,
+     "edge_ratio": 1.82
+    }
+   },
+   "missing_openings_doors_windows": [
+    "door:TRM-11.door"
+   ],
+   "opening_floor": {},
+   "tatami_like_frac": 0.0002,
+   "floor": {
+    "lum_std": 49.61,
+    "mean_rgb": [
+     158.8,
+     139.5,
+     130.3
+    ],
+    "mock_mean_rgb": [
+     163.5,
+     155.2,
+     153.6
+    ]
+   },
+   "pink_residual_whole_image": 0.0,
+   "provenance": {
+    "sha256": "d1b4b58797b9f768badd4ce72cd3cad2152356e8e4b636f9dc899f09b603e843",
+    "bytes": 3689264,
+    "size": [
+     1672,
+     941
+    ],
+    "mode": "RGB",
+    "unique_colors": 171196,
+    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a1cb7c-f4a8-7033-80a0-593a7f7be675/exec-7e80e98c-acd9-4dcf-beb9-38e6ea551aa1.png",
+    "new_generated_images_in_run": 3,
+    "log_mentions_unavailable": true,
+    "log_fabrication_tool_calls": 0,
+    "log_mentions_image_gen": true
+   },
+   "global_shift_median_px": [
+    0.0,
+    2.0
+   ],
+   "region_ok_ratio": 0.727,
+   "structure": {
+    "window_mean_abs_dy": 8.3,
+    "window_within8": "15/18",
+    "door_within8": "0/1"
+   },
+   "gates": {
+    "aspect": true,
+    "edge_recall": true,
+    "edge_margin": true,
+    "chamfer": true,
+    "regions": true,
+    "door_pink": true,
+    "window_content": true,
+    "genuine": true
+   },
+   "pass": true
+  }
+ ],
+ "inter_take": {}
+}
