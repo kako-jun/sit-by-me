@@ -232,6 +232,12 @@ def outdoor_look_problems(p, pool):
         tw = tree_room_warning(p, pool)
         if tw:
             Wn.append(tw)
+    for z in p.get("tree_zones", []):  # 木の帯が歩ける床と重なると『歩く地面の上には置かない』と矛盾する
+        zr = z["rect"]
+        for fl in p["floors"]:
+            fr = fl.get("rect")
+            if fl.get("walkable") and fr and zr[0] < fr[2] and zr[2] > fr[0] and zr[1] < fr[3] and zr[3] > fr[1]:
+                Wn.append(f"屋外MAP: tree_zones {z.get('id')} が歩ける床 {fl.get('id')} と重なる（木を歩く地面の上に置かせてしまう）")
     return E, Wn
 
 

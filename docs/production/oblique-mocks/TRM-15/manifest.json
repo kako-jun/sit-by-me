@@ -61,7 +61,7 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "af6f60449e4f9f3628dfb1914d8d3b81337765466440b2b99fe3e6168aceef68",
+   "input_sha": "1ae8cf55df9aa632d0383334c8d7fb4b9f31d0ecf9de4193002f8e5d02d70531",
    "outputs": {
     "TRM-15-edit-prompt.txt": "7af454fb3575d1ca95806bc718fcb2b5997635020195e22434e05dd919c79d0d"
    },
@@ -70,7 +70,7 @@
   },
   "validate": {
    "errors": [],
-   "input_sha": "689f7642e0eb6890f7936d7a1307fb7bd933a9b3fcf98eff523796d6b4f0d708",
+   "input_sha": "001c123ce17b53d21616b4f0b1abc677f7e278fde20a7b0e254318256d54e588",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -78,7 +78,8 @@
     "既定（要確認）: 道の幅: 狭い道=132（キャラ2人分。車椅子の最小）、街路=160、広い道=260（既定・要確認）。 左160（TRM-16.right）・右260（TRM-07.left）・下132（TRM-06.top）。",
     "既定（要確認）: 角の形（左 y430 から東へ、櫓の角で南東へ曲がり、右 y860 の広い道へ。下の細道は曲がり角から南へ分岐）・火の見櫓の位置と大きさ・民家の位置は設計に無い。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
     "細道は画面内で終えず TRM-06.right→TRM-16.left へ戻る（円環。Issue #51）。（決定 TRM-06.loop）",
-    "既定（要確認）: 台帳『topは閉鎖』。"
+    "既定（要確認）: 台帳『topは閉鎖』。",
+    "屋外MAP: tree_zones tz-west-south が歩ける床 road-a と重なる（木を歩く地面の上に置かせてしまう）"
    ]
   },
   "wire": {

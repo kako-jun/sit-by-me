@@ -58,7 +58,7 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "9ba9e0e7394660614fb122e8ad8b17ef7fae3bd4965b00d1bb2af06ce76c947c",
+   "input_sha": "615110cd6603b72e769bcf7e9e1a3bb3185de259dd81b15d58ec4bf98bf2cf57",
    "outputs": {
     "TRM-08-edit-prompt.txt": "ca0d16578ab3db5ee08af20c1c4b72d5db1b9a55db2208caf238c65ad78b392b"
    },
@@ -67,7 +67,7 @@
   },
   "validate": {
    "errors": [],
-   "input_sha": "97a3e005564772a8ccb5af7a0e5bdb66975f5d4d7ca65cd436a063bcbbd26b19",
+   "input_sha": "eb29abb787f369fd759680a627d2506338a8a5db1570734959771e12a11b5b8a",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -76,7 +76,8 @@
     "既定（要確認）: S字の形（左 y860 → 右 y600）、井戸・用水・民家の位置と寸法は設計に無い（台帳は『井戸と用水は主路外・水路と井戸の縁は黒マスク』のみ）。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
     "上端は塀・壁で閉じる（接続なし・歩行マスク=黒）。kako-jun 決定 2026-10-23（Issue #51。旧TRM-01正門は廃止）。壁の高さ120・位置は既定（要確認）。（決定 TRM-08.top-closed）",
     "既定（要確認）: 用水の行き先（暗渠で道の下へ）は描かない。水路は歩行不可の黒マスク（台帳どおり）。",
-    "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。（下は台帳『bottom閉鎖』）"
+    "既定（要確認）: 台帳の接続行に無い辺は閉鎖（塀・壁・家並み・雪の壁）と既定（要確認）。（下は台帳『bottom閉鎖』）",
+    "屋外MAP: tree_zones tz-gap-se が歩ける床 road と重なる（木を歩く地面の上に置かせてしまう）"
    ]
   },
   "wire": {
