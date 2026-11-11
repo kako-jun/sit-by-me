@@ -62,7 +62,7 @@ INHERITED ELEMENTS（継承する要素: 採用画像の良い点。参考画像
 - なし
 
 REFERENCE IMAGES（依存MAPの確定画像。位置・配置はモックが正本。扉・材質・家具・装飾のデザインだけを参考にし、構図はコピーしない）:
-- TRM-03: 未確定（依存MAPが採用されるまでこのMAPの生成は起動しない）
+- TRM-03: assets/images/fields/reference/teramachi-grounds-exterior-trm03-adopted.webp（sha256 f01e5ebee81a）
 
 
 
@@ -159,4 +159,3 @@ ASSUMPTIONS（既定・要確認）:
 
 # ---- 台帳の出所 ----
 # docs/ledger の決定 5 件・継承要素 0 件を全て上に入れた（status に依存しない）。
-# DRAFT: 依存MAP TRM-03 が未採用。確定してから生成を起動する（参考画像が揃わないため）。
