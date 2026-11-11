@@ -1,4 +1,18 @@
 {
+ "adoption": {
+  "canonical": "assets/images/fields/reference/teramachi-danchi-room-trm12-adopted.webp",
+  "canonical_sha256": "ea155960e5545fcb1f8d080dbe83f7f3cf3d2dce08b9ce9b31edffed42c5c389",
+  "image": "docs/production/oblique-mocks/TRM-12/e2/take4-edit3.png",
+  "image_sha256": "bb0214f8522579446f9fbf44155db2ff882748e0dbe92a0e57172fa60512af02",
+  "mock_clean_sha256": "a49571169b9686a3aae7a6c675dec87a6d24f949dd9723fb4b75b09a84f17795",
+  "plan_sha256": "b4ba1d94c1fd696821de00e627145130ed05f75e3bc01c8b5323df2d0271892c",
+  "prompt_sha256": "cf208a8c681c7226eae09f751f5fee286ef5f878172bcf68b5e02fbcd1e2b44f",
+  "size": [
+   1672,
+   941
+  ],
+  "take": 4
+ },
  "ledger": {
   "decisions": [
    "TRM.trees-draw",
@@ -20,7 +34,7 @@
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "f43f1b79b54e2f53285ab265204f670579180d26de670228bf14c801a2ab9e3f",
+  "input_sha": "3bcda567d9cdb4433f59d1be13785dba5687639537bd6bb3b3273b6120e5c282",
   "references": [],
   "row_id": "TRM-12",
   "tables": "docs/ledger/*.yaml"
@@ -65,9 +79,9 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "561a8f2f419629ad3011e519e6cb841cd29fb79d70d91bb3d9138ce6b80f536c",
+   "input_sha": "b4b6613c7d25762c1d2ba6e3bffe85f0907e88ae302a4add950ff3c7106ccb91",
    "outputs": {
-    "TRM-12-edit-prompt.txt": "cf208a8c681c7226eae09f751f5fee286ef5f878172bcf68b5e02fbcd1e2b44f"
+    "TRM-12-edit-prompt.txt": "a6a9f694f1f4bc9dd61d6e883944dd80476df1c444934b2a0088f04eaa11c67f"
    },
    "status": "ok",
    "unadopted_dependencies": []
