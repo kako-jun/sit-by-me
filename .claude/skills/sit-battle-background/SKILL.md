@@ -59,7 +59,7 @@ description: Sit by Me の戦闘背景を、対応フィールドMAPと既存戦
 1. 構図: 何を描くか（戦う場所そのもの）と、描かないもの（実マップの部屋・床・壁など）を、kako-jun の逐語で確かめた。
 2. 参照: 渡す見本（採用済みの絵からの切り出し）と、各見本の用途。構図コピーが起きない切り出しか。
 3. prompt: 完全な送信文。禁止語を書いていない（肯定形）。一意解釈ゲートの実行語禁止を満たす。
-4. 素材感: `SIT.miniature-materials-not-photoreal` の確立された方法（別担当の実験結論=参照見本シート・prompt の構成）を取り込んだ。`sit-field-background/pitfalls.md` の G 節のチェックリストも通した。
+4. 素材感: `SIT.miniature-materials-not-photoreal` の確立された方法（別担当の実験結論=参照見本シート・prompt の構成。記録の置き場は Issue #267 のコメント。結論が出るまでは未取り込みなので生成しない）を取り込んだ。`sit-field-background/pitfalls.md` の G 節のチェックリストも通した。
 5. 安全矩形: 上の実測値。背景物が矩形に被らない設計か。
 
 そのうえで `sit-artifact-redteam` の生成前の独立レビューを受け、blocker・major を0にする。**最初は最小の1枚だけ生成し、kako-jun に見せて承認を得てから**追加のテイクを作る（4枚の一括生成は禁止）。承認前の再生成・並行生成もしない。
