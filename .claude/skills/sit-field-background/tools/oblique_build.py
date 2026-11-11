@@ -449,7 +449,9 @@ def validate_plan(p):
         for o in p["windows"]:
             if o is not wn and o.get("wall") == wn["wall"] and isinstance(o.get("center"), (int, float)):
                 oa, ob = o["center"] - o["width"] / 2, o["center"] + o["width"] / 2
-                if a < ob and b > oa:
+                osl, oh = o.get("sill"), o.get("height")  # 階ごとに縦に並ぶ窓（団地の棟）は縦に離れていれば重ならない
+                vert = not isinstance(osl, (int, float)) or not isinstance(oh, (int, float)) or (wn["sill"] < osl + oh and osl < wn["sill"] + wn["height"])
+                if a < ob and b > oa and vert:
                     E.append(f"windows {wid}: 窓 {o['id']} と重なる")
         face = r[3] if M.is_h(w) else M.visible_face_x(w)
         for bx in p["boxes"]:

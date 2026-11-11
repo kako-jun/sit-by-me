@@ -50,7 +50,7 @@
    "id": "wall-w",
    "kind": "wall",
    "base_y": 335,
-   "area_px": 5913,
+   "area_px": 9433,
    "body_overlap_px": 4157
   },
   {
@@ -71,7 +71,7 @@
    "id": "wall-w",
    "kind": "wall",
    "base_y": 395,
-   "area_px": 6114,
+   "area_px": 9678,
    "body_overlap_px": 3796
   },
   {
@@ -106,7 +106,7 @@
    "id": "wall-w",
    "kind": "wall",
    "base_y": 458,
-   "area_px": 6262,
+   "area_px": 10049,
    "body_overlap_px": 5728
   },
   {
@@ -120,7 +120,7 @@
    "id": "wall-w",
    "kind": "wall",
    "base_y": 522,
-   "area_px": 6546,
+   "area_px": 10295,
    "body_overlap_px": 5912
   },
   {
@@ -155,14 +155,14 @@
    "id": "wall-w",
    "kind": "wall",
    "base_y": 588,
-   "area_px": 6833,
+   "area_px": 10779,
    "body_overlap_px": 4854
   },
   {
    "id": "wall-w",
    "kind": "wall",
    "base_y": 656,
-   "area_px": 6950,
+   "area_px": 10998,
    "body_overlap_px": 2117
   }
  ]
