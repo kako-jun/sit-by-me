@@ -27,7 +27,7 @@
  },
  "map_id": "TRM-11",
  "plan": "docs/production/oblique-mocks/TRM-11-plan.json",
- "plan_sha256": "cb6d3f32366cd219f19e16f0bdda5e7e6789db602d96ff59a4419e17ff8f6c2a",
+ "plan_sha256": "653eeec6d00e196f0caaa6385db6e65fe4250f0239e24008864fc9975d9bb371",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -42,7 +42,7 @@
      1
     ]
    },
-   "input_sha": "c9cdf64ccc72b3859b47d006af1aa7951671bfe4e218d01336911ef05ae72ad7",
+   "input_sha": "d368d9ba715f43bafdb24d73bee53ec4da93f427303f0b19ed42820e07be3beb",
    "outputs": {
     "TRM-11-exits.png": "a5bfc9fdc7dfe46590ae5d9d208ee20c6ea9779dcd46bda62d994f84344d5a92",
     "TRM-11-mask.json": "cd200a5b87656600be454b9c61a952c6e1271aaf023afec5be4f6331a583aa82",
@@ -52,7 +52,7 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "c9cdf64ccc72b3859b47d006af1aa7951671bfe4e218d01336911ef05ae72ad7",
+   "input_sha": "d368d9ba715f43bafdb24d73bee53ec4da93f427303f0b19ed42820e07be3beb",
    "outputs": {
     "TRM-11-clean.png": "effe0987933393d1656e6703ce8ba1d14a1654d9a81b21e4baf306a1949fb44c",
     "TRM-11-review.png": "dfc88458912703e2eda503f07086ca11d4ebff338e9cb099c8e1090317b35a45"
@@ -60,7 +60,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "c9cdf64ccc72b3859b47d006af1aa7951671bfe4e218d01336911ef05ae72ad7",
+   "input_sha": "d368d9ba715f43bafdb24d73bee53ec4da93f427303f0b19ed42820e07be3beb",
    "outputs": {
     "TRM-11-occlusion-depth.png": "56429faab5006817cc5ec38acbd4691c9baedaee71fd419ca1b52c584318c9e5",
     "TRM-11-occlusion-edit.png": "9ebeead4abf33dcc81bcb203eb430aeeb050dc5bcc33c4240fa3a3fcbaab3623",
@@ -71,16 +71,16 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "98533464fcc89cd5c4e8892c128b79b08f29fd8bfd93010f5ff39a0ac51ba76c",
+   "input_sha": "389aeb689283a28b7bff7c646b5c44c5cde43145891f5267dcd4da387e3bd818",
    "outputs": {
-    "TRM-11-edit-prompt.txt": "2eacde0ac9d1557befb8f252f891f2701984a81158ed5b54c8913df82013a08c"
+    "TRM-11-edit-prompt.txt": "84eb44c0a0da04c893f79ff8ed0b45e4d06279420f54ff134cdc7c38108822e1"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "555c7f0a4aa0c17f59b3ece352f9d836e79ab5e5c6effde12a141e231f8157cc",
+   "input_sha": "83c15456d185e7e1d4aa1637e46af573946788343fa46eaba5f3a02bd36dca3d",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -92,16 +92,11 @@
     "既定（要確認）: 棟A・B・Cはすべて4階建の板状の棟（金沢市営緑住宅の4階建20棟・5階建13棟、昭和45〜49年度。県営平和町団地は昭和28年に3階建から。出典は決定 TRM-11.danchi-block-spec）。C棟のモックの高さが低いのはモックの設定で、階数は同じとした。（決定 TRM-11.danchi-block-spec）",
     "既定（要確認）: 棟の型は片廊下型（各戸の入口が廊下に面する。kako-jun の指示で TRM-12 の入口は廊下に面し、承認コメント 6567812699 で『片廊下型で進める』と決定済み）。調査の事実として、公営・公団の中層は階段室型（1階2戸が共用階段）が標準で、県営住宅の棟が片廊下型かは確認できていない。1棟の戸数・廊下の長さ・階段の数は未確認（階段室型の24戸前後は片廊下型に当てはまらないので使わない）。棟の寸法・棟間・位置は現行のモックのまま（調査の目安: 棟間は高さの約1.8倍。モックは工作ジオラマなので縮尺を合わせない）。外壁の白は kako-jun の指示。屋根の形（陸屋根かは推測）・手すり材質・昭和の雪対策は未決。（決定 TRM-11.danchi-block-spec）",
     "既定（要確認）: 棟入口 TRM-11.door（x210〜342）の前に、平らな踊り場（x210〜426・y380〜428）を置き、その南に約4段の階段（x210〜342・y428〜476）と車椅子用スロープ（x346〜426・y428〜524）を置く。階段とスロープの上端はどちらも踊り場に着き、踊り場が戸口に面する（車椅子はスロープ→踊り場→戸口、立てる時期は階段でも通れる）。位置はスロープを戸口の東側とした既定。歩行マスクは現行は全部白（階段=車椅子の時期は黒の3値化は後で実装。そのとき踊り場・スロープは通行可のまま保つ）。（決定 TRM-11.door-stairs-and-slope）",
-    "既定（要確認）: TRM-11.door",
-    "屋外MAP: 歩けない面 snow の look が空・ただの地面。境界を色の違いだけにしない（土塀・石垣・生垣・縁石・段差・水など実体のある要素にする。Issue #191）",
-    "屋外MAP: plan に boundaries（歩ける床の外側の境界物の帯）が無い。床の色の切り替えだけの境界になる（Issue #191）",
-    "屋外MAP: 歩ける床 entry の縁（長さ約300、範囲 [820, 68, 820, 368]）に段差・塀・側溝・縁石・護岸などの実体（boundaries・壁・護岸の歩けない面）が付いていない。道の外側が歩けるように見える（決定 SIT.road-edge-solid-boundary、Issue #191）",
-    "屋外MAP: 歩ける床 entry の縁（長さ約300、範囲 [980, 68, 980, 368]）に段差・塀・側溝・縁石・護岸などの実体（boundaries・壁・護岸の歩けない面）が付いていない。道の外側が歩けるように見える（決定 SIT.road-edge-solid-boundary、Issue #191）",
-    "屋外MAP: plan に variation（足跡・汚れ・土の露出・除雪の雪山・スノーポール・消雪パイプ・電柱など、このMAPの look から来る変化の語）が無い。単調になりやすい（Issue #191）"
+    "既定（要確認）: TRM-11.door"
    ]
   },
   "wire": {
-   "input_sha": "920e97a118e1339195bb60fa8c51742079eefde3fcdcc9a739ec1212eeecf9d1",
+   "input_sha": "a66e6a8fe7169ea4aa162668897cf25760ea5d86c309935bf8c264319409ba35",
    "outputs": {
     "wire-TRM-11.png": "cd41567c5592b888affb32b288f56fc3b43ff615db07ce061a31eefbf1331707"
    },

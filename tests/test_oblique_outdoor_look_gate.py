@@ -221,7 +221,7 @@ class RoadEdgeAndShosetsu(unittest.TestCase):
         self.assertTrue(any("SIT.road-edge-solid-boundary" in x for x in w))
 
     def test_existing_teramachi_road_maps_have_no_uncovered_edge(self):
-        for n in ("06", "07", "08", "09", "10", "13", "14", "15", "16", "17"):
+        for n in ("03", "06", "07", "08", "09", "10", "11", "13", "14", "15", "16", "17"):
             p = M.load_plan(str(ROOT / f"docs/production/oblique-mocks/TRM-{n}-plan.json"))
             self.assertEqual(B.road_edge_uncovered(p), [], n)
 
