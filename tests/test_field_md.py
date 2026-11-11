@@ -187,6 +187,24 @@ class InputValidation(FieldMdCase):
             field_md.outputs()
         self.assertIn("歩行マスク", str(cm.exception))
 
+    def test_empty_battle_background_is_not_emitted(self):
+        self.assertNotIn("戦闘背景=", self.out("play/events/opening_battle.md"))
+
+    def test_battle_background_is_emitted_on_field_map_line(self):
+        self.edit_event("opening_battle", '"戦闘背景": ""', '"戦闘背景": "fields/play/bg011.webp"')
+        self.assertIn(
+            "マスク=fields/masks/TRM-02-mask.webp 戦闘背景=fields/play/bg011.webp]",
+            self.out("play/events/opening_battle.md"),
+        )
+
+    def test_battle_background_with_space_or_bracket(self):
+        for bad in ("a b.webp", "a].webp"):
+            self.edit_event("opening_battle", '"戦闘背景": ""', f'"戦闘背景": "{bad}"')
+            with self.assertRaises(SystemExit) as cm:
+                field_md.outputs()
+            self.assertIn("戦闘背景", str(cm.exception))
+            self.edit_event("opening_battle", f'"戦闘背景": "{bad}"', '"戦闘背景": ""')
+
     def test_event_id_must_match_filename(self):
         self.edit_event("opening_battle", '"イベントID": "opening_battle"', '"イベントID": "other"')
         with self.assertRaises(SystemExit):

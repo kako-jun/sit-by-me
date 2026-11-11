@@ -10,6 +10,7 @@ TBD が残る台帳（状態=blocked）からも骨組みは作れるが、block
 
 台帳の列（イベント台帳は既存の語に合わせる。許容値は下の定数で厳密に判定し、typo は FAIL にする）:
   背景画像・歩行マスク（assets/images からの相対）・出現位置（x,y）・発火条件（空 または 場面開始・1回）・
+  戦闘背景（任意。assets/images からの相対。name-name の `戦闘背景=` に出す。空なら出さない＝戦闘は黒背景。配信用複製の fields/play/ のパス）・
   行き先（そのイベント末尾に [場面移動:] を足す先のイベントID）・暫定（注記の正本。生成物の先頭コメントに出る）。
 """
 import argparse
@@ -95,7 +96,11 @@ def _scene_block(record, records):
     if _text(record, "背景画像"):
         if not _text(record, "歩行マスク"):
             raise SystemExit(f"{ident}: 背景画像 があるのに 歩行マスク がありません")
-        lines.append(f"[フィールドマップ 背景={_text(record, '背景画像')} マスク={_text(record, '歩行マスク')}]")
+        battle_bg = _text(record, "戦闘背景")
+        if re.search(r"[\s\]]", battle_bg):
+            raise SystemExit(f"{ident}: 戦闘背景 は空白と ] を含められない: {battle_bg!r}")
+        battle = f" 戦闘背景={battle_bg}" if battle_bg else ""
+        lines.append(f"[フィールドマップ 背景={_text(record, '背景画像')} マスク={_text(record, '歩行マスク')}{battle}]")
         lines.append(f"[プレイヤー {_position(record)}]")
         start = _text(record, "発火条件")
         if start not in ("", TRIGGER_AUTO_ONCE):
