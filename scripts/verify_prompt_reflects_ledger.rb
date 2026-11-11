@@ -100,6 +100,7 @@ class PromptReflection
       @stopped << [id, rec['stopped']] unless rec['stopped'].to_a.empty?
       @checked << id
       @prompt = rec['prompt']
+      @final = rec['prompt_final'] || @prompt
       @lines = @prompt.lines.map(&:chomp)
       check_decisions(id)
       check_inherits(id)
@@ -109,9 +110,13 @@ class PromptReflection
       check_area_fixed(id)
       check_reality(id)
       check_core_constraints(id)
+      check_craft(id)
       check_committed_prompt(id)
     end
     check_anchors
+    check_swatch_sheet_in_refs
+    check_slab_props_varied
+    check_desk_props_varied
     self
   end
 
@@ -399,26 +404,20 @@ class PromptReflection
   # 屋外MAPは look 未記入で生成が止まっていても（@stopped）プロンプトは組まれるので、ここで REALITY 節を検査する。
   def check_reality(map_id)
     outdoor = outdoor_pool?(map_id)
-    has = @prompt.include?('REALITY（屋外')
-    err(map_id, '屋外MAPのプロンプトに REALITY 節（現実参照・境界の実体）が無い') if outdoor && !has
-    err(map_id, '屋内MAPのプロンプトに屋外用 REALITY 節が混入している') if !outdoor && has
+    has = @prompt.include?('STRUCTURE（屋外')
+    err(map_id, '屋外MAPのプロンプトに STRUCTURE 節（境界の実体・歩けない理由）が無い') if outdoor && !has
+    err(map_id, '屋内MAPのプロンプトに屋外用 STRUCTURE 節が混入している') if !outdoor && has
     return unless outdoor
 
     # 屋外の全MAP共通の2文（道路の縁は実体の境界・消雪パイプは穴だけ。決定 SIT.road-edge-solid-boundary・SIT.shosetsu-hole-only）。
     # REALITY の直後の節と FORBIDDEN の行の両方が、台帳 プロンプト文面の文面どおりに入っていること（MAP ごとの plan に頼らない）
-    %w[PR.reality.road-edge PR.reality.shosetsu PR.reality.miniature PR.forbid.road-edge PR.forbid.shosetsu PR.forbid.miniature].each do |tid|
+    %w[PR.reality.road-edge PR.reality.shosetsu PR.forbid.road-edge PR.forbid.shosetsu PR.forbid.miniature].each do |tid|
       tpl = @t['プロンプト文面'].find { |r| r['文面ID'] == tid }
       if tpl.nil?
         err(map_id, "台帳 プロンプト文面.#{tid} が無い")
       elsif !@prompt.include?(tpl['文面'])
         err(map_id, "屋外MAPのプロンプトに #{tid} の文（道路の縁は実体の境界／消雪パイプは穴だけ／工作の素材のミニチュア）が入っていない")
       end
-    end
-    # 工作の素材のミニチュア方針（綿の雪・工作）が REALITY の節より後ろ（同等以上の強さ）に出る（決定 SIT.miniature-materials-not-photoreal）
-    mini = @t['プロンプト文面'].find { |r| r['文面ID'] == 'PR.reality.miniature' }
-    if mini && @prompt.include?(mini['文面'])
-      err(map_id, 'ミニチュア方針文に『綿』『工作』が無い') unless mini['文面'].include?('綿') && mini['文面'].include?('工作')
-      err(map_id, 'ミニチュア方針文が REALITY 節より前にある（REALITY の後ろに出す）') if @prompt.index(mini['文面']) < @prompt.index('REALITY（屋外')
     end
   end
 
@@ -431,10 +430,73 @@ class PromptReflection
 
   def check_core_constraints(map_id)
     CORE_WORDS.each { |w| err(map_id, "中核制約『#{w}』がプロンプトに無い（REALITY など後から足した節が押し流していないか）") unless @prompt.include?(w) }
+    # 台座の前縁の飾り（テープ・糊）は MAP ごとにランダムな配置の1行（決定 SIT.base-edge-decor-random）。同じ配置の MAP が無いかは run の最後に検査する
+    sl = @lines.find { |l| l.start_with?('- 台座の前縁の飾り') }
+    if sl.nil?
+      err(map_id, '台座の前縁の飾り（MAP ごとの配置）の行が無い')
+    else
+      (@slab_lines ||= {})[map_id] = sl
+    end
+    dl = @lines.find { |l| l.start_with?('- 作業机の上の置き物') }
+    if dl.nil?
+      err(map_id, '作業机の上の置き物（MAP ごと）の行が無い') unless !@lines.any? { |l| l.start_with?('- 作業机') }
+    else
+      (@desk_lines ||= {})[map_id] = dl
+    end
     @lines.each do |l|
       err(map_id, "実写・フォトリアルを肯定する文言: #{l[0, 60]}") if l.match?(PHOTOREAL_AFFIRM) && !l.include?('描かない') && !l.include?('しない')
       err(map_id, "中核制約（ミニチュア・綿・工作・段ボール）を打ち消す文言: #{l[0, 60]}") if l.match?(CORE_NEGATE) && !l.include?('描かない') && !l.include?('実写のような') && !l.start_with?('- ')
     end
+  end
+
+  # ミニチュア方針（MINIATURE MATERIALS）は全MAPで ROLE の直後にあり、実物語は送信文（置換後）に出ず、材料語が出ている（D-prime。
+  # 決定 SIT.miniature-materials-not-photoreal）。素材見本シートが E2 の参照画像に常に入っている。
+  REAL_WORDS = %w[版築 釉薬瓦 戸室石 錆 濡れた艶 藁すさ].freeze
+  CRAFT_MATERIAL_WORDS = %w[爪楊枝 割り箸 鉄道模型 綿 マッチ棒].freeze
+
+  def check_craft(map_id)
+    mini = @t['プロンプト文面'].find { |r| r['文面ID'] == 'PR.miniature' }
+    if mini.nil? || !@prompt.include?(mini['文面'])
+      err(map_id, 'プロンプトに MINIATURE MATERIALS（台帳 プロンプト文面.PR.miniature）が無い')
+    else
+      ri = @lines.index { |l| l.start_with?('ROLE:') }
+      err(map_id, 'MINIATURE MATERIALS が ROLE の直後にない（中核制約を最優先で冒頭に置く）') unless ri && @lines[ri + 1].to_s.start_with?('MINIATURE MATERIALS:')
+    end
+    REAL_WORDS.each { |w| err(map_id, "送信文に実物の材質語『#{w}』が残っている（描画定数 craft.words に工作語への置換を足す）") if @final.include?(w) }
+    return unless outdoor_pool?(map_id)
+
+    CRAFT_MATERIAL_WORDS.each { |w| err(map_id, "屋外MAPの送信文に材料語『#{w}』が無い（鉄道模型のジオラマの材料表が落ちた）") unless @final.include?(w) }
+  end
+
+  # 台座の前縁の飾りは MAP ごとに違い、全 MAP が同じ配置にならない（決定 SIT.base-edge-decor-random）。等間隔でないことは tests の単体検査で縛る。
+  def check_slab_props_varied
+    lines = (@slab_lines || {})
+    return if lines.size < 2
+
+    dup = lines.reject { |_, v| v.include?('この MAP は無し') }.group_by { |_, v| v }.select { |_, g| g.size > 1 }  # 素の段ボール断面だけの MAP は同じ行でよい
+    dup.each_value { |g| err(g.map(&:first).join('・'), '台座の前縁の飾りが別の MAP と同じ配置（MAP ごとにランダムにする）') }
+    err('台座の前縁の飾り', '全 MAP が同じ配置になっている') if lines.values.uniq.size == 1
+    plain = lines.values.count { |v| v.include?('この MAP は無し') }
+    err('台座の前縁の飾り', "素の段ボール断面だけの MAP が過半でない（#{plain}/#{lines.size}。既定は素。テープ・糊は継ぎ目がある所だけ）") unless plain * 2 > lines.size
+    lines.each { |m, v| err(m, '前縁の飾りが継ぎ目に従属していない（継ぎ目の記述が無い）') if !v.include?('この MAP は無し') && !v.include?('継ぎ目') }
+  end
+
+  # 作業机の上の置き物は MAP ごとにランダム（0 個の MAP がある）で、置き物ありの MAP 同士は同じ組み合わせにならない（決定 SIT.desk-props-random）
+  def check_desk_props_varied
+    lines = (@desk_lines || {})
+    return if lines.size < 2
+
+    some = lines.reject { |_, v| v.include?('この MAP は無し') }
+    some.group_by { |_, v| v }.select { |_, g| g.size > 1 }.each_value { |g| err(g.map(&:first).join('・'), '作業机の上の置き物が別の MAP と同じ') }
+    zero = lines.values.count { |v| v.include?('この MAP は無し') }
+    err('作業机の上の置き物', "置き物が0個の MAP が過半でない（#{zero}/#{lines.size}。置く理由の無い MAP に詰め込まない）") unless zero * 2 > lines.size
+  end
+
+  def check_swatch_sheet_in_refs
+    sh = File.join(@root, 'docs/production/oblique-mocks/material-swatch/material-swatch-sheet.webp')
+    run = File.join(@root, '.claude/skills/sit-field-background/tools/oblique_e2_run.sh')
+    err('素材見本シート', "#{sh} が無い") unless File.exist?(sh)
+    err('素材見本シート', 'oblique_e2_run.sh の REFS に素材見本シート（material-swatch-sheet）が入っていない') unless File.exist?(run) && File.read(run, encoding: 'UTF-8').include?('material-swatch-sheet')
   end
 
   def outdoor_pool?(map_id)
