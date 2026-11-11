@@ -55,7 +55,7 @@ class LedgerVerifier
   end
 
   # 描画定数・プロンプト文面: 空値なし、変数列と本文の {名前} が一致、コード（oblique_*.py）が参照するIDが全て在り、どの行もコードから参照されている（死んだ行を残さない）
-  CODE_REF = /["']((?:PR|MK|TP)\.[A-Za-z0-9._-]*|(?:view|width|door|window|slab|occlusion|topology|battle|town|tree)\.[A-Za-z0-9._-]*)["']/.freeze
+  CODE_REF = /["']((?:PR|MK|TP)\.[A-Za-z0-9._-]*|(?:view|width|door|window|slab|occlusion|topology|battle|town|tree|craft)\.[A-Za-z0-9._-]*)["']/.freeze
 
   def check_code_texts
     texts = @t['プロンプト文面']
