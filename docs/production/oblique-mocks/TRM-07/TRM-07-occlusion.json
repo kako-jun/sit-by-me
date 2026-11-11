@@ -29,15 +29,15 @@
    "id": "sanmon",
    "kind": "wall",
    "base_y": 395,
-   "area_px": 5036,
-   "body_overlap_px": 4876
+   "area_px": 3744,
+   "body_overlap_px": 3584
   },
   {
    "id": "sanmon",
    "kind": "wall",
    "base_y": 395,
-   "area_px": 4832,
-   "body_overlap_px": 4672
+   "area_px": 3616,
+   "body_overlap_px": 3456
   },
   {
    "id": "closure-e2",

@@ -21,7 +21,7 @@
  },
  "map_id": "TRM-07",
  "plan": "docs/production/oblique-mocks/TRM-07-plan.json",
- "plan_sha256": "f84fc3b4f3d9b6fab682239b9e0c9b3debe537cbd7f7d3681164395292a9f503",
+ "plan_sha256": "28de5f9f952219e014692c52de6227c7b987bc9af263960fbccdccf94fa93b45",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -36,45 +36,45 @@
      1
     ]
    },
-   "input_sha": "9d586d3a941501604b5a1c1e964dbe7a3418df28c0125ec64b95fa2f0ea46b10",
+   "input_sha": "d5fb2edd382cc52d8a64ea2bb581db8875f8531ed9f4e6fe8f8399a3d34ee792",
    "outputs": {
-    "TRM-07-exits.png": "a9ccfef7557f79cafc9092714bb66dde1b4caef17c8fd1034189d268b4e57a80",
+    "TRM-07-exits.png": "e6a08e0bbefe158ecd4ba5e23e3a450e51b5c2849ec01ff39a3757decefaba03",
     "TRM-07-mask.json": "159bb019914e2402293be1701b8804db5cba584a0c3895a2e669df9d01a4f59b",
-    "TRM-07-mask.png": "52d5f456db1f772021afb1c9bd20a14de0a2785be269a27b3cbe456cf110679b"
+    "TRM-07-mask.png": "9212026cb30118219003b82eb08f85f60578e54c3beb1ea29559d4f231c17004"
    },
    "status": "ok",
    "white_components": 1
   },
   "mock": {
-   "input_sha": "9d586d3a941501604b5a1c1e964dbe7a3418df28c0125ec64b95fa2f0ea46b10",
+   "input_sha": "d5fb2edd382cc52d8a64ea2bb581db8875f8531ed9f4e6fe8f8399a3d34ee792",
    "outputs": {
-    "TRM-07-clean.png": "175823cd021b400883a5b56b07ee06c6342f26184d61f3960e1d917758f9dc32",
-    "TRM-07-review.png": "ee6ec57c54323a825861a0c15f6796750ec948885b626db7c7e6372dfe0a5bf9"
+    "TRM-07-clean.png": "62676be55286009e83a049aa8294322b97d6bc1ef5cfcc3adc1907e179150748",
+    "TRM-07-review.png": "01036f203333adf49751e5bb378e343924d60f085637946658a6931695e9e4d0"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "9d586d3a941501604b5a1c1e964dbe7a3418df28c0125ec64b95fa2f0ea46b10",
+   "input_sha": "d5fb2edd382cc52d8a64ea2bb581db8875f8531ed9f4e6fe8f8399a3d34ee792",
    "outputs": {
-    "TRM-07-occlusion-depth.png": "31240826484cfdff118d10d9ae23de9b88f549d41012aac5358cb7eb3949f5de",
-    "TRM-07-occlusion-edit.png": "76b4887e3cb872af88457307360d30420281fbcbd8f3e30eb1afb5ee4ecf1df7",
-    "TRM-07-occlusion-overlay.png": "b48ec8925bd36284744f01b0010db35586144e7ecd4024a6328021e6d6a2dbf3",
-    "TRM-07-occlusion.json": "988294efef36ef7f4e9ea50f5f46c1872ab895cb81f9e0e11238e5c792b8e14b",
-    "TRM-07-occlusion.png": "31119f5a752fc93126a18a0929d2b4c0492f8f51f2bb7b6f8b3a696326701067"
+    "TRM-07-occlusion-depth.png": "4c74d2d5c7bbb002b621d670ee325c135d984f3f17f7038d91dcce36df094f99",
+    "TRM-07-occlusion-edit.png": "0978a3a275891d0317d214bbc8ed7611c6cac897efd76bc65830560953a37bd2",
+    "TRM-07-occlusion-overlay.png": "e7361015e6d38d292852be99fdaf578c603f391e7b30685373cb3e2d156373f0",
+    "TRM-07-occlusion.json": "f976508f86006c56cd89fbe9e7336b1006d758042874e210aa12fe887bfb1794",
+    "TRM-07-occlusion.png": "186e72056ee22f8dc1cd50254c629a6ecd24e76e5d7035583f084d0823493354"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "ef537346679586af10295eb6fd5a4d1236d4cbe376f01cf1a41a0d57cebae3b5",
+   "input_sha": "27c25658a38e4890743b43a4510303be71c9435bdccd407297d8ae10587467e0",
    "outputs": {
-    "TRM-07-edit-prompt.txt": "473f44b453295e9cfb34ad32328300550dd62a02f00ecc607ab153b50b05000f"
+    "TRM-07-edit-prompt.txt": "453d281462df94f7292af0377a1745b5718105a5be37b0e4aff20a2381ad9ee8"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "e893cc9b43be85dcefa02c88cc3535ad094c54bf3538c137118db555b446d401",
+   "input_sha": "8d88f0ae6af9710824f9892f9f86cab9a7bcb3322e47f446b062f3c81466d5a3",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -87,9 +87,9 @@
    ]
   },
   "wire": {
-   "input_sha": "d2b0f35a6f630559482ab57c9763c1455a9153f667c9bd8653238d9ffb7c523d",
+   "input_sha": "e6558d1bbe8e1470a7ccefd96545c1993a960a559d89b19ae688b0757bff9ecf",
    "outputs": {
-    "wire-TRM-07.png": "9640fb8762f19d38efc2896180f4d45c43f25de532febddd63cf599a83b8e107"
+    "wire-TRM-07.png": "2c1f454f4cd809058a8af386187d24d78fd0882ae0ece1a9af6fb9768e4281d9"
    },
    "status": "ok"
   }
