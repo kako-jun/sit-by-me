@@ -401,6 +401,18 @@ class PromptReflection
     has = @prompt.include?('REALITY（屋外')
     err(map_id, '屋外MAPのプロンプトに REALITY 節（現実参照・境界の実体）が無い') if outdoor && !has
     err(map_id, '屋内MAPのプロンプトに屋外用 REALITY 節が混入している') if !outdoor && has
+    return unless outdoor
+
+    # 屋外の全MAP共通の2文（道路の縁は実体の境界・消雪パイプは穴だけ。決定 SIT.road-edge-solid-boundary・SIT.shosetsu-hole-only）。
+    # REALITY の直後の節と FORBIDDEN の行の両方が、台帳 プロンプト文面の文面どおりに入っていること（MAP ごとの plan に頼らない）
+    %w[PR.reality.road-edge PR.reality.shosetsu PR.forbid.road-edge PR.forbid.shosetsu].each do |tid|
+      tpl = @t['プロンプト文面'].find { |r| r['文面ID'] == tid }
+      if tpl.nil?
+        err(map_id, "台帳 プロンプト文面.#{tid} が無い")
+      elsif !@prompt.include?(tpl['文面'])
+        err(map_id, "屋外MAPのプロンプトに #{tid} の文（道路の縁は実体の境界／消雪パイプは穴だけ）が入っていない")
+      end
+    end
   end
 
   def outdoor_pool?(map_id)

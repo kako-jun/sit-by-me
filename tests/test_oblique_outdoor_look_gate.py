@@ -196,5 +196,41 @@ class OutdoorLookGate(unittest.TestCase):
         self.assertNotIn("畳（い草", t)
 
 
+class RoadEdgeAndShosetsu(unittest.TestCase):
+    """決定 SIT.road-edge-solid-boundary・SIT.shosetsu-hole-only（#191, 2026-11-11）。"""
+
+    ROAD = {"id": "road", "walkable": True, "rect": [0, 400, 1600, 700]}
+
+    def _plan(self, **kw):
+        p = {"floors": [self.ROAD], "walls": [], "boxes": [], "boundaries": []}
+        p.update(kw)
+        return p
+
+    def test_bare_road_edge_is_reported_and_boundary_clears_it(self):
+        self.assertTrue(B.road_edge_uncovered(self._plan()))  # 外周以外の上下の縁に何も無い
+        bds = [{"id": "n", "rect": [0, 360, 1600, 398], "look": "土塀"}, {"id": "s", "rect": [0, 702, 1600, 740], "look": "側溝と縁石"}]
+        self.assertEqual(B.road_edge_uncovered(self._plan(boundaries=bds)), [])
+
+    def test_one_side_missing_is_reported(self):
+        bds = [{"id": "n", "rect": [0, 360, 1600, 398], "look": "土塀"}]
+        r = B.road_edge_uncovered(self._plan(boundaries=bds))
+        self.assertEqual([x[0] for x in r], ["road"])
+
+    def test_gate_warns_via_outdoor_look_problems(self):
+        _, w = B.outdoor_look_problems(self._plan(), OUTDOOR_POOL)
+        self.assertTrue(any("SIT.road-edge-solid-boundary" in x for x in w))
+
+    def test_existing_teramachi_road_maps_have_no_uncovered_edge(self):
+        for n in ("06", "07", "08", "09", "10", "13", "14", "15", "16", "17"):
+            p = M.load_plan(str(ROOT / f"docs/production/oblique-mocks/TRM-{n}-plan.json"))
+            self.assertEqual(B.road_edge_uncovered(p), [], n)
+
+    def test_outdoor_prompt_has_road_edge_and_shosetsu_everywhere(self):
+        p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-08-plan.json"))
+        t = B.build_prompt(p, "TRM-08")
+        for tid in ("PR.reality.road-edge", "PR.reality.shosetsu", "PR.forbid.road-edge", "PR.forbid.shosetsu"):
+            self.assertIn(X.text(tid), t, tid)
+
+
 if __name__ == "__main__":
     unittest.main()

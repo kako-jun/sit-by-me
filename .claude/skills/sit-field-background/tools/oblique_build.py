@@ -195,6 +195,75 @@ BLOCK_REASON_WORDS = ("土塀", "石垣", "生垣", "板塀", "縁石", "段差"
 _GENERIC_GROUND = {"", "地面", "雪", "雪面", "雪の地面", "雪に覆われた地面", "雪に覆われた地面。"}
 
 
+# 道の縁の実体ゲート（Issue #191。kako-jun 2026-11-11『道路脇に段差や塀や溝がなく、外も歩けるようにみえる』）
+EDGE_CELL = 4          # 平面（土台 1600x1270）の格子（単位）
+EDGE_REACH = 24        # 縁の外側にこの距離（単位）以内に実体の帯・壁・箱・護岸があれば覆われているとみなす
+EDGE_MIN_LEN = 60      # 覆われていない縁がこの長さ（単位）以上なら報告する
+EDGE_BACKDROP_RATIO = 0.4  # 面積が平面のこの割合以上の歩けない床は『背景の地面』であり実体の縁ではない
+
+
+def _rc(r):
+    return [(r[0], r[1]), (r[2], r[1]), (r[2], r[3]), (r[0], r[3])]
+
+
+def road_edge_uncovered(p):
+    """歩ける床の縁のうち、歩けない面（平面の内側）に接するのに、境界の帯（boundaries）・壁・blocked の箱・
+    歩けない理由のある歩けない床のどれも付いていない部分を返す。[(床ID, 長さ(単位), (x0,y0,x1,y1)), ...]。
+    平面の外周に接する辺は隣のMAPへ続く出入口なので対象外。"""
+    import numpy as np
+    import cv2
+    c = EDGE_CELL
+    gw, gh = M.BASE_W // c, M.BASE_D // c
+
+    def mask_of(polys):
+        g = np.zeros((gh, gw), np.uint8)
+        for pl in polys:
+            cv2.fillPoly(g, [np.round(np.array(pl, dtype=float) / c).astype(np.int32)], 255)
+        return g
+
+    shaped = lambda f: "rect" in f or "poly" in f  # noqa: E731  形のある床だけ（形の無い簡易plan は対象外）
+    walk_floors = [f for f in p.get("floors", []) if f.get("walkable", True) and not f.get("no_step") and shaped(f)]
+    if not walk_floors:
+        return []
+    cover = []
+    for bd in p.get("boundaries", []):
+        cover.append(_rc(bd["rect"]) if bd.get("rect") else [tuple(q) for q in bd["poly"]])
+    for w in p.get("walls", []):
+        if "rect" in w:
+            cover.append(_rc(w["rect"]))
+    for b in p.get("boxes", []):
+        if b.get("blocked") and "rect" in b:
+            cover.append(_rc(b["rect"]))
+    for f in p.get("floors", []):
+        if f.get("walkable", True) or not shaped(f):
+            continue
+        pl = M.floor_poly(f)
+        area = abs(cv2.contourArea(np.array(pl, dtype=np.float32)))
+        if area >= EDGE_BACKDROP_RATIO * M.BASE_W * M.BASE_D:
+            continue
+        if any(wd in (f.get("look") or "") for wd in BLOCK_REASON_WORDS):
+            cover.append(pl)
+    k = 2 * (EDGE_REACH // c) + 1
+    cov = cv2.dilate(mask_of(cover), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (k, k)))
+    out = []
+    for f in walk_floors:
+        fm = mask_of([M.floor_poly(f)])
+        others = [o for o in walk_floors if o is not f]
+        other_walk = cv2.dilate(mask_of([M.floor_poly(o) for o in others]), np.ones((5, 5), np.uint8)) if others else np.zeros_like(fm)
+        er = cv2.erode(fm, np.ones((3, 3), np.uint8), borderType=cv2.BORDER_CONSTANT, borderValue=0)
+        edge = (fm > 0) & (er == 0)
+        edge[:2, :] = False; edge[-2:, :] = False; edge[:, :2] = False; edge[:, -2:] = False  # 平面の外周＝隣MAPへの出入口
+        edge &= other_walk == 0  # 別の歩ける床と接する縁は対象外
+        bad = edge & (cov == 0)
+        n_lab, lab = cv2.connectedComponents(bad.astype(np.uint8), connectivity=8)
+        for i in range(1, n_lab):
+            ys, xs = np.where(lab == i)
+            length = max(xs.max() - xs.min(), ys.max() - ys.min()) * c
+            if length >= EDGE_MIN_LEN:
+                out.append((f.get("id"), int(length), (int(xs.min() * c), int(ys.min() * c), int(xs.max() * c), int(ys.max() * c))))
+    return out
+
+
 def outdoor_look_problems(p, pool):
     """屋外MAP（装飾プールの outdoor: true）の look ゲート。(errors, warnings)。
     errors: kind=building/fence/retaining/closure/gate の壁、およびそれらの kind の box が look 空欄（生成を起動しない）。
@@ -226,6 +295,8 @@ def outdoor_look_problems(p, pool):
     for sd in p.get("scenery_doors", []):
         if not (sd.get("look") or "").strip():
             E.append(f"屋外MAP: scenery_doors {sd.get('id')} の look が空欄（閉じている・通行しない景色の扉の材質・形・状態）")
+    for fid, ln, bb in road_edge_uncovered(p):  # 道の縁（歩けない面に接する辺）に境界の実体が付いていない（決定 SIT.road-edge-solid-boundary）
+        Wn.append(f"屋外MAP: 歩ける床 {fid} の縁（長さ約{ln}、範囲 {list(bb)}）に段差・塀・側溝・縁石・護岸などの実体（boundaries・壁・護岸の歩けない面）が付いていない。道の外側が歩けるように見える（決定 SIT.road-edge-solid-boundary、Issue #191）")
     if not p.get("variation"):
         Wn.append("屋外MAP: plan に variation（足跡・汚れ・土の露出・除雪の雪山・スノーポール・消雪パイプ・電柱など、このMAPの look から来る変化の語）が無い。単調になりやすい（Issue #191）")
     if pool and pool.get("trees"):
@@ -766,7 +837,7 @@ def build_prompt(p, key, ledger_text=""):
              X.text("PR.role"),
              X.text("PR.geometry", text=pool["geometry_fixed"]),
              X.text("PR.fill", text=pool["fill_rule"]),
-             *([X.text("PR.reality")] + ([X.text("PR.reality.pool-note", text=pool["reality_note"])] if pool.get("reality_note") else []) if pool.get("outdoor") else []),
+             *([X.text("PR.reality"), X.text("PR.reality.road-edge"), X.text("PR.reality.shosetsu")] + ([X.text("PR.reality.pool-note", text=pool["reality_note"])] if pool.get("reality_note") else []) if pool.get("outdoor") else []),
              door_section(p),
              *(scenery_sections(p) if pool.get("outdoor") else []),
              X.text("PR.notext"), "",
@@ -839,6 +910,8 @@ def build_prompt(p, key, ledger_text=""):
                     fb.append(X.text("PR.forbid.walk-zones", walk=pool["_walk"]))
                 continue
             fb.append(a)
+        if pool.get("outdoor"):  # 屋外の全MAP共通（決定 SIT.road-edge-solid-boundary・SIT.shosetsu-hole-only）。MAP ごとの plan には書かせない
+            fb += [X.text("PR.forbid.road-edge"), X.text("PR.forbid.shosetsu")]
         L += ["", X.text("PR.forbidden-head")] + [f"- {a}" for a in fb]
     L += ["", X.text("PR.assumptions-head")] + [f"- {a}" for a in p.get("assumptions", [])]
     return "\n".join(L) + "\n"

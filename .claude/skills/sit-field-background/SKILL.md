@@ -46,6 +46,7 @@ kako-jun 指示（逐語）: 『モックは最低限こういう位置関係に
 10. **木の帯と本数を整合させる。** TREE PLACEMENT の帯（または `tree_zones`。plan の矩形は画素へ射影して px² で数える）が木の最小本数を満たす面積でないと警告（`tree_room_warning`。幅40px未満の帯は使えない・1本3000px²）。民家の裏・塀の根元など実面積のある `tree_zones` を置く。
 11. **変化は肯定形で `variation[]` に**（足跡・汚れ・土の露出・除雪の雪山・赤白スノーポール・消雪パイプと錆・電柱 など）。**そのMAPの look から来る語だけ**（共通の既定語は持たない）。無いと警告。
 12. **禁止リストを MAP に合わせる。** エリア全体の禁止（寺の畳・屋根の外形・歩く地面への物 など）がMAPの要求と衝突するなら、plan の `forbid_skip: [{match, reason}]` で外す（match に当たる項目が無いとエラー。複数件に一致すると警告。屋内MAPも検査）。
+14. **道路の縁は実体・消雪パイプは穴だけ（全屋外MAP共通。毎回の指示は不要。kako-jun 2026-11-11、Issue #191）。** 文面と理由の正本は台帳（決定 `SIT.road-edge-solid-boundary`・`SIT.shosetsu-hole-only`、プロンプト文面 `PR.reality.road-edge`・`PR.reality.shosetsu`・`PR.forbid.road-edge`・`PR.forbid.shosetsu`）。屋外の全MAPのプロンプトに自動で出るので、MAP ごとの plan に書き足さない。変わるのは plan に `boundaries[]`（道の両脇の実体）を置く義務だけ: 歩ける床の縁で歩けない面に接する辺に実体が付いていないと `oblique_build.road_edge_uncovered` が警告する（平面の外周＝隣MAPへの出入口は対象外）。消雪パイプを `variation` や台帳の見た目に書くときは『穴だけ・水は出さない』にする。反映は `verify_prompt_reflects_ledger.rb`（check_reality）が全屋外MAPで検査する。
 13. プロンプトには屋外MAPで `REALITY` 節（台帳 `プロンプト文面.PR.reality`）が出る。モックは位置の指定にすぎないこと・境界の実体・歩けない理由・木のばらつきを送信文に明記するため。**幾何の測定ゲートが通ることは見た目の良し悪しと無関係**（`pitfalls.md` F）。
 
 ## 新しいエリア・MAP を作る手順（エリア景観。全エリア共通。kako-jun 2026-11-02、Issue #191。決定 `SIT.area-landscape-research`）
