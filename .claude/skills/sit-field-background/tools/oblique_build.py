@@ -957,7 +957,7 @@ def coord_section(p, pool):
          X.text("PR.coord.slab-front", pts=_pts([bl, br, (br[0], br[1] + M.SLAB), (bl[0], bl[1] + M.SLAB)]))]
     L.append(X.text("PR.coord.slab-flute"))
     _t, _g = M.slab_props_text(p["map_id"])
-    L.append(X.text("PR.coord.slab-props", tapes=_t, glue=_g))
+    L.append(X.text("PR.coord.slab-plain") if (_t, _g) == ("無し", "無し") else X.text("PR.coord.slab-props", tapes=_t, glue=_g))
     ws = p["walls"]
     exterior = any(w.get("kind") == "building" for w in ws)
     x0 = min(w["rect"][0] for w in ws); y0 = min(w["rect"][1] for w in ws); x1 = max(w["rect"][2] for w in ws); y1 = max(w["rect"][3] for w in ws)
@@ -1102,6 +1102,9 @@ def build_prompt_raw(p, key, ledger_text=""):
         for k in DECOR_LAYER_KEYS:
             ly = pool["layers"][k]
             L.append(X.text("PR.layer", label=ly.get("label", k), look=ly["look"], fixed=ly["fixed"]) + (X.text("PR.layer.areafixed", area=pool["area"]) if k in ("desk", "slab_edge") else ""))
+            if k == "desk":  # この MAP の机の上の置き物（0〜2個。決定 SIT.desk-props-random）
+                _it = M.desk_props_text(p["map_id"])
+                L.append(X.text("PR.desk-props", items=_it) if _it else X.text("PR.desk-props.none"))
         tr = pool["trees"]
         L += ["", X.text("PR.trees-head", status=X.text("PR.trees-status.default") if tr.get("status") == "default" else X.text("PR.trees-status.fixed")),
               X.text("PR.trees-total.zones" if p.get("tree_zones") else "PR.trees-total", tmin=tr["total"][0], tmax=tr["total"][1], pmin=tr["pine"]["count"][0], pmax=tr["pine"]["count"][1], dmin=tr["deadtree"]["count"][0], dmax=tr["deadtree"]["count"][1]),

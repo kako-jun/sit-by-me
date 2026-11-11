@@ -116,6 +116,7 @@ class PromptReflection
     check_anchors
     check_swatch_sheet_in_refs
     check_slab_props_varied
+    check_desk_props_varied
     self
   end
 
@@ -430,11 +431,17 @@ class PromptReflection
   def check_core_constraints(map_id)
     CORE_WORDS.each { |w| err(map_id, "中核制約『#{w}』がプロンプトに無い（REALITY など後から足した節が押し流していないか）") unless @prompt.include?(w) }
     # 台座の前縁の飾り（テープ・糊）は MAP ごとにランダムな配置の1行（決定 SIT.base-edge-decor-random）。同じ配置の MAP が無いかは run の最後に検査する
-    sl = @lines.find { |l| l.start_with?('- 台座の前縁の飾り（') }
+    sl = @lines.find { |l| l.start_with?('- 台座の前縁の飾り') }
     if sl.nil?
       err(map_id, '台座の前縁の飾り（MAP ごとの配置）の行が無い')
     else
       (@slab_lines ||= {})[map_id] = sl
+    end
+    dl = @lines.find { |l| l.start_with?('- 作業机の上の置き物') }
+    if dl.nil?
+      err(map_id, '作業机の上の置き物（MAP ごと）の行が無い') unless !@lines.any? { |l| l.start_with?('- 作業机') }
+    else
+      (@desk_lines ||= {})[map_id] = dl
     end
     @lines.each do |l|
       err(map_id, "実写・フォトリアルを肯定する文言: #{l[0, 60]}") if l.match?(PHOTOREAL_AFFIRM) && !l.include?('描かない') && !l.include?('しない')
@@ -466,9 +473,20 @@ class PromptReflection
     lines = (@slab_lines || {})
     return if lines.size < 2
 
-    dup = lines.group_by { |_, v| v }.select { |_, g| g.size > 1 }
+    dup = lines.reject { |_, v| v.include?('この MAP は無し') }.group_by { |_, v| v }.select { |_, g| g.size > 1 }  # 素の段ボール断面だけの MAP は同じ行でよい
     dup.each_value { |g| err(g.map(&:first).join('・'), '台座の前縁の飾りが別の MAP と同じ配置（MAP ごとにランダムにする）') }
     err('台座の前縁の飾り', '全 MAP が同じ配置になっている') if lines.values.uniq.size == 1
+    err('台座の前縁の飾り', 'テープも糊も無い MAP が1つも無い（以前の画像の多数派。一定数作る）') unless lines.values.any? { |v| v.include?('この MAP は無し') }
+  end
+
+  # 作業机の上の置き物は MAP ごとにランダム（0 個の MAP がある）で、置き物ありの MAP 同士は同じ組み合わせにならない（決定 SIT.desk-props-random）
+  def check_desk_props_varied
+    lines = (@desk_lines || {})
+    return if lines.size < 2
+
+    some = lines.reject { |_, v| v.include?('この MAP は無し') }
+    some.group_by { |_, v| v }.select { |_, g| g.size > 1 }.each_value { |g| err(g.map(&:first).join('・'), '作業机の上の置き物が別の MAP と同じ') }
+    err('作業机の上の置き物', '置き物が0個の MAP が1つも無い') unless lines.values.any? { |v| v.include?('この MAP は無し') }
   end
 
   def check_swatch_sheet_in_refs

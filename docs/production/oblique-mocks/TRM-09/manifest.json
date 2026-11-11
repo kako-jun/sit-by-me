@@ -31,7 +31,7 @@
      1
     ]
    },
-   "input_sha": "6e5e36077c4abcb8307d2a4f68890e4b0b7002cd76fb9d31a1ae2de2fa1f8324",
+   "input_sha": "1c98b465655cf49ebb554a71603f62e832fd4de40c46d486a69e77dbc7e14914",
    "outputs": {
     "TRM-09-exits.png": "d928e9faa5368de9f2a85efdf54d7a0dca5d34a198039fb9fe11b1bb1ab84406",
     "TRM-09-mask.json": "c051cd1b4540cca069035f39a69122fbf11dddd10700ec5b1f65489e63085a53",
@@ -41,35 +41,35 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "6e5e36077c4abcb8307d2a4f68890e4b0b7002cd76fb9d31a1ae2de2fa1f8324",
+   "input_sha": "1c98b465655cf49ebb554a71603f62e832fd4de40c46d486a69e77dbc7e14914",
    "outputs": {
-    "TRM-09-clean.png": "2a17b096080d6dbf03ee62e097bfff02ae8d145dc329d7c4058ff0ff4f64a2bf",
-    "TRM-09-review.png": "fe920660e95a0d29ffab429f16283e7ac0f4fa33f206db80cc99d7a8c3b2094c"
+    "TRM-09-clean.png": "fe44bc074e8d4bd833e434b746ff0ef4dad5e9f5f56824a32b475c50e1aadf20",
+    "TRM-09-review.png": "64a227b49102971193b9d06fe87b3b8f1723b26de0b37742c2f03d7ec4c11cbb"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "6e5e36077c4abcb8307d2a4f68890e4b0b7002cd76fb9d31a1ae2de2fa1f8324",
+   "input_sha": "1c98b465655cf49ebb554a71603f62e832fd4de40c46d486a69e77dbc7e14914",
    "outputs": {
     "TRM-09-occlusion-depth.png": "1366b6da540cc07b2adc21ef1cbae7c737b00943f38a98c5fa5bc90f21a76079",
     "TRM-09-occlusion-edit.png": "01328fa2595438e486869946e885a516e740f57d2f70845d8d6f567bc6c5d592",
-    "TRM-09-occlusion-overlay.png": "7c2a47966a3d45f2a1a9afeb7fa1dd99522ea441b5636d29b953a2a9b5e8aa0a",
+    "TRM-09-occlusion-overlay.png": "04938c04ff853b174cc90643a03c08381a8a7f9dc9f26d4b76a13c7bb42a8f7a",
     "TRM-09-occlusion.json": "c080b4b2251d8ab563e2971eada2d192ba7a089b81698d2d5ff6a26cbcc9e52f",
     "TRM-09-occlusion.png": "2a3faf1701f8ca6ef8b6fd06ce5841d90c7fbd62294868dc84e1654669f5da2c"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "f98a4bf941c1bf243f21a53f76578f2714533df4111c10ddbddd21337445f364",
+   "input_sha": "3bdbc157beb238777ee0f19fed15da416c7600adef44e9b4f742a5275429de06",
    "outputs": {
-    "TRM-09-edit-prompt.txt": "def41683cf41015f9a47e4e582a01fa52fc1f56644e9be089de48cbd5d8509f3"
+    "TRM-09-edit-prompt.txt": "5dd119e71426dcc7f5d1832286fb6cd370db509cea307d823e5c53db6203f41e"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "9e5184ff07afbc078ce0db96b477bc84745df294c008326dbc3192b12ee4e6e7",
+   "input_sha": "dc2146b8a00df53292143d3dfa55f36070f9b199f84c19b65f82618701b03355",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -81,7 +81,7 @@
    ]
   },
   "wire": {
-   "input_sha": "a5e1619ce19ad6774aaa51a2ac7173d076bde9559fbe40361ef949d34da659c6",
+   "input_sha": "1d5787af013a55a533a237090d47810d7bf690a49b1865e2d86cd0fe996383bc",
    "outputs": {
     "wire-TRM-09.png": "c36e75363d3ac34d0320c7d0dc2eaba16c9d48ce7359e1004019fe4a5e9ba353"
    },

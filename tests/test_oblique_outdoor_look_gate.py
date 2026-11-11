@@ -314,8 +314,11 @@ class SlabPropsRandom(unittest.TestCase):
     def test_deterministic_per_map_and_differs_between_maps(self):
         for i in self.IDS:
             self.assertEqual(M.slab_props(i), M.slab_props(i))
-        texts = [M.slab_props_text(i) for i in self.IDS]
+        texts = [M.slab_props_text(i) for i in self.IDS if M.slab_props_text(i) != ("無し", "無し")]
         self.assertEqual(len(set(texts)), len(texts), "同じ配置の MAP がある")
+        plain = [i for i in self.IDS if M.slab_props_text(i) == ("無し", "無し")]
+        self.assertGreaterEqual(len(plain), 3, "テープも糊も無い MAP が少ない（以前の画像の多数派）")
+        self.assertLess(len(plain), len(self.IDS) - 5)
 
     def test_tape_spacing_is_not_even_and_counts_vary(self):
         counts = set()
@@ -343,6 +346,40 @@ class SlabPropsRandom(unittest.TestCase):
         t = B.build_prompt_raw(p, "TRM-07")
         tapes, glue = M.slab_props_text("TRM-07")
         self.assertIn(X.text("PR.coord.slab-props", tapes=tapes, glue=glue), t)
+
+
+class DeskPropsRandom(unittest.TestCase):
+    """決定 SIT.desk-props-random: 作業机の上の置き物は MAP ごとにランダム（0個がある・同じ組み合わせにならない）。"""
+
+    IDS = [Path(p).name.replace("-plan.json", "") for p in PLANS] + ["TRM-05-kids", "TRM-05-fire"]
+
+    def test_counts_zero_exists_and_combos_differ(self):
+        allowed = {k["id"] for k in M.DESK_SPEC["kinds"]}
+        zones = set(M.DESK_SPEC["zones"])
+        counts = []
+        seen = set()
+        for i in self.IDS:
+            pr = M.desk_props(i)
+            counts.append(len(pr))
+            self.assertLessEqual(len(pr), 2)
+            self.assertEqual(pr, M.desk_props(i), "決定的でない")
+            for kid, ja, z in pr:
+                self.assertIn(kid, allowed)
+                self.assertIn(z, zones)
+                self.assertNotIn("台座", z)
+            self.assertEqual(len({z for _k, _j, z in pr}), len(pr), "同じ位置に2つ")
+            if pr:
+                self.assertNotIn(tuple(pr), seen, f"{i}: 同じ組み合わせ・配置の MAP がある")
+                seen.add(tuple(pr))
+        self.assertIn(0, counts, "置き物が0個の MAP が無い")
+        self.assertTrue(any(c >= 1 for c in counts))
+
+    def test_prompt_has_desk_props_line_and_not_in_mock(self):
+        p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-07-plan.json"))
+        t = B.build_prompt_raw(p, "TRM-07")
+        it = M.desk_props_text("TRM-07")
+        self.assertIn(X.text("PR.desk-props", items=it) if it else X.text("PR.desk-props.none"), t)
+        self.assertIn("縮尺は実物大", X.text("PR.desk-props", items="x"))
 
 
 if __name__ == "__main__":

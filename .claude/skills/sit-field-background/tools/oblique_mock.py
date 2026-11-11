@@ -335,6 +335,8 @@ def slab_props(map_id):
     import random
     sp = SLAB_SPEC
     rng = random.Random(int(hashlib.sha256(("slab-props:" + str(map_id)).encode("utf-8")).hexdigest()[:12], 16))
+    if rng.random() < sp.get("plain_ratio", 0):  # テープも糊も無い MAP（素の段ボール断面だけ。以前の画像の多数派）
+        return {"tapes": [], "glue": []}
     x0, x1 = sp["x_range"]
     n = rng.randint(*sp["tape_count"])
     xs = []
@@ -375,6 +377,64 @@ def slab_props(map_id):
 
 TAPE_JA = {"masking": "マスキングテープ（ベージュ）", "clear": "透明テープ（半透明）"}
 GLUE_JA = {"drip": "白い糊の垂れ", "blob": "白い糊のにじみ", "streak": "細い糊の筋", "spot": "小さな糊の点"}
+
+
+DESK_SPEC = X.const_json("desk.props-spec")  # 作業机の上の置き物（台帳 描画定数 desk.props-spec）
+
+
+def _area_ids(map_id):
+    """同じエリア（MAP ID の接頭辞）の MAP ID（plan のファイルとその variants）の一覧。置き物の重複回避の全体集合。"""
+    import glob
+    pre = str(map_id).split("-")[0]
+    d = os.path.join(os.environ.get("LEDGER_ROOT") or os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "..")), "docs", "production", "oblique-mocks")
+    ids = {str(map_id)}
+    for pp in glob.glob(os.path.join(d, pre + "-*-plan.json")):
+        try:
+            with open(pp, encoding="utf-8") as f:
+                j = json.load(f)
+        except (OSError, ValueError):
+            continue
+        base = j.get("map_id")
+        if base:
+            ids.add(base)
+            ids |= {base + "-" + v for v in j.get("variants", {})}
+    return sorted(ids)
+
+
+_DESK_CACHE = {}
+
+
+def desk_props(map_id):
+    """作業机の上の置き物（工作の道具。ミニチュアの世界の物ではない）を、MAP ID を種にした決定的な乱数で 0〜2 個選ぶ。
+    同じエリアの先の MAP と同じ組み合わせ・配置（置き物が1つ以上のとき）にならないよう、重複したら種を替える。
+    [(種類ID, 種類の名前, 位置の緩い指定)]。位置は座標にせず机の隅・端の緩い指定。"""
+    import hashlib
+    import random
+    ids = _area_ids(map_id)
+    key = tuple(ids)
+    if key not in _DESK_CACHE:
+        taken, res = set(), {}
+        for i in ids:
+            for attempt in range(100):
+                rng = random.Random(int(hashlib.sha256(f"desk-props:{i}:{attempt}".encode("utf-8")).hexdigest()[:12], 16))
+                n = rng.randint(*DESK_SPEC["count"])
+                kinds = rng.sample(DESK_SPEC["kinds"], n)
+                zones = rng.sample(DESK_SPEC["zones"], n)
+                items = tuple(sorted((k["id"], k["ja"], z) for k, z in zip(kinds, zones)))
+                combo = tuple(sorted(x[0] for x in items))
+                if not items or (items not in taken and combo not in taken):
+                    break
+            if items:
+                taken.add(items)
+                taken.add(combo)
+            res[i] = list(items)
+        _DESK_CACHE[key] = res
+    return _DESK_CACHE[key][str(map_id)]
+
+
+def desk_props_text(map_id):
+    """プロンプト用の文（置き物の具体的な記述）。0個なら空文字。"""
+    return "、".join(f"{z}に、{ja}" for _id, ja, z in desk_props(map_id))
 
 
 def slab_props_text(map_id):
