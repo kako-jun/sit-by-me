@@ -235,8 +235,7 @@ def outdoor_look_problems(p, pool):
     for z in p.get("tree_zones", []):  # 木の帯が歩ける床と重なると『歩く地面の上には置かない』と矛盾する
         zr = z["rect"]
         for fl in p["floors"]:
-            fr = fl.get("rect")
-            if fl.get("walkable") and fr and zr[0] < fr[2] and zr[2] > fr[0] and zr[1] < fr[3] and zr[3] > fr[1]:
+            if fl.get("walkable") and tree_zone_hits_floor(zr, fl):
                 Wn.append(f"屋外MAP: tree_zones {z.get('id')} が歩ける床 {fl.get('id')} と重なる（木を歩く地面の上に置かせてしまう）")
     return E, Wn
 
@@ -557,6 +556,23 @@ def tree_band_sizes(p):
     sx0, sy0 = int(min(tl[0], bl[0])), int(tl[1]); sx1, sy1 = int(max(tr[0], br[0])), int(bl[1])
     return {"sx0": sx0, "sy0": sy0, "sx1": sx1, "sy1": sy1, "bx0": bx0, "by0": by0, "bx1": bx1, "by1": by1,
             "top": by0 - sy0, "bottom": sy1 - by1, "left": bx0 - sx0, "right": sx1 - bx1}
+
+
+def tree_zone_hits_floor(zr, fl, step=3):
+    """木の帯の矩形が歩ける床（rect または poly）と重なるか。poly は帯の格子点が多角形の内側に入るかで見る。"""
+    if "poly" in fl:
+        poly = M.floor_poly(fl)
+        def inside(x, y):
+            c = False
+            for i in range(len(poly)):
+                (x1, y1), (x2, y2) = poly[i], poly[(i + 1) % len(poly)]
+                if (y1 > y) != (y2 > y) and x < (x2 - x1) * (y - y1) / (y2 - y1) + x1:
+                    c = not c
+            return c
+        xs = range(int(zr[0]), int(zr[2]) + 1, step); ys = range(int(zr[1]), int(zr[3]) + 1, step)
+        return any(inside(x, y) for x in xs for y in ys)
+    fr = fl.get("rect")
+    return bool(fr) and zr[0] < fr[2] and zr[2] > fr[0] and zr[1] < fr[3] and zr[3] > fr[1]
 
 
 def tree_room_warning(p, pool):

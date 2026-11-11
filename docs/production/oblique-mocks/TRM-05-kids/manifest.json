@@ -96,7 +96,7 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "f5e3c6bad2fb4c6dcd46b86cab5c6463559afbbf658b2fac1b52d63aa8c0dd65",
+   "input_sha": "ed77de32af278a062a2a3e959d3c2c1c2cd297044c6805d7a18718d03956ac82",
    "outputs": {
     "TRM-05-kids-edit-prompt.txt": "a477de84b768da4ae71a08d88f077915c791372df682544b5f2517b1de96707b"
    },
@@ -105,7 +105,7 @@
   },
   "validate": {
    "errors": [],
-   "input_sha": "f8ba7873309e7007bb8686085182dae8305c84cc3649916564f4b86eb54ab892",
+   "input_sha": "40d42ecc05d3ab1a9c6ed3b2e243b4b6c5de2f3f081a6a86a54a5e9a7ec216e7",
    "outputs": {},
    "status": "ok",
    "warnings": [

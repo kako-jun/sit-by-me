@@ -96,7 +96,7 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "5d357f0769e1288dd319b17ca132eff53554fbc919e59c3c43cedc76e04ad3a6",
+   "input_sha": "b4ed2e25cc8c7ead71111b5c3eb09d18301b0279b045abafc208cb0fccf9b54f",
    "outputs": {
     "TRM-05-fire-edit-prompt.txt": "eab7bc3f51e7a8412a6e06faa41af3d9b4f759463433efa18c42f3da2fbf2f2e"
    },
@@ -105,7 +105,7 @@
   },
   "validate": {
    "errors": [],
-   "input_sha": "f66cf3d59d28bc0f92751495cd528b61bf562eba455c69d65111d858a364f611",
+   "input_sha": "b290e42590d1434953f3cab43f1cefae4ee861c20fafd839dbf519d19b6f5199",
    "outputs": {},
    "status": "ok",
    "warnings": [
