@@ -11,7 +11,10 @@
 "会話量の上限": "未確定"
 "会話の往復": "仮稿"
 "状態": "blocked"
-"未決": "避難経路・操作復帰点"
+"未決": "避難経路・操作復帰点、本来の場所（運動場）の背景・マスクと次の場面の座標"
+"場所": "寺町幼稚園から運動場へ。具体のMAP IDは要照合"
+"行き先": "play_cancelled_promise"
+"暫定": "移動先の場面・到着座標（play_cancelled_promise の出現位置）は仮。本来の運動場（寺町 TRM-03 の園庭側）の採用画像は未生成。この場面自体は E001 の戦闘結果（中断時 次=）から呼ぶので背景を持たない"
 "出典": "docs/story.md; docs/decisions.md; docs/scenario-registry.md; Issue #254"
 "脚本": |-
   [イベント evacuation_after_play]
