@@ -331,8 +331,9 @@ def render_emotions():
         if not (ROOT / "assets/images" / rel).is_file():
             raise SystemExit(f"感情吹き出しの素材がありません: assets/images/{rel}")
         doc[kind] = {"image": rel}
-    # name-name は種類名のキーしか読まず、`_provenance` を足すと「image が空」の警告になる。
-    # そのため入力ハッシュは登録せず（registered_sha が空）、鮮度は field_md.py check のバイト一致で見る。
+    # このファイルは種類名 → 宣言の形（name-name の field_emotions）なので、`_provenance` は足さない。
+    # 入力ハッシュは登録せず（registered_sha が空）、鮮度は field_md.py check のバイト一致で見る。
+    # （`_provenance` を足したときの name-name 側の警告の有無は未確認。）
     return json.dumps(doc, ensure_ascii=False, indent=2) + "\n"
 
 
