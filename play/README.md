@@ -24,10 +24,12 @@ name-name の worker が `scriptsDir=play` として `play/` 直下とサブデ�
 | 再開点 | 内容 |
 |---|---|
 | [opening_battle_fight](saves/opening_battle_fight.save.json) | お遊戯会の劇戦闘の最中 |
+| [opening_battle_start](saves/opening_battle_start.save.json) | お遊戯会の劇戦闘の開始から |
+| [play_cancelled_promise_start](saves/play_cancelled_promise_start.save.json) | 劇の中止後の約束の会話から |
 | [playground_walk](saves/playground_walk.save.json) | 運動場（劇の中止後の場面）を歩く |
 | [playroom_walk](saves/playroom_walk.save.json) | 遊戯室（お遊戯会の場面）を歩く |
 
-場面開始のトリガー（`場面開始・1回`）は、セーブからの再開直後は name-name の仕様で起こらない。そのため再開点から会話・劇戦闘は自動では始まらない（各再開点の暫定に書く）。
+セーブからの再開直後は、既定では場面開始のトリガーを起こさない。`*_start` の再開点は `field.fireAuto: true`（name-name #1155）で、その場面のイベント（劇戦闘・約束の会話）を再開直後に起こす。#1155 が入るまでは歩けるだけ（各再開点の暫定に書く）。
 
 見た目の決定の一覧と、画面を見せてよい状態のチェックリスト: [demo-look-list.md](../docs/production/demo-look-list.md)
 

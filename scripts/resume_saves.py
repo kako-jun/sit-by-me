@@ -17,6 +17,7 @@ DIR = ROOT / "docs/ledger/再開点"
 SAVED_AT = "2026-01-01T00:00:00.000Z"  # 固定（決定的出力のため。実際の保存時刻ではない）
 PROVISIONAL = {"party_hp": 100, "monster_hp": 9999, "gold": 0}  # data.md の仮値と同じ
 FACINGS = ("up", "down", "left", "right", "upLeft", "upRight", "downLeft", "downRight")
+FIRE_AUTO = "場面開始を起こす"  # 再開直後の許容値（空欄=起こさない）。セーブの field.fireAuto（name-name #1155）
 ID_RE = re.compile(r"[a-z0-9_]+\Z")
 
 
@@ -45,6 +46,11 @@ def save_of(record, people, enemies, scenes):
     for mid in mons:
         if mid not in enemies:
             raise SystemExit(f"{ident}: 戦闘 {mid} が敵台帳にありません")
+    fire = str(record.get("再開直後") or "")
+    if fire not in ("", FIRE_AUTO):
+        raise SystemExit(f"{ident}: 再開直後 は {FIRE_AUTO!r} か空欄だけ: {fire!r}")
+    if fire and mons:
+        raise SystemExit(f"{ident}: 戦闘中のセーブには 再開直後 を付けない")
     rpg = {
         "version": 1,
         "party": [{"id": c, "hp": PROVISIONAL["party_hp"], "mp": 0} for c in party],
@@ -53,6 +59,8 @@ def save_of(record, people, enemies, scenes):
         "gold": PROVISIONAL["gold"],
         "field": {"sceneId": str(record["場面ID"]), "x": int(m[1]), "y": int(m[2]), "facing": record["向き"]},
     }
+    if fire:
+        rpg["field"]["fireAuto"] = True
     if mons:
         rpg["battle"] = {
             "enemies": [{"id": mid, "hp": PROVISIONAL["monster_hp"]} for mid in mons],

@@ -279,7 +279,7 @@ class StillBlocked(FieldMdCase):
 class ResumeSaves(FieldMdCase):
     def test_three_saves_generated_and_checked(self):
         rels = [r for _, _, r, _, _ in field_md.outputs() if r.endswith(".save.json")]
-        self.assertEqual(sorted(rels), [f"play/saves/{n}.save.json" for n in ("opening_battle_fight", "playground_walk", "playroom_walk")])
+        self.assertEqual(sorted(rels), [f"play/saves/{n}.save.json" for n in ("opening_battle_fight", "opening_battle_start", "play_cancelled_promise_start", "playground_walk", "playroom_walk")])
         self.run_check()
 
     def test_unknown_person_or_scene_fails(self):
@@ -289,6 +289,19 @@ class ResumeSaves(FieldMdCase):
         with self.assertRaises(SystemExit):
             field_md.outputs()
         path.write_text(text.replace('"opening_battle"', '"no_such_scene"'), encoding="utf-8")
+        with self.assertRaises(SystemExit):
+            field_md.outputs()
+
+    def test_fire_auto_only_on_start_points(self):
+        import json
+
+        for name, expected in (("opening_battle_start", True), ("playroom_walk", False)):
+            field = json.loads(self.out(f"play/saves/{name}.save.json"))["rpg"]["field"]
+            self.assertEqual(field.get("fireAuto", False), expected)
+
+    def test_fire_auto_value_is_strict(self):
+        path = self.tmp / "docs/ledger/再開点/opening_battle_start.yaml"
+        path.write_text(path.read_text(encoding="utf-8").replace("場面開始を起こす", "起こす"), encoding="utf-8")
         with self.assertRaises(SystemExit):
             field_md.outputs()
 
