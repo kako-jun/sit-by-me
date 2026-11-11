@@ -15,10 +15,7 @@ sys.path.insert(0, os.path.join(HERE, "..", ".claude", "skills", "sit-field-back
 import oblique_build as B  # noqa: E402
 
 # (MAP_A, 辺A, 側, MAP_B, 辺B): 理由
-KNOWN_UNDECIDED = {
-    ("TRM-16", "right", "北", "TRM-15", "left"): "TRM-16 の右端の北縁は縁石と側溝、TRM-15 の左端の北縁は用水の護岸。TRM-15 は『TRM-16 の用水に連なる』と書くが、TRM-16 の用水は x=700〜770 の南北方向で右端には無く、どちらが正かを台帳から決められない（未決）",
-    ("TRM-16", "top", "東", "TRM-17", "bottom"): "TRM-16 の北端の東縁は杉板の板塀、TRM-17 の下端の東縁は縁石と用水の石積み護岸。TRM-17 の用水が TRM-16 の北端の東でどこへ続くか（板塀の向こうか）が台帳に無く、決められない（未決）",
-}
+KNOWN_UNDECIDED = {}  # 現在は未決なし（用水の連続は決定 TRM.canal-continuity で解消）
 
 
 def main():
