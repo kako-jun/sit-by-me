@@ -11,7 +11,13 @@
 "会話量の上限": "未確定"
 "会話の往復": "仮稿"
 "状態": "blocked"
-"未決": "台詞・卯辰山へ行く約束の細部"
+"未決": "台詞・卯辰山へ行く約束の細部、本来の場所（運動場）の背景・マスクと出現位置、操作の開始条件"
+"場所": "運動場。具体のMAP IDは要照合"
+"背景": "fields/legacy/TRM-08.webp"
+"マスク": "fields/legacy/masks/TRM-08-mask.webp"
+"出現位置": "400,512"
+"開始方式": "場面開始・1回"
+"暫定": "背景・マスクは寺町の旧素材 TRM-08（井戸と用水が合流する道）を流用。本来は運動場（園庭）。出現位置は歩ける白画素の仮の点"
 "出典": "docs/story.md; docs/decisions.md; docs/scenario-registry.md; Issue #254"
 "脚本": |-
   [イベント play_cancelled_promise]
