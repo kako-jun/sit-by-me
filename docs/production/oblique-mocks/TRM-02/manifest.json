@@ -1,4 +1,18 @@
 {
+ "adoption": {
+  "canonical": "assets/images/fields/reference/teramachi-kindergarten-playroom-trm02-adopted.webp",
+  "canonical_sha256": "6efc69bb916c68f79b3aa06cde23d484474562f91773df7586a6265e511275c5",
+  "image": "docs/production/oblique-mocks/TRM-02/e2/corridor-fit6-trm02.png",
+  "image_sha256": "6adf63bc557e9fd19511569c0a706df3c7237344a36a3e05ea7007d7ed178646",
+  "mock_clean_sha256": "3d3db7874e3610a08ea689c63e921898102035e008fc001dc2d78f830e1ad0bd",
+  "plan_sha256": "60e79967b1e7fc48a5668d90efc992f010fbe0d049d3554f3497cbc686d48c91",
+  "prompt_sha256": "834f3614a4e51e512a23c8aa3773c26952c36fdb25765ff441efc8f2a30d854f",
+  "size": [
+   1672,
+   941
+  ],
+  "take": 2
+ },
  "ledger": {
   "decisions": [
    "TRM.left-right",
@@ -27,19 +41,19 @@
    "TRM-04.floor-planks",
    "TRM-04.outer-trees"
   ],
-  "input_sha": "b8db247247ff64dd73e87031f5318bc2e76abdfdbd40d827f07b97e2f5a6acb4",
+  "input_sha": "199b079a98a04432e782ea9371681db6979edbb95a63959a4dee8761f4e78dd7",
   "references": [
    [
     "TRM-04",
-    "46027605e2631821ab653cab27c147b8bb5eb5e3dff002130dbb90e634efa81d"
+    "4d74dd71237216233d4daee79f5f4d9b41d425cbe075b8c5916df87c78efbaf1"
    ]
   ],
   "row_id": "TRM-02",
-  "tables": "docs/ledger/*.csv"
+  "tables": "docs/ledger/*.yaml"
  },
  "map_id": "TRM-02",
  "plan": "docs/production/oblique-mocks/TRM-02-plan.json",
- "plan_sha256": "435ca2e6c51a0a5de46dd95e9bfbae279b59add41632fc0218b76934f16b3551",
+ "plan_sha256": "60e79967b1e7fc48a5668d90efc992f010fbe0d049d3554f3497cbc686d48c91",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -51,7 +65,7 @@
      2
     ]
    },
-   "input_sha": "90e57ef720e987bf2b6a811c3e0caf7def5b3115df16c3cfcd9b6d4e48b27221",
+   "input_sha": "9d7487e5bab82d869ece2ab87e223f7102b5ae9500696dbdf04465b561de1bbb",
    "outputs": {
     "TRM-02-exits.png": "2ac804c0aaa2654e02eeafbeeeb69aa36189d7214aa65161b3da32bef98ade3f",
     "TRM-02-mask.json": "e1d6593b47ee4f7498051012bc25c7e7e30bcd0fc0f5bee69296363db58ca6d2",
@@ -61,7 +75,7 @@
    "white_components": 4
   },
   "mock": {
-   "input_sha": "90e57ef720e987bf2b6a811c3e0caf7def5b3115df16c3cfcd9b6d4e48b27221",
+   "input_sha": "9d7487e5bab82d869ece2ab87e223f7102b5ae9500696dbdf04465b561de1bbb",
    "outputs": {
     "TRM-02-clean.png": "3d3db7874e3610a08ea689c63e921898102035e008fc001dc2d78f830e1ad0bd",
     "TRM-02-review.png": "05c28f5773706f106084ba013ff79cbd26a3665bd3f9dd6f63c2f7c0579d3551"
@@ -69,7 +83,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "90e57ef720e987bf2b6a811c3e0caf7def5b3115df16c3cfcd9b6d4e48b27221",
+   "input_sha": "9d7487e5bab82d869ece2ab87e223f7102b5ae9500696dbdf04465b561de1bbb",
    "outputs": {
     "TRM-02-occlusion-depth.png": "7b1c6aa0f37567e35c9acbf224ae73fa333b074290963c389661ff8d4565d330",
     "TRM-02-occlusion-edit.png": "3cf4489009d70a1d848b9b5a5b4ac68ce9f19f607241ef90e98cffb657a6c450",
@@ -80,16 +94,16 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "cd1c358c46a79646971b2f7a28e52e8be1fe062880c49bd9fa4670833738b701",
+   "input_sha": "91d50e2ec0206ee2a975fbbb8105005bd16c9338fd009ed0c799777f386fe273",
    "outputs": {
-    "TRM-02-edit-prompt.txt": "73e2f5403f503f065251f88d33e2538fad98de79962bc34779539e97a9643ab3"
+    "TRM-02-edit-prompt.txt": "834f3614a4e51e512a23c8aa3773c26952c36fdb25765ff441efc8f2a30d854f"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "cf8ed6744a08e34816931be7ad7b78cf5a94e5da171aa38a9dc4b0b087517d43",
+   "input_sha": "7c83cddc3989309533dcf710dfe3f2b379bc35a2541d17e416e576fa2226f086",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -100,7 +114,7 @@
    ]
   },
   "wire": {
-   "input_sha": "037c929e6d2e69193e40c8440ed6d56278b921e1ec63308fcb8fe3cf9bb6584e",
+   "input_sha": "62e77e6a349be94a4acbcc5647fdae3003ce7bdca9d81c5d3988c883b6935711",
    "outputs": {
     "wire-TRM-02.png": "e567893d35a7c1bcd8691538f5dc04bd1a2e795e3785fd07c67c27d3910529e1"
    },

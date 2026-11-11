@@ -172,7 +172,7 @@
   },
   {
    "color": "#d9d3c4",
-   "h": 200,
+   "h": 420,
    "kind": "building",
    "rect": [
     60,
@@ -181,14 +181,14 @@
     380
    ],
    "top_color": "#6c7077",
-   "window_count": 0,
+   "window_count": 4,
    "id": "block-a",
    "label": "県営住宅 A棟（棟入口）",
-   "look": "昭和に建てられた量産型の白いコンクリートの団地棟。4階建（既定・要確認）で階ごとの並びが見える。窓・バルコニーは階ごとに並ぶ（数と位置は指定しない）。各戸の入口が廊下に面する片廊下型（既定・要確認）。ベランダ（バルコニー）は吹き放しで、サンルーム化していない（既定・要確認）。"
+   "look": "昭和に建てられた量産型の白いコンクリートの団地棟（A棟）。一軒家に見せない: 同じ形の住戸が5戸、横に連なる長い板状の棟（既定・要確認）。4階建（既定・要確認）で、画面に見える南面（廊下側・片廊下型）は1階の1列の同じ並びの繰り返し（上の階の窓は描かず、棟が画面の上端で切れて上の階が続くことを示す）: 1階の廊下の手すり（腰高のコンクリートの腰壁に丸パイプの手すり。棟の端から端まで切れ目なく続く）、その奥に各戸の玄関の鉄のドア（公団型スチールドアに倣った同じ形・同じ色）と、戸の隣の台所の小さな窓1つ（窓は計画の窓の位置どおり）。1階に同じ窓4個（と同じドア）を一つずつ同じ寸法で並べ、戸ごとに形を変えない。モックの濃いピンクの戸口（TRM-11.door）だけが出入口で、他の戸のドアは出入口ではない飾りの繰り返し。裏面（北・バルコニー側）は画面に見えず描かない: 各戸に掃き出し窓とベランダ（吹き放し・サンルーム化していない）が同様に連なる（既定・要確認）。面は打ち放しの質感: 型枠の継ぎ目、ひび、水垢の黒い縦筋、手すりの錆、腰壁の上の雪の染み。"
   },
   {
    "color": "#d9d3c4",
-   "h": 200,
+   "h": 420,
    "kind": "building",
    "rect": [
     1020,
@@ -197,10 +197,10 @@
     380
    ],
    "top_color": "#6c7077",
-   "window_count": 0,
+   "window_count": 4,
    "id": "block-b",
    "label": "県営住宅 B棟",
-   "look": "昭和に建てられた量産型の白いコンクリートの団地棟。4階建（既定・要確認）で階ごとの並びが見える。窓・バルコニーは階ごとに並ぶ（数と位置は指定しない）。各戸の入口が廊下に面する片廊下型（既定・要確認）。ベランダ（バルコニー）は吹き放しで、サンルーム化していない（既定・要確認）。"
+   "look": "昭和に建てられた量産型の白いコンクリートの団地棟（B棟）。一軒家に見せない: 同じ形の住戸が4戸、横に連なる長い板状の棟（既定・要確認）。4階建（既定・要確認）で、画面に見える南面（廊下側・片廊下型）は1階の1列の同じ並びの繰り返し（上の階の窓は描かず、棟が画面の上端で切れて上の階が続くことを示す）: 1階の廊下の手すり（腰高のコンクリートの腰壁に丸パイプの手すり。棟の端から端まで切れ目なく続く）、その奥に各戸の玄関の鉄のドア（公団型スチールドアに倣った同じ形・同じ色）と、戸の隣の台所の小さな窓1つ（窓は計画の窓の位置どおり）。1階に同じ窓4個（と同じドア）を一つずつ同じ寸法で並べ、戸ごとに形を変えない。モックの濃いピンクの戸口（TRM-11.door）だけが出入口で、他の戸のドアは出入口ではない飾りの繰り返し。裏面（北・バルコニー側）は画面に見えず描かない: 各戸に掃き出し窓とベランダ（吹き放し・サンルーム化していない）が同様に連なる（既定・要確認）。面は打ち放しの質感: 型枠の継ぎ目、ひび、水垢の黒い縦筋、手すりの錆、腰壁の上の雪の染み。"
   },
   {
    "color": "#d9d3c4",
@@ -213,10 +213,10 @@
     1230
    ],
    "top_color": "#6c7077",
-   "window_count": 0,
+   "window_count": 10,
    "id": "block-c",
    "label": "県営住宅 C棟",
-   "look": "昭和に建てられた量産型の白いコンクリートの団地棟。4階建（既定・要確認）で階ごとの並びが見える。窓・バルコニーは階ごとに並ぶ（数と位置は指定しない）。各戸の入口が廊下に面する片廊下型（既定・要確認）。ベランダ（バルコニー）は吹き放しで、サンルーム化していない（既定・要確認）。"
+   "look": "昭和に建てられた量産型の白いコンクリートの団地棟（C棟）。一軒家に見せない: 同じ形の住戸が10戸、横に連なる長い板状の棟（既定・要確認）。4階建（既定・要確認）で、画面に見える南面（廊下側・片廊下型）は1階の1列の同じ並びの繰り返し（上の階の窓は描かず、棟が画面の上端で切れて上の階が続くことを示す）: 1階の廊下の手すり（腰高のコンクリートの腰壁に丸パイプの手すり。棟の端から端まで切れ目なく続く）、その奥に各戸の玄関の鉄のドア（公団型スチールドアに倣った同じ形・同じ色）と、戸の隣の台所の小さな窓1つ（窓は計画の窓の位置どおり）。1階に同じ窓10個（と同じドア）を一つずつ同じ寸法で並べ、戸ごとに形を変えない。モックの濃いピンクの戸口（TRM-11.door）だけが出入口で、他の戸のドアは出入口ではない飾りの繰り返し。裏面（北・バルコニー側）は画面に見えず描かない: 各戸に掃き出し窓とベランダ（吹き放し・サンルーム化していない）が同様に連なる（既定・要確認）。面は打ち放しの質感: 型枠の継ぎ目、ひび、水垢の黒い縦筋、手すりの錆、腰壁の上の雪の染み。"
   },
   {
    "color": "#cdb98f",
@@ -297,6 +297,28 @@
    "window_count": 0,
    "id": "closure-e2",
    "look": "団地敷地の東の境の塀（南側）。灰色のコンクリートブロック積みの低い塀の上に緑色の金網フェンス、根元に除雪の雪山。既定（要確認）。"
+  }
+ ],
+ "tree_zones": [
+  {
+   "rect": [
+    44,
+    44,
+    816,
+    150
+   ],
+   "id": "tz-north-w",
+   "label": "棟の裏（北・道の西）の木の帯"
+  },
+  {
+   "rect": [
+    984,
+    44,
+    1556,
+    150
+   ],
+   "id": "tz-north-e",
+   "label": "棟の裏（北・道の東）の木の帯"
   }
  ],
  "boxes": [
@@ -390,6 +412,296 @@
    "status": "default"
   }
  ],
+ "windows": [
+  {
+   "id": "TRM-11.win-a-1",
+   "wall": "block-a",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    60,
+    780
+   ],
+   "note": "既定（要確認）: A棟の南面（廊下側）の1戸目の1階の台所の小窓。1戸の幅144。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 132,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  },
+  {
+   "id": "TRM-11.win-a-3",
+   "wall": "block-a",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    60,
+    780
+   ],
+   "note": "既定（要確認）: A棟の南面（廊下側）の3戸目の1階の台所の小窓。1戸の幅144。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 420,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  },
+  {
+   "id": "TRM-11.win-a-4",
+   "wall": "block-a",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    60,
+    780
+   ],
+   "note": "既定（要確認）: A棟の南面（廊下側）の4戸目の1階の台所の小窓。1戸の幅144。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 564,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  },
+  {
+   "id": "TRM-11.win-a-5",
+   "wall": "block-a",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    60,
+    780
+   ],
+   "note": "既定（要確認）: A棟の南面（廊下側）の5戸目の1階の台所の小窓。1戸の幅144。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 708,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  },
+  {
+   "id": "TRM-11.win-b-1",
+   "wall": "block-b",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    1020,
+    1540
+   ],
+   "note": "既定（要確認）: B棟の南面（廊下側）の1戸目の1階の台所の小窓。1戸の幅130。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 1085,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  },
+  {
+   "id": "TRM-11.win-b-2",
+   "wall": "block-b",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    1020,
+    1540
+   ],
+   "note": "既定（要確認）: B棟の南面（廊下側）の2戸目の1階の台所の小窓。1戸の幅130。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 1215,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  },
+  {
+   "id": "TRM-11.win-b-3",
+   "wall": "block-b",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    1020,
+    1540
+   ],
+   "note": "既定（要確認）: B棟の南面（廊下側）の3戸目の1階の台所の小窓。1戸の幅130。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 1345,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  },
+  {
+   "id": "TRM-11.win-b-4",
+   "wall": "block-b",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    1020,
+    1540
+   ],
+   "note": "既定（要確認）: B棟の南面（廊下側）の4戸目の1階の台所の小窓。1戸の幅130。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 1475,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  },
+  {
+   "id": "TRM-11.win-c-1",
+   "wall": "block-c",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    60,
+    1540
+   ],
+   "note": "既定（要確認）: C棟の南面（廊下側）の1戸目の1階の台所の小窓。1戸の幅148。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 134,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  },
+  {
+   "id": "TRM-11.win-c-2",
+   "wall": "block-c",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    60,
+    1540
+   ],
+   "note": "既定（要確認）: C棟の南面（廊下側）の2戸目の1階の台所の小窓。1戸の幅148。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 282,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  },
+  {
+   "id": "TRM-11.win-c-3",
+   "wall": "block-c",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    60,
+    1540
+   ],
+   "note": "既定（要確認）: C棟の南面（廊下側）の3戸目の1階の台所の小窓。1戸の幅148。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 430,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  },
+  {
+   "id": "TRM-11.win-c-4",
+   "wall": "block-c",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    60,
+    1540
+   ],
+   "note": "既定（要確認）: C棟の南面（廊下側）の4戸目の1階の台所の小窓。1戸の幅148。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 578,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  },
+  {
+   "id": "TRM-11.win-c-5",
+   "wall": "block-c",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    60,
+    1540
+   ],
+   "note": "既定（要確認）: C棟の南面（廊下側）の5戸目の1階の台所の小窓。1戸の幅148。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 726,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  },
+  {
+   "id": "TRM-11.win-c-6",
+   "wall": "block-c",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    60,
+    1540
+   ],
+   "note": "既定（要確認）: C棟の南面（廊下側）の6戸目の1階の台所の小窓。1戸の幅148。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 874,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  },
+  {
+   "id": "TRM-11.win-c-7",
+   "wall": "block-c",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    60,
+    1540
+   ],
+   "note": "既定（要確認）: C棟の南面（廊下側）の7戸目の1階の台所の小窓。1戸の幅148。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 1022,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  },
+  {
+   "id": "TRM-11.win-c-8",
+   "wall": "block-c",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    60,
+    1540
+   ],
+   "note": "既定（要確認）: C棟の南面（廊下側）の8戸目の1階の台所の小窓。1戸の幅148。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 1170,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  },
+  {
+   "id": "TRM-11.win-c-9",
+   "wall": "block-c",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    60,
+    1540
+   ],
+   "note": "既定（要確認）: C棟の南面（廊下側）の9戸目の1階の台所の小窓。1戸の幅148。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 1318,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  },
+  {
+   "id": "TRM-11.win-c-10",
+   "wall": "block-c",
+   "wall_side": "south",
+   "status": "default",
+   "along_ref": [
+    60,
+    1540
+   ],
+   "note": "既定（要確認）: C棟の南面（廊下側）の10戸目の1階の台所の小窓。1戸の幅148。窓は1階の1列だけで、上の階は窓を描かない（棟が画面上端で切れて上階を暗示する。kako-jun 指示 2026-11-11）。窓の大きさ・サッシの材質は確認できていない。廊下側は大きな窓が取れず小さな窓になる（片廊下型の一般的な立面。https://www.token.co.jp/estate/useful/archipedia/word.php?jid=00015&wid=03933&wdid=01）（決定 TRM-11.danchi-facade-repeat）",
+   "center": 1466,
+   "width": 50,
+   "kind": "waist",
+   "sill": 50,
+   "height": 45
+  }
+ ],
  "assumptions": [
   "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
   "既定（要確認）: 棟の配置（A・B棟を北に2つ・C棟を南に長く）・遊具・自転車置き場・石段口の位置は設計に無い（台帳は『県営住宅中庭。石段は立位期のみ』のみ）。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
@@ -406,8 +718,8 @@
  ],
  "_provenance": {
   "source": "MAP:TRM-11|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "4a99ba2ecf9404ce535c60e1f0badfb28d7f337521f78ead668164cc9e58bccd",
-  "generated_at": "2026-11-02T13:36",
+  "input_sha": "98defeaf4ce1e846b321f81f5ebc45bc61bd191988d1daaf4207220425180222",
+  "generated_at": "2026-11-11T12:17",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-11-plan",
   "do_not_edit": true
