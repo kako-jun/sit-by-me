@@ -1,12 +1,12 @@
 {
  "adoption": {
   "canonical": "assets/images/fields/reference/teramachi-kindergarten-playroom-trm02-adopted.webp",
-  "canonical_sha256": "673023d42f349cd9c8804b38a3a497f71dda0f8dbf74d8f7bb524b3a68b48201",
-  "image": "docs/production/oblique-mocks/TRM-02/e2/take2.png",
-  "image_sha256": "d53eb64f9a2a6765941a5104c40c34fe9f5a6c6de990cfb4af30ab8879fa4a8e",
+  "canonical_sha256": "6efc69bb916c68f79b3aa06cde23d484474562f91773df7586a6265e511275c5",
+  "image": "docs/production/oblique-mocks/TRM-02/e2/corridor-fit6-trm02.png",
+  "image_sha256": "6adf63bc557e9fd19511569c0a706df3c7237344a36a3e05ea7007d7ed178646",
   "mock_clean_sha256": "3d3db7874e3610a08ea689c63e921898102035e008fc001dc2d78f830e1ad0bd",
   "plan_sha256": "60e79967b1e7fc48a5668d90efc992f010fbe0d049d3554f3497cbc686d48c91",
-  "prompt_sha256": "3accde0bdb64a09dd57852338b14111ba2303146000beab34b45b0bc9a78709c",
+  "prompt_sha256": "834f3614a4e51e512a23c8aa3773c26952c36fdb25765ff441efc8f2a30d854f",
   "size": [
    1672,
    941
