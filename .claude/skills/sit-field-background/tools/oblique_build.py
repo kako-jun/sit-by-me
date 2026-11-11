@@ -957,7 +957,7 @@ def coord_section(p, pool):
          X.text("PR.coord.slab-front", pts=_pts([bl, br, (br[0], br[1] + M.SLAB), (bl[0], bl[1] + M.SLAB)]))]
     L.append(X.text("PR.coord.slab-flute"))
     _t, _g = M.slab_props_text(p["map_id"])
-    L.append(X.text("PR.coord.slab-plain") if (_t, _g) == ("無し", "無し") else X.text("PR.coord.slab-props", tapes=_t, glue=_g))
+    L.append(X.text("PR.coord.slab-plain") if (_t, _g) == ("無し", "無し") else X.text("PR.coord.slab-props", seams=_t))
     ws = p["walls"]
     exterior = any(w.get("kind") == "building" for w in ws)
     x0 = min(w["rect"][0] for w in ws); y0 = min(w["rect"][1] for w in ws); x1 = max(w["rect"][2] for w in ws); y1 = max(w["rect"][3] for w in ws)

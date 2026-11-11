@@ -476,7 +476,9 @@ class PromptReflection
     dup = lines.reject { |_, v| v.include?('この MAP は無し') }.group_by { |_, v| v }.select { |_, g| g.size > 1 }  # 素の段ボール断面だけの MAP は同じ行でよい
     dup.each_value { |g| err(g.map(&:first).join('・'), '台座の前縁の飾りが別の MAP と同じ配置（MAP ごとにランダムにする）') }
     err('台座の前縁の飾り', '全 MAP が同じ配置になっている') if lines.values.uniq.size == 1
-    err('台座の前縁の飾り', 'テープも糊も無い MAP が1つも無い（以前の画像の多数派。一定数作る）') unless lines.values.any? { |v| v.include?('この MAP は無し') }
+    plain = lines.values.count { |v| v.include?('この MAP は無し') }
+    err('台座の前縁の飾り', "素の段ボール断面だけの MAP が過半でない（#{plain}/#{lines.size}。既定は素。テープ・糊は継ぎ目がある所だけ）") unless plain * 2 > lines.size
+    lines.each { |m, v| err(m, '前縁の飾りが継ぎ目に従属していない（継ぎ目の記述が無い）') if !v.include?('この MAP は無し') && !v.include?('継ぎ目') }
   end
 
   # 作業机の上の置き物は MAP ごとにランダム（0 個の MAP がある）で、置き物ありの MAP 同士は同じ組み合わせにならない（決定 SIT.desk-props-random）
@@ -486,7 +488,8 @@ class PromptReflection
 
     some = lines.reject { |_, v| v.include?('この MAP は無し') }
     some.group_by { |_, v| v }.select { |_, g| g.size > 1 }.each_value { |g| err(g.map(&:first).join('・'), '作業机の上の置き物が別の MAP と同じ') }
-    err('作業机の上の置き物', '置き物が0個の MAP が1つも無い') unless lines.values.any? { |v| v.include?('この MAP は無し') }
+    zero = lines.values.count { |v| v.include?('この MAP は無し') }
+    err('作業机の上の置き物', "置き物が0個の MAP が過半でない（#{zero}/#{lines.size}。置く理由の無い MAP に詰め込まない）") unless zero * 2 > lines.size
   end
 
   def check_swatch_sheet_in_refs

@@ -67,7 +67,7 @@
      1
     ]
    },
-   "input_sha": "a4fe7be3c34d0e08679a686aef5a1eda82fa707e3dfd36035ac655c56a056b4a",
+   "input_sha": "82c9a6d6ae86eb38ca2ecc4334a73532e01f282b2057a0589525391b3cb7aecf",
    "outputs": {
     "TRM-05-kids-exits.png": "a8abbbd787c24b34faacad0739b963f5e12c568aaa61c1701a4bf99b86071f13",
     "TRM-05-kids-mask.json": "eeb26a4d6580a59c0ac8b71afc8e98bc9ce70d227dcd15912c795f4891388ce0",
@@ -77,35 +77,35 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "a4fe7be3c34d0e08679a686aef5a1eda82fa707e3dfd36035ac655c56a056b4a",
+   "input_sha": "82c9a6d6ae86eb38ca2ecc4334a73532e01f282b2057a0589525391b3cb7aecf",
    "outputs": {
-    "TRM-05-kids-clean.png": "cd2199141d22c3915a7874f3d6294dee7e6de09ef2783dc260917b494e622fad",
-    "TRM-05-kids-review.png": "538c8d5a016b687c5e59ebf77c408e26280749a81586393b1c488dc37e2d38ad"
+    "TRM-05-kids-clean.png": "cebc0a745f2fa7130ce5f8810aa6f73497707c6c8711b1bd4d2cd8f1ab994c55",
+    "TRM-05-kids-review.png": "bcf1d48945df86ae45d535fb42199dd6d650c4e11866f603bed75855ffdccf83"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "a4fe7be3c34d0e08679a686aef5a1eda82fa707e3dfd36035ac655c56a056b4a",
+   "input_sha": "82c9a6d6ae86eb38ca2ecc4334a73532e01f282b2057a0589525391b3cb7aecf",
    "outputs": {
     "TRM-05-kids-occlusion-depth.png": "3fe559baf24c45d91ed1166c5e6864c36ff618706781b70508aadabdc03246eb",
     "TRM-05-kids-occlusion-edit.png": "c5efe0e6b277136538c6dd47e57d3b1f024d1ca12ce60936f847f8101879751a",
-    "TRM-05-kids-occlusion-overlay.png": "a27d8e6b046763013149e24d0a8742e07031c2a341cb00e438c93084d0312955",
+    "TRM-05-kids-occlusion-overlay.png": "5604f13a636eaa468a515295254e3ef018766e1976edba664a28ede521710ca2",
     "TRM-05-kids-occlusion.json": "402df2a0eea1f8cde67fba560c35e12e8cc2625f8bc71a36474b68a2f1962b57",
     "TRM-05-kids-occlusion.png": "ac42cdcdf27b5bfd8b19e68a3927250b11970a97d73c56293948717b8d36c79b"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "74777bd94480d8d6f801b9b15247caff4115914be4de4204d7664335fe377330",
+   "input_sha": "05b2c5567241e14e632b86a2e33a5ed8f770e8d30a3be62359f4737a174f5559",
    "outputs": {
-    "TRM-05-kids-edit-prompt.txt": "ae6323e6f258b20858eb2b43b9fff8fbc39236f26ed951bc2d4d0246995881eb"
+    "TRM-05-kids-edit-prompt.txt": "a6144a90c2bc2b71a29b8a65597d9ac3160fdae94d1610e6f4b6ccc9680bbe4c"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "63cf5c8ceb83c50f15b8c81d44d75aece267ee3052fd6b9a334aade3d146f869",
+   "input_sha": "5a40aca8e7374996b3803cce36239bff7a41dfcf102b316d4c5b82b526e2f6d1",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -124,7 +124,7 @@
    ]
   },
   "wire": {
-   "input_sha": "ebb3cee6fc66428885746aa8d838ba008dc3bf155c078a7804c7d2afb17ac950",
+   "input_sha": "a4abe684c09fd4be951048868adc8d9eb96a466935daf569dab347ada7835b95",
    "outputs": {
     "wire-TRM-05-kids.png": "9bf2129345690a166682128d58ee1d86477990aaf1f62da55be34aa043ca30af"
    },

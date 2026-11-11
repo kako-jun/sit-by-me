@@ -328,55 +328,44 @@ SLAB_SPEC = X.const_json("slab.props-spec")  # 台座の前縁の飾りのラン
 
 
 def slab_props(map_id):
-    """台座の前縁のテープ（マスキング・透明）と糊（垂れ・にじみ・筋・点）を、MAP ID を種にした決定的な乱数で決める。
-    MAP ごとに違い、位置は不規則（間隔の変動係数が min_gap_cv 以上）。{'tapes': [...], 'glue': [...]}"""
+    """台座の前縁の飾り。既定は素の段ボール断面だけ（テープも糊も無し）。段ボールの板と板の継ぎ目（縦線）が MAP ID を種にした
+    決定的な乱数で 0〜2 本できたときだけ、継ぎ目をまたぐ小さなテープ片と継ぎ目のごくわずかな糊のにじみを置く（理由のない飾りは置かない）。
+    {'seams': [x, ...], 'tapes': [...], 'glue': [...]}。tapes・glue は必ず継ぎ目に従属する。"""
     import hashlib
     import math
     import random
     sp = SLAB_SPEC
     rng = random.Random(int(hashlib.sha256(("slab-props:" + str(map_id)).encode("utf-8")).hexdigest()[:12], 16))
-    if rng.random() < sp.get("plain_ratio", 0):  # テープも糊も無い MAP（素の段ボール断面だけ。以前の画像の多数派）
-        return {"tapes": [], "glue": []}
+    n = rng.choices(sp["seam_count"], weights=sp["seam_weights"])[0]
     x0, x1 = sp["x_range"]
-    n = rng.randint(*sp["tape_count"])
-    xs = []
-    for _ in range(200):
-        cand = sorted(rng.uniform(x0, x1 - sp["tape_len"][1]) for _ in range(n))
-        gaps = [b - a for a, b in zip(cand, cand[1:])]
-        if gaps and min(gaps) < sp["min_gap"]:
-            continue
-        if len(gaps) >= 2:
-            m = sum(gaps) / len(gaps)
-            sd = (sum((g - m) ** 2 for g in gaps) / len(gaps)) ** 0.5
-            if sd / m < sp["min_gap_cv"]:
-                continue
-        xs = cand
-        break
-    else:
-        xs = []
-    tapes = []
-    for x in xs:
+    seams = []
+    for _ in range(300):
+        if len(seams) >= n:
+            break
+        x = int(rng.uniform(x0, x1))
+        if all(abs(x - o) >= sp["min_seam_gap"] for o in seams):
+            seams.append(x)
+    seams.sort()
+    tapes, glue = [], []
+    for sx in seams:
         ln = rng.randint(*sp["tape_len"]); th = rng.randint(*sp["tape_h"]); ang = rng.randint(*sp["angle_deg"])
         yc = rng.uniform(*sp["tape_y"]) + th / 2
-        cx = x + ln / 2
         a = math.radians(ang)
         pts = []
-        for dx, dy in ((-ln / 2, -th / 2), (ln / 2, -th / 2), (ln / 2, th / 2), (-ln / 2, th / 2)):
-            pts.append((round(cx + dx * math.cos(a) - dy * math.sin(a), 1), round(yc + dx * math.sin(a) + dy * math.cos(a), 1)))
+        for dx, dy in ((-ln / 2, -th / 2), (ln / 2, -th / 2), (ln / 2, th / 2), (-ln / 2, th / 2)):  # 継ぎ目に直交してまたぐ（ほぼ水平）
+            pts.append((round(sx + dx * math.cos(a) - dy * math.sin(a), 1), round(yc + dx * math.sin(a) + dy * math.cos(a), 1)))
         bb = [int(min(p[0] for p in pts)), int(min(p[1] for p in pts)), int(max(p[0] for p in pts)) + 1, int(max(p[1] for p in pts)) + 1]
-        tapes.append({"kind": rng.choice(["masking", "clear"]), "len": ln, "h": th, "angle": ang, "pts": pts, "bbox": bb})
-    glue = []
-    for _ in range(rng.randint(*sp["glue_count"])):
-        kind = rng.choice(sp["glue_kinds"])
-        gx = rng.uniform(x0, x1 - 40); gy = rng.uniform(*sp["glue_y"])
-        w, h = {"drip": (rng.randint(10, 18), rng.randint(24, 40)), "blob": (rng.randint(9, 16), rng.randint(9, 16)),
-                "streak": (rng.randint(3, 6), rng.randint(20, 34)), "spot": (rng.randint(5, 8), rng.randint(5, 8))}[kind]
-        glue.append({"kind": kind, "bbox": [int(gx), int(gy), int(gx) + w, int(gy) + h]})
-    return {"tapes": tapes, "glue": glue}
+        tapes.append({"kind": rng.choice(["masking", "clear"]), "seam": sx, "len": ln, "h": th, "angle": ang, "pts": pts, "bbox": bb})
+        if rng.random() < sp["glue_prob"]:  # 継ぎ目の接着でごくわずかにはみ出す程度（小さな点・にじみ）
+            kind = rng.choice(sp["glue_kinds"])
+            w = rng.randint(5, 9) if kind == "blob" else rng.randint(4, 6)
+            gx = sx + rng.randint(-6, 6); gy = rng.uniform(*sp["glue_y"])
+            glue.append({"kind": kind, "seam": sx, "bbox": [int(gx), int(gy), int(gx) + w, int(gy) + w]})
+    return {"seams": seams, "tapes": tapes, "glue": glue}
 
 
 TAPE_JA = {"masking": "マスキングテープ（ベージュ）", "clear": "透明テープ（半透明）"}
-GLUE_JA = {"drip": "白い糊の垂れ", "blob": "白い糊のにじみ", "streak": "細い糊の筋", "spot": "小さな糊の点"}
+GLUE_JA = {"blob": "糊の小さなにじみ", "spot": "糊の小さな点"}
 
 
 DESK_SPEC = X.const_json("desk.props-spec")  # 作業机の上の置き物（台帳 描画定数 desk.props-spec）
@@ -417,7 +406,7 @@ def desk_props(map_id):
         for i in ids:
             for attempt in range(100):
                 rng = random.Random(int(hashlib.sha256(f"desk-props:{i}:{attempt}".encode("utf-8")).hexdigest()[:12], 16))
-                n = rng.randint(*DESK_SPEC["count"])
+                n = rng.choices(DESK_SPEC["count"], weights=DESK_SPEC["count_weights"])[0]
                 kinds = rng.sample(DESK_SPEC["kinds"], n)
                 zones = rng.sample(DESK_SPEC["zones"], n)
                 items = tuple(sorted((k["id"], k["ja"], z) for k, z in zip(kinds, zones)))
@@ -438,13 +427,19 @@ def desk_props_text(map_id):
 
 
 def slab_props_text(map_id):
-    """プロンプト用の文（MAP ごとの配置）。(テープの文, 糊の文)。無ければ『無し』。"""
+    """プロンプト用の文（継ぎ目ごとの配置）。継ぎ目の無い MAP は ('無し', '無し')。(継ぎ目の文, 空)。"""
     pr = slab_props(map_id)
-    def ang(a):
-        return "ほぼ水平" if abs(a) < 4 else ("右上がり" if a < 0 else "右下がり") + f"{abs(a)}度"
-    t = "、".join(f"{TAPE_JA[x['kind']]}{x['len']}x{x['h']}px・{ang(x['angle'])}[{','.join(map(str, x['bbox']))}]" for x in pr["tapes"]) or "無し"
-    g = "、".join(f"{GLUE_JA[x['kind']]}[{','.join(map(str, x['bbox']))}]" for x in pr["glue"]) or "無し"
-    return t, g
+    if not pr["seams"]:
+        return "無し", "無し"
+    parts = []
+    for sx in pr["seams"]:
+        t = next(x for x in pr["tapes"] if x["seam"] == sx)
+        g = [x for x in pr["glue"] if x["seam"] == sx]
+        txt = f"左から{sx}px のあたりに段ボールの継ぎ目があり、継ぎ目をまたいで{TAPE_JA[t['kind']]}の小片が1枚貼ってある（{t['len']}x{t['h']}px[{','.join(map(str, t['bbox']))}]）"
+        if g:
+            txt += f"。継ぎ目に{GLUE_JA[g[0]['kind']]}がごくわずかにはみ出す[{','.join(map(str, g[0]['bbox']))}]"
+        parts.append(txt)
+    return "。また、".join(parts), ""
 
 
 def draw_slab(d, wire, props=True, map_id=None):
@@ -458,7 +453,7 @@ def draw_slab(d, wire, props=True, map_id=None):
     d.line([(bl[0], bl[1] + 8), (br[0], br[1] + 8)], fill="#a07238", width=3)
     d.polygon(top, fill="#f3f7fb")
     if props and map_id is not None:
-        # 台座の前縁の飾りは MAP ごとにランダム（MAP ID を種にした決定的な乱数。等間隔・全マップ共通にしない）
+        # 台座の前縁は素の段ボール断面が既定。継ぎ目があるときだけ、継ぎ目をまたぐテープ・ごくわずかな糊（MAP ID を種にした決定的な乱数）
         pr = slab_props(map_id)
         for t in pr["tapes"]:
             if t["kind"] == "masking":
@@ -466,10 +461,7 @@ def draw_slab(d, wire, props=True, map_id=None):
             else:
                 d.polygon(t["pts"], fill="#e9f1f3", outline="#b9c7cc")
         for g in pr["glue"]:
-            if g["kind"] in ("drip", "blob", "spot"):
-                d.ellipse(g["bbox"], fill="#f6f6f6", outline="#cccccc")
-            else:
-                d.rectangle(g["bbox"], fill="#f6f6f6", outline="#cccccc")
+            d.ellipse(g["bbox"], fill="#f6f6f6", outline="#cccccc")
 
 
 def center_of(poly):

@@ -307,45 +307,50 @@ class MiniatureAndDoors(unittest.TestCase):
 
 
 class SlabPropsRandom(unittest.TestCase):
-    """決定 SIT.base-edge-decor-random: 台座の前縁のテープ・糊は MAP ごとにランダム（等間隔・全マップ共通にしない）。"""
+    """決定 SIT.base-edge-decor-random: 前縁は素の段ボール断面が既定。テープ・糊は継ぎ目（合理的な理由）にだけ。"""
 
     IDS = [Path(p).name.replace("-plan.json", "") for p in PLANS] + ["TRM-05-kids", "TRM-05-fire"]
 
-    def test_deterministic_per_map_and_differs_between_maps(self):
+    def test_deterministic_and_plain_is_majority(self):
         for i in self.IDS:
             self.assertEqual(M.slab_props(i), M.slab_props(i))
-        texts = [M.slab_props_text(i) for i in self.IDS if M.slab_props_text(i) != ("無し", "無し")]
-        self.assertEqual(len(set(texts)), len(texts), "同じ配置の MAP がある")
-        plain = [i for i in self.IDS if M.slab_props_text(i) == ("無し", "無し")]
-        self.assertGreaterEqual(len(plain), 3, "テープも糊も無い MAP が少ない（以前の画像の多数派）")
-        self.assertLess(len(plain), len(self.IDS) - 5)
+        plain = [i for i in self.IDS if not M.slab_props(i)["seams"]]
+        self.assertGreater(len(plain) * 2, len(self.IDS), "素の段ボール断面の MAP が過半でない")
+        self.assertLess(len(plain), len(self.IDS), "継ぎ目のある MAP が無い")
+        for i in plain:
+            pr = M.slab_props(i)
+            self.assertEqual((pr["tapes"], pr["glue"]), ([], []), "継ぎ目が無いのにテープ・糊がある")
+            self.assertEqual(M.slab_props_text(i), ("無し", "無し"))
 
-    def test_tape_spacing_is_not_even_and_counts_vary(self):
-        counts = set()
+    def test_tape_and_glue_only_at_seams_and_seams_differ(self):
+        seam_sets = []
         kinds = set()
-        gkinds = set()
         for i in self.IDS:
             pr = M.slab_props(i)
-            counts.add(len(pr["tapes"]))
-            kinds |= {t["kind"] for t in pr["tapes"]}
-            gkinds |= {g["kind"] for g in pr["glue"]}
-            xs = sorted(t["bbox"][0] for t in pr["tapes"])
-            gaps = [b - a for a, b in zip(xs, xs[1:])]
-            if len(gaps) >= 2:
-                m = sum(gaps) / len(gaps)
-                sd = (sum((g - m) ** 2 for g in gaps) / len(gaps)) ** 0.5
-                self.assertGreater(sd / m, 0.15, f"{i}: テープが等間隔")
-            self.assertLessEqual(len(pr["tapes"]), 5)
-            self.assertLessEqual(len(pr["glue"]), 3)
-        self.assertGreaterEqual(len(counts), 4, "枚数がばらけない")
+            self.assertLessEqual(len(pr["seams"]), 2)
+            for t in pr["tapes"]:
+                self.assertIn(t["seam"], pr["seams"])
+                self.assertLessEqual(t["bbox"][0], t["seam"])
+                self.assertGreaterEqual(t["bbox"][2], t["seam"], "テープが継ぎ目をまたいでいない")
+                self.assertLessEqual(abs(t["angle"]), 4, "継ぎ目に直交してまたぐ（ほぼ水平）")
+                kinds.add(t["kind"])
+            for g in pr["glue"]:
+                self.assertIn(g["seam"], pr["seams"])
+                self.assertLessEqual(abs((g["bbox"][0] + g["bbox"][2]) / 2 - g["seam"]), 12, "糊が継ぎ目から離れている")
+                self.assertLessEqual(g["bbox"][2] - g["bbox"][0], 9, "糊が大きい（ごくわずかにはみ出す程度）")
+            self.assertEqual(len(pr["tapes"]), len(pr["seams"]))
+            if pr["seams"]:
+                seam_sets.append(tuple(pr["seams"]))
+        self.assertEqual(len(seam_sets), len(set(seam_sets)), "継ぎ目の位置が同じ MAP がある")
         self.assertEqual(kinds, {"masking", "clear"})
-        self.assertGreaterEqual(len(gkinds), 3, "糊の形がばらけない")
 
-    def test_prompt_has_per_map_slab_props_line(self):
-        p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-07-plan.json"))
-        t = B.build_prompt_raw(p, "TRM-07")
-        tapes, glue = M.slab_props_text("TRM-07")
-        self.assertIn(X.text("PR.coord.slab-props", tapes=tapes, glue=glue), t)
+    def test_prompt_has_per_map_slab_line(self):
+        for i in ("TRM-07", "TRM-04", "TRM-13", "TRM-02"):
+            p = M.load_plan(str(ROOT / f"docs/production/oblique-mocks/{i}-plan.json"))
+            t = B.build_prompt_raw(p, i)
+            seams, _g = M.slab_props_text(i)
+            want = X.text("PR.coord.slab-plain") if seams == "無し" else X.text("PR.coord.slab-props", seams=seams)
+            self.assertIn(want, t)
 
 
 class DeskPropsRandom(unittest.TestCase):
@@ -371,7 +376,7 @@ class DeskPropsRandom(unittest.TestCase):
             if pr:
                 self.assertNotIn(tuple(pr), seen, f"{i}: 同じ組み合わせ・配置の MAP がある")
                 seen.add(tuple(pr))
-        self.assertIn(0, counts, "置き物が0個の MAP が無い")
+        self.assertGreater(counts.count(0) * 2, len(counts), "置き物0個の MAP が過半でない（置く理由が無い MAP に詰め込まない）")
         self.assertTrue(any(c >= 1 for c in counts))
 
     def test_prompt_has_desk_props_line_and_not_in_mock(self):
