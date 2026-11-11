@@ -1,4 +1,18 @@
 {
+ "adoption": {
+  "canonical": "assets/images/fields/reference/teramachi-grounds-exterior-trm03-adopted.webp",
+  "canonical_sha256": "f01e5ebee81ad1264b043a584a0d1a03e9827b1f8ad985668b58f2fc00b17f06",
+  "image": "docs/production/oblique-mocks/TRM-03/take3-edit2.png",
+  "image_sha256": "7ba9e34faae01a6c9156475d5df55682cbe5a0c3e8e5349b52bc260004d147bb",
+  "mock_clean_sha256": "a71691ce5a9d6be2d845046dd48324c3b9916f2f07b24368e2029755306a0383",
+  "plan_sha256": "b30e4a1d8d5b2fba82e841003a3b96448a3925123fcf6efdc8647cec5b578725",
+  "prompt_sha256": "34c00793a08d8b49dfb53aa490b5d6390e0d52697290df50c4af9abf53de55e1",
+  "size": [
+   1672,
+   941
+  ],
+  "take": 3
+ },
  "ledger": {
   "decisions": [
    "TRM.left-right",
