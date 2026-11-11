@@ -30,6 +30,13 @@ if File.file?(view_builder)
   fail!("MAP生成ビューが台帳と一致しない: #{out.lines.first(3).join(' / ')}") unless status.success?
 end
 
+# 隣り合う屋外MAPのつなぎ目で、道の縁の境界の種類が両側で一致する（決定 SIT.road-edge-solid-boundary、Issue #191）。未決以外の食い違いはFAIL
+seam_checker = File.join(__dir__, 'verify_seam_boundaries.py')
+if File.file?(seam_checker)
+  out, status = Open3.capture2e({'LEDGER_ROOT' => ROOT}, 'uv', 'run', '--with', 'numpy', '--with', 'scipy', '--with', 'opencv-python-headless', '--with', 'pillow', 'python3', seam_checker)
+  fail!("つなぎ目の境界の種類が隣のMAPと食い違う: #{out.lines.grep(/FAIL/).first(3).join(' / ')}") unless status.success?
+end
+
 MAP_ID_PATTERN = "(?:#{JSON.parse(read('topology/map-ids.json')).fetch('areas').keys.join('|')})-\\d{2}"
 
 def ids

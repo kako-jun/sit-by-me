@@ -44,7 +44,7 @@
     1554,
     728
    ],
-   "look": "道の北縁（東）。戸室石の縁石と石蓋の側溝、除雪の雪山、赤白のスノーポール。縁石の向こうは雪の境内側で段差がある。"
+   "look": "道の北縁（東）。戸室石の野面積みの低い石基礎（膝上の高さ）の上に版築の土壁が立つ古い土塀（暗い灰黒の笠瓦に雪の帯、下部の剥落と苔。右端のつなぎ目で TRM-08 の北縁の土塀に続く）。根元に戸室石の縁石と石蓋の側溝、除雪の雪山、赤白のスノーポール。石基礎が作る段差で私有地は道より高い。"
   },
   {
    "id": "b-road-s",
@@ -459,8 +459,8 @@
  ],
  "_provenance": {
   "source": "MAP:TRM-07|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "66baef36e81c5c7ef01fe5de2785daf17d1c3738ec507ffe9d9443e1a60f5ca9",
-  "generated_at": "2026-11-11T14:29",
+  "input_sha": "22cdc192feda15b7767a2f94cffce117400fe2302eeeec5fe03f2ec3f013e95b",
+  "generated_at": "2026-11-11T14:55",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-07-plan",
   "do_not_edit": true

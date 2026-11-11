@@ -14,7 +14,7 @@
     378,
     466
    ],
-   "look": "道の北縁（銭湯の西）。隣の古い土塀（笠瓦に雪、戸室石の基礎、剥落と苔）と、その根元の側溝と除雪の雪山。"
+   "look": "道の北縁（銭湯の西）。左端のつなぎ目では TRM-08 の北縁から続く杉板の板塀（黒ずんだ縦張り、大人の胸の高さ、低い石積みの基礎、道側に除雪の雪の壁）が立ち、銭湯に近づくと隣の古い土塀（笠瓦に雪、戸室石の基礎、剥落と苔）に変わる。その根元の側溝と除雪の雪山。"
   },
   {
    "id": "b-sento-e",
@@ -414,8 +414,8 @@
  "depends_on": [],
  "_provenance": {
   "source": "MAP:TRM-09|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "2447a3997f44eeb6780865b1f0f82b9b30b7f84034fd5db9c7fa195f9333dcde",
-  "generated_at": "2026-11-02T14:27",
+  "input_sha": "82677fabf29734a8fb6b098dc628b392c0d882b7e5063e6b2b0d2c99a67c32a0",
+  "generated_at": "2026-11-11T14:55",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-09-plan",
   "do_not_edit": true

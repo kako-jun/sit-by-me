@@ -232,5 +232,43 @@ class RoadEdgeAndShosetsu(unittest.TestCase):
             self.assertIn(X.text(tid), t, tid)
 
 
+class RoadEdgeVariationAndSeams(unittest.TestCase):
+    """決定 SIT.road-edge-solid-boundary の追記（バリエーションとつなぎ目の連続性。2026-11-11）。"""
+
+    def test_edge_kinds_use_existing_words(self):
+        self.assertEqual(B.edge_kinds("古い土塀。根元に側溝と縁石"), ["土塀", "側溝・縁石"])
+        self.assertEqual(B.edge_kinds("何もない雪面"), [])
+
+    def test_all_same_kind_boundaries_warn(self):
+        bds = [{"id": f"b{i}", "rect": [0, 0, 10, 10], "look": "古い土塀"} for i in range(3)]
+        _, w = B.outdoor_look_problems({"floors": [], "walls": [], "boxes": [], "boundaries": bds}, OUTDOOR_POOL)
+        self.assertTrue(any("すべて同じ種類" in x for x in w))
+        bds[1]["look"] = "側溝と縁石"
+        _, w = B.outdoor_look_problems({"floors": [], "walls": [], "boxes": [], "boundaries": bds}, OUTDOOR_POOL)
+        self.assertFalse(any("すべて同じ種類" in x for x in w))
+
+    def test_seam_mismatches_only_known_undecided(self):
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import verify_seam_boundaries as V
+        mism, _ = B.seam_mismatches()
+        keys = {(m[0], m[1], m[2], m[4], m[5]) for m in mism}
+        self.assertEqual(keys - set(V.KNOWN_UNDECIDED), set())
+
+    def test_adopted_trm08_is_the_reference_for_neighbours(self):
+        p8 = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-08-plan.json"))
+        for nb, side in (("TRM-07", "right"), ("TRM-09", "left")):
+            pn = M.load_plan(str(ROOT / f"docs/production/oblique-mocks/{nb}-plan.json"))
+            e8 = B.seam_edges(p8, "left" if nb == "TRM-07" else "right")
+            en = B.seam_edges(pn, side)
+            self.assertTrue(set(e8["lo"]["kinds"]) & set(en["lo"]["kinds"]), nb)
+
+    def test_prompt_has_seam_with_neighbour_kinds(self):
+        p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-07-plan.json"))
+        t = B.build_prompt(p, "TRM-07")
+        self.assertIn(X.text("PR.seam.head"), t)
+        self.assertIn("TRM-08 と接する", t)
+        self.assertIn("土塀", t.split("TRM-08 と接する")[1].split("\n")[0])
+
+
 if __name__ == "__main__":
     unittest.main()

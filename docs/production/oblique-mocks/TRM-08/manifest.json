@@ -1,4 +1,18 @@
 {
+ "adoption": {
+  "canonical": "assets/images/fields/reference/teramachi-road-well-canal-trm08-adopted.webp",
+  "canonical_sha256": "d35d2e688b9149f40d2d14ad1a9070c9a4a42b79d709a8b823da2cd59cee5c13",
+  "image": "docs/production/oblique-mocks/TRM-08/e2/take1-edit1.png",
+  "image_sha256": "5f0f793e5292bc4d22f457fabef918b340197c6ac60ddb83e107039e53874823",
+  "mock_clean_sha256": "2e9be3e92ab4d370a6dc9ace477d9b17f28653e8f4a336f2577a74c96381c871",
+  "plan_sha256": "861545cbc03ef4d1c83506f81bda65ead765a93eb2fdf50a214d27e27c6a8fe0",
+  "prompt_sha256": "ca0d16578ab3db5ee08af20c1c4b72d5db1b9a55db2208caf238c65ad78b392b",
+  "size": [
+   1672,
+   941
+  ],
+  "take": 1
+ },
  "ledger": {
   "decisions": [
    "TRM.trees-draw",
@@ -17,7 +31,7 @@
  },
  "map_id": "TRM-08",
  "plan": "docs/production/oblique-mocks/TRM-08-plan.json",
- "plan_sha256": "861545cbc03ef4d1c83506f81bda65ead765a93eb2fdf50a214d27e27c6a8fe0",
+ "plan_sha256": "723ebb2989006ab6dd3420a389f0405122b19eca39f36bb894defb2d4c85a966",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -29,7 +43,7 @@
      1
     ]
    },
-   "input_sha": "b6fe086ecf804891a3800bbcc72b9a0dcad5a775c9940a66fc9bc192afdb340a",
+   "input_sha": "5729979eae56a596b374b1f6a54b59e42a676e93b5aaf9b9fd96bc859c8ef968",
    "outputs": {
     "TRM-08-exits.png": "faa07adc493d2e18f39b566db5121793dc451935c1ac31775446cc3b3fdc09ba",
     "TRM-08-mask.json": "922c168ed1f2c9fdeaad1fe277e2e6c0d48a2f2ceb6fa98fefcc30ae56ae1573",
@@ -39,7 +53,7 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "b6fe086ecf804891a3800bbcc72b9a0dcad5a775c9940a66fc9bc192afdb340a",
+   "input_sha": "5729979eae56a596b374b1f6a54b59e42a676e93b5aaf9b9fd96bc859c8ef968",
    "outputs": {
     "TRM-08-clean.png": "2e9be3e92ab4d370a6dc9ace477d9b17f28653e8f4a336f2577a74c96381c871",
     "TRM-08-review.png": "0039ab0cdc918a307fa0233c3feb574a58c3b5e6a2abe39a7412c9ccb64779ca"
@@ -47,7 +61,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "b6fe086ecf804891a3800bbcc72b9a0dcad5a775c9940a66fc9bc192afdb340a",
+   "input_sha": "5729979eae56a596b374b1f6a54b59e42a676e93b5aaf9b9fd96bc859c8ef968",
    "outputs": {
     "TRM-08-occlusion-depth.png": "f2dc9f9a6191bfb1784d795554bd42479b3953569d47df398f76b47fc18ddf03",
     "TRM-08-occlusion-edit.png": "fb445bee88e5e17ccf0db5c05aa48f81c138165fe15ea84ef8564757d197665a",
@@ -58,16 +72,16 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "615110cd6603b72e769bcf7e9e1a3bb3185de259dd81b15d58ec4bf98bf2cf57",
+   "input_sha": "40dc391769ea6787a7489837a83d168eccbf8d3240d6800179a3383ba66ac8e1",
    "outputs": {
-    "TRM-08-edit-prompt.txt": "ca0d16578ab3db5ee08af20c1c4b72d5db1b9a55db2208caf238c65ad78b392b"
+    "TRM-08-edit-prompt.txt": "e7263e7bea2de0ece59d12a6a13c6b6665da61035e82a9c64b8d4be9b3da1aab"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "16afbda42ba2cca3ee7bacf77320788db9c21398775e1d0a50bca3cab76ea07b",
+   "input_sha": "939e60297fff1e01197cbd0f14fb43adec802418be68c4d0367d53ca862e6783",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -80,7 +94,7 @@
    ]
   },
   "wire": {
-   "input_sha": "76ebb69e3093994834fe736c3ad735037cb727fc745ae7af3a0cceeeec62a71a",
+   "input_sha": "e37a61544a6179716be42f06cc3e1fd79e586c1517498f2e6a31876b6de6cc47",
    "outputs": {
     "wire-TRM-08.png": "505b98058978e85eadbdadd2d615625d28c89f62e286b3f99a6391baac2ee1e1"
    },
