@@ -190,9 +190,221 @@ def validate_decor(p, E, Wn):
 # 屋外MAPで実体（look）を必須にする種類（kako-jun 2026-11-02、Issue #191『モックは最低限の位置関係。それ以外は現実の写真を参考に具体的に』『境界はただの色にしない』）
 OUTDOOR_LOOK_KINDS = ("building", "fence", "retaining", "closure", "gate")
 # 歩けない理由として視覚的に読める語（段差・塀・閉じた門・水など）
-BLOCK_REASON_WORDS = ("土塀", "石垣", "生垣", "板塀", "縁石", "段差", "石段", "護岸", "擁壁", "断崖", "閉じた門", "閉じた扉", "門扉", "用水", "水路", "水面", "池の", "川面", "側溝", "堀", "柵", "フェンス", "建物", "外壁", "塀")
+BLOCK_REASON_WORDS = ("土塀", "石垣", "生垣", "板塀", "縁石", "段差", "石段", "護岸", "擁壁", "断崖", "閉じた門", "閉じた扉", "門扉", "用水", "水路", "水面", "池の", "川面", "側溝", "堀", "柵", "フェンス", "建物", "外壁", "塀", "雪囲い", "四つ目垣")  # 雪囲い・四つ目垣は寺町の既存の look（TRM-08 b-w-south・TRM-15 b-branch-w など）に出る語。道の縁の境界の種類 EDGE_KIND_GROUPS と同じ語
 # 『歩けない』と書いただけ・ただの地面、は実体にならない
 _GENERIC_GROUND = {"", "地面", "雪", "雪面", "雪の地面", "雪に覆われた地面", "雪に覆われた地面。"}
+
+
+# 道の縁の実体ゲート（Issue #191。kako-jun 2026-11-11『道路脇に段差や塀や溝がなく、外も歩けるようにみえる』）
+EDGE_CELL = 4          # 平面（土台 1600x1270）の格子（単位）
+EDGE_REACH = 24        # 縁の外側にこの距離（単位）以内に実体の帯・壁・箱・護岸があれば覆われているとみなす
+EDGE_MIN_LEN = 60      # 覆われていない縁がこの長さ（単位）以上なら報告する
+EDGE_BACKDROP_RATIO = 0.4  # 面積が平面のこの割合以上の歩けない床は『背景の地面』であり実体の縁ではない
+
+
+def _rc(r):
+    return [(r[0], r[1]), (r[2], r[1]), (r[2], r[3]), (r[0], r[3])]
+
+
+def road_edge_uncovered(p):
+    """歩ける床の縁のうち、歩けない面（平面の内側）に接するのに、境界の帯（boundaries）・壁・blocked の箱・
+    歩けない理由のある歩けない床のどれも付いていない部分を返す。[(床ID, 長さ(単位), (x0,y0,x1,y1)), ...]。
+    平面の外周に接する辺は隣のMAPへ続く出入口なので対象外。"""
+    import numpy as np
+    import cv2
+    c = EDGE_CELL
+    gw, gh = M.BASE_W // c, M.BASE_D // c
+
+    def mask_of(polys):
+        g = np.zeros((gh, gw), np.uint8)
+        for pl in polys:
+            cv2.fillPoly(g, [np.round(np.array(pl, dtype=float) / c).astype(np.int32)], 255)
+        return g
+
+    shaped = lambda f: "rect" in f or "poly" in f  # noqa: E731  形のある床だけ（形の無い簡易plan は対象外）
+    walk_floors = [f for f in p.get("floors", []) if f.get("walkable", True) and not f.get("no_step") and shaped(f)]
+    if not walk_floors:
+        return []
+    cover = []
+    for bd in p.get("boundaries", []):
+        cover.append(_rc(bd["rect"]) if bd.get("rect") else [tuple(q) for q in bd["poly"]])
+    for w in p.get("walls", []):
+        if "rect" in w:
+            cover.append(_rc(w["rect"]))
+    for b in p.get("boxes", []):
+        if b.get("blocked") and "rect" in b:
+            cover.append(_rc(b["rect"]))
+    for f in p.get("floors", []):
+        if f.get("walkable", True) or not shaped(f):
+            continue
+        pl = M.floor_poly(f)
+        area = abs(cv2.contourArea(np.array(pl, dtype=np.float32)))
+        if area >= EDGE_BACKDROP_RATIO * M.BASE_W * M.BASE_D:
+            continue
+        if any(wd in (f.get("look") or "") for wd in BLOCK_REASON_WORDS):
+            cover.append(pl)
+    k = 2 * (EDGE_REACH // c) + 1
+    cov = cv2.dilate(mask_of(cover), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (k, k)))
+    out = []
+    for f in walk_floors:
+        fm = mask_of([M.floor_poly(f)])
+        others = [o for o in walk_floors if o is not f]
+        other_walk = cv2.dilate(mask_of([M.floor_poly(o) for o in others]), np.ones((5, 5), np.uint8)) if others else np.zeros_like(fm)
+        er = cv2.erode(fm, np.ones((3, 3), np.uint8), borderType=cv2.BORDER_CONSTANT, borderValue=0)
+        edge = (fm > 0) & (er == 0)
+        edge[:2, :] = False; edge[-2:, :] = False; edge[:, :2] = False; edge[:, -2:] = False  # 平面の外周＝隣MAPへの出入口
+        edge &= other_walk == 0  # 別の歩ける床と接する縁は対象外
+        bad = edge & (cov == 0)
+        n_lab, lab = cv2.connectedComponents(bad.astype(np.uint8), connectivity=8)
+        for i in range(1, n_lab):
+            ys, xs = np.where(lab == i)
+            length = max(xs.max() - xs.min(), ys.max() - ys.min()) * c
+            if length >= EDGE_MIN_LEN:
+                out.append((f.get("id"), int(length), (int(xs.min() * c), int(ys.min() * c), int(xs.max() * c), int(ys.max() * c))))
+    return out
+
+
+# 道の縁の境界の種類（バリエーションと、隣のMAPとのつなぎ目の連続性。決定 SIT.road-edge-solid-boundary、Issue #191）
+# 語は BLOCK_REASON_WORDS に合わせた既存の語だけ（造語しない）。look にその語が出てきたら、その種類の境界とみなす。
+EDGE_KIND_GROUPS = (
+    ("土塀", ("土塀",)),
+    ("板塀", ("板塀",)),
+    ("石垣・石積み", ("石垣", "石積み", "擁壁")),
+    ("側溝・縁石", ("側溝", "縁石")),
+    ("用水・護岸", ("用水", "護岸")),
+    ("生垣", ("生垣", "刈り込み")),
+    ("雪囲い", ("雪囲い", "四つ目垣")),
+)
+SEAM_SIDES = ("left", "right", "top", "bottom")
+SEAM_INSET = 70   # 端からこの距離（単位）内側で、道の幅を測る
+SEAM_REACH = 18   # 道の縁からこの距離（単位）外側にある境界を、つなぎ目の境界とみなす
+SEAM_SIDE_JA = {"left": "左", "right": "右", "top": "上", "bottom": "下"}
+SEAM_LOHI_JA = {"left": ("北", "南"), "right": ("北", "南"), "top": ("西", "東"), "bottom": ("西", "東")}
+
+
+def edge_kinds(look):
+    """look の文に出てくる道の縁の境界の種類（EDGE_KIND_GROUPS の名前）の一覧。出てくる順。"""
+    look = look or ""
+    hits = []
+    for name, words in EDGE_KIND_GROUPS:
+        pos = [look.find(w) for w in words if w in look]
+        if pos:
+            hits.append((min(pos), name))
+    return [n for _, n in sorted(hits)]
+
+
+def _seam_items_at(p, x, y):
+    """点 (x, y) を覆う境界の帯・壁・blocked 箱・歩けない小さな床（id, look）。"""
+    import numpy as np
+    import cv2
+
+    def inside(rc, tol=8):
+        return rc[0] - tol <= x <= rc[2] + tol and rc[1] - tol <= y <= rc[3] + tol
+    out = []
+    for b in p.get("boundaries", []):
+        if (b.get("rect") and inside(b["rect"])) or (b.get("poly") and cv2.pointPolygonTest(np.array(b["poly"], np.float32), (float(x), float(y)), True) >= -8):
+            out.append((b.get("id"), b.get("look") or ""))
+    for w in p.get("walls", []):
+        if "rect" in w and inside(w["rect"]):
+            out.append((w.get("id"), w.get("look") or ""))
+    for bx in p.get("boxes", []):
+        if bx.get("blocked") and "rect" in bx and inside(bx["rect"]):
+            out.append((bx.get("id"), bx.get("look") or ""))
+    for fl in p.get("floors", []):
+        if not fl.get("walkable", True) and "poly" not in fl and "rect" in fl and fl["rect"] != [0, 0, M.BASE_W, M.BASE_D] and inside(fl["rect"]):
+            out.append((fl.get("id"), fl.get("look") or ""))
+    return out
+
+
+def seam_edges(p, side):
+    """辺 side（left/right/top/bottom）に接する道の両脇の境界。{'range': (lo, hi), 'lo': {id, look, kinds}, 'hi': {...}}。
+    lo は北（左右の辺）／西（上下の辺）側、hi は南／東側。道が辺に無ければ None。境界が無い側は id=None・kinds=[]。"""
+    import numpy as np
+    import cv2
+    c = 4
+    g = np.zeros((M.BASE_D // c, M.BASE_W // c), np.uint8)
+    for f in p.get("floors", []):
+        if f.get("walkable", True) and not f.get("no_step") and ("rect" in f or "poly" in f):
+            cv2.fillPoly(g, [np.round(np.array(M.floor_poly(f)) / c).astype(np.int32)], 255)
+    vert = side in ("left", "right")
+    if vert:
+        x = SEAM_INSET if side == "left" else M.BASE_W - SEAM_INSET
+        col = g[:, x // c]
+    else:
+        y = SEAM_INSET if side == "top" else M.BASE_D - SEAM_INSET
+        col = g[y // c, :]
+    idx = np.where(col > 0)[0]
+    if len(idx) == 0:
+        return None
+    lo, hi = int(idx.min() * c), int(idx.max() * c)
+    res = {"range": (lo, hi)}
+    for nm, al in (("lo", lo - SEAM_REACH), ("hi", hi + SEAM_REACH)):
+        its = _seam_items_at(p, x, al) if vert else _seam_items_at(p, al, y)
+        # 境界の帯を先に、次に壁・箱・床（_seam_items_at の順）。最初の1つがつなぎ目の境界
+        res[nm] = {"id": its[0][0], "look": its[0][1], "kinds": edge_kinds(its[0][1])} if its else {"id": None, "look": "", "kinds": []}
+    return res
+
+
+def seam_connections(map_id=None):
+    """台帳 接続 の、屋外MAP同士を辺で結ぶ接続（期待=opposite）。[(MAP_A, 辺A, MAP_B, 辺B)]。map_id 指定でそのMAPの接続だけ。"""
+    out = []
+    for r in LIO.read("接続"):
+        if r.get("種別") != "edge" or r.get("期待") != "opposite":
+            continue
+        (ma, sa), (mb, sb) = r["端A"].split(".", 1), r["端B"].split(".", 1)
+        if sa in SEAM_SIDES and sb in SEAM_SIDES and ma.startswith("TRM-") and mb.startswith("TRM-"):
+            if map_id in (None, ma, mb):
+                out.append((ma, sa, mb, sb))
+    return out
+
+
+def _load_plan_for_seam(map_id, plans_dir=None):
+    pp = os.path.join(plans_dir or os.path.join(LIO.REPO, "docs", "production", "oblique-mocks"), f"{map_id}-plan.json")
+    return M.load_plan(pp) if os.path.exists(pp) else None
+
+
+def seam_mismatches(plans_dir=None):
+    """つなぎ目の両側で道の縁の境界の種類が食い違う箇所。戻り: (mismatches, unknown)
+    mismatches: [(MAP_A, 辺A, 側(北/西/南/東), kinds_A, MAP_B, 辺B, kinds_B)]（両側とも種類が読めて、共通の種類が1つも無い）
+    unknown: 片側の境界が無い／種類が読めない（比較できない）箇所。"""
+    mism, unknown = [], []
+    for ma, sa, mb, sb in seam_connections():
+        pa, pb = _load_plan_for_seam(ma, plans_dir), _load_plan_for_seam(mb, plans_dir)
+        if pa is None or pb is None:
+            continue
+        ea, eb = seam_edges(pa, sa), seam_edges(pb, sb)
+        if ea is None or eb is None:
+            continue
+        for nm, ja in zip(("lo", "hi"), SEAM_LOHI_JA[sa]):
+            ka, kb = ea[nm]["kinds"], eb[nm]["kinds"]
+            if not ka or not kb:
+                unknown.append((ma, sa, ja, ka, mb, sb, kb))
+            elif not set(ka) & set(kb):
+                mism.append((ma, sa, ja, ka, mb, sb, kb))
+    return mism, unknown
+
+
+def seam_lines(p):
+    """build_prompt 用: このMAPの各辺について、隣のMAPの道の縁の境界の種類つきで『つなぎ目で続く』文を返す。"""
+    key = p.get("map_id")
+    lines = []
+    for ma, sa, mb, sb in seam_connections(key):
+        mine, side, other, oside = (ma, sa, mb, sb) if ma == key else (mb, sb, ma, sa)
+        po = _load_plan_for_seam(other)
+        pm = p
+        if po is None:
+            continue
+        eo, em = seam_edges(po, oside), seam_edges(pm, side)
+        if eo is None or em is None:
+            continue
+        parts = []
+        for nm, ja in zip(("lo", "hi"), SEAM_LOHI_JA[side]):
+            ko = eo[nm]["kinds"][:2]  # 表示は look に最初に出る主たる1〜2種類（一致判定は全種類で行う）
+            if ko:
+                parts.append(f"{ja}側は{'・'.join(ko)}")
+        if parts:
+            lines.append(X.text("PR.seam.item", side=SEAM_SIDE_JA[side], other=other, kinds="、".join(parts)))
+    return lines
 
 
 def outdoor_look_problems(p, pool):
@@ -226,6 +438,11 @@ def outdoor_look_problems(p, pool):
     for sd in p.get("scenery_doors", []):
         if not (sd.get("look") or "").strip():
             E.append(f"屋外MAP: scenery_doors {sd.get('id')} の look が空欄（閉じている・通行しない景色の扉の材質・形・状態）")
+    for fid, ln, bb in road_edge_uncovered(p):  # 道の縁（歩けない面に接する辺）に境界の実体が付いていない（決定 SIT.road-edge-solid-boundary）
+        Wn.append(f"屋外MAP: 歩ける床 {fid} の縁（長さ約{ln}、範囲 {list(bb)}）に段差・塀・側溝・縁石・護岸などの実体（boundaries・壁・護岸の歩けない面）が付いていない。道の外側が歩けるように見える（決定 SIT.road-edge-solid-boundary、Issue #191）")
+    kinds_per = [edge_kinds(bd.get("look")) for bd in p.get("boundaries", [])]
+    if len(kinds_per) >= 3 and all(k for k in kinds_per) and len({k[0] for k in kinds_per}) == 1 and all(set(k) == {kinds_per[0][0]} for k in kinds_per):
+        Wn.append(f"屋外MAP: boundaries {len(kinds_per)} 本がすべて同じ種類（{kinds_per[0][0]}だけ）。道の縁は段差・側溝・縁石・土塀・石垣・板塀・生垣・護岸などを現実参照で区間ごとに使い分ける（決定 SIT.road-edge-solid-boundary、Issue #191）")
     if not p.get("variation"):
         Wn.append("屋外MAP: plan に variation（足跡・汚れ・土の露出・除雪の雪山・スノーポール・消雪パイプ・電柱など、このMAPの look から来る変化の語）が無い。単調になりやすい（Issue #191）")
     if pool and pool.get("trees"):
@@ -756,6 +973,12 @@ def scenery_sections(p):
     return L
 
 
+def seam_section(p):
+    """屋外MAPの節: 隣のMAPとのつなぎ目で道の縁の境界が続く（隣の境界の種類つき）。接続が無い・隣に境界が無いMAPでは出ない。"""
+    ls = seam_lines(p)
+    return ([X.text("PR.seam.head")] + ls + [""]) if ls else []
+
+
 def build_prompt(p, key, ledger_text=""):
     """imagegen 編集用プロンプト（決定論）。モック=編集元1枚。原文束は台帳（build_map_prompt.rb）に依存するので別セクション。
     文面はすべて台帳『プロンプト文面』（oblique_text.text）。ここは並べ方と差し込みだけ。"""
@@ -766,9 +989,9 @@ def build_prompt(p, key, ledger_text=""):
              X.text("PR.role"),
              X.text("PR.geometry", text=pool["geometry_fixed"]),
              X.text("PR.fill", text=pool["fill_rule"]),
-             *([X.text("PR.reality")] + ([X.text("PR.reality.pool-note", text=pool["reality_note"])] if pool.get("reality_note") else []) if pool.get("outdoor") else []),
+             *([X.text("PR.reality"), X.text("PR.reality.road-edge"), X.text("PR.reality.shosetsu")] + ([X.text("PR.reality.pool-note", text=pool["reality_note"])] if pool.get("reality_note") else []) if pool.get("outdoor") else []),
              door_section(p),
-             *(scenery_sections(p) if pool.get("outdoor") else []),
+             *(scenery_sections(p) + seam_section(p) if pool.get("outdoor") else []),
              X.text("PR.notext"), "",
              ledger_text, "",
              X.text("PR.layers-head")]
@@ -839,6 +1062,8 @@ def build_prompt(p, key, ledger_text=""):
                     fb.append(X.text("PR.forbid.walk-zones", walk=pool["_walk"]))
                 continue
             fb.append(a)
+        if pool.get("outdoor"):  # 屋外の全MAP共通（決定 SIT.road-edge-solid-boundary・SIT.shosetsu-hole-only）。MAP ごとの plan には書かせない
+            fb += [X.text("PR.forbid.road-edge"), X.text("PR.forbid.shosetsu")]
         L += ["", X.text("PR.forbidden-head")] + [f"- {a}" for a in fb]
     L += ["", X.text("PR.assumptions-head")] + [f"- {a}" for a in p.get("assumptions", [])]
     return "\n".join(L) + "\n"

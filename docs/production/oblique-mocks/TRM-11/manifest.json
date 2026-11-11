@@ -73,14 +73,14 @@
   "prompt": {
    "input_sha": "98533464fcc89cd5c4e8892c128b79b08f29fd8bfd93010f5ff39a0ac51ba76c",
    "outputs": {
-    "TRM-11-edit-prompt.txt": "ab6e528f98d76baffc155da2f579e54a64687b19d1007c5ced1571d015c0d41a"
+    "TRM-11-edit-prompt.txt": "2eacde0ac9d1557befb8f252f891f2701984a81158ed5b54c8913df82013a08c"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "1a32f1a6befda0c5d222917f242b8f9bb4c02d91de32f5b0fb39da849c4fa0a9",
+   "input_sha": "555c7f0a4aa0c17f59b3ece352f9d836e79ab5e5c6effde12a141e231f8157cc",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -95,6 +95,8 @@
     "既定（要確認）: TRM-11.door",
     "屋外MAP: 歩けない面 snow の look が空・ただの地面。境界を色の違いだけにしない（土塀・石垣・生垣・縁石・段差・水など実体のある要素にする。Issue #191）",
     "屋外MAP: plan に boundaries（歩ける床の外側の境界物の帯）が無い。床の色の切り替えだけの境界になる（Issue #191）",
+    "屋外MAP: 歩ける床 entry の縁（長さ約300、範囲 [820, 68, 820, 368]）に段差・塀・側溝・縁石・護岸などの実体（boundaries・壁・護岸の歩けない面）が付いていない。道の外側が歩けるように見える（決定 SIT.road-edge-solid-boundary、Issue #191）",
+    "屋外MAP: 歩ける床 entry の縁（長さ約300、範囲 [980, 68, 980, 368]）に段差・塀・側溝・縁石・護岸などの実体（boundaries・壁・護岸の歩けない面）が付いていない。道の外側が歩けるように見える（決定 SIT.road-edge-solid-boundary、Issue #191）",
     "屋外MAP: plan に variation（足跡・汚れ・土の露出・除雪の雪山・スノーポール・消雪パイプ・電柱など、このMAPの look から来る変化の語）が無い。単調になりやすい（Issue #191）"
    ]
   },
