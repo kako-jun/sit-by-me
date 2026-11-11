@@ -306,5 +306,44 @@ class MiniatureAndDoors(unittest.TestCase):
             self.assertEqual(B.scenery_door_front_problems(M.load_plan(pp)), [], pp)
 
 
+class SlabPropsRandom(unittest.TestCase):
+    """決定 SIT.base-edge-decor-random: 台座の前縁のテープ・糊は MAP ごとにランダム（等間隔・全マップ共通にしない）。"""
+
+    IDS = [Path(p).name.replace("-plan.json", "") for p in PLANS] + ["TRM-05-kids", "TRM-05-fire"]
+
+    def test_deterministic_per_map_and_differs_between_maps(self):
+        for i in self.IDS:
+            self.assertEqual(M.slab_props(i), M.slab_props(i))
+        texts = [M.slab_props_text(i) for i in self.IDS]
+        self.assertEqual(len(set(texts)), len(texts), "同じ配置の MAP がある")
+
+    def test_tape_spacing_is_not_even_and_counts_vary(self):
+        counts = set()
+        kinds = set()
+        gkinds = set()
+        for i in self.IDS:
+            pr = M.slab_props(i)
+            counts.add(len(pr["tapes"]))
+            kinds |= {t["kind"] for t in pr["tapes"]}
+            gkinds |= {g["kind"] for g in pr["glue"]}
+            xs = sorted(t["bbox"][0] for t in pr["tapes"])
+            gaps = [b - a for a, b in zip(xs, xs[1:])]
+            if len(gaps) >= 2:
+                m = sum(gaps) / len(gaps)
+                sd = (sum((g - m) ** 2 for g in gaps) / len(gaps)) ** 0.5
+                self.assertGreater(sd / m, 0.15, f"{i}: テープが等間隔")
+            self.assertLessEqual(len(pr["tapes"]), 5)
+            self.assertLessEqual(len(pr["glue"]), 3)
+        self.assertGreaterEqual(len(counts), 4, "枚数がばらけない")
+        self.assertEqual(kinds, {"masking", "clear"})
+        self.assertGreaterEqual(len(gkinds), 3, "糊の形がばらけない")
+
+    def test_prompt_has_per_map_slab_props_line(self):
+        p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-07-plan.json"))
+        t = B.build_prompt_raw(p, "TRM-07")
+        tapes, glue = M.slab_props_text("TRM-07")
+        self.assertIn(X.text("PR.coord.slab-props", tapes=tapes, glue=glue), t)
+
+
 if __name__ == "__main__":
     unittest.main()

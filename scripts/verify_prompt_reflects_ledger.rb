@@ -115,6 +115,7 @@ class PromptReflection
     end
     check_anchors
     check_swatch_sheet_in_refs
+    check_slab_props_varied
     self
   end
 
@@ -428,9 +429,12 @@ class PromptReflection
 
   def check_core_constraints(map_id)
     CORE_WORDS.each { |w| err(map_id, "中核制約『#{w}』がプロンプトに無い（REALITY など後から足した節が押し流していないか）") unless @prompt.include?(w) }
-    # 台座の前縁の飾り（テープ・糊の垂れ）はプロンプトに出さない（子どもの絵をテープで貼る等、台座以外の文は対象外）
-    @lines.select { |l| l.include?('台座') || l.include?('前縁') }.each do |l|
-      %w[マスキングテープ 糊の垂れ 白い糊 接着剤のはみ出し].each { |w| err(map_id, "台座の前縁の飾り『#{w}』がプロンプトにある（決定 SIT.base-edge-no-staged-decor）: #{l[0, 50]}") if l.include?(w) }
+    # 台座の前縁の飾り（テープ・糊）は MAP ごとにランダムな配置の1行（決定 SIT.base-edge-decor-random）。同じ配置の MAP が無いかは run の最後に検査する
+    sl = @lines.find { |l| l.start_with?('- 台座の前縁の飾り（') }
+    if sl.nil?
+      err(map_id, '台座の前縁の飾り（MAP ごとの配置）の行が無い')
+    else
+      (@slab_lines ||= {})[map_id] = sl
     end
     @lines.each do |l|
       err(map_id, "実写・フォトリアルを肯定する文言: #{l[0, 60]}") if l.match?(PHOTOREAL_AFFIRM) && !l.include?('描かない') && !l.include?('しない')
@@ -455,6 +459,16 @@ class PromptReflection
     return unless outdoor_pool?(map_id)
 
     CRAFT_MATERIAL_WORDS.each { |w| err(map_id, "屋外MAPの送信文に材料語『#{w}』が無い（鉄道模型のジオラマの材料表が落ちた）") unless @final.include?(w) }
+  end
+
+  # 台座の前縁の飾りは MAP ごとに違い、全 MAP が同じ配置にならない（決定 SIT.base-edge-decor-random）。等間隔でないことは tests の単体検査で縛る。
+  def check_slab_props_varied
+    lines = (@slab_lines || {})
+    return if lines.size < 2
+
+    dup = lines.group_by { |_, v| v }.select { |_, g| g.size > 1 }
+    dup.each_value { |g| err(g.map(&:first).join('・'), '台座の前縁の飾りが別の MAP と同じ配置（MAP ごとにランダムにする）') }
+    err('台座の前縁の飾り', '全 MAP が同じ配置になっている') if lines.values.uniq.size == 1
   end
 
   def check_swatch_sheet_in_refs
