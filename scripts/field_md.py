@@ -44,6 +44,7 @@ FF_LOOK = [
     "sprite_style: acrylic",
     "battle_enemy_list: window",
     "battle_transition: ff",
+    "field_emotions: field/sit-field-emotions.json",
     "battle_commands: skill, spell, item, escape",
 ]
 ENTRY_EVENT = "opening_battle"
@@ -158,6 +159,12 @@ def render_data(records):
         "",
         f"[人物の形態 目録={FORMS.relative_to(ROOT / 'assets')} 素材=characters]",
         f"[歩行絵 主人公 人物={PARTY[0]} 形態={FORM}]",
+        # 操作画像（手のカーソル=実写的な白手袋・選択中の印=白い磁器の円錐。ドット絵にしない）: docs/systems.md 8・22 行、assets-policy.md UI素材
+        "[操作画像 手=ui/hand-cursor-v1.webp 選択マーク=ui/select-mark-cone-v1.webp]",
+        # 通貨は円（ギルにしない）: docs/decisions.md 183 行
+        "[通貨名: 円]",
+        # フィールドメニュー 9 項目と順序（ロードは入れない）: docs/systems.md 88 行
+        "[メニュー: item, magic, equip, appstore, magicite, job, status, save, config]",
         "",
     ]
     for mid in monster_ids:
@@ -222,6 +229,8 @@ def render_readme(records):
         "",
         "場面開始のトリガー（`場面開始・1回`）は、セーブからの再開直後は name-name の仕様で起こらない。そのため再開点から会話・劇戦闘は自動では始まらない（各再開点の暫定に書く）。",
         "",
+        "見た目の決定の一覧と、画面を見せてよい状態のチェックリスト: [demo-look-list.md](../docs/production/demo-look-list.md)",
+        "",
         "人物の形態の目録（歩行絵・戦闘ポーズの一覧）: `assets/field/sit-character-forms.json`（素材のファイル名から生成）。",
         "",
     ]) + "\n"
@@ -283,6 +292,20 @@ def render_forms():
     return forms_manifest(listing)
 
 
+EMOTIONS = {"!": "exclaim", "?": "question", "...": "dots"}  # 採用済みの3枚（docs/field-emotion-registry.md）
+
+
+def render_emotions():
+    """フィールドの感情吹き出しの宣言 JSON（name-name の field_emotions。種類名 → 宣言）。素材が実在しない種類は FAIL。"""
+    doc = {}
+    for kind, name in EMOTIONS.items():
+        rel = f"effects/field-emotion/field-emotion-{name}.png"
+        if not (ROOT / "assets/images" / rel).is_file():
+            raise SystemExit(f"感情吹き出しの素材がありません: assets/images/{rel}")
+        doc[kind] = {"image": rel}
+    return json.dumps(doc, ensure_ascii=False, indent=2) + "\n"
+
+
 def outputs():
     """[(生成物ID, 種別, 相対パス, 元の表, bytes)]。決定的（時刻・環境に依らない）。"""
     records = {ident: _load(EVENTS / f"{ident}.yaml") for ident in FIELD_EVENTS}
@@ -294,6 +317,7 @@ def outputs():
     ]
     for ident in FIELD_EVENTS:
         items.append((f"G-play-event-{ident}", "name-name 場面md", f"play/events/{ident}.md", f"イベント台帳:{ident}", render_event(records[ident], records)))
+    items.append(("G-play-field-emotions", "感情吹き出しの宣言JSON", "assets/field/sit-field-emotions.json", "assets/images/effects/field-emotion", render_emotions()))
     items.append(("G-play-character-forms", "人物の形態の目録JSON", "assets/field/sit-character-forms.json", "assets/images/characters", render_forms()))
     import resume_saves  # 再開点の台帳 → セーブJSON（同じ scripts/ 内）
 
@@ -316,7 +340,7 @@ def preflight(items):
         path = ROOT / relative
         if not path.exists():
             continue
-        if relative.endswith(".save.json"):
+        if relative.endswith(".save.json") or relative.endswith("sit-field-emotions.json"):
             continue  # セーブ JSON は形式を足せない（鮮度の検査で手編集を検出する）。台帳が正本
         text = path.read_text(encoding="utf-8")
         marked = f'"{FORMS_GENERATED_KEY}"' in text if path.suffix == ".json" else MARKER in text

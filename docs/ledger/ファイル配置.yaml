@@ -717,7 +717,7 @@
   "検査": "uv run python3 scripts/build_ledger.py check"
   "備考": "Issue #250。台帳が正本・編集しない。背景・座標・数値は暫定"
 - "配置ID": "field-character-forms"
-  "パターン": "assets/field/sit-character-forms\\.json"
+  "パターン": "assets/field/sit-(?:character-forms|field-emotions)\\.json"
   "種別": "生成物（人物の形態の目録JSON）"
   "用途": "name-name の [人物の形態 目録=…] が読む、形態ごとのポーズ・歩行絵の一覧。素材のファイル名から生成"
   "所有表": ""

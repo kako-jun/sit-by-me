@@ -44,6 +44,11 @@ class FieldMdCase(unittest.TestCase):
                 dst.mkdir(parents=True, exist_ok=True)
                 for f in src.glob("*.webp"):
                     (dst / f.name).touch()
+        # 感情吹き出しの宣言は素材の実在だけを見るので、空ファイルで足りる
+        emo = self.tmp / "assets/images/effects/field-emotion"
+        emo.mkdir(parents=True)
+        for name in field_md.EMOTIONS.values():
+            (emo / f"field-emotion-{name}.png").touch()
         saved = {k: getattr(field_md, k) for k in ("ROOT", "EVENTS", "OUT", "FORMS")}
         self.addCleanup(lambda: [setattr(field_md, k, v) for k, v in saved.items()])
         saved_rs = {k: getattr(resume_saves, k) for k in ("ROOT", "DIR")}
@@ -144,7 +149,7 @@ class InputValidation(FieldMdCase):
             with self.subTest(bad=bad):
                 path = self.event_path("play_cancelled_promise")
                 original = path.read_text(encoding="utf-8")
-                path.write_text(original.replace('"出現位置": "400,512"', f'"出現位置": "{bad}"'), encoding="utf-8")
+                path.write_text(original.replace('"出現位置": "1330,480"', f'"出現位置": "{bad}"'), encoding="utf-8")
                 with self.assertRaises(SystemExit) as cm:
                     field_md.outputs()
                 self.assertIn("出現位置", str(cm.exception))
@@ -152,7 +157,7 @@ class InputValidation(FieldMdCase):
 
     def test_destination_without_position(self):
         path = self.event_path("play_cancelled_promise")
-        path.write_text(path.read_text(encoding="utf-8").replace('"出現位置": "400,512"\n', ""), encoding="utf-8")
+        path.write_text(path.read_text(encoding="utf-8").replace('"出現位置": "1330,480"\n', ""), encoding="utf-8")
         with self.assertRaises(SystemExit) as cm:
             field_md.outputs()
         self.assertIn("出現位置", str(cm.exception))
@@ -188,7 +193,7 @@ class InputValidation(FieldMdCase):
         self.assertNotIn("[トリガー", self.out("play/events/play_cancelled_promise.md"))
 
     def test_background_without_mask(self):
-        self.edit_event("play_cancelled_promise", '"歩行マスク": "fields/legacy/masks/TRM-08-mask.webp"', '"歩行マスク": ""')
+        self.edit_event("play_cancelled_promise", '"歩行マスク": "fields/masks/TRM-03-exterior-mask.webp"', '"歩行マスク": ""')
         with self.assertRaises(SystemExit) as cm:
             field_md.outputs()
         self.assertIn("歩行マスク", str(cm.exception))
@@ -208,13 +213,13 @@ class Notation(FieldMdCase):
 
     def test_e002_scene_move_just_before_closing(self):
         lines = self.out("play/events/evacuation_after_play.md").rstrip("\n").split("\n")
-        self.assertEqual(lines[-2:], ["[場面移動: play_cancelled_promise @400,512]", "[/イベント]"])
+        self.assertEqual(lines[-2:], ["[場面移動: play_cancelled_promise @1330,480]", "[/イベント]"])
         self.assertNotIn("[トリガー", "\n".join(lines))  # 背景を持たない（E001 の結果から呼ぶ）
 
     def test_e003(self):
         text = self.out("play/events/play_cancelled_promise.md")
         self.assertIn("[トリガー auto scene=play_cancelled_promise once=true]", text)
-        self.assertIn("[プレイヤー @400,512]", text)
+        self.assertIn("[プレイヤー @1330,480]", text)
 
     def test_script_entry(self):
         self.assertIn("[フィールド: opening_battle @700,480]", self.out("play/script.md"))

@@ -39,8 +39,8 @@
     "gold": 0,
     "field": {
       "sceneId": "play_cancelled_promise",
-      "x": 400,
-      "y": 512,
+      "x": 1330,
+      "y": 480,
       "facing": "down"
     }
   }

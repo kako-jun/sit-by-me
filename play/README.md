@@ -29,5 +29,7 @@ name-name の worker が `scriptsDir=play` として `play/` 直下とサブデ�
 
 場面開始のトリガー（`場面開始・1回`）は、セーブからの再開直後は name-name の仕様で起こらない。そのため再開点から会話・劇戦闘は自動では始まらない（各再開点の暫定に書く）。
 
+見た目の決定の一覧と、画面を見せてよい状態のチェックリスト: [demo-look-list.md](../docs/production/demo-look-list.md)
+
 人物の形態の目録（歩行絵・戦闘ポーズの一覧）: `assets/field/sit-character-forms.json`（素材のファイル名から生成）。
 

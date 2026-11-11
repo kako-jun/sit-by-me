@@ -9,6 +9,9 @@ hidden: true
 
 [人物の形態 目録=field/sit-character-forms.json 素材=characters]
 [歩行絵 主人公 人物=C001 形態=elementary]
+[操作画像 手=ui/hand-cursor-v1.webp 選択マーク=ui/select-mark-cone-v1.webp]
+[通貨名: 円]
+[メニュー: item, magic, equip, appstore, magicite, job, status, save, config]
 
 [モンスター M001]
 名前: 段ボールのドラゴン
