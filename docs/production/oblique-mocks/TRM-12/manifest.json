@@ -1,4 +1,18 @@
 {
+ "adoption": {
+  "canonical": "assets/images/fields/reference/teramachi-danchi-room-trm12-adopted.webp",
+  "canonical_sha256": "ea155960e5545fcb1f8d080dbe83f7f3cf3d2dce08b9ce9b31edffed42c5c389",
+  "image": "docs/production/oblique-mocks/TRM-12/e2/take4-edit3.png",
+  "image_sha256": "bb0214f8522579446f9fbf44155db2ff882748e0dbe92a0e57172fa60512af02",
+  "mock_clean_sha256": "a49571169b9686a3aae7a6c675dec87a6d24f949dd9723fb4b75b09a84f17795",
+  "plan_sha256": "b4ba1d94c1fd696821de00e627145130ed05f75e3bc01c8b5323df2d0271892c",
+  "prompt_sha256": "cf208a8c681c7226eae09f751f5fee286ef5f878172bcf68b5e02fbcd1e2b44f",
+  "size": [
+   1672,
+   941
+  ],
+  "take": 4
+ },
  "ledger": {
   "decisions": [
    "TRM.trees-draw",
