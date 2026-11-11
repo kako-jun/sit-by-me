@@ -1060,7 +1060,26 @@ def seam_section(p):
     return ([X.text("PR.seam.head")] + ls + [""]) if ls else []
 
 
+CRAFT_WORDS = sorted((tuple(kv) for kv in X.const_json("craft.words")), key=lambda kv: -len(kv[0]))  # 実物語→工作語（長い語から）。台帳 描画定数 craft.words
+
+
+def craft_words(text):
+    """実物の材質語を工作の素材の言い方に置き換える（D-prime）。決定済みの意匠・形は変えない。"""
+    out = []
+    for line in text.split("\n"):
+        if not line.startswith("MINIATURE MATERIALS:"):  # 方針文は既に工作語で書いてある（置換すると二重になる）
+            for a, b in CRAFT_WORDS:
+                line = line.replace(a, b)
+        out.append(line)
+    return "\n".join(out)
+
+
 def build_prompt(p, key, ledger_text=""):
+    """送信用プロンプト = 組み立て（build_prompt_raw）の最後に実物語→工作語の置換を掛けたもの。"""
+    return craft_words(build_prompt_raw(p, key, ledger_text))
+
+
+def build_prompt_raw(p, key, ledger_text=""):
     """imagegen 編集用プロンプト（決定論）。モック=編集元1枚。原文束は台帳（build_map_prompt.rb）に依存するので別セクション。
     文面はすべて台帳『プロンプト文面』（oblique_text.text）。ここは並べ方と差し込みだけ。"""
     pool = load_decor(p)
@@ -1068,9 +1087,10 @@ def build_prompt(p, key, ledger_text=""):
         pool = outdoor_pool_for_plan(p, pool)
         L = [X.text("PR.title", version=PROMPT_VERSION, key=key), "",
              X.text("PR.role"),
+             X.text("PR.miniature"),
              X.text("PR.geometry", text=pool["geometry_fixed"]),
              X.text("PR.fill", text=pool["fill_rule"]),
-             *([X.text("PR.reality"), X.text("PR.reality.road-edge"), X.text("PR.reality.shosetsu")] + ([X.text("PR.reality.pool-note", text=pool["reality_note"])] if pool.get("reality_note") else []) + [X.text("PR.reality.miniature")] if pool.get("outdoor") else []),
+             *([X.text("PR.reality"), X.text("PR.reality.road-edge"), X.text("PR.reality.shosetsu")] + ([X.text("PR.reality.pool-note", text=pool["reality_note"])] if pool.get("reality_note") else []) if pool.get("outdoor") else []),
              door_section(p),
              *(scenery_sections(p) + seam_section(p) if pool.get("outdoor") else []),
              X.text("PR.notext"), "",

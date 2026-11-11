@@ -98,14 +98,14 @@
   "prompt": {
    "input_sha": "f1f73cd93c210a49bf6093ecd40b303ba8890edc211798fdf4c04af7f0f4870f",
    "outputs": {
-    "TRM-05-kids-edit-prompt.txt": "7139002e364cda92c6a3210cfb4b6daacc07e7243658d983052861b705676c74"
+    "TRM-05-kids-edit-prompt.txt": "dfe9adaa14c83bf4ebd8f98d2b7cea174dc22a1556d15d7c51d29533ef43b30b"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "0a43f6bf1187b60a3ef2b56d22b210db3275e3cf9bba692d0e638558801e7b99",
+   "input_sha": "6c92ac3d599c7dd3ca6c11ad34575ae562ab53a4be6db1868102f1212921bf25",
    "outputs": {},
    "status": "ok",
    "warnings": [

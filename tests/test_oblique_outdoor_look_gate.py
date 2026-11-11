@@ -227,7 +227,7 @@ class RoadEdgeAndShosetsu(unittest.TestCase):
 
     def test_outdoor_prompt_has_road_edge_and_shosetsu_everywhere(self):
         p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-08-plan.json"))
-        t = B.build_prompt(p, "TRM-08")
+        t = B.build_prompt_raw(p, "TRM-08")
         for tid in ("PR.reality.road-edge", "PR.reality.shosetsu", "PR.forbid.road-edge", "PR.forbid.shosetsu"):
             self.assertIn(X.text(tid), t, tid)
 
@@ -273,13 +273,20 @@ class RoadEdgeVariationAndSeams(unittest.TestCase):
 class MiniatureAndDoors(unittest.TestCase):
     """決定 SIT.miniature-materials-not-photoreal・SIT.shosetsu-hole-only(位置)・SIT.scenery-door-not-enterable（2026-11-11）。"""
 
-    def test_outdoor_prompt_has_miniature_after_reality_and_shosetsu_centerline(self):
+    def test_prompt_has_miniature_right_after_role_and_craft_words(self):
         p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-08-plan.json"))
-        t = B.build_prompt(p, "TRM-08")
-        mini = X.text("PR.reality.miniature")
-        self.assertIn(mini, t)
-        self.assertGreater(t.index(mini), t.index("REALITY（屋外"))
-        self.assertIn("綿", mini)
+        raw = B.build_prompt_raw(p, "TRM-08")
+        lines = raw.split("\n")
+        ri = next(i for i, l in enumerate(lines) if l.startswith("ROLE:"))
+        self.assertTrue(lines[ri + 1].startswith("MINIATURE MATERIALS:"))
+        self.assertIn(X.text("PR.miniature"), raw)
+        self.assertIn("STRUCTURE（屋外", raw)
+        self.assertNotIn("REALITY（屋外", raw)
+        final = B.build_prompt(p, "TRM-08")
+        for w in ("版築", "釉薬瓦", "戸室石", "錆", "濡れた艶", "藁すさ"):
+            self.assertNotIn(w, final, w)
+        for w in ("爪楊枝", "割り箸", "鉄道模型", "綿"):
+            self.assertIn(w, final, w)
         self.assertIn("中央線の上", X.text("PR.reality.shosetsu"))
         self.assertIn("入れない見た目", X.text("PR.door.scenery-head"))
 

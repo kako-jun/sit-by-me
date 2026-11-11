@@ -35,7 +35,8 @@ def main():
                 rec["gated"] = miss
             else:
                 ledger_text, _ = LQ.sections(key, p.get("depends_on", []))
-                rec["prompt"] = B.build_prompt(p, key, ledger_text)
+                rec["prompt"] = B.build_prompt_raw(p, key, ledger_text)  # 台帳の文との突き合わせ用（置換前）
+                rec["prompt_final"] = B.craft_words(rec["prompt"])  # 送信用（実物語→工作語の置換後）
                 # 屋外MAPの建物・塀・門の look 未記入（Issue #191）は生成の起動を止める理由。プロンプトの反映検査は走らせる
                 rec["stopped"] = ["look 未記入: " + e for e in look_errs]
             out.append(rec)

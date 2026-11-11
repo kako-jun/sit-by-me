@@ -98,14 +98,14 @@
   "prompt": {
    "input_sha": "83c52aaeb2db468c7eb26c69ac0d10fb3e83db98d6ef38e6a0ccf76a752719f9",
    "outputs": {
-    "TRM-05-fire-edit-prompt.txt": "824f07ad9b02eca8baac3991f890b2dcdf8d8327e3dc7508d55820b720e69396"
+    "TRM-05-fire-edit-prompt.txt": "bd3fcbd0713f283897f61cb7e93ddc26483a4317be360748c24cb019f9c7f216"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "e9995b7b9f5f58d84723dc82a24149937ed30dbc82bd64561b9d1f189ca64b59",
+   "input_sha": "c1fa562f3ea40c651075d263f2c580fc94f68088dd3627cb73e0a8c58b35f311",
    "outputs": {},
    "status": "ok",
    "warnings": [

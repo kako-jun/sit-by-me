@@ -118,14 +118,14 @@
   "prompt": {
    "input_sha": "a8dac10ad9a4b8692934da55eca5f777ab57de1f27e34a9d18c001a5ebc795ab",
    "outputs": {
-    "TRM-03-edit-prompt.txt": "516ce8dce331e16b229712b2d40a107a6767050020599494d4acdcd879edda3d"
+    "TRM-03-edit-prompt.txt": "09f03544d2a9af6910913ec4521b35d907798d1842ed577802896f7327b2d368"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "3495e1d58300025740dce9488c1f38ca1096605ee16bf7aaaa757eefa8af0fd3",
+   "input_sha": "f9e2834fe5896b2958e6312a087ad11e9ed75a5cc48483586d94af62b44102ce",
    "outputs": {},
    "status": "ok",
    "warnings": [

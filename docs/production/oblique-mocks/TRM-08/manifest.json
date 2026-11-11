@@ -74,14 +74,14 @@
   "prompt": {
    "input_sha": "9085cf6c1938539e34f2e3025472a7015dd275d931c6c9def5727831541638db",
    "outputs": {
-    "TRM-08-edit-prompt.txt": "2fcd733a7d701e39e818ac8afd793bb5b571b3de0ae429124d9ed6cd903bce2e"
+    "TRM-08-edit-prompt.txt": "9784f2ad4fea4b6a7f0c3c42c3fc2bf5eb4740db2c9fa2212f4ca7ee057b4c48"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "a44790d89c8ad235b53079ce261de5c7cd7992180005dbd31fe094d4ff7f96f8",
+   "input_sha": "32ae2082275c422a3948e39b50612bd204c8fccaeb18e66747c1f4b90b3896f4",
    "outputs": {},
    "status": "ok",
    "warnings": [
