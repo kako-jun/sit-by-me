@@ -25,7 +25,8 @@
    "TRM-05.futon-chest",
    "TRM-05.partition-openings",
    "TRM.open-passage",
-   "TRM.building-shared"
+   "TRM.building-shared",
+   "SIT.pillow-one-per-futon-right"
   ],
   "era_suffix": "kids",
   "inherits": [
@@ -35,15 +36,15 @@
    "TRM-04.outer-trees",
    "TRM-05.mikan"
   ],
-  "input_sha": "de88ff8d66933a9e1039ab54e7382e9ee72b56d9168b8af87b1e5c6f9c50b8b2",
+  "input_sha": "2c1ec8dd5bf8ed60d2526c2c65222f63676cd0ab607084d014c2326cbe39e6de",
   "references": [
    [
     "TRM-05",
-    null
+    "2134bacb94878e2b0b99eac3b0d9a64f5baeea167559cb8b3e8027f68fd7da5c"
    ],
    [
     "TRM-04",
-    "46027605e2631821ab653cab27c147b8bb5eb5e3dff002130dbb90e634efa81d"
+    "4d74dd71237216233d4daee79f5f4d9b41d425cbe075b8c5916df87c78efbaf1"
    ]
   ],
   "row_id": "TRM-05",
@@ -51,7 +52,7 @@
  },
  "map_id": "TRM-05-kids",
  "plan": "docs/production/oblique-mocks/TRM-05-plan.json",
- "plan_sha256": "15db22b3fd51bea28de3f6326379858f32d5c6d6d064c3e4c9860c9624bb271a+kids",
+ "plan_sha256": "f8f82a1d5fb3d27bdfbca2611f50145617ac8bb0447ac2941899ce63a8e3f132+kids",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -66,7 +67,7 @@
      1
     ]
    },
-   "input_sha": "040c0d4f6705943a01565090bf409e3964158d59f1ff2bc07afd0e5cfa096b45",
+   "input_sha": "326451a0c5c3031391a3b0d7733f1e6fa0df98b4bfd3611a6ab27175959ad518",
    "outputs": {
     "TRM-05-kids-exits.png": "a8abbbd787c24b34faacad0739b963f5e12c568aaa61c1701a4bf99b86071f13",
     "TRM-05-kids-mask.json": "eeb26a4d6580a59c0ac8b71afc8e98bc9ce70d227dcd15912c795f4891388ce0",
@@ -76,7 +77,7 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "040c0d4f6705943a01565090bf409e3964158d59f1ff2bc07afd0e5cfa096b45",
+   "input_sha": "326451a0c5c3031391a3b0d7733f1e6fa0df98b4bfd3611a6ab27175959ad518",
    "outputs": {
     "TRM-05-kids-clean.png": "162c04028636492805c04af79c71d7565c50d0cd008025f87e196515393b7860",
     "TRM-05-kids-review.png": "111151699217d23b0450c63cd00df4f200072532274b6cc17effbfa8dda7db8a"
@@ -84,7 +85,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "040c0d4f6705943a01565090bf409e3964158d59f1ff2bc07afd0e5cfa096b45",
+   "input_sha": "326451a0c5c3031391a3b0d7733f1e6fa0df98b4bfd3611a6ab27175959ad518",
    "outputs": {
     "TRM-05-kids-occlusion-depth.png": "3fe559baf24c45d91ed1166c5e6864c36ff618706781b70508aadabdc03246eb",
     "TRM-05-kids-occlusion-edit.png": "c5efe0e6b277136538c6dd47e57d3b1f024d1ca12ce60936f847f8101879751a",
@@ -95,19 +96,16 @@
    "status": "ok"
   },
   "prompt": {
-   "blocked_base": "TRM-05",
-   "input_sha": "371689e7056525235cba0edf513300706b1ee947f9f243fb5a1e4ecd43c2ad98",
+   "input_sha": "f5e3c6bad2fb4c6dcd46b86cab5c6463559afbbf658b2fac1b52d63aa8c0dd65",
    "outputs": {
-    "TRM-05-kids-edit-prompt.txt": "d2c6cd49243af4fa843b2d71942d067c44d7533765ce7061ed7d629f54a2b5d6"
+    "TRM-05-kids-edit-prompt.txt": "a477de84b768da4ae71a08d88f077915c791372df682544b5f2517b1de96707b"
    },
-   "status": "blocked",
-   "unadopted_dependencies": [
-    "TRM-05"
-   ]
+   "status": "ok",
+   "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "5adb17c75fbd16d7e78e56c783b4828b4b35fca2682e5322fa79f55610d748b1",
+   "input_sha": "f8ba7873309e7007bb8686085182dae8305c84cc3649916564f4b86eb54ab892",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -126,7 +124,7 @@
    ]
   },
   "wire": {
-   "input_sha": "dd8326985c4a87dadc775019c3319a90f4d8207e81e991267565642c8ee07376",
+   "input_sha": "5b176741bae66526fa3103cfda9ca4c0726db764af74b6aec6ddfbd3bceb6e93",
    "outputs": {
     "wire-TRM-05-kids.png": "9bf2129345690a166682128d58ee1d86477990aaf1f62da55be34aa043ca30af"
    },

@@ -10,15 +10,15 @@
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "d23cb9431bbb83957cdea0d4150000927ab77b84b6ac81bdee27873e85693a86",
+  "input_sha": "5c67ac66a4d0d1f9b07d213159039bd9509dcfa3130eece9a5cd350f35b78997",
   "references": [
    [
     "TRM-05",
-    null
+    "2134bacb94878e2b0b99eac3b0d9a64f5baeea167559cb8b3e8027f68fd7da5c"
    ],
    [
     "TRM-03",
-    null
+    "f01e5ebee81ad1264b043a584a0d1a03e9827b1f8ad985668b58f2fc00b17f06"
    ]
   ],
   "row_id": "TRM-06",
@@ -70,15 +70,12 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "0f1fef7569463a2982d96e61ad16fc3ccd4139e92bbf786abff033553b12e261",
+   "input_sha": "92adf69bf40e9aae7437de312f4deecaf2ea11b5e24c36569f4d4130ba8193b2",
    "outputs": {
-    "TRM-06-edit-prompt.txt": "bfa044b98a60cc5be460e12be7c26b83a72b2453933aa1c6e2a4c073a593b52b"
+    "TRM-06-edit-prompt.txt": "98638f15d95d6a4fc7e361d5c4a934402d8234fb1447399aa467565a45f31a4d"
    },
-   "status": "blocked",
-   "unadopted_dependencies": [
-    "TRM-05",
-    "TRM-03"
-   ]
+   "status": "ok",
+   "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],

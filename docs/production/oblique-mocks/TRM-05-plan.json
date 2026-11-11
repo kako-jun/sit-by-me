@@ -60,7 +60,7 @@
    "walkable": true,
    "id": "futon-n",
    "label": "布団",
-   "look": "濃い茶色の木の板張りの床に敷いた、青灰色の掛け布団と白い枕2つの布団。"
+   "look": "濃い茶色の木の板張りの床に敷いた、青灰色の掛け布団と白い枕1つ（布団の右側）の布団。"
   },
   {
    "color": "#b06f78",
@@ -74,7 +74,7 @@
    "walkable": true,
    "id": "futon-s",
    "label": "布団",
-   "look": "濃い茶色の木の板張りの床に敷いた、赤茶の掛け布団と白い枕2つの布団。"
+   "look": "濃い茶色の木の板張りの床に敷いた、赤茶の掛け布団と白い枕1つ（布団の右側）の布団。"
   }
  ],
  "walls": [
@@ -501,7 +501,7 @@
       "walkable": true,
       "id": "futon-n",
       "label": "子の布団",
-      "look": "濃い茶色の木の板張りの床に敷いた、青灰色の掛け布団と白い枕2つの布団。"
+      "look": "濃い茶色の木の板張りの床に敷いた、青灰色の掛け布団と白い枕1つ（布団の右側）の布団。"
      },
      {
       "color": "#b06f78",
@@ -515,7 +515,7 @@
       "walkable": true,
       "id": "futon-s",
       "label": "父の布団",
-      "look": "濃い茶色の木の板張りの床に敷いた、赤茶の掛け布団と白い枕2つの布団。"
+      "look": "濃い茶色の木の板張りの床に敷いた、赤茶の掛け布団と白い枕1つ（布団の右側）の布団。"
      }
     ]
    },
@@ -616,8 +616,8 @@
  },
  "_provenance": {
   "source": "MAP:TRM-05|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "58315ff6194fa0154eca84f3d940d49c2f9f118d39691497e4365e30ff54cc6b",
-  "generated_at": "2026-10-24T04:46",
+  "input_sha": "761510353d11a31848fb007cb8af3cec27a16ea6f99a679cbf6e6524d4206e2f",
+  "generated_at": "2026-11-10T18:33",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-05-plan",
   "do_not_edit": true

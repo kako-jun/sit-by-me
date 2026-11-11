@@ -10,11 +10,11 @@
   ],
   "era_suffix": null,
   "inherits": [],
-  "input_sha": "76569fdc031a4140f2b0ede8af23a1249b37148e55a219c3caf4428f9c0c1caf",
+  "input_sha": "7174ff1404876b7813be0de5b577e276472aa1ca04898139f9e3f1688baa53e4",
   "references": [
    [
     "TRM-03",
-    null
+    "f01e5ebee81ad1264b043a584a0d1a03e9827b1f8ad985668b58f2fc00b17f06"
    ]
   ],
   "row_id": "TRM-16",
@@ -66,14 +66,12 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "503e0bcca113786ccb420cd8571bddbe6c4f99ebf53c8ea9eefb0ae8711f1959",
+   "input_sha": "2e895eccd67118c0fce72d10b57e28b3eff7b58903bd72881fba6687735f12d1",
    "outputs": {
-    "TRM-16-edit-prompt.txt": "9c53d7b74df9c9715a70dfdd41991f0db2df93a88416d7d7f206e6f30a9341a2"
+    "TRM-16-edit-prompt.txt": "7f26a8c03e3284a6dedcf932b5c30a189af95730a53e9594b99c1a8b6ca6416e"
    },
-   "status": "blocked",
-   "unadopted_dependencies": [
-    "TRM-03"
-   ]
+   "status": "ok",
+   "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
