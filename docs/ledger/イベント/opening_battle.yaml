@@ -18,6 +18,7 @@
 "未決": "中断条件（3ターンは仮）、技の具体、シャーの台詞の採否、敵味方IDの名前対応、遷移先と接続、出現位置、敵・味方の数値"
 "背景画像": "fields/play/teramachi-playroom-trm02-play.webp"
 "歩行マスク": "fields/masks/TRM-02-mask.webp"
+"戦闘背景": ""
 "出現位置": "700,480"
 "発火条件": "場面開始・1回"
 "暫定": "背景は採用済み TRM-02 遊戯室（正本 fields/reference/teramachi-kindergarten-playroom-trm02-adopted.webp）を worker の配信上限（1MiB）に収めるため WebP 再圧縮した複製（fields/play/）。マスクは TRM-02-mask.webp（採用画像と同寸 1672x941）。出現位置は歩ける白画素の仮の点。味方の形態は elementary を流用（幼稚園期の歩行絵が無い）。敵・味方の数値（HP など）は data.md の仮値"
