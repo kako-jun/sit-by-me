@@ -28,8 +28,8 @@ class Build(unittest.TestCase):
         self.assertTrue(any("enemy" in p for p in B.pre_check(L)))
 
     def test_non_object_may_overlap_safe_rect(self):
-        # 書き割り・前面は安全矩形に重なってよい（物ではない）
-        self.assertTrue(any(i["kind"] == "front_board" and not i["object"] for i in self.L["items"]))
+        # 書き割り（物ではない）は安全矩形に重なってよい
+        self.assertTrue(any(i["kind"] == "backdrop" and not i["object"] for i in self.L["items"]))
         self.assertEqual(B.pre_check(self.L), [])
 
     def test_back_edge_must_rise_to_the_right(self):
@@ -431,6 +431,47 @@ class Survivors(unittest.TestCase):
             near = np.asarray(im.resize((1672, 941), Image.NEAREST), dtype=int)
             self.assertTrue((out == lan).all())
             self.assertFalse((out == near).all())
+
+
+
+
+class NoFrontEdge(unittest.TestCase):
+    def setUp(self):
+        _, self.L = B.load("BG011")
+
+    def test_layout_has_no_front_items_and_floor_runs_off_the_bottom(self):
+        self.assertFalse(any(i["kind"].startswith("front") for i in self.L["items"]))
+        f = self.L["floor"]
+        self.assertGreater(f["front_left"][1], self.L["canvas"][1])  # 前縁は画面の外
+        self.assertGreater(f["front_right"][1], self.L["canvas"][1])
+
+    def test_prompt_has_floor_line_direction_and_no_front_edge_words(self):
+        text = B.build_prompt(self.L)
+        self.assertIn("奥の縁と同じく右へ上がる向き", text)
+        self.assertIn("手前でも水平にしない", text)
+        for bad in ("前縁は", "前面の濃茶", "段ボールの断面"):
+            self.assertNotIn(bad, text)
+
+    def test_windows_corners_must_be_inside_floor_quad(self):
+        L = copy.deepcopy(self.L)
+        L["floor"]["front_left"] = [0, 840]
+        L["floor"]["front_right"] = [1800, 840]  # 水平な前縁を窓の位置に置くと窓の下側が床の外
+        self.assertTrue(any(p.startswith("枠 status") or p.startswith("枠 cmd") for p in B.pre_check(L)))
+
+    def test_check_zoomed_requires_floor_only_in_window_frames(self):
+        import json, io, contextlib
+        im = Image.new("RGB", (1672, 941), (120, 70, 38))
+        x, y, w, h = next(r["box"] for r in self.L["safe_rects"] if r["id"] == "status")
+        ImageDraw.Draw(im).rectangle([x + 100, y + 20, x + 160, y + 80], fill=(240, 240, 235))
+        with tempfile.TemporaryDirectory() as t:
+            p = Path(t) / "x.png"
+            im.save(p)
+            a = B.argparse.Namespace(bg_id="BG011", image=str(p), out=t, zoomed=True)
+            with contextlib.redirect_stdout(io.StringIO()):
+                rc = B.cmd_check(a)
+            self.assertEqual(rc, 1)
+            rep = json.loads((Path(t) / "report.json").read_text(encoding="utf-8"))
+            self.assertTrue(any("status" in p for p in rep["problems"]))
 
 
 if __name__ == "__main__":

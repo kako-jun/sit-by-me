@@ -10,7 +10,7 @@
       生成後の検査: 実寸、安全矩形を重ねた DIR/overlay.png、城の赤い屋根の位置（城の枠の外・矩形への重なり）。物の有無の最終判断は目視。
       --zoomed（zoom 後の画像）: 城は見切れてよいので屋根が無くてもよく（有れば矩形への重なりだけ見る）、奥の縁の上がりは測らず、代わりに敵・味方の枠が床（濃い茶色の板）の上に載っているか（枠内の床画素の割合）を見る。
   ... ref --out STAGE.png
-      参照見本（TRM-02 の舞台の柱・ランタン・緞帳・書き割りの空と山・舞台板だけを切り出して並べた見本。城・樅を含まない。城・樅の位置は台帳『配置』が正本）。
+      参照見本（TRM-02 の舞台の柱・ランタン・緞帳・書き割りの空と山・舞台板だけを切り出して並べた見本。城・樅・前面を含まない。城・樅の位置は台帳『配置』が正本）。
   ... zoom BG011 IMAGE.png --crop X,Y,W,H --out OUT.png
       クロップ枠（16:9）を 1672x941 に Lanczos 拡大する。元画像は変えない。枠・倍率・元画像の sha256 を OUT の隣の zoom-report.json に残す。座標を守れない・床が傾く時は再生成せずまずこれ（局所合成より先）。
   ... zoom-search BG011 IMAGE.png --out DIR [--scales 1.3,1.5,1.7,...] [--top 8]
@@ -30,7 +30,7 @@ import oblique_text as X  # noqa: E402
 
 KIND_COLOUR = {
     "castle": (250, 250, 250), "fir": (245, 250, 245), "post": (75, 45, 25), "lantern": (214, 176, 70),
-    "curtain": (40, 100, 50), "backdrop": (95, 155, 220), "front_board": (85, 50, 28), "front_card": (190, 150, 90),
+    "curtain": (40, 100, 50), "backdrop": (95, 155, 220),
 }
 FLOOR = (120, 70, 38)
 FLOOR_MIN = 0.95  # check --zoomed が要る枠内の床画素の割合の下限（9割だと城の胴の端・柱の根元が枠に入っても通ったため）
@@ -72,7 +72,7 @@ def pre_check(L):
     f = L["floor"]
     quad = [f["back_left"], f["back_right"], f["front_right"], f["front_left"]]
     for sr in L["safe_rects"]:
-        if sr["id"].startswith("ally") or sr["id"] == "enemy":
+        if sr["id"] != "log":  # 敵・味方の枠と下段の窓の四隅は床の四角形の中（ログ帯は上端の舞台セットがかかってよい）
             x, y, w, h = sr["box"]
             for cn, pt in (("左上", (x, y)), ("右上", (x + w, y)), ("右下", (x + w, y + h)), ("左下", (x, y + h))):
                 if not point_in_quad(pt, quad):
@@ -134,9 +134,6 @@ def build_prompt(L):
                 parts.append(X.text("PR.battle.item-cut", name=it["名"], x0=x, x1=x + w, y1=y + h))
             else:
                 parts.append(X.text("PR.battle.item", name=it["名"], x0=x, x1=x + w, y0=y, y1=y + h))
-    fb = next(i for i in L["items"] if i["kind"] == "front_board")
-    fc = next(i for i in L["items"] if i["kind"] == "front_card")
-    parts.append(X.text("PR.battle.front", a=fb["box"][1], b=fc["box"][1], c=fc["box"][1] + fc["box"][3]))
     parts.append(X.text("PR.battle.only"))
     parts.append(X.text("PR.battle.materials"))
     return "\n\n".join(parts) + "\n"
@@ -160,7 +157,7 @@ def cmd_build(a):
 # TRM-02 の舞台の見本（採用済み画像の座標。城・樅を含まない部分だけ）: (名前, x, y, w, h)
 TRM02 = "assets/images/fields/reference/teramachi-kindergarten-playroom-trm02-adopted.webp"
 REF_PARTS = (("柱・ランタン・左の緞帳", 600, 160, 78, 170), ("空と綿の雲", 705, 205, 70, 50), ("雪山", 677, 258, 85, 28),
-             ("舞台板と前面", 610, 322, 455, 80), ("右の緞帳・柱・ランタン", 1000, 160, 80, 170))
+             ("舞台板", 610, 322, 455, 50), ("右の緞帳・柱・ランタン", 1000, 160, 80, 170))
 
 
 def cmd_ref(a):
@@ -172,7 +169,7 @@ def cmd_ref(a):
     sheet.paste(parts[1], (84, 0))
     sheet.paste(parts[2], (84, 56))
     sheet.paste(parts[4], (400, 0))
-    sheet.paste(parts[3].resize((480, 84)), (0, 176))
+    sheet.paste(parts[3].resize((480, 52)), (0, 176))
     sheet.save(a.out)
     print(f"OK: {a.out}（TRM-02 の舞台の見本。城・樅を含まない）")
 
@@ -200,14 +197,14 @@ OBJ_MAX = 0.005  # 枠内に許す『舞台セットの物ピクセル』の割�
 
 
 def object_mask(px):
-    """舞台セットの物に見える画素: 青空・緑の緞帳・白い粘土や雪や雲・金の房やランタン・赤い屋根・明るい段ボール（床の板の色と前面の濃い板は含まない）。"""
+    """舞台セットの物に見える画素: 青空・緑の緞帳・白い粘土や雪や雲・金の房やランタン・赤い屋根・明るい段ボール（床の板の色は含まない）。"""
     import numpy as np
     r, g, b = px[..., 0], px[..., 1], px[..., 2]
     return (b > r) | (g > r + 8) | (np.minimum(np.minimum(r, g), b) > 175) | (r > 190)
 
 
 def floor_mask(px):
-    """床の板に見える画素のマスク（全画素を一度だけ判定）。物（青空・緑・白・金・明るい段ボール）と、前面の濃い板（周囲 15px の平均の赤が 78 未満）は床でない。板の細い暗い隙間は床のまま。"""
+    """床の板に見える画素のマスク（全画素を一度だけ判定）。物（青空・緑・白・金・明るい段ボール）と、暗すぎる面（周囲 15px の平均の赤が 78 未満。濃い影や前面の板）は床でない。板の細い暗い隙間は床のまま。"""
     from PIL import Image, ImageFilter
     import numpy as np
     r, g, b = px[..., 0], px[..., 1], px[..., 2]
@@ -281,7 +278,7 @@ def cmd_check(a):
         objm = Integral(object_mask(px))
         report["object_fraction"] = {}
         for sr in L["safe_rects"]:
-            if sr["id"].startswith("ally") or sr["id"] == "enemy":
+            if sr["id"] != "log":  # 敵・味方の枠と下段の窓（コマンド・敵名・status）は床の上で、物が無い
                 of = objm.frac(sr["box"])
                 report["object_fraction"][sr["id"]] = round(of, 4)
                 if of > OBJ_MAX:
@@ -301,7 +298,7 @@ def cmd_check(a):
         report["problems"].append("奥の縁（書き割りの下端）が測れない。overlay.png 上で左右の y を測って記録する")
     elif rise < need:
         report["problems"].append(f"奥の縁の上がりが {rise:.1f}px（{need}px 以上が要る。右端が左端より高い）")
-    report["manual"] = "樅・緞帳・柱・ランタン・前縁（テープ糊なし・無地）・ミニチュア感は overlay.png を目視して適合表を作る（奥の縁の上がりは自動測定が不確かなら overlay.png 上で左右の y を測る）"
+    report["manual"] = "樅・緞帳・柱・ランタン・床板の線の向き（奥の縁と同じ右上がりの遠近で、手前ほど間隔が広い）・ミニチュア感は overlay.png を目視して適合表を作る（奥の縁の上がりは自動測定が不確かなら overlay.png 上で左右の y を測る）"
     (out / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps(report, ensure_ascii=False, indent=1))
     return 1 if report["problems"] else 0
@@ -341,11 +338,11 @@ def _candidate(integ, L, scale, cx, cy, obj=None):
         return None
     fr = {}
     for sr in L["safe_rects"]:
-        if sr["id"].startswith("ally") or sr["id"] == "enemy":
+        if sr["id"] != "log":
             x, y, w, h = sr["box"]
             fr[sr["id"]] = integ.frac([cx + x / scale, cy + y / scale, w / scale, h / scale])
     objf = {k: (obj.frac([cx + sr["box"][0] / scale, cy + sr["box"][1] / scale, sr["box"][2] / scale, sr["box"][3] / scale]) if obj else 0.0)
-            for k, sr in ((s["id"], s) for s in L["safe_rects"]) if k.startswith("ally") or k == "enemy"}
+            for k, sr in ((s["id"], s) for s in L["safe_rects"]) if k != "log"}
     return {"scale": scale, "crop": [int(cx), int(cy), cw, ch], "floor_fraction": fr, "object_fraction": objf,
             "ok": all(v >= SEARCH_MARGIN for v in fr.values()) and all(v <= OBJ_MAX for v in objf.values()),
             "set_visible": 1 - integ.frac([cx, cy, cw, ch])}
