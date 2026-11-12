@@ -8,6 +8,8 @@
       生成前の検査（物が安全矩形に重ならないか・床の奥の縁が右上がりか）。通れば DIR/layout.png・DIR/send.txt・DIR/refs.txt を出す。重なれば停止。
   ... check BG011 IMAGE.png --out DIR
       生成後の検査: 実寸、安全矩形を重ねた DIR/overlay.png、城の赤い屋根の位置（城の枠の外・矩形への重なり）。物の有無の最終判断は目視。
+  ... ref --out STAGE.png
+      参照見本（TRM-02 の舞台の柱・ランタン・緞帳・書き割りの空と山・舞台板だけを切り出して並べた見本。城・樅を含まない。城・樅の位置は台帳『配置』が正本）。
   ... mask BG011 castle --out MASK.png
       城の枠だけを白にした局所合成用マスク（image-local-replace で城だけ直す時）。
 """
@@ -71,9 +73,17 @@ def layout_image(L):
     d = ImageDraw.Draw(im)
     f = L["floor"]
     d.polygon([tuple(f["back_left"]), tuple(f["back_right"]), tuple(f["front_right"]), tuple(f["front_left"])], fill=FLOOR)
+    (bx0, by0), (bx1, by1) = f["back_left"], f["back_right"]
+
+    def edge(x):  # 床の奥の縁（右上がりの直線）
+        return by0 + (by1 - by0) * (x - bx0) / (bx1 - bx0)
+
     for it in L["items"]:
         x, y, w, h = it["box"]
-        d.rectangle([x, y, x + w, y + h], fill=KIND_COLOUR[it["kind"]])
+        if it["kind"] == "backdrop":  # 書き割り板の下端は床の奥の縁に沿う
+            d.polygon([(x, y), (x + w, y), (x + w, edge(x + w)), (x, edge(x))], fill=KIND_COLOUR["backdrop"])
+        else:
+            d.rectangle([x, y, x + w, y + h], fill=KIND_COLOUR[it["kind"]])
     return im
 
 
@@ -98,6 +108,8 @@ def build_prompt(L):
 
 
 def cmd_build(a):
+    if not Path(a.stage_ref).is_file():
+        sys.exit(f"--stage-ref {a.stage_ref} が無い（先に ref サブコマンドで作る）")
     _, L = load(a.bg_id)
     problems = pre_check(L)
     if problems:
@@ -108,6 +120,45 @@ def cmd_build(a):
     (out / "send.txt").write_text(build_prompt(L), encoding="utf-8")
     (out / "refs.txt").write_text(f"1. {out / 'layout.png'}（割付図）\n2. {a.stage_ref}（採用済み TRM-02 の舞台部分の切り出し。材料・色・モチーフのみ）\n", encoding="utf-8")
     print(f"OK: {out}/layout.png send.txt refs.txt（生成前の検査 合格: 物は全て安全矩形の外・床の奥の縁は右上がり）")
+
+
+# TRM-02 の舞台の見本（採用済み画像の座標。城・樅を含まない部分だけ）: (名前, x, y, w, h)
+TRM02 = "assets/images/fields/reference/teramachi-kindergarten-playroom-trm02-adopted.webp"
+REF_PARTS = (("柱・ランタン・左の緞帳", 600, 160, 78, 170), ("空と綿の雲", 705, 205, 70, 50), ("雪山", 677, 258, 85, 28),
+             ("舞台板と前面", 610, 322, 455, 80), ("右の緞帳・柱・ランタン", 1000, 160, 80, 170))
+
+
+def cmd_ref(a):
+    from PIL import Image
+    src = Image.open(HERE.parents[3] / TRM02).convert("RGB")
+    parts = [src.crop((x, y, x + w, y + h)) for _, x, y, w, h in REF_PARTS]
+    sheet = Image.new("RGB", (480, 260), (40, 30, 24))
+    sheet.paste(parts[0], (0, 0))
+    sheet.paste(parts[1], (84, 0))
+    sheet.paste(parts[2], (84, 56))
+    sheet.paste(parts[4], (400, 0))
+    sheet.paste(parts[3].resize((480, 84)), (0, 176))
+    sheet.save(a.out)
+    print(f"OK: {a.out}（TRM-02 の舞台の見本。城・樅を含まない）")
+
+
+def edge_rise(px, floor):
+    """生成画像の奥の縁（書き割りの塗り〔青空・白い雪〕の最下端）を中央部の列で測り、床の奥の縁の左右の端の x まで直線で延ばした上がり量(px)を返す。測れなければ None。"""
+    import numpy as np
+    H = px.shape[0]
+    xs, ys = [], []
+    for x in range(420, 1300, 20):
+        col = px[: int(H * 0.6), x, :]
+        blue = (col[:, 2] > col[:, 0] + 25) & (col[:, 2] > col[:, 1])
+        white = col.min(axis=1) > 190
+        idx = np.nonzero(blue | white)[0]
+        if len(idx):
+            xs.append(x)
+            ys.append(int(idx.max()))
+    if len(xs) < 10:
+        return None
+    k, b = np.polyfit(xs, ys, 1)
+    return float(-(k * (floor["back_right"][0] - floor["back_left"][0])))
 
 
 def cmd_check(a):
@@ -148,7 +199,14 @@ def cmd_check(a):
         for sr in L["safe_rects"]:
             if overlap(bx, sr["box"]):
                 report["problems"].append(f"城の屋根 {bx} が安全矩形 {sr['id']} に重なる")
-    report["manual"] = "樅・緞帳・柱・ランタン・前縁（テープ糊なし・無地）・奥の縁の右上がり・ミニチュア感は overlay.png を目視"
+    rise = edge_rise(px, L["floor"])
+    report["back_edge_rise_px"] = None if rise is None else round(rise, 1)
+    need = L["floor"]["min_rise_px"]
+    if rise is None:
+        report["problems"].append("奥の縁（書き割りの下端）が測れない。overlay.png 上で左右の y を測って記録する")
+    elif rise < need:
+        report["problems"].append(f"奥の縁の上がりが {rise:.1f}px（{need}px 以上が要る。右端が左端より高い）")
+    report["manual"] = "樅・緞帳・柱・ランタン・前縁（テープ糊なし・無地）・ミニチュア感は overlay.png を目視して適合表を作る（奥の縁の上がりは自動測定が不確かなら overlay.png 上で左右の y を測る）"
     (out / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps(report, ensure_ascii=False, indent=1))
     return 1 if report["problems"] else 0
@@ -179,12 +237,14 @@ def main(argv=None):
     c.add_argument("bg_id")
     c.add_argument("image")
     c.add_argument("--out", required=True)
+    rf = sub.add_parser("ref")
+    rf.add_argument("--out", required=True)
     m = sub.add_parser("mask")
     m.add_argument("bg_id")
     m.add_argument("item")
     m.add_argument("--out", required=True)
     a = ap.parse_args(argv)
-    r = {"build": cmd_build, "check": cmd_check, "mask": cmd_mask}[a.cmd](a)
+    r = {"build": cmd_build, "check": cmd_check, "mask": cmd_mask, "ref": cmd_ref}[a.cmd](a)
     return r or 0
 
 

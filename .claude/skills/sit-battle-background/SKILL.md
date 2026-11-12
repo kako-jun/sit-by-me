@@ -70,10 +70,10 @@ description: Sit by Me の戦闘背景を、対応フィールドMAPと既存戦
 
 手で送信文を書かない・手で割付図を描かない・場当たりの合成をしない。足りない所があれば、生成の前にこのスキル（SKILL.md・tools・台帳）を直す。
 
-1. 参照見本: `magick assets/images/fields/reference/teramachi-kindergarten-playroom-trm02-adopted.webp -crop 480x260+600+150 +repage <作業>/stage-ref.png`（TRM-02 の舞台部分。材料・色・モチーフだけの見本）。
+1. 参照見本: `uv run --with pillow python3 -I .claude/skills/sit-battle-background/tools/battle_bg_build.py ref --out <作業>/stage-ref.png`（TRM-02 の舞台の柱・ランタン・緞帳・書き割りの空と山・舞台板だけを並べた見本。**城・樅を含まない**。城・樅の位置は台帳『配置』が正本で、見本に城・樅があると構図を写して座標を無視する〔BG011 take2〜6〕）。
 2. `uv run --with pillow --with numpy python3 -I .claude/skills/sit-battle-background/tools/battle_bg_build.py build BG011 --stage-ref <作業>/stage-ref.png --out <作業>/` → 生成前の検査（物が安全矩形に重ならない・床の奥の縁が右上がり）に通れば `layout.png`（割付図・clean）・`send.txt`・`refs.txt` が出る。落ちたら生成せず台帳の『配置』を直す。
-3. `codex exec -s workspace-write --skip-git-repo-check -i <layout.png> -i <stage-ref.png> < send.txt` を1回だけ（参照は割付図→見本の順。リトライなし）。出力は codex.log の `session id:` と一致するセッション配下から無加工で回収する。
-4. `... battle_bg_build.py check BG011 <画像> --out <作業>/` → 実寸・安全矩形の重ね画像 `overlay.png`・城の赤い屋根の位置を検査（城が枠の外／矩形に重なれば NG）。樅・緞帳・柱・ランタン・前縁（無地）・奥の縁の右上がり・ミニチュア感は `overlay.png` を目視して適合表にする。
+3. `codex exec -s workspace-write --skip-git-repo-check -i <layout.png> -i <stage-ref.png> < send.txt` を1回だけ（参照は割付図→見本の順。リトライなし。`send.txt` の先頭に `$imagegen` 起動文が入っている）。出力は codex.log の `session id:` と一致するセッション配下から無加工で回収する。
+4. `... battle_bg_build.py check BG011 <画像> --out <作業>/` → 実寸・安全矩形の重ね画像 `overlay.png`・城の赤い屋根の位置と奥の縁の右上がり（書き割りの下端を測り、床の奥の縁の左右の端まで延ばした上がり量が `配置.floor.min_rise_px` 以上か。1920×1080 の 40 logical px を実px に換算した値）を検査（城が枠の外／矩形に重なる、または上がり不足なら NG）。**check が NG の時は再生成せず手順5へ。**樅・緞帳・柱・ランタン・前縁（無地）・奥の縁の右上がり・ミニチュア感は `overlay.png` を目視して適合表にする。
 5. 城などが座標を守れず NG の時: 同じ送信文の再生成は繰り返さない。`battle_bg_build.py mask BG011 castle --out <mask>` で城の枠のマスクを作り、`image-local-replace` スキル（マスク内だけ直し、マスク外は画素同一を検証）で城だけ局所合成する。割付図・マスクは台帳『配置』から機械生成したものだけを使う。
 6. `tools/battle_base.py` は旧来の平行投影（俯角65度）の下絵ツールで、BG011 の手順では使わない（U-2912 の数値未決のため）。
 

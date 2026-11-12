@@ -59,7 +59,7 @@ class Build(unittest.TestCase):
             self.assertEqual(B.cmd_check(a), 1)
 
     def test_check_passes_castle_in_box(self):
-        im = Image.new("RGB", tuple(self.L["canvas"]), (90, 60, 40))
+        im = B.layout_image(self.L)
         d = ImageDraw.Draw(im)
         for x in (740, 790, 840):
             d.polygon([(x, 230), (x + 20, 140), (x + 40, 230)], fill=(200, 60, 40))
@@ -68,6 +68,135 @@ class Build(unittest.TestCase):
             im.save(p)
             a = B.argparse.Namespace(bg_id="BG011", image=str(p), out=t)
             self.assertEqual(B.cmd_check(a), 0)
+
+
+
+
+def _png(L, painter):
+    im = Image.new("RGB", tuple(L["canvas"]), (90, 60, 40))
+    painter(ImageDraw.Draw(im))
+    return im
+
+
+class Mutants(unittest.TestCase):
+    """検査の閾値・分岐を変えると落ちること（変異テスト）。"""
+
+    def setUp(self):
+        _, self.L = B.load("BG011")
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+
+    def run_check(self, im, L=None):
+        p = Path(self.tmp.name) / "x.png"
+        im.save(p)
+        orig = B.load
+        if L is not None:
+            B.load = lambda bg: (None, L)
+        try:
+            a = B.argparse.Namespace(bg_id="BG011", image=str(p), out=self.tmp.name)
+            import io, contextlib
+            with contextlib.redirect_stdout(io.StringIO()):
+                rc = B.cmd_check(a)
+            import json
+            return rc, json.loads((Path(self.tmp.name) / "report.json").read_text(encoding="utf-8"))
+        finally:
+            B.load = orig
+
+    def roofs(self, d, xs=(740, 790, 840), top=140):
+        for x in xs:
+            d.polygon([(x, top + 90), (x + 20, top), (x + 40, top + 90)], fill=(200, 60, 40))
+
+    def test_roof_just_outside_castle_box_tolerance_fails(self):  # M6
+        # 枠 x715〜905 の右へ 40px はみ出す（許容30）屋根
+        rc, rep = self.run_check(_png(self.L, lambda d: self.roofs(d, xs=(900, 950, 1000))))
+        self.assertTrue(any("城の枠" in p for p in rep["problems"]))
+
+    def test_wrong_size_fails(self):  # M7
+        rc, rep = self.run_check(Image.new("RGB", (1920, 1080), (90, 60, 40)))
+        self.assertFalse(rep["size_ok"])
+        self.assertEqual(rc, 1)
+
+    def test_few_red_pixels_means_castle_not_detected(self):  # M8
+        def small(d):
+            d.rectangle([760, 150, 770, 160], fill=(200, 60, 40))  # 121画素 < 200
+        rc, rep = self.run_check(_png(self.L, small))
+        self.assertIsNone(rep["castle_roof"])
+        self.assertTrue(any("検出できない" in p for p in rep["problems"]))
+
+    def test_empty_layout_stops(self):  # M9
+        orig = B.LIO.read
+        B.LIO.read = lambda t: [{"背景ID": "BG011", "配置": " "}]
+        try:
+            with self.assertRaises(SystemExit):
+                B.load("BG011")
+        finally:
+            B.LIO.read = orig
+
+    def test_missing_stage_ref_stops_build(self):
+        a = B.argparse.Namespace(bg_id="BG011", stage_ref="/nonexistent/stage.png", out=self.tmp.name)
+        with self.assertRaises(SystemExit):
+            B.cmd_build(a)
+
+
+class Boundaries(unittest.TestCase):
+    def setUp(self):
+        _, self.L = B.load("BG011")
+
+    def rise_problem(self, rise):
+        L = copy.deepcopy(self.L)
+        L["floor"]["back_right"] = [1560, L["floor"]["back_left"][1] - rise]
+        return any("上がり" in p for p in B.pre_check(L))
+
+    def test_rise_35_passes_34_fails(self):
+        self.assertFalse(self.rise_problem(35))
+        self.assertTrue(self.rise_problem(34))
+
+    def test_touching_edges_are_not_overlap(self):
+        self.assertEqual(B.overlap([0, 0, 10, 10], [10, 0, 10, 10]), 0)
+        self.assertEqual(B.overlap([0, 0, 10, 10], [0, 10, 10, 10]), 0)
+        self.assertGreater(B.overlap([0, 0, 10, 10], [9, 0, 10, 10]), 0)
+
+    def test_item_flush_against_safe_rect_passes(self):
+        L = copy.deepcopy(self.L)
+        castle = next(i for i in L["items"] if i["kind"] == "castle")
+        castle["box"] = [708, 135, 190, 120]  # 敵の枠の右端(708)にちょうど接する
+        self.assertFalse(any("enemy" in p for p in B.pre_check(L) if "castle" in p))
+
+    def test_item_outside_frame_is_rejected(self):
+        L = copy.deepcopy(self.L)
+        castle = next(i for i in L["items"] if i["kind"] == "castle")
+        castle["box"] = [1600, 135, 190, 110]
+        self.assertTrue(any("はみ出す" in p for p in B.pre_check(L)))
+        castle["box"] = [715, 135, 190, 110 + 900]
+        self.assertTrue(any("はみ出す" in p for p in B.pre_check(L)))
+
+
+class BackEdge(unittest.TestCase):
+    def setUp(self):
+        _, self.L = B.load("BG011")
+
+    def layout_with_rise(self, rise):
+        L = copy.deepcopy(self.L)
+        L["floor"]["back_right"] = [1560, L["floor"]["back_left"][1] - rise]
+        return L
+
+    def test_measured_rise_of_layout_image(self):
+        import numpy as np
+        L = self.L
+        px = np.asarray(B.layout_image(L), dtype=int)
+        rise = B.edge_rise(px, L["floor"])
+        self.assertIsNotNone(rise)
+        self.assertGreater(rise, 80)  # 割付図は 95px
+
+    def test_small_rise_fails_check(self):
+        # take6 のような約20px の上がり: 床の奥の縁を 20px 上がりにした割付図を検査に通す
+        L = self.layout_with_rise(20)
+        im = B.layout_image(L)
+        m = Mutants("test_wrong_size_fails")
+        m.setUp()
+        rc, rep = m.run_check(im, L)
+        m.tmp.cleanup()
+        self.assertTrue(any("奥の縁の上がり" in p for p in rep["problems"]))
 
 
 if __name__ == "__main__":
