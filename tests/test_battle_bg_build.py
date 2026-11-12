@@ -952,5 +952,48 @@ class PlankSeams(unittest.TestCase):
         self.assertFalse(B.object_mask(px).any())
 
 
+
+
+class DetectorCalibration(unittest.TestCase):
+    """検査の較正値（seams の k・金の塊のサイズ）を固定する試験。値を変えると落ちる。"""
+
+    def test_seam_depth_threshold_k_is_2_5(self):
+        import numpy as np
+        _, L = B.load("BG011")
+        pl = L["床板"]
+
+        def count(depth):
+            a = np.full((941, 1672), 90.0)
+            for y in range(260, 900, 20):
+                a[y:y + 3, :] = 90.0 - depth  # 谷の深さ depth の継ぎ目
+            return len(B.plank_seams(a, 650, 900, pl["y0"], pl["y1"], pl["k"], pl["gap"], pl["win"]))
+        self.assertEqual(pl["k"], 2.5)
+        self.assertGreater(count(6.0), 20)  # 深い谷は数える
+        self.assertEqual(count(1.5), 0)     # 浅い谷（k=1.5 に下げると数えてしまう）は数えない
+
+    def test_gold_block_requires_23_of_25_pixels(self):
+        import numpy as np
+
+        def block(missing):
+            px = np.full((30, 30, 3), (110, 66, 38), dtype=int)
+            px[10:15, 10:15] = (200, 160, 40)
+            for dy, dx in missing:
+                px[10 + dy, 10 + dx] = (110, 66, 38)
+            return B.gold_mask(px).any()
+        self.assertTrue(block([]))                      # 25/25
+        self.assertTrue(block([(0, 0), (4, 4)]))        # 23/25（閾値ちょうど。25 に上げる変異を落とす）
+        self.assertFalse(block([(0, 0), (4, 4), (0, 4)]))  # 22/25（21 に下げる変異を落とす）
+
+    def test_real_images_regression_wide_vs_narrow_planks(self):
+        """BG011 の採用画像（take11）は継ぎ目線が合格線以上、BG012（板張りでない）は検出器では区別できない事実を固定する。"""
+        import numpy as np
+        _, L = B.load("BG011")
+        pl = L["床板"]
+        g = np.asarray(Image.open(REAL / "assets/images/battle-backgrounds/BG011.webp").convert("L"))
+        counts = [len(B.plank_seams(g, x0, x1, pl["y0"], pl["y1"], pl["k"], pl["gap"], pl["win"])) for x0, x1 in pl["strips"]]
+        self.assertEqual(counts, [30, 32])
+        self.assertGreaterEqual(min(counts), pl["min_seams"])
+
+
 if __name__ == "__main__":
     unittest.main()
