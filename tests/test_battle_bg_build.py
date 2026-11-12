@@ -62,7 +62,7 @@ class Build(unittest.TestCase):
         im = B.layout_image(self.L)
         d = ImageDraw.Draw(im)
         for x in (740, 790, 840):
-            d.polygon([(x, 230), (x + 20, 140), (x + 40, 230)], fill=(200, 60, 40))
+            d.polygon([(x, 85), (x + 20, 5), (x + 40, 85)], fill=(200, 60, 40))
         with tempfile.TemporaryDirectory() as t:
             p = Path(t) / "x.png"
             im.save(p)
@@ -165,6 +165,7 @@ class Boundaries(unittest.TestCase):
     def test_item_outside_frame_is_rejected(self):
         L = copy.deepcopy(self.L)
         castle = next(i for i in L["items"] if i["kind"] == "castle")
+        castle["cutoff"] = False
         castle["box"] = [1600, 135, 190, 110]
         self.assertTrue(any("はみ出す" in p for p in B.pre_check(L)))
         castle["box"] = [715, 135, 190, 110 + 900]
@@ -276,6 +277,38 @@ class ZoomSearch(unittest.TestCase):
         c = B._candidate(B.Integral(mask), self.L, 1.0, 0, 0)
         self.assertFalse(c["ok"])
         self.assertIsNone(B._candidate(integ, self.L, 1.0, 100, 0))  # 画像の外へはみ出す枠
+
+
+
+
+class Cutoff(unittest.TestCase):
+    def setUp(self):
+        _, self.L = B.load("BG011")
+        self.castle = next(i for i in self.L["items"] if i["kind"] == "castle")
+
+    def test_cutoff_item_may_leave_the_frame_and_touch_log_band(self):
+        self.assertTrue(self.castle.get("cutoff"))
+        self.assertLess(self.castle["box"][1], 0)  # 画面の上へはみ出す
+        self.assertEqual(B.pre_check(self.L), [])
+
+    def test_non_cutoff_item_may_not_leave_the_frame(self):
+        self.castle["cutoff"] = False
+        self.assertTrue(any("はみ出す" in p for p in B.pre_check(self.L)))
+
+    def test_cutoff_does_not_excuse_overlap_with_ally_frames(self):
+        self.castle["box"] = [950, -40, 190, 200]  # 味方1枠(920,78)に入る
+        self.assertTrue(any("ally1" in p for p in B.pre_check(self.L)))
+
+    def test_cutoff_prompt_uses_cut_phrase(self):
+        text = B.build_prompt(self.L)
+        self.assertIn("画面の上端で見切れて描く", text)
+
+    def test_floor_back_edge_clears_ally1_top(self):
+        f = self.L["floor"]
+        (x0, y0), (x1, y1) = f["back_left"], f["back_right"]
+        y_at_920 = y0 + (y1 - y0) * (920 - x0) / (x1 - x0)
+        self.assertLessEqual(y_at_920, 78)  # 奥の縁が味方1枠の上端より上
+        self.assertLessEqual(y0, 184.5)  # 左は敵の枠の上端より上
 
 
 if __name__ == "__main__":

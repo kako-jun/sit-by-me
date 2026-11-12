@@ -60,10 +60,13 @@ def pre_check(L):
     W, H = L["canvas"]
     for it in L["items"]:
         x, y, w, h = it["box"]
-        if x < 0 or y < 0 or x + w > W or y + h > H:
+        cut = it.get("cutoff", False)  # 上端・左右端で見切れてよい舞台セット（画面の外へ出てよい。ログ帯への重なりも許す）
+        if not cut and (x < 0 or y < 0 or x + w > W or y + h > H):
             problems.append(f"{it['id']}: 画面の外にはみ出す")
         if it["object"]:
             for sr in L["safe_rects"]:
+                if cut and sr["id"] == "log":
+                    continue
                 if overlap(it["box"], sr["box"]):
                     problems.append(f"{it['id']}（{it['名']}）が安全矩形 {sr['id']}（{sr['名']}）に重なる")
     f = L["floor"]
@@ -85,7 +88,7 @@ def layout_image(L):
     def edge(x):  # 床の奥の縁（右上がりの直線）
         return by0 + (by1 - by0) * (x - bx0) / (bx1 - bx0)
 
-    for it in L["items"]:
+    for it in sorted(L["items"], key=lambda i: i["kind"] != "backdrop"):  # 書き割りを先に描き、その前に物を重ねる
         x, y, w, h = it["box"]
         if it["kind"] == "backdrop":  # 書き割り板の下端は床の奥の縁に沿う
             d.polygon([(x, y), (x + w, y), (x + w, edge(x + w)), (x, edge(x))], fill=KIND_COLOUR["backdrop"])
@@ -105,7 +108,10 @@ def build_prompt(L):
     for it in L["items"]:
         if it["object"] or it["kind"] == "backdrop":
             x, y, w, h = it["box"]
-            parts.append(X.text("PR.battle.item", name=it["名"], x0=x, x1=x + w, y0=y, y1=y + h))
+            if it.get("cutoff"):
+                parts.append(X.text("PR.battle.item-cut", name=it["名"], x0=x, x1=x + w, y1=y + h))
+            else:
+                parts.append(X.text("PR.battle.item", name=it["名"], x0=x, x1=x + w, y0=y, y1=y + h))
     fb = next(i for i in L["items"] if i["kind"] == "front_board")
     fc = next(i for i in L["items"] if i["kind"] == "front_card")
     parts.append(X.text("PR.battle.front", a=fb["box"][1], b=fc["box"][1], c=fc["box"][1] + fc["box"][3]))
@@ -233,6 +239,8 @@ def cmd_check(a):
         if not a.zoomed and (bx[0] < x - tol or bx[1] < y - tol or bx[0] + bx[2] > x + w + tol or bx[1] + bx[3] > y + h + tol):
             report["problems"].append(f"城の屋根 {bx} が城の枠 {castle['box']}（±{tol}）の外")
         for sr in L["safe_rects"]:
+            if (a.zoomed or castle.get("cutoff")) and sr["id"] == "log":
+                continue  # 見切れてよい上端の舞台セットはログ帯にかかってよい
             if overlap(bx, sr["box"]):
                 report["problems"].append(f"城の屋根 {bx} が安全矩形 {sr['id']} に重なる")
     if a.zoomed:
