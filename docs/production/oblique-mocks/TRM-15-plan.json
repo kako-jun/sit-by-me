@@ -216,6 +216,48 @@
    "look": "道と細道の外の私有地・空き地の雪面（歩けない部分）。用水の護岸・板塀・生垣・縁石で道から隔たれ、道より膝丈ほど高いか水路を挟み、入れない。雪は厚く起伏し、黒い土と枯れ草の露出、足跡がある。"
   },
   {
+   "color": "#7fb0d8",
+   "label_at": [
+    300,
+    277
+   ],
+   "poly": [
+    [
+     0,
+     242
+    ],
+    [
+     596,
+     242
+    ],
+    [
+     1060,
+     650
+    ],
+    [
+     1008,
+     694
+    ],
+    [
+     618,
+     324
+    ],
+    [
+     600,
+     312
+    ],
+    [
+     0,
+     312
+    ]
+   ],
+   "surface": "water",
+   "walkable": false,
+   "id": "canal",
+   "label": "用水",
+   "look": "雪の中を流れる用水。戸室石を野面積みにした石積み護岸の細い水路で、水面は青緑がかった灰青、雪解け水が細かい波を立て、縁に氷と雪の帯が張り出す。左端のつなぎ目（y242〜312）で TRM-16 の用水から続き、道の北縁に沿って東へ流れ、斜め区間の終わりで石蓋の暗渠に入る。道を横切らない。TRM-16 から来る1本の用水（決定 TRM.canal-continuity）。"
+  },
+  {
    "color": "#50545a",
    "label_at": [
     230,
@@ -294,9 +336,9 @@
    "kind": "building",
    "rect": [
     80,
-    80,
+    70,
     420,
-    300
+    215
    ],
    "top_color": "#6c7077",
    "window_count": 0,
@@ -409,11 +451,27 @@
     18,
     18,
     44,
-    346
+    242
    ],
    "top_color": "#8a7a5a",
    "window_count": 0,
    "id": "closure-w1",
+   "look": "西の端（北側）の古い土塀。笠瓦、戸室石の基礎、苔と剥落。"
+  },
+  {
+   "color": "#cdb98f",
+   "h": 60,
+   "kind": "fence",
+   "label": "",
+   "rect": [
+    18,
+    312,
+    44,
+    346
+   ],
+   "top_color": "#8a7a5a",
+   "window_count": 0,
+   "id": "closure-w3",
    "look": "西の端（北側）の古い土塀。笠瓦、戸室石の基礎、苔と剥落。"
   },
   {
@@ -527,8 +585,8 @@
  "depends_on": [],
  "_provenance": {
   "source": "MAP:TRM-15|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "b95a9b5d2b6b08bbb050227d08a9656dde34e88e985f658e27debaac88beb283",
-  "generated_at": "2026-11-11T15:54",
+  "input_sha": "ac0422910270a1628f7b5ad23375960eee1d477d1ee1bdab33ebac2a483bba39",
+  "generated_at": "2026-11-12T10:42",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-15-plan",
   "do_not_edit": true

@@ -357,7 +357,7 @@
     380,
     900
    ],
-   "top_color": "#6c7077",
+   "top_color": "#e4ded2",
    "window_count": 0,
    "id": "retaining-w",
    "label": "擁壁・石積み",
@@ -373,7 +373,7 @@
     860,
     640
    ],
-   "top_color": "#6c7077",
+   "top_color": "#e4ded2",
    "window_count": 0,
    "id": "retaining-m",
    "label": "擁壁・石積み",
@@ -567,8 +567,8 @@
  ],
  "_provenance": {
   "source": "MAP:TRM-17|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "c5784bafc5a3f35585233c709177fe488fdc7b7737782be394067c50e6ceb865",
-  "generated_at": "2026-11-02T14:27",
+  "input_sha": "dca6c8ba2067cb819e29908ec3eaf5a7e6174b6235510fcc351116cc07c5448d",
+  "generated_at": "2026-11-12T11:11",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-17-plan",
   "do_not_edit": true

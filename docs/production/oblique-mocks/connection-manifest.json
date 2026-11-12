@@ -1,9 +1,9 @@
 {
- "input_sha": "e78c0a9894d38cf9b2d788533a9e7e3c4a9059529a25a363ff6fa05a3afeea0a",
+ "input_sha": "9f8dcc3f37db081d6ce02656c5bad2f428ae2d9c3d5e9f1bf4bc41057de732ab",
  "outputs": {
   "connection-diagram.png": "0de304ba75c75cb76516ddf2497b445fa452f42deb4ba9582895ffc77ad9d092",
   "connections.md": "d994dcdcc322a4576f57ce7c960951badaed6a0aee7dddbbfaa0c64a4e0b35a3",
-  "overview.png": "3183fd5779c947120dbe34ce7c17a98e54cbe4867cab4175435ac6c607fdb01a",
+  "overview.png": "3ba20f9da94c95690c0c54bbd124375cef666ead4e219a45e67d88d70a7feeaf",
   "windows.md": "e3af46480ba520fbff28e4e7debb66d445b2b4e07f0bb86d57ae34f14410ed22"
  },
  "problems": [],

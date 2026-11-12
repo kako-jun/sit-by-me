@@ -34,6 +34,7 @@ GATES = {
     "region_shift_max_px": 8,          # 領域の輪郭帯が最良になる平行移動の |dx|,|dy|
     "region_ok_ratio_min": 0.70,       # 自己照合（モック自身）で 0.87（椅子の小箱が隣と取り違えられる）       # 上を満たす領域の割合
     "door_pink_residual_max": 0.02,    # 戸口パネル内のピンク残り
+    "pink_whole_max": 0.0001,          # 画像全体のピンク残り（戸口・端の出入口のマーカー色。TRM-13 で 0.0006 の残りを検出）
     "window_white_green_max": 0.05,    # 窓ガラス内の 白（空・雪）/緑（木）の割合
     "aspect_tol": 0.005,
 }
@@ -67,7 +68,7 @@ HUMAN_ITEMS = [
     "家具が実物（棚・椅子・机・舞台）として読めるか。人物・文字・矢印が入っていないか（文字有無は未測定）",
     "質感が工作の素材（綿の雪・紙粘土・段ボール・紙やすり）か。実写のような質感・本物の雪になっていないか（屋根・塀・地面・枝の雪がすべて綿か。決定 SIT.miniature-materials-not-photoreal。採否の前に必ず挙げる）",
     "消雪パイプの穴が道路の中央線の上だけにあるか（路肩・縁・私有地・石畳に無いか。水の噴射が無いか。決定 SIT.shosetsu-hole-only）",
-    "景色の扉（閉じた門・潜り戸・格子戸・土蔵の扉）が入れそうに見えないか（前に段・通路・足跡・石段・開いた隙間が無く、塀・段差・植栽・雪で塞がれているか。決定 SIT.scenery-door-not-enterable）",
+    "景色の扉（閉じた門・潜り戸・格子戸・土蔵の扉）にたどり着けそうに見えないか（見た目が入れそうなのはよい。道・石段・参道・敷石・足跡が扉まで届かず、前に段差・塀・柵・溝・雪などの隔離があるか。決定 SIT.scenery-door-not-enterable）",
     "台座の前縁・飾りがわざとらしくないか（テープ・糊が等間隔・全マップ同位置・同じ形の繰り返しになっていないか。マップごとにばらついているか。決定 SIT.base-edge-decor-random）",
     "鉄道模型のジオラマのような質感か（雪は繊維の見える綿、木は簡略化したスポンジの塊、塀・柵は爪楊枝・割り箸・マッチ棒、地面はターフ・おがくず。形は単純で縁が硬く、写真のように精密でないか）",
     "段ボールの土台・雪・木の質感の様式（手作りミニチュアらしさ）",
@@ -76,6 +77,37 @@ HUMAN_ITEMS = [
 
 def sha(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+
+
+def relativize(text, root):
+    """git に入れる測定・ログから、この PC の絶対パス（worktree 名・ホーム）を消す。リポ内は相対（root 自身は '.'）、ホームは ~ にする。
+    root や home の前方一致だけの別パス（/home/kako-jun2 など）は置換しない（境界で区切る）。"""
+    root = str(root).rstrip("/")
+    home = os.path.expanduser("~").rstrip("/")
+    roots = [root] + (["~" + root[len(home):]] if home and root.startswith(home + "/") else [])  # 先にホームだけ置換されたログ（~/repos/..）も対象
+    for r_ in roots:
+        text = text.replace(r_ + "/", "")
+        text = re.sub(re.escape(r_) + r"(?![\w.-])", ".", text)
+    if home and home != "/":
+        text = re.sub(re.escape(home) + r"(?=$|[/\s\"'`,;:)\]])", "~", text)
+    return text
+
+
+def relativize_existing(root):
+    """既存の e2 出力（metrics.json・metrics.md・codex ログ）を相対化する（`oblique_e2_measure.py --relativize`）。"""
+    n = 0
+    for pth in sorted((Path(root) / "docs/production/oblique-mocks").glob("*/*/metrics.*")) + sorted((Path(root) / "docs/production/oblique-mocks").glob("*/*/codex-take*.log.txt")):
+        t = pth.read_text()
+        r = relativize(t, root)
+        if r != t:
+            pth.write_text(r)
+            n += 1
+    return n
+
+
+def size_problems(res, size):
+    """採用に使えない寸法（期待の size と違う）のテイクを説明する行のリスト。"""
+    return [f"寸法NG: take{r['take']} {r['orig_size'][0]}x{r['orig_size'][1]}（期待 {size[0]}x{size[1]}）" for r in res if list(r["orig_size"]) != list(size)]
 
 
 def load(p, size):
@@ -387,6 +419,16 @@ def provenance(path, out_dir, n):
 
 
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] == "--relativize-files":  # run.sh のログ縮約が使う（sed の正規表現・区切り文字に頼らない）
+        root = os.popen("git rev-parse --show-toplevel").read().strip()
+        for f in sys.argv[2:]:
+            if os.path.exists(f):
+                Path(f).write_text(relativize(Path(f).read_text(), root))
+        return
+    if len(sys.argv) > 1 and sys.argv[1] == "--relativize":
+        root = os.popen("git rev-parse --show-toplevel").read().strip()
+        print(f"相対化したファイル: {relativize_existing(root)}")
+        return
     ap = argparse.ArgumentParser()
     ap.add_argument("map_id")
     ap.add_argument("--round", default="e2")
@@ -510,11 +552,13 @@ def main():
         pk = [v["pink_residual"] for v in reg.values() if "pink_residual" in v]
         g = {
             "aspect": r["aspect_ok"],
+            "size_exact": not r["resized_for_measure"],  # 画像モデルが 1px 少なく返すことがある（TRM-06・10 が 1671×941）。採用手順は寸法が違う画像を通さない（リサイズで通さない）
             "edge_recall": r["edge"]["recall6_room"] >= GATES["edge_recall_room_min"],
             "edge_margin": r["edge"]["margin"] >= GATES["edge_margin_min"],
             "chamfer": r["edge"]["chamfer_room_px"] <= GATES["chamfer_room_max_px"],
             "regions": r["region_ok_ratio"] >= GATES["region_ok_ratio_min"],
             "door_pink": all(x <= GATES["door_pink_residual_max"] for x in pk),
+            "pink_whole": r["pink_residual_whole_image"] <= GATES["pink_whole_max"],
             "window_content": all(x["white"] <= GATES["window_white_green_max"] and x["green"] <= GATES["window_white_green_max"] for x in gl),
             "genuine": bool(r["provenance"].get("matches_codex_generated_image")) and r["provenance"]["unique_colors"] > 5000 and r["provenance"].get("log_fabrication_tool_calls", 0) == 0,
         }
@@ -567,7 +611,7 @@ def main():
                "decor_gates": DECOR_GATES if ref else None,
                "round2_needed": sum(r["pass"] for r in res) < ROUND2_IF_PASS_LT,
                "human_items": HUMAN_ITEMS, "takes": res, "inter_take": inter}
-    (out / "metrics.json").write_text(json.dumps(summary, ensure_ascii=False, indent=1))
+    (out / "metrics.json").write_text(relativize(json.dumps(summary, ensure_ascii=False, indent=1), root))
     L = [f"# E2 測定 {a.map_id} {a.round}", "", "ゲート: " + json.dumps(GATES, ensure_ascii=False), ""]
     L += ["| take | 参考(幾何) | recall6 | margin | chamfer | region_ok | 基準超の項目 | 本物 |", "|---|---|---|---|---|---|---|---|"]
     for r in res:
@@ -609,9 +653,15 @@ def main():
     L += ["", "## テイク間", "", "```", json.dumps(inter, ensure_ascii=False, indent=1)[:3000], "```", "",
           f"基準内のテイク（幾何・参考）: {summary['takes_pass']} / 基準内（装飾・参考）: {summary['takes_pass_decor']} / 基準内（幾何+装飾・参考）: {summary['takes_pass_all']} / 追加ラウンドの目安（参考）: {'要' if summary['round2_needed'] else '不要'}", "", "## kako-jun の目視確認項目", ""]
     L += [f"- {h}" for h in HUMAN_ITEMS]
-    (out / "metrics.md").write_text("\n".join(L) + "\n")
+    (out / "metrics.md").write_text(relativize("\n".join(L) + "\n", root))
     print("\n".join(L[:40 + 3 * len(res)]))
     print(f"wrote {out}/metrics.json, metrics.md, overlay-take*.png")
+    bad = size_problems(res, size)
+    for line in bad:
+        print(line, file=sys.stderr)
+    if bad:
+        print("寸法が違うテイクは採用手順（oblique_build.py --adopt）に進めない。該当 MAP の再生成が必要（リサイズで通さない）", file=sys.stderr)
+        sys.exit(3)  # 寸法NG は終了コード3（run.sh が受けて『全テイク』表示に進まない）
 
 
 if __name__ == "__main__":

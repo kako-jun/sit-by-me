@@ -250,7 +250,8 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
     def setUpClass(cls):
         cls.tmp = tempfile.TemporaryDirectory()
         cls.base = Path(cls.tmp.name)
-        for name in ("scripts", ".claude/skills/sit-field-background/tools", ".claude/skills/sit-battle-background/tools"):
+        # INDEX の生成ブロックは scripts・tests・スキルの実在ファイルから作るので、複製にも同じ集合を入れる
+        for name in ("scripts", "tests", ".claude/skills"):
             shutil.copytree(ROOT / name, cls.base / name, ignore=shutil.ignore_patterns("__pycache__"))
         for name in ("docs/ledger", "docs/topology"):
             shutil.copytree(ROOT / name, cls.base / name, ignore=shutil.ignore_patterns("handoff"))
@@ -634,6 +635,8 @@ class PromptReflectionTests(unittest.TestCase):
         oblique.mkdir(parents=True)
         for f in (ROOT / "docs/production/oblique-mocks").glob("*.json"):
             shutil.copy(f, oblique / f.name)
+        # verify_prompt_reflects_ledger.rb は素材見本シート（material-swatch-sheet.webp）の存在を検査する（無いと『1件の漏れ』になり、自由記述の反映と無関係に失敗する）
+        shutil.copytree(ROOT / "docs/production/oblique-mocks/material-swatch", oblique / "material-swatch")
         for name in ("pyproject.toml", "uv.lock"):
             shutil.copy(ROOT / name, cls.base / name)
 
@@ -788,6 +791,14 @@ class PromptReflectionTests(unittest.TestCase):
         self.assertEqual(r.returncode, 0, r.stderr)
         return {rec["map_id"]: rec["prompt"] for rec in json.loads(r.stdout)}
 
+    def unadopt_base(self):
+        """実台帳では TRM-05 の基準画像が採用済みになったので、『基準の採用待ち』を試すテストは作業コピーの採用行を候補に戻して始める（実台帳は変えない）。"""
+        rows = self.rows("素材")
+        for r in rows:
+            if r["所有者ID"] == "TRM-05" and r["状態"] == "採用" and r["種別"].startswith("背景"):
+                r["状態"] = "候補"
+        self.save("素材", rows)
+
     def adopt_base(self):
         """合成の採用状態: 素材表に TRM-05 の採用済み背景画像の行を足す（実ファイルは作らない・実台帳は変えない）。"""
         rows = self.rows("素材")
@@ -806,6 +817,7 @@ class PromptReflectionTests(unittest.TestCase):
         return man["stages"]["prompt"], (out / key / f"{key}-edit-prompt.txt").read_text(encoding="utf-8")
 
     def test_era_variants_blocked_until_base_is_adopted(self):
+        self.unadopt_base()
         for era in ("kids", "fire"):
             prompt = self.probe()[f"TRM-05-{era}"]
             self.assertIn("- TRM-05: 未確定（依存MAPが採用されるまで", prompt)
@@ -817,6 +829,7 @@ class PromptReflectionTests(unittest.TestCase):
             self.assertIn("# BLOCKED（基準の採用待ち）", text)
 
     def test_era_variants_carry_base_image_after_adoption(self):
+        self.unadopt_base()
         self.adopt_base()
         for era in ("kids", "fire"):
             prompt = self.probe()[f"TRM-05-{era}"]
@@ -1178,6 +1191,8 @@ class LedgerCopyBase(unittest.TestCase):
         oblique.mkdir(parents=True)
         for f in (ROOT / "docs/production/oblique-mocks").glob("*.json"):
             shutil.copy(f, oblique / f.name)
+        # verify_prompt_reflects_ledger.rb は素材見本シート（material-swatch-sheet.webp）の存在を検査する（無いと『1件の漏れ』になり、自由記述の反映と無関係に失敗する）
+        shutil.copytree(ROOT / "docs/production/oblique-mocks/material-swatch", oblique / "material-swatch")
         for name in ("pyproject.toml", "uv.lock"):
             shutil.copy(ROOT / name, cls.base / name)
 
