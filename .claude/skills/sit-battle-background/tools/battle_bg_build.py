@@ -268,9 +268,12 @@ def gold_mask(px):
 
 def object_mask(px, ground="wood"):
     """舞台セット・背景の物に見える画素。wood/road: 青空・緑の緞帳・白い粘土や雪や雲・金の房やランタン・赤い屋根（床の板の色と、木の橙色のハイライトは含まない）。
-    snow（雪道）: 白い雪が床なので、白は物にしない。色のある面（土塀・藁・青・緑・金・赤。最大-最小が55超）と暗い面（瓦・石。最大が100未満）が物。"""
+    snow（厚い雪の地面）: 白い雪が床なので、白は物にしない。色のある面（土塀・藁・青・緑・金・赤。最大-最小が55超）と暗い面（瓦・石。最大が100未満）が物。
+    thin-snow（薄雪の路面）: 黒い路面が床なので、暗い面は物にしない。色のある面（最大-最小が55超）だけが物。瓦・石の暗い灰色は色で区別できず、overlay の目視で数える。"""
     import numpy as np
     r, g, b = px[..., 0], px[..., 1], px[..., 2]
+    if ground == "thin-snow":  # 薄雪の路面: 黒いアスファルト・灰色・白い雪はどれも路面。色のある面だけが物
+        return np.maximum(np.maximum(r, g), b) - np.minimum(np.minimum(r, g), b) > 55
     if ground == "snow":
         mx = np.maximum(np.maximum(r, g), b)
         mn = np.minimum(np.minimum(r, g), b)
@@ -282,9 +285,13 @@ def floor_mask(px, ground="wood"):
     """床・路面に見える画素のマスク（全画素を一度だけ判定）。地面ごとに色の規則が違う:
     wood（BG011 の舞台板）: 物でなく、赤みのある茶色（赤が青より15以上大きく、赤が35以上）。濃い影の板も床。黒・灰色は床でない。
     road（アスファルト）: 物でなく、暗い灰色〜茶灰色。
-    snow（雪道。BG012）: 白〜灰白の低彩度（最小チャンネル100以上・最大-最小が55以下）。雪の影の灰色も床。"""
+    snow（厚い雪の地面）: 白〜灰白の低彩度（最小チャンネル100以上・最大-最小が55以下）。雪の影の灰色も床。
+    thin-snow（薄雪の路面。BG012）: 低彩度（最大-最小が55以下）で最大が20以上＝黒い湿ったアスファルト・灰色・白い雪。"""
     import numpy as np
     r, g, b = px[..., 0], px[..., 1], px[..., 2]
+    if ground == "thin-snow":
+        mx, mn = np.maximum(np.maximum(r, g), b), np.minimum(np.minimum(r, g), b)
+        return (mx - mn <= 55) & (mx >= 20)
     if ground == "snow":
         return (np.minimum(np.minimum(r, g), b) >= 100) & (np.maximum(np.maximum(r, g), b) - np.minimum(np.minimum(r, g), b) <= 55)
     if ground == "road":
@@ -373,6 +380,24 @@ def cmd_check(a):
     else:
         rise = edge_rise(px, L["floor"])
         need = L["floor"]["min_rise_px"]
+    snow = L.get("雪の量")  # 薄雪の路面（BG012）: 敵・味方の枠の中で、黒い路面と白い雪の割合を見る
+    if a.zoomed and snow:
+        mx, mn = px.max(axis=2), px.min(axis=2)
+        black = (mx < 110)
+        white = (mn >= 150) & (mx - mn <= 55)
+        tot = b_ = w_ = 0
+        for sr in L["safe_rects"]:
+            if sr["id"].startswith("ally") or sr["id"] == "enemy":
+                x, y, w, h = [int(v) for v in sr["box"]]
+                tot += w * h
+                b_ += int(black[y:y + h, x:x + w].sum())
+                w_ += int(white[y:y + h, x:x + w].sum())
+        report["road_black_fraction"] = round(b_ / tot, 3)
+        report["road_white_fraction"] = round(w_ / tot, 3)
+        if b_ / tot < snow["black_min"]:
+            report["problems"].append(f"路面の黒い面が {b_ / tot:.0%}（{snow['black_min']:.0%} 以上が要る。雪が積もりすぎ）")
+        if w_ / tot > snow["white_max"]:
+            report["problems"].append(f"路面の白い雪が {w_ / tot:.0%}（{snow['white_max']:.0%} 以下が要る。雪が積もりすぎ）")
     report["back_edge_rise_px"] = None if rise is None else round(rise, 1)
     if a.zoomed:
         pass

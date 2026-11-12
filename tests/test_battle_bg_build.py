@@ -607,7 +607,8 @@ class RoadBackground(unittest.TestCase):
     def test_pre_check_passes_and_prompt_is_a_snow_road_without_snow_melting_holes(self):
         self.assertEqual(B.pre_check(self.L), [])
         text = B.build_prompt(B.corrected_layout(self.L))
-        self.assertIn("雪道", text)
+        self.assertIn("雪が薄く積もった雪道", text)
+        self.assertIn("黒い湿ったアスファルト", text)
         self.assertIn("足跡", text)
         for bad in ("舞台", "緞帳", "城", "消雪", "金属", "穴", "融雪"):  # kako-jun「雪道でいいのでは」: 穴・金属蓋は描かない
             self.assertNotIn(bad, text)
@@ -647,7 +648,7 @@ class RoadBackground(unittest.TestCase):
 
     def test_check_without_castle_does_not_crash(self):
         import io, contextlib
-        im = Image.new("RGB", (1672, 941), (235, 238, 240))  # 雪道
+        im = Image.new("RGB", (1672, 941), (60, 58, 56))  # 黒い路面（薄雪）
         with tempfile.TemporaryDirectory() as t:
             p = Path(t) / "x.png"
             im.save(p)
@@ -666,6 +667,74 @@ class BlueThreshold(unittest.TestCase):
         self.assertFalse(m[0, 0])  # b=r+25 はまだ物でない（わずかに青い灰色のアスファルトなど）
         self.assertTrue(m[0, 1])   # b=r+26 は青（空）
         self.assertTrue(m[0, 2])
+
+
+
+
+class ThinSnow(unittest.TestCase):
+    """BG012 は薄雪の路面（kako-jun「雪がつもりすぎ」）。黒い路面が見え、白い雪は少ない。"""
+
+    def setUp(self):
+        _, self.L = B.load("BG012")
+
+    def test_ground_is_thin_snow_with_measured_thresholds(self):
+        self.assertEqual(self.L["地面"], "thin-snow")
+        self.assertEqual(self.L["雪の量"], {"black_min": 0.45, "white_max": 0.35})
+
+    def test_thin_snow_masks_count_black_grey_white_as_road_and_colour_as_object(self):
+        import numpy as np
+        px = np.zeros((2, 4, 3), dtype=int)
+        px[:] = ((50, 48, 46), (130, 130, 130), (235, 238, 240), (60, 58, 56))[0]
+        for rgb in ((50, 48, 46), (130, 130, 130), (235, 238, 240)):  # 黒い路面・灰色・白い雪
+            px[:] = rgb
+            self.assertTrue(B.floor_mask(px, "thin-snow").all(), rgb)
+            self.assertFalse(B.object_mask(px, "thin-snow").any(), rgb)
+        for rgb in ((225, 190, 120), (90, 150, 220), (40, 100, 50)):  # 土塀・青・緑
+            px[:] = rgb
+            self.assertFalse(B.floor_mask(px, "thin-snow").any(), rgb)
+            self.assertTrue(B.object_mask(px, "thin-snow").all(), rgb)
+
+    def run_check(self, rgb_fn):
+        import io, contextlib, json
+        im = Image.new("RGB", (1672, 941), (60, 58, 56))
+        rgb_fn(ImageDraw.Draw(im))
+        with tempfile.TemporaryDirectory() as t:
+            p = Path(t) / "x.png"
+            im.save(p)
+            a = B.argparse.Namespace(bg_id="BG012", image=str(p), out=t, zoomed=True)
+            with contextlib.redirect_stdout(io.StringIO()):
+                rc = B.cmd_check(a)
+            return rc, json.loads((Path(t) / "report.json").read_text(encoding="utf-8"))
+
+    def test_black_road_passes_and_reports_fractions(self):
+        rc, rep = self.run_check(lambda d: None)
+        self.assertEqual(rc, 0)
+        self.assertGreater(rep["road_black_fraction"], 0.9)
+        self.assertEqual(rep["road_white_fraction"], 0.0)
+
+    def test_thick_snow_over_the_frames_fails(self):
+        rc, rep = self.run_check(lambda d: d.rectangle([0, 0, 1672, 941], fill=(235, 238, 240)))
+        self.assertEqual(rc, 1)
+        self.assertTrue(any("積もりすぎ" in p for p in rep["problems"]))
+
+    def test_white_fraction_boundary(self):
+        # 敵・味方の枠の面積の合計に対して白36%超は NG、30%は合格（閾値 35%）
+        import numpy as np
+        _, L = B.load("BG012")
+        boxes = [r["box"] for r in L["safe_rects"] if r["id"].startswith("ally") or r["id"] == "enemy"]
+        tot = sum(w * h for _, _, w, h in boxes)
+
+        def paint(frac):
+            def f(d):
+                left = frac * tot
+                for x, y, w, h in boxes:
+                    take = min(left, w * h)
+                    if take >= w:
+                        d.rectangle([x, y, x + w - 1, y + int(take / w) - 1], fill=(235, 238, 240))
+                    left -= take
+            return f
+        self.assertEqual(self.run_check(paint(0.30))[0], 0)
+        self.assertEqual(self.run_check(paint(0.40))[0], 1)
 
 
 if __name__ == "__main__":
