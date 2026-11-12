@@ -67,7 +67,7 @@
      2
     ]
    },
-   "input_sha": "f3b722abfe81b9d96a9399ef6183ba906a5144ab1690d944ae7a2994ad44220b",
+   "input_sha": "1c108a75ea2d0f256d9d102ff0e33e0033abc1104adf0edc31cc3d641eaeb373",
    "outputs": {
     "TRM-05-fire-exits.png": "596425f9de16490756d73d32ba6c70284a932f39b692ba39e8a738ee76a76c2d",
     "TRM-05-fire-mask.json": "45c1db549ad3f66f9123d2b2ffe14ab6ff08d4633e99b8c7744b8dcb0cc234c4",
@@ -77,7 +77,7 @@
    "white_components": 2
   },
   "mock": {
-   "input_sha": "f3b722abfe81b9d96a9399ef6183ba906a5144ab1690d944ae7a2994ad44220b",
+   "input_sha": "1c108a75ea2d0f256d9d102ff0e33e0033abc1104adf0edc31cc3d641eaeb373",
    "outputs": {
     "TRM-05-fire-clean.png": "764020af3096481e529f69299c18e61e95f451cd9373911c6840e1b42a15bef8",
     "TRM-05-fire-review.png": "d1f16b8fb6832d76b286ff6bb05c9ec86a6348b1d52fef1a800c901d9152c5d7"
@@ -85,7 +85,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "f3b722abfe81b9d96a9399ef6183ba906a5144ab1690d944ae7a2994ad44220b",
+   "input_sha": "1c108a75ea2d0f256d9d102ff0e33e0033abc1104adf0edc31cc3d641eaeb373",
    "outputs": {
     "TRM-05-fire-occlusion-depth.png": "3430b6de58e27a56ce6501b207c129b65b1cba46946ccd5f73106c25e197d61d",
     "TRM-05-fire-occlusion-edit.png": "70827bc4e2fc4a2b67b820867123bb2cd160e9cbaf4643da5c76faac97aa276c",
@@ -96,16 +96,16 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "145d0b94a7b19347e8e695f52f81c27c41bb2df5996f21742b5fcc58dd0e787a",
+   "input_sha": "5f670b1dad89b00a936c7bbb62e20836e9a1b4274b4aae2ce2e4005a66162407",
    "outputs": {
-    "TRM-05-fire-edit-prompt.txt": "608f0f40452bf072faf2353cdd125ad0a7e1cafdba7046da55724b4de5fe30c9"
+    "TRM-05-fire-edit-prompt.txt": "33b286f73c0db7965bf0c964ea1c8533964f15342e1b062ba7d2d602d2bf5903"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "c44aa0228b09df08ac76ef1c4dc2230caba138cc67c9ff98abcb0e6129d7aa1a",
+   "input_sha": "c25ea536b8b34754c07fc984731cbd633b95f57fbc03da093ed62432995bdce3",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -126,7 +126,7 @@
    ]
   },
   "wire": {
-   "input_sha": "857057f0321d340c44fc9fd715611a2ecd71ace6586cd6514cda6d970bda4c4b",
+   "input_sha": "c81720113da035fa5c5962468650dd5ac9b8e4bee6245004f96f4861a19ce442",
    "outputs": {
     "wire-TRM-05-fire.png": "b7e1ec81079ba9fbe8868551130eaab8d53f3e1df565ca49f4905684da798c13"
    },

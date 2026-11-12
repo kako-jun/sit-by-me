@@ -10835,7 +10835,7 @@
   "必須語": ""
   "禁止語": ""
   "対象MAP": ""
-  "備考": "分類: process。実装: プロンプト文面 PR.door.scenery-head に肯定形で追加（SCENERY DOORS 節）。検証ゲート: oblique_build.scenery_door_front_problems（扉の前面が境界を挟まず歩ける床に接していれば警告。扉の載る壁・帯の look、または扉の look に段差・溝・基礎・縁石・石積み・護岸・石垣があれば挟んでいるとみなす）。寺町の既存planの検出: TRM-06（dobei-e・dobei-s）・TRM-13（closure-n1）は壁の look の石の基礎で挟んでいる扱い、TRM-09（sd-sento-entrance）・TRM-16（sd-temple-gate）は扉の look に段差を足した（既定・要確認）。 2026-11-12: 寺町の既存planの再点検で、TRM-16（寺門へ続く石畳）・TRM-09（右の小屋の戸）・TRM-13（石段が潜り戸へ直通）は隔離を足した。"
+  "備考": "分類: process。実装: プロンプト文面 PR.door.scenery-head に肯定形で追加（SCENERY DOORS 節）。検証ゲート: oblique_build.scenery_door_front_problems（扉の前面が境界を挟まず歩ける床に接していれば警告。扉の載る壁・帯の look、または扉の look に段差・溝・基礎・縁石・石積み・護岸・石垣があれば挟んでいるとみなす）。寺町の既存planの検出: TRM-06（dobei-e・dobei-s）・TRM-13（closure-n1）は壁の look の石の基礎で挟んでいる扱い、TRM-09（sd-sento-entrance）・TRM-16（sd-temple-gate）は扉の look に段差を足した（既定・要確認）。 2026-11-12: 寺町の既存planの再点検で、TRM-16（寺門へ続く石畳）・TRM-09（右の小屋の戸）・TRM-13（石段が潜り戸へ直通）は隔離を足した。 決定IDの『not-enterable』は旧称（現在の意味は『入れそうでもよいが、たどり着けそうに見せない』）。"
   "特徴(自由記述)": ""
 - "決定ID": "SIT.road-edge-solid-boundary"
   "日付": "2026-11-11"

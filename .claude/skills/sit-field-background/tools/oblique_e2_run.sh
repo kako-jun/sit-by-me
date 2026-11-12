@@ -15,6 +15,13 @@ OUT=$M/$ROUND
 PROMPT=${4:-$OUT/prompt.txt}
 GI=$HOME/.codex/generated_images
 SCHED="uv run python3 -I .claude/skills/sit-field-background/tools/oblique_e2_schedule.py"
+# EXTRA_REFS="ID=画像パス ID=画像パス" は他の副作用（ディレクトリ作成・コピー）より先に検査する。形が違う・画像が無いなら明示エラーで終了。空白区切り（パスに空白を含めない。glob 展開もしない）
+IFS=' ' read -r -a EXTRA_ARR <<< "${EXTRA_REFS:-}"
+for KV in "${EXTRA_ARR[@]:-}"; do
+  [ -z "$KV" ] && continue
+  case "$KV" in *=*) ;; *) echo "EXTRA_REFS の要素 '$KV' が ID=画像パス の形でない" >&2; exit 1;; esac
+  [ -f "${KV#*=}" ] || { echo "EXTRA_REFS: ${KV%%=*} の画像 '${KV#*=}' が存在しない" >&2; exit 1; }
+done
 # 依存グラフ: 親が全て確定済みでなければ起動しない（直列）。確定済みの親の正本画像を参考画像（扉・材質・家具・装飾のデザインの参考のみ）として自動で付ける
 # 拒否された実行が副作用（空ディレクトリ・swatch のコピー）を残さないよう、check を mkdir／cp より先に実行する
 $SCHED check "$MAP" || exit 1
@@ -42,7 +49,7 @@ Image.open(sys.argv[1]).convert('RGB').save(sys.argv[2])" "$PPATH" "$OUT/ref-$PI
 done < <($SCHED refs "$MAP")
 # EXTRA_REFS="ID=path ID=path"（任意）: 採用前の隣接MAPの絵を、つなぎ目の参考として追加で付ける（親ではないので生成のゲートには影響しない。道の縁の境界の種類・位置・用水の流れ・地面の材質だけを合わせる）
 EXTRA_IDS=()
-for KV in $(printf '%s\n' "${EXTRA_REFS:-}"); do
+for KV in "${EXTRA_ARR[@]:-}"; do
   [ -z "$KV" ] && continue
   EID="${KV%%=*}"; EPATH="${KV#*=}"
   # .webp（台帳の採用画像・legacy）は PNG に変換して添付する（親の参考画像と同じ扱い）

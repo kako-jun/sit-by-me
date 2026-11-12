@@ -67,7 +67,7 @@
      1
     ]
    },
-   "input_sha": "d87c7b38ab7787a08bd44c33ea2e106ad9912123ce844db8061665433c1bdf04",
+   "input_sha": "2ad4e55b4ea0ae27888eac2b803c6e0be294cac344400ba93ddcf6ddf50237ee",
    "outputs": {
     "TRM-05-kids-exits.png": "a8abbbd787c24b34faacad0739b963f5e12c568aaa61c1701a4bf99b86071f13",
     "TRM-05-kids-mask.json": "eeb26a4d6580a59c0ac8b71afc8e98bc9ce70d227dcd15912c795f4891388ce0",
@@ -77,7 +77,7 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "d87c7b38ab7787a08bd44c33ea2e106ad9912123ce844db8061665433c1bdf04",
+   "input_sha": "2ad4e55b4ea0ae27888eac2b803c6e0be294cac344400ba93ddcf6ddf50237ee",
    "outputs": {
     "TRM-05-kids-clean.png": "3accd388a59f90e7fb6444023b500544f7e56921e2674d2613d1c46140b7deed",
     "TRM-05-kids-review.png": "784ee5935526a44fa094ded65d71771c0d6ff7dc0ae27902c6333a4d3f207f1f"
@@ -85,7 +85,7 @@
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "d87c7b38ab7787a08bd44c33ea2e106ad9912123ce844db8061665433c1bdf04",
+   "input_sha": "2ad4e55b4ea0ae27888eac2b803c6e0be294cac344400ba93ddcf6ddf50237ee",
    "outputs": {
     "TRM-05-kids-occlusion-depth.png": "3fe559baf24c45d91ed1166c5e6864c36ff618706781b70508aadabdc03246eb",
     "TRM-05-kids-occlusion-edit.png": "c5efe0e6b277136538c6dd47e57d3b1f024d1ca12ce60936f847f8101879751a",
@@ -96,16 +96,16 @@
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "f431c9daa110f356922405d94d1f4ac7f69aeda643fb1d6581102372b26f077e",
+   "input_sha": "3b72f7500f812e05575fe35b5e4045c4a3f51268855132788957eabf03e826d9",
    "outputs": {
-    "TRM-05-kids-edit-prompt.txt": "5df3fd5628d550910b8361d6460f7e8413aa875560301a21eb6a43bc0b12c843"
+    "TRM-05-kids-edit-prompt.txt": "ceebc97e58e7e27f3e35e9ce0a3b47dc5dc0544512da38ae5e06b99492700adf"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "3b6fe12f6a539819c0e9ca7d38587be5bab2fa81f4017380bbe118f311f23fdd",
+   "input_sha": "c989442d012e0da1cd1c94a5cbfec462b6e821c599036cdbd827c892964ff313",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -124,7 +124,7 @@
    ]
   },
   "wire": {
-   "input_sha": "232671e04776d3117f309a5fb84d0c828f3d654a6e82c662f60d995c3e735621",
+   "input_sha": "5a2a5a44f7b0c333d94c5f83246b78b1bf1008eadbeece45f8a7055b52ba64fd",
    "outputs": {
     "wire-TRM-05-kids.png": "9bf2129345690a166682128d58ee1d86477990aaf1f62da55be34aa043ca30af"
    },

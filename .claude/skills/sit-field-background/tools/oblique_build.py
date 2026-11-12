@@ -486,6 +486,14 @@ def scenery_door_front_problems(p):
     return out
 
 
+def _norm_hex(c):
+    """#RGB / #RRGGBB（大文字小文字不問）を #rrggbb に正規化する。"""
+    c = (c or "").strip().lower()
+    if re.fullmatch(r"#[0-9a-f]{3}", c):
+        c = "#" + "".join(ch * 2 for ch in c[1:])
+    return c
+
+
 RETAINING_ROOF_GREY = "#6c7077"  # 建物（kind=building）の屋根の上面色。retaining に使うと屋根に読まれる
 
 
@@ -498,7 +506,7 @@ def outdoor_look_problems(p, pool):
         if w.get("kind") in OUTDOOR_LOOK_KINDS and not (w.get("look") or "").strip():
             E.append(f"屋外MAP: 壁 {w['id']}（kind={w['kind']}）の look が空欄。台帳に現実の写真・資料を参考にした材質・色・形・経年・雪の載り方を書いてから生成する（Issue #191）")
     for w in p.get("walls", []):
-        if w.get("kind") == "retaining" and (w.get("top_color") or "").lower() == RETAINING_ROOF_GREY:
+        if w.get("kind") == "retaining" and _norm_hex(w.get("top_color")) == RETAINING_ROOF_GREY:
             E.append(f"屋外MAP: 石垣・擁壁 {w['id']}（kind=retaining）の top_color が建物の屋根の灰色（{RETAINING_ROOF_GREY}）。クリーンモックの上面が屋根に読まれ、瓦屋根の建物に描かれる。雪か土の帯の色（#e4ded2 など）にする（TRM-13, #191）")
     for b in p.get("boxes", []):
         if b.get("kind") in OUTDOOR_LOOK_KINDS and not (b.get("look") or "").strip():
@@ -510,7 +518,7 @@ def outdoor_look_problems(p, pool):
         if lk in _GENERIC_GROUND:
             Wn.append(f"屋外MAP: 歩けない面 {f['id']} の look が空・ただの地面。境界を色の違いだけにしない（土塀・石垣・生垣・縁石・段差・水など実体のある要素にする。Issue #191）")
         elif not any(wd in lk for wd in BLOCK_REASON_WORDS) and not f.get("surface"):
-            Wn.append(f"屋外MAP: 歩けない面 {f['id']} の look に歩けない視覚的な理由（段差・塀・閉じた門・水など）が読めない。入れそうに見える面になっていないか（Issue #191）")
+            Wn.append(f"屋外MAP: 歩けない面 {f['id']} の look に歩けない視覚的な理由（段差・塀・閉じた門・水など）が読めない。歩いて行けそうに見える面になっていないか（Issue #191）")
     # 境界物の帯（歩ける床の外側）。plan.boundaries[]: {id, rect|poly, look}
     for bd in p.get("boundaries", []):
         if not (bd.get("look") or "").strip():
@@ -529,7 +537,7 @@ def outdoor_look_problems(p, pool):
     if len(kinds_per) >= 3 and all(k for k in kinds_per) and len({k[0] for k in kinds_per}) == 1 and all(set(k) == {kinds_per[0][0]} for k in kinds_per):
         Wn.append(f"屋外MAP: boundaries {len(kinds_per)} 本がすべて同じ種類（{kinds_per[0][0]}だけ）。道の縁は段差・側溝・縁石・土塀・石垣・板塀・生垣・護岸などを現実参照で区間ごとに使い分ける（決定 SIT.road-edge-solid-boundary、Issue #191）")
     for sid, ref, n in scenery_door_front_problems(p):
-        Wn.append(f"屋外MAP: 景色の扉 {sid}（{ref}）の前が、境界（段差・塀・溝・植栽・雪囲いなど）を挟まず歩ける床に接している（約{n}セル）。入れるように見える（決定 SIT.scenery-door-not-enterable、Issue #191）")
+        Wn.append(f"屋外MAP: 景色の扉 {sid}（{ref}）の前が、境界（段差・塀・溝・植栽・雪囲いなど）を挟まず歩ける床に接している（約{n}セル）。歩いてたどり着けそうに見える。段差・塀・柵・溝で隔離する（決定 SIT.scenery-door-not-enterable。IDは旧称、Issue #191）")
     if not p.get("variation"):
         Wn.append("屋外MAP: plan に variation（足跡・汚れ・土の露出・除雪の雪山・スノーポール・消雪パイプ・電柱など、このMAPの look から来る変化の語）が無い。単調になりやすい（Issue #191）")
     if pool and pool.get("trees"):
