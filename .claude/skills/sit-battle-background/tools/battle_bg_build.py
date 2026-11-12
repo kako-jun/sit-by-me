@@ -132,13 +132,15 @@ def cmd_check(a):
     ov.save(out / "overlay.png")
     # 城の赤い屋根（赤い円錐屋根）の位置: 赤い画素の外接矩形を城の枠・安全矩形と比べる
     px = np.asarray(im, dtype=int)
-    red = (px[..., 0] > 160) & (px[..., 1] < 100) & (px[..., 2] < 80) & (px[..., 0] - px[..., 1] > 90)
+    red = (px[..., 0] > 180) & (px[..., 1] < 70) & (px[..., 2] < 70) & (px[..., 0] - px[..., 1] > 120)  # 赤い円錐屋根（木の赤茶は除く閾値）
     ys, xs = np.nonzero(red)
     if len(xs) < 200:
         report["castle_roof"] = None
         report["problems"].append("城の赤い屋根が検出できない（城が無い/色が違う。目視で確認）")
     else:
-        bx = [int(xs.min()), int(ys.min()), int(xs.max() - xs.min()), int(ys.max() - ys.min())]
+        x0, x1 = np.percentile(xs, [1, 99])  # 外れ値（小さな赤い点）を除く
+        y0, y1 = np.percentile(ys, [1, 99])
+        bx = [int(x0), int(y0), int(x1 - x0), int(y1 - y0)]
         report["castle_roof"] = bx
         tol = 30
         if bx[0] < x - tol or bx[1] < y - tol or bx[0] + bx[2] > x + w + tol or bx[1] + bx[3] > y + h + tol:
