@@ -586,5 +586,61 @@ class RealColours(unittest.TestCase):
         self.assertLess(B.object_mask(floor).mean(), 0.005)
 
 
+
+
+class RoadBackground(unittest.TestCase):
+    """BG012（寺町の道路）: BG011 を継承し、地面は道路、文面・見本・描画オフセットは BG012 固有。"""
+
+    def setUp(self):
+        _, self.L = B.load("BG012")
+        _, self.B11 = B.load("BG011")
+
+    def test_inherits_safe_rects_and_floor_from_bg011(self):
+        self.assertEqual(self.L["safe_rects"], self.B11["safe_rects"])
+        self.assertEqual(self.L["floor"], self.B11["floor"])
+        self.assertEqual(self.L["canvas"], self.B11["canvas"])
+
+    def test_own_draw_offset_is_not_inherited(self):
+        self.assertNotEqual(self.L["描画オフセット"], self.B11["描画オフセット"])
+        self.assertGreater(self.L["描画オフセット"]["dy_left"], self.B11["描画オフセット"]["dy_left"])
+
+    def test_pre_check_passes_and_prompt_uses_road_texts(self):
+        self.assertEqual(B.pre_check(self.L), [])
+        text = B.build_prompt(B.corrected_layout(self.L))
+        self.assertIn("道路面", text)
+        self.assertIn("消雪パイプの穴", text)
+        self.assertIn("水の噴射", text)  # 『水の噴射は無い』を肯定形で明記した一文
+        for bad in ("舞台", "緞帳", "城"):
+            self.assertNotIn(bad, text)
+
+    def test_road_floor_mask_counts_dark_grey_not_snow_or_tan_wall(self):
+        import numpy as np
+        px = np.zeros((4, 4, 3), dtype=int)
+        px[:] = (70, 70, 75)  # アスファルト
+        self.assertTrue(B.floor_mask(px, "road").all())
+        for rgb in ((240, 240, 240), (225, 190, 120), (90, 150, 220)):  # 雪・土塀・青
+            px[:] = rgb
+            self.assertFalse(B.floor_mask(px, "road").any(), rgb)
+
+    def test_ref_sheet_is_built_from_ledger_spec(self):
+        with tempfile.TemporaryDirectory() as t:
+            a = B.argparse.Namespace(bg="BG012", out=str(Path(t) / "r.png"))
+            import io, contextlib
+            with contextlib.redirect_stdout(io.StringIO()):
+                B.cmd_ref(a)
+            spec = self.L["参照見本"]
+            self.assertEqual(Image.open(a.out).size, (spec["sheet_w"], spec["tile_h"] * spec["rows"]))
+
+    def test_check_without_castle_does_not_crash(self):
+        import io, contextlib
+        im = Image.new("RGB", (1672, 941), (70, 70, 75))
+        with tempfile.TemporaryDirectory() as t:
+            p = Path(t) / "x.png"
+            im.save(p)
+            a = B.argparse.Namespace(bg_id="BG012", image=str(p), out=t, zoomed=True)
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(B.cmd_check(a), 0)
+
+
 if __name__ == "__main__":
     unittest.main()

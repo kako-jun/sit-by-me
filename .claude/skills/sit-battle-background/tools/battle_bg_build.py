@@ -30,9 +30,10 @@ import oblique_text as X  # noqa: E402
 
 KIND_COLOUR = {
     "castle": (250, 250, 250), "fir": (245, 250, 245), "post": (75, 45, 25), "lantern": (214, 176, 70),
-    "curtain": (40, 100, 50), "backdrop": (95, 155, 220),
+    "wall": (225, 210, 185), "roof": (80, 80, 92), "fence": (190, 160, 100), "curtain": (40, 100, 50), "backdrop": (95, 155, 220),
 }
 FLOOR = (120, 70, 38)
+SLOPED = ("backdrop", "wall")  # 下端が床の奥の縁に沿う板（書き割り・土塀）
 FLOOR_MIN = 0.95  # check --zoomed が要る枠内の床画素の割合の下限（9割だと城の胴の端・柱の根元が枠に入っても通ったため）
 SEARCH_MARGIN = 0.97  # zoom-search の合格線。拡大後の再計算で数%ずれるので check より厳しくして余裕を持たせる
 DESK = (60, 35, 22)
@@ -43,7 +44,13 @@ def load(bg_id):
         if r["背景ID"] == bg_id:
             if not r["配置"].strip():
                 sys.exit(f"{bg_id}: 台帳の『配置』が空（生成しない。まず台帳に配置を書く）")
-            return r, json.loads(r["配置"])
+            L = json.loads(r["配置"])
+            base = L.get("継承")  # 安全矩形・床・描画オフセット・画面サイズは同じ規則なので、継承元の台帳行を単一正本にする
+            if base:
+                _, B0 = load(base)
+                for k in ("canvas", "safe_rects", "floor", "描画オフセット"):
+                    L.setdefault(k, B0[k])
+            return r, L
     sys.exit(f"戦闘背景 {bg_id} が台帳に無い")
 
 
@@ -105,7 +112,7 @@ def corrected_layout(L):
         if it.get("cutoff"):
             x, y, w, h = it["box"]
             y -= draw_offset(L, x + w / 2)
-            if it["kind"] != "backdrop" and y + h < mv:  # 見切れの物は画面に最低 mv px 残す
+            if it["kind"] not in SLOPED and y + h < mv:  # 見切れの物は画面に最低 mv px 残す
                 y = mv - h
             it["box"] = [round(x), round(y), round(w), round(h)]
     for k in ("back_left", "back_right"):
@@ -134,16 +141,16 @@ def layout_image(L):
     im = Image.new("RGB", (W, H), DESK)
     d = ImageDraw.Draw(im)
     f = L["floor"]
-    d.polygon([tuple(f["back_left"]), tuple(f["back_right"]), tuple(f["front_right"]), tuple(f["front_left"])], fill=FLOOR)
+    d.polygon([tuple(f["back_left"]), tuple(f["back_right"]), tuple(f["front_right"]), tuple(f["front_left"])], fill=tuple(L.get("地面色", FLOOR)))
     (bx0, by0), (bx1, by1) = f["back_left"], f["back_right"]
 
     def edge(x):  # 床の奥の縁（右上がりの直線）
         return by0 + (by1 - by0) * (x - bx0) / (bx1 - bx0)
 
-    for it in sorted(L["items"], key=lambda i: i["kind"] != "backdrop"):  # 書き割りを先に描き、その前に物を重ねる
+    for it in sorted(L["items"], key=lambda i: i["kind"] not in SLOPED):  # 書き割り・土塀を先に描き、その前に物を重ねる
         x, y, w, h = it["box"]
-        if it["kind"] == "backdrop":  # 書き割り板の下端は床の奥の縁に沿う
-            d.polygon([(x, y), (x + w, y), (x + w, edge(x + w)), (x, edge(x))], fill=KIND_COLOUR["backdrop"])
+        if it["kind"] in SLOPED:  # 書き割り板・土塀の下端は床の奥の縁に沿う
+            d.polygon([(x, y), (x + w, y), (x + w, edge(x + w)), (x, edge(x))], fill=KIND_COLOUR[it["kind"]])
         else:
             d.rectangle([x, y, x + w, y + h], fill=KIND_COLOUR[it["kind"]])
     return im
@@ -152,20 +159,22 @@ def layout_image(L):
 def build_prompt(L):
     W, H = L["canvas"]
     f = L["floor"]
+    T = {"head": "head", "subject": "subject", "floor": "floor", "only": "only", "materials": "materials"}
+    T.update(L.get("文面", {}))  # 背景ごとの文面ID（プロンプト文面.yaml の PR.battle.<名前>）
     parts = [
-        X.text("PR.battle.head", w=W, h=H),
-        X.text("PR.battle.subject", rise=f["min_rise_px"]),
-        X.text("PR.battle.floor"),
+        X.text("PR.battle." + T["head"], w=W, h=H),
+        X.text("PR.battle." + T["subject"], rise=f["min_rise_px"]),
+        X.text("PR.battle." + T["floor"]),
     ]
     for it in L["items"]:
-        if it["object"] or it["kind"] == "backdrop":
+        if it["object"] or it["kind"] in SLOPED:
             x, y, w, h = it["box"]
             if it.get("cutoff"):
-                parts.append(X.text("PR.battle.item-cut", name=it["名"], x0=x, x1=x + w, y1=y + h))
+                parts.append(X.text("PR.battle.item-cut", name=it["名"], x0=x, x1=x + w, y1=max(y + h, L.get("描画オフセット", {}).get("min_visible", 0))))
             else:
                 parts.append(X.text("PR.battle.item", name=it["名"], x0=x, x1=x + w, y0=y, y1=y + h))
-    parts.append(X.text("PR.battle.only"))
-    parts.append(X.text("PR.battle.materials"))
+    parts.append(X.text("PR.battle." + T["only"]))
+    parts.append(X.text("PR.battle." + T["materials"]))
     return "\n\n".join(parts) + "\n"
 
 
@@ -193,6 +202,24 @@ REF_PARTS = (("柱・ランタン・左の緞帳", 600, 160, 78, 170), ("空と�
 
 def cmd_ref(a):
     from PIL import Image
+    if a.bg:  # 背景の台帳『配置.参照見本』（採用済みの絵の切り出しを並べた見本シート）から作る
+        _, L = load(a.bg)
+        spec = L["参照見本"]
+        src = Image.open(HERE.parents[3] / spec["source"]).convert("RGB")
+        tiles = []
+        for name, x, y, w, h in spec["parts"]:
+            t = src.crop((x, y, x + w, y + h))
+            tiles.append(t.resize((round(t.width * spec["tile_h"] / t.height), spec["tile_h"])))
+        sheet = Image.new("RGB", (spec["sheet_w"], spec["tile_h"] * spec["rows"]), (40, 30, 24))
+        cx = cy = 0
+        for t in tiles:
+            if cx + t.width > spec["sheet_w"]:
+                cx, cy = 0, cy + spec["tile_h"]
+            sheet.paste(t, (cx, cy))
+            cx += t.width
+        sheet.save(a.out)
+        print(f"OK: {a.out}（{a.bg} の参照見本シート。{spec['source']} の切り出し）")
+        return
     src = Image.open(HERE.parents[3] / TRM02).convert("RGB")
     parts = [src.crop((x, y, x + w, y + h)) for _, x, y, w, h in REF_PARTS]
     sheet = Image.new("RGB", (480, 260), (40, 30, 24))
@@ -243,12 +270,15 @@ def object_mask(px):
     """舞台セットの物に見える画素: 青空・緑の緞帳・白い粘土や雪や雲・金の房やランタン・赤い屋根・明るい段ボール（床の板の色と、木の橙色のハイライトは含まない）。"""
     import numpy as np
     r, g, b = px[..., 0], px[..., 1], px[..., 2]
-    return (b > r) | (g > r + 8) | (np.minimum(np.minimum(r, g), b) > 175) | gold_mask(px) | red_roof_mask(px)
+    return (b > r + 25) | (g > r + 8) | (np.minimum(np.minimum(r, g), b) > 175) | gold_mask(px) | red_roof_mask(px)
 
 
-def floor_mask(px):
+def floor_mask(px, ground="wood"):
+    import numpy as np
     """床の板に見える画素のマスク（全画素を一度だけ判定）。物（青空・緑・白・金・明るい段ボール）でなく、赤みのある茶色（赤が青より15以上大きく、赤が35以上）なら床。濃い影の板も床。黒・灰色は床でない。"""
     r, g, b = px[..., 0], px[..., 1], px[..., 2]
+    if ground == "road":  # アスファルトの道路: 物でなく、暗い灰色〜茶灰色（白い雪・青・緑・赤は物）
+        return ~object_mask(px) & (r < 150) & (np.abs(r - b) < 60)
     return ~object_mask(px) & (r > b + 15) & (r >= g) & (r >= 35)
 
 
@@ -286,15 +316,18 @@ def cmd_check(a):
     for sr in L["safe_rects"]:
         x, y, w, h = sr["box"]
         d.rectangle([x, y, x + w, y + h], outline=(255, 0, 0), width=3)
-    castle = next(i for i in L["items"] if i["kind"] == "castle")
-    x, y, w, h = castle["box"]
-    d.rectangle([x, y, x + w, y + h], outline=(0, 255, 255), width=2)
+    castle = next((i for i in L["items"] if i["kind"] == "castle"), None)  # 城のある背景（BG011）だけ
+    if castle:
+        x, y, w, h = castle["box"]
+        d.rectangle([x, y, x + w, y + h], outline=(0, 255, 255), width=2)
     ov.save(out / "overlay.png")
     # 城の赤い屋根（赤い円錐屋根）の位置: 赤い画素の外接矩形を城の枠・安全矩形と比べる
     px = np.asarray(im, dtype=int)
     red = red_roof_mask(px)  # 赤い円錐屋根（木のハイライトは除く）
     ys, xs = np.nonzero(red)
-    if len(xs) < 200:
+    if castle is None:
+        report["castle_roof"] = None  # 城の無い背景（BG012 など）は屋根の検査をしない
+    elif len(xs) < 200:
         report["castle_roof"] = None
         if not a.zoomed:
             report["problems"].append("城の赤い屋根が検出できない（城が無い/色が違う。目視で確認）")
@@ -313,7 +346,7 @@ def cmd_check(a):
                 report["problems"].append(f"城の屋根 {bx} が安全矩形 {sr['id']} に重なる")
     if a.zoomed:
         report["floor_fraction"] = {}
-        integ = Integral(floor_mask(px))
+        integ = Integral(floor_mask(px, L.get("地面", "wood")))
         objm = Integral(object_mask(px))
         report["object_fraction"] = {}
         for sr in L["safe_rects"]:
@@ -394,7 +427,7 @@ def cmd_zoom_search(a):
     W, H = L["canvas"]
     im = Image.open(a.image).convert("RGB")
     px = np.asarray(im, dtype=int)
-    integ = Integral(floor_mask(px))
+    integ = Integral(floor_mask(px, L.get("地面", "wood")))
     obj = Integral(object_mask(px))
     scales = [float(v) for v in a.scales.split(",")]
     cands = []
@@ -465,6 +498,7 @@ def main(argv=None):
     c.add_argument("--zoomed", action="store_true")
     rf = sub.add_parser("ref")
     rf.add_argument("--out", required=True)
+    rf.add_argument("--bg", help="背景ID（台帳『配置.参照見本』から作る）。省略すると BG011 の TRM-02 舞台の見本")
     z = sub.add_parser("zoom")
     z.add_argument("bg_id")
     z.add_argument("image")

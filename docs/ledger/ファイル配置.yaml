@@ -433,7 +433,7 @@
 - "配置ID": "asset-battle-backgrounds"
   "パターン": "assets/images/battle-backgrounds/BG\\d{3}\\.webp"
   "種別": "画像正本"
-  "用途": "戦闘背景（台帳は 戦闘背景.yaml。現存は BG011（暫定採用。kako-jun の目視承認は未取得）。BG001・BG005 は没・削除）"
+  "用途": "戦闘背景（台帳は 戦闘背景.yaml。現存は BG011・BG012（暫定採用。kako-jun の目視承認は未取得）。BG001・BG005 は没・削除）"
   "所有表": "素材"
   "生成元": ""
   "到達": "許可"
