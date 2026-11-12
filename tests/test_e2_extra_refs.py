@@ -27,11 +27,14 @@ class ExtraRefs(unittest.TestCase):
         self.assertIn("test_e2_extra_refs.py", (SK / "SKILL.md").read_text())
 
     def test_missing_extra_ref_image_exits_with_error(self):
+        # EXTRA_REFS の検査は何も作らないうちに行われる（リポを汚さない）。生成先ディレクトリが出来ていないことも確かめる
+        out = ROOT / "docs/production/oblique-mocks/TRM-10/e2/_test_missing"
+        self.assertFalse(out.exists())
         env = dict(os.environ, EXTRA_REFS="TRM-99=/nonexistent/x.png", DRY_RUN="1")
         r = subprocess.run(["bash", str(RUN), "TRM-10", "1", "e2/_test_missing"], cwd=ROOT, env=env, capture_output=True, text=True, timeout=120)
         self.assertNotEqual(r.returncode, 0)
         self.assertIn("存在しない", r.stderr)
-        self.assertFalse((ROOT / "docs/production/oblique-mocks/TRM-10/e2/_test_missing/take1.png").exists())
+        self.assertFalse(out.exists(), "検査失敗時に生成先を作ってはいけない")
 
 
 if __name__ == "__main__":

@@ -30,9 +30,6 @@ class Stale(unittest.TestCase):
         self.assertEqual(S.stale_maps(S.load()), [], "台帳を変えたら oblique_build.py --all を実行する")
 
 
-if __name__ == "__main__":
-    unittest.main()
-
 
 class VariantFreshness(unittest.TestCase):
     """variant（TRM-05-kids・fire）の古さ判定が build と同じ入力 hash になる（依存は plan から導く。依存グラフ JSON は variant の追加依存を持たない）。"""
@@ -65,3 +62,7 @@ class BuildAllTarget(unittest.TestCase):
         self.assertIn("virtual_ports", r.stderr)
         self.assertIn("oblique_town.py", r.stderr)
         self.assertNotIn("KeyError", r.stderr)
+
+
+if __name__ == "__main__":
+    unittest.main()

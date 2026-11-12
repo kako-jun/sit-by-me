@@ -1,4 +1,18 @@
 {
+ "adoption": {
+  "canonical": "assets/images/fields/reference/teramachi-road-trm15-adopted.webp",
+  "canonical_sha256": "40e95b155c8cb8a6829eff873725c7efcd8da9f984437c9ae8248276f7639976",
+  "image": "docs/production/oblique-mocks/TRM-15/e2/take1.png",
+  "image_sha256": "57173a4e3e16611fcb4e1b8c6b68f80a9ded69bdcab888f0c60991b29f497924",
+  "mock_clean_sha256": "2c61aa20fc2e04009ad43aa9bb52bce7218c2bd1784a35fb05258f0e444f40d6",
+  "plan_sha256": "291c7fe3737f266021f526222e88bd40cdea2818095ecbabf707c0f6949c66ce",
+  "prompt_sha256": "e26d718a1660c0e187325976069cc36eaba70754fd2e856df119498c2c5579cf",
+  "size": [
+   1672,
+   941
+  ],
+  "take": 1
+ },
  "ledger": {
   "decisions": [
    "TRM.trees-draw",
