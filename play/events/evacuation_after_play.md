@@ -24,5 +24,5 @@ hidden: true
 
 **主人公**:
 行こう。
-[場面移動: play_cancelled_promise @400,512]
+[場面移動: play_cancelled_promise @1330,480]
 [/イベント]

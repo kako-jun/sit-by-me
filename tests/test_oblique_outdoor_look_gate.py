@@ -227,7 +227,7 @@ class RoadEdgeAndShosetsu(unittest.TestCase):
 
     def test_outdoor_prompt_has_road_edge_and_shosetsu_everywhere(self):
         p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-08-plan.json"))
-        t = B.build_prompt(p, "TRM-08")
+        t = B.build_prompt_raw(p, "TRM-08")
         for tid in ("PR.reality.road-edge", "PR.reality.shosetsu", "PR.forbid.road-edge", "PR.forbid.shosetsu"):
             self.assertIn(X.text(tid), t, tid)
 
@@ -273,13 +273,20 @@ class RoadEdgeVariationAndSeams(unittest.TestCase):
 class MiniatureAndDoors(unittest.TestCase):
     """決定 SIT.miniature-materials-not-photoreal・SIT.shosetsu-hole-only(位置)・SIT.scenery-door-not-enterable（2026-11-11）。"""
 
-    def test_outdoor_prompt_has_miniature_after_reality_and_shosetsu_centerline(self):
+    def test_prompt_has_miniature_right_after_role_and_craft_words(self):
         p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-08-plan.json"))
-        t = B.build_prompt(p, "TRM-08")
-        mini = X.text("PR.reality.miniature")
-        self.assertIn(mini, t)
-        self.assertGreater(t.index(mini), t.index("REALITY（屋外"))
-        self.assertIn("綿", mini)
+        raw = B.build_prompt_raw(p, "TRM-08")
+        lines = raw.split("\n")
+        ri = next(i for i, l in enumerate(lines) if l.startswith("ROLE:"))
+        self.assertTrue(lines[ri + 1].startswith("MINIATURE MATERIALS:"))
+        self.assertIn(X.text("PR.miniature"), raw)
+        self.assertIn("STRUCTURE（屋外", raw)
+        self.assertNotIn("REALITY（屋外", raw)
+        final = B.build_prompt(p, "TRM-08")
+        for w in ("版築", "釉薬瓦", "戸室石", "錆", "濡れた艶", "藁すさ"):
+            self.assertNotIn(w, final, w)
+        for w in ("爪楊枝", "割り箸", "鉄道模型", "綿"):
+            self.assertIn(w, final, w)
         self.assertIn("中央線の上", X.text("PR.reality.shosetsu"))
         self.assertIn("入れない見た目", X.text("PR.door.scenery-head"))
 
@@ -297,6 +304,109 @@ class MiniatureAndDoors(unittest.TestCase):
     def test_existing_teramachi_plans_have_no_enterable_scenery_door(self):
         for pp in glob.glob(str(ROOT / "docs/production/oblique-mocks/TRM-*-plan.json")):
             self.assertEqual(B.scenery_door_front_problems(M.load_plan(pp)), [], pp)
+
+
+class SlabPropsRandom(unittest.TestCase):
+    """決定 SIT.base-edge-decor-random: 前縁は素の段ボール断面が既定。テープ・糊は継ぎ目（合理的な理由）にだけ。"""
+
+    IDS = [Path(p).name.replace("-plan.json", "") for p in PLANS] + ["TRM-05-kids", "TRM-05-fire"]
+
+    def test_deterministic_and_plain_is_majority(self):
+        for i in self.IDS:
+            self.assertEqual(M.slab_props(i), M.slab_props(i))
+        plain = [i for i in self.IDS if not M.slab_props(i)["seams"]]
+        self.assertGreater(len(plain) * 2, len(self.IDS), "素の段ボール断面の MAP が過半でない")
+        self.assertLess(len(plain), len(self.IDS), "継ぎ目のある MAP が無い")
+        for i in plain:
+            pr = M.slab_props(i)
+            self.assertEqual((pr["tapes"], pr["glue"]), ([], []), "継ぎ目が無いのにテープ・糊がある")
+            self.assertEqual(M.slab_props_text(i), ("無し", "無し"))
+
+    def test_tape_and_glue_only_at_seams_and_seams_differ(self):
+        seam_sets = []
+        kinds = set()
+        for i in self.IDS:
+            pr = M.slab_props(i)
+            self.assertLessEqual(len(pr["seams"]), 2)
+            y0, y1 = M.SLAB_SPEC["band_y"]
+            for it in pr["tapes"] + pr["glue"]:
+                self.assertTrue(y0 <= it["bbox"][1] and it["bbox"][3] <= y1, f"{i}: 前縁の帯 y={y0}〜{y1} からはみ出す {it['bbox']}")
+            for t in pr["tapes"]:
+                self.assertIn(t["seam"], pr["seams"])
+                self.assertLessEqual(t["bbox"][0], t["seam"])
+                self.assertGreaterEqual(t["bbox"][2], t["seam"], "テープが継ぎ目をまたいでいない")
+                self.assertLessEqual(abs(t["angle"]), 4, "継ぎ目に直交してまたぐ（ほぼ水平）")
+                kinds.add(t["kind"])
+            for g in pr["glue"]:
+                self.assertIn(g["seam"], pr["seams"])
+                self.assertLessEqual(abs((g["bbox"][0] + g["bbox"][2]) / 2 - g["seam"]), 12, "糊が継ぎ目から離れている")
+                self.assertLessEqual(g["bbox"][2] - g["bbox"][0], 9, "糊が大きい（ごくわずかにはみ出す程度）")
+            self.assertEqual(len(pr["tapes"]), len(pr["seams"]))
+            if pr["seams"]:
+                seam_sets.append(tuple(pr["seams"]))
+        self.assertEqual(len(seam_sets), len(set(seam_sets)), "継ぎ目の位置が同じ MAP がある")
+        self.assertEqual(kinds, {"masking", "clear"})
+
+    def test_prompt_has_per_map_slab_line(self):
+        for i in ("TRM-07", "TRM-04", "TRM-13", "TRM-02"):
+            p = M.load_plan(str(ROOT / f"docs/production/oblique-mocks/{i}-plan.json"))
+            t = B.build_prompt_raw(p, i)
+            seams, _g = M.slab_props_text(i)
+            want = X.text("PR.coord.slab-plain") if seams == "無し" else X.text("PR.coord.slab-props", seams=seams)
+            self.assertIn(want, t)
+
+
+class DeskPropsRandom(unittest.TestCase):
+    """決定 SIT.desk-props-random: 作業机の上の置き物は MAP ごとに決まり、0個が過半・同じ組み合わせにならない・台座と歩行領域に重ならない。"""
+
+    IDS = [Path(p).name.replace("-plan.json", "") for p in PLANS] + ["TRM-05-kids", "TRM-05-fire"]
+
+    def test_counts_zero_majority_and_combos_differ_and_deterministic(self):
+        allowed = {k["id"] for k in M.DESK_SPEC["kinds"]}
+        counts = []
+        seen = set()
+        for i in self.IDS:
+            pr = M.desk_props(i)
+            counts.append(len(pr))
+            self.assertLessEqual(len(pr), 2)
+            self.assertEqual(pr, M.desk_props(i), "決定的でない")
+            for kid, ja, z in pr:
+                self.assertIn(kid, allowed)
+            self.assertEqual(len({z for _k, _j, z in pr}), len(pr), "同じ位置に2つ")
+            if pr:
+                self.assertNotIn(tuple(pr), seen, f"{i}: 同じ組み合わせ・配置の MAP がある（desk.props-spec の seed_offsets で種を替える）")
+                seen.add(tuple(pr))
+        self.assertGreater(counts.count(0) * 2, len(counts), "置き物0個の MAP が過半でない（置く理由が無い MAP に詰め込まない）")
+        self.assertTrue(any(c >= 1 for c in counts))
+
+    def test_independent_of_other_maps(self):
+        a = M.desk_props("TRM-07")
+        self.assertEqual(a, M.desk_props("TRM-07"))
+        # 他の MAP ID の有無に依存しない（MAP ID だけが種）
+        import hashlib
+        self.assertEqual(M.desk_props("ZZZ-99"), M.desk_props("ZZZ-99"))
+
+    def test_zone_rects_do_not_overlap_slab_or_walkable(self):
+        import numpy as np
+        import cv2
+        quad = np.round(np.array(M._DST, dtype=float)).astype(np.int32)
+        mask = np.zeros((M.H_IMG, M.W), np.uint8)
+        cv2.fillPoly(mask, [quad], 255)                               # 台座の上面（歩行領域・建物はすべてこの内側）
+        y0, y1 = M.SLAB_SPEC["band_y"]
+        mask[y0:y1 + 1, quad[:, 0].min():quad[:, 0].max() + 1] = 255  # 台座の前縁の帯
+        for z in M.DESK_SPEC["zones"]:
+            x0, y0_, x1, y1_ = z["rect"]
+            self.assertTrue(0 <= x0 < x1 <= M.W and 0 <= y0_ < y1_ <= M.H_IMG, z)
+            self.assertEqual(int(mask[y0_:y1_, x0:x1].sum()), 0, f"{z['ja']} が台座・前縁に重なる")
+            self.assertEqual(M.desk_zone_rect(z["ja"]), z["rect"])
+
+    def test_prompt_has_desk_props_line_and_not_in_mock(self):
+        p = M.load_plan(str(ROOT / "docs/production/oblique-mocks/TRM-07-plan.json"))
+        t = B.build_prompt_raw(p, "TRM-07")
+        it = M.desk_props_text("TRM-07")
+        self.assertIn(X.text("PR.desk-props", items=it) if it else X.text("PR.desk-props.none"), t)
+        self.assertIn("縮尺は実物大", X.text("PR.desk-props", items="x"))
+        self.assertIn("置く理由のない物は置かない", X.text("PR.desk-props", items="x"))
 
 
 if __name__ == "__main__":
