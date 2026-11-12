@@ -83,6 +83,36 @@ def pre_check(L):
     return problems
 
 
+def draw_offset(L, x):
+    """モデルの描画オフセット（観測値）: 奥の縁と書き割りは割付図より下へずれて描かれる。x の位置でのずれ(px)を、左右2点の実測から直線で出す。台帳『配置.描画オフセット』が無ければ 0。"""
+    o = L.get("描画オフセット")
+    if not o:
+        return 0.0
+    (xl, dl), (xr, dr) = (o["x_left"], o["dy_left"]), (o["x_right"], o["dy_right"])
+    t = min(max((x - xl) / (xr - xl), 0.0), 1.0)
+    return dl + (dr - dl) * t
+
+
+def corrected_layout(L):
+    """モデルに渡す（割付図・送信文の）配置。奥の縁と、奥の縁に立つ舞台セット（cutoff の物）を、観測した描画オフセットの分だけ上へ寄せる。台帳の値（狙い）は変えない。見切れの物は画面に最低 min_visible px 残す。"""
+    import copy
+    C = copy.deepcopy(L)
+    f = C["floor"]
+    for k in ("back_left", "back_right"):
+        f[k][1] -= draw_offset(L, f[k][0])
+    mv = L.get("描画オフセット", {}).get("min_visible", 0)
+    for it in C["items"]:
+        if it.get("cutoff"):
+            x, y, w, h = it["box"]
+            y -= draw_offset(L, x + w / 2)
+            if it["kind"] != "backdrop" and y + h < mv:  # 見切れの物は画面に最低 mv px 残す
+                y = mv - h
+            it["box"] = [round(x), round(y), round(w), round(h)]
+    for k in ("back_left", "back_right"):
+        f[k] = [round(f[k][0]), round(f[k][1])]
+    return C
+
+
 def point_in_quad(pt, quad):
     """点 pt が凸四角形 quad（順に回る4点）の中（辺上を含む）か。"""
     sign = 0
@@ -148,8 +178,9 @@ def cmd_build(a):
         sys.exit("生成前の検査に失敗（生成しない）:\n  " + "\n  ".join(problems))
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
-    layout_image(L).save(out / "layout.png")
-    (out / "send.txt").write_text(build_prompt(L), encoding="utf-8")
+    C = corrected_layout(L)  # 検査は台帳の値（狙い）、モデルへは描画オフセットを引いた値
+    layout_image(C).save(out / "layout.png")
+    (out / "send.txt").write_text(build_prompt(C), encoding="utf-8")
     (out / "refs.txt").write_text(f"1. {out / 'layout.png'}（割付図）\n2. {a.stage_ref}（採用済み TRM-02 の舞台部分の切り出し。材料・色・モチーフのみ）\n", encoding="utf-8")
     print(f"OK: {out}/layout.png send.txt refs.txt（生成前の検査 合格: 物は全て安全矩形の外・床の奥の縁は右上がり）")
 
@@ -197,10 +228,12 @@ OBJ_MAX = 0.005  # 枠内に許す『舞台セットの物ピクセル』の割�
 
 
 def object_mask(px):
-    """舞台セットの物に見える画素: 青空・緑の緞帳・白い粘土や雪や雲・金の房やランタン・赤い屋根・明るい段ボール（床の板の色は含まない）。"""
+    """舞台セットの物に見える画素: 青空・緑の緞帳・白い粘土や雪や雲・金の房やランタン・赤い屋根・明るい段ボール（床の板の色と、木の橙色のハイライトは含まない）。"""
     import numpy as np
     r, g, b = px[..., 0], px[..., 1], px[..., 2]
-    return (b > r) | (g > r + 8) | (np.minimum(np.minimum(r, g), b) > 175) | (r > 190)
+    gold_or_card = (r > 190) & (g * 10 > r * 7) & (b < 110)  # 金（木の橙のハイライト g/r≈0.6、淡い桃色のハイライト b≥140 は含めない）
+    red_roof = (r > 180) & (g < 85) & (b < 85) & (r - g > 110)  # 赤い円錐屋根
+    return (b > r) | (g > r + 8) | (np.minimum(np.minimum(r, g), b) > 175) | gold_or_card | red_roof
 
 
 def floor_mask(px):

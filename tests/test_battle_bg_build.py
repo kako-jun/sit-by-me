@@ -329,6 +329,12 @@ class ObjectInFrames(unittest.TestCase):
         m = B.object_mask(px)
         self.assertFalse(m[:, 0:10].any())
         self.assertTrue(m[:, 10:50].all())
+        hl = np.zeros((4, 4, 3), dtype=int)
+        hl[:] = (209, 122, 63)  # 木の橙色のハイライト（物ではない）
+        self.assertFalse(B.object_mask(hl).any())
+        gold = np.zeros((4, 4, 3), dtype=int)
+        gold[:] = (222, 172, 44)  # 金の房（物）
+        self.assertTrue(B.object_mask(gold).all())
         self.assertFalse(m[:, 50:60].any())
 
     def test_candidate_rejected_when_set_object_enters_frame(self):
@@ -472,6 +478,62 @@ class NoFrontEdge(unittest.TestCase):
             self.assertEqual(rc, 1)
             rep = json.loads((Path(t) / "report.json").read_text(encoding="utf-8"))
             self.assertTrue(any("status" in p for p in rep["problems"]))
+
+
+
+
+class DrawOffset(unittest.TestCase):
+    def setUp(self):
+        _, self.L = B.load("BG011")
+
+    def test_offset_is_interpolated_between_measured_points_and_clamped(self):
+        o = self.L["描画オフセット"]
+        self.assertEqual(B.draw_offset(self.L, o["x_left"]), o["dy_left"])
+        self.assertEqual(B.draw_offset(self.L, o["x_right"]), o["dy_right"])
+        mid = B.draw_offset(self.L, (o["x_left"] + o["x_right"]) / 2)
+        self.assertAlmostEqual(mid, (o["dy_left"] + o["dy_right"]) / 2)
+        self.assertEqual(B.draw_offset(self.L, 0), o["dy_left"])      # 左の外は左の値
+        self.assertEqual(B.draw_offset(self.L, 1672), o["dy_right"])  # 右の外は右の値
+
+    def test_no_offset_leaves_layout_unchanged(self):
+        L = copy.deepcopy(self.L)
+        del L["描画オフセット"]
+        C = B.corrected_layout(L)
+        self.assertEqual(C["floor"]["back_left"], L["floor"]["back_left"])
+        self.assertEqual(B.draw_offset(L, 500), 0.0)
+
+    def test_corrected_layout_moves_edge_up_and_keeps_ledger_untouched(self):
+        before = copy.deepcopy(self.L)
+        C = B.corrected_layout(self.L)
+        self.assertEqual(self.L, before)  # 台帳の値（狙い）は変えない
+        o = self.L["描画オフセット"]
+        self.assertLess(C["floor"]["back_left"][1], self.L["floor"]["back_left"][1])
+        self.assertAlmostEqual(self.L["floor"]["back_left"][1] - C["floor"]["back_left"][1], B.draw_offset(self.L, self.L["floor"]["back_left"][0]), delta=1)
+        self.assertAlmostEqual(self.L["floor"]["back_right"][1] - C["floor"]["back_right"][1], o["dy_right"], delta=1)
+        # 前の2点（画面外の下）は動かさない
+        self.assertEqual(C["floor"]["front_left"], self.L["floor"]["front_left"])
+
+    def test_cutoff_items_keep_min_visible_and_backdrop_follows_edge(self):
+        C = B.corrected_layout(self.L)
+        mv = self.L["描画オフセット"]["min_visible"]
+        for it in C["items"]:
+            if it.get("cutoff") and it["kind"] != "backdrop":
+                self.assertGreaterEqual(it["box"][1] + it["box"][3], mv)
+        orig = next(i for i in self.L["items"] if i["kind"] == "backdrop")
+        moved = next(i for i in C["items"] if i["kind"] == "backdrop")
+        self.assertLess(moved["box"][1], orig["box"][1])
+
+    def test_build_sends_corrected_but_checks_ledger_values(self):
+        with tempfile.TemporaryDirectory() as t:
+            ref = Path(t) / "r.png"
+            Image.new("RGB", (10, 10)).save(ref)
+            a = B.argparse.Namespace(bg_id="BG011", stage_ref=str(ref), out=t)
+            import io, contextlib
+            with contextlib.redirect_stdout(io.StringIO()):
+                B.cmd_build(a)
+            sent = (Path(t) / "send.txt").read_text(encoding="utf-8")
+            self.assertIn("y=0〜40", sent)  # 城は min_visible=40 で残る（台帳の y1=90 ではない）
+            self.assertEqual(Image.open(Path(t) / "layout.png").size, tuple(self.L["canvas"]))
 
 
 if __name__ == "__main__":
