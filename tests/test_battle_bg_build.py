@@ -455,7 +455,7 @@ class NoFrontEdge(unittest.TestCase):
         text = B.build_prompt(self.L)
         self.assertIn("奥の縁と同じく右へ上がる向き", text)
         self.assertIn("手前でも水平にしない", text)
-        for bad in ("前縁は", "前面の濃茶", "段ボールの断面"):
+        for bad in ("前縁は", "前面の濃茶", "段ボールの断面", "床と前面", "板の前面", "前面は"):
             self.assertNotIn(bad, text)
 
     def test_windows_corners_must_be_inside_floor_quad(self):
@@ -534,6 +534,56 @@ class DrawOffset(unittest.TestCase):
             sent = (Path(t) / "send.txt").read_text(encoding="utf-8")
             self.assertIn("y=0〜40", sent)  # 城は min_visible=40 で残る（台帳の y1=90 ではない）
             self.assertEqual(Image.open(Path(t) / "layout.png").size, tuple(self.L["canvas"]))
+
+
+
+
+import numpy as np  # noqa: E402
+
+
+class RealColours(unittest.TestCase):
+    """採用済み TRM-02 の実画像の色で、屋根・ランタンの検出と木のハイライトの除外を確かめる。"""
+
+    def trm02(self):
+        import numpy as np
+        im = Image.open(REAL / "assets/images/fields/reference/teramachi-kindergarten-playroom-trm02-adopted.webp").convert("RGB")
+        return np.asarray(im, dtype=int)
+
+    def test_real_roof_colours_are_objects_and_wood_highlight_is_not(self):
+        import numpy as np
+        for rgb in ((225, 110, 59), (216, 88, 48), (200, 94, 55)):  # TRM-02 の屋根の実色
+            px = np.array([[rgb]], dtype=int)
+            self.assertTrue(B.red_roof_mask(px).all(), rgb)
+            self.assertTrue(B.object_mask(px).all(), rgb)
+        for rgb in ((209, 122, 63), (218, 179, 148), (130, 75, 40)):  # 木の橙ハイライト・淡い桃色・床
+            self.assertFalse(B.object_mask(np.array([[rgb]], dtype=int)).any(), rgb)
+
+    def test_real_lantern_brass_is_gold(self):
+        import numpy as np
+        self.assertTrue(B.gold_mask(np.array([[(207, 143, 74)]], dtype=int)).all())  # TRM-02 のランタンの真鍮の中央値
+        self.assertFalse(B.gold_mask(np.array([[(209, 122, 63)]], dtype=int)).any())  # 木のハイライト（g/r≈0.58）
+
+    def test_trm02_castle_roof_coverage_is_at_least_half(self):
+        px = self.trm02()[200:290, 760:915]  # 城の屋根を含む範囲
+        r, g, b = px[..., 0], px[..., 1], px[..., 2]
+        roofish = (r > 150) & (r - g > 60) & (r - b > 80)  # 屋根らしい赤みの画素（基準）
+        self.assertGreater(roofish.sum(), 500)
+        self.assertGreater(B.red_roof_mask(px)[roofish].mean(), 0.5)  # 旧基準は9%だった
+
+    def test_trm02_lantern_warm_pixels_are_partly_gold(self):
+        px = self.trm02()[205:275, 603:630]
+        r, b = px[..., 0], px[..., 2]
+        warm = (r > 170) & (r - b > 80)
+        self.assertGreater(B.gold_mask(px)[warm].mean(), 0.4)
+
+    def test_synthetic_floor_with_highlights_has_few_false_positives(self):
+        import numpy as np
+        rng = np.random.default_rng(3)
+        base = np.array([120, 70, 38])
+        floor = np.clip(base + rng.integers(-25, 26, (200, 300, 3)), 0, 255)
+        hl = rng.random((200, 300)) < 0.05  # 5% が橙ハイライト (g/r≈0.58)
+        floor[hl] = (209, 122, 63)
+        self.assertLess(B.object_mask(floor).mean(), 0.005)
 
 
 if __name__ == "__main__":
