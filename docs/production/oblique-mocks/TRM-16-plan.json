@@ -676,7 +676,7 @@
  "closed_edges": [
   {
    "edge": "south",
-   "reason": "家並みで閉鎖（台帳: bottom閉鎖）"
+   "reason": "家並みと塀と雪で閉鎖（台帳: bottom閉鎖）。南端に道・通路・切れ目を作らない"
   }
  ],
  "markers": [
@@ -722,8 +722,8 @@
  ],
  "_provenance": {
   "source": "MAP:TRM-16|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "d75544d7064f16f7c9f3b21a09553058e5bd87b886a17cda56b9f2bb709db9ac",
-  "generated_at": "2026-11-12T10:41",
+  "input_sha": "6a8495c657218fa3a87efbf7ff417dda0aed412aa2bc21dde02b9e1f73daab0a",
+  "generated_at": "2026-11-12T11:21",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-16-plan",
   "do_not_edit": true

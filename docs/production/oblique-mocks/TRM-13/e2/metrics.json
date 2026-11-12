@@ -45,24 +45,24 @@
    ],
    "aspect_ok": true,
    "edge": {
-    "recall6_room": 0.745,
-    "recall6_shifted_baseline": 0.656,
-    "margin": 0.088,
-    "chamfer_room_px": 4.59,
-    "recall6_full": 0.697,
-    "gen_edge_density_room": 0.0969
+    "recall6_room": 0.839,
+    "recall6_shifted_baseline": 0.808,
+    "margin": 0.031,
+    "chamfer_room_px": 3.78,
+    "recall6_full": 0.778,
+    "gen_edge_density_room": 0.1107
    },
    "regions": {},
    "presence": {},
    "missing_openings_doors_windows": [],
    "opening_floor": {},
-   "tatami_like_frac": 0.0,
+   "tatami_like_frac": 0.0003,
    "floor": {
-    "lum_std": 64.86,
+    "lum_std": 65.53,
     "mean_rgb": [
-     153.8,
-     127.9,
-     114.6
+     144.8,
+     120.3,
+     108.8
     ],
     "mock_mean_rgb": [
      176.7,
@@ -72,15 +72,15 @@
    },
    "pink_residual_whole_image": 0.0,
    "provenance": {
-    "sha256": "4fe49afa969a363dbdbbb90f4ac10c969ff2a3d8b51ef8dbaaab996eda5dda25",
-    "bytes": 3574183,
+    "sha256": "5d57324a87bda6819872e77bee0ec1daa2239402d3a7892a334adc041db1ed75",
+    "bytes": 3637281,
     "size": [
      1672,
      941
     ],
     "mode": "RGB",
-    "unique_colors": 213215,
-    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a1cd87-0134-7be2-9c54-0c3da1687d0c/exec-9b10a65c-c99e-42a1-8e8f-e80487729a78.png",
+    "unique_colors": 221116,
+    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a1cd90-64f6-7473-83f4-12e5d0bbce34/exec-19286e7a-b5b4-4695-943b-c1506b48054e.png",
     "new_generated_images_in_run": 1,
     "log_mentions_unavailable": true,
     "log_fabrication_tool_calls": 0,
