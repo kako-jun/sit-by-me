@@ -21,6 +21,28 @@ def cell(s):
     return (s or "").replace("|", "\\|").replace("\n", " ")
 
 
+# INDEX から全ファイルを辿れるべき規則（台帳 ファイル配置 の配置ID）。実在のファイルを走査して生成する（手書きの一覧は古くなり孤立ファイルを生む）
+LISTED_RULES = [("scripts", "スクリプト"), ("tests", "テスト"), ("skills-doc", "スキルの手順書"), ("skills-tools", "スキルのツール")]
+
+
+def listed_files():
+    """[(配置ID, 見出し, [repo root 相対パス])]。配置規則のパターンに fullmatch する実在ファイルだけ（.git・__pycache__ などは除く）。"""
+    import re
+    rules = {r["配置ID"]: r for r in L.read("ファイル配置")}
+    files = []
+    for top in ("scripts", "tests", ".claude"):
+        for dp, dn, fn in os.walk(os.path.join(L.REPO, top)):
+            dn[:] = [d for d in dn if d not in ("__pycache__", ".git", ".pytest_cache", ".venv", "node_modules")]
+            files += [os.path.relpath(os.path.join(dp, f), L.REPO).replace(os.sep, "/") for f in fn]
+    out = []
+    for rid, title in LISTED_RULES:
+        if rid not in rules:
+            continue
+        rx = re.compile("(?:" + rules[rid]["パターン"] + ")")
+        out.append((rid, title, sorted(f for f in files if rx.fullmatch(f))))
+    return out
+
+
 def block():
     out = [BEGIN, "",
            "> **生成ビュー（手編集禁止）**。生成元: `docs/ledger/*.yaml`（表の定義は `.claude/skills/sit-field-background/tools/ledger_io.py` の `SCHEMA`・`TABLE_DOC`）。",
@@ -40,6 +62,10 @@ def block():
             "", "| 配置ID | 種別 | 用途 | 到達 | 入口 |", "|---|---|---|---|---|"]
     for r in L.read("ファイル配置"):
         out.append(f"| {cell(r['配置ID'])} | {cell(r['種別'])} | {cell(r['用途'])} | {cell(r['到達'])} | {cell(r['入口'])} |")
+    out += ["", "### スクリプト・テスト・スキルのファイル一覧（実在ファイルから生成。手編集禁止）", "",
+            "生成元: 台帳 [ファイル配置](ledger/ファイル配置.yaml) の配置ID（scripts・tests・skills-doc・skills-tools）のパターンに一致する実在ファイル。足したファイルは `build` で一覧に載り、孤立にならない。", ""]
+    for rid, title, fs in listed_files():
+        out.append(f"- {title}（{rid}、{len(fs)} 件）: " + "、".join(f"[{f.rsplit('/', 1)[-1]}](../{f})" if f.count('/') < 2 or rid in ('scripts', 'tests') else f"[{f[len('.claude/skills/'):]}](../{f})" for f in fs))
     out += ["", END]
     return "\n".join(out)
 

@@ -250,7 +250,8 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
     def setUpClass(cls):
         cls.tmp = tempfile.TemporaryDirectory()
         cls.base = Path(cls.tmp.name)
-        for name in ("scripts", ".claude/skills/sit-field-background/tools", ".claude/skills/sit-battle-background/tools"):
+        # INDEX の生成ブロックは scripts・tests・スキルの実在ファイルから作るので、複製にも同じ集合を入れる
+        for name in ("scripts", "tests", ".claude/skills"):
             shutil.copytree(ROOT / name, cls.base / name, ignore=shutil.ignore_patterns("__pycache__"))
         for name in ("docs/ledger", "docs/topology"):
             shutil.copytree(ROOT / name, cls.base / name, ignore=shutil.ignore_patterns("handoff"))
