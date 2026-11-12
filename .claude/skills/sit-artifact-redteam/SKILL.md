@@ -85,3 +85,15 @@ Do not repair the candidate while reviewing it. Hand blockers back to the author
 - Do not generate replacements, revert or delete images, or change public/issue state in this skill unless separately directed.
 
 共通（#68運用）: 合格済みの正本を上書きする前に、現行がコミット済みか確認する。不合格テイクをコミット済みにしてしまった場合は `git revert <commit>`、または `git checkout <旧commit> -- <path>` で戻す。
+
+## 道路系（oblique）の追加観点（2026-11-12、Issue #191・PR #273）
+
+寺町の道路系 MAP（TRM-06〜17）の台帳・スキル・生成物をレビューするとき、通常の観点に加えて次を見る。作り方の索引は `.claude/skills/sit-field-background/pitfalls.md` の H。
+
+1. **派生物の古さ**: 台帳の文面・plan を変えたのに `<MAP>-edit-prompt.txt` が古くないか。`oblique_e2_schedule.py stale` が0件か、`oblique_build.py --all docs/production/oblique-mocks/connections.json` の後か。訂正前の文面（旧表現）が派生物に残っていないか grep する。
+2. **台帳の単一正本**: 決定・文面・要素・plan が重複・食い違っていないか（同じ内容の決定を足していないか。既存の訂正を優先）。ID が旧称のとき備考にあるか。逐語の出典が実在するか（`audit_issue_decisions.rb --check-quotes`）。kako-jun の発言を創作していないか（暫定の採用は『逐語の引用なし』と明記）。
+3. **変異テスト**: 追加したゲート・検査・テストは、その行を壊したら落ちるか（relativize を外す、ゲートの条件を緩める、def にも一致する弱い assert など、生存する変異が無いか）。配線は呼び出し行に一致させる。
+4. **生成物の目視適合表**: 全 MAP を目視し、次の表（電線・消雪穴・扉の隔離・継ぎ目・用水・材料・前縁・器・ピンク・寸法）で適合を書く。電線なし／穴は中央線だけ・粗く水なし／景色の扉は隔離（道・石段・参道・敷石が届かない）／要素一覧にない戸なし／継ぎ目の道・用水の位置／台座は素の断面（向き混在 OK、テープは継ぎ目だけ、ワンパターンでない）／机の置き物は台帳決定のまま／石垣は石（屋根色禁止）／ピンク残り0／寸法 1672×941 厳密。
+5. **採用の手順**: スキルの `--adopt --canonical` だけか。寸法の例外（リサイズ）を承認なしで通していないか。採用が暫定（kako-jun の目視承認なし）ならそう記録されているか。
+6. **スキル外の手順**: 画像・派生物をスキルに無い手順（手作業のコピー・変換・リサイズ）で作っていないか。作っていたら『スキルを磨く』方針に反する。
+7. **絶対パス**: git に入る測定・ログに worktree 名・ホームが残っていないか。
