@@ -266,18 +266,28 @@ def gold_mask(px):
     return (r > 190) & (g * 100 > r * 62) & (b < 110)
 
 
-def object_mask(px):
-    """舞台セットの物に見える画素: 青空・緑の緞帳・白い粘土や雪や雲・金の房やランタン・赤い屋根・明るい段ボール（床の板の色と、木の橙色のハイライトは含まない）。"""
+def object_mask(px, ground="wood"):
+    """舞台セット・背景の物に見える画素。wood/road: 青空・緑の緞帳・白い粘土や雪や雲・金の房やランタン・赤い屋根（床の板の色と、木の橙色のハイライトは含まない）。
+    snow（雪道）: 白い雪が床なので、白は物にしない。色のある面（土塀・藁・青・緑・金・赤。最大-最小が55超）と暗い面（瓦・石。最大が100未満）が物。"""
     import numpy as np
     r, g, b = px[..., 0], px[..., 1], px[..., 2]
+    if ground == "snow":
+        mx = np.maximum(np.maximum(r, g), b)
+        mn = np.minimum(np.minimum(r, g), b)
+        return (mx - mn > 55) | (mx < 100)
     return (b > r + 25) | (g > r + 8) | (np.minimum(np.minimum(r, g), b) > 175) | gold_mask(px) | red_roof_mask(px)
 
 
 def floor_mask(px, ground="wood"):
+    """床・路面に見える画素のマスク（全画素を一度だけ判定）。地面ごとに色の規則が違う:
+    wood（BG011 の舞台板）: 物でなく、赤みのある茶色（赤が青より15以上大きく、赤が35以上）。濃い影の板も床。黒・灰色は床でない。
+    road（アスファルト）: 物でなく、暗い灰色〜茶灰色。
+    snow（雪道。BG012）: 白〜灰白の低彩度（最小チャンネル100以上・最大-最小が55以下）。雪の影の灰色も床。"""
     import numpy as np
-    """床の板に見える画素のマスク（全画素を一度だけ判定）。物（青空・緑・白・金・明るい段ボール）でなく、赤みのある茶色（赤が青より15以上大きく、赤が35以上）なら床。濃い影の板も床。黒・灰色は床でない。"""
     r, g, b = px[..., 0], px[..., 1], px[..., 2]
-    if ground == "road":  # アスファルトの道路: 物でなく、暗い灰色〜茶灰色（白い雪・青・緑・赤は物）
+    if ground == "snow":
+        return (np.minimum(np.minimum(r, g), b) >= 100) & (np.maximum(np.maximum(r, g), b) - np.minimum(np.minimum(r, g), b) <= 55)
+    if ground == "road":
         return ~object_mask(px) & (r < 150) & (np.abs(r - b) < 60)
     return ~object_mask(px) & (r > b + 15) & (r >= g) & (r >= 35)
 
@@ -347,7 +357,7 @@ def cmd_check(a):
     if a.zoomed:
         report["floor_fraction"] = {}
         integ = Integral(floor_mask(px, L.get("地面", "wood")))
-        objm = Integral(object_mask(px))
+        objm = Integral(object_mask(px, L.get("地面", "wood")))
         report["object_fraction"] = {}
         for sr in L["safe_rects"]:
             if sr["id"] != "log":  # 敵・味方の枠と下段の窓（コマンド・敵名・status）は床の上で、物が無い
@@ -428,7 +438,7 @@ def cmd_zoom_search(a):
     im = Image.open(a.image).convert("RGB")
     px = np.asarray(im, dtype=int)
     integ = Integral(floor_mask(px, L.get("地面", "wood")))
-    obj = Integral(object_mask(px))
+    obj = Integral(object_mask(px, L.get("地面", "wood")))
     scales = [float(v) for v in a.scales.split(",")]
     cands = []
     for sc in scales:

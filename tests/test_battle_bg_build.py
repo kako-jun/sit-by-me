@@ -604,23 +604,37 @@ class RoadBackground(unittest.TestCase):
         self.assertNotEqual(self.L["描画オフセット"], self.B11["描画オフセット"])
         self.assertGreater(self.L["描画オフセット"]["dy_left"], self.B11["描画オフセット"]["dy_left"])
 
-    def test_pre_check_passes_and_prompt_uses_road_texts(self):
+    def test_pre_check_passes_and_prompt_is_a_snow_road_without_snow_melting_holes(self):
         self.assertEqual(B.pre_check(self.L), [])
         text = B.build_prompt(B.corrected_layout(self.L))
-        self.assertIn("道路面", text)
-        self.assertIn("消雪パイプの穴", text)
-        self.assertIn("水の噴射", text)  # 『水の噴射は無い』を肯定形で明記した一文
-        for bad in ("舞台", "緞帳", "城"):
+        self.assertIn("雪道", text)
+        self.assertIn("足跡", text)
+        for bad in ("舞台", "緞帳", "城", "消雪", "金属", "穴", "融雪"):  # kako-jun「雪道でいいのでは」: 穴・金属蓋は描かない
             self.assertNotIn(bad, text)
 
-    def test_road_floor_mask_counts_dark_grey_not_snow_or_tan_wall(self):
+    def test_snow_ground_mask_counts_white_and_grey_snow_not_objects(self):
         import numpy as np
         px = np.zeros((4, 4, 3), dtype=int)
-        px[:] = (70, 70, 75)  # アスファルト
-        self.assertTrue(B.floor_mask(px, "road").all())
-        for rgb in ((240, 240, 240), (225, 190, 120), (90, 150, 220)):  # 雪・土塀・青
+        for rgb in ((235, 238, 240), (150, 155, 165)):  # 綿の雪・雪の影
             px[:] = rgb
-            self.assertFalse(B.floor_mask(px, "road").any(), rgb)
+            self.assertTrue(B.floor_mask(px, "snow").all(), rgb)
+            self.assertFalse(B.object_mask(px, "snow").any(), rgb)
+        for rgb in ((225, 190, 120), (80, 80, 92), (90, 150, 220), (40, 100, 50)):  # 土塀・瓦・青・緑
+            px[:] = rgb
+            self.assertFalse(B.floor_mask(px, "snow").any(), rgb)
+            self.assertTrue(B.object_mask(px, "snow").all(), rgb)
+
+    def test_draw_offset_matches_the_measured_values(self):
+        o = self.L["描画オフセット"]
+        self.assertEqual((o["x_left"], o["dy_left"], o["x_right"], o["dy_right"]), (100, 260, 1500, 93))
+
+    def test_wall_is_sloped_and_its_visible_height_is_clamped_in_the_prompt(self):
+        C = B.corrected_layout(self.L)
+        wall = next(i for i in C["items"] if i["kind"] == "wall")
+        orig = next(i for i in self.L["items"] if i["kind"] == "wall")
+        self.assertEqual(wall["box"][3], orig["box"][3])  # 下端の高さは変えず、全体を上へ寄せる（SLOPED）
+        self.assertLess(wall["box"][1], orig["box"][1])
+        self.assertIn("古い土塀（紙粘土のひび割れた面）と戸室石の基礎: x=120〜1560 の範囲に、画面の上端で見切れて描く。画面に見えるのは y=0〜40 の部分だけ。", B.build_prompt(C))
 
     def test_ref_sheet_is_built_from_ledger_spec(self):
         with tempfile.TemporaryDirectory() as t:
@@ -633,13 +647,25 @@ class RoadBackground(unittest.TestCase):
 
     def test_check_without_castle_does_not_crash(self):
         import io, contextlib
-        im = Image.new("RGB", (1672, 941), (70, 70, 75))
+        im = Image.new("RGB", (1672, 941), (235, 238, 240))  # 雪道
         with tempfile.TemporaryDirectory() as t:
             p = Path(t) / "x.png"
             im.save(p)
             a = B.argparse.Namespace(bg_id="BG012", image=str(p), out=t, zoomed=True)
             with contextlib.redirect_stdout(io.StringIO()):
                 self.assertEqual(B.cmd_check(a), 0)
+
+
+
+
+class BlueThreshold(unittest.TestCase):
+    def test_blue_object_boundary_is_r_plus_25(self):
+        import numpy as np
+        px = np.array([[(100, 100, 125), (100, 100, 126), (130, 120, 160)]], dtype=int)
+        m = B.object_mask(px)
+        self.assertFalse(m[0, 0])  # b=r+25 はまだ物でない（わずかに青い灰色のアスファルトなど）
+        self.assertTrue(m[0, 1])   # b=r+26 は青（空）
+        self.assertTrue(m[0, 2])
 
 
 if __name__ == "__main__":
