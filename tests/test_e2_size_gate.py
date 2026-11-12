@@ -23,7 +23,11 @@ class SizeGate(unittest.TestCase):
         s = (ROOT / ".claude/skills/sit-field-background/tools/oblique_e2_measure.py").read_text()
         self.assertIn('"size_exact": not r["resized_for_measure"]', s)
         self.assertIn("再生成が必要", s)
-        self.assertIn("size_problems(res, size)", s)
+        self.assertIn("bad = size_problems(res, size)", s)  # 呼び出し行（def には一致させない）
+        self.assertIn("sys.exit(3)", s)  # 寸法NGは終了コード3
+        run = (ROOT / ".claude/skills/sit-field-background/tools/oblique_e2_run.sh").read_text()
+        self.assertIn("MRC=$?", run)
+        self.assertLess(run.index('if [ "$MRC" -ne 0 ]'), run.index("== 全テイク"))  # 寸法NGでは『全テイク』表示に進まない
 
 
 if __name__ == "__main__":

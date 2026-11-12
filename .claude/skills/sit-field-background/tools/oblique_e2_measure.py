@@ -80,11 +80,17 @@ def sha(p):
 
 
 def relativize(text, root):
-    """git に入れる測定・ログから、この PC の絶対パス（worktree 名・ホーム）を消す。リポ内は相対、ホームは ~ にする。"""
+    """git に入れる測定・ログから、この PC の絶対パス（worktree 名・ホーム）を消す。リポ内は相対（root 自身は '.'）、ホームは ~ にする。
+    root や home の前方一致だけの別パス（/home/kako-jun2 など）は置換しない（境界で区切る）。"""
     root = str(root).rstrip("/")
-    text = text.replace(root + "/", "")
     home = os.path.expanduser("~").rstrip("/")
-    return text.replace(home, "~") if home and home != "/" else text
+    roots = [root] + (["~" + root[len(home):]] if home and root.startswith(home + "/") else [])  # 先にホームだけ置換されたログ（~/repos/..）も対象
+    for r_ in roots:
+        text = text.replace(r_ + "/", "")
+        text = re.sub(re.escape(r_) + r"(?![\w.-])", ".", text)
+    if home and home != "/":
+        text = re.sub(re.escape(home) + r"(?=$|[/\s\"'`,;:)\]])", "~", text)
+    return text
 
 
 def relativize_existing(root):
@@ -413,6 +419,12 @@ def provenance(path, out_dir, n):
 
 
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] == "--relativize-files":  # run.sh のログ縮約が使う（sed の正規表現・区切り文字に頼らない）
+        root = os.popen("git rev-parse --show-toplevel").read().strip()
+        for f in sys.argv[2:]:
+            if os.path.exists(f):
+                Path(f).write_text(relativize(Path(f).read_text(), root))
+        return
     if len(sys.argv) > 1 and sys.argv[1] == "--relativize":
         root = os.popen("git rev-parse --show-toplevel").read().strip()
         print(f"相対化したファイル: {relativize_existing(root)}")
@@ -649,6 +661,7 @@ def main():
         print(line, file=sys.stderr)
     if bad:
         print("寸法が違うテイクは採用手順（oblique_build.py --adopt）に進めない。該当 MAP の再生成が必要（リサイズで通さない）", file=sys.stderr)
+        sys.exit(3)  # 寸法NG は終了コード3（run.sh が受けて『全テイク』表示に進まない）
 
 
 if __name__ == "__main__":

@@ -107,6 +107,7 @@ REFARG=()
 [ -n "${REF_IMAGE:-}" ] && REFARG=(--ref "$REF_IMAGE")
 uv run --with numpy --with opencv-python-headless --with pillow python3 -I \
   .claude/skills/sit-field-background/tools/oblique_e2_measure.py "$MAP" --round "$ROUND" --takes "$N" "${REFARG[@]}"
+MRC=$?  # 3 = 寸法NG（測定が標準エラーに『再生成が必要』を出す）
 # 生ログは base64 画像で数MBになる。先頭だけ残して置き換える（測定後。偽造ツール使用の有無は metrics.json に記録済み）
 for i in $(seq 1 "$N"); do
   [ -f "$OUT/codex-take$i.log" ] && {
@@ -117,9 +118,13 @@ for i in $(seq 1 "$N"); do
       echo "take$i.png が出来なかった（原因は $OUT/codex-take$i.log.txt の末尾）。再生成が必要" >&2
     fi
     # この PC の絶対パス（worktree 名・ホーム）を git に入れない
-    sed -i "s|$ROOT/||g; s|$HOME|~|g" "$OUT/codex-take$i.log.txt"
+    uv run --with numpy --with opencv-python-headless --with pillow python3 -I .claude/skills/sit-field-background/tools/oblique_e2_measure.py --relativize-files "$OUT/codex-take$i.log.txt"
     rm "$OUT/codex-take$i.log"
   }
 done
+if [ "$MRC" -ne 0 ]; then
+  echo "== 測定が終了コード $MRC（寸法NGなら 1672x941 でない画像。採用手順に進めない。$MAP の再生成が必要）。画像は $OUT/take*.png ==" >&2
+  exit "$MRC"
+fi
 echo "== 全テイク（kako-jun が目視で判定する。測定は参考）=="
 for i in $(seq 1 "$N"); do echo "$ROOT/$OUT/take$i.png  (重ね: $ROOT/$OUT/overlay-take$i.png)"; done
