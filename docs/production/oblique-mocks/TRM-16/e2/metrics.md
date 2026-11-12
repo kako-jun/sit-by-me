@@ -4,7 +4,7 @@
 
 | take | 参考(幾何) | recall6 | margin | chamfer | region_ok | 基準超の項目 | 本物 |
 |---|---|---|---|---|---|---|---|
-| 1 | 基準超 | 0.778 | 0.042 | 4.22 | 0.0 | edge_margin,regions | True |
+| 1 | 基準超 | 0.733 | 0.039 | 4.84 | 0.0 | edge_margin,regions | True |
 
 建物の輪郭の指標（参考）: take1: 窓の平均|dy| None・窓±8内 0/0・戸口±8内 0/0・全体ずれ中央値 [None, None]
 
@@ -19,7 +19,7 @@
 
 ## 窓ガラス内 white/green・戸口ピンク残り
 
-- take1: ; 床lum_std 65.12; 全体ピンク残り 0.0
+- take1: ; 床lum_std 63.58; 全体ピンク残り 0.0
 
 ## テイク間
 

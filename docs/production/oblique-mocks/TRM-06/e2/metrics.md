@@ -1,26 +1,26 @@
 # E2 測定 TRM-06 e2
 
-ゲート: {"edge_recall_room_min": 0.6, "edge_margin_min": 0.15, "chamfer_room_max_px": 6.0, "region_shift_max_px": 8, "region_ok_ratio_min": 0.7, "door_pink_residual_max": 0.02, "window_white_green_max": 0.05, "aspect_tol": 0.005}
+ゲート: {"edge_recall_room_min": 0.6, "edge_margin_min": 0.15, "chamfer_room_max_px": 6.0, "region_shift_max_px": 8, "region_ok_ratio_min": 0.7, "door_pink_residual_max": 0.02, "pink_whole_max": 0.0001, "window_white_green_max": 0.05, "aspect_tol": 0.005}
 
 | take | 参考(幾何) | recall6 | margin | chamfer | region_ok | 基準超の項目 | 本物 |
 |---|---|---|---|---|---|---|---|
-| 1 | 基準超 | 0.773 | 0.097 | 4.16 | 0.0 | edge_margin,regions | True |
+| 1 | 基準超 | 0.791 | 0.065 | 4.13 | 0.0 | edge_margin,regions | True |
 
-建物の輪郭の指標（参考）: take1: 窓の平均|dy| None・窓±8内 0/0・戸口±8内 0/1・全体ずれ中央値 [6.0, -14.0]
+建物の輪郭の指標（参考）: take1: 窓の平均|dy| None・窓±8内 0/0・戸口±8内 0/1・全体ずれ中央値 [0.0, 28.0]
 
 ## 戸口・窓の存在確認／開口の床色／畳らしい色（参考。人が見る）
 
-- take1: 戸口・窓の欠落 なし／測定不能 1／開口が壁色に見える なし／畳らしい色の面積 0.0003
+- take1: 戸口・窓の欠落 なし／測定不能 1／開口が壁色に見える なし／畳らしい色の面積 0.0
 
 ## 領域ごとの最良ずれ (dx,dy) px
 
 | region | take1 |
 |---|---|
-| door:TRM-06.door-house | (6,-14) |
+| door:TRM-06.door-house | (0,28) |
 
 ## 窓ガラス内 white/green・戸口ピンク残り
 
-- take1: door:TRM-06.door-house pink0.0; 床lum_std 64.37; 全体ピンク残り 0.0
+- take1: door:TRM-06.door-house pink0.0; 床lum_std 61.73; 全体ピンク残り 0.0
 
 ## テイク間
 
@@ -38,7 +38,7 @@
 - 家具が実物（棚・椅子・机・舞台）として読めるか。人物・文字・矢印が入っていないか（文字有無は未測定）
 - 質感が工作の素材（綿の雪・紙粘土・段ボール・紙やすり）か。実写のような質感・本物の雪になっていないか（屋根・塀・地面・枝の雪がすべて綿か。決定 SIT.miniature-materials-not-photoreal。採否の前に必ず挙げる）
 - 消雪パイプの穴が道路の中央線の上だけにあるか（路肩・縁・私有地・石畳に無いか。水の噴射が無いか。決定 SIT.shosetsu-hole-only）
-- 景色の扉（閉じた門・潜り戸・格子戸・土蔵の扉）が入れそうに見えないか（前に段・通路・足跡・石段・開いた隙間が無く、塀・段差・植栽・雪で塞がれているか。決定 SIT.scenery-door-not-enterable）
+- 景色の扉（閉じた門・潜り戸・格子戸・土蔵の扉）にたどり着けそうに見えないか（見た目が入れそうなのはよい。道・石段・参道・敷石・足跡が扉まで届かず、前に段差・塀・柵・溝・雪などの隔離があるか。決定 SIT.scenery-door-not-enterable）
 - 台座の前縁・飾りがわざとらしくないか（テープ・糊が等間隔・全マップ同位置・同じ形の繰り返しになっていないか。マップごとにばらついているか。決定 SIT.base-edge-decor-random）
 - 鉄道模型のジオラマのような質感か（雪は繊維の見える綿、木は簡略化したスポンジの塊、塀・柵は爪楊枝・割り箸・マッチ棒、地面はターフ・おがくず。形は単純で縁が硬く、写真のように精密でないか）
 - 段ボールの土台・雪・木の質感の様式（手作りミニチュアらしさ）
