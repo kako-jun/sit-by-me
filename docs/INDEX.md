@@ -235,7 +235,7 @@
 | asset-field-legacy-masks | 画像正本 | 旧接続の検証専用マスク（可逆WebP） | 許可 | assets/images |
 | asset-field-reference | 画像正本 | 外観参照・採用基準状態（kebab-case・非可逆WebP品質85） | 許可 | assets/images |
 | asset-field-masks | 画像正本 | 体内・寺町（斜め視点）のマスク（mask・edit は可逆、overlay は非可逆。runtime 切替前） | 許可 | assets/images |
-| asset-battle-backgrounds | 画像正本 | 戦闘背景（台帳は 戦闘背景.yaml。現存はBG001（没・暫定残置。BG011 採用後に削除）。BG005は没・削除） | 許可 | assets/images |
+| asset-battle-backgrounds | 画像正本 | 戦闘背景（台帳は 戦闘背景.yaml。現存は BG011（暫定採用。kako-jun の目視承認は未取得）。BG001・BG005 は没・削除） | 許可 | assets/images |
 | asset-brand | 画像正本 | ブランド（暫定の文字ロゴ。svg が正本・png は派生） | 許可 | assets/images |
 | asset-ui | 画像正本 | ゲームUI用の実写的な画像素材（手のカーソル・選択中の印の円錐など）。名前は 内容-v数字.webp | 許可 | assets/images |
 | ledger-closure | 監査文書 | Issue #156 の元資料ごとの移行先と未解決ゲート | リンク |  |

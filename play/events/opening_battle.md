@@ -7,7 +7,7 @@ hidden: true
 
 ## opening_battle: お遊戯会の劇戦闘
 
-[フィールドマップ 背景=fields/play/teramachi-playroom-trm02-play.webp マスク=fields/masks/TRM-02-mask.webp]
+[フィールドマップ 背景=fields/play/teramachi-playroom-trm02-play.webp マスク=fields/masks/TRM-02-mask.webp 戦闘背景=fields/play/bg011.webp]
 [プレイヤー @700,480]
 [トリガー auto scene=opening_battle once=true]
 
