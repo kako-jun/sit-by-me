@@ -408,6 +408,14 @@ def cmd_check(a):
                     report["top_band_black"][sr["id"]] = round(f, 3)
                     if f < tb["black_min"]:
                         report["problems"].append(f"枠 {sr['id']} の上端帯（上端から{tb['frac']:.0%}）の路面の黒が {f:.0%}（{tb['black_min']:.0%} 以上が要る。石・縁石・綿の塊が枠に入っている）")
+        flat = L["雪の量"].get("flat_left")
+        if flat:  # 路面のうねり・盛り上がり・湾曲した轍（左端）の間接検査: 左端の帯の低周波の明るさのむら
+            from PIL import ImageFilter
+            bl = np.asarray(im.convert("L").filter(ImageFilter.BoxBlur(flat["blur"])), dtype=float)[flat["y0"]:flat["y1"], :flat["w"]]
+            lf = float((bl - bl.mean(axis=1, keepdims=True)).std())
+            report["left_lowfreq"] = round(lf, 2)
+            if lf > flat["max"]:
+                report["problems"].append(f"画面左端の路面の低周波の明るさのむらが {lf:.1f}（{flat['max']} 以下が要る。路面がうねり・盛り上がり・湾曲した轍に見える）")
         report["road_black_fraction"] = round(b_ / tot, 3)
         report["road_white_fraction"] = round(w_ / tot, 3)
         if b_ / tot < snow["black_min"]:

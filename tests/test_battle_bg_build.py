@@ -607,9 +607,10 @@ class RoadBackground(unittest.TestCase):
     def test_pre_check_passes_and_prompt_is_a_snow_road_without_snow_melting_holes(self):
         self.assertEqual(B.pre_check(self.L), [])
         text = B.build_prompt(B.corrected_layout(self.L))
-        self.assertIn("雪が薄く積もった雪道", text)
+        self.assertIn("平らで水平な路面", text)
+        self.assertIn("均一にかかった白い粉雪の層", text)
         self.assertIn("黒い湿ったアスファルト", text)
-        self.assertIn("足跡", text)
+        self.assertIn("曲線", text)  # 左端の路面は弧や曲線にならない
         for bad in ("舞台", "緞帳", "城", "消雪", "金属", "穴", "融雪"):  # kako-jun「雪道でいいのでは」: 穴・金属蓋は描かない
             self.assertNotIn(bad, text)
 
@@ -824,6 +825,54 @@ class RoadBlackBoundary(unittest.TestCase):
             return [q for q in rep["problems"] if "路面の黒い面" in q]
         self.assertTrue(run(0.44))   # 44% は NG（45% 以上が要る）
         self.assertFalse(run(0.46))  # 46% は合格
+
+
+
+
+class FlatRoad(unittest.TestCase):
+    """路面のうねり・盛り上がり・湾曲した轍の間接検査（画面左端の低周波の明るさのむら）。"""
+
+    def setUp(self):
+        _, self.L = B.load("BG012")
+
+    def run_check(self, painter):
+        import io, contextlib, json
+        im = Image.new("RGB", (1672, 941), (60, 58, 56))
+        painter(im)
+        with tempfile.TemporaryDirectory() as t:
+            p = Path(t) / "x.png"
+            im.save(p)
+            a = B.argparse.Namespace(bg_id="BG012", image=str(p), out=t, zoomed=True)
+            with contextlib.redirect_stdout(io.StringIO()):
+                rc = B.cmd_check(a)
+            return rc, json.loads((Path(t) / "report.json").read_text(encoding="utf-8"))
+
+    def test_threshold_is_the_documented_value(self):
+        self.assertEqual(self.L["雪の量"]["flat_left"], {"blur": 40, "y0": 260, "y1": 900, "w": 300, "max": 6.5})
+
+    def test_flat_road_passes(self):
+        rc, rep = self.run_check(lambda im: None)
+        self.assertEqual(rc, 0)
+        self.assertLess(rep["left_lowfreq"], 0.5)
+
+    def test_curved_bright_arc_on_the_left_edge_fails(self):
+        def arc(im):
+            d = ImageDraw.Draw(im)
+            # 左端に大きく湾曲した明るい帯（湾曲した轍・盛り上がりに見える）
+            d.arc([-300, 250, 600, 1150], 240, 350, fill=(230, 230, 230), width=150)
+        rc, rep = self.run_check(arc)
+        self.assertEqual(rc, 1)
+        self.assertTrue(any("うねり" in p for p in rep["problems"]))
+        self.assertGreater(rep["left_lowfreq"], 6.5)
+
+    def test_flat_left_boundary(self):
+        # 左端の帯の右半分の明るさを上げて低周波のむらを作る（実測: +10 で約4.2、+20 で約8.3。合格線 6.5 の前後で NG/合格が分かれる）
+        def shade(delta):
+            def f(im):
+                ImageDraw.Draw(im).rectangle([150, 260, 299, 899], fill=(60 + delta, 58 + delta, 56 + delta))
+            return f
+        self.assertEqual(self.run_check(shade(10))[0], 0)
+        self.assertEqual(self.run_check(shade(20))[0], 1)
 
 
 if __name__ == "__main__":
