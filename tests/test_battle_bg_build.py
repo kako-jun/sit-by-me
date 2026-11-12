@@ -254,13 +254,13 @@ class ZoomSearch(unittest.TestCase):
         self.assertAlmostEqual(B.Integral(m).frac([0, 0, 100, 100]), 1.0, places=6)
         self.assertAlmostEqual(B.Integral(m).frac([150, 0, 50, 100]), 0.0, places=6)
 
-    def test_floor_mask_excludes_sky_green_white_and_dark_face(self):
+    def test_floor_mask_excludes_sky_green_white_and_black(self):
         import numpy as np
         px = np.zeros((60, 240, 3), dtype=int)
         px[:, 0:60] = (130, 75, 40)    # 床の板
         px[:, 60:120] = (90, 150, 220)  # 青空
         px[:, 120:180] = (40, 100, 50)  # 緑の緞帳
-        px[:, 180:240] = (60, 35, 20)   # 前面の濃い板
+        px[:, 180:240] = (20, 20, 20)   # 黒（床でも物でもない）
         m = B.floor_mask(px)
         self.assertTrue(m[:, 10:50].all())
         self.assertFalse(m[:, 70:110].any())
@@ -325,7 +325,7 @@ class ObjectInFrames(unittest.TestCase):
         px[:, 20:30] = (40, 100, 50)   # 緑の緞帳
         px[:, 30:40] = (240, 240, 235)  # 白い粘土
         px[:, 40:50] = (200, 60, 40)   # 赤い屋根
-        px[:, 50:60] = (60, 35, 20)    # 前面の濃い板
+        px[:, 50:60] = (60, 35, 20)    # 濃い茶（物ではない）
         m = B.object_mask(px)
         self.assertFalse(m[:, 0:10].any())
         self.assertTrue(m[:, 10:50].all())
@@ -403,10 +403,10 @@ class Survivors(unittest.TestCase):
     def test_zoomed_check_floor_threshold_94_fails_96_passes(self):
         import json, io, contextlib
         _, L = B.load("BG011")
-        for band, expect in ((34, 1), (26, 0)):  # 枠の上端に暗い前面板色（物でも床でもない）の帯。34px→床93.7%（NG）、26px→96.0%（合格）
+        for band, expect in ((19, 1), (12, 0)):  # 枠の上端に黒（物でも床でもない）の帯。19px→床94.1%（NG）、12px→96.3%（合格）
             im = Image.new("RGB", (1672, 941), (120, 70, 38))
             x, y, w, h = next(r["box"] for r in L["safe_rects"] if r["id"] == "ally2")
-            ImageDraw.Draw(im).rectangle([x, y, x + w - 1, y + band - 1], fill=(60, 35, 20))
+            ImageDraw.Draw(im).rectangle([x, y, x + w - 1, y + band - 1], fill=(20, 20, 20))
             with tempfile.TemporaryDirectory() as t:
                 p = Path(t) / "x.png"
                 im.save(p)

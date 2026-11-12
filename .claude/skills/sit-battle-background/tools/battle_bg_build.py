@@ -204,13 +204,9 @@ def object_mask(px):
 
 
 def floor_mask(px):
-    """床の板に見える画素のマスク（全画素を一度だけ判定）。物（青空・緑・白・金・明るい段ボール）と、暗すぎる面（周囲 15px の平均の赤が 78 未満。濃い影や前面の板）は床でない。板の細い暗い隙間は床のまま。"""
-    from PIL import Image, ImageFilter
-    import numpy as np
+    """床の板に見える画素のマスク（全画素を一度だけ判定）。物（青空・緑・白・金・明るい段ボール）でなく、赤みのある茶色（赤が青より15以上大きく、赤が35以上）なら床。濃い影の板も床。黒・灰色は床でない。"""
     r, g, b = px[..., 0], px[..., 1], px[..., 2]
-    obj = object_mask(px)
-    blur = np.asarray(Image.fromarray(r.astype("uint8")).filter(ImageFilter.BoxBlur(15)), dtype=int)
-    return ~obj & (blur >= 78)
+    return ~object_mask(px) & (r > b + 15) & (r >= g) & (r >= 35)
 
 
 class Integral:
