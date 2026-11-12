@@ -299,6 +299,11 @@ def floor_mask(px, ground="wood"):
     return ~object_mask(px) & (r > b + 15) & (r >= g) & (r >= 35)
 
 
+def black_mask(px):
+    """黒い路面（最大チャンネル110未満）のマスク。薄雪の路面の『枠の上端帯に石・縁石が入っていないか』の検査に使う。"""
+    return px.max(axis=2) < 110
+
+
 class Integral:
     """マスクの積分画像。矩形内の真の画素数を O(1) で出す。"""
 
@@ -392,6 +397,17 @@ def cmd_check(a):
                 tot += w * h
                 b_ += int(black[y:y + h, x:x + w].sum())
                 w_ += int(white[y:y + h, x:x + w].sum())
+        tb = L["雪の量"].get("top_band")
+        if tb:  # 枠の上端帯に石・縁石・綿の塊が入っていないか（路面の黒が少ない帯は NG）
+            report["top_band_black"] = {}
+            for sr in L["safe_rects"]:
+                if sr["id"].startswith("ally") or sr["id"] == "enemy":
+                    x, y, w, h = sr["box"]
+                    bh = max(int(h * tb["frac"]), 1)
+                    f = float(black[int(y):int(y) + bh, int(x):int(x) + w].mean())
+                    report["top_band_black"][sr["id"]] = round(f, 3)
+                    if f < tb["black_min"]:
+                        report["problems"].append(f"枠 {sr['id']} の上端帯（上端から{tb['frac']:.0%}）の路面の黒が {f:.0%}（{tb['black_min']:.0%} 以上が要る。石・縁石・綿の塊が枠に入っている）")
         report["road_black_fraction"] = round(b_ / tot, 3)
         report["road_white_fraction"] = round(w_ / tot, 3)
         if b_ / tot < snow["black_min"]:
@@ -436,7 +452,7 @@ def cmd_zoom(a):
     print(json.dumps(report, ensure_ascii=False))
 
 
-def _candidate(integ, L, scale, cx, cy, obj=None):
+def _candidate(integ, L, scale, cx, cy, obj=None, blk=None):
     """元画像のクロップ枠（左上 cx,cy・倍率 scale）を採点する。拡大後の枠 [x,y,w,h] は元画像の [cx+x/scale, cy+y/scale, w/scale, h/scale] に当たる。"""
     W, H = L["canvas"]
     cw = round(W / scale)
@@ -450,8 +466,16 @@ def _candidate(integ, L, scale, cx, cy, obj=None):
             fr[sr["id"]] = integ.frac([cx + x / scale, cy + y / scale, w / scale, h / scale])
     objf = {k: (obj.frac([cx + sr["box"][0] / scale, cy + sr["box"][1] / scale, sr["box"][2] / scale, sr["box"][3] / scale]) if obj else 0.0)
             for k, sr in ((s["id"], s) for s in L["safe_rects"]) if k != "log"}
-    return {"scale": scale, "crop": [int(cx), int(cy), cw, ch], "floor_fraction": fr, "object_fraction": objf,
-            "ok": all(v >= SEARCH_MARGIN for v in fr.values()) and all(v <= OBJ_MAX for v in objf.values()),
+    tb = L.get("雪の量", {}).get("top_band")
+    band = {}
+    if tb and blk:  # 薄雪の路面: 枠の上端帯の路面の黒（石・縁石が入る候補を落とす）
+        for k, sr in ((s["id"], s) for s in L["safe_rects"]):
+            if k.startswith("ally") or k == "enemy":
+                x, y, w, h = sr["box"]
+                band[k] = blk.frac([cx + x / scale, cy + y / scale, w / scale, h * tb["frac"] / scale])
+    band_ok = all(v >= tb["black_min"] for v in band.values()) if band else True
+    return {"scale": scale, "crop": [int(cx), int(cy), cw, ch], "floor_fraction": fr, "object_fraction": objf, "top_band_black": band,
+            "ok": all(v >= SEARCH_MARGIN for v in fr.values()) and all(v <= OBJ_MAX for v in objf.values()) and band_ok,
             "set_visible": 1 - integ.frac([cx, cy, cw, ch])}
 
 
@@ -464,13 +488,14 @@ def cmd_zoom_search(a):
     px = np.asarray(im, dtype=int)
     integ = Integral(floor_mask(px, L.get("地面", "wood")))
     obj = Integral(object_mask(px, L.get("地面", "wood")))
+    blk = Integral(black_mask(px))
     scales = [float(v) for v in a.scales.split(",")]
     cands = []
     for sc in scales:
         cw, ch = W / sc, H / sc
         for cy in range(0, int(px.shape[0] - ch) + 1, 4):
             for cx in range(0, int(px.shape[1] - cw) + 1, 10):
-                c = _candidate(integ, L, sc, cx, cy, obj)
+                c = _candidate(integ, L, sc, cx, cy, obj, blk)
                 if c:
                     cands.append(c)
     ok = sorted([c for c in cands if c["ok"]], key=lambda c: -c["set_visible"])

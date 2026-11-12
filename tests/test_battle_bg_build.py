@@ -679,7 +679,7 @@ class ThinSnow(unittest.TestCase):
 
     def test_ground_is_thin_snow_with_measured_thresholds(self):
         self.assertEqual(self.L["地面"], "thin-snow")
-        self.assertEqual(self.L["雪の量"], {"black_min": 0.45, "white_max": 0.35})
+        self.assertEqual((self.L["雪の量"]["black_min"], self.L["雪の量"]["white_max"]), (0.45, 0.35))
 
     def test_thin_snow_masks_count_black_grey_white_as_road_and_colour_as_object(self):
         import numpy as np
@@ -718,23 +718,112 @@ class ThinSnow(unittest.TestCase):
         self.assertTrue(any("積もりすぎ" in p for p in rep["problems"]))
 
     def test_white_fraction_boundary(self):
-        # 敵・味方の枠の面積の合計に対して白36%超は NG、30%は合格（閾値 35%）
-        import numpy as np
-        _, L = B.load("BG012")
-        boxes = [r["box"] for r in L["safe_rects"] if r["id"].startswith("ally") or r["id"] == "enemy"]
-        tot = sum(w * h for _, _, w, h in boxes)
+        """敵の枠1つだけの台帳で、枠内の白い雪が 34%（合格）と 36%（NG）の境界（白は35%以下）。"""
+        import io, contextlib, json, copy
+        L = copy.deepcopy(self.L)
+        L["safe_rects"] = [r for r in L["safe_rects"] if r["id"] == "enemy"]
+        L["雪の量"].pop("top_band")
+        x, y, w, h = [int(v) for v in L["safe_rects"][0]["box"]]
 
-        def paint(frac):
-            def f(d):
-                left = frac * tot
-                for x, y, w, h in boxes:
-                    take = min(left, w * h)
-                    if take >= w:
-                        d.rectangle([x, y, x + w - 1, y + int(take / w) - 1], fill=(235, 238, 240))
-                    left -= take
-            return f
-        self.assertEqual(self.run_check(paint(0.30))[0], 0)
-        self.assertEqual(self.run_check(paint(0.40))[0], 1)
+        def run(white_frac):
+            im = Image.new("RGB", (1672, 941), (60, 58, 56))
+            ImageDraw.Draw(im).rectangle([x, y + h - int(h * white_frac), x + w - 1, y + h - 1], fill=(235, 238, 240))
+            with tempfile.TemporaryDirectory() as t:
+                p = Path(t) / "x.png"
+                im.save(p)
+                orig = B.load
+                B.load = lambda bg: (None, L)
+                try:
+                    a = B.argparse.Namespace(bg_id="BG012", image=str(p), out=t, zoomed=True)
+                    with contextlib.redirect_stdout(io.StringIO()):
+                        B.cmd_check(a)
+                finally:
+                    B.load = orig
+                rep = json.loads((Path(t) / "report.json").read_text(encoding="utf-8"))
+            return [q for q in rep["problems"] if "白い雪" in q]
+        self.assertFalse(run(0.34))
+        self.assertTrue(run(0.36))
+
+
+class TopBand(unittest.TestCase):
+    """薄雪の路面は石・縁石・瓦の暗い灰色を路面の黒と色で分けられないので、枠の上端帯の路面の黒の割合で見る。"""
+
+    def setUp(self):
+        _, self.L = B.load("BG012")
+        self.tb = self.L["雪の量"]["top_band"]
+
+    def check(self, painter):
+        import io, contextlib, json
+        im = Image.new("RGB", (1672, 941), (60, 58, 56))
+        painter(ImageDraw.Draw(im))
+        with tempfile.TemporaryDirectory() as t:
+            p = Path(t) / "x.png"
+            im.save(p)
+            a = B.argparse.Namespace(bg_id="BG012", image=str(p), out=t, zoomed=True)
+            with contextlib.redirect_stdout(io.StringIO()):
+                rc = B.cmd_check(a)
+            return rc, json.loads((Path(t) / "report.json").read_text(encoding="utf-8"))
+
+    def test_thresholds_are_documented_values(self):
+        self.assertEqual(self.tb, {"frac": 0.15, "black_min": 0.80})
+
+    def test_stone_grey_in_ally1_top_band_fails(self):
+        x, y, w, h = next(r["box"] for r in self.L["safe_rects"] if r["id"] == "ally1")
+        rc, rep = self.check(lambda d: d.rectangle([x, y, x + w - 1, y + int(h * 0.15) - 1], fill=(125, 125, 120)))  # 石の灰色（路面の黒ではない・物でもない）
+        self.assertEqual(rc, 1)
+        self.assertTrue(any("上端帯" in p and "ally1" in p for p in rep["problems"]))
+
+    def test_black_threshold_boundary_in_the_top_band(self):
+        x, y, w, h = next(r["box"] for r in self.L["safe_rects"] if r["id"] == "enemy")
+        bh = int(h * 0.15)
+
+        def paint(grey_fraction):
+            return lambda d: d.rectangle([x, y, x + int(w * grey_fraction) - 1, y + bh - 1], fill=(125, 125, 120))
+        self.assertEqual(self.check(paint(0.19))[0], 0)  # 灰19% → 黒81%
+        self.assertEqual(self.check(paint(0.21))[0], 1)  # 灰21% → 黒79%
+
+    def test_zoom_search_rejects_candidates_with_stone_in_the_band(self):
+        import numpy as np
+        black = np.ones((941, 1672), dtype=bool)
+        black[60:140, 900:1200] = False  # 味方1枠の上端帯（y78〜126）に石
+        floor = np.ones((941, 1672), dtype=bool)
+        obj = np.zeros((941, 1672), dtype=bool)
+        c = B._candidate(B.Integral(floor), self.L, 1.0, 0, 0, B.Integral(obj), B.Integral(black))
+        self.assertFalse(c["ok"])
+        self.assertLess(c["top_band_black"]["ally1"], 0.8)
+        c = B._candidate(B.Integral(floor), self.L, 1.0, 0, 0, B.Integral(obj), B.Integral(np.ones_like(black)))
+        self.assertTrue(c["ok"])
+
+
+class RoadBlackBoundary(unittest.TestCase):
+    def test_black_min_boundary_44_and_46_percent(self):
+        """敵の枠1つだけの台帳で、枠内の黒の割合が 44%（NG）と 46%（合格）の境界を確かめる（枠が重ならないので割合を正確に作れる）。"""
+        import io, contextlib, json, copy
+        _, L = B.load("BG012")
+        L = copy.deepcopy(L)
+        L["safe_rects"] = [r for r in L["safe_rects"] if r["id"] == "enemy"]
+        L["雪の量"].pop("top_band")  # この試験は路面全体の黒の割合だけを見る
+        x, y, w, h = L["safe_rects"][0]["box"]
+        x, y, w, h = int(x), int(y), int(w), int(h)
+
+        def run(black_frac):
+            im = Image.new("RGB", (1672, 941), (150, 148, 146))  # 灰色（黒でも白でも物でもない）
+            ImageDraw.Draw(im).rectangle([x, y, x + w - 1, y + int(h * black_frac) - 1], fill=(60, 58, 56))
+            with tempfile.TemporaryDirectory() as t:
+                p = Path(t) / "x.png"
+                im.save(p)
+                orig = B.load
+                B.load = lambda bg: (None, L)
+                try:
+                    a = B.argparse.Namespace(bg_id="BG012", image=str(p), out=t, zoomed=True)
+                    with contextlib.redirect_stdout(io.StringIO()):
+                        B.cmd_check(a)
+                finally:
+                    B.load = orig
+                rep = json.loads((Path(t) / "report.json").read_text(encoding="utf-8"))
+            return [q for q in rep["problems"] if "路面の黒い面" in q]
+        self.assertTrue(run(0.44))   # 44% は NG（45% 以上が要る）
+        self.assertFalse(run(0.46))  # 46% は合格
 
 
 if __name__ == "__main__":
