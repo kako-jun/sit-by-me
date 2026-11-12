@@ -55,7 +55,7 @@ class Build(unittest.TestCase):
         with tempfile.TemporaryDirectory() as t:
             p = Path(t) / "x.png"
             im.save(p)
-            a = B.argparse.Namespace(bg_id="BG011", image=str(p), out=t)
+            a = B.argparse.Namespace(bg_id="BG011", image=str(p), out=t, zoomed=False)
             self.assertEqual(B.cmd_check(a), 1)
 
     def test_check_passes_castle_in_box(self):
@@ -66,7 +66,7 @@ class Build(unittest.TestCase):
         with tempfile.TemporaryDirectory() as t:
             p = Path(t) / "x.png"
             im.save(p)
-            a = B.argparse.Namespace(bg_id="BG011", image=str(p), out=t)
+            a = B.argparse.Namespace(bg_id="BG011", image=str(p), out=t, zoomed=False)
             self.assertEqual(B.cmd_check(a), 0)
 
 
@@ -93,7 +93,7 @@ class Mutants(unittest.TestCase):
         if L is not None:
             B.load = lambda bg: (None, L)
         try:
-            a = B.argparse.Namespace(bg_id="BG011", image=str(p), out=self.tmp.name)
+            a = B.argparse.Namespace(bg_id="BG011", image=str(p), out=self.tmp.name, zoomed=False)
             import io, contextlib
             with contextlib.redirect_stdout(io.StringIO()):
                 rc = B.cmd_check(a)
@@ -197,6 +197,46 @@ class BackEdge(unittest.TestCase):
         rc, rep = m.run_check(im, L)
         m.tmp.cleanup()
         self.assertTrue(any("奥の縁の上がり" in p for p in rep["problems"]))
+
+
+
+
+class Zoom(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.src = Path(self.tmp.name) / "src.png"
+        Image.new("RGB", (1672, 941), (10, 20, 30)).save(self.src)
+
+    def run_zoom(self, crop):
+        a = B.argparse.Namespace(bg_id="BG011", image=str(self.src), crop=crop, out=str(Path(self.tmp.name) / "o.png"))
+        import io, contextlib
+        with contextlib.redirect_stdout(io.StringIO()):
+            B.cmd_zoom(a)
+        return a
+
+    def test_zoom_outputs_canvas_size_and_report(self):
+        import json
+        a = self.run_zoom("400,362,796,448")
+        self.assertEqual(Image.open(a.out).size, (1672, 941))
+        rep = json.loads((Path(self.tmp.name) / "zoom-report.json").read_text(encoding="utf-8"))
+        self.assertEqual(rep["crop"], [400, 362, 796, 448])
+        self.assertAlmostEqual(rep["scale"], 2.1005, places=3)
+        self.assertEqual(len(rep["source_sha256"]), 64)
+
+    def test_zoom_keeps_source(self):
+        import hashlib
+        before = hashlib.sha256(self.src.read_bytes()).hexdigest()
+        self.run_zoom("400,362,796,448")
+        self.assertEqual(hashlib.sha256(self.src.read_bytes()).hexdigest(), before)
+
+    def test_zoom_rejects_non_16_9(self):
+        with self.assertRaises(SystemExit):
+            self.run_zoom("400,362,700,448")
+
+    def test_zoom_rejects_crop_outside_image(self):
+        with self.assertRaises(SystemExit):
+            self.run_zoom("1000,600,796,448")
 
 
 if __name__ == "__main__":

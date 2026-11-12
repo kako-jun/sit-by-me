@@ -6,10 +6,13 @@
 使い方（リポ root から）:
   uv run --with pillow --with numpy python3 -I .claude/skills/sit-battle-background/tools/battle_bg_build.py build BG011 --stage-ref STAGE.png --out DIR
       生成前の検査（物が安全矩形に重ならないか・床の奥の縁が右上がりか）。通れば DIR/layout.png・DIR/send.txt・DIR/refs.txt を出す。重なれば停止。
-  ... check BG011 IMAGE.png --out DIR
+  ... check BG011 IMAGE.png --out DIR [--zoomed]
       生成後の検査: 実寸、安全矩形を重ねた DIR/overlay.png、城の赤い屋根の位置（城の枠の外・矩形への重なり）。物の有無の最終判断は目視。
+      --zoomed（zoom 後の画像）: 城は見切れてよいので屋根が無くてもよく（有れば矩形への重なりだけ見る）、奥の縁の上がりは測らず、代わりに敵・味方の枠が床（濃い茶色の板）の上に載っているか（枠内の床画素の割合）を見る。
   ... ref --out STAGE.png
       参照見本（TRM-02 の舞台の柱・ランタン・緞帳・書き割りの空と山・舞台板だけを切り出して並べた見本。城・樅を含まない。城・樅の位置は台帳『配置』が正本）。
+  ... zoom BG011 IMAGE.png --crop X,Y,W,H --out OUT.png
+      クロップ枠（16:9）を 1672x941 に Lanczos 拡大する。元画像は変えない。枠・倍率・元画像の sha256 を OUT の隣の zoom-report.json に残す。座標を守れない・床が傾く時は再生成せずまずこれ（局所合成より先）。
   ... mask BG011 castle --out MASK.png
       城の枠だけを白にした局所合成用マスク（image-local-replace で城だけ直す時）。
 """
@@ -161,6 +164,14 @@ def edge_rise(px, floor):
     return float(-(k * (floor["back_right"][0] - floor["back_left"][0])))
 
 
+def floor_fraction(px, box):
+    """枠 [x,y,w,h] の中で『床の濃い茶色の板』に見える画素の割合（青空・緑の緞帳・白い雪・明るい段ボールを除く）。"""
+    x, y, w, h = [int(v) for v in box]
+    r, g, b = (px[y:y + h, x:x + w, i] for i in range(3))
+    floor = (r > b + 15) & (r >= g) & (r < 190) & (g > 20)
+    return float(floor.mean()) if floor.size else 0.0
+
+
 def cmd_check(a):
     import numpy as np
     from PIL import Image, ImageDraw
@@ -187,22 +198,35 @@ def cmd_check(a):
     ys, xs = np.nonzero(red)
     if len(xs) < 200:
         report["castle_roof"] = None
-        report["problems"].append("城の赤い屋根が検出できない（城が無い/色が違う。目視で確認）")
+        if not a.zoomed:
+            report["problems"].append("城の赤い屋根が検出できない（城が無い/色が違う。目視で確認）")
     else:
         x0, x1 = np.percentile(xs, [1, 99])  # 外れ値（小さな赤い点）を除く
         y0, y1 = np.percentile(ys, [1, 99])
         bx = [int(x0), int(y0), int(x1 - x0), int(y1 - y0)]
         report["castle_roof"] = bx
         tol = 30
-        if bx[0] < x - tol or bx[1] < y - tol or bx[0] + bx[2] > x + w + tol or bx[1] + bx[3] > y + h + tol:
+        if not a.zoomed and (bx[0] < x - tol or bx[1] < y - tol or bx[0] + bx[2] > x + w + tol or bx[1] + bx[3] > y + h + tol):
             report["problems"].append(f"城の屋根 {bx} が城の枠 {castle['box']}（±{tol}）の外")
         for sr in L["safe_rects"]:
             if overlap(bx, sr["box"]):
                 report["problems"].append(f"城の屋根 {bx} が安全矩形 {sr['id']} に重なる")
-    rise = edge_rise(px, L["floor"])
+    if a.zoomed:
+        report["floor_fraction"] = {}
+        for sr in L["safe_rects"]:
+            if sr["id"].startswith("ally") or sr["id"] == "enemy":
+                fr = floor_fraction(px, sr["box"])
+                report["floor_fraction"][sr["id"]] = round(fr, 3)
+                if fr < 0.9:
+                    report["problems"].append(f"枠 {sr['id']} の床画素が {fr:.0%}（90% 以上が要る。枠が床の上に載っていない）")
+        rise, need = None, 0
+    else:
+        rise = edge_rise(px, L["floor"])
+        need = L["floor"]["min_rise_px"]
     report["back_edge_rise_px"] = None if rise is None else round(rise, 1)
-    need = L["floor"]["min_rise_px"]
-    if rise is None:
+    if a.zoomed:
+        pass
+    elif rise is None:
         report["problems"].append("奥の縁（書き割りの下端）が測れない。overlay.png 上で左右の y を測って記録する")
     elif rise < need:
         report["problems"].append(f"奥の縁の上がりが {rise:.1f}px（{need}px 以上が要る。右端が左端より高い）")
@@ -210,6 +234,25 @@ def cmd_check(a):
     (out / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps(report, ensure_ascii=False, indent=1))
     return 1 if report["problems"] else 0
+
+
+def cmd_zoom(a):
+    import hashlib
+    from PIL import Image
+    _, L = load(a.bg_id)
+    W, H = L["canvas"]
+    x, y, w, h = [int(v) for v in a.crop.split(",")]
+    im = Image.open(a.image).convert("RGB")
+    if x < 0 or y < 0 or x + w > im.width or y + h > im.height:
+        sys.exit(f"クロップ枠 {x},{y},{w},{h} が元画像 {im.size} の外")
+    if abs(w * H - h * W) > max(w, h):  # 16:9（1px 程度の丸めは許す）
+        sys.exit(f"クロップ枠 {w}x{h} が {W}:{H} の比でない")
+    out = im.crop((x, y, x + w, y + h)).resize((W, H), Image.LANCZOS)
+    out.save(a.out)
+    report = {"source": str(a.image), "source_sha256": hashlib.sha256(Path(a.image).read_bytes()).hexdigest(),
+              "crop": [x, y, w, h], "scale": round(W / w, 4), "output": [W, H]}
+    Path(a.out).with_name("zoom-report.json").write_text(json.dumps(report, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(json.dumps(report, ensure_ascii=False))
 
 
 def cmd_mask(a):
@@ -237,14 +280,20 @@ def main(argv=None):
     c.add_argument("bg_id")
     c.add_argument("image")
     c.add_argument("--out", required=True)
+    c.add_argument("--zoomed", action="store_true")
     rf = sub.add_parser("ref")
     rf.add_argument("--out", required=True)
+    z = sub.add_parser("zoom")
+    z.add_argument("bg_id")
+    z.add_argument("image")
+    z.add_argument("--crop", required=True)
+    z.add_argument("--out", required=True)
     m = sub.add_parser("mask")
     m.add_argument("bg_id")
     m.add_argument("item")
     m.add_argument("--out", required=True)
     a = ap.parse_args(argv)
-    r = {"build": cmd_build, "check": cmd_check, "mask": cmd_mask, "ref": cmd_ref}[a.cmd](a)
+    r = {"build": cmd_build, "check": cmd_check, "mask": cmd_mask, "ref": cmd_ref, "zoom": cmd_zoom}[a.cmd](a)
     return r or 0
 
 
