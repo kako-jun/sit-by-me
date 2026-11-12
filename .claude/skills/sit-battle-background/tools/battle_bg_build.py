@@ -174,12 +174,22 @@ def edge_rise(px, floor):
     return float(-(k * (floor["back_right"][0] - floor["back_left"][0])))
 
 
+OBJ_MAX = 0.005  # 枠内に許す『舞台セットの物ピクセル』の割合（板のハイライトなどの誤検出の余裕）
+
+
+def object_mask(px):
+    """舞台セットの物に見える画素: 青空・緑の緞帳・白い粘土や雪や雲・金の房やランタン・赤い屋根・明るい段ボール（床の板の色と前面の濃い板は含まない）。"""
+    import numpy as np
+    r, g, b = px[..., 0], px[..., 1], px[..., 2]
+    return (b > r) | (g > r + 8) | (np.minimum(np.minimum(r, g), b) > 175) | (r > 190)
+
+
 def floor_mask(px):
     """床の板に見える画素のマスク（全画素を一度だけ判定）。物（青空・緑・白・金・明るい段ボール）と、前面の濃い板（周囲 15px の平均の赤が 78 未満）は床でない。板の細い暗い隙間は床のまま。"""
     from PIL import Image, ImageFilter
     import numpy as np
     r, g, b = px[..., 0], px[..., 1], px[..., 2]
-    obj = (b > r) | (g > r + 8) | (np.minimum(np.minimum(r, g), b) > 175) | (r > 190)
+    obj = object_mask(px)
     blur = np.asarray(Image.fromarray(r.astype("uint8")).filter(ImageFilter.BoxBlur(15)), dtype=int)
     return ~obj & (blur >= 78)
 
@@ -246,8 +256,14 @@ def cmd_check(a):
     if a.zoomed:
         report["floor_fraction"] = {}
         integ = Integral(floor_mask(px))
+        objm = Integral(object_mask(px))
+        report["object_fraction"] = {}
         for sr in L["safe_rects"]:
             if sr["id"].startswith("ally") or sr["id"] == "enemy":
+                of = objm.frac(sr["box"])
+                report["object_fraction"][sr["id"]] = round(of, 4)
+                if of > OBJ_MAX:
+                    report["problems"].append(f"枠 {sr['id']} に舞台セットの物（城・塔・柱・ランタン・緞帳・書き割り）の画素が {of:.1%}（{OBJ_MAX:.1%} 以下が要る）")
                 fr = integ.frac(sr["box"])
                 report["floor_fraction"][sr["id"]] = round(fr, 3)
                 if fr < FLOOR_MIN:
@@ -288,7 +304,7 @@ def cmd_zoom(a):
     print(json.dumps(report, ensure_ascii=False))
 
 
-def _candidate(integ, L, scale, cx, cy):
+def _candidate(integ, L, scale, cx, cy, obj=None):
     """元画像のクロップ枠（左上 cx,cy・倍率 scale）を採点する。拡大後の枠 [x,y,w,h] は元画像の [cx+x/scale, cy+y/scale, w/scale, h/scale] に当たる。"""
     W, H = L["canvas"]
     cw, ch = W / scale, H / scale
@@ -299,8 +315,11 @@ def _candidate(integ, L, scale, cx, cy):
         if sr["id"].startswith("ally") or sr["id"] == "enemy":
             x, y, w, h = sr["box"]
             fr[sr["id"]] = integ.frac([cx + x / scale, cy + y / scale, w / scale, h / scale])
-    return {"scale": scale, "crop": [int(cx), int(cy), int(cw), int(ch)], "floor_fraction": fr,
-            "ok": all(v >= SEARCH_MARGIN for v in fr.values()), "set_visible": 1 - integ.frac([cx, cy, cw, ch])}
+    objf = {k: (obj.frac([cx + sr["box"][0] / scale, cy + sr["box"][1] / scale, sr["box"][2] / scale, sr["box"][3] / scale]) if obj else 0.0)
+            for k, sr in ((s["id"], s) for s in L["safe_rects"]) if k.startswith("ally") or k == "enemy"}
+    return {"scale": scale, "crop": [int(cx), int(cy), int(cw), int(ch)], "floor_fraction": fr, "object_fraction": objf,
+            "ok": all(v >= SEARCH_MARGIN for v in fr.values()) and all(v <= OBJ_MAX for v in objf.values()),
+            "set_visible": 1 - integ.frac([cx, cy, cw, ch])}
 
 
 def cmd_zoom_search(a):
@@ -311,13 +330,14 @@ def cmd_zoom_search(a):
     im = Image.open(a.image).convert("RGB")
     px = np.asarray(im, dtype=int)
     integ = Integral(floor_mask(px))
+    obj = Integral(object_mask(px))
     scales = [float(v) for v in a.scales.split(",")]
     cands = []
     for sc in scales:
         cw, ch = W / sc, H / sc
         for cy in range(0, int(px.shape[0] - ch) + 1, 4):
             for cx in range(0, int(px.shape[1] - cw) + 1, 10):
-                c = _candidate(integ, L, sc, cx, cy)
+                c = _candidate(integ, L, sc, cx, cy, obj)
                 if c:
                     cands.append(c)
     ok = sorted([c for c in cands if c["ok"]], key=lambda c: -c["set_visible"])

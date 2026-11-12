@@ -311,5 +311,51 @@ class Cutoff(unittest.TestCase):
         self.assertLessEqual(y0, 184.5)  # 左は敵の枠の上端より上
 
 
+
+
+class ObjectInFrames(unittest.TestCase):
+    def setUp(self):
+        _, self.L = B.load("BG011")
+
+    def test_object_mask_detects_set_colours_not_floor(self):
+        import numpy as np
+        px = np.zeros((10, 60, 3), dtype=int)
+        px[:, 0:10] = (130, 75, 40)    # 床の板
+        px[:, 10:20] = (90, 150, 220)  # 青空
+        px[:, 20:30] = (40, 100, 50)   # 緑の緞帳
+        px[:, 30:40] = (240, 240, 235)  # 白い粘土
+        px[:, 40:50] = (200, 60, 40)   # 赤い屋根
+        px[:, 50:60] = (60, 35, 20)    # 前面の濃い板
+        m = B.object_mask(px)
+        self.assertFalse(m[:, 0:10].any())
+        self.assertTrue(m[:, 10:50].all())
+        self.assertFalse(m[:, 50:60].any())
+
+    def test_candidate_rejected_when_set_object_enters_frame(self):
+        import numpy as np
+        floor = np.ones((941, 1672), dtype=bool)
+        obj = np.zeros((941, 1672), dtype=bool)
+        obj[78:120, 930:1000] = True  # 味方1枠(920,78)に城の塔
+        c = B._candidate(B.Integral(floor), self.L, 1.0, 0, 0, B.Integral(obj))
+        self.assertFalse(c["ok"])
+        self.assertGreater(c["object_fraction"]["ally1"], B.OBJ_MAX)
+        c = B._candidate(B.Integral(floor), self.L, 1.0, 0, 0, B.Integral(np.zeros_like(obj)))
+        self.assertTrue(c["ok"])
+
+    def test_check_zoomed_flags_object_in_frame(self):
+        import json, io, contextlib
+        im = Image.new("RGB", (1672, 941), (120, 70, 38))
+        ImageDraw.Draw(im).rectangle([930, 80, 1000, 130], fill=(240, 240, 235))
+        with tempfile.TemporaryDirectory() as t:
+            p = Path(t) / "x.png"
+            im.save(p)
+            a = B.argparse.Namespace(bg_id="BG011", image=str(p), out=t, zoomed=True)
+            with contextlib.redirect_stdout(io.StringIO()):
+                rc = B.cmd_check(a)
+            self.assertEqual(rc, 1)
+            rep = json.loads((Path(t) / "report.json").read_text(encoding="utf-8"))
+            self.assertTrue(any("舞台セットの物" in p for p in rep["problems"]))
+
+
 if __name__ == "__main__":
     unittest.main()
