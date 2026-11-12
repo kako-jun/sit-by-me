@@ -22,7 +22,7 @@
  },
  "map_id": "TRM-16",
  "plan": "docs/production/oblique-mocks/TRM-16-plan.json",
- "plan_sha256": "eb1f5fe244d87ddbee0aa453cd7d0568e76a36f9e445f45b45b3baf418928450",
+ "plan_sha256": "299d72acc756d281edf5e10576e1007e388128c68799ea61804b658da03285a2",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -37,60 +37,60 @@
      1
     ]
    },
-   "input_sha": "ae88e45b10e5be8f995e51ffe3b0a69488ee0ae27327c512cd692d48762361be",
+   "input_sha": "4273e3d0d6efb5f4fbdc078828676c0ae46823f8edd10f03b49d6af03fde04ed",
    "outputs": {
-    "TRM-16-exits.png": "4a7c11a29b2e27856029f5deb6f8e643f854eca51dd9a5cbff79b9711f3a814a",
+    "TRM-16-exits.png": "10566fd3d21a5a0ea62a9e60f51bc4e723f4847a76dc9059b7c1bc9781f5b726",
     "TRM-16-mask.json": "5fbbeff4b8b19d7b5366e29639c437236f78592e94669dc5b2ae7cf18fb04de8",
-    "TRM-16-mask.png": "10762cdbab5f7f738b8ba7222a22a53ccdb36652176f1e576ac7571d8de55e5e"
+    "TRM-16-mask.png": "482757b76e29594826b48341763628633720fb9dd23cb969f32543bc3bbe33e9"
    },
    "status": "ok",
    "white_components": 1
   },
   "mock": {
-   "input_sha": "ae88e45b10e5be8f995e51ffe3b0a69488ee0ae27327c512cd692d48762361be",
+   "input_sha": "4273e3d0d6efb5f4fbdc078828676c0ae46823f8edd10f03b49d6af03fde04ed",
    "outputs": {
-    "TRM-16-clean.png": "11d3687dfe6e6a216d0c8ac072d10bb2c66c19149c7af31adb0f4e7e9093d59f",
-    "TRM-16-review.png": "ecb294d52a9a0d7a1749dc6913de237bda66ea35e26e9b57ea1c2067f8fc9fe4"
+    "TRM-16-clean.png": "9d849ad99c5c571c20aa27d0bf6e3f0beed8793708c7c2ccad23608a61ebb55b",
+    "TRM-16-review.png": "fb852014b7ce5ae4ef2162d442f0ee6695974f4e0552e46bb3be556bc8b7a0a5"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "ae88e45b10e5be8f995e51ffe3b0a69488ee0ae27327c512cd692d48762361be",
+   "input_sha": "4273e3d0d6efb5f4fbdc078828676c0ae46823f8edd10f03b49d6af03fde04ed",
    "outputs": {
     "TRM-16-occlusion-depth.png": "902d28df8d5e3bad4730c56e38c85ce2ec842de64a65f267d4f6ce1e0be4bde1",
     "TRM-16-occlusion-edit.png": "aac80cf6f07d45dcf370b29e68416122e6fc338719b6968cdcc70fe3b6c91cb3",
-    "TRM-16-occlusion-overlay.png": "6c15e50c97e0a86f0ef3fa8e5dc8914bb1f525357a36c11648482b4a2f6f524f",
+    "TRM-16-occlusion-overlay.png": "a561650402daa75a87fa155a5f4567653e91a9d2ba0ea5e1fa619c2e54df8e3d",
     "TRM-16-occlusion.json": "9b68a7a24d34ec23c8a9e9c45fda9220839697cbdcfd37907740cbad7b9d2a31",
     "TRM-16-occlusion.png": "730e6ddd4203af47e6fd017d4a578d24b466b77eb8bcdd9749274a9c35c5cfad"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "19632c28ed88847ceaf229cc73c9a8e743fa94fac17b1e615d0941b0892a3051",
+   "input_sha": "dbe4a2b266789ddf6254fe81736857fd75ebe071cef5e61f89583f5815979554",
    "outputs": {
-    "TRM-16-edit-prompt.txt": "e1944008cb906a9f80b63e1644fe4bfd9bb254d6eea3d17734e66dd6ff20fcb0"
+    "TRM-16-edit-prompt.txt": "682501bd399edfa2810712d4da7715510732215a594ab33249b1d482d4448bc8"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "8718b6857429a7eab0464650b6a1cca8de51e9f941e078a56308e7cc981ac2ca",
+   "input_sha": "4beb0b718bace312be43b608116ea605624b84828b1eb8fd82d8f6ba963c7195",
    "outputs": {},
    "status": "ok",
    "warnings": [
     "既定（要確認）: 端の出入口の辺上の位置は台帳に無く、相手MAPの出入口と一致する値を既定とした（要確認）。",
     "既定（要確認）: 道の幅: 狭い道=132（キャラ2人分。車椅子の最小）、街路=160、広い道=260（既定・要確認）。 左132（TRM-06.right）・右160（TRM-15.left）・上160（TRM-17.bottom）。",
-    "既定（要確認）: 用水の位置（南北に x700〜770・歩行不可）・石橋（y780〜940）・寺門（x180〜520）・寺門前の石畳・土塀・民家は設計に無い（台帳は『用水と寺門・bottomは閉鎖』のみ）。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
-    "既定（要確認）: 斜め道の形（石橋から東へ、北東へ曲がって右 y430 へ。上の坂は斜め道の途中から北へ分岐）。寺門の先は歩けない（寺の内は TRM-03）。",
+    "既定（要確認）: 用水の位置（上端の道の東 x1122〜1192 から南へ、斜め道の北縁に沿って右端 y242〜312 へ・歩行不可。2026-11-12 に TRM-17 下端との継ぎ目のため南北貫通から改めた）・寺門（x180〜520）・寺門前の石畳・土塀・民家は設計に無い（台帳は『用水と寺門・bottomは閉鎖』のみ）。旧 legacy 画像（参照専用・採用根拠にしない。台帳 teramachi-rebuild-candidates）の概略構図を参考にした既定。",
+    "既定（要確認）: 斜め道の形（細道の東端から東へ、北東へ曲がって右 y430 へ。上の坂は斜め道の途中から北へ分岐）。寺門の先は歩けない（寺の内は TRM-03）。",
     "TRM-06.right⇄TRM-16.left は円環（16→15→06→16）の一辺。TRM-16.left は住居裏の細道へ続く（旧TRM-01接続は廃止）。（決定 TRM-06.loop）",
     "既定（要確認）: 台帳『bottomは閉鎖』。"
    ]
   },
   "wire": {
-   "input_sha": "e857fa538939c0798161f88f7f68cb1c7e504408b97f5fbe99f4923104438384",
+   "input_sha": "ce7850c9b21bf9dd8eaabfa8c1cbd18c7630048caa39503205cda4ec9b2c39d4",
    "outputs": {
-    "wire-TRM-16.png": "bbc331d7e7fd70784e6386c43a89f86cbdcbd678ec0b8ab5561cee58b3f15296"
+    "wire-TRM-16.png": "40f12e48812099b0fcadcdec5e0fa49b963737d49d2d706a99833332f26ffbbf"
    },
    "status": "ok"
   }

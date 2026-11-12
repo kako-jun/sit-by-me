@@ -28,7 +28,7 @@
   "家具が実物（棚・椅子・机・舞台）として読めるか。人物・文字・矢印が入っていないか（文字有無は未測定）",
   "質感が工作の素材（綿の雪・紙粘土・段ボール・紙やすり）か。実写のような質感・本物の雪になっていないか（屋根・塀・地面・枝の雪がすべて綿か。決定 SIT.miniature-materials-not-photoreal。採否の前に必ず挙げる）",
   "消雪パイプの穴が道路の中央線の上だけにあるか（路肩・縁・私有地・石畳に無いか。水の噴射が無いか。決定 SIT.shosetsu-hole-only）",
-  "景色の扉（閉じた門・潜り戸・格子戸・土蔵の扉）が入れそうに見えないか（前に段・通路・足跡・石段・開いた隙間が無く、塀・段差・植栽・雪で塞がれているか。決定 SIT.scenery-door-not-enterable）",
+  "景色の扉（閉じた門・潜り戸・格子戸・土蔵の扉）にたどり着けそうに見えないか（見た目が入れそうなのはよい。道・石段・参道・敷石・足跡が扉まで届かず、前に段差・塀・柵・溝・雪などの隔離があるか。決定 SIT.scenery-door-not-enterable）",
   "台座の前縁・飾りがわざとらしくないか（テープ・糊が等間隔・全マップ同位置・同じ形の繰り返しになっていないか。マップごとにばらついているか。決定 SIT.base-edge-decor-random）",
   "鉄道模型のジオラマのような質感か（雪は繊維の見える綿、木は簡略化したスポンジの塊、塀・柵は爪楊枝・割り箸・マッチ棒、地面はターフ・おがくず。形は単純で縁が硬く、写真のように精密でないか）",
   "段ボールの土台・雪・木の質感の様式（手作りミニチュアらしさ）"
@@ -44,43 +44,43 @@
    ],
    "aspect_ok": true,
    "edge": {
-    "recall6_room": 0.778,
-    "recall6_shifted_baseline": 0.76,
-    "margin": 0.019,
-    "chamfer_room_px": 3.91,
-    "recall6_full": 0.619,
-    "gen_edge_density_room": 0.1117
+    "recall6_room": 0.792,
+    "recall6_shifted_baseline": 0.74,
+    "margin": 0.052,
+    "chamfer_room_px": 3.9,
+    "recall6_full": 0.644,
+    "gen_edge_density_room": 0.1101
    },
    "regions": {},
    "presence": {},
    "missing_openings_doors_windows": [],
    "opening_floor": {},
-   "tatami_like_frac": 0.0001,
+   "tatami_like_frac": 0.0011,
    "floor": {
-    "lum_std": 63.91,
+    "lum_std": 62.38,
     "mean_rgb": [
-     154.1,
-     130.1,
-     119.7
+     144.6,
+     123.4,
+     109.8
     ],
     "mock_mean_rgb": [
-     169.6,
-     169.5,
-     169.3
+     173.9,
+     173.2,
+     172.6
     ]
    },
    "pink_residual_whole_image": 0.0,
    "provenance": {
-    "sha256": "c481191e8a709e214b60afa44ded85b83fecf8efa2bcc0788aa6f1566263d34a",
-    "bytes": 3629337,
+    "sha256": "2c2f20586ac8784c1b0e871357c17438ed469c6b0654bbbdfde17514a99e3369",
+    "bytes": 3710187,
     "size": [
      1672,
      941
     ],
     "mode": "RGB",
-    "unique_colors": 216975,
-    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a1cb77-109a-77c2-8e22-4f349974fe09/exec-14a166d9-0238-431a-89f2-a7bdf12d24ba.png",
-    "new_generated_images_in_run": 3,
+    "unique_colors": 234436,
+    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a1cd61-497a-7270-bcec-f9140e96c834/exec-c4417332-fa0e-4044-8fa3-19db0a3081b4.png",
+    "new_generated_images_in_run": 2,
     "log_mentions_unavailable": true,
     "log_fabrication_tool_calls": 0,
     "log_mentions_image_gen": true

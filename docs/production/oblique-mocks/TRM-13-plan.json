@@ -51,7 +51,7 @@
   {
    "id": "sd-closure-n1",
    "wall": "closure-n1",
-   "look": "石垣の上の土塀にある閉じた潜り戸（既定・要確認）。黒ずんだ杉板の小さな木戸、鉄の鋲と錆びた閂、上に小さな瓦の庇。戸の前に雪が吹き溜まり足跡はない。通行しない。"
+   "look": "石垣の上の土塀にある閉じた潜り戸（既定・要確認）。位置は北の土塀の西寄り（画面左、石段の延長線上ではない。石段の真上・石段の突き当たりには置かない）。黒ずんだ杉板の小さな木戸、鉄の鋲と錆びた閂、上に小さな瓦の庇。戸の前は石垣の上の雪の庭で、低い雪囲いの竹垣と石の縁が戸との間にあり、石段・道・足跡は戸まで続かない。通行しない。"
   },
   {
    "id": "sd-house-e",
@@ -376,8 +376,8 @@
  "depends_on": [],
  "_provenance": {
   "source": "MAP:TRM-13|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "8eb34d8c888c54212ae03c5179c347b48f2ebe7f808b0c4129dac9993a5cc11f",
-  "generated_at": "2026-11-02T14:27",
+  "input_sha": "d7d32f33b8db5f6214502c711d2652e39b48cd07e7ca027fc2eac65df17529db",
+  "generated_at": "2026-11-12T10:26",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-13-plan",
   "do_not_edit": true
