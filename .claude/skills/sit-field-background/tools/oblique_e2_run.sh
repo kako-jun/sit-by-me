@@ -15,6 +15,13 @@ OUT=$M/$ROUND
 PROMPT=${4:-$OUT/prompt.txt}
 GI=$HOME/.codex/generated_images
 SCHED="uv run python3 -I .claude/skills/sit-field-background/tools/oblique_e2_schedule.py"
+# EXTRA_REFS="ID=画像パス ID=画像パス" は他の副作用（ディレクトリ作成・コピー）より先に検査する。形が違う・画像が無いなら明示エラーで終了。空白区切り（パスに空白を含めない。glob 展開もしない）
+IFS=' ' read -r -a EXTRA_ARR <<< "${EXTRA_REFS:-}"
+for KV in "${EXTRA_ARR[@]:-}"; do
+  [ -z "$KV" ] && continue
+  case "$KV" in *=*) ;; *) echo "EXTRA_REFS の要素 '$KV' が ID=画像パス の形でない" >&2; exit 1;; esac
+  [ -f "${KV#*=}" ] || { echo "EXTRA_REFS: ${KV%%=*} の画像 '${KV#*=}' が存在しない" >&2; exit 1; }
+done
 # 依存グラフ: 親が全て確定済みでなければ起動しない（直列）。確定済みの親の正本画像を参考画像（扉・材質・家具・装飾のデザインの参考のみ）として自動で付ける
 # 拒否された実行が副作用（空ディレクトリ・swatch のコピー）を残さないよう、check を mkdir／cp より先に実行する
 $SCHED check "$MAP" || exit 1
@@ -40,6 +47,18 @@ import sys
 Image.open(sys.argv[1]).convert('RGB').save(sys.argv[2])" "$PPATH" "$OUT/ref-$PID.png"; PPATH="$OUT/ref-$PID.png";; esac
   REFS+=(-i "$PPATH"); NREF=$((NREF+1)); PARENT_IDS+=("$PID")
 done < <($SCHED refs "$MAP")
+# EXTRA_REFS="ID=path ID=path"（任意）: 採用前の隣接MAPの絵を、つなぎ目の参考として追加で付ける（親ではないので生成のゲートには影響しない。道の縁の境界の種類・位置・用水の流れ・地面の材質だけを合わせる）
+EXTRA_IDS=()
+for KV in "${EXTRA_ARR[@]:-}"; do
+  [ -z "$KV" ] && continue
+  EID="${KV%%=*}"; EPATH="${KV#*=}"
+  # .webp（台帳の採用画像・legacy）は PNG に変換して添付する（親の参考画像と同じ扱い）
+  case "$EPATH" in *.webp) uv run --with pillow python3 -I -c "
+from PIL import Image
+import sys
+Image.open(sys.argv[1]).convert('RGB').save(sys.argv[2])" "$EPATH" "$OUT/ref-$EID.png"; EPATH="$OUT/ref-$EID.png";; esac
+  REFS+=(-i "$EPATH"); NREF=$((NREF+1)); EXTRA_IDS+=("$EID")
+done
 if [ ! -f "$PROMPT" ]; then
   sed "/$LEDGER_MARKER_RE/,\$d" "$M/$MAP-edit-prompt.txt" > "$PROMPT"
   # プロンプトの REFERENCE IMAGES 節に載るが添付しない MAP（親でないもの。例: 時期差分MAPの本堂 TRM-04）=テキスト参照のみ
@@ -57,6 +76,11 @@ if [ ! -f "$PROMPT" ]; then
   for PID in "${PARENT_IDS[@]:-}"; do
     [ -z "$PID" ] && continue
     echo "$N3. $N3 枚目 = 確定済みの $PID の採用画像（参考のみ）: **扉・材質・家具・装飾のデザイン**の参考にする。構図・配置・位置・大きさはコピーしない（位置は1枚目のクリーンモックが正本）。台座の前縁は COORDINATES の指定だけに従う（指定が無い MAP は素の段ボール断面。この画像の前縁の飾りは真似しない）。この MAP と接続する扉・渡り廊下・共有する家具は $PID と同じデザインにする。外観の渡り廊下・扉は確定済みの内部と一致させる。"
+    N3=$((N3+1))
+  done
+  for PID in "${EXTRA_IDS[@]:-}"; do
+    [ -z "$PID" ] && continue
+    echo "$N3. $N3 枚目 = 隣接する $PID の絵（つなぎ目の参考のみ）: この MAP と接する端で、道の両脇の境界の種類・位置・用水の流れる向きと位置・地面と雪の材質だけを合わせる。構図・建物・木・位置・大きさはコピーしない（位置は1枚目のクリーンモックが正本）。"
     N3=$((N3+1))
   done
   if [ "${#TEXT_ONLY[@]}" -gt 0 ]; then
@@ -83,9 +107,24 @@ REFARG=()
 [ -n "${REF_IMAGE:-}" ] && REFARG=(--ref "$REF_IMAGE")
 uv run --with numpy --with opencv-python-headless --with pillow python3 -I \
   .claude/skills/sit-field-background/tools/oblique_e2_measure.py "$MAP" --round "$ROUND" --takes "$N" "${REFARG[@]}"
+MRC=$?  # 3 = 寸法NG（測定が標準エラーに『再生成が必要』を出す）
 # 生ログは base64 画像で数MBになる。先頭だけ残して置き換える（測定後。偽造ツール使用の有無は metrics.json に記録済み）
 for i in $(seq 1 "$N"); do
-  [ -f "$OUT/codex-take$i.log" ] && { cut -c1-240 "$OUT/codex-take$i.log" | grep -v '^[A-Za-z0-9+/=]\{200,\}' | head -60 > "$OUT/codex-take$i.log.txt"; rm "$OUT/codex-take$i.log"; }
+  [ -f "$OUT/codex-take$i.log" ] && {
+    cut -c1-240 "$OUT/codex-take$i.log" | grep -v '^[A-Za-z0-9+/=]\{200,\}' | head -60 > "$OUT/codex-take$i.log.txt"
+    # 画像が出来なかったテイクは、原因が分かるよう生ログの末尾（エラー）も残す（先頭60行はプロンプトの再掲だけで原因が見えない）
+    if [ ! -f "$OUT/take$i.png" ]; then
+      { echo; echo "---- take$i.png が出来なかった。生ログの末尾 ----"; cut -c1-300 "$OUT/codex-take$i.log" | grep -v '^[A-Za-z0-9+/=]\{200,\}' | tail -30; } >> "$OUT/codex-take$i.log.txt"
+      echo "take$i.png が出来なかった（原因は $OUT/codex-take$i.log.txt の末尾）。再生成が必要" >&2
+    fi
+    # この PC の絶対パス（worktree 名・ホーム）を git に入れない
+    uv run --with numpy --with opencv-python-headless --with pillow python3 -I .claude/skills/sit-field-background/tools/oblique_e2_measure.py --relativize-files "$OUT/codex-take$i.log.txt"
+    rm "$OUT/codex-take$i.log"
+  }
 done
+if [ "$MRC" -ne 0 ]; then
+  echo "== 測定が終了コード $MRC（寸法NGなら 1672x941 でない画像。採用手順に進めない。$MAP の再生成が必要）。画像は $OUT/take*.png ==" >&2
+  exit "$MRC"
+fi
 echo "== 全テイク（kako-jun が目視で判定する。測定は参考）=="
 for i in $(seq 1 "$N"); do echo "$ROOT/$OUT/take$i.png  (重ね: $ROOT/$OUT/overlay-take$i.png)"; done

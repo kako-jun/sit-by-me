@@ -277,7 +277,7 @@ def build_items(p, style):
             continue  # 開口の切り抜き用の再描画: この壁の立体は描かない
         kind = w.get("kind", "wall")
         color = w.get("color") or ("#4a4f57" if kind == "partition" else "#cdb98f" if kind == "fence" else "#9a9a96" if kind == "retaining" else "#d8c9a6")
-        top = w.get("top_color") or ("#262a30" if kind == "partition" else None)
+        top = w.get("top_color") or ("#262a30" if kind == "partition" else "#e4ded2" if kind == "retaining" else None)  # retaining（石垣・擁壁）の上面は雪か土の帯の色。建物の屋根の灰色（#6c7077）だと imagegen が瓦屋根の建物に読む（TRM-13, #191）
         h = w["h"] * hs
         if kind == "roof-passage":
             # 渡り廊下: 床（石）＋四隅の柱＋屋根の板だけ。壁・窓は無い開放した通路

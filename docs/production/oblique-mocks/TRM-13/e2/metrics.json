@@ -1,0 +1,114 @@
+{
+ "map": "TRM-13",
+ "desk_inter_take": null,
+ "round": "e2",
+ "gates": {
+  "edge_recall_room_min": 0.6,
+  "edge_margin_min": 0.15,
+  "chamfer_room_max_px": 6.0,
+  "region_shift_max_px": 8,
+  "region_ok_ratio_min": 0.7,
+  "door_pink_residual_max": 0.02,
+  "pink_whole_max": 0.0001,
+  "window_white_green_max": 0.05,
+  "aspect_tol": 0.005
+ },
+ "takes_measured": 1,
+ "unreliable_regions": [],
+ "takes_pass": [],
+ "ref": null,
+ "ref_stats": {},
+ "takes_pass_decor": [],
+ "takes_pass_all": [],
+ "decor_gates": null,
+ "round2_needed": true,
+ "human_items": [
+  "窓の外に雪・木・空が描かれていないか（測定は窓ガラス内の白/緑の割合のみ。ガラス越しが室内の床に見えるかは目視）",
+  "床の模様の質（板張りに見えるか・不自然な模様がないか。測定は輝度の標準偏差のみ）",
+  "壁の見え方（厚み・材質・上端）と、戸口が木の扉/開口として自然か（ピンク残りは測定、造形は目視）",
+  "家具が実物（棚・椅子・机・舞台）として読めるか。人物・文字・矢印が入っていないか（文字有無は未測定）",
+  "質感が工作の素材（綿の雪・紙粘土・段ボール・紙やすり）か。実写のような質感・本物の雪になっていないか（屋根・塀・地面・枝の雪がすべて綿か。決定 SIT.miniature-materials-not-photoreal。採否の前に必ず挙げる）",
+  "消雪パイプの穴が道路の中央線の上だけにあるか（路肩・縁・私有地・石畳に無いか。水の噴射が無いか。決定 SIT.shosetsu-hole-only）",
+  "景色の扉（閉じた門・潜り戸・格子戸・土蔵の扉）にたどり着けそうに見えないか（見た目が入れそうなのはよい。道・石段・参道・敷石・足跡が扉まで届かず、前に段差・塀・柵・溝・雪などの隔離があるか。決定 SIT.scenery-door-not-enterable）",
+  "台座の前縁・飾りがわざとらしくないか（テープ・糊が等間隔・全マップ同位置・同じ形の繰り返しになっていないか。マップごとにばらついているか。決定 SIT.base-edge-decor-random）",
+  "鉄道模型のジオラマのような質感か（雪は繊維の見える綿、木は簡略化したスポンジの塊、塀・柵は爪楊枝・割り箸・マッチ棒、地面はターフ・おがくず。形は単純で縁が硬く、写真のように精密でないか）",
+  "段ボールの土台・雪・木の質感の様式（手作りミニチュアらしさ）"
+ ],
+ "takes": [
+  {
+   "take": "1",
+   "file": "docs/production/oblique-mocks/TRM-13/e2/take1.png",
+   "resized_for_measure": false,
+   "orig_size": [
+    1672,
+    941
+   ],
+   "aspect_ok": true,
+   "edge": {
+    "recall6_room": 0.839,
+    "recall6_shifted_baseline": 0.808,
+    "margin": 0.031,
+    "chamfer_room_px": 3.78,
+    "recall6_full": 0.778,
+    "gen_edge_density_room": 0.1107
+   },
+   "regions": {},
+   "presence": {},
+   "missing_openings_doors_windows": [],
+   "opening_floor": {},
+   "tatami_like_frac": 0.0003,
+   "floor": {
+    "lum_std": 65.53,
+    "mean_rgb": [
+     144.8,
+     120.3,
+     108.8
+    ],
+    "mock_mean_rgb": [
+     176.7,
+     175.4,
+     172.8
+    ]
+   },
+   "pink_residual_whole_image": 0.0,
+   "provenance": {
+    "sha256": "5d57324a87bda6819872e77bee0ec1daa2239402d3a7892a334adc041db1ed75",
+    "bytes": 3637281,
+    "size": [
+     1672,
+     941
+    ],
+    "mode": "RGB",
+    "unique_colors": 221116,
+    "matches_codex_generated_image": "~/.codex/generated_images/01a1cd90-64f6-7473-83f4-12e5d0bbce34/exec-19286e7a-b5b4-4695-943b-c1506b48054e.png",
+    "new_generated_images_in_run": 1,
+    "log_mentions_unavailable": true,
+    "log_fabrication_tool_calls": 0,
+    "log_mentions_image_gen": true
+   },
+   "global_shift_median_px": [
+    null,
+    null
+   ],
+   "region_ok_ratio": 0.0,
+   "structure": {
+    "window_mean_abs_dy": null,
+    "window_within8": "0/0",
+    "door_within8": "0/0"
+   },
+   "gates": {
+    "aspect": true,
+    "edge_recall": true,
+    "edge_margin": false,
+    "chamfer": true,
+    "regions": false,
+    "door_pink": true,
+    "pink_whole": true,
+    "window_content": true,
+    "genuine": true
+   },
+   "pass": false
+  }
+ ],
+ "inter_take": {}
+}

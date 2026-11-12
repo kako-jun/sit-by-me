@@ -8,6 +8,7 @@
   oblique_e2_schedule.py list                 全MAPの依存・確定・起動可否
   oblique_e2_schedule.py check MAP            親が全て確定済みか、かつ manifest が使えるか（validate エラー・プロンプトが blocked／失効／古いなら理由を全部出して終了コード1）。list／launch も同じ判定（blockers）を使う
   oblique_e2_schedule.py refs MAP             確定済みの親の正本画像を `PARENT=path` で列挙（参考画像）
+  oblique_e2_schedule.py stale                プロンプトが古い（入力 hash が今の plan・台帳・ツールと合わない）MAP を列挙し、あれば終了コード1（台帳の文面・plan を変えたら `oblique_build.py --all` の後に実行する）
   oblique_e2_schedule.py graph                グラフの検証（循環・存在しないID・自己参照・plan との不一致）
   oblique_e2_schedule.py launch [--dry-run]   起動可能（親が確定済みでプロンプトが blocked でない）で未確定のMAPを並列にバックグラウンド起動（oblique_e2_run.sh MAP 4）。blocked は理由を出して外す
 """
@@ -138,6 +139,16 @@ def cmd_list(maps):
         print(f"{k:12} {','.join(deps) or '-':28} {'済' if confirmed(k) else '-':4} {'可' if not bl and not confirmed(k) and has_plan(k) else '-':6} {note}")
 
 
+def stale_maps(maps):
+    return [k for k in maps if has_plan(k) and any("プロンプトが古い" in b for b in blockers(maps, k))]
+
+
+def cmd_stale(maps):
+    st = stale_maps(maps)
+    print("OK: プロンプトが古い MAP は無い" if not st else "プロンプトが古い MAP: " + ", ".join(st) + "（oblique_build.py --all を再実行する）")
+    sys.exit(1 if st else 0)
+
+
 def cmd_check(maps, mid):
     if mid not in maps:
         sys.exit(f"ERROR: {mid} がグラフに無い")
@@ -195,6 +206,8 @@ def main():
         cmd_list(maps)
     elif c == "check":
         cmd_check(maps, a[1])
+    elif c == "stale":
+        cmd_stale(maps)
     elif c == "refs":
         cmd_refs(maps, a[1])
     elif c == "graph":

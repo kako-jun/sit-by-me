@@ -1,4 +1,18 @@
 {
+ "adoption": {
+  "canonical": "assets/images/fields/reference/teramachi-road-trm17-adopted.webp",
+  "canonical_sha256": "231dc45057f62aed65a57694844fa38f5d744af14a18863cf0afbd0be9948734",
+  "image": "docs/production/oblique-mocks/TRM-17/e2/take1.png",
+  "image_sha256": "4311102b879952fa818eb04deffae133d51e03c06dcb67d07ee59937e4c41735",
+  "mock_clean_sha256": "c3a6055b01e7f30d34461a06e1cb9d07703aca8270b3b69df93afbaa80dd99c9",
+  "plan_sha256": "2b1b46f0f509df7d6ed87f891cfded9cc49b2e5ac20573598fdb8f519dd305b5",
+  "prompt_sha256": "129accb0fa2244e1e8cb4ebfa0bbc9387d0046f6391933c5c4a1b17823838ab6",
+  "size": [
+   1672,
+   941
+  ],
+  "take": 1
+ },
  "ledger": {
   "decisions": [
    "TRM.trees-draw",
@@ -22,7 +36,7 @@
  },
  "map_id": "TRM-17",
  "plan": "docs/production/oblique-mocks/TRM-17-plan.json",
- "plan_sha256": "4b1204c7fe4f5fce7431548f357021cf4ff4514c2fb4128a423ec7a25aad9d36",
+ "plan_sha256": "2b1b46f0f509df7d6ed87f891cfded9cc49b2e5ac20573598fdb8f519dd305b5",
  "schema": "sit-oblique-manifest/1",
  "stages": {
   "mask": {
@@ -34,7 +48,7 @@
      1
     ]
    },
-   "input_sha": "7a5033ec3216af4edc3583de9b07ce723df0420d8ab19cf7257681cfd81c71a2",
+   "input_sha": "62acfed8da2d6fbe00722878476dcfcef59187c3e5edeebbe09a56cf6dfdc5b6",
    "outputs": {
     "TRM-17-exits.png": "ab1a60bc35d2fb67b665fcdf5e5a2f0f42a113b3f2878acc83f93efff6478e0c",
     "TRM-17-mask.json": "1e071582dd8c03c7634b66de3c400361e6365d24abb37180f901db45bd7f50fc",
@@ -44,35 +58,35 @@
    "white_components": 1
   },
   "mock": {
-   "input_sha": "7a5033ec3216af4edc3583de9b07ce723df0420d8ab19cf7257681cfd81c71a2",
+   "input_sha": "62acfed8da2d6fbe00722878476dcfcef59187c3e5edeebbe09a56cf6dfdc5b6",
    "outputs": {
-    "TRM-17-clean.png": "c8b357e8f27b12498f61bf3fa8234fcb1f740544b47d909fcb64308972f2366d",
-    "TRM-17-review.png": "28548b9c5ba5675ac298850bbdefc93fa64ed37059a137aeea3191f5cc601df9"
+    "TRM-17-clean.png": "c3a6055b01e7f30d34461a06e1cb9d07703aca8270b3b69df93afbaa80dd99c9",
+    "TRM-17-review.png": "4bcaeef23594f0e44d60b9e8b83a90c4f2cd86f7c581a79022b602ae9cedbaa6"
    },
    "status": "ok"
   },
   "occlusion": {
-   "input_sha": "7a5033ec3216af4edc3583de9b07ce723df0420d8ab19cf7257681cfd81c71a2",
+   "input_sha": "62acfed8da2d6fbe00722878476dcfcef59187c3e5edeebbe09a56cf6dfdc5b6",
    "outputs": {
     "TRM-17-occlusion-depth.png": "5b5ad2d6c9d7483a12fab1fd5424735ffb9e62e7de46fdbafafe9786d56c150f",
     "TRM-17-occlusion-edit.png": "448f220152f3d173c66574ff7f6152da3ff567d6d46118bdab781b4ecfa88c29",
-    "TRM-17-occlusion-overlay.png": "1b5f2d8fd0ad44ea2fa470f5c090b1c30c561209fea559355fb02f7b28516c43",
+    "TRM-17-occlusion-overlay.png": "184f2c2aa74efef62de25cf1b1e559d98d9c635ddddca05aa0a3a11c2d6ec23f",
     "TRM-17-occlusion.json": "b4f4b7c7140235b6402482699d7683755c1879d95ec6bcc6dd6630bc50edceda",
     "TRM-17-occlusion.png": "53aefc295a2f4bd1e9f902df8c2deb8120083f0f7733a7f0ae9865617c205d36"
    },
    "status": "ok"
   },
   "prompt": {
-   "input_sha": "620d6008cc76942080e9c731925d1309db748c14c2df9ce68024482d8d3ff42c",
+   "input_sha": "896777b6dc3c4c59ed8a707ccdea67cd3a6b5593ea011992c4d48f8b3634dc6d",
    "outputs": {
-    "TRM-17-edit-prompt.txt": "db698b6c26b02078e29140402307ab7e1605a26498fb053ac41823b6ffed8c91"
+    "TRM-17-edit-prompt.txt": "129accb0fa2244e1e8cb4ebfa0bbc9387d0046f6391933c5c4a1b17823838ab6"
    },
    "status": "ok",
    "unadopted_dependencies": []
   },
   "validate": {
    "errors": [],
-   "input_sha": "b2ae2e0fce21afc647c3882b1f49c5631bff7ee0f01b68c10bb5c98b7e54f508",
+   "input_sha": "65116e878cd238c7515da854d2a03491ae319a18d66fd2955cb2e41be4d1575d",
    "outputs": {},
    "status": "ok",
    "warnings": [
@@ -84,7 +98,7 @@
    ]
   },
   "wire": {
-   "input_sha": "23fff74cf8f8324fa8a1059f56150296aa3961dfed9ed1b847cb103d2443c176",
+   "input_sha": "b91727591893a08d2db4da526ecc8d859f60de3b3469c6978c59039a4a1d9a00",
    "outputs": {
     "wire-TRM-17.png": "2e701ce80ccd3abb968eca808af9cab7986971962e2381a1b66fd228aced121c"
    },

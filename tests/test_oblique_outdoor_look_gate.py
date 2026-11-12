@@ -288,7 +288,7 @@ class MiniatureAndDoors(unittest.TestCase):
         for w in ("爪楊枝", "割り箸", "鉄道模型", "綿"):
             self.assertIn(w, final, w)
         self.assertIn("中央線の上", X.text("PR.reality.shosetsu"))
-        self.assertIn("入れない見た目", X.text("PR.door.scenery-head"))
+        self.assertIn("たどり着けそうに見せない", X.text("PR.door.scenery-head"))
 
     def test_scenery_door_front_touching_walkable_floor_warns(self):
         p = {"floors": [{"id": "road", "walkable": True, "rect": [0, 400, 1600, 700]}],
