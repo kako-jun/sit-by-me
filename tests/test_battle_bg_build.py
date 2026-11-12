@@ -357,5 +357,81 @@ class ObjectInFrames(unittest.TestCase):
             self.assertTrue(any("舞台セットの物" in p for p in rep["problems"]))
 
 
+
+
+class FloorGeometry(unittest.TestCase):
+    def setUp(self):
+        _, self.L = B.load("BG011")
+
+    def test_every_frame_corner_is_inside_the_floor_quad(self):
+        self.assertEqual([p for p in B.pre_check(self.L) if "床の四角形" in p], [])
+
+    def test_old_floor_with_right_edge_inside_ally4_corner_is_rejected(self):
+        L = copy.deepcopy(self.L)
+        L["floor"]["back_right"] = [1560, 0]
+        L["floor"]["front_right"] = [1672, 840]  # y=483 で x≈1624 < 味方4枠の右端 1656
+        probs = [p for p in B.pre_check(L) if "床の四角形" in p]
+        self.assertTrue(any("ally4" in p and "右上" in p for p in probs))
+
+    def test_point_in_quad(self):
+        quad = [(0, 0), (10, 0), (10, 10), (0, 10)]
+        self.assertTrue(B.point_in_quad((5, 5), quad))
+        self.assertTrue(B.point_in_quad((10, 10), quad))  # 辺上・角は内側
+        self.assertFalse(B.point_in_quad((10.5, 5), quad))
+
+
+class ZoomRatio(unittest.TestCase):
+    def test_every_candidate_crop_passes_zoom_ratio_check(self):
+        _, L = B.load("BG011")
+        W, H = L["canvas"]
+        import numpy as np
+        integ = B.Integral(np.ones((H, W), dtype=bool))
+        for k in range(100, 400):
+            sc = k / 100
+            c = B._candidate(integ, L, sc, 0, 0, B.Integral(np.zeros((H, W), dtype=bool)))
+            if c is None:
+                continue
+            w, h = c["crop"][2], c["crop"][3]
+            self.assertTrue(B.crop_ratio_ok(w, h, W, H), (sc, w, h))
+
+    def test_ratio_check_rejects_wrong_aspect(self):
+        self.assertFalse(B.crop_ratio_ok(700, 448, 1672, 941))
+        self.assertTrue(B.crop_ratio_ok(796, 448, 1672, 941))
+
+
+class Survivors(unittest.TestCase):
+    def test_zoomed_check_floor_threshold_94_fails_96_passes(self):
+        import json, io, contextlib
+        _, L = B.load("BG011")
+        for band, expect in ((34, 1), (26, 0)):  # 枠の上端に暗い前面板色（物でも床でもない）の帯。34px→床93.7%（NG）、26px→96.0%（合格）
+            im = Image.new("RGB", (1672, 941), (120, 70, 38))
+            x, y, w, h = next(r["box"] for r in L["safe_rects"] if r["id"] == "ally2")
+            ImageDraw.Draw(im).rectangle([x, y, x + w - 1, y + band - 1], fill=(60, 35, 20))
+            with tempfile.TemporaryDirectory() as t:
+                p = Path(t) / "x.png"
+                im.save(p)
+                a = B.argparse.Namespace(bg_id="BG011", image=str(p), out=t, zoomed=True)
+                with contextlib.redirect_stdout(io.StringIO()):
+                    rc = B.cmd_check(a)
+                self.assertEqual(rc, expect, band)
+
+    def test_zoom_uses_lanczos_not_nearest(self):
+        import numpy as np
+        with tempfile.TemporaryDirectory() as t:
+            rng = np.random.default_rng(1)
+            src = Path(t) / "s.png"
+            Image.fromarray(rng.integers(0, 255, (941, 1672, 3), dtype="uint8")).save(src)
+            a = B.argparse.Namespace(bg_id="BG011", image=str(src), crop="400,300,796,448", out=str(Path(t) / "sub" / "o.png"))
+            import io, contextlib
+            with contextlib.redirect_stdout(io.StringIO()):
+                B.cmd_zoom(a)  # 出力先の親ディレクトリも作る
+            out = np.asarray(Image.open(a.out), dtype=int)
+            im = Image.open(src).convert("RGB").crop((400, 300, 1196, 748))
+            lan = np.asarray(im.resize((1672, 941), Image.LANCZOS), dtype=int)
+            near = np.asarray(im.resize((1672, 941), Image.NEAREST), dtype=int)
+            self.assertTrue((out == lan).all())
+            self.assertFalse((out == near).all())
+
+
 if __name__ == "__main__":
     unittest.main()

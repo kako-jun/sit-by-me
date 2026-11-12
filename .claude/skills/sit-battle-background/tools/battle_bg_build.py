@@ -70,10 +70,32 @@ def pre_check(L):
                 if overlap(it["box"], sr["box"]):
                     problems.append(f"{it['id']}（{it['名']}）が安全矩形 {sr['id']}（{sr['名']}）に重なる")
     f = L["floor"]
+    quad = [f["back_left"], f["back_right"], f["front_right"], f["front_left"]]
+    for sr in L["safe_rects"]:
+        if sr["id"].startswith("ally") or sr["id"] == "enemy":
+            x, y, w, h = sr["box"]
+            for cn, pt in (("左上", (x, y)), ("右上", (x + w, y)), ("右下", (x + w, y + h)), ("左下", (x, y + h))):
+                if not point_in_quad(pt, quad):
+                    problems.append(f"枠 {sr['id']} の{cn}の角 {pt} が床の四角形の外（枠が床に載らない）")
     rise = f["back_left"][1] - f["back_right"][1]
     if rise < f["min_rise_px"]:
         problems.append(f"床の奥の縁の上がりが {rise}px（{f['min_rise_px']}px 以上が要る。右端のyを左端より小さく）")
     return problems
+
+
+def point_in_quad(pt, quad):
+    """点 pt が凸四角形 quad（順に回る4点）の中（辺上を含む）か。"""
+    sign = 0
+    for i in range(4):
+        (x0, y0), (x1, y1) = quad[i], quad[(i + 1) % 4]
+        cross = (x1 - x0) * (pt[1] - y0) - (y1 - y0) * (pt[0] - x0)
+        if abs(cross) < 1e-9:
+            continue
+        if sign == 0:
+            sign = 1 if cross > 0 else -1
+        elif (cross > 0) != (sign > 0):
+            return False
+    return True
 
 
 def layout_image(L):
@@ -285,6 +307,11 @@ def cmd_check(a):
     return 1 if report["problems"] else 0
 
 
+def crop_ratio_ok(w, h, W, H):
+    """クロップ枠が W:H か。高さを四捨五入した分（0.5px）だけ許す（zoom-search の候補は h=round(w*H/W) なので必ず通る）。"""
+    return abs(w * H - h * W) <= W / 2 + 1e-9
+
+
 def cmd_zoom(a):
     import hashlib
     from PIL import Image
@@ -294,9 +321,10 @@ def cmd_zoom(a):
     im = Image.open(a.image).convert("RGB")
     if x < 0 or y < 0 or x + w > im.width or y + h > im.height:
         sys.exit(f"クロップ枠 {x},{y},{w},{h} が元画像 {im.size} の外")
-    if abs(w * H - h * W) > max(w, h):  # 16:9（1px 程度の丸めは許す）
+    if not crop_ratio_ok(w, h, W, H):
         sys.exit(f"クロップ枠 {w}x{h} が {W}:{H} の比でない")
     out = im.crop((x, y, x + w, y + h)).resize((W, H), Image.LANCZOS)
+    Path(a.out).parent.mkdir(parents=True, exist_ok=True)
     out.save(a.out)
     report = {"source": str(a.image), "source_sha256": hashlib.sha256(Path(a.image).read_bytes()).hexdigest(),
               "crop": [x, y, w, h], "scale": round(W / w, 4), "output": [W, H]}
@@ -307,7 +335,8 @@ def cmd_zoom(a):
 def _candidate(integ, L, scale, cx, cy, obj=None):
     """元画像のクロップ枠（左上 cx,cy・倍率 scale）を採点する。拡大後の枠 [x,y,w,h] は元画像の [cx+x/scale, cy+y/scale, w/scale, h/scale] に当たる。"""
     W, H = L["canvas"]
-    cw, ch = W / scale, H / scale
+    cw = round(W / scale)
+    ch = round(cw * H / W)  # zoom の 16:9 判定と同じ丸め（候補が zoom に弾かれない）
     if cx < 0 or cy < 0 or cx + cw > integ.w or cy + ch > integ.h:
         return None
     fr = {}
@@ -317,7 +346,7 @@ def _candidate(integ, L, scale, cx, cy, obj=None):
             fr[sr["id"]] = integ.frac([cx + x / scale, cy + y / scale, w / scale, h / scale])
     objf = {k: (obj.frac([cx + sr["box"][0] / scale, cy + sr["box"][1] / scale, sr["box"][2] / scale, sr["box"][3] / scale]) if obj else 0.0)
             for k, sr in ((s["id"], s) for s in L["safe_rects"]) if k.startswith("ally") or k == "enemy"}
-    return {"scale": scale, "crop": [int(cx), int(cy), int(cw), int(ch)], "floor_fraction": fr, "object_fraction": objf,
+    return {"scale": scale, "crop": [int(cx), int(cy), cw, ch], "floor_fraction": fr, "object_fraction": objf,
             "ok": all(v >= SEARCH_MARGIN for v in fr.values()) and all(v <= OBJ_MAX for v in objf.values()),
             "set_visible": 1 - integ.frac([cx, cy, cw, ch])}
 
@@ -409,7 +438,7 @@ def main(argv=None):
     zs.add_argument("bg_id")
     zs.add_argument("image")
     zs.add_argument("--out", required=True)
-    zs.add_argument("--scales", default="1.3,1.5,1.7,1.9,2.1,2.3,2.5")
+    zs.add_argument("--scales", default="1.0,1.05,1.1,1.2,1.3,1.5,1.7,1.9,2.1,2.3,2.5")
     zs.add_argument("--top", type=int, default=6)
     m = sub.add_parser("mask")
     m.add_argument("bg_id")
