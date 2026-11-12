@@ -3203,10 +3203,11 @@
     },
     {
       "old": "sample/battle/backgrounds/bg-a.png",
-      "new": "assets/images/battle-backgrounds/BG001.webp",
-      "action": "move",
-      "reason": "Existing verification asset; BG005 adopted stage-b and BG001 camera reference preserved.",
-      "sha256": "372cd6a21f6a9359d705a22f3fe0b6c7782b7317c83d2c72d95c4b3a5ac066d6"
+      "new": null,
+      "action": "delete",
+      "reason": "Retired per BG011 provisional adoption (2026-11-12, Issue #191): BG001 (rejected, provisional keep) removed as the SKILL procedure says. Restore with git history. Earlier migration: Existing verification asset; BG005 adopted stage-b and BG001 camera reference preserved.",
+      "sha256": "372cd6a21f6a9359d705a22f3fe0b6c7782b7317c83d2c72d95c4b3a5ac066d6",
+      "pruned_path": "assets/images/battle-backgrounds/BG001.webp"
     },
     {
       "old": "sample/battle/backgrounds/bg-b.png",

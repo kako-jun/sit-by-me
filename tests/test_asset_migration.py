@@ -121,7 +121,7 @@ class AssetMigrationTests(unittest.TestCase):
         try:
             fetched = set()
             for relative in ["assets/images/enemies/M001.webp",
-                             "assets/images/battle-backgrounds/BG001.webp"]:
+                             "assets/images/battle-backgrounds/BG011.webp"]:
                 with urlopen(urljoin(origin, relative)) as response:
                     self.assertEqual(response.status, 200)
                     body = response.read()
@@ -129,13 +129,14 @@ class AssetMigrationTests(unittest.TestCase):
                 fetched.add(relative)
             # BG005 was explicitly retired after the original migration. Its
             # tombstone remains auditable, while the live HTTP path is gone.
-            retired = "assets/images/battle-backgrounds/BG005.webp"
-            tombstone = [row for row in self.rows if row.get("pruned_path") == retired]
-            self.assertEqual(len(tombstone), 1)
-            self.assertEqual((tombstone[0]["action"], tombstone[0]["new"]), ("delete", None))
-            with self.assertRaises(HTTPError) as response:
-                urlopen(urljoin(origin, retired))
-            self.assertEqual(response.exception.code, 404)
+            # BG001 も BG011 の暫定採用（2026-11-12）で同様に退役した。
+            for retired in ("assets/images/battle-backgrounds/BG005.webp", "assets/images/battle-backgrounds/BG001.webp"):
+                tombstone = [row for row in self.rows if row.get("pruned_path") == retired]
+                self.assertEqual(len(tombstone), 1)
+                self.assertEqual((tombstone[0]["action"], tombstone[0]["new"]), ("delete", None))
+                with self.assertRaises(HTTPError) as response:
+                    urlopen(urljoin(origin, retired))
+                self.assertEqual(response.exception.code, 404)
             legacy = sorted((ROOT / "assets/images/fields/legacy").glob("*.webp"))
             self.assertTrue(legacy)
             with urlopen(urljoin(origin, legacy[0].relative_to(ROOT).as_posix())) as response:

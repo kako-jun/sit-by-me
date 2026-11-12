@@ -19,6 +19,23 @@ Find evidence that a proposed or generated artifact is wrong before it is adopte
 
 ミニチュア背景をレビューするとき、「模型に見える」は判定語として使わない。生成入力の材料・工作道具・加工法を原文で読み、原寸画像で各項目を一つずつ確認する。`foamboard`、段ボール断面、`paper clay` の刻み、綿雪、紙・紙やすりの地面、セロファン水、スポンジ木、マスキングテープ、PVA接着剤、ポスターカラーの筆跡のうち、生成入力で指定されたものが三つ未満しか確認できない候補は `major` とする。実景写真・実物素材・CG均一面しか確認できない場合は `blocker` とする。
 
+## 戦闘背景のレビュー観点（BG011 の制作で得た。`sit-battle-background` のノウハウ節と対）
+
+戦闘背景（`battle-backgrounds/`・台帳 `戦闘背景.yaml`）を見るとき、次を一つずつ確認する。
+
+1. **スキル経由か**: 画像・割付図・送信文が `battle_bg_build.py`（build/check/zoom）の出力か。手書きの送信文・場当たりの合成があれば `major`。
+2. **台帳が単一正本か**: 安全矩形・床・物・描画オフセットが『配置』列だけにあり、カメラ欄・SKILL.md・コードに数値の二重書きが無いか。派生物（割付図・送信文・INDEX・ビュー）が古くないか（`build_ledger.py check`・`verify_prompt_reflects_ledger.rb`）。
+3. **安全矩形**: 敵・味方の枠と下段の窓3枠に、城・樅・緞帳・柱・ランタンが入っていないか（`check --zoomed` の物画素0.5%以下・床画素95%以上＋`overlay.png` の目視。自動検査は屋根・床・物の画素だけ）。
+4. **構図**: 前縁が画面に入っていないか・水平線が無いか・床板の線が奥の縁と同じ右上がりの遠近か・奥の縁の上がりが35px以上か・少し斜め左のカメラか・舞台が実マップ（TRM-02）の舞台どおりか。
+5. **描画オフセット**: 実測値の出典（生の絵の測定）が備考にあるか。補正後の絵で奥の縁が台帳の狙いに近いか。
+6. **拡大**: 拡大は枠が床に載る最小限か（`zoom-search` の候補比較・コンタクトシート）。座標違反を再生成の連打で直そうとしていないか。
+7. **ツールの検査の質**: 変異テスト（閾値・分岐を変えると落ちるか）、色判定が実画像（TRM-02）で校正されているか、1枚の絵に合わせた閾値が注記されているか、旧記述（前縁・前面）が台帳・文面・テストに残っていないか。
+8. **道の戦闘背景は雪道**: 消雪パイプの穴・金属蓋（融雪装置）が描かれていないか（kako-jun「融雪装置が大きすぎる」「雪道でいいのでは」）。`check` と overlay で、路面に丸い金属の蓋・穴が無いか目視する。
+9. **雪を積もらせすぎない（BG012）**: 路面の黒い湿ったアスファルトが約7割見え、厚い綿の盛り上がりが路肩・縁石の脇・土塀の根元だけか（kako-jun「雪がつもりすぎ」）。`check --zoomed` の `road_black_fraction`（45%以上）・`road_white_fraction`（35%以下）と overlay の目視で数える。
+10. **路面は平ら（BG012）**: 湾曲した轍・左端の弧・うねり・盛り上がりが無いか、雪が路面全体に均一な薄い層に見えるか（kako-jun「道路の左端がなんか曲線状にゆがんでる…ぐねぐね凹凸がある」）。`check --zoomed` の `left_lowfreq`（6.5以下）と overlay の目視。
+11. **床が巨大な1枚板に見えないか（BG011）**: 板の枚数・継ぎ目の隙間線・釘の頭・板の長さ方向の継ぎ目・木目の細かさ・1枚あたりの大きさが、味方・敵の枠や小さな舞台の縮尺に対して『小さな板が並ぶ舞台』になっているか。板幅が TRM-02 の舞台の板張りの実測に揃っているか。`check` の `plank_seams`（29本以上）と overlay の目視。
+12. **採用の記録**: 暫定採用なら台帳に「kako-jun の目視承認は未取得」と書かれているか。
+
 ## Inputs and canonical sources
 
 Use the #68 migration ledger for actual paths: `assets/images/{enemies,summons,characters,fields,battle-backgrounds}/`. Match canonical M/S/C/BG IDs and MAP IDs (area code + sequence, e.g. TRM-03) and distinguish reference and legacy roles (pre-processing originals/raw are not kept). There is no candidate folder or version suffix: new generations overwrite the canonical path (committed if kept, reverted via git if not). Adoption is the ledger status, never the file location; a file at a canonical path proves neither adoption nor a passed review. Review the exact committed version (commit hash). Historical reviews retain old paths; follow the relocation/deletion ledger and source commit rather than treating tombstones as live inputs.
