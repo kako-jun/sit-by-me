@@ -18,7 +18,7 @@ name-name の worker が `scriptsDir=play` として `play/` 直下とサブデ�
 オープニングを毎回通らない。**再開点を選んで `?resume=` で開く**（セーブ JSON は台帳 `docs/ledger/再開点/` から生成）。
 
 1. `play/saves/<再開点ID>.save.json`（下の一覧）を選ぶ。
-2. /play を開くのと同じオリジンのコンソールで `localStorage.setItem('name-name-save-field-0', <その JSON の中身>)`。
+2. /play を開くのと同じオリジンのコンソールで `localStorage.setItem('name-name-save-sit-by-me-0', <その JSON の中身>)`。
 3. `/play/sit-by-me?resume=0` を開く。
 
 | 再開点 | 内容 |
