@@ -9,6 +9,7 @@
   "region_shift_max_px": 8,
   "region_ok_ratio_min": 0.7,
   "door_pink_residual_max": 0.02,
+  "pink_whole_max": 0.0001,
   "window_white_green_max": 0.05,
   "aspect_tol": 0.005
  },
@@ -37,31 +38,31 @@
   {
    "take": "1",
    "file": "/home/kako-jun/repos/private/sit-by-me-r07/docs/production/oblique-mocks/TRM-16/e2/take1.png",
-   "resized_for_measure": false,
+   "resized_for_measure": true,
    "orig_size": [
-    1672,
+    1671,
     941
    ],
    "aspect_ok": true,
    "edge": {
-    "recall6_room": 0.748,
-    "recall6_shifted_baseline": 0.704,
-    "margin": 0.044,
-    "chamfer_room_px": 4.84,
-    "recall6_full": 0.608,
-    "gen_edge_density_room": 0.1059
+    "recall6_room": 0.796,
+    "recall6_shifted_baseline": 0.736,
+    "margin": 0.06,
+    "chamfer_room_px": 4.34,
+    "recall6_full": 0.717,
+    "gen_edge_density_room": 0.1133
    },
    "regions": {},
    "presence": {},
    "missing_openings_doors_windows": [],
    "opening_floor": {},
-   "tatami_like_frac": 0.0002,
+   "tatami_like_frac": 0.0005,
    "floor": {
-    "lum_std": 64.85,
+    "lum_std": 64.03,
     "mean_rgb": [
-     152.4,
-     129.8,
-     119.2
+     148.4,
+     124.8,
+     113.7
     ],
     "mock_mean_rgb": [
      174.3,
@@ -71,16 +72,16 @@
    },
    "pink_residual_whole_image": 0.0,
    "provenance": {
-    "sha256": "79960368e0ba4901d873a0a6e33ca32a35f1d88d6fb5cd2157bfa30ab89169ed",
-    "bytes": 3872875,
+    "sha256": "3b4c30974267b8dca7eb748e98e67916562382cf2b87607c24be9f995a30b40c",
+    "bytes": 3856655,
     "size": [
-     1672,
+     1671,
      941
     ],
     "mode": "RGB",
-    "unique_colors": 223437,
-    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a1cd6c-11a0-7fd0-a572-5d2606442ae6/exec-3d84c2d7-9cfd-45af-9d99-b0e3cf74c7da.png",
-    "new_generated_images_in_run": 3,
+    "unique_colors": 250312,
+    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a1cd87-04c7-7212-b8ca-ca0d94a5b1f1/exec-f648d3c1-92c9-4e2d-9e9f-392d1cbccc92.png",
+    "new_generated_images_in_run": 2,
     "log_mentions_unavailable": true,
     "log_fabrication_tool_calls": 0,
     "log_mentions_image_gen": true
@@ -102,6 +103,7 @@
     "chamfer": true,
     "regions": false,
     "door_pink": true,
+    "pink_whole": true,
     "window_content": true,
     "genuine": true
    },

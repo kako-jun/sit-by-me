@@ -34,6 +34,7 @@ GATES = {
     "region_shift_max_px": 8,          # 領域の輪郭帯が最良になる平行移動の |dx|,|dy|
     "region_ok_ratio_min": 0.70,       # 自己照合（モック自身）で 0.87（椅子の小箱が隣と取り違えられる）       # 上を満たす領域の割合
     "door_pink_residual_max": 0.02,    # 戸口パネル内のピンク残り
+    "pink_whole_max": 0.0001,          # 画像全体のピンク残り（戸口・端の出入口のマーカー色。TRM-13 で 0.0006 の残りを検出）
     "window_white_green_max": 0.05,    # 窓ガラス内の 白（空・雪）/緑（木）の割合
     "aspect_tol": 0.005,
 }
@@ -515,6 +516,7 @@ def main():
             "chamfer": r["edge"]["chamfer_room_px"] <= GATES["chamfer_room_max_px"],
             "regions": r["region_ok_ratio"] >= GATES["region_ok_ratio_min"],
             "door_pink": all(x <= GATES["door_pink_residual_max"] for x in pk),
+            "pink_whole": r["pink_residual_whole_image"] <= GATES["pink_whole_max"],
             "window_content": all(x["white"] <= GATES["window_white_green_max"] and x["green"] <= GATES["window_white_green_max"] for x in gl),
             "genuine": bool(r["provenance"].get("matches_codex_generated_image")) and r["provenance"]["unique_colors"] > 5000 and r["provenance"].get("log_fabrication_tool_calls", 0) == 0,
         }

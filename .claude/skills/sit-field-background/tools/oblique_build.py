@@ -486,6 +486,9 @@ def scenery_door_front_problems(p):
     return out
 
 
+RETAINING_ROOF_GREY = "#6c7077"  # 建物（kind=building）の屋根の上面色。retaining に使うと屋根に読まれる
+
+
 def outdoor_look_problems(p, pool):
     """屋外MAP（装飾プールの outdoor: true）の look ゲート。(errors, warnings)。
     errors: kind=building/fence/retaining/closure/gate の壁、およびそれらの kind の box が look 空欄（生成を起動しない）。
@@ -494,6 +497,9 @@ def outdoor_look_problems(p, pool):
     for w in p.get("walls", []):
         if w.get("kind") in OUTDOOR_LOOK_KINDS and not (w.get("look") or "").strip():
             E.append(f"屋外MAP: 壁 {w['id']}（kind={w['kind']}）の look が空欄。台帳に現実の写真・資料を参考にした材質・色・形・経年・雪の載り方を書いてから生成する（Issue #191）")
+    for w in p.get("walls", []):
+        if w.get("kind") == "retaining" and (w.get("top_color") or "").lower() == RETAINING_ROOF_GREY:
+            E.append(f"屋外MAP: 石垣・擁壁 {w['id']}（kind=retaining）の top_color が建物の屋根の灰色（{RETAINING_ROOF_GREY}）。クリーンモックの上面が屋根に読まれ、瓦屋根の建物に描かれる。雪か土の帯の色（#e4ded2 など）にする（TRM-13, #191）")
     for b in p.get("boxes", []):
         if b.get("kind") in OUTDOOR_LOOK_KINDS and not (b.get("look") or "").strip():
             E.append(f"屋外MAP: box {b['id']}（kind={b['kind']}）自身の look が空欄（kind の既定文では足りない）。現実参照の具体的な描写を書く（Issue #191）")

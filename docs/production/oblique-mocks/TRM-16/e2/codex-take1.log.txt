@@ -8,10 +8,10 @@ approval: never
 sandbox: workspace-write [workdir, /tmp, $TMPDIR] (network access enabled)
 reasoning effort: high
 reasoning summaries: none
-session id: 01a1cd6c-11a0-7fd0-a572-5d2606442ae6
+session id: 01a1cd87-04c7-7212-b8ca-ca0d94a5b1f1
 --------
 user
-Invoke the $imagegen skill and use the built-in image_gen tool at the HIGHEST quality (quality: high), edit-mode with the 4 attached reference images in the order described below, size 1672x941, then save the REAL generated PNG (decode the 
+Invoke the $imagegen skill and use the built-in image_gen tool at the HIGHEST quality (quality: high), edit-mode with the 5 attached reference images in the order described below, size 1672x941, then save the REAL generated PNG (decode the 
 
 # oblique-edit-prompt/5 TRM-16
 
@@ -24,7 +24,7 @@ ROAD EDGE: 道路・街路・路地・坂など歩く道がある場合、その
 SHOSETSU: 消雪パイプの散水ヘッドを描く場合は、穴だけを描く。穴は道路の中央線の上にだけ、等間隔で一列に並べる（道が斜め・S字のときは、道の中央を走る線に沿って）。路肩・歩道・縁石際・路面の端・私有地・石粉粘土の板石の敷石の参道には置かない。路面と同じ高さの丸い穴と、その周りの茶色の絵具の輪・黒い光沢ニスの輪・雪の溶けた輪だけを描き、水の噴射・飛沫・水の柱・霧は描かない（静止画では水が動かず不自然になるため）。消雪パイプが無いMAPでは何も足さない。
 POWER LINES: 割り箸の電柱（先を色紙で巻く）は割り箸の柱だけを立てる。割り箸の電柱（先を色紙で巻く）と割り箸の電柱（先を色紙で巻く）の間に渡す電線・架線・引き込み線は作らない（柱の上の腕木・碍子の飾りも付けない）。空間には線を一本も張らない。
 寺町の木は大きさが均等でない（TREES の枠で）。普通の木のほかに、飛び抜けて高い古木（巨木）を境内・門前などに混ぜる。
-DOORS（濃いピンクの四角が戸口。**全部で0個。1つも欠かさない・増やさない**。位置・幅・高さはモックのまま、木の板戸または開口として描く。高さはキャラ2人分。ピンクの色は残さない）:
+DOORS（濃いピンクの四角が戸口。**全部で0個。1つも欠かさない・増やさない**。位置・幅・高さはモックのまま、木の板戸または開口として描く。高さはキャラ2人分。ピンクの色は画像のどこにも残さない。戸口も画像の端の出入口も、板戸・開口・道・敷石・雪などの素材で描く）:
 SCENERY DOORS（景色としての扉・門・潜り戸）: 上の DOORS（濃いピンクの四角）だけが通行する戸口。景色の扉は通行しない・閉じている・歩けない面の側にある（ピンクにしない）。景色の扉は入れそうな見た目でもよいが、歩いてたどり着けそうに見せない: 扉の前は塀・柵・段差・溝・低い石垣・植栽・雪の吹き溜まり・積まれた物・雪囲いなどで隔離し、閉じた鎖・閂・茶色の絵具の汚れ・厚い雪の縁で長く開けられていないと読めるようにする。扉は歩ける床に直接面せず、必ず境界（段差・塀
 - sd-temple-gate（temple-gate）: 寺の山門の閉じた扉。太い木の柱の間に、鉄の金具と太い閂のついた薄いバルサの板の両開きの大扉が閉じる。扉の前の雪に足跡はない。通行しない。門の前を低い野面積みの石垣と雪囲いの爪楊枝を並べた竹垣と浅い溝が横切り、石粉粘土の板石の敷石の参道は門の手前でその隔離に突き当たって終わる。参道も石段も敷石も門まで届かず、歩いてたどり着けそうに見えない。厚い雪の縁と茶色に塗った閂で長く開けられていないと読める（隔離は既定・要確認）
 - sd-dobei-kuguri（dobei）: 寺の土塀の途中にある閉じた潜り戸（既定・要確認）。黒ずんだ薄いバルサの板の小さな木戸、金色のビーズの鋲と茶色に塗った閂、上に小さな瓦の庇。戸の前に雪が吹き溜まり、低い爪楊枝を並べた竹垣の雪囲いと石の基礎の段差で道から隔てられる。通行しない。
