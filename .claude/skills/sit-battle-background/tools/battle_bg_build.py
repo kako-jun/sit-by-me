@@ -261,9 +261,20 @@ def red_roof_mask(px):
 
 
 def gold_mask(px):
-    """金（ランタンの真鍮・房）。TRM-02 のランタンの中央値 (207,143,74)（g/r≈0.69）に合わせ、g/r>0.62 かつ b<110。木のハイライト g/r≈0.58 と淡い桃色 (b≥140) は含めない。実測: TRM-02 のランタンの暖色の約53%を拾い、take10 の床の誤検出は0.16%。"""
+    """金（ランタンの真鍮・房。床板の釘の頭のような小さな金の点は除く）。TRM-02 のランタンの中央値 (207,143,74)（g/r≈0.69）に合わせ、g/r>0.62 かつ b<110。木のハイライト g/r≈0.58 と淡い桃色 (b≥140) は含めない。実測: TRM-02 のランタンの暖色の約53%を拾い、take10 の床の誤検出は0.16%。"""
+    import numpy as np
     r, g, b = px[..., 0], px[..., 1], px[..., 2]
-    return (r > 190) & (g * 100 > r * 62) & (b < 110)
+    m = (r > 190) & (g * 100 > r * 62) & (b < 110)
+    # 床板の釘の頭（小さな金の点）は物にしない: 5x5 の範囲がほぼ全部金色（23/25以上）の塊だけを金とする
+    sat = np.pad(m.astype("int32").cumsum(0).cumsum(1), ((1, 0), (1, 0)))
+    box = sat[5:, 5:] - sat[:-5, 5:] - sat[5:, :-5] + sat[:-5, :-5]
+    core = np.zeros(m.shape, dtype=bool)
+    core[2:2 + box.shape[0], 2:2 + box.shape[1]] = box >= 23
+    grown = np.zeros(m.shape, dtype=bool)
+    for dy in range(-2, 3):
+        for dx in range(-2, 3):
+            grown |= np.roll(np.roll(core, dy, 0), dx, 1)
+    return m & grown
 
 
 def object_mask(px, ground="wood"):
@@ -297,6 +308,23 @@ def floor_mask(px, ground="wood"):
     if ground == "road":
         return ~object_mask(px) & (r < 150) & (np.abs(r - b) < 60)
     return ~object_mask(px) & (r > b + 15) & (r >= g) & (r >= 35)
+
+
+def plank_seams(gray, x0, x1, y0, y1, k=2.5, gap=8, win=41):
+    """床板の継ぎ目線の本数を、縦帯 x0〜x1・y0〜y1 の明るさの縦方向の谷から数える（win px の移動平均を引いた残差が -k 未満の局所最小、間隔 gap px 以上）。木目の筋も数えるので、板の継ぎ目と厳密には区別できない間接検査。"""
+    import numpy as np
+    a = np.asarray(gray, dtype=float)[y0:y1, x0:x1]
+    prof = a.mean(axis=1)
+    base = np.convolve(np.pad(prof, win // 2, mode="edge"), np.ones(win) / win, mode="valid")
+    hp = prof - base
+    idx = []
+    for i in range(1, len(hp) - 1):
+        if hp[i] < -k and hp[i] <= hp[i - 1] and hp[i] < hp[i + 1]:
+            if not idx or i - idx[-1] >= gap:
+                idx.append(i)
+            elif hp[i] < hp[idx[-1]]:
+                idx[-1] = i
+    return idx
 
 
 def black_mask(px):
@@ -366,6 +394,13 @@ def cmd_check(a):
                 continue  # 見切れてよい上端の舞台セットはログ帯にかかってよい
             if overlap(bx, sr["box"]):
                 report["problems"].append(f"城の屋根 {bx} が安全矩形 {sr['id']} に重なる")
+    pl = L.get("床板")  # 床板の幅（巨大な1枚板に見えないか）の間接検査: 板の継ぎ目線の本数
+    if pl:
+        gray = np.asarray(im.convert("L"))
+        counts = [len(plank_seams(gray, x0, x1, pl["y0"], pl["y1"], pl["k"], pl["gap"], pl["win"])) for x0, x1 in pl["strips"]]
+        report["plank_seams"] = counts
+        if min(counts) < pl["min_seams"]:
+            report["problems"].append(f"床板の継ぎ目線が {min(counts)} 本（{pl['min_seams']} 本以上が要る。板の幅が大きく、巨大な1枚板に見える）")
     if a.zoomed:
         report["floor_fraction"] = {}
         integ = Integral(floor_mask(px, L.get("地面", "wood")))

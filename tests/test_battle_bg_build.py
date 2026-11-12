@@ -14,6 +14,26 @@ import battle_bg_build as B  # noqa: E402
 from PIL import Image, ImageDraw  # noqa: E402
 
 
+import contextlib as _cl
+
+
+@_cl.contextmanager
+def without_plank_check():
+    """床板の継ぎ目線の検査（BG011）を外す。単色の合成画像は継ぎ目が0本で、別の検査の試験が落ちるため。"""
+    orig = B.load
+
+    def load(bg):
+        r, L = orig(bg)
+        L = copy.deepcopy(L)
+        L.pop("床板", None)
+        return r, L
+    B.load = load
+    try:
+        yield
+    finally:
+        B.load = orig
+
+
 class Build(unittest.TestCase):
     def setUp(self):
         _, self.L = B.load("BG011")
@@ -67,7 +87,8 @@ class Build(unittest.TestCase):
             p = Path(t) / "x.png"
             im.save(p)
             a = B.argparse.Namespace(bg_id="BG011", image=str(p), out=t, zoomed=False)
-            self.assertEqual(B.cmd_check(a), 0)
+            with without_plank_check():
+                self.assertEqual(B.cmd_check(a), 0)
 
 
 
@@ -332,8 +353,8 @@ class ObjectInFrames(unittest.TestCase):
         hl = np.zeros((4, 4, 3), dtype=int)
         hl[:] = (209, 122, 63)  # 木の橙色のハイライト（物ではない）
         self.assertFalse(B.object_mask(hl).any())
-        gold = np.zeros((4, 4, 3), dtype=int)
-        gold[:] = (222, 172, 44)  # 金の房（物）
+        gold = np.zeros((12, 12, 3), dtype=int)
+        gold[:] = (222, 172, 44)  # 金の房（物。5x5 以上の塊）
         self.assertTrue(B.object_mask(gold).all())
         self.assertFalse(m[:, 50:60].any())
 
@@ -417,7 +438,7 @@ class Survivors(unittest.TestCase):
                 p = Path(t) / "x.png"
                 im.save(p)
                 a = B.argparse.Namespace(bg_id="BG011", image=str(p), out=t, zoomed=True)
-                with contextlib.redirect_stdout(io.StringIO()):
+                with contextlib.redirect_stdout(io.StringIO()), without_plank_check():
                     rc = B.cmd_check(a)
                 self.assertEqual(rc, expect, band)
 
@@ -560,8 +581,8 @@ class RealColours(unittest.TestCase):
 
     def test_real_lantern_brass_is_gold(self):
         import numpy as np
-        self.assertTrue(B.gold_mask(np.array([[(207, 143, 74)]], dtype=int)).all())  # TRM-02 のランタンの真鍮の中央値
-        self.assertFalse(B.gold_mask(np.array([[(209, 122, 63)]], dtype=int)).any())  # 木のハイライト（g/r≈0.58）
+        self.assertTrue(B.gold_mask(np.full((12, 12, 3), (207, 143, 74), dtype=int)).all())  # TRM-02 のランタンの真鍮の中央値（5x5 以上の塊）
+        self.assertFalse(B.gold_mask(np.full((12, 12, 3), (209, 122, 63), dtype=int)).any())  # 木のハイライト（g/r≈0.58）
 
     def test_trm02_castle_roof_coverage_is_at_least_half(self):
         px = self.trm02()[200:290, 760:915]  # 城の屋根を含む範囲
@@ -574,7 +595,7 @@ class RealColours(unittest.TestCase):
         px = self.trm02()[205:275, 603:630]
         r, b = px[..., 0], px[..., 2]
         warm = (r > 170) & (r - b > 80)
-        self.assertGreater(B.gold_mask(px)[warm].mean(), 0.4)
+        self.assertGreater(B.gold_mask(px)[warm].mean(), 0.2)  # 釘の頭を除くため5x5の塊だけ数え、約28%
 
     def test_synthetic_floor_with_highlights_has_few_false_positives(self):
         import numpy as np
@@ -873,6 +894,62 @@ class FlatRoad(unittest.TestCase):
             return f
         self.assertEqual(self.run_check(shade(10))[0], 0)
         self.assertEqual(self.run_check(shade(20))[0], 1)
+
+
+
+
+class PlankSeams(unittest.TestCase):
+    """床板の幅（巨大な1枚板に見えないか）の間接検査: 継ぎ目線（明るさの縦方向の谷）の本数。"""
+
+    def setUp(self):
+        _, self.L = B.load("BG011")
+        self.pl = self.L["床板"]
+
+    def gray(self, spacing):
+        import numpy as np
+        a = np.full((941, 1672), 90.0)
+        for y in range(260, 900, spacing):
+            a[y:y + 2, :] = 40.0  # 板の継ぎ目の暗い線
+        return a
+
+    def count(self, spacing):
+        pl = self.pl
+        return len(B.plank_seams(self.gray(spacing), 650, 900, pl["y0"], pl["y1"], pl["k"], pl["gap"], pl["win"]))
+
+    def test_documented_values(self):
+        self.assertEqual((self.pl["min_seams"], self.pl["strips"], self.pl["y0"], self.pl["y1"]), (29, [[650, 900], [1200, 1450]], 260, 900))
+
+    def test_narrow_planks_have_many_seams_and_wide_planks_few(self):
+        self.assertGreaterEqual(self.count(16), 29)  # 間隔16px（TRM-02 の比に揃えた幅）
+        self.assertLess(self.count(30), 29)          # 間隔30px（take10 の巨大な板）
+
+    def test_check_flags_wide_planks_and_passes_narrow_ones(self):
+        import io, contextlib, json
+        for spacing, expect in ((30, 1), (16, 0)):
+            im = Image.new("RGB", (1672, 941), (90, 62, 40))
+            d = ImageDraw.Draw(im)
+            for y in range(260, 900, spacing):
+                d.rectangle([0, y, 1672, y + 1], fill=(40, 26, 16))
+            with tempfile.TemporaryDirectory() as t:
+                p = Path(t) / "x.png"
+                im.save(p)
+                a = B.argparse.Namespace(bg_id="BG011", image=str(p), out=t, zoomed=True)
+                with contextlib.redirect_stdout(io.StringIO()):
+                    B.cmd_check(a)
+                rep = json.loads((Path(t) / "report.json").read_text(encoding="utf-8"))
+            has = any("床板の継ぎ目線" in q for q in rep["problems"])
+            self.assertEqual(has, bool(expect), spacing)
+
+    def test_prompt_asks_for_small_planks_with_seams_and_nails(self):
+        text = B.build_prompt(B.corrected_layout(self.L))
+        for w in ("細い板", "約16px", "隙間線", "釘の頭", "ずらす", "巨大な1枚板に見えず"):
+            self.assertIn(w, text)
+
+    def test_nail_heads_are_not_stage_set_objects(self):
+        import numpy as np
+        px = np.full((60, 60, 3), (110, 66, 38), dtype=int)
+        px[20:24, 20:24] = (200, 160, 40)  # 釘の頭（4x4 の金色の点）
+        self.assertFalse(B.object_mask(px).any())
 
 
 if __name__ == "__main__":
