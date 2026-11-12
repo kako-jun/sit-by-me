@@ -79,6 +79,26 @@ def sha(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 
+def relativize(text, root):
+    """git に入れる測定・ログから、この PC の絶対パス（worktree 名・ホーム）を消す。リポ内は相対、ホームは ~ にする。"""
+    root = str(root).rstrip("/")
+    text = text.replace(root + "/", "")
+    home = os.path.expanduser("~").rstrip("/")
+    return text.replace(home, "~") if home and home != "/" else text
+
+
+def relativize_existing(root):
+    """既存の e2 出力（metrics.json・metrics.md・codex ログ）を相対化する（`oblique_e2_measure.py --relativize`）。"""
+    n = 0
+    for pth in sorted((Path(root) / "docs/production/oblique-mocks").glob("*/*/metrics.*")) + sorted((Path(root) / "docs/production/oblique-mocks").glob("*/*/codex-take*.log.txt")):
+        t = pth.read_text()
+        r = relativize(t, root)
+        if r != t:
+            pth.write_text(r)
+            n += 1
+    return n
+
+
 def size_problems(res, size):
     """採用に使えない寸法（期待の size と違う）のテイクを説明する行のリスト。"""
     return [f"寸法NG: take{r['take']} {r['orig_size'][0]}x{r['orig_size'][1]}（期待 {size[0]}x{size[1]}）" for r in res if list(r["orig_size"]) != list(size)]
@@ -393,6 +413,10 @@ def provenance(path, out_dir, n):
 
 
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] == "--relativize":
+        root = os.popen("git rev-parse --show-toplevel").read().strip()
+        print(f"相対化したファイル: {relativize_existing(root)}")
+        return
     ap = argparse.ArgumentParser()
     ap.add_argument("map_id")
     ap.add_argument("--round", default="e2")
@@ -575,7 +599,7 @@ def main():
                "decor_gates": DECOR_GATES if ref else None,
                "round2_needed": sum(r["pass"] for r in res) < ROUND2_IF_PASS_LT,
                "human_items": HUMAN_ITEMS, "takes": res, "inter_take": inter}
-    (out / "metrics.json").write_text(json.dumps(summary, ensure_ascii=False, indent=1))
+    (out / "metrics.json").write_text(relativize(json.dumps(summary, ensure_ascii=False, indent=1), root))
     L = [f"# E2 測定 {a.map_id} {a.round}", "", "ゲート: " + json.dumps(GATES, ensure_ascii=False), ""]
     L += ["| take | 参考(幾何) | recall6 | margin | chamfer | region_ok | 基準超の項目 | 本物 |", "|---|---|---|---|---|---|---|---|"]
     for r in res:
@@ -617,7 +641,7 @@ def main():
     L += ["", "## テイク間", "", "```", json.dumps(inter, ensure_ascii=False, indent=1)[:3000], "```", "",
           f"基準内のテイク（幾何・参考）: {summary['takes_pass']} / 基準内（装飾・参考）: {summary['takes_pass_decor']} / 基準内（幾何+装飾・参考）: {summary['takes_pass_all']} / 追加ラウンドの目安（参考）: {'要' if summary['round2_needed'] else '不要'}", "", "## kako-jun の目視確認項目", ""]
     L += [f"- {h}" for h in HUMAN_ITEMS]
-    (out / "metrics.md").write_text("\n".join(L) + "\n")
+    (out / "metrics.md").write_text(relativize("\n".join(L) + "\n", root))
     print("\n".join(L[:40 + 3 * len(res)]))
     print(f"wrote {out}/metrics.json, metrics.md, overlay-take*.png")
     bad = size_problems(res, size)

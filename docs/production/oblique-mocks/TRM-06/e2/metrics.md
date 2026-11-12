@@ -4,23 +4,23 @@
 
 | take | 参考(幾何) | recall6 | margin | chamfer | region_ok | 基準超の項目 | 本物 |
 |---|---|---|---|---|---|---|---|
-| 1 | 基準超 | 0.791 | 0.065 | 4.13 | 0.0 | edge_margin,regions | True |
+| 1 | 基準超 | 0.731 | 0.047 | 5.36 | 0.0 | size_exact,edge_margin,regions | True |
 
-建物の輪郭の指標（参考）: take1: 窓の平均|dy| None・窓±8内 0/0・戸口±8内 0/1・全体ずれ中央値 [0.0, 28.0]
+建物の輪郭の指標（参考）: take1: 窓の平均|dy| None・窓±8内 0/0・戸口±8内 0/1・全体ずれ中央値 [8.0, 24.0]
 
 ## 戸口・窓の存在確認／開口の床色／畳らしい色（参考。人が見る）
 
-- take1: 戸口・窓の欠落 なし／測定不能 1／開口が壁色に見える なし／畳らしい色の面積 0.0
+- take1: 戸口・窓の欠落 なし／測定不能 1／開口が壁色に見える なし／畳らしい色の面積 0.0005
 
 ## 領域ごとの最良ずれ (dx,dy) px
 
 | region | take1 |
 |---|---|
-| door:TRM-06.door-house | (0,28) |
+| door:TRM-06.door-house | (8,24) |
 
 ## 窓ガラス内 white/green・戸口ピンク残り
 
-- take1: door:TRM-06.door-house pink0.0; 床lum_std 61.73; 全体ピンク残り 0.0
+- take1: door:TRM-06.door-house pink0.0; 床lum_std 66.03; 全体ピンク残り 0.0
 
 ## テイク間
 

@@ -109,7 +109,17 @@ uv run --with numpy --with opencv-python-headless --with pillow python3 -I \
   .claude/skills/sit-field-background/tools/oblique_e2_measure.py "$MAP" --round "$ROUND" --takes "$N" "${REFARG[@]}"
 # 生ログは base64 画像で数MBになる。先頭だけ残して置き換える（測定後。偽造ツール使用の有無は metrics.json に記録済み）
 for i in $(seq 1 "$N"); do
-  [ -f "$OUT/codex-take$i.log" ] && { cut -c1-240 "$OUT/codex-take$i.log" | grep -v '^[A-Za-z0-9+/=]\{200,\}' | head -60 > "$OUT/codex-take$i.log.txt"; rm "$OUT/codex-take$i.log"; }
+  [ -f "$OUT/codex-take$i.log" ] && {
+    cut -c1-240 "$OUT/codex-take$i.log" | grep -v '^[A-Za-z0-9+/=]\{200,\}' | head -60 > "$OUT/codex-take$i.log.txt"
+    # 画像が出来なかったテイクは、原因が分かるよう生ログの末尾（エラー）も残す（先頭60行はプロンプトの再掲だけで原因が見えない）
+    if [ ! -f "$OUT/take$i.png" ]; then
+      { echo; echo "---- take$i.png が出来なかった。生ログの末尾 ----"; cut -c1-300 "$OUT/codex-take$i.log" | grep -v '^[A-Za-z0-9+/=]\{200,\}' | tail -30; } >> "$OUT/codex-take$i.log.txt"
+      echo "take$i.png が出来なかった（原因は $OUT/codex-take$i.log.txt の末尾）。再生成が必要" >&2
+    fi
+    # この PC の絶対パス（worktree 名・ホーム）を git に入れない
+    sed -i "s|$ROOT/||g; s|$HOME|~|g" "$OUT/codex-take$i.log.txt"
+    rm "$OUT/codex-take$i.log"
+  }
 done
 echo "== 全テイク（kako-jun が目視で判定する。測定は参考）=="
 for i in $(seq 1 "$N"); do echo "$ROOT/$OUT/take$i.png  (重ね: $ROOT/$OUT/overlay-take$i.png)"; done

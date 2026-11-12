@@ -768,7 +768,7 @@ uv run python3 scripts/content_ledger_views.py build で更新する。
 | FORM-070 | C048 | elderly | 冬の私服 | いいえ | assets/images/characters/shared/npc-master-candidates/C048-elderly-master.webp | 採用（2026-11-02 kako-jun 判断） | https://github.com/kako-jun/sit-by-me/issues/180; 採用: https://github.com/kako-jun/sit-by-me/issues/180#issuecomment-6571980362 |
 | FORM-071 | C049 | elderly | 冬の私服 | いいえ | assets/images/characters/shared/npc-master-candidates/C049-elderly-master.webp | 採用（2026-11-02 kako-jun 判断） | https://github.com/kako-jun/sit-by-me/issues/180; 採用: https://github.com/kako-jun/sit-by-me/issues/180#issuecomment-6571980362 |
 
-### 素材 (1358件)
+### 素材 (1359件)
 
 正本: [素材.yaml](../素材.yaml)
 
@@ -2132,6 +2132,7 @@ uv run python3 scripts/content_ledger_views.py build で更新する。
 | A-1356 | TRM-15 | 背景(基準) | assets/images/fields/reference/teramachi-road-trm15-adopted.webp | 採用 | 2026-11-12 | 新方式（台帳→oblique_build.py→oblique_e2_run.sh の1テイク）で再生成した TRM-15（火の見櫓の角）の e2 take1 を暫定採用（参謀の指示。kako-jun の目視承認は未取得のため、差し戻しは状態を変えるだけでよい。決定 TRM.road-set.provisional-adopt-2026-11-12、Issue #191 https://github.com/kako-jun/sit-by-me/issues/191#issuecomment-6812980915）。元の PNG は docs/production/oblique-mocks/TRM-15/e2/take1.png（sha256 57173a4e3e16611fcb4e1b8c6b68f80a9ded69bdcab888f0c60991b29f497924）。WebP は q85 の可逆でない保存（スキルの規定）で、WebP の sha256 は下のとおり。 | 40e95b155c8cb8a6829eff873725c7efcd8da9f984437c9ae8248276f7639976 |  |
 | A-1357 | TRM-16 | 背景(基準) | assets/images/fields/reference/teramachi-road-trm16-adopted.webp | 採用 | 2026-11-12 | 新方式（台帳→oblique_build.py→oblique_e2_run.sh の1テイク）で再生成した TRM-16（用水と寺門の斜め道）の e2 take1 を暫定採用（参謀の指示。kako-jun の目視承認は未取得のため、差し戻しは状態を変えるだけでよい。決定 TRM.road-set.provisional-adopt-2026-11-12、Issue #191 https://github.com/kako-jun/sit-by-me/issues/191#issuecomment-6812980915）。元の PNG は docs/production/oblique-mocks/TRM-16/e2/take1.png（sha256 c2a0691f045fff26b53ea23e168f6ef03e9115ce75eb0074e3c2cd5c07d30fe3）。WebP は q85 の可逆でない保存（スキルの規定）で、WebP の sha256 は下のとおり。 | 7a325d9430de5bb1022f17dc44c798a58c4b822ff333e587bd47fa1fa78c8d94 |  |
 | A-1358 | TRM-17 | 背景(基準) | assets/images/fields/reference/teramachi-road-trm17-adopted.webp | 採用 | 2026-11-12 | 新方式（台帳→oblique_build.py→oblique_e2_run.sh の1テイク）で再生成した TRM-17（寺町への坂道）の e2 take1 を暫定採用（参謀の指示。kako-jun の目視承認は未取得のため、差し戻しは状態を変えるだけでよい。決定 TRM.road-set.provisional-adopt-2026-11-12、Issue #191 https://github.com/kako-jun/sit-by-me/issues/191#issuecomment-6812980915）。元の PNG は docs/production/oblique-mocks/TRM-17/e2/take1.png（sha256 4311102b879952fa818eb04deffae133d51e03c06dcb67d07ee59937e4c41735）。WebP は q85 の可逆でない保存（スキルの規定）で、WebP の sha256 は下のとおり。 | 231dc45057f62aed65a57694844fa38f5d744af14a18863cf0afbd0be9948734 |  |
+| A-1359 | TRM-10 | 背景(基準) | assets/images/fields/reference/teramachi-road-trm10-adopted.webp | 採用 | 2026-11-12 | 新方式（台帳→oblique_build.py→oblique_e2_run.sh の1テイク）で再生成した TRM-10（バリアフリースロープ）の e2 take1 を暫定採用（参謀の指示。kako-jun の目視承認は未取得のため、差し戻しは状態を変えるだけでよい。決定 TRM.road-set.provisional-adopt-2026-11-12、Issue #191 https://github.com/kako-jun/sit-by-me/issues/191#issuecomment-6812980915）。元の PNG は docs/production/oblique-mocks/TRM-10/e2/take1.png（sha256 03c89036e9b7fc8ce3c487bd7d6901d8507b81045fb0d860367ccc910f60a143）。WebP は q85 の可逆でない保存（スキルの規定）で、WebP の sha256 は下のとおり。 | 6a567401171c3c83831d9e1c533e209919ee9b1bf6a2c59ff9421d75c17a48b3 |  |
 
 ### 素材移行 (712件)
 

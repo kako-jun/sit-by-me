@@ -36,7 +36,7 @@
  "takes": [
   {
    "take": "1",
-   "file": "/home/kako-jun/repos/private/sit-by-me-r07/docs/production/oblique-mocks/TRM-09/e2/take1.png",
+   "file": "docs/production/oblique-mocks/TRM-09/e2/take1.png",
    "resized_for_measure": false,
    "orig_size": [
     1672,
@@ -89,7 +89,7 @@
     ],
     "mode": "RGB",
     "unique_colors": 215571,
-    "matches_codex_generated_image": "/home/kako-jun/.codex/generated_images/01a1cd6c-119c-7d11-a3ee-5e75677247ee/exec-cdc63423-1c8f-4396-931d-b0743d8aa178.png",
+    "matches_codex_generated_image": "~/.codex/generated_images/01a1cd6c-119c-7d11-a3ee-5e75677247ee/exec-cdc63423-1c8f-4396-931d-b0743d8aa178.png",
     "new_generated_images_in_run": 2,
     "log_mentions_unavailable": true,
     "log_fabrication_tool_calls": 0,
