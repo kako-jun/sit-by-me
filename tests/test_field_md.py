@@ -242,6 +242,16 @@ class Notation(FieldMdCase):
     def test_script_entry(self):
         self.assertIn("[フィールド: opening_battle @700,480]", self.out("play/script.md"))
 
+    def test_command_label_is_magic_not_incantation(self):
+        # 戦闘コマンドは わざ・まほう・どうぐ・にげる（docs/systems.md）。name-name の既定「じゅもん」を上書きする
+        self.assertIn("battle_command_labels: spell=まほう\n", self.out("play/script.md"))
+
+    def test_readme_save_key_is_project_scoped(self):
+        # /play/sit-by-me は name-name-save-<docKey=プロジェクト名>-<slot> を読む（field.html だけ field）
+        readme = self.out("play/README.md")
+        self.assertIn("name-name-save-sit-by-me-0", readme)
+        self.assertNotIn("name-name-save-field-", readme)
+
     def test_every_event_md_is_hidden_with_marker(self):
         for ident in EVENT_IDS:
             text = self.out(f"play/events/{ident}.md")

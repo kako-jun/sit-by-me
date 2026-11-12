@@ -36,7 +36,7 @@ kako-jun の指摘「ゲーム画面と同じ見た目にしろ。今回言っ�
 | 21 | 敵ごとの HP ゲージは出さない | systems.md 9 行 | ? | ff の既定でゲージが無いことを実機で確認する |
 | 22 | 味方のステータス（HP・MP・ゲージ）を下に表示 | systems.md 23 行 | ? | 実機で確認する |
 | 23 | 基本コマンドは わざ・まほう・どうぐ・にげる（「たたかう」は無い） | systems.md 12 行 | ○ | `battle_commands: skill, spell, item, escape` |
-| 24 | 「じゅもん」でなく「まほう」と表示 | systems.md 12 行 | × | `battle_command_labels` を一枚絵フィールドが無視する（起票案あり） |
+| 24 | 「じゅもん」でなく「まほう」と表示 | systems.md 12 行 | △ | `battle_command_labels: spell=まほう`。一枚絵フィールドで効くのは name-name #1154（PR #1159）の対応後。実機未確認 |
 | 25 | 基本の攻撃は無属性ダメージ魔法 | systems.md 12 行、decisions.md 294 行 | △ | MAG-07 おにぱんちを追加（効果の数値は暫定）。劇戦闘の最強級の固定付与は具体が未決で書かない |
 | 26 | 戦闘開始・終了の画面遷移は FF5/6 風 | 出典なし（kako-jun の口頭の指摘。docs に決定の行が無い） | ○ | `battle_transition: ff` |
 | 27 | 勝利リザルトは FF5 式（先頭に「戦いに勝った！」→円→経験値…） | systems.md 295〜303 行 | ○ | name-name #1039・#1113。実機未確認 |
