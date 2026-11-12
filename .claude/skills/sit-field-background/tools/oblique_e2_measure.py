@@ -79,6 +79,11 @@ def sha(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 
+def size_problems(res, size):
+    """採用に使えない寸法（期待の size と違う）のテイクを説明する行のリスト。"""
+    return [f"寸法NG: take{r['take']} {r['orig_size'][0]}x{r['orig_size'][1]}（期待 {size[0]}x{size[1]}）" for r in res if list(r["orig_size"]) != list(size)]
+
+
 def load(p, size):
     im = Image.open(p).convert("RGB")
     resized = im.size != size
@@ -511,6 +516,7 @@ def main():
         pk = [v["pink_residual"] for v in reg.values() if "pink_residual" in v]
         g = {
             "aspect": r["aspect_ok"],
+            "size_exact": not r["resized_for_measure"],  # 画像モデルが 1px 少なく返すことがある（TRM-06・10 が 1671×941）。採用手順は寸法が違う画像を通さない（リサイズで通さない）
             "edge_recall": r["edge"]["recall6_room"] >= GATES["edge_recall_room_min"],
             "edge_margin": r["edge"]["margin"] >= GATES["edge_margin_min"],
             "chamfer": r["edge"]["chamfer_room_px"] <= GATES["chamfer_room_max_px"],
@@ -614,6 +620,11 @@ def main():
     (out / "metrics.md").write_text("\n".join(L) + "\n")
     print("\n".join(L[:40 + 3 * len(res)]))
     print(f"wrote {out}/metrics.json, metrics.md, overlay-take*.png")
+    bad = size_problems(res, size)
+    for line in bad:
+        print(line, file=sys.stderr)
+    if bad:
+        print("寸法が違うテイクは採用手順（oblique_build.py --adopt）に進めない。該当 MAP の再生成が必要（リサイズで通さない）", file=sys.stderr)
 
 
 if __name__ == "__main__":
