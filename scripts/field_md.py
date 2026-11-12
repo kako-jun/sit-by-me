@@ -33,8 +33,8 @@ TRIGGER_AUTO_ONCE = "場面開始・1回"  # 発火条件の許容値（空欄�
 #   窓は FF 風の青（縦グラデ・白枠・白文字。色だけをテーマにする）: docs/systems.md 22 行、decisions.md 171 行
 #   キャラはアクスタ（板・台座・影。戦闘もフィールドの歩行絵も）: decisions.md 12・32 行
 #   基本コマンドは わざ／まほう／どうぐ／にげる（「たたかう」は無い）: docs/systems.md（2026-10-15 決定）
-#   未対応（一枚絵フィールドでは name-name が無視する。書かない）: battle_perspective / battle_horizon（遠近の擬似3D。docs/systems.md 戦闘節）、
-#   battle_command_labels（「じゅもん」→「まほう」の表示名。docs/systems.md）。name-name 側の Issue で追う
+#   コマンドの表示名は battle_command_labels で「じゅもん」→「まほう」にする（docs/systems.md。一枚絵フィールドで効くのは name-name #1154 の対応後）
+#   未対応（一枚絵フィールドでは name-name が無視する。書かない）: battle_perspective / battle_horizon（遠近の擬似3D。docs/systems.md 戦闘節）。name-name 側の Issue（#1154）で追う
 #   敵名窓: FF 式（battle_enemy_list: window）。戦闘開始・終了は FF5/6 風の遷移（battle_transition: ff）
 # 戦闘背景（battle_background）は、採用済みのジオラマ背景が無いので書かない（別担当の準備待ち。黒で出さないための迂回は置かない）。
 FF_LOOK = [
@@ -48,6 +48,7 @@ FF_LOOK = [
     "battle_transition: ff",
     "field_emotions: field/sit-field-emotions.json",
     "battle_commands: skill, spell, item, escape",
+    "battle_command_labels: spell=まほう",
 ]
 ENTRY_EVENT = "opening_battle"
 FIELD_EVENTS = ("opening_battle", "evacuation_after_play", "play_cancelled_promise")
@@ -226,7 +227,7 @@ def render_readme(records):
         "オープニングを毎回通らない。**再開点を選んで `?resume=` で開く**（セーブ JSON は台帳 `docs/ledger/再開点/` から生成）。",
         "",
         "1. `play/saves/<再開点ID>.save.json`（下の一覧）を選ぶ。",
-        "2. /play を開くのと同じオリジンのコンソールで `localStorage.setItem('name-name-save-field-0', <その JSON の中身>)`。",
+        "2. /play を開くのと同じオリジンのコンソールで `localStorage.setItem('name-name-save-sit-by-me-0', <その JSON の中身>)`。",
         "3. `/play/sit-by-me?resume=0` を開く。",
         "",
         "| 再開点 | 内容 |",
