@@ -44,7 +44,13 @@ done < <($SCHED refs "$MAP")
 EXTRA_IDS=()
 for KV in $(printf '%s\n' "${EXTRA_REFS:-}"); do
   [ -z "$KV" ] && continue
-  REFS+=(-i "${KV#*=}"); NREF=$((NREF+1)); EXTRA_IDS+=("${KV%%=*}")
+  EID="${KV%%=*}"; EPATH="${KV#*=}"
+  # .webp（台帳の採用画像・legacy）は PNG に変換して添付する（親の参考画像と同じ扱い）
+  case "$EPATH" in *.webp) uv run --with pillow python3 -I -c "
+from PIL import Image
+import sys
+Image.open(sys.argv[1]).convert('RGB').save(sys.argv[2])" "$EPATH" "$OUT/ref-$EID.png"; EPATH="$OUT/ref-$EID.png";; esac
+  REFS+=(-i "$EPATH"); NREF=$((NREF+1)); EXTRA_IDS+=("$EID")
 done
 if [ ! -f "$PROMPT" ]; then
   sed "/$LEDGER_MARKER_RE/,\$d" "$M/$MAP-edit-prompt.txt" > "$PROMPT"

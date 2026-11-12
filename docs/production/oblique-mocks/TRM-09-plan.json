@@ -85,13 +85,23 @@
     936
    ],
    "look": "小屋の戸の前を隔てる帯。雪囲いの低い竹垣と戸室石の低い縁石、その手前の浅い溝。雪の庭で、道・石段・踏み石は戸まで続かない。"
+  },
+  {
+   "id": "b-sento-front",
+   "rect": [
+    380,
+    346,
+    980,
+    396
+   ],
+   "look": "銭湯の玄関の前を隔てる帯。低い戸室石の石垣、竹の雪囲いの柵、その手前の石蓋の溝。石畳の前庭はこの手前で終わり、玄関まで続かない。帯の向こう（玄関の前）は雪で足跡はない。"
   }
  ],
  "scenery_doors": [
   {
    "id": "sd-sento-entrance",
    "wall": "sento",
-   "look": "銭湯の玄関。無地の藍色の暖簾が下がり、木の格子戸が閉まっている。玄関脇に木の下駄箱の棚、敷居に雪。通行しない。敷居の前に一段高い石の段差があり、前庭の床とはつながらない（段差は既定・要確認）。"
+   "look": "銭湯の玄関。無地の藍色の暖簾が下がり、木の格子戸が閉まっている。玄関脇に木の下駄箱の棚、敷居に雪。通行しない（景色の扉）。玄関の前を低い戸室石の石垣と竹の雪囲いの柵、その手前の石蓋の溝が横切り、石畳の前庭は玄関まで続かず、たどり着けそうに見えない。"
   },
   {
    "id": "sd-sento-woodshed",
@@ -228,9 +238,9 @@
    "kind": "building",
    "rect": [
     360,
-    100,
+    60,
     1000,
-    400
+    340
    ],
    "top_color": "#6c7077",
    "window_count": 0,
@@ -424,8 +434,8 @@
  "depends_on": [],
  "_provenance": {
   "source": "MAP:TRM-09|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "9e9ee20b715b61f90fde4c76ca50ef4bfc6bdb640bdce6c8394902020e5043ec",
-  "generated_at": "2026-11-12T10:26",
+  "input_sha": "5ee3b26998ba59fc5dca34a0505c39bf38a75ba068555ff4b14375003a3b8f7f",
+  "generated_at": "2026-11-12T10:41",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-09-plan",
   "do_not_edit": true

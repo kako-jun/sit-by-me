@@ -50,7 +50,7 @@
    "id": "b-gatepath-w",
    "rect": [
     252,
-    372,
+    450,
     288,
     792
    ],
@@ -60,7 +60,7 @@
    "id": "b-gatepath-e",
    "rect": [
     412,
-    372,
+    450,
     452,
     756
    ],
@@ -196,9 +196,9 @@
    "id": "b-gate-front",
    "rect": [
     250,
-    310,
+    360,
     452,
-    370
+    446
    ],
    "look": "寺門の前を横切る隔離の帯。低い野面積みの石垣、雪囲いの竹垣、その手前の浅い石蓋の溝。石畳（参道）はこの帯の手前で終わり、門まで続かない。帯の向こう（門の前）は雪で、足跡はない。"
   },
@@ -375,7 +375,7 @@
    ],
    "rect": [
     290,
-    372,
+    450,
     410,
     794
    ],
@@ -722,8 +722,8 @@
  ],
  "_provenance": {
   "source": "MAP:TRM-16|要素|端|窓|既定値|時期差分|建物部位|建物窓列|決定(参照されたものの要点)",
-  "input_sha": "f5d0916210cad4afb4712cd39f4c2b014cedfed04af0137f7e84526c60305eec",
-  "generated_at": "2026-11-12T10:27",
+  "input_sha": "d75544d7064f16f7c9f3b21a09553058e5bd87b886a17cda56b9f2bb709db9ac",
+  "generated_at": "2026-11-12T10:41",
   "command": "uv run python3 .claude/skills/sit-field-background/tools/ledger_build.py build",
   "ledger_id": "G-TRM-16-plan",
   "do_not_edit": true

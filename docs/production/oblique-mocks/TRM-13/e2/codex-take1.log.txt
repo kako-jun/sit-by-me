@@ -8,7 +8,7 @@ approval: never
 sandbox: workspace-write [workdir, /tmp, $TMPDIR] (network access enabled)
 reasoning effort: high
 reasoning summaries: none
-session id: 01a1cd63-df86-75b2-bc5b-d5126e0ec75d
+session id: 01a1cd71-46d9-7481-a480-520c82e87a8e
 --------
 user
 Invoke the $imagegen skill and use the built-in image_gen tool at the HIGHEST quality (quality: high), edit-mode with the 3 attached reference images in the order described below, size 1672x941, then save the REAL generated PNG (decode the 
@@ -28,13 +28,14 @@ DOORS（濃いピンクの四角が戸口。**全部で0個。1つも欠かさ�
 SCENERY DOORS（景色としての扉・門・潜り戸）: 上の DOORS（濃いピンクの四角）だけが通行する戸口。景色の扉は通行しない・閉じている・歩けない面の側にある（ピンクにしない）。景色の扉は入れそうな見た目でもよいが、歩いてたどり着けそうに見せない: 扉の前は塀・柵・段差・溝・低い石垣・植栽・雪の吹き溜まり・積まれた物・雪囲いなどで隔離し、閉じた鎖・閂・茶色の絵具の汚れ・厚い雪の縁で長く開けられていないと読めるようにする。扉は歩ける床に直接面せず、必ず境界（段差・塀
 - sd-closure-n1（closure-n1）: 石垣の上の土塀にある閉じた潜り戸（既定・要確認）。位置は北の土塀の西寄り（画面左、石段の延長線上ではない。石段の真上・石段の突き当たりには置かない）。黒ずんだ薄いバルサの板の小さな木戸、金色のビーズの鋲と茶色に塗った閂、上に小さな瓦の庇。戸の前は石垣の上の雪の庭で、低い雪囲いの爪楊枝を並べた竹垣と石の縁が戸との間にあり、石段・道・足跡は戸まで続かない。通行しない。
 - sd-house-e（house-e）: 町家の閉じた爪楊枝の格子戸。細かい爪楊枝の格子の引き戸、敷居に雪。戸の前の雪は踏まれていない。通行しない。
-- sd-house-sw（house-sw）: 民家の閉じた木製の玄関戸（板の戸）。戸の前に雪が積もる。通行しない。
+- sd-house-sw（house-sw）: 民家の閉じた木製の玄関戸（板の戸）。戸の前に雪が積もる。通行しない。戸の前を低い竹の雪囲い、石粉粘土の石の低い縁石、浅い溝が横切り、道・石粉粘土の板石の敷石・足跡は戸まで続かない。
 
 BOUNDARY（歩ける床の外側の境界物の帯。座標は画素。この帯は歩ける床の外側なので FORBIDDEN の『歩く床への新規物』は適用しない。歩ける床の内側には1画素も出さない）: 道と私有地・敷地・水際・段差の境目を色の切り替えだけにせず、各帯に次の実体を、工作の素材で立体的に作る:
 - b-paving-n（[132, 455, 777, 478]）: 石粉粘土の板石の敷石の北縁。段丘の石垣の足元の石積みと、浅い石粉粘土の蓋をした側溝（透明樹脂の水が流れる）、緑のフロッキングの苔と枯れ草、灰色に汚した綿の除雪の山。石積みの向こうは雪の斜面で段差がある。
 - b-paving-s（[113, 566, 774, 590]）: 石粉粘土の板石の敷石の南縁。民家の前の低い石垣と刈り込みの生垣（雪で丸く沈む）、石粉粘土の縁石、赤白に塗った爪楊枝のスノーポール。縁石の向こうは雪の前庭で段差がある。
 - b-stairs-w（[745, 421, 778, 454]）: 石段の下端の西側の石積み（石垣の延長）。野面積みの石に緑のフロッキングの苔と霜、手すりの支柱の根元。
 - b-stairs-e（[903, 238, 941, 565]）: 石段の東の縁。低い野面積みの石垣と、手すりの支柱、石垣の上の枯れ草と雪。石垣の向こうは雪の庭で入れない。
+- b-house-sw-front（[331, 791, 535, 816]）: 民家の板戸の前を隔てる帯。低い竹の雪囲いと石粉粘土の縁石、その手前の浅い溝。雪の庭で、道・石粉粘土の板石の敷石は戸まで続かない。
 
 VARIATION（単調にしない。この MAP の見た目の語から来る変化。あちこちに複数・数は目安）:
 - 石段の各段に薄く積もった雪と、段の中央の踏み跡（足跡）、手すりの茶色の絵具の汚れと霜
@@ -57,4 +58,3 @@ AREA FIXED（エリア『寺町・寺院と住居』の必須キー。全MAP共�
 - 机の天面の材質: 茶色の木の板張り(横目)（warm brown wooden plank work desk top, grain running left-right）
 - 台座の素材: 段ボール(波形断面)+綿の雪（corrugated cardboard slab edge with cotton snow top）
 - 木の種類: 松+枯木（snow-laden Japanese pine and bare deciduous tree only）
-- 外周の装飾方針: 綿の雪・雪から覗く草・木で埋める(白い素地を残さない)（fill the area outside the building with cotton snow, grass and trees）
