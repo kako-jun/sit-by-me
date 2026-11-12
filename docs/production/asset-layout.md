@@ -46,7 +46,7 @@
 | 外観参照 | 配置ID `asset-field-reference` | 実在パス例: `assets/images/fields/reference/<kebab-case>.webp`。外観参照専用（平置き・小文字英数とハイフンのみ）。mapの「実行時参照」には使わない |
 | 体内マスク（runtime切替前） | 配置ID `asset-field-masks` | 実在パス例: `assets/images/fields/masks/BDY-NN-{mask,traversal-edit,mask-overlay}.webp`（17箇所×3=51ファイル）。`mask`・`traversal-edit` は**可逆WebP（VP8L）**、`mask-overlay` は確認用の**非可逆WebP**。体内17MAPのマスク（#142）。台帳は blocked 維持で runtime 未切替 |
 | 斜め視点マスク（runtime切替前） | 配置ID `asset-field-masks` | 実在パス例: `assets/images/fields/masks/TRM-02-{mask,traversal-edit,mask-overlay}.webp`。寺町の斜め視点（#144）。形式は体内マスクと同じ（mask・edit は可逆WebP、overlay は非可逆）。入力JSON・結果は `docs/production/oblique-masks/`。台帳は blocked 維持（ready にしない） |
-| 戦闘背景 | 配置ID `asset-battle-backgrounds` | 実在パス例: `assets/images/battle-backgrounds/BGxxx.webp`（現存は BG011（2026-11-12 に暫定採用。目視承認は未取得）・BG012（2026-11-12 に採用。kako-jun 目視承認）。台帳は 戦闘背景.yaml。BG001（没）・BG002〜004・006〜009は削除済み、BG005も没で削除済み（2026-10-21）で、復元は git 履歴 `1bb09d0` から）。下表 |
+| 戦闘背景 | 配置ID `asset-battle-backgrounds` | 実在パス例: `assets/images/battle-backgrounds/BGxxx.webp`（現存は BG011・BG012（2026-11-12 に採用。kako-jun 目視承認）。台帳は 戦闘背景.yaml。BG001（没）・BG002〜004・006〜009は削除済み、BG005も没で削除済み（2026-10-21）で、復元は git 履歴 `1bb09d0` から）。下表 |
 | フィールド感情吹き出し | 配置ID `asset-field-emotion` | 実在パス例: `assets/images/effects/field-emotion/field-emotion-{exclaim,question,dots}.png`。256x256 透過PNG（#170、[registry](../field-emotion-registry.md)）。配置は暫定（#139 と整合時に再検討） |
 | 人物共通の採用素材 | 配置ID `asset-shared-adopted` | 実在パス例: `assets/images/characters/shared/anonymous-elder-woman.webp`、`anonymous-kid-girl-short.webp`。透過切り抜き WebP。`-v数字` で終わる名は不可（候補は `shared/candidates/`） |
 | ブランド | 配置ID `asset-brand` | 実在パス例: `assets/images/brand/logo.svg`（正本）、`logo.png`（SVG派生、WebP化しない）。暫定の文字ロゴ（SIT BY ME）。ゲームIDではない。のち差し替え予定 |
@@ -60,8 +60,8 @@
 
 | BG ID | 元ファイル | 状態 |
 |---|---|---|
-| BG001 | bg-a.png | 没・削除済み（2026-11-12。BG011 の暫定採用に伴う退役。決定 BG001.rejected-provisional-keep は経緯）。現存しない |
-| BG011 | （生成） | 暫定採用（2026-11-12。kako-jun の目視承認は未取得）。お遊戯会の舞台 |
+| BG001 | bg-a.png | 没・削除済み（2026-11-12。BG011 の採用に伴う退役。決定 BG001.rejected-provisional-keep は経緯）。現存しない |
+| BG011 | （生成） | 採用（2026-11-12。kako-jun 目視承認）。お遊戯会の舞台 |
 | BG012 | （生成） | 採用（2026-11-12。kako-jun 目視承認）。寺町の雪道 |
 | BG005 | stage-b.png | 没・削除済み（2026-10-21）。現存しない |
 

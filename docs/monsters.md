@@ -179,7 +179,7 @@ M010の造形（kako-jun採用 2026-10-20）: 胃の盾役を踏まえ、幅広�
 
 | ファイル | 内容 | 使われている所 |
 |---|---|---|
-| `assets/images/battle-backgrounds/BG011.webp` | お遊戯会の舞台の床（上端で見切れる雪山・城の書き割り・緞帳・柱）。暫定採用（kako-jun の目視承認は未取得） | opening_battle（M001 との劇の戦闘。配信用複製 fields/play/bg011.webp） |
+| `assets/images/battle-backgrounds/BG011.webp` | お遊戯会の舞台の床（上端で見切れる雪山・城の書き割り・緞帳・柱）。採用（kako-jun 目視承認 2026-11-12） | opening_battle（M001 との劇の戦闘。配信用複製 fields/play/bg011.webp） |
 | `assets/images/battle-backgrounds/BG012.webp` | 寺町の雪道（上端で見切れる土塀・戸室石の基礎・雪囲い）。採用（kako-jun 目視承認 2026-11-12） | 使う戦闘は未定（配信用複製 fields/play/bg012.webp） |
 | `assets/images/fields/` | 寺町のフィールド背景（overview・wide-road・narrow-lane・connector、試作の kindergarten・danchi-court・sento・well-merge など）と歩行マスク | フィールド。敵の配置は未定 |
 
