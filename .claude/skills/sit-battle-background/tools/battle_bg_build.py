@@ -13,6 +13,8 @@
       参照見本（TRM-02 の舞台の柱・ランタン・緞帳・書き割りの空と山・舞台板だけを切り出して並べた見本。城・樅を含まない。城・樅の位置は台帳『配置』が正本）。
   ... zoom BG011 IMAGE.png --crop X,Y,W,H --out OUT.png
       クロップ枠（16:9）を 1672x941 に Lanczos 拡大する。元画像は変えない。枠・倍率・元画像の sha256 を OUT の隣の zoom-report.json に残す。座標を守れない・床が傾く時は再生成せずまずこれ（局所合成より先）。
+  ... zoom-search BG011 IMAGE.png --out DIR [--scales 1.3,1.5,1.7,...] [--top 8]
+      クロップ枠を倍率×位置で探索し、各候補を check --zoomed と同じ基準（全枠の床画素97%以上）で採点。合格候補のうち『舞台セット（床以外の画素）が最も多く見える』順に番号付けして DIR/contact.png（コンタクトシート。合格は緑・不合格は赤）と DIR/search.json に出す。倍率の下限は、全枠が床に載る最小の倍率が決める（BG011 take7 は約2.4）。
   ... mask BG011 castle --out MASK.png
       城の枠だけを白にした局所合成用マスク（image-local-replace で城だけ直す時）。
 """
@@ -31,6 +33,8 @@ KIND_COLOUR = {
     "curtain": (40, 100, 50), "backdrop": (95, 155, 220), "front_board": (85, 50, 28), "front_card": (190, 150, 90),
 }
 FLOOR = (120, 70, 38)
+FLOOR_MIN = 0.95  # check --zoomed が要る枠内の床画素の割合の下限（9割だと城の胴の端・柱の根元が枠に入っても通ったため）
+SEARCH_MARGIN = 0.97  # zoom-search の合格線。拡大後の再計算で数%ずれるので check より厳しくして余裕を持たせる
 DESK = (60, 35, 22)
 
 
@@ -164,12 +168,32 @@ def edge_rise(px, floor):
     return float(-(k * (floor["back_right"][0] - floor["back_left"][0])))
 
 
-def floor_fraction(px, box):
-    """枠 [x,y,w,h] の中で『床の濃い茶色の板』に見える画素の割合（青空・緑の緞帳・白い雪・明るい段ボールを除く）。"""
-    x, y, w, h = [int(v) for v in box]
-    r, g, b = (px[y:y + h, x:x + w, i] for i in range(3))
-    floor = (r > b + 15) & (r >= g) & (r < 190) & (g > 20)
-    return float(floor.mean()) if floor.size else 0.0
+def floor_mask(px):
+    """床の板に見える画素のマスク（全画素を一度だけ判定）。物（青空・緑・白・金・明るい段ボール）と、前面の濃い板（周囲 15px の平均の赤が 78 未満）は床でない。板の細い暗い隙間は床のまま。"""
+    from PIL import Image, ImageFilter
+    import numpy as np
+    r, g, b = px[..., 0], px[..., 1], px[..., 2]
+    obj = (b > r) | (g > r + 8) | (np.minimum(np.minimum(r, g), b) > 175) | (r > 190)
+    blur = np.asarray(Image.fromarray(r.astype("uint8")).filter(ImageFilter.BoxBlur(15)), dtype=int)
+    return ~obj & (blur >= 78)
+
+
+class Integral:
+    """マスクの積分画像。矩形内の真の画素数を O(1) で出す。"""
+
+    def __init__(self, mask):
+        import numpy as np
+        self.sat = np.pad(mask.astype("int64").cumsum(0).cumsum(1), ((1, 0), (1, 0)))
+        self.h, self.w = mask.shape
+
+    def frac(self, box):
+        x, y, w, h = [int(round(v)) for v in box]
+        x0, y0 = max(x, 0), max(y, 0)
+        x1, y1 = min(x + w, self.w), min(y + h, self.h)
+        if x1 <= x0 or y1 <= y0:
+            return 0.0
+        t = self.sat
+        return float(t[y1, x1] - t[y0, x1] - t[y1, x0] + t[y0, x0]) / ((x1 - x0) * (y1 - y0))
 
 
 def cmd_check(a):
@@ -213,12 +237,13 @@ def cmd_check(a):
                 report["problems"].append(f"城の屋根 {bx} が安全矩形 {sr['id']} に重なる")
     if a.zoomed:
         report["floor_fraction"] = {}
+        integ = Integral(floor_mask(px))
         for sr in L["safe_rects"]:
             if sr["id"].startswith("ally") or sr["id"] == "enemy":
-                fr = floor_fraction(px, sr["box"])
+                fr = integ.frac(sr["box"])
                 report["floor_fraction"][sr["id"]] = round(fr, 3)
-                if fr < 0.9:
-                    report["problems"].append(f"枠 {sr['id']} の床画素が {fr:.0%}（90% 以上が要る。枠が床の上に載っていない）")
+                if fr < FLOOR_MIN:
+                    report["problems"].append(f"枠 {sr['id']} の床画素が {fr:.0%}（{FLOOR_MIN:.0%} 以上が要る。枠が床の上に載っていない）")
         rise, need = None, 0
     else:
         rise = edge_rise(px, L["floor"])
@@ -255,6 +280,70 @@ def cmd_zoom(a):
     print(json.dumps(report, ensure_ascii=False))
 
 
+def _candidate(integ, L, scale, cx, cy):
+    """元画像のクロップ枠（左上 cx,cy・倍率 scale）を採点する。拡大後の枠 [x,y,w,h] は元画像の [cx+x/scale, cy+y/scale, w/scale, h/scale] に当たる。"""
+    W, H = L["canvas"]
+    cw, ch = W / scale, H / scale
+    if cx < 0 or cy < 0 or cx + cw > integ.w or cy + ch > integ.h:
+        return None
+    fr = {}
+    for sr in L["safe_rects"]:
+        if sr["id"].startswith("ally") or sr["id"] == "enemy":
+            x, y, w, h = sr["box"]
+            fr[sr["id"]] = integ.frac([cx + x / scale, cy + y / scale, w / scale, h / scale])
+    return {"scale": scale, "crop": [int(cx), int(cy), int(cw), int(ch)], "floor_fraction": fr,
+            "ok": all(v >= SEARCH_MARGIN for v in fr.values()), "set_visible": 1 - integ.frac([cx, cy, cw, ch])}
+
+
+def cmd_zoom_search(a):
+    import numpy as np
+    from PIL import Image, ImageDraw
+    _, L = load(a.bg_id)
+    W, H = L["canvas"]
+    im = Image.open(a.image).convert("RGB")
+    px = np.asarray(im, dtype=int)
+    integ = Integral(floor_mask(px))
+    scales = [float(v) for v in a.scales.split(",")]
+    cands = []
+    for sc in scales:
+        cw, ch = W / sc, H / sc
+        for cy in range(0, int(px.shape[0] - ch) + 1, 4):
+            for cx in range(0, int(px.shape[1] - cw) + 1, 10):
+                c = _candidate(integ, L, sc, cx, cy)
+                if c:
+                    cands.append(c)
+    ok = sorted([c for c in cands if c["ok"]], key=lambda c: -c["set_visible"])
+    # 不合格でも倍率ごとの最良（最も床画素が多い）を比較用に載せる
+    best_by_scale = {}
+    for c in cands:
+        if not c["ok"]:
+            k = c["scale"]
+            m = min(c["floor_fraction"].values())
+            if k not in best_by_scale or m > best_by_scale[k][0]:
+                best_by_scale[k] = (m, c)
+    shown = ok[: a.top] + [v[1] for k, v in sorted(best_by_scale.items()) if not ok or k < ok[-1]["scale"]][:4]
+    out = Path(a.out)
+    out.mkdir(parents=True, exist_ok=True)
+    tw, th = 640, 360
+    cols = 3
+    rows_n = (len(shown) + cols - 1) // cols
+    sheet = Image.new("RGB", (cols * tw, rows_n * (th + 40)), (30, 30, 30))
+    d = ImageDraw.Draw(sheet)
+    for i, c in enumerate(shown, 1):
+        x, y, w, h = c["crop"]
+        t = im.crop((x, y, x + w, y + h)).resize((tw, th), Image.LANCZOS)
+        ox, oy = ((i - 1) % cols) * tw, ((i - 1) // cols) * (th + 40)
+        sheet.paste(t, (ox, oy + 40))
+        mn = min(c["floor_fraction"].values())
+        d.rectangle([ox, oy, ox + tw, oy + 38], fill=(20, 90, 30) if c["ok"] else (110, 20, 20))
+        d.text((ox + 6, oy + 4), f"#{i} x{c['scale']} crop={x},{y},{w},{h}", fill=(255, 255, 255))
+        d.text((ox + 6, oy + 20), f"{'OK' if c['ok'] else 'NG'} min floor {mn:.0%} / stage set visible {c['set_visible']:.0%}", fill=(255, 255, 255))
+        c["no"] = i
+    sheet.save(out / "contact.png")
+    (out / "search.json").write_text(json.dumps({"ok_count": len(ok), "candidates": shown}, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"合格 {len(ok)} 件（全 {len(cands)} 候補）。contact.png に {len(shown)} 件。最良の合格: " + (f"#1 x{ok[0]['scale']} crop={ok[0]['crop']}" if ok else "なし"))
+
+
 def cmd_mask(a):
     from PIL import Image, ImageDraw
     _, L = load(a.bg_id)
@@ -288,12 +377,18 @@ def main(argv=None):
     z.add_argument("image")
     z.add_argument("--crop", required=True)
     z.add_argument("--out", required=True)
+    zs = sub.add_parser("zoom-search")
+    zs.add_argument("bg_id")
+    zs.add_argument("image")
+    zs.add_argument("--out", required=True)
+    zs.add_argument("--scales", default="1.3,1.5,1.7,1.9,2.1,2.3,2.5")
+    zs.add_argument("--top", type=int, default=6)
     m = sub.add_parser("mask")
     m.add_argument("bg_id")
     m.add_argument("item")
     m.add_argument("--out", required=True)
     a = ap.parse_args(argv)
-    r = {"build": cmd_build, "check": cmd_check, "mask": cmd_mask, "ref": cmd_ref, "zoom": cmd_zoom}[a.cmd](a)
+    r = {"build": cmd_build, "check": cmd_check, "mask": cmd_mask, "ref": cmd_ref, "zoom": cmd_zoom, "zoom-search": cmd_zoom_search}[a.cmd](a)
     return r or 0
 
 

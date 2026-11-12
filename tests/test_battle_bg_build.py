@@ -239,5 +239,44 @@ class Zoom(unittest.TestCase):
             self.run_zoom("1000,600,796,448")
 
 
+
+
+class ZoomSearch(unittest.TestCase):
+    def setUp(self):
+        _, self.L = B.load("BG011")
+
+    def test_integral_matches_mean(self):
+        import numpy as np
+        m = np.zeros((100, 200), dtype=bool)
+        m[:, :100] = True
+        self.assertAlmostEqual(B.Integral(m).frac([0, 0, 200, 100]), 0.5, places=6)
+        self.assertAlmostEqual(B.Integral(m).frac([0, 0, 100, 100]), 1.0, places=6)
+        self.assertAlmostEqual(B.Integral(m).frac([150, 0, 50, 100]), 0.0, places=6)
+
+    def test_floor_mask_excludes_sky_green_white_and_dark_face(self):
+        import numpy as np
+        px = np.zeros((60, 240, 3), dtype=int)
+        px[:, 0:60] = (130, 75, 40)    # 床の板
+        px[:, 60:120] = (90, 150, 220)  # 青空
+        px[:, 120:180] = (40, 100, 50)  # 緑の緞帳
+        px[:, 180:240] = (60, 35, 20)   # 前面の濃い板
+        m = B.floor_mask(px)
+        self.assertTrue(m[:, 10:50].all())
+        self.assertFalse(m[:, 70:110].any())
+        self.assertFalse(m[:, 130:170].any())
+        self.assertFalse(m[:, 190:230].any())
+
+    def test_candidate_is_ok_only_when_every_frame_is_floor(self):
+        import numpy as np
+        mask = np.ones((941, 1672), dtype=bool)
+        integ = B.Integral(mask)
+        c = B._candidate(integ, self.L, 1.0, 0, 0)
+        self.assertTrue(c["ok"])
+        mask[300:420, 940:1100] = False  # 味方1枠の中に床でない物
+        c = B._candidate(B.Integral(mask), self.L, 1.0, 0, 0)
+        self.assertFalse(c["ok"])
+        self.assertIsNone(B._candidate(integ, self.L, 1.0, 100, 0))  # 画像の外へはみ出す枠
+
+
 if __name__ == "__main__":
     unittest.main()
