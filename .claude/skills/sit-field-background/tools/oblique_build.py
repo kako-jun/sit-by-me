@@ -1344,6 +1344,9 @@ def main():
         out = a.out or base
         with open(a.target, encoding="utf-8") as f:
             C = json.load(f)
+        if "virtual_ports" in C:  # 寺町全体の接続図設定は oblique_town.py の入力。oblique_topology.build は virtual_ports を扱わず KeyError で落ちる
+            sys.exit(f"{a.target} は寺町全体の接続図設定（virtual_ports あり）で、oblique_build --all の入力ではない。"
+                     "MAP ごとの派生物は docs/production/oblique-mocks/connections.json で `oblique_build.py --all` を実行する（接続図の検査は oblique_town.py --check-only）")
         jobs = []
         for fn in C["plans"]:
             pp = os.path.join(base, fn)

@@ -40,6 +40,19 @@ def prompt_input_sha(plan_sha, ledger_text, ledger_mat):
     return sha_bytes((plan_sha + PROMPT_VERSION + src_sha("oblique_mock.py") + decor + ledger_text + json.dumps(ledger_mat, sort_keys=True)).encode())
 
 
+def plan_depends_on(plan_path, variant=None):
+    """oblique_build（oblique_mock.load_plan）が prompt 段に渡す depends_on と同じ導出。variant の depends_on を先頭に足し、基準MAPの依存を残す（#193）。
+    cv2 に依存しないようここに持つ（oblique_mock.load_plan との一致は tests/test_oblique_stale.py が縛る）。"""
+    with open(plan_path, encoding="utf-8") as f:
+        p = json.load(f)
+    dep = list(p.get("depends_on", []))
+    v = p.get("variants", {}).get(variant) if variant else None
+    if v is not None and "depends_on" in v:
+        dep = list(v["depends_on"]) + [d for d in dep if d not in v["depends_on"]]
+    return dep
+
+
 def current_prompt_sha(map_id, depends_on, plan_path, variant=None):
-    text, mat = LQ.sections(map_id, depends_on)
+    """depends_on 引数は互換のために残すが使わない（依存の正本は plan。依存グラフ JSON の depends_on は variant の追加分を持たず食い違う）。"""
+    text, mat = LQ.sections(map_id, plan_depends_on(plan_path, variant))
     return prompt_input_sha(plan_sha_of(plan_path, variant), text, mat)

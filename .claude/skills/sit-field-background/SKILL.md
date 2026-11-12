@@ -267,7 +267,7 @@ kako-jun 指示（2026-10-22、逐語）: 『モックを見せずに作るこ�
 
 ### E2: クリーンモック編集元の生成と幾何保持の測定（TRM-02 で実証、#144）
 
-**台帳の文面（プロンプト文面・決定・要素・MAP の plan）を変えたら、生成の前に必ず `oblique_build.py --all docs/production/oblique-mocks/connections-teramachi.json`（個別 MAP は `oblique_build.py PLAN.json`）で派生物の `<MAP>-edit-prompt.txt` を再生成し、`oblique_e2_schedule.py stale` で古い MAP が無い（終了コード0）ことを確認する。**古い派生物のまま画像を作ると、訂正前の文面で生成される（TRM-07・08・17 に訂正前の SCENERY DOORS が残った事例、レビュー 2026-11-12）。検証は `tests/test_oblique_stale.py`。
+**台帳の文面（プロンプト文面・決定・要素・MAP の plan）を変えたら、生成の前に必ず `oblique_build.py --all docs/production/oblique-mocks/connections.json`（寺町全体の `connections-teramachi.json` は `oblique_town.py` の入力で、`--all` には渡さない）（個別 MAP は `oblique_build.py PLAN.json`）で派生物の `<MAP>-edit-prompt.txt` を再生成し、`oblique_e2_schedule.py stale` で古い MAP が無い（終了コード0）ことを確認する。**古い派生物のまま画像を作ると、訂正前の文面で生成される（TRM-07・08・17 に訂正前の SCENERY DOORS が残った事例、レビュー 2026-11-12）。検証は `tests/test_oblique_stale.py`。
 
 **石垣（kind=retaining）が瓦屋根の建物に描かれる・ピンクが残る（TRM-13、kako-jun 2026-11-12）**: 原因は、クリーンモックの石垣の上面を建物の屋根と同じ灰色（#6c7077）にしていたこと。台帳 要素 の retaining の top_color は雪の帯の色（#e4ded2）にする（`oblique_mock.py` の既定も同じ。`oblique_build.outdoor_look_problems` が屋根色ならエラー）。プロンプト文面 PR.reality に『石垣=粗石を積んだ垂直の壁、上面は雪か土、屋根は作らない』を持つ。出入口・戸口のマーカーのピンクは画像のどこにも残さない（PR の DOORS 行に明記。`oblique_e2_measure.py` の `pink_whole` ゲートが全体のピンク残りを検出する）。石垣・塀・壁に DOORS にも景色の扉の一覧にも無い戸を描かない（SCENERY DOORS に明記）。検証は `tests/test_oblique_retaining_pink.py`。
 

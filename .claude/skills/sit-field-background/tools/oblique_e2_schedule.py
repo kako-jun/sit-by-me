@@ -139,12 +139,8 @@ def cmd_list(maps):
         print(f"{k:12} {','.join(deps) or '-':28} {'済' if confirmed(k) else '-':4} {'可' if not bl and not confirmed(k) and has_plan(k) else '-':6} {note}")
 
 
-# 古さ検出の既知の例外（variant の input_sha の算出が build と schedule で食い違う既存の問題。origin/main の時点から古い扱いになる）
-KNOWN_STALE = {"TRM-05-kids", "TRM-05-fire"}
-
-
 def stale_maps(maps):
-    return [k for k in maps if has_plan(k) and k not in KNOWN_STALE and any("プロンプトが古い" in b for b in blockers(maps, k))]
+    return [k for k in maps if has_plan(k) and any("プロンプトが古い" in b for b in blockers(maps, k))]
 
 
 def cmd_stale(maps):
