@@ -54,7 +54,7 @@ class LedgerVerifier
     self
   end
 
-  # 描画定数・プロンプト文面: 空値なし、変数列と本文の {名前} が一致、コード（oblique_*.py）が参照するIDが全て在り、どの行もコードから参照されている（死んだ行を残さない）
+  # 描画定数・プロンプト文面: 空値なし、変数列と本文の {名前} が一致、コード（oblique_*.py・sample_field_build.py・戦闘背景ツール）が参照するIDが全て在り、どの行もコードから参照されている（死んだ行を残さない）
   CODE_REF = /["']((?:PR|MK|TP)\.[A-Za-z0-9._-]*|(?:view|width|door|window|slab|occlusion|topology|battle|town|tree|craft|desk)\.[A-Za-z0-9._-]*)["']/.freeze
 
   def check_code_texts
@@ -72,7 +72,7 @@ class LedgerVerifier
       err("描画定数 #{r['定数ID']}: コード内の名前が空") if r['コード内の名前'].to_s.strip.empty?
     end
     tools = File.join(@root, '.claude/skills/sit-field-background/tools')
-    sources = Dir.glob(File.join(tools, 'oblique_*.py')) + Dir.glob(File.join(@root, '.claude/skills/sit-battle-background/tools/*.py'))
+    sources = Dir.glob(File.join(tools, 'oblique_*.py')) + [File.join(tools, 'sample_field_build.py')] + Dir.glob(File.join(@root, '.claude/skills/sit-battle-background/tools/*.py'))
     refs = sources.flat_map { |f| File.read(f, encoding: 'UTF-8').scan(CODE_REF).flatten }.uniq
     all_ids = texts.map { |r| r['文面ID'] } + consts.map { |r| r['定数ID'] }
     refs.each do |ref|
@@ -82,7 +82,7 @@ class LedgerVerifier
     end
     all_ids.each do |i|
       used = refs.any? { |ref| ref.end_with?('.') ? i.start_with?(ref) : ref == i }
-      err("台帳ID #{i} がどのコード（oblique_*.py）からも参照されていない（死んだ行。消すか、コードを台帳参照にする）") unless used
+      err("台帳ID #{i} がどのコード（oblique_*.py・sample_field_build.py・戦闘背景ツール）からも参照されていない（死んだ行。消すか、コードを台帳参照にする）") unless used
     end
   end
 
@@ -249,6 +249,7 @@ class LedgerVerifier
            ids('人物', '人物ID').include?(owner) ||
            ids('敵', '敵ID').include?(owner) ||
            ids('召喚獣', '召喚獣ID').include?(owner) ||
+           ids('サンプルMAP', 'サンプルID').include?(owner) ||
            owner.match?(/\ABG\d{3}\z/) || %w[BRAND UI].include?(owner)
       err("素材 #{s['素材ID']} の所有者 #{owner} に対応する台帳行または素材名前空間が無い") unless ok
     end
