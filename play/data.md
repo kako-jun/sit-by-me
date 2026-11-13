@@ -3,7 +3,7 @@ engine: name-name
 title: 共通定義
 hidden: true
 ---
-<!-- 生成物。台帳が正本。編集しない。 暫定: 数値は台帳 opening_battle の暫定を参照（HP・ATK・DEF・AGI と魔法の効果は仮値）。魔法は台帳 魔法.yaml の MAG-07・MAG-08 だけ -->
+<!-- 生成物。台帳が正本。編集しない。 暫定: 数値は台帳 opening_battle の暫定を参照（HP・ATK・DEF・AGI と魔法の効果は仮値）。魔法は台帳 魔法.yaml の MAG-07・MAG-08 だけ。サンプル専用・暫定: M101・M104・M148 の HP・ATK・DEF・AGI・EXP・GOLD も仮値（M001 の仮値とは別。数値の正本は #237） -->
 
 ## data: 共通定義
 
@@ -20,6 +20,39 @@ ATK: 10
 DEF: 0
 AGI: 5
 スプライト: enemies/M001.webp
+[/モンスター]
+
+[モンスター M101]
+名前: ロードローラー
+HP: 90
+ATK: 14
+DEF: 0
+AGI: 3
+EXP: 12
+GOLD: 30
+スプライト: enemies/M101.webp
+[/モンスター]
+
+[モンスター M104]
+名前: 乱暴な自転車
+HP: 50
+ATK: 10
+DEF: 0
+AGI: 9
+EXP: 8
+GOLD: 15
+スプライト: enemies/M104.webp
+[/モンスター]
+
+[モンスター M148]
+名前: 凍った水たまり
+HP: 70
+ATK: 8
+DEF: 0
+AGI: 5
+EXP: 10
+GOLD: 20
+スプライト: enemies/M148.webp
 [/モンスター]
 
 [呪文 MAG-07]
