@@ -17,6 +17,7 @@ import argparse
 import hashlib
 import json
 import re
+import sys
 from pathlib import Path
 
 import yaml
@@ -266,12 +267,19 @@ def sample_monster_ids(sample):
 
 
 def _enemy_sizes():
-    """敵ごとのサイズ区分（台帳 敵配置.yaml『名前・サイズ』の『（2x1）』表記。決定 SIT.enemy-size-classes）。台帳に無い敵は書かない（name-name の既定 1x1）。"""
+    """敵ごとのサイズ区分（台帳 敵配置.yaml『名前・サイズ』の『（2x1）』表記。決定 SIT.enemy-size-classes）。
+
+    数字（NxM）が無い値（『大型。区分は未定』など）は区分が決まっていないので無視し、警告を出す（書かない＝name-name の既定 1x1）。
+    台帳に無い敵も書かない。サイズを推測で決めない。
+    """
     sizes = {}
     for r in _table("敵配置"):
-        m = re.search(r"(\d+)x(\d+)", str(r.get("名前・サイズ", "")))
-        if m and r["敵ID"] and r["敵ID"] not in sizes:
-            sizes[r["敵ID"]] = f"{m.group(1)}x{m.group(2)}"
+        text = str(r.get("名前・サイズ", ""))
+        m = re.search(r"(\d+)x(\d+)", text)
+        if m:
+            sizes.setdefault(r["敵ID"], f"{m.group(1)}x{m.group(2)}")
+        elif r["敵ID"] and re.search(r"区分|大型|中型|小型", text) and r["敵ID"] not in sizes:
+            print(f"警告: {r['敵ID']} のサイズは数字の区分が無いため無視する（既定 1x1）: {text}", file=sys.stderr)
     return sizes
 
 

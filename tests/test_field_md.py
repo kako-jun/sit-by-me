@@ -268,12 +268,28 @@ class Notation(FieldMdCase):
         self.assertIn("battle_motion: snappy\n", text)
 
     def test_enemy_grid_and_sizes(self):
-        # 決定 DEMO.ff-look-snappy-ff-mosaic（kako-jun 2026-11-14「たす」）。サイズは台帳 敵配置.yaml が正本（SIT.enemy-size-classes）
+        # 決定 DEMO.ff-look-enemy-grid（kako-jun 2026-11-14「たす」）。サイズは台帳 敵配置.yaml が正本（SIT.enemy-size-classes）
         self.assertIn("battle_enemy_grid: 6x2\n", self.out("play/script.md"))
         data = self.out("play/data.md")
         for mid in ("M101", "M104", "M148"):
             block = data.split(f"[モンスター {mid}]")[1].split("[/モンスター]")[0]
             self.assertIn("サイズ: 2x1\n", block)
+
+    def test_enemy_sizes_ignore_unclassified_and_missing(self):
+        # 数字の無い値（大型・区分未定）と台帳に無い敵は書かない（既定 1x1）。注記つきの値（2x1。EA は大型扱い）は 2x1
+        rows = [
+            {"敵ID": "M001", "名前・サイズ": "段ボールのドラゴン（大型。区分は未定）"},
+            {"敵ID": "M101", "名前・サイズ": "ロードローラー（2x1。EA は大型扱い）"},
+            {"敵ID": "M104", "名前・サイズ": "乱暴な自転車（2x1）"},
+        ]
+        orig = field_md._table
+        field_md._table = lambda name: rows if name == "敵配置" else orig(name)
+        self.addCleanup(setattr, field_md, "_table", orig)
+        with contextlib.redirect_stderr(io.StringIO()) as err:
+            sizes = field_md._enemy_sizes()
+        self.assertEqual(sizes, {"M101": "2x1", "M104": "2x1"})
+        self.assertIn("M001", err.getvalue())
+        self.assertNotIn("M999", sizes)
 
     def test_readme_save_key_is_project_scoped(self):
         # /play/sit-by-me は name-name-save-<docKey=プロジェクト名>-<slot> を読む（field.html だけ field）
