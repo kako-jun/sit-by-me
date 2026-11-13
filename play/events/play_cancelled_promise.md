@@ -76,5 +76,5 @@ hidden: true
 
 **ペー子**:
 やくそくですね。
-[場面移動: sample_field @1330,480]
+[場面移動: sample_field @836,650]
 [/イベント]

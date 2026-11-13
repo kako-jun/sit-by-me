@@ -21,8 +21,8 @@ SAMPLE_STATES = ("採用",)
 def check_sample_maps(data):
     """早期デモ専用のサンプルMAP（docs/demo/README.md。サンプルは1マップ）。
 
-    サンプルID は本編の MAP ID と別。背景は流用元MAPの採用済み画像を流用するだけで、
-    流用元に採用済み背景(基準)と歩行マスクがあり、起動イベントが実在すること。接続・連結は持たない。
+    サンプルID は本編の MAP ID と別。背景は流用元MAPの採用済み画像を流用するか（流用元MAP が自分自身＝サンプルID ならサンプル専用の素材。空欄は不可）、
+    その所有者に採用済み背景(基準)と歩行マスクがあり、起動イベントが実在すること。接続・連結は持たない。
     """
     errors = []
     main_maps = {r["MAP_ID"] for r in data["MAP"]}
@@ -33,13 +33,15 @@ def check_sample_maps(data):
         ident, source = row["サンプルID"], row["流用元MAP"]
         if ident in main_maps:
             errors.append(f"サンプルMAP: {ident} が本編の MAP ID と衝突している（サンプルは本編の MAP ID を借りない）")
-        if source not in main_maps:
+        # 流用元MAP が自分自身（サンプルID）なら、サンプル専用の背景（素材の所有者ID=サンプルID。決定 DEMO.sample-bg-last-place）。そうでなければ本編MAPの流用（空欄は不可）
+        if source != ident and source not in main_maps:
             errors.append(f"サンプルMAP.流用元MAP: {ident} の {source or '(空欄)'} が MAP にない")
         else:
-            if source not in adopted:
-                errors.append(f"サンプルMAP.流用元MAP: {ident} の {source} に採用済みの背景(基準)の素材がない（背景素材を流用できない）")
-            if source not in masks:
-                errors.append(f"サンプルMAP.流用元MAP: {ident} の {source} に実在する歩行マスクの素材がない")
+            owner = source  # 自分自身（SMP-01）ならサンプル専用の素材
+            if owner not in adopted:
+                errors.append(f"サンプルMAP.流用元MAP: {ident} の {owner} に採用済みの背景(基準)の素材がない（背景素材を使えない）")
+            if owner not in masks:
+                errors.append(f"サンプルMAP.流用元MAP: {ident} の {owner} に実在する歩行マスクの素材がない")
         if row["戦闘背景"] and row["戦闘背景"] not in battle_bgs:
             errors.append(f"サンプルMAP.戦闘背景: {ident} の {row['戦闘背景']} が戦闘背景にない")
         if row["状態"] not in SAMPLE_STATES:

@@ -46,8 +46,8 @@ class FieldMdCase(unittest.TestCase):
                 for f in src.glob("*.webp"):
                     (dst / f.name).touch()
         # サンプル場面が引く画像は実在だけを見るので、空ファイルで足りる（実寸・画素は SampleField.test_spawn_is_walkable_in_real_mask が実物で見る）
-        for rel in ("fields/reference/teramachi-grounds-exterior-trm03-adopted.webp", "fields/masks/TRM-03-exterior-mask.webp",
-                    "fields/play/bg012.webp", *[f"enemies/{m}.webp" for m in field_md.SAMPLE_ENEMY_STATS]):
+        for rel in ("fields/reference/sample-field-smp01-adopted.webp", "fields/masks/SMP-01-mask.webp", "fields/reference/teramachi-grounds-exterior-trm03-adopted.webp", "fields/masks/TRM-03-exterior-mask.webp",
+                    "fields/play/bg012.webp", "fields/play/bg013.webp", *[f"enemies/{m}.webp" for m in field_md.SAMPLE_ENEMY_STATS]):
             path = self.tmp / "assets/images" / rel
             path.parent.mkdir(parents=True, exist_ok=True)
             path.touch()
@@ -387,9 +387,9 @@ class SampleField(FieldMdCase):
         self.assertIn("サンプル専用・暫定", text.split("-->")[0])  # 先頭コメント
         self.assertIn(field_md.MARKER, text)
         self.assertIn("## sample_field: ", text)
-        self.assertIn("戦闘背景=fields/play/bg012.webp", text)  # 台帳 戦闘背景.yaml の配信用複製
-        self.assertIn("背景=fields/reference/teramachi-grounds-exterior-trm03-adopted.webp", text)  # 素材.yaml の採用済み TRM-03
-        self.assertIn("マスク=fields/masks/TRM-03-exterior-mask.webp", text)
+        self.assertIn("戦闘背景=fields/play/bg013.webp", text)  # 台帳 戦闘背景.yaml の配信用複製
+        self.assertIn("背景=fields/reference/sample-field-smp01-adopted.webp", text)  # 素材.yaml の SMP-01 専用
+        self.assertIn("マスク=fields/masks/SMP-01-mask.webp", text)
         self.assertNotIn("[トリガー", text)  # 歩くだけ。NPC・マップ端の切り替えも無い
         self.assertNotIn("[NPC", text)
         self.assertIn("サンプル専用・暫定", self.out("play/README.md"))
@@ -444,7 +444,7 @@ class SampleField(FieldMdCase):
         self.assertIn("[場面移動: play_cancelled_promise @1330,480]", e2)
         e3 = self.out("play/events/play_cancelled_promise.md")
         self.assertEqual(e3.count("[場面移動:"), 1)
-        self.assertTrue(e3.rstrip().endswith("[場面移動: sample_field @1330,480]\n[/イベント]"))
+        self.assertTrue(e3.rstrip().endswith("[場面移動: sample_field @836,650]\n[/イベント]"))
         record = yaml.safe_load(self.event_path("play_cancelled_promise").read_text(encoding="utf-8"))
         self.assertEqual(e3.split("[イベント play_cancelled_promise]")[1].rsplit("[場面移動:", 1)[0].rstrip(), record["脚本"].split("[イベント play_cancelled_promise]")[1].replace("[/イベント]", "").rstrip())
 
@@ -478,14 +478,14 @@ class SampleField(FieldMdCase):
     def test_bad_sample_map_fails(self):
         path = self.tmp / "docs/ledger/サンプルMAP.yaml"
         text = path.read_text(encoding="utf-8")
-        for old, new in (('"戦闘背景": "BG012"', '"戦闘背景": "BG999"'), ('"流用元MAP": "TRM-03"', '"流用元MAP": "TRM-99"'),
+        for old, new in (('"戦闘背景": "BG013"', '"戦闘背景": "BG999"'), ('"流用元MAP": "SMP-01"', '"流用元MAP": "TRM-99"'),
                          ('opening_battle;evacuation_after_play;play_cancelled_promise', 'opening_battle;evacuation_after_play;no_such_event')):
             with self.subTest(old=old):
                 path.write_text(text.replace(old, new), encoding="utf-8")
                 with self.assertRaises(SystemExit):
                     field_md.outputs()
         path.write_text(text, encoding="utf-8")
-        (self.tmp / "assets/images/fields/play/bg012.webp").unlink()
+        (self.tmp / "assets/images/fields/play/bg013.webp").unlink()
         with self.assertRaises(SystemExit):
             field_md.outputs()
 
@@ -494,22 +494,26 @@ class SampleField(FieldMdCase):
         text = path.read_text(encoding="utf-8")
         before = field_md._table("サンプルMAP")[0]["戦闘背景"]
         stat = path.stat()
-        path.write_text(text.replace('"戦闘背景": "BG012"', '"戦闘背景": "BG999"'), encoding="utf-8")
+        path.write_text(text.replace('"戦闘背景": "BG013"', '"戦闘背景": "BG999"'), encoding="utf-8")
         import os
         os.utime(path, ns=(stat.st_atime_ns, stat.st_mtime_ns))  # 同じ大きさ・同じ mtime
         self.assertEqual(path.stat().st_size, stat.st_size)
-        self.assertEqual(before, "BG012")
+        self.assertEqual(before, "BG013")
         self.assertEqual(field_md._table("サンプルMAP")[0]["戦闘背景"], "BG999")
 
-    def test_resume_position_follows_entry_event(self):
-        # 再開点 sample_field_walk の位置は E003 の出現位置と一致する。E003 だけ変えると取り残しとして FAIL
+    def test_sample_entry_position_comes_from_resume_ledger(self):
+        # サンプル専用の背景（流用元MAP=SMP-01）の入口の位置は、再開点 sample_field_walk の位置が正本（E003 は本編の背景で位置を借りない）
         sample = field_md.sample_map({k: yaml.safe_load(self.event_path(k).read_text(encoding="utf-8")) for k in EVENT_IDS})
-        walk = yaml.safe_load((self.tmp / "docs/ledger/再開点/sample_field_walk.yaml").read_text(encoding="utf-8"))
+        walk_path = self.tmp / "docs/ledger/再開点/sample_field_walk.yaml"
+        walk = yaml.safe_load(walk_path.read_text(encoding="utf-8"))
         self.assertEqual("@" + walk["位置"], sample["position"])
-        self.edit_event("play_cancelled_promise", '"出現位置": "1330,480"', '"出現位置": "1331,480"')
+        self.assertIn(f"[場面移動: sample_field {sample['position']}]", field_md.render_event(
+            yaml.safe_load(self.event_path("play_cancelled_promise").read_text(encoding="utf-8")),
+            {k: yaml.safe_load(self.event_path(k).read_text(encoding="utf-8")) for k in EVENT_IDS}, sample))
+        walk_path.unlink()
         with self.assertRaises(SystemExit) as cm:
             field_md.outputs()
-        self.assertIn("sample_field_walk", str(cm.exception))
+        self.assertIn("再開点", str(cm.exception))
 
     def test_spawn_is_walkable_in_real_mask(self):
         try:
