@@ -5,7 +5,7 @@
 scripts/preview_event.py はレビュー用の別物で、ここからは使わない。
 build_ledger.py の `build` / `check` から呼ばれる。単体でも `uv run python3 scripts/field_md.py check`（鮮度・孤児・上書き防止の検査）が使える。
 
-第一歩の範囲は E001〜E003（opening_battle / evacuation_after_play / play_cancelled_promise）だけ。
+第一歩の範囲は E001〜E003（opening_battle / evacuation_after_play / play_cancelled_promise）と、全部入りサンプルの歩ける場面 sample_field（サンプル専用・暫定。台帳 サンプルMAP.yaml）。
 TBD が残る台帳（状態=blocked）からも骨組みは作れるが、blocked は解除しない。
 
 台帳の列（イベント台帳は既存の語に合わせる。許容値は下の定数で厳密に判定し、typo は FAIL にする）:
@@ -52,6 +52,23 @@ FF_LOOK = [
 ]
 ENTRY_EVENT = "opening_battle"
 FIELD_EVENTS = ("opening_battle", "evacuation_after_play", "play_cancelled_promise")
+# 全部入りサンプルの歩ける場面（#276 / #250）。台帳 サンプルMAP.yaml（SMP-01 の1行。docs/demo/README.md）が正本。
+# 場面ID は名前付き（発生順を埋め込まない）。サンプル専用・暫定で、本編の MAP・接続・エンカウントの決定は借りない・変えない。
+SAMPLE_SCENE = "sample_field"
+SAMPLE_NOTE = "サンプル専用・暫定"
+# サンプル専用エンカウント（決定 DEMO.sample-road-encounter-switch。本編の「スマホ購入前の寺町では通常エンカウントなし」は変えない）。
+# 率・群・敵の数値はすべて暫定（数値の正本は台帳に無く #237 で案を詰める）。戦闘が数ターンで終わる程度の仮値。
+#   率 1/8: 歩き始めて数歩〜十数歩で遭遇する程度の、デモで確かめやすい値（DQ4 式の分母。name-name の docs/spec/markdown-v0.1.md「エンカウント」）。
+#   敵は台帳 敵.yaml の実在の敵で、採用済み画像（assets/images/enemies/<ID>.webp）があるものだけ。
+#   ドロップは付けない: 敵戦利品.yaml は全敵「未定」で、アイテム台帳に実在する落とし物が無いため（架空を作らない）。
+SAMPLE_ENCOUNTER_RATE = "1/8"
+SAMPLE_ENCOUNTER_GROUPS = ("M101", "M104", "M148", "M104+M148")
+# (HP, ATK, DEF, AGI, EXP, GOLD)。M001 の 9999 とは別の、数ターンで終わる仮値。GOLD は name-name のキー名で、通貨は円（decisions.md 183 行）。
+SAMPLE_ENEMY_STATS = {
+    "M101": (90, 14, 0, 3, 12, 30),
+    "M104": (50, 10, 0, 9, 8, 15),
+    "M148": (70, 8, 0, 5, 10, 20),
+}
 PARTY = ("C001", "C002", "C003", "C004")
 MONSTER_SPRITE = "enemies/{id}.webp"
 FORM = "elementary"  # 歩行絵・戦闘ポーズが全員揃う時期。ERA-01 は幼稚園期なので暫定
@@ -73,8 +90,20 @@ def _load(path):
     return record
 
 
+_TABLE_CACHE = {}
+
+
 def _table(name):
-    return yaml.safe_load((ROOT / "docs/ledger" / f"{name}.yaml").read_text(encoding="utf-8"))
+    """台帳の表。素材.yaml が大きく parse が遅いので、内容のハッシュが同じなら parse し直さない（呼び出し側は書き換えない）。
+
+    キーは内容の sha256（mtime・size は使わない: 同じ大きさの書き換えで古い値を返しうるため）。
+    """
+    path = ROOT / "docs/ledger" / f"{name}.yaml"
+    raw = path.read_bytes()
+    key = (str(path), hashlib.sha256(raw).hexdigest())
+    if key not in _TABLE_CACHE:
+        _TABLE_CACHE[key] = yaml.safe_load(raw.decode("utf-8"))
+    return _TABLE_CACHE[key]
 
 
 def _text(record, key):
@@ -101,23 +130,81 @@ def _frontmatter(title, extra=()):
     return "\n".join(["---", "engine: name-name", f"title: {title}", *extra, "---"])
 
 
-def _script(record, records):
-    """台帳の脚本。「行き先」があれば、イベント末尾に [場面移動:] を足す（到着位置は行き先の出現位置）。"""
+def _script(record, records, sample=None):
+    """台帳の脚本。「行き先」があれば、イベント末尾に [場面移動:] を足す（到着位置は行き先の出現位置）。
+
+    台帳に「行き先」が無く、サンプルMAP の起動イベントの最後（サンプルへ入る側）なら、生成器側で sample_field への
+    [場面移動:] を足す（イベント台帳を変えない。行き先の書式は同じ）。
+    """
     script = record["脚本"].rstrip()
+    ident = record["イベントID"]
     target = _text(record, "行き先")
-    if not target:
+    if target:
+        if target not in records or not _text(records[target], "出現位置"):
+            raise SystemExit(f"{ident}: 行き先 {target} の台帳に出現位置がありません")
+        destination = f"[場面移動: {target} {_position(records[target])}]"
+    elif sample and sample["entry_from"] == ident:
+        destination = f"[場面移動: {SAMPLE_SCENE} {sample['position']}]"
+    else:
         return script
-    if target not in records or not _text(records[target], "出現位置"):
-        raise SystemExit(f"{record['イベントID']}: 行き先 {target} の台帳に出現位置がありません")
     lines = script.split("\n")
     closing = [i for i, line in enumerate(lines) if line == "[/イベント]"]
     if not closing:
-        raise SystemExit(f"{record['イベントID']}: [/イベント] が無く、場面移動を足せません")
-    lines.insert(closing[-1], f"[場面移動: {target} {_position(records[target])}]")
+        raise SystemExit(f"{ident}: [/イベント] が無く、場面移動を足せません")
+    lines.insert(closing[-1], destination)
     return "\n".join(lines)
 
 
-def _scene_block(record, records):
+def sample_map(records):
+    """台帳 サンプルMAP.yaml（1行）→ 歩ける場面の定義。画像は素材.yaml・戦闘背景.yaml の登録を正本として引く。
+
+    背景=流用元MAP の「背景(基準)」で採用の素材（1件）。1MiB 超は fields/play/ の配信用複製を使う流儀だが、
+    TRM-03 は約0.5MB なので登録パスをそのまま使う（超える場合は FAIL にして気づかせる）。
+    歩行マスク=流用元MAP の「マスク」素材のうち `-mask.webp` で終わるもの（overlay は可視化用・traversal-edit は編集用）。
+    戦闘背景=戦闘背景.yaml の 配信用複製（opening_battle の bg011 と同じ流儀）。
+    出現位置=サンプルへ入る側の最後の起動イベントの出現位置。同じ背景・同じマスクを使う場面なので、そこは歩ける。
+    （確認 2026-11-13: TRM-03 マスクの (1330,480) は白=歩行可。tests が画像で再確認する）
+    """
+    rows = _table("サンプルMAP")
+    if len(rows) != 1:
+        raise SystemExit(f"サンプルMAP は1行だけ（決定 DEMO.sample-single-map）: {len(rows)} 行")
+    row = rows[0]
+    source = row["流用元MAP"]
+    assets = _table("素材")
+    backgrounds = [a for a in assets if a["所有者ID"] == source and a["種別"] == "背景(基準)" and a["状態"] == "採用"]
+    masks = [a for a in assets if a["所有者ID"] == source and a["種別"] == "マスク" and a["パス"].endswith("-mask.webp")]
+    if len(backgrounds) != 1 or len(masks) != 1:
+        raise SystemExit(f"サンプルMAP: {source} の採用済み背景(基準) と -mask.webp のマスクは1件ずつ必要（{len(backgrounds)}/{len(masks)}）")
+    prefix = "assets/images/"
+    paths = {"背景": backgrounds[0]["パス"], "マスク": masks[0]["パス"]}
+    for kind, path in paths.items():
+        if not path.startswith(prefix) or not (ROOT / path).is_file():
+            raise SystemExit(f"サンプルMAP: {kind} の画像が実在しません: {path}")
+    if (ROOT / paths["背景"]).stat().st_size > 1024 * 1024:
+        raise SystemExit(f"サンプルMAP: 背景が 1MiB を超えます。fields/play/ の配信用複製を使う流儀に直してください: {paths['背景']}")
+    battle = ""
+    if row["戦闘背景"]:
+        bgs = [b for b in _table("戦闘背景") if b["背景ID"] == row["戦闘背景"] and b["状態"] == "採用" and b["配信用複製"]]
+        if len(bgs) != 1 or not (ROOT / prefix / bgs[0]["配信用複製"]).is_file():
+            raise SystemExit(f"サンプルMAP: 戦闘背景 {row['戦闘背景']} の採用済み配信用複製が実在しません")
+        battle = bgs[0]["配信用複製"]
+    launch = [e for e in row["起動イベント"].split(";") if e]
+    entry_from = launch[-1] if launch else ""
+    if entry_from not in records:
+        raise SystemExit(f"サンプルMAP: 起動イベントの最後 {entry_from!r} が play/ の場面にありません")
+    entry = records[entry_from]
+    # 背景だけでマスクが空などの不備は _scene_block が専用のメッセージで止める。ここは両方あるのに食い違う場合だけ
+    if _text(entry, "背景画像") and _text(entry, "歩行マスク") and (
+            _text(entry, "背景画像") != paths["背景"][len(prefix):] or _text(entry, "歩行マスク") != paths["マスク"][len(prefix):]):
+        raise SystemExit(f"サンプルMAP: {entry_from} の背景・マスクが流用元 {source} の登録と違います（出現位置を借りられません）")
+    encounter = row["エンカウント"] == "あり"
+    return {
+        "title": row["名称"], "background": paths["背景"][len(prefix):], "mask": paths["マスク"][len(prefix):], "battle": battle,
+        "entry_from": entry_from, "position": _position(entry), "encounter": encounter, "source": source,
+    }
+
+
+def _scene_block(record, records, sample=None):
     ident = record["イベントID"]
     lines = [f"## {ident}: {_scene_title(record)}", ""]
     if _text(record, "背景画像"):
@@ -135,13 +222,37 @@ def _scene_block(record, records):
         if start == TRIGGER_AUTO_ONCE:
             lines.append(f"[トリガー auto scene={ident} once=true]")
         lines.append("")
-    lines.append(_script(record, records))
+    lines.append(_script(record, records, sample))
     return "\n".join(lines)
 
 
-def render_event(record, records):
+def render_event(record, records, sample=None):
     head = _frontmatter(_text(record, "名称") or record["イベントID"], ["hidden: true"])
-    return f"{head}\n{_head(_text(record, '暫定').replace(chr(10), ' '))}\n\n{_scene_block(record, records)}\n"
+    return f"{head}\n{_head(_text(record, '暫定').replace(chr(10), ' '))}\n\n{_scene_block(record, records, sample)}\n"
+
+
+def render_sample_field(sample):
+    """歩ける場面 sample_field。マップ端の切り替えは作らない（決定 DEMO.sample-single-map）。NPC は出さない。"""
+    head = _frontmatter(sample["title"], ["hidden: true"])
+    note = (f"{SAMPLE_NOTE}。台帳 サンプルMAP.yaml（流用元 {sample['source']} の採用済み画像・マスクの流用。本編の MAP は借りない）。"
+            "エンカウントの率・群・敵の数値は仮（数値の正本は #237）。出現位置はサンプルへ入る側のイベントの出現位置")
+    lines = [f"## {SAMPLE_SCENE}: {sample['title']}", ""]
+    battle = f" 戦闘背景={sample['battle']}" if sample["battle"] else ""
+    lines.append(f"[フィールドマップ 背景={sample['background']} マスク={sample['mask']}{battle}]")
+    if sample["encounter"]:
+        lines.append(f"[エンカウント率: {SAMPLE_ENCOUNTER_RATE}]")
+        lines.append(f"[エンカウント群: {', '.join(SAMPLE_ENCOUNTER_GROUPS)}]")
+    lines.append(f"[プレイヤー {sample['position']}]")
+    return f"{head}\n{_head(note)}\n\n" + "\n".join(lines) + "\n"
+
+
+def sample_monster_ids(sample):
+    if not sample["encounter"]:
+        return set()
+    ids = {m for g in SAMPLE_ENCOUNTER_GROUPS for m in g.split("+")}
+    if ids - set(SAMPLE_ENEMY_STATS):
+        raise SystemExit(f"エンカウント群に数値の無い敵がいます: {sorted(ids - set(SAMPLE_ENEMY_STATS))}")
+    return ids
 
 
 def render_script(records):
@@ -156,10 +267,10 @@ def render_script(records):
     return f"{head}\n{_head(note)}\n\n" + "\n".join(body) + "\n"
 
 
-def render_data(records):
+def render_data(records, sample=None):
     enemies = {r["敵ID"]: r for r in _table("敵")}
     people = {r["人物ID"]: r for r in _table("人物")}
-    monster_ids = sorted({m for r in records.values() for m in re.split(r"[,;、\s]+", _text(r, "敵")) if m})
+    monster_ids = sorted({m for r in records.values() for m in re.split(r"[,;、\s]+", _text(r, "敵")) if m} | (sample_monster_ids(sample) if sample else set()))
     head = _frontmatter("共通定義", ["hidden: true"])
     lines = [
         "## data: 共通定義",
@@ -176,11 +287,18 @@ def render_data(records):
     ]
     for mid in monster_ids:
         enemy = enemies[mid]
+        if mid in SAMPLE_ENEMY_STATS:
+            # サンプル専用の暫定値（SAMPLE_ENEMY_STATS）。台帳に実在し、採用済み画像のある敵だけ。
+            if not str(enemy["画像状態"]).startswith("採用") or not (ROOT / "assets/images" / MONSTER_SPRITE.format(id=mid)).is_file():
+                raise SystemExit(f"{mid}: 採用済みの画像がありません")
+            hp, atk, dfn, agi, exp, gold = SAMPLE_ENEMY_STATS[mid]
+            stats = [f"HP: {hp}", f"ATK: {atk}", f"DEF: {dfn}", f"AGI: {agi}", f"EXP: {exp}", f"GOLD: {gold}"]
+        else:
+            stats = [f"HP: {PROVISIONAL_HP['monster']}", *[f"{k}: {v}" for k, v in PROVISIONAL_STATS["monster"].items()]]
         lines += [
             f"[モンスター {mid}]",
             f"名前: {enemy['名称']}",
-            f"HP: {PROVISIONAL_HP['monster']}",
-            *[f"{k}: {v}" for k, v in PROVISIONAL_STATS["monster"].items()],
+            *stats,
             f"スプライト: {MONSTER_SPRITE.format(id=mid)}",
             "[/モンスター]",
             "",
@@ -204,14 +322,18 @@ def render_data(records):
             "",
         ]
     note = "数値は台帳 opening_battle の暫定を参照（HP・ATK・DEF・AGI と魔法の効果は仮値）。魔法は台帳 魔法.yaml の MAG-07・MAG-08 だけ"
+    if sample and sample["encounter"]:
+        note += f"。{SAMPLE_NOTE}: M101・M104・M148 の HP・ATK・DEF・AGI・EXP・GOLD も仮値（M001 の仮値とは別。数値の正本は #237）"
     return f"{head}\n{_head(note)}\n\n" + "\n".join(lines).rstrip() + "\n"
 
 
-def render_readme(records):
+def render_readme(records, sample=None):
     rows = ["| 生成ファイル | 正本 |", "|---|---|", "| [script.md](script.md)（入口） | 台帳 docs/ledger/イベント/%s.yaml の出現位置 |" % ENTRY_EVENT,
             "| [data.md](data.md) | 敵.yaml・人物.yaml・イベント台帳の敵（数値は opening_battle の暫定列を参照） |"]
     for ident in FIELD_EVENTS:
         rows.append(f"| [events/{ident}.md](events/{ident}.md) | [{ident}.yaml](../docs/ledger/イベント/{ident}.yaml) |")
+    if sample:
+        rows.append(f"| [events/{SAMPLE_SCENE}.md](events/{SAMPLE_SCENE}.md)（{SAMPLE_NOTE}。歩ける場面・エンカウント） | [サンプルMAP.yaml](../docs/ledger/サンプルMAP.yaml)（[docs/demo/README.md](../docs/demo/README.md)） |")
     return "\n".join([
         _head("各台帳の「暫定」列を参照"),
         "# play/（name-name の /play が読む md）",
@@ -341,19 +463,28 @@ def render_emotions():
 def outputs():
     """[(生成物ID, 種別, 相対パス, 元の表, bytes)]。決定的（時刻・環境に依らない）。"""
     records = {ident: _load(EVENTS / f"{ident}.yaml") for ident in FIELD_EVENTS}
-    source = "イベント台帳|敵|人物"
+    sample = sample_map(records)
+    # 場面 sample_field の再開点の位置は、生成器が導く出現位置（サンプルへ入る側のイベントの出現位置）と一致させる
+    # （手書きの複製が E003 の出現位置の変更で取り残されないように）。
+    import resume_saves
+    for path in sorted(resume_saves.DIR.glob("*.yaml")):
+        r = yaml.safe_load(path.read_text(encoding="utf-8"))
+        if str(r.get("場面ID")) == SAMPLE_SCENE and "@" + str(r.get("位置")) != sample["position"]:
+            raise SystemExit(f"{path.stem}: 位置 {r.get('位置')} がサンプルの出現位置 {sample['position'][1:]} と違います（{sample['entry_from']} の出現位置が正本）")
+    source = "イベント台帳|敵|人物|サンプルMAP"
     items = [
         ("G-play-script", "name-name 入口md", "play/script.md", source, render_script(records)),
-        ("G-play-data", "name-name 共通定義md", "play/data.md", source, render_data(records)),
-        ("G-play-readme", "play/ の説明", "play/README.md", source, render_readme(records)),
+        ("G-play-data", "name-name 共通定義md", "play/data.md", source, render_data(records, sample)),
+        ("G-play-readme", "play/ の説明", "play/README.md", source, render_readme(records, sample)),
     ]
     for ident in FIELD_EVENTS:
-        items.append((f"G-play-event-{ident}", "name-name 場面md", f"play/events/{ident}.md", f"イベント台帳:{ident}", render_event(records[ident], records)))
+        items.append((f"G-play-event-{ident}", "name-name 場面md", f"play/events/{ident}.md", f"イベント台帳:{ident}", render_event(records[ident], records, sample)))
+    items.append((f"G-play-event-{SAMPLE_SCENE}", "name-name 場面md", f"play/events/{SAMPLE_SCENE}.md", "サンプルMAP|素材|戦闘背景", render_sample_field(sample)))
     items.append(("G-play-field-emotions", "感情吹き出しの宣言JSON", "assets/field/sit-field-emotions.json", "assets/images/effects/field-emotion", render_emotions()))
     items.append(("G-play-character-forms", "人物の形態の目録JSON", "assets/field/sit-character-forms.json", "assets/images/characters", render_forms()))
     import resume_saves  # 再開点の台帳 → セーブJSON（同じ scripts/ 内）
 
-    scenes = {ident for ident, r in records.items() if _text(r, "背景画像")}
+    scenes = {ident for ident, r in records.items() if _text(r, "背景画像")} | {SAMPLE_SCENE}
     return [(a, b, c, d, e.encode("utf-8")) for a, b, c, d, e in items] + resume_saves.outputs(scenes)
 
 

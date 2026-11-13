@@ -12,6 +12,7 @@ name-name の worker が `scriptsDir=play` として `play/` 直下とサブデ�
 | [events/opening_battle.md](events/opening_battle.md) | [opening_battle.yaml](../docs/ledger/イベント/opening_battle.yaml) |
 | [events/evacuation_after_play.md](events/evacuation_after_play.md) | [evacuation_after_play.yaml](../docs/ledger/イベント/evacuation_after_play.yaml) |
 | [events/play_cancelled_promise.md](events/play_cancelled_promise.md) | [play_cancelled_promise.yaml](../docs/ledger/イベント/play_cancelled_promise.yaml) |
+| [events/sample_field.md](events/sample_field.md)（サンプル専用・暫定。歩ける場面・エンカウント） | [サンプルMAP.yaml](../docs/ledger/サンプルMAP.yaml)（[docs/demo/README.md](../docs/demo/README.md)） |
 
 ## 途中の場面から始める（デモ・確認の手順）
 
@@ -28,6 +29,7 @@ name-name の worker が `scriptsDir=play` として `play/` 直下とサブデ�
 | [play_cancelled_promise_start](saves/play_cancelled_promise_start.save.json) | 劇の中止後の約束の会話から |
 | [playground_walk](saves/playground_walk.save.json) | 運動場（劇の中止後の場面）を歩く |
 | [playroom_walk](saves/playroom_walk.save.json) | 遊戯室（お遊戯会の場面）を歩く |
+| [sample_field_walk](saves/sample_field_walk.save.json) | サンプルのマップ（境内）を歩く |
 
 セーブからの再開直後は、既定では場面開始のトリガーを起こさない。`*_start` の再開点は `field.fireAuto: true`（name-name Issue #1155）で、その場面のイベント（劇戦闘・約束の会話）を再開直後に起こす。#1155 が入るまでは歩けるだけ（各再開点の暫定に書く）。
 
