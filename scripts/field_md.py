@@ -69,6 +69,12 @@ SAMPLE_ENEMY_STATS = {
     "M104": (50, 10, 0, 9, 8, 15),
     "M148": (70, 8, 0, 5, 10, 20),
 }
+# サンプル専用・暫定の味方の経験値表と成長（決定 SIT.currency-yen「経験値・レベルの概念を置く」。数値の正本は台帳に無く #237 で詰める）。
+# name-name の書式: 経験値表=Lv1→2 から順の累計 exp（長さ+1 が上限 Lv）、成長=Lv が1上がるごとに足す能力値。
+# 経験値は生存した味方に等分（端数切り捨て）。敵 EXP 8〜12 を4人で割るので、数戦（約3戦）で Lv2 に届く仮値。
+# 魔法の習得 Lv は変えない: 台帳 魔法.yaml に「Lv で覚える」魔法の決定が無く、新しい魔法は作らない（MAG-07・MAG-08 は Lv1 のまま）。
+SAMPLE_EXP_TABLE = (8, 20, 40, 80)
+SAMPLE_GROWTH = "hp+10, atk+2, def+1, agi+1"
 PARTY = ("C001", "C002", "C003", "C004")
 MONSTER_SPRITE = "enemies/{id}.webp"
 FORM = "elementary"  # 歩行絵・戦闘ポーズが全員揃う時期。ERA-01 は幼稚園期なので暫定
@@ -316,6 +322,7 @@ def render_data(records, sample=None):
             "MP: 0",
             *[f"{k}: {v}" for k, v in PROVISIONAL_STATS["party"].items()],
             *[f"習得: Lv1 {sid}" for sid in SPELLS],
+            *([f"経験値表: {', '.join(map(str, SAMPLE_EXP_TABLE))}", f"成長: {SAMPLE_GROWTH}"] if sample and sample["encounter"] else []),
             f"人物: {cid}",
             f"形態: {FORM}",
             "[/パーティ]",
@@ -323,7 +330,7 @@ def render_data(records, sample=None):
         ]
     note = "数値は台帳 opening_battle の暫定を参照（HP・ATK・DEF・AGI と魔法の効果は仮値）。魔法は台帳 魔法.yaml の MAG-07・MAG-08 だけ"
     if sample and sample["encounter"]:
-        note += f"。{SAMPLE_NOTE}: M101・M104・M148 の HP・ATK・DEF・AGI・EXP・GOLD も仮値（M001 の仮値とは別。数値の正本は #237）"
+        note += f"。{SAMPLE_NOTE}: M101・M104・M148 の HP・ATK・DEF・AGI・EXP・GOLD も仮値（M001 の仮値とは別。数値の正本は #237）。味方 C001〜C004 の経験値表・成長も暫定値（生存者への等分で約3戦で Lv2）"
     return f"{head}\n{_head(note)}\n\n" + "\n".join(lines).rstrip() + "\n"
 
 

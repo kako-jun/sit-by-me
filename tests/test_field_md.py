@@ -7,6 +7,7 @@ field_md のモジュール変数（ROOT/EVENTS/OUT/FORMS）を差し替えて�
 import contextlib
 import io
 import json
+import re
 import shutil
 import sys
 import tempfile
@@ -264,6 +265,23 @@ class Notation(FieldMdCase):
             text = self.out(f"play/events/{ident}.md")
             self.assertIn("hidden: true", text)
             self.assertIn(field_md.MARKER, text)
+
+
+class SampleLevelUp(FieldMdCase):
+    def test_party_has_exp_table_and_growth(self):
+        # 味方4人とも経験値表・成長を持ち、敵 EXP(12 前後)を4人等分(端数切り捨て)して数戦で Lv2 に届く
+        text = (field_md.OUT / "data.md").read_text(encoding="utf-8")
+        blocks = re.findall(r"\[パーティ (C\d+)\]\n(.*?)\[/パーティ\]", text, re.S)
+        self.assertEqual([b[0] for b in blocks], list(field_md.PARTY))
+        table = ", ".join(map(str, field_md.SAMPLE_EXP_TABLE))
+        for _, body in blocks:
+            self.assertIn(f"経験値表: {table}\n", body)
+            self.assertIn(f"成長: {field_md.SAMPLE_GROWTH}\n", body)
+            self.assertNotIn("習得: Lv2", body)  # 新しい魔法・習得 Lv を発明しない
+        self.assertEqual(list(field_md.SAMPLE_EXP_TABLE), sorted(field_md.SAMPLE_EXP_TABLE))
+        per_battle = max(e[4] for e in field_md.SAMPLE_ENEMY_STATS.values()) // len(field_md.PARTY)
+        self.assertLessEqual(-(-field_md.SAMPLE_EXP_TABLE[0] // per_battle), 4)
+        self.assertIn("経験値表・成長も暫定値", text.split("-->")[0])
 
 
 class FormsManifest(unittest.TestCase):
