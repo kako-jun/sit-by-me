@@ -7,7 +7,7 @@ hidden: true
 
 ## sample_field: 時の最果て（サンプル専用）
 
-[フィールドマップ 背景=fields/reference/sample-field-smp01-adopted.webp マスク=fields/masks/SMP-01-mask.webp 戦闘背景=fields/play/bg012.webp]
+[フィールドマップ 背景=fields/reference/sample-field-smp01-adopted.webp マスク=fields/masks/SMP-01-mask.webp 戦闘背景=fields/play/bg013.webp]
 [エンカウント率: 1/8]
 [エンカウント群: M101, M104, M148, M104+M148]
 [プレイヤー @836,650]
