@@ -442,7 +442,7 @@
   "検査": "画像ID規則"
   "備考": ""
 - "配置ID": "asset-field-masks"
-  "パターン": "assets/images/fields/masks/(?:(?:BDY-\\d{2}|TRM-\\d{2}(?:-exterior)?)-(?:mask|traversal-edit|mask-overlay)|TRM-04-foreground-(?:mask|edit))\\.webp"
+  "パターン": "assets/images/fields/masks/(?:(?:BDY-\\d{2}|TRM-\\d{2}(?:-exterior)?)-(?:mask|traversal-edit|mask-overlay)|TRM-04-foreground-(?:mask|edit)|SMP-01-mask)\\.webp"
   "種別": "画像正本"
   "用途": "体内・寺町（斜め視点）のマスク（mask・edit は可逆、overlay は非可逆。runtime 切替前）"
   "所有表": "素材"

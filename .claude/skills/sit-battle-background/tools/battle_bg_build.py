@@ -31,6 +31,7 @@ import oblique_text as X  # noqa: E402
 KIND_COLOUR = {
     "castle": (250, 250, 250), "fir": (245, 250, 245), "post": (75, 45, 25), "lantern": (214, 176, 70),
     "wall": (225, 210, 185), "roof": (80, 80, 92), "fence": (190, 160, 100), "curtain": (40, 100, 50), "backdrop": (95, 155, 220),
+    "pillar": (190, 185, 205), "light": (255, 241, 200),  # BG013（時の最果て）: 石の柱・光の柱
 }
 FLOOR = (120, 70, 38)
 SLOPED = ("backdrop", "wall")  # 下端が床の奥の縁に沿う板（書き割り・土塀）
@@ -283,6 +284,8 @@ def object_mask(px, ground="wood"):
     thin-snow（薄雪の路面）: 黒い路面が床なので、暗い面は物にしない。色のある面（最大-最小が55超）だけが物。瓦・石の暗い灰色は色で区別できず、overlay の目視で数える。"""
     import numpy as np
     r, g, b = px[..., 0], px[..., 1], px[..., 2]
+    if ground == "void-stone":  # 石の足場（BG013）: 柱は床と同じ色で色では区別できない（overlay の目視）。枠が虚空（暗い）に落ちた画素と光源の明るいクリーム色だけを物に数える
+        return (np.maximum(np.maximum(r, g), b) < 45) | (np.minimum(np.minimum(r, g), b) >= 225)
     if ground == "thin-snow":  # 薄雪の路面: 黒いアスファルト・灰色・白い雪はどれも路面。色のある面だけが物
         return np.maximum(np.maximum(r, g), b) - np.minimum(np.minimum(r, g), b) > 55
     if ground == "snow":
@@ -300,6 +303,9 @@ def floor_mask(px, ground="wood"):
     thin-snow（薄雪の路面。BG012）: 低彩度（最大-最小が55以下）で最大が20以上＝黒い湿ったアスファルト・灰色・白い雪。"""
     import numpy as np
     r, g, b = px[..., 0], px[..., 1], px[..., 2]
+    if ground == "void-stone":  # 石の足場の上面（灰紫の石）: 低彩度で、虚空（暗い）でも光源（明るいクリーム）でもない
+        mx, mn = np.maximum(np.maximum(r, g), b), np.minimum(np.minimum(r, g), b)
+        return (mx - mn <= 70) & (mx >= 70) & (mx <= 235)
     if ground == "thin-snow":
         mx, mn = np.maximum(np.maximum(r, g), b), np.minimum(np.minimum(r, g), b)
         return (mx - mn <= 55) & (mx >= 20)

@@ -27,7 +27,7 @@ for i in "${NEW[@]:-}"; do
   if [ -f "$OUT/take$i.png" ]; then
     # 偽造対策: 生成前後で ~/.codex/generated_images に新しい画像が増え、take と同一内容（sha256）のものがあること
     SHA=$(sha256sum "$OUT/take$i.png" | cut -d' ' -f1)
-    if find "$GI" -newer "$OUT/.gi-before.txt" -type f -name '*.png' -print0 2>/dev/null | xargs -0 -r sha256sum | grep -q "$SHA"; then echo "take$i: generated_images と一致（本物）"; else echo "take$i: generated_images に同一画像が無い。偽造の疑い（ImageMagick 等）。採用しない" >&2; RC=1; fi
+    if find "$GI" -newer "$OUT/.gi-before.txt" -type f -name '*.png' -print0 2>/dev/null | xargs -0 -r sha256sum | grep -qa "$SHA"; then echo "take$i: generated_images と一致（本物）"; else echo "take$i: generated_images に同一画像が無い。偽造の疑い（ImageMagick 等）。採用しない" >&2; RC=1; fi
     uv run --with pillow python3 -I -c "
 from PIL import Image; import sys
 im=Image.open(sys.argv[1]); print(sys.argv[1], im.size, 'OK' if im.size==(1672,941) else 'size NG: 再生成が必要（リサイズで通さない）')" "$OUT/take$i.png" | tee -a "$OUT/.sizes"; grep -q 'size NG' "$OUT/.sizes" && RC=1

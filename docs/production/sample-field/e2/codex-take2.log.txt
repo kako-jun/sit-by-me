@@ -1,0 +1,40 @@
+Invoke the $imagegen skill and use the built-in image_gen tool at the HIGHEST quality (quality: high), edit-mode with the 1 attached reference image (the clean mock = EDIT TARGET; its positions and sizes are the only truth), size 1672x941, 
+
+# Sit by Me サンプル専用マップ SMP-01 背景の編集用プロンプト（sample_field_build.py が plan から機械生成。決定 DEMO.sample-bg-last-place）
+
+
+
+
+FRAME（モックの外周。位置は動かさない）: 台座の前縁の帯=画素 x22〜1650・y850〜885。台座の上面の台形=画素 [[165,55],[1525,55],[1650,850],[22,850]]。それより外が作業机。
+
+SURFACES（床・面。座標は平面の外形を画像へ射影した多角形の頂点）:
+- void（虚空（星空））: 黒に近い藍（#14162e）のフェルトの虚空。星は金属ラメと極小ビーズと白い絵具の点で、大きさは直径2〜6px、虚空の台形の内側のうち rim と柱の外側にだけ
+
+OBJECTS（柱と光源。外接矩形が位置と大きさ。上端はモックの箱の天面の位置）:
+- c1（柱）: 石膏と紙粘土の円柱。灰紫がかった白で、縦に細い溝と、柱頭・柱礎の低い段。段と溝は外接矩形の内側に収める。根元は円盤の石に半分埋まる。欠けのない完全な形
+- c2（柱）: 石膏と紙粘土の円柱。灰紫がかった白で、縦に細い溝と、柱頭・柱礎の低い段。段と溝は外接矩形の内側に収める。根元は円盤の石に半分埋まる。上端が斜めに欠けて
+- c3（柱）: 石膏と紙粘土の円柱。灰紫がかった白で、縦に細い溝と、柱頭・柱礎の低い段。段と溝は外接矩形の内側に収める。根元は円盤の石に半分埋まる。欠けのない完全な形
+- c4（柱）: 石膏と紙粘土の円柱。灰紫がかった白で、縦に細い溝と、柱頭・柱礎の低い段。段と溝は外接矩形の内側に収める。根元は円盤の石に半分埋まる。途中で折れた短い柱
+- c5（柱）: 石膏と紙粘土の円柱。灰紫がかった白で、縦に細い溝と、柱頭・柱礎の低い段。段と溝は外接矩形の内側に収める。根元は円盤の石に半分埋まる。欠けのない完全な形
+- light（淡い光源）: 円盤の奥の縁に立つ光の柱。外接矩形の下端（y180）は rim の奥の帯を越えて足場の石の上まで届き、上端（y26）は台座の上辺（y55）より上の机の帯まで突き出
+
+
+NO TEXT: 画像に文字・数字・矢印・ラベルを入れない。人物は入れない。
+
+OUTPUT: one image, 1672x941 landscape. 1枚目のモックの構図・位置・大きさを変えず、切り抜かず、回転・拡大しない。机と台座の前縁も画像の外周に残す。
+codex
+I’ll use the imagegen skill to edit the attached mock, keeping its layout as the reference, then save the generated PNG to the requested path.
+exec
+/bin/bash -lc 'mkdir -p docs/production/sample-field/e2 && cp /home/ariori/.codex/generated_images/01a1d601-b365-7bf2-beb5-f2f3011f66ab/exec-3023b27e-d7bf-46bf-a32b-f813170de06a.png docs/production/sample-field/e2/take2.png && file docs/pro
+ succeeded in 5507ms:
+docs/production/sample-field/e2/take2.png: PNG image data, 1672 x 941, 8-bit/color RGB, non-interlaced
+
+codex
+Saved the built-in imagegen result to [take2.png](/mnt/hdd4tb/repos/2026/sit-by-me-sample-bg/docs/production/sample-field/e2/take2.png). The PNG is 1672 × 941 and was copied without resizing or modification.
+
+The edit prompt used the mock as the layout reference and requested the handmade plaster, felt, cotton and plastic materials. The result visibly includes some platform side thickness and column details extending beyond the mock’s box boun
+tokens used
+28,489
+Saved the built-in imagegen result to [take2.png](/mnt/hdd4tb/repos/2026/sit-by-me-sample-bg/docs/production/sample-field/e2/take2.png). The PNG is 1672 × 941 and was copied without resizing or modification.
+
+The edit prompt used the mock as the layout reference and requested the handmade plaster, felt, cotton and plastic materials. The result visibly includes some platform side thickness and column details extending beyond the mock’s box boun

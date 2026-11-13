@@ -175,7 +175,7 @@ def sample_map(records):
     if len(rows) != 1:
         raise SystemExit(f"サンプルMAP は1行だけ（決定 DEMO.sample-single-map）: {len(rows)} 行")
     row = rows[0]
-    source = row["流用元MAP"]
+    source = row["流用元MAP"] or row["サンプルID"]  # 流用元が空欄か自分自身ならサンプル専用の素材（所有者ID=サンプルID。決定 DEMO.sample-bg-last-place）
     assets = _table("素材")
     backgrounds = [a for a in assets if a["所有者ID"] == source and a["種別"] == "背景(基準)" and a["状態"] == "採用"]
     masks = [a for a in assets if a["所有者ID"] == source and a["種別"] == "マスク" and a["パス"].endswith("-mask.webp")]
@@ -199,14 +199,24 @@ def sample_map(records):
     if entry_from not in records:
         raise SystemExit(f"サンプルMAP: 起動イベントの最後 {entry_from!r} が play/ の場面にありません")
     entry = records[entry_from]
-    # 背景だけでマスクが空などの不備は _scene_block が専用のメッセージで止める。ここは両方あるのに食い違う場合だけ
-    if _text(entry, "背景画像") and _text(entry, "歩行マスク") and (
-            _text(entry, "背景画像") != paths["背景"][len(prefix):] or _text(entry, "歩行マスク") != paths["マスク"][len(prefix):]):
-        raise SystemExit(f"サンプルMAP: {entry_from} の背景・マスクが流用元 {source} の登録と違います（出現位置を借りられません）")
+    own = source == row["サンプルID"]  # サンプル専用の背景: 入口の位置は再開点の台帳（sample_field_walk）が正本。入る側のイベントは別の背景（本編の画像）で、位置を借りない
+    if own:
+        import resume_saves
+        walks = [yaml.safe_load(p.read_text(encoding="utf-8")) for p in sorted(resume_saves.DIR.glob("*.yaml"))]
+        walks = [w for w in walks if str(w.get("場面ID")) == SAMPLE_SCENE]
+        if len(walks) != 1:
+            raise SystemExit(f"サンプルMAP: 場面 {SAMPLE_SCENE} の再開点は1件だけ必要（{len(walks)}）")
+        position = "@" + str(walks[0]["位置"])
+    else:
+        position = _position(entry)
+        # 背景だけでマスクが空などの不備は _scene_block が専用のメッセージで止める。ここは両方あるのに食い違う場合だけ
+        if _text(entry, "背景画像") and _text(entry, "歩行マスク") and (
+                _text(entry, "背景画像") != paths["背景"][len(prefix):] or _text(entry, "歩行マスク") != paths["マスク"][len(prefix):]):
+            raise SystemExit(f"サンプルMAP: {entry_from} の背景・マスクが流用元 {source} の登録と違います（出現位置を借りられません）")
     encounter = row["エンカウント"] == "あり"
     return {
         "title": row["名称"], "background": paths["背景"][len(prefix):], "mask": paths["マスク"][len(prefix):], "battle": battle,
-        "entry_from": entry_from, "position": _position(entry), "encounter": encounter, "source": source,
+        "entry_from": entry_from, "position": position, "encounter": encounter, "source": source,
     }
 
 
@@ -477,7 +487,7 @@ def outputs():
     for path in sorted(resume_saves.DIR.glob("*.yaml")):
         r = yaml.safe_load(path.read_text(encoding="utf-8"))
         if str(r.get("場面ID")) == SAMPLE_SCENE and "@" + str(r.get("位置")) != sample["position"]:
-            raise SystemExit(f"{path.stem}: 位置 {r.get('位置')} がサンプルの出現位置 {sample['position'][1:]} と違います（{sample['entry_from']} の出現位置が正本）")
+            raise SystemExit(f"{path.stem}: 位置 {r.get('位置')} がサンプルの出現位置 {sample['position'][1:]} と違います")
     source = "イベント台帳|敵|人物|サンプルMAP"
     items = [
         ("G-play-script", "name-name 入口md", "play/script.md", source, render_script(records)),

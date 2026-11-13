@@ -25,6 +25,15 @@ class SampleMapLedgerTests(YamlFixture):
         result = self.verify()
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
+    def test_sample_own_assets_without_source_map_pass(self):
+        """流用元MAP が空欄なら、所有者ID=サンプルID の背景・マスクを使う（決定 DEMO.sample-bg-last-place）。"""
+        self.mutate("サンプルMAP", lambda rows: rows[0].update(流用元MAP=""))
+        self.mutate("素材", lambda rows: [r.update(所有者ID="SMP-01") for r in rows])
+        result = self.verify()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.mutate("素材", lambda rows: rows[0].update(状態="没"))
+        self.assert_rejected(self.verify(), "採用済みの背景", "SMP-01")
+
     def test_sample_id_cannot_collide_with_main_map(self):
         self.mutate("サンプルMAP", lambda rows: rows[0].update(サンプルID="TRM-A"))
         self.assert_rejected(self.verify(), "本編の MAP ID と衝突")
