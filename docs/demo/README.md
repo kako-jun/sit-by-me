@@ -26,9 +26,9 @@ kako-jun に見せる「最初に遊べる範囲」の全部入りサンプル�
 
 - **サンプルは1マップ**（決定 `DEMO.sample-single-map`）。マップ端の切り替え・複数マップ・接続表は作らない。
 - 台帳: [サンプルMAP.yaml](../ledger/サンプルMAP.yaml)（SMP-01 の1行。流用元の本編 MAP、戦闘背景、エンカウントの有無、起動するイベント）。
-- 背景はサンプル専用の「時の最果て」風マップ（暗い星空の虚空に浮かぶ円形の石の足場・数本の柱・淡い光源。決定 `DEMO.sample-bg-last-place`）。画像はモック承認後に生成する（現状は未生成で、`play/` は旧 TRM-03 流用の背景のまま）。モックと平面スペックは [sample-field/](../production/sample-field/SMP-01-plan.json)（台帳から導出する plan ではなく、サンプル専用。本編の台帳に行を足さない）。座標・画像は複製せず、素材ID/MAP ID で参照するだけ。
+- 背景はサンプル専用の「時の最果て」風マップ（暗い星空の虚空に浮かぶ円形の石の足場・数本の柱・淡い光源。決定 `DEMO.sample-bg-last-place`）。フィールド背景（take2）・歩行マスク・戦闘背景 BG013 の3枚は kako-jun が目視承認済み（出典は [#281](https://github.com/kako-jun/sit-by-me/issues/281) の逐語コメント。素材ID・決定は [素材.yaml](../ledger/素材.yaml)・決定 `DEMO.sample-bg-last-place-approved` が正本で、ここに数字は持たない）。BG013 の描画オフセットは BG011 の値の仮置きで未実測。モックと平面スペックは [sample-field/](../production/sample-field/SMP-01-plan.json)（台帳から導出する plan ではなく、サンプル専用。本編の台帳に行を足さない）。座標・画像は複製せず、素材ID/MAP ID で参照するだけ。
 - E001〜E003 のつなぎ方（方針だけ）: 3つとも SMP-01 の同じマップの中で、場面ごとの [トリガー]（イベントの起動条件）で起動する。マップを渡り歩かない。E001 の戦闘の中断後に E002、続けて E003（運動場の約束）へ進み、背景・出現位置・行き先はイベント台帳（[イベント/](../ledger/イベント/)）が正本。E003 の末尾からサンプルの歩ける場面 `sample_field` へ `[場面移動:]` で移る（生成器 [field_md.py](../../scripts/field_md.py) が出す。台帳 サンプルMAP.yaml の起動イベントの最後が入り口）。
-- 背景の画像・歩行マスクは、承認・採用後に素材.yaml へ登録する（それまでは [sample-field](../production/sample-field/SMP-01-plan.json) のモックが設計）。
+- 背景の画像・歩行マスク・戦闘背景は承認済みで [素材.yaml](../ledger/素材.yaml) に登録済み。[sample-field](../production/sample-field/SMP-01-plan.json) のモックが設計の元。
 - 歩ける場面 `sample_field`（歩行マスク・戦闘背景 BG013・サンプル専用のエンカウント）と再開点 `sample_field_walk` は field_md.py が play/ に生成する（サンプル専用・暫定。敵は M101・M104・M148 の仮の数値で、数値の正本は [#237](https://github.com/kako-jun/sit-by-me/issues/237)）。マップ端の切り替えは作らない。
 
 ## 見せ方（確認の仕方）

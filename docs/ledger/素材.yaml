@@ -12247,7 +12247,7 @@
   "パス": "assets/images/fields/reference/sample-field-smp01-adopted.webp"
   "状態": "採用"
   "日付": "2026-11-14"
-  "来歴": "採用（kako-jun 目視承認 2026-11-14「take2がいい」。逐語 https://github.com/kako-jun/sit-by-me/issues/281#issuecomment-6865495076。take1 は不採用）。sample_field_run.sh 2 の2テイク（docs/production/sample-field/e2/take1.png・take2.png。リポ外・git 無視）から、take2 を実寸 1672x941・generated_images との sha256 一致の確認だけで候補に選んだ（Claude は画像を見ていない）。take2.png の sha256 7996d823a10ffedb9e66ad37702bb1f0f10129415eed9a145e42ddafec141c85 を WebP 品質85（リサイズなし）にして正本パスへ保存。送信文は sample_field_build.py が plan と PR.sample.* から機械生成（独立レビュー2回、Issue #281）。決定 DEMO.sample-bg-last-place・DEMO.sample-bg-last-place-approved。"
+  "来歴": "採用（kako-jun 目視承認 2026-11-14「take2がいい」。逐語 https://github.com/kako-jun/sit-by-me/issues/281#issuecomment-6865495076。take1 は不採用）。sample_field_run.sh 2 の2テイク（docs/production/sample-field/e2/take1.png・take2.png。リポ内の docs/production/sample-field/e2/ にあり、git では無視されている）から、take2 を実寸 1672x941・generated_images との sha256 一致の確認だけで候補に選んだ（Claude は画像を見ていない）。take2.png の sha256 7996d823a10ffedb9e66ad37702bb1f0f10129415eed9a145e42ddafec141c85 を WebP 品質85（リサイズなし）にして正本パスへ保存。送信文は sample_field_build.py が plan と PR.sample.* から機械生成（独立レビュー2回、Issue #281）。決定 DEMO.sample-bg-last-place・DEMO.sample-bg-last-place-approved。"
   "sha256": "52fc7904948e7fc9b918434dca36b76a3cb9d8c5e982b93b80c7347bcececdcd"
   "特徴(自由記述)": ""
 - "素材ID": "A-1363"

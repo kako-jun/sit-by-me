@@ -219,7 +219,7 @@
 | oblique-masks-doc | ドキュメント | 斜め視点マスクの入力・結果の説明 | リンク |  |
 | oblique-masks-data | 機械出力 | 斜め視点マスクの入力JSON・register・結果 | 許可 | docs/production/oblique-masks/README.md |
 | oblique-mocks | 派生物・機械出力 | 斜め視点の plan・decor-pools・connections・dependency-graph（台帳から導出する JSON）と、MAPごとのモック・マスク・生成テイクの測定結果 | 許可 | docs/production/oblique-mocks/connections.md |
-| sample-field-mocks | 派生物・機械出力 | 早期デモのサンプル専用マップ SMP-01（時の最果て）の平面スペックと、そこから決定論で作ったモック画像（承認前の設計）。本編の台帳から導出する plan ではない | 許可 | docs/demo/README.md |
+| sample-field-mocks | 派生物・機械出力 | 早期デモのサンプル専用マップ SMP-01（時の最果て）の平面スペック、そこから決定論で作ったモック画像（設計の元）、フィールド背景の生成の送信文（e2/prompt.txt・e2/send.txt。sample_field_build.py が出す）。本編の台帳から導出する plan ではない | 許可 | docs/demo/README.md |
 | reference-area-landscape | 調査メモ | エリア景観（台帳 エリア景観.yaml の出典欄が指す）と団地・寺町の作り方の調査メモ。作業メモの保管 | リンク |  |
 | reviews | レビュー記録 | 独立レビュー（red-team）の日付つき記録 | 許可 | docs/reviews/artifact-redteam |
 | verification-body-docs | 生成ドキュメント | 体内の整合表・全接続一覧（自動生成） | リンク |  |
