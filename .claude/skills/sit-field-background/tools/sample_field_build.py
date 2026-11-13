@@ -48,7 +48,7 @@ def problems(p):
 
 def build_prompt(p):
     L = [X.text("PR.sample.title", key=p["map_id"]), "", X.text("PR.sample.role"), "", X.text("PR.sample.miniature"), "",
-         X.text("PR.sample.layers"), "", "SURFACES（床・面。座標は平面の外形を画像へ射影した多角形の頂点）:"]
+         X.text("PR.sample.layers"), "", X.text("PR.sample.frame"), "", "SURFACES（床・面。座標は平面の外形を画像へ射影した多角形の頂点）:"]
     for f in p["floors"]:
         poly = M.floor_img_poly(f)
         step = max(1, len(poly) // 12)
