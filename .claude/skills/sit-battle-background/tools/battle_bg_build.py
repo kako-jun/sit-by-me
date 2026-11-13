@@ -191,7 +191,7 @@ def cmd_build(a):
     C = corrected_layout(L)  # 検査は台帳の値（狙い）、モデルへは描画オフセットを引いた値
     layout_image(C).save(out / "layout.png")
     (out / "send.txt").write_text(build_prompt(C), encoding="utf-8")
-    (out / "refs.txt").write_text(f"1. {out / 'layout.png'}（割付図）\n2. {a.stage_ref}（採用済み TRM-02 の舞台部分の切り出し。材料・色・モチーフのみ）\n", encoding="utf-8")
+    (out / "refs.txt").write_text(f"1. {out / 'layout.png'}（割付図）\n2. {a.stage_ref}（{L.get('参照説明', '採用済み TRM-02 の舞台部分の切り出し。材料・色・モチーフのみ')}）\n", encoding="utf-8")
     print(f"OK: {out}/layout.png send.txt refs.txt（生成前の検査 合格: 物は全て安全矩形の外・床の奥の縁は右上がり）")
 
 
