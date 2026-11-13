@@ -426,6 +426,28 @@ class SampleField(FieldMdCase):
         with self.assertRaises(SystemExit):
             field_md.outputs()
 
+    def test_table_cache_invalidates_on_same_size_rewrite(self):
+        path = self.tmp / "docs/ledger/サンプルMAP.yaml"
+        text = path.read_text(encoding="utf-8")
+        before = field_md._table("サンプルMAP")[0]["戦闘背景"]
+        stat = path.stat()
+        path.write_text(text.replace('"戦闘背景": "BG012"', '"戦闘背景": "BG999"'), encoding="utf-8")
+        import os
+        os.utime(path, ns=(stat.st_atime_ns, stat.st_mtime_ns))  # 同じ大きさ・同じ mtime
+        self.assertEqual(path.stat().st_size, stat.st_size)
+        self.assertEqual(before, "BG012")
+        self.assertEqual(field_md._table("サンプルMAP")[0]["戦闘背景"], "BG999")
+
+    def test_resume_position_follows_entry_event(self):
+        # 再開点 sample_field_walk の位置は E003 の出現位置と一致する。E003 だけ変えると取り残しとして FAIL
+        sample = field_md.sample_map({k: yaml.safe_load(self.event_path(k).read_text(encoding="utf-8")) for k in EVENT_IDS})
+        walk = yaml.safe_load((self.tmp / "docs/ledger/再開点/sample_field_walk.yaml").read_text(encoding="utf-8"))
+        self.assertEqual("@" + walk["位置"], sample["position"])
+        self.edit_event("play_cancelled_promise", '"出現位置": "1330,480"', '"出現位置": "1331,480"')
+        with self.assertRaises(SystemExit) as cm:
+            field_md.outputs()
+        self.assertIn("sample_field_walk", str(cm.exception))
+
     def test_spawn_is_walkable_in_real_mask(self):
         try:
             from PIL import Image

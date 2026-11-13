@@ -94,12 +94,15 @@ _TABLE_CACHE = {}
 
 
 def _table(name):
-    """台帳の表。素材.yaml が大きいので、パス・更新時刻・大きさが同じなら読み直さない（呼び出し側は書き換えない）。"""
+    """台帳の表。素材.yaml が大きく parse が遅いので、内容のハッシュが同じなら parse し直さない（呼び出し側は書き換えない）。
+
+    キーは内容の sha256（mtime・size は使わない: 同じ大きさの書き換えで古い値を返しうるため）。
+    """
     path = ROOT / "docs/ledger" / f"{name}.yaml"
-    stat = path.stat()
-    key = (str(path), stat.st_mtime_ns, stat.st_size)
+    raw = path.read_bytes()
+    key = (str(path), hashlib.sha256(raw).hexdigest())
     if key not in _TABLE_CACHE:
-        _TABLE_CACHE[key] = yaml.safe_load(path.read_text(encoding="utf-8"))
+        _TABLE_CACHE[key] = yaml.safe_load(raw.decode("utf-8"))
     return _TABLE_CACHE[key]
 
 
@@ -461,6 +464,13 @@ def outputs():
     """[(生成物ID, 種別, 相対パス, 元の表, bytes)]。決定的（時刻・環境に依らない）。"""
     records = {ident: _load(EVENTS / f"{ident}.yaml") for ident in FIELD_EVENTS}
     sample = sample_map(records)
+    # 場面 sample_field の再開点の位置は、生成器が導く出現位置（サンプルへ入る側のイベントの出現位置）と一致させる
+    # （手書きの複製が E003 の出現位置の変更で取り残されないように）。
+    import resume_saves
+    for path in sorted(resume_saves.DIR.glob("*.yaml")):
+        r = yaml.safe_load(path.read_text(encoding="utf-8"))
+        if str(r.get("場面ID")) == SAMPLE_SCENE and "@" + str(r.get("位置")) != sample["position"]:
+            raise SystemExit(f"{path.stem}: 位置 {r.get('位置')} がサンプルの出現位置 {sample['position'][1:]} と違います（{sample['entry_from']} の出現位置が正本）")
     source = "イベント台帳|敵|人物|サンプルMAP"
     items = [
         ("G-play-script", "name-name 入口md", "play/script.md", source, render_script(records)),
