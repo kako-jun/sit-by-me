@@ -15,10 +15,47 @@ import asset_chain
 ASSET_SIDE_TABLES = ("素材共有", "素材更新", "素材メタデータ", "素材メタデータ値", "素材移行")
 
 
+SAMPLE_STATES = ("採用",)
+
+
+def check_sample_maps(data):
+    """早期デモ専用のサンプルMAP（docs/demo/README.md。サンプルは1マップ）。
+
+    サンプルID は本編の MAP ID と別。背景は流用元MAPの採用済み画像を流用するだけで、
+    流用元に採用済み背景(基準)と歩行マスクがあり、起動イベントが実在すること。接続・連結は持たない。
+    """
+    errors = []
+    main_maps = {r["MAP_ID"] for r in data["MAP"]}
+    battle_bgs = {r["背景ID"] for r in data["戦闘背景"]}
+    adopted = {r["所有者ID"] for r in data["素材"] if r["種別"] == "背景(基準)" and r["状態"] == "採用"}
+    masks = {r["所有者ID"] for r in data["素材"] if r["種別"] == "マスク" and (ROOT / r["パス"]).is_file()}
+    for row in data["サンプルMAP"]:
+        ident, source = row["サンプルID"], row["流用元MAP"]
+        if ident in main_maps:
+            errors.append(f"サンプルMAP: {ident} が本編の MAP ID と衝突している（サンプルは本編の MAP ID を借りない）")
+        if source not in main_maps:
+            errors.append(f"サンプルMAP.流用元MAP: {ident} の {source or '(空欄)'} が MAP にない")
+        else:
+            if source not in adopted:
+                errors.append(f"サンプルMAP.流用元MAP: {ident} の {source} に採用済みの背景(基準)の素材がない（背景素材を流用できない）")
+            if source not in masks:
+                errors.append(f"サンプルMAP.流用元MAP: {ident} の {source} に実在する歩行マスクの素材がない")
+        if row["戦闘背景"] and row["戦闘背景"] not in battle_bgs:
+            errors.append(f"サンプルMAP.戦闘背景: {ident} の {row['戦闘背景']} が戦闘背景にない")
+        if row["状態"] not in SAMPLE_STATES:
+            errors.append(f"サンプルMAP.状態: {ident} は {' / '.join(SAMPLE_STATES)} でなければならない（{row['状態']!r}）")
+        if row["エンカウント"] not in ("あり", "なし"):
+            errors.append(f"サンプルMAP.エンカウント: {ident} は あり/なし のどちらか（{row['エンカウント']!r}）")
+        for event in filter(None, row["起動イベント"].split(";")):
+            if not (ROOT / "docs/ledger/イベント" / f"{event}.yaml").is_file():
+                errors.append(f"サンプルMAP.起動イベント: {ident} の {event} がイベント台帳にない")
+    return errors
+
+
 def check(require_reviewed=False, from_json=None):
     names = list(L.SCHEMA)[list(L.SCHEMA).index("制作規約"):]
     data = {name: rows(name) for name in names}
-    data.update({name: rows(name) for name in ("エリア", "MAP", "決定", "未決", "素材") + ASSET_SIDE_TABLES})
+    data.update({name: rows(name) for name in ("エリア", "MAP", "決定", "未決", "素材", "戦闘背景") + ASSET_SIDE_TABLES})
     errors = []
 
     def need(ok, message):
@@ -110,6 +147,8 @@ def check(require_reviewed=False, from_json=None):
                 F.unflatten(values)
             except (ValueError, TypeError, KeyError, IndexError) as exc:
                 errors.append(f"{table} {key}: {exc}")
+
+    errors.extend(check_sample_maps(data))
 
     urls = set()
     sources = {r["出典ID"]: r for r in data["Issue出典"]}
