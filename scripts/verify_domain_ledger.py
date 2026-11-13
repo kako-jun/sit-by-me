@@ -15,32 +15,31 @@ import asset_chain
 ASSET_SIDE_TABLES = ("素材共有", "素材更新", "素材メタデータ", "素材メタデータ値", "素材移行")
 
 
-WALKABLE_PORTS = ("戸口", "縁")
-SAMPLE_STATES = ("案(kako-jun の承認待ち)", "承認済み")
+SAMPLE_STATES = ("採用",)
 
 
 def check_sample_maps(data, warnings=None):
-    """早期デモ専用のサンプルMAP・サンプル接続（docs/demo/README.md）。
+    """早期デモ専用のサンプルMAP（docs/demo/README.md。サンプルは1マップ）。
 
-    本編の MAP・接続は借りない（サンプルID は本編の MAP ID と別）。出口は流用元MAPの端ID を参照するだけで、
-    使える出口（戸口・縁）は『使わない出口』に書いたもの以外すべて、ちょうど1回ずつ接続され（行き止まりなし）、
-    全サンプルMAPが1つの連結成分に入ること。
-    流用元の端が本編で無効時期（焼失期など）を持つ場合は、サンプルの時期が未決のままなので warnings に積む（失敗にはしない）。
+    サンプルID は本編の MAP ID と別。背景は流用元MAPの採用済み画像を流用するだけで、
+    流用元に採用済み背景(基準)と歩行マスクがあり、起動イベントが実在すること。接続・連結は持たない。
     """
     errors = []
-    maps = {r["サンプルID"]: r for r in data["サンプルMAP"]}
-    ports = {r["端ID"]: r for r in data["端"]}
     main_maps = {r["MAP_ID"] for r in data["MAP"]}
     battle_bgs = {r["背景ID"] for r in data["戦闘背景"]}
     adopted = {r["所有者ID"] for r in data["素材"] if r["種別"] == "背景(基準)" and r["状態"] == "採用"}
-    for ident, row in maps.items():
-        source = row["流用元MAP"]
+    masks = {r["所有者ID"] for r in data["素材"] if r["種別"] == "マスク" and (ROOT / r["パス"]).is_file()}
+    for row in data["サンプルMAP"]:
+        ident, source = row["サンプルID"], row["流用元MAP"]
         if ident in main_maps:
             errors.append(f"サンプルMAP: {ident} が本編の MAP ID と衝突している（サンプルは本編の MAP ID を借りない）")
         if source not in main_maps:
             errors.append(f"サンプルMAP.流用元MAP: {ident} の {source or '(空欄)'} が MAP にない")
-        elif source not in adopted:
-            errors.append(f"サンプルMAP.流用元MAP: {ident} の {source} に採用済みの背景(基準)の素材がない（背景素材を流用できない）")
+        else:
+            if source not in adopted:
+                errors.append(f"サンプルMAP.流用元MAP: {ident} の {source} に採用済みの背景(基準)の素材がない（背景素材を流用できない）")
+            if source not in masks:
+                errors.append(f"サンプルMAP.流用元MAP: {ident} の {source} に実在する歩行マスクの素材がない")
         if row["戦闘背景"] and row["戦闘背景"] not in battle_bgs:
             errors.append(f"サンプルMAP.戦闘背景: {ident} の {row['戦闘背景']} が戦闘背景にない")
         if row["状態"] not in SAMPLE_STATES:
@@ -50,55 +49,6 @@ def check_sample_maps(data, warnings=None):
         for event in filter(None, row["起動イベント"].split(";")):
             if not (ROOT / "docs/ledger/イベント" / f"{event}.yaml").is_file():
                 errors.append(f"サンプルMAP.起動イベント: {ident} の {event} がイベント台帳にない")
-        for port in filter(None, row["使わない出口"].split(";")):
-            if port not in ports or ports[port]["MAP_ID"] != source:
-                errors.append(f"サンプルMAP.使わない出口: {ident} の {port} が流用元 {source} の端にない")
-    used = {ident: [] for ident in maps}
-    edges = {ident: set() for ident in maps}
-    for row in data["サンプル接続"]:
-        label = f"サンプル接続 {row['通番']}"
-        sides = []
-        for map_key, port_key in (("サンプルA", "出口A"), ("サンプルB", "出口B")):
-            ident, port = row[map_key], row[port_key]
-            if ident not in maps:
-                errors.append(f"{label}.{map_key}: {ident or '(空欄)'} がサンプルMAPにない")
-                continue
-            source = maps[ident]["流用元MAP"]
-            if port not in ports or ports[port]["MAP_ID"] != source:
-                errors.append(f"{label}.{port_key}: {port or '(空欄)'} が流用元 {source}（{ident}）の端にない")
-                continue
-            if ports[port]["種別"] not in WALKABLE_PORTS:
-                errors.append(f"{label}.{port_key}: {port} の種別 {ports[port]['種別']} は歩いて出る出口（戸口・縁）でない")
-            used[ident].append(port)
-            sides.append(ident)
-            if warnings is not None:
-                for conn in data.get("接続", []):
-                    if port in (conn["端A"], conn["端B"]) and conn["無効時期"]:
-                        warnings.append(f"{label}.{port_key}: {port} は本編で無効時期 {conn['無効時期']} を持つ。サンプルの時期が未決なので、焼失期などで通れない出口に当たらないか kako-jun の承認時に確認する")
-        if len(sides) == 2:
-            if sides[0] == sides[1]:
-                errors.append(f"{label}: 同じサンプルMAP どうし（{sides[0]}）をつないでいる")
-            edges[sides[0]].add(sides[1])
-            edges[sides[1]].add(sides[0])
-    for ident, row in maps.items():
-        source = row["流用元MAP"]
-        skipped = set(filter(None, row["使わない出口"].split(";")))
-        walkable = {p for p, r in ports.items() if r["MAP_ID"] == source and r["種別"] in WALKABLE_PORTS} - skipped
-        for port in sorted(walkable - set(used[ident])):
-            errors.append(f"サンプルMAP {ident}: 出口 {port} がどこにもつながっていない（行き止まり。使わないなら『使わない出口』に書く）")
-        for port in sorted({p for p in used[ident] if used[ident].count(p) > 1}):
-            errors.append(f"サンプルMAP {ident}: 出口 {port} が複数の接続に使われている")
-        for port in sorted(skipped & set(used[ident])):
-            errors.append(f"サンプルMAP {ident}: 『使わない出口』の {port} が接続に使われている")
-    if maps:
-        start = next(iter(maps))
-        seen, todo = {start}, [start]
-        while todo:
-            for nxt in edges[todo.pop()] - seen:
-                seen.add(nxt)
-                todo.append(nxt)
-        for ident in sorted(set(maps) - seen):
-            errors.append(f"サンプルMAP {ident}: {start} から歩いてたどり着けない（連結でない）")
     return errors
 
 
