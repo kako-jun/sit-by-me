@@ -23,8 +23,8 @@ class SampleMapLedgerTests(YamlFixture):
         ])
         self.write_table("エリア", [row("エリア", エリアID="a")])
         self.write_table("サンプルMAP", [
-            row("サンプルMAP", サンプルID="SMP-01", 流用元MAP="TRM-A", エンカウント="なし"),
-            row("サンプルMAP", サンプルID="SMP-02", 流用元MAP="TRM-B", エンカウント="なし"),
+            row("サンプルMAP", サンプルID="SMP-01", 流用元MAP="TRM-A", エンカウント="なし", 状態="承認済み"),
+            row("サンプルMAP", サンプルID="SMP-02", 流用元MAP="TRM-B", エンカウント="なし", 状態="承認済み"),
         ])
         self.write_table("サンプル接続", [
             row("サンプル接続", 通番="01", サンプルA="SMP-01", 出口A="TRM-A.east", サンプルB="SMP-02", 出口B="TRM-B.west"),
@@ -67,7 +67,7 @@ class SampleMapLedgerTests(YamlFixture):
 
     def test_disconnected_sample_maps_are_rejected(self):
         self.mutate("サンプルMAP", lambda rows: rows.append(
-            row("サンプルMAP", サンプルID="SMP-03", 流用元MAP="TRM-B", エンカウント="なし", 使わない出口="TRM-B.west")))
+            row("サンプルMAP", サンプルID="SMP-03", 流用元MAP="TRM-B", エンカウント="なし", 使わない出口="TRM-B.west", 状態="承認済み")))
         self.assert_rejected(self.verify(), "SMP-03", "連結でない")
 
     def test_encounter_value_and_missing_event_are_rejected(self):
@@ -75,3 +75,32 @@ class SampleMapLedgerTests(YamlFixture):
         self.assert_rejected(self.verify(), "あり/なし")
         self.mutate("サンプルMAP", lambda rows: rows[0].update(エンカウント="なし", 起動イベント="no_such_event"))
         self.assert_rejected(self.verify(), "no_such_event")
+
+    def test_state_outside_vocabulary_is_rejected(self):
+        self.mutate("サンプルMAP", lambda rows: rows[0].update(状態="たぶんOK"))
+        self.assert_rejected(self.verify(), "サンプルMAP.状態", "SMP-01")
+
+    def test_non_walkable_port_kind_is_rejected(self):
+        self.mutate("サンプルMAP", lambda rows: rows[0].update(使わない出口="TRM-A.east"))
+        self.mutate("サンプル接続", lambda rows: rows[0].update(出口A="TRM-A.hole"))
+        self.assert_rejected(self.verify(), "歩いて出る出口", "TRM-A.hole")
+
+    def test_connection_between_same_sample_map_is_rejected(self):
+        self.mutate("サンプル接続", lambda rows: rows[0].update(サンプルB="SMP-01", 出口B="TRM-A.east"))
+        self.assert_rejected(self.verify(), "同じサンプルMAP どうし")
+
+    def test_skipped_port_of_another_map_is_rejected(self):
+        self.mutate("サンプルMAP", lambda rows: rows[0].update(使わない出口="TRM-B.west"))
+        self.assert_rejected(self.verify(), "使わない出口", "流用元 TRM-A")
+
+    def test_port_with_disabled_period_warns_but_passes(self):
+        self.write_table("接続", [row("接続", 端A="TRM-A.east", 端B="TRM-X.y", 無効時期='{"TRM-A-fire":"焼失"}')])
+        result = self.verify()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn("WARN", result.stdout)
+        self.assertIn("無効時期", result.stdout)
+        self.assertIn("TRM-A.east", result.stdout)
+
+    def test_port_without_disabled_period_does_not_warn(self):
+        self.write_table("接続", [row("接続", 端A="TRM-A.east", 端B="TRM-B.west")])
+        self.assertNotIn("WARN", self.verify().stdout)

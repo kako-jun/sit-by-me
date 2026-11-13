@@ -16,14 +16,16 @@ ASSET_SIDE_TABLES = ("素材共有", "素材更新", "素材メタデータ", "�
 
 
 WALKABLE_PORTS = ("戸口", "縁")
+SAMPLE_STATES = ("案(kako-jun の承認待ち)", "承認済み")
 
 
-def check_sample_maps(data):
+def check_sample_maps(data, warnings=None):
     """早期デモ専用のサンプルMAP・サンプル接続（docs/demo/README.md）。
 
     本編の MAP・接続は借りない（サンプルID は本編の MAP ID と別）。出口は流用元MAPの端ID を参照するだけで、
     使える出口（戸口・縁）は『使わない出口』に書いたもの以外すべて、ちょうど1回ずつ接続され（行き止まりなし）、
     全サンプルMAPが1つの連結成分に入ること。
+    流用元の端が本編で無効時期（焼失期など）を持つ場合は、サンプルの時期が未決のままなので warnings に積む（失敗にはしない）。
     """
     errors = []
     maps = {r["サンプルID"]: r for r in data["サンプルMAP"]}
@@ -41,6 +43,8 @@ def check_sample_maps(data):
             errors.append(f"サンプルMAP.流用元MAP: {ident} の {source} に採用済みの背景(基準)の素材がない（背景素材を流用できない）")
         if row["戦闘背景"] and row["戦闘背景"] not in battle_bgs:
             errors.append(f"サンプルMAP.戦闘背景: {ident} の {row['戦闘背景']} が戦闘背景にない")
+        if row["状態"] not in SAMPLE_STATES:
+            errors.append(f"サンプルMAP.状態: {ident} は {' / '.join(SAMPLE_STATES)} のどちらか（{row['状態']!r}）")
         if row["エンカウント"] not in ("あり", "なし"):
             errors.append(f"サンプルMAP.エンカウント: {ident} は あり/なし のどちらか（{row['エンカウント']!r}）")
         for event in filter(None, row["起動イベント"].split(";")):
@@ -67,6 +71,10 @@ def check_sample_maps(data):
                 errors.append(f"{label}.{port_key}: {port} の種別 {ports[port]['種別']} は歩いて出る出口（戸口・縁）でない")
             used[ident].append(port)
             sides.append(ident)
+            if warnings is not None:
+                for conn in data.get("接続", []):
+                    if port in (conn["端A"], conn["端B"]) and conn["無効時期"]:
+                        warnings.append(f"{label}.{port_key}: {port} は本編で無効時期 {conn['無効時期']} を持つ。サンプルの時期が未決なので、焼失期などで通れない出口に当たらないか kako-jun の承認時に確認する")
         if len(sides) == 2:
             if sides[0] == sides[1]:
                 errors.append(f"{label}: 同じサンプルMAP どうし（{sides[0]}）をつないでいる")
@@ -97,8 +105,9 @@ def check_sample_maps(data):
 def check(require_reviewed=False, from_json=None):
     names = list(L.SCHEMA)[list(L.SCHEMA).index("制作規約"):]
     data = {name: rows(name) for name in names}
-    data.update({name: rows(name) for name in ("エリア", "MAP", "決定", "未決", "素材", "端", "戦闘背景") + ASSET_SIDE_TABLES})
+    data.update({name: rows(name) for name in ("エリア", "MAP", "決定", "未決", "素材", "端", "戦闘背景", "接続") + ASSET_SIDE_TABLES})
     errors = []
+    warnings = []
 
     def need(ok, message):
         if not ok:
@@ -190,7 +199,7 @@ def check(require_reviewed=False, from_json=None):
             except (ValueError, TypeError, KeyError, IndexError) as exc:
                 errors.append(f"{table} {key}: {exc}")
 
-    errors.extend(check_sample_maps(data))
+    errors.extend(check_sample_maps(data, warnings))
 
     urls = set()
     sources = {r["出典ID"]: r for r in data["Issue出典"]}
@@ -233,6 +242,8 @@ def check(require_reviewed=False, from_json=None):
         need(not any(r["分類"] == "要確認" for r in data["Issue命題"]), "Issue命題: 要確認が残る")
     if errors:
         raise SystemExit("\n".join("FAIL: " + e for e in errors))
+    for w in warnings:
+        print("WARN: " + w)
     print(f"PASS: {len(names)} normalized tables; Issue sources={len(sources)}, semantic review pending={pending}")
 
 
