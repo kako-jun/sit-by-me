@@ -2,12 +2,12 @@
 # 列: サンプルID / 名称 / 屋内外 / 流用元MAP / 戦闘背景 / エンカウント / 起動イベント / 状態 / 決定参照 / 備考
 # 全スカラーは文字列（引用符つき）。空欄は ""。複数行は |- ブロック。
 - "サンプルID": "SMP-01"
-  "名称": "境内（外装）"
+  "名称": "時の最果て（サンプル専用。背景は移行中）"
   "屋内外": "屋外"
   "流用元MAP": "TRM-03"
   "戦闘背景": "BG012"
   "エンカウント": "あり"
   "起動イベント": "opening_battle;evacuation_after_play;play_cancelled_promise"
   "状態": "採用"
-  "決定参照": "DEMO.sample-single-map;DEMO.sample-map-independent-of-main;DEMO.sample-road-encounter-switch"
-  "備考": "サンプルの唯一のマップ。背景は TRM-03 境内の採用済み画像（素材 A-1349、kako-jun 目視承認済み）の流用で、座標・画像は複製しない。E001〜E003 はこの1マップの中で同じマップ内のトリガーで起動する方針（docs/demo/README.md）。発火条件・出現位置はイベント台帳が正本。マップ端の切り替えは作らない。戦闘背景 BG012 を選んだ理由（事実）: 戦闘背景.yaml で寺町の屋外の道路の戦闘背景は BG012 だけが採用済み。BG011 は舞台（お遊戯会の劇戦闘 opening_battle 用）で屋外の戦闘に合わない。BG012 の絵は土塀・瓦屋根・雪囲いのある雪道で、TRM-03 境内の外装の絵（園庭・建物）とは景色が食い違う（戦闘背景は特定のMAPの再現でなく寺町の特徴だけを合わせる方針。決定 BTL.bg011-bg012-staff-judgment）。エンカウントはサンプル専用スイッチ（DEMO.sample-road-encounter-switch）で入れる。マップが1つだけなので『寺町の道路にだけ』の対象をこの1マップに読み替える参謀の既定（逐語ではない）。出す敵は台帳の実在の敵から選ぶ（実装タスク）。"
+  "決定参照": "DEMO.sample-single-map;DEMO.sample-map-independent-of-main;DEMO.sample-road-encounter-switch;DEMO.sample-bg-last-place"
+  "備考": "サンプルの唯一のマップ。背景は本編のどのMAPも流用せず、サンプル専用の『時の最果て』風の抽象空間（暗い星空の虚空に浮かぶ円形の石の足場・数本の柱・淡い光源。決定 DEMO.sample-bg-last-place、Issue #281）。旧設計の TRM-03 境内（素材 A-1349）流用は取り下げる決定だが、新背景は未生成（モック承認待ち）なので、流用元MAP の TRM-03 は移行が済むまでの暫定の残置（field_md.py と verify_domain_ledger.py が流用元MAPを読むため。新背景の採用・マスク・field_md.py 差し替えの時に空欄化と検査の改修を行う）。モックと平面スペックは docs/production/sample-field/。本編の MAP.yaml・接続.yaml・素材.yaml の寺町の行は変えない。E001〜E003 はこの1マップの中で同じマップ内のトリガーで起動する方針（docs/demo/README.md）。発火条件・出現位置はイベント台帳が正本。マップ端の切り替えは作らない。戦闘背景 BG012 を暫定のまま据え置く理由（事実）: 戦闘背景.yaml で屋外の戦闘に使える採用済みは BG012（雪道）だけで、BG011 は舞台（お遊戯会の劇戦闘 opening_battle 用）。新しい戦闘背景は勝手に作らない。ただし BG012 の絵は土塀・瓦屋根・雪囲いのある雪道で、時の最果ての景色とは合わない（未決: 合わなければ時の最果て風の戦闘背景を新規に作る案を kako-jun に聞く。sit-battle-background で別 Issue）。エンカウントはサンプル専用スイッチ（DEMO.sample-road-encounter-switch）で入れる。マップが1つだけなので『寺町の道路にだけ』の対象をこの1マップに読み替える参謀の既定（逐語ではない）。出す敵は台帳の実在の敵から選ぶ（実装タスク）。"
