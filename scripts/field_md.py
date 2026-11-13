@@ -50,6 +50,7 @@ FF_LOOK = [
     "battle_transition: ff-mosaic",
     "battle_motion: snappy",
     "battle_enemy_grid: 6x2",
+    "battle_enemy_window_overlap: 0.5",
     "field_emotions: field/sit-field-emotions.json",
     "battle_commands: skill, spell, item, escape",
     "battle_command_labels: spell=まほう",
@@ -267,19 +268,27 @@ def sample_monster_ids(sample):
 
 
 def _enemy_sizes():
-    """敵ごとのサイズ区分（台帳 敵配置.yaml『名前・サイズ』の『（2x1）』表記。決定 SIT.enemy-size-classes）。
+    """敵ごとのサイズ区分。正本は台帳 敵サイズ.yaml の「グリッド種別」（決定 SIT.enemy-size-classes）。「形態」の範囲（M102〜M103）は展開する。
 
-    数字（NxM）が無い値（『大型。区分は未定』など）は区分が決まっていないので無視し、警告を出す（書かない＝name-name の既定 1x1）。
+    NxM の数字が無い値は区分が決まっていないので無視し、警告を出す（書かない＝name-name の既定 1x1）。
     台帳に無い敵も書かない。サイズを推測で決めない。
     """
     sizes = {}
-    for r in _table("敵配置"):
-        text = str(r.get("名前・サイズ", ""))
+    for r in _table("敵サイズ"):
+        text = str(r.get("グリッド種別", ""))
         m = re.search(r"(\d+)x(\d+)", text)
-        if m:
-            sizes.setdefault(r["敵ID"], f"{m.group(1)}x{m.group(2)}")
-        elif r["敵ID"] and re.search(r"区分|大型|中型|小型", text) and r["敵ID"] not in sizes:
-            print(f"警告: {r['敵ID']} のサイズは数字の区分が無いため無視する（既定 1x1）: {text}", file=sys.stderr)
+        first = r["敵ID"]
+        if not m:
+            if re.search(r"区分|大型|中型|小型", text) or not text:
+                print(f"警告: {first} のサイズは数字の区分が無いため無視する（既定 1x1）: {text}", file=sys.stderr)
+            continue
+        ids = [first]
+        rng = re.fullmatch(r"([A-Z])(\d+)[〜~]([A-Z])(\d+)", str(r.get("形態", "")))
+        if rng and rng.group(1) == rng.group(3):
+            width = len(rng.group(2))
+            ids = [f"{rng.group(1)}{n:0{width}d}" for n in range(int(rng.group(2)), int(rng.group(4)) + 1)]
+        for mid in ids:
+            sizes.setdefault(mid, f"{m.group(1)}x{m.group(2)}")
     return sizes
 
 

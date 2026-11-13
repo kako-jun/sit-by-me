@@ -19,6 +19,7 @@ HP: 9999
 ATK: 10
 DEF: 0
 AGI: 5
+サイズ: 2x2
 スプライト: enemies/M001.webp
 [/モンスター]
 

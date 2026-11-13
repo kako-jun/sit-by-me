@@ -32,7 +32,7 @@ class FieldMdCase(unittest.TestCase):
         (ledger / "イベント").mkdir(parents=True)
         for ident in EVENT_IDS:
             shutil.copy(REAL / "docs/ledger/イベント" / f"{ident}.yaml", ledger / "イベント")
-        for name in ("敵", "敵配置", "人物", "魔法", "サンプルMAP", "素材", "戦闘背景"):
+        for name in ("敵", "敵サイズ", "人物", "魔法", "サンプルMAP", "素材", "戦闘背景"):
             shutil.copy(REAL / "docs/ledger" / f"{name}.yaml", ledger)
         shutil.copytree(REAL / "docs/ledger/再開点", ledger / "再開点")
         shutil.copytree(REAL / "play", self.tmp / "play")
@@ -268,7 +268,7 @@ class Notation(FieldMdCase):
         self.assertIn("battle_motion: snappy\n", text)
 
     def test_enemy_grid_and_sizes(self):
-        # 決定 DEMO.ff-look-enemy-grid（kako-jun 2026-11-14「たす」）。サイズは台帳 敵配置.yaml が正本（SIT.enemy-size-classes）
+        # 決定 DEMO.ff-look-enemy-grid（kako-jun 2026-11-14「たす」）。サイズは台帳 敵サイズ.yaml が正本（SIT.enemy-size-classes）
         self.assertIn("battle_enemy_grid: 6x2\n", self.out("play/script.md"))
         data = self.out("play/data.md")
         for mid in ("M101", "M104", "M148"):
@@ -276,20 +276,28 @@ class Notation(FieldMdCase):
             self.assertIn("サイズ: 2x1\n", block)
 
     def test_enemy_sizes_ignore_unclassified_and_missing(self):
-        # 数字の無い値（大型・区分未定）と台帳に無い敵は書かない（既定 1x1）。注記つきの値（2x1。EA は大型扱い）は 2x1
+        # 数字の無い値（大型・区分未定）と台帳に無い敵は書かない（既定 1x1）。形態の範囲（M102〜M103）は展開する
         rows = [
-            {"敵ID": "M001", "名前・サイズ": "段ボールのドラゴン（大型。区分は未定）"},
-            {"敵ID": "M101", "名前・サイズ": "ロードローラー（2x1。EA は大型扱い）"},
-            {"敵ID": "M104", "名前・サイズ": "乱暴な自転車（2x1）"},
+            {"敵ID": "M001", "形態": "M001", "グリッド種別": "2x2"},
+            {"敵ID": "M002", "形態": "M002〜M003", "グリッド種別": "1x1"},
+            {"敵ID": "M004", "形態": "M004〜M005", "グリッド種別": "**2x6**"},
+            {"敵ID": "M033", "形態": "中ボス候補", "グリッド種別": "大型（区分は未定）"},
         ]
         orig = field_md._table
-        field_md._table = lambda name: rows if name == "敵配置" else orig(name)
+        field_md._table = lambda name: rows if name == "敵サイズ" else orig(name)
         self.addCleanup(setattr, field_md, "_table", orig)
         with contextlib.redirect_stderr(io.StringIO()) as err:
             sizes = field_md._enemy_sizes()
-        self.assertEqual(sizes, {"M101": "2x1", "M104": "2x1"})
-        self.assertIn("M001", err.getvalue())
+        self.assertEqual(sizes, {"M001": "2x2", "M002": "1x1", "M003": "1x1", "M004": "2x6", "M005": "2x6"})
+        self.assertIn("M033", err.getvalue())
         self.assertNotIn("M999", sizes)
+
+    def test_m001_is_2x2_at_c1_and_overlap(self):
+        # 決定 DEMO.ff-look-m001-size（kako-jun 2026-11-14）。台帳 opening_battle.yaml の脚本が正本。他の敵のサイズは変えない
+        self.assertIn("battle_enemy_window_overlap: 0.5\n", self.out("play/script.md"))
+        self.assertIn("敵: M001@C1\n", self.out("play/events/opening_battle.md"))
+        block = self.out("play/data.md").split("[モンスター M001]")[1].split("[/モンスター]")[0]
+        self.assertIn("サイズ: 2x2\n", block)
 
     def test_readme_save_key_is_project_scoped(self):
         # /play/sit-by-me は name-name-save-<docKey=プロジェクト名>-<slot> を読む（field.html だけ field）

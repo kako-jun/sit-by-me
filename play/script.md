@@ -11,6 +11,7 @@ battle_enemy_list: window
 battle_transition: ff-mosaic
 battle_motion: snappy
 battle_enemy_grid: 6x2
+battle_enemy_window_overlap: 0.5
 field_emotions: field/sit-field-emotions.json
 battle_commands: skill, spell, item, escape
 battle_command_labels: spell=まほう
