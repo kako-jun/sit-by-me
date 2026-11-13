@@ -10,9 +10,11 @@ D=docs/production/sample-field; OUT=$D/e2
 [ -f "$OUT/send.txt" ] || { echo "$OUT/send.txt が無い。sample_field_build.py build を先に実行する" >&2; exit 1; }
 GI=$HOME/.codex/generated_images
 [ "$N" -le 2 ] || { echo "同時生成は2件まで" >&2; exit 1; }
-mkdir -p "$OUT"; ls "$GI" > "$OUT/.gi-before.txt" 2>/dev/null
+mkdir -p "$OUT"; : > "$OUT/.sizes"; ls "$GI" > "$OUT/.gi-before.txt" 2>/dev/null
+NEW=()
 for i in $(seq 1 "$N"); do
   [ -e "$OUT/take$i.png" ] && { echo "skip take$i (exists)"; continue; }
+  NEW+=("$i")
   BODY=$(cat "$OUT/send.txt")
   codex exec -s workspace-write --skip-git-repo-check -c model_reasoning_effort="high" \
 "Invoke the \$imagegen skill and use the built-in image_gen tool at the HIGHEST quality (quality: high), edit-mode with the 1 attached reference image (the clean mock = EDIT TARGET; its positions and sizes are the only truth), size 1672x941, then save the REAL generated PNG (decode the tool result, do not resize or modify it) into the current workspace at $OUT/take$i.png. You are STRICTLY FORBIDDEN from fabricating/drawing the image with ImageMagick, PIL, canvas or code.
@@ -20,7 +22,8 @@ for i in $(seq 1 "$N"); do
 $BODY" -i "$D/SMP-01-clean.png" < /dev/null > "$OUT/codex-take$i.log" 2>&1 &
 done
 wait
-for i in $(seq 1 "$N"); do
+for i in "${NEW[@]:-}"; do
+  [ -z "$i" ] && continue
   if [ -f "$OUT/take$i.png" ]; then
     # 偽造対策: 生成前後で ~/.codex/generated_images に新しい画像が増え、take と同一内容（sha256）のものがあること
     SHA=$(sha256sum "$OUT/take$i.png" | cut -d' ' -f1)
