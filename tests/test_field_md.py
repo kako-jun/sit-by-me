@@ -32,7 +32,7 @@ class FieldMdCase(unittest.TestCase):
         (ledger / "イベント").mkdir(parents=True)
         for ident in EVENT_IDS:
             shutil.copy(REAL / "docs/ledger/イベント" / f"{ident}.yaml", ledger / "イベント")
-        for name in ("敵", "人物", "魔法", "サンプルMAP", "素材", "戦闘背景"):
+        for name in ("敵", "敵配置", "人物", "魔法", "サンプルMAP", "素材", "戦闘背景"):
             shutil.copy(REAL / "docs/ledger" / f"{name}.yaml", ledger)
         shutil.copytree(REAL / "docs/ledger/再開点", ledger / "再開点")
         shutil.copytree(REAL / "play", self.tmp / "play")
@@ -259,6 +259,21 @@ class Notation(FieldMdCase):
         text = self.out("play/script.md")
         self.assertIn("battle_commands: skill, spell, item, escape\n", text)
         self.assertIn("battle_command_layout: cross\n", text)
+
+    def test_transition_is_ff_mosaic_and_motion_is_snappy(self):
+        # 決定 DEMO.ff-look-snappy-ff-mosaic（kako-jun 2026-11-14 #276）。ff（暗転のみ）ではなく ff-mosaic
+        text = self.out("play/script.md")
+        self.assertIn("battle_transition: ff-mosaic\n", text)
+        self.assertNotIn("battle_transition: ff\n", text)
+        self.assertIn("battle_motion: snappy\n", text)
+
+    def test_enemy_grid_and_sizes(self):
+        # 決定 DEMO.ff-look-snappy-ff-mosaic（kako-jun 2026-11-14「たす」）。サイズは台帳 敵配置.yaml が正本（SIT.enemy-size-classes）
+        self.assertIn("battle_enemy_grid: 6x2\n", self.out("play/script.md"))
+        data = self.out("play/data.md")
+        for mid in ("M101", "M104", "M148"):
+            block = data.split(f"[モンスター {mid}]")[1].split("[/モンスター]")[0]
+            self.assertIn("サイズ: 2x1\n", block)
 
     def test_readme_save_key_is_project_scoped(self):
         # /play/sit-by-me は name-name-save-<docKey=プロジェクト名>-<slot> を読む（field.html だけ field）

@@ -46,7 +46,9 @@ FF_LOOK = [
     "window_style: ff-blue",
     "sprite_style: acrylic",
     "battle_enemy_list: window",
-    "battle_transition: ff",
+    "battle_transition: ff-mosaic",
+    "battle_motion: snappy",
+    "battle_enemy_grid: 6x2",
     "field_emotions: field/sit-field-emotions.json",
     "battle_commands: skill, spell, item, escape",
     "battle_command_labels: spell=まほう",
@@ -263,6 +265,16 @@ def sample_monster_ids(sample):
     return ids
 
 
+def _enemy_sizes():
+    """敵ごとのサイズ区分（台帳 敵配置.yaml『名前・サイズ』の『（2x1）』表記。決定 SIT.enemy-size-classes）。台帳に無い敵は書かない（name-name の既定 1x1）。"""
+    sizes = {}
+    for r in _table("敵配置"):
+        m = re.search(r"(\d+)x(\d+)", str(r.get("名前・サイズ", "")))
+        if m and r["敵ID"] and r["敵ID"] not in sizes:
+            sizes[r["敵ID"]] = f"{m.group(1)}x{m.group(2)}"
+    return sizes
+
+
 def render_script(records):
     entry = records[ENTRY_EVENT]
     head = _frontmatter("Sit by Me", FF_LOOK)
@@ -293,6 +305,7 @@ def render_data(records, sample=None):
         "[メニュー: item, magic, equip, appstore, magicite, job, status, save, config]",
         "",
     ]
+    sizes = _enemy_sizes()
     for mid in monster_ids:
         enemy = enemies[mid]
         if mid in SAMPLE_ENEMY_STATS:
@@ -307,6 +320,7 @@ def render_data(records, sample=None):
             f"[モンスター {mid}]",
             f"名前: {enemy['名称']}",
             *stats,
+            *([f"サイズ: {sizes[mid]}"] if mid in sizes else []),
             f"スプライト: {MONSTER_SPRITE.format(id=mid)}",
             "[/モンスター]",
             "",
