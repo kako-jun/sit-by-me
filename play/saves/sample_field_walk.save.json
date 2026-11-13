@@ -1,6 +1,6 @@
 {
   "_provenance": {
-    "input_sha": "673542df1189f5d088cb2ae89abeb67c500e368079d8836cc552cc21434b5f8e"
+    "input_sha": "cd5aeba842318817ba72c794e3af6f7df1abd66da7206ada6bea95b2bc6481ca"
   },
   "slot": 0,
   "sceneId": null,
@@ -12,7 +12,7 @@
   "characters": [],
   "currentBgmPath": null,
   "savedAt": "2026-01-01T00:00:00.000Z",
-  "sceneName": "サンプルのマップ（境内）を歩く",
+  "sceneName": "サンプルのマップ（時の最果て）を歩く",
   "rpg": {
     "version": 1,
     "party": [
@@ -42,8 +42,8 @@
     "gold": 0,
     "field": {
       "sceneId": "sample_field",
-      "x": 1330,
-      "y": 480,
+      "x": 836,
+      "y": 650,
       "facing": "down"
     }
   }

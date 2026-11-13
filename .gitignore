@@ -9,3 +9,10 @@ docs/production/oblique-mocks/*/e2/**/style-ref.png
 # E2 実行時の ~/.codex/generated_images 一覧（ローカルのセッションIDが並ぶので追跡しない）
 docs/production/oblique-mocks/*/e2/**/.gi-*.txt
 docs/production/oblique-mocks/*/e2/.gi-*.txt
+docs/production/sample-field/e2/take*.png
+
+# サンプルMAPの E2 実行ログ・一覧（手元のパスやセッションIDが入るので追跡しない）
+docs/production/sample-field/e2/logs/
+docs/production/sample-field/e2/codex-take*.log*
+docs/production/sample-field/e2/.gi-*.txt
+docs/production/sample-field/e2/.sizes
