@@ -3,7 +3,7 @@ engine: name-name
 title: 共通定義
 hidden: true
 ---
-<!-- 生成物。台帳が正本。編集しない。 暫定: 数値は台帳 opening_battle の暫定を参照（HP・ATK・DEF・AGI と魔法の効果は仮値）。魔法は台帳 魔法.yaml の MAG-07・MAG-08 だけ。サンプル専用・暫定: M101・M104・M148 の HP・ATK・DEF・AGI・EXP・GOLD も仮値（M001 の仮値とは別。数値の正本は #237） -->
+<!-- 生成物。台帳が正本。編集しない。 暫定: 数値は台帳 opening_battle の暫定を参照（HP・ATK・DEF・AGI と魔法の効果は仮値）。魔法は台帳 魔法.yaml の MAG-07・MAG-08 だけ。サンプル専用・暫定: M101・M104・M148 の HP・ATK・DEF・AGI・EXP・GOLD も仮値（M001 の仮値とは別。数値の正本は #237）。味方 C001〜C004 の経験値表・成長も暫定値（生存者への等分で3〜4戦で Lv2） -->
 
 ## data: 共通定義
 
@@ -78,6 +78,8 @@ DEF: 5
 AGI: 10
 習得: Lv1 MAG-07
 習得: Lv1 MAG-08
+経験値表: 8, 20, 40, 80
+成長: hp+10, atk+2, def+1, agi+1
 人物: C001
 形態: elementary
 [/パーティ]
@@ -91,6 +93,8 @@ DEF: 5
 AGI: 10
 習得: Lv1 MAG-07
 習得: Lv1 MAG-08
+経験値表: 8, 20, 40, 80
+成長: hp+10, atk+2, def+1, agi+1
 人物: C002
 形態: elementary
 [/パーティ]
@@ -104,6 +108,8 @@ DEF: 5
 AGI: 10
 習得: Lv1 MAG-07
 習得: Lv1 MAG-08
+経験値表: 8, 20, 40, 80
+成長: hp+10, atk+2, def+1, agi+1
 人物: C003
 形態: elementary
 [/パーティ]
@@ -117,6 +123,8 @@ DEF: 5
 AGI: 10
 習得: Lv1 MAG-07
 習得: Lv1 MAG-08
+経験値表: 8, 20, 40, 80
+成長: hp+10, atk+2, def+1, agi+1
 人物: C004
 形態: elementary
 [/パーティ]
