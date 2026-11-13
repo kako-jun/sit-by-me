@@ -254,6 +254,12 @@ class Notation(FieldMdCase):
         # 戦闘コマンドは わざ・まほう・どうぐ・にげる（docs/systems.md）。name-name の既定「じゅもん」を上書きする
         self.assertIn("battle_command_labels: spell=まほう\n", self.out("play/script.md"))
 
+    def test_command_layout_is_cross(self):
+        # 十字（上=わざ・左=まほう・右=どうぐ・下=にげる）。battle_commands の並びが位置になる（name-name controls.md #204/#873）。kako-jun 2026-11-14 #276
+        text = self.out("play/script.md")
+        self.assertIn("battle_commands: skill, spell, item, escape\n", text)
+        self.assertIn("battle_command_layout: cross\n", text)
+
     def test_readme_save_key_is_project_scoped(self):
         # /play/sit-by-me は name-name-save-<docKey=プロジェクト名>-<slot> を読む（field.html だけ field）
         readme = self.out("play/README.md")

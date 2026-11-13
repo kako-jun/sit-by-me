@@ -34,6 +34,7 @@ TRIGGER_AUTO_ONCE = "場面開始・1回"  # 発火条件の許容値（空欄�
 #   キャラはアクスタ（板・台座・影。戦闘もフィールドの歩行絵も）: decisions.md 12・32 行
 #   基本コマンドは わざ／まほう／どうぐ／にげる（「たたかう」は無い）: docs/systems.md（2026-10-15 決定）
 #   コマンドの表示名は battle_command_labels で「じゅもん」→「まほう」にする（docs/systems.md。一枚絵フィールドで効くのは name-name #1154 の対応後）
+#   コマンド窓は十字（battle_command_layout: cross。上・左・右・下 = battle_commands の並び順 = わざ・まほう・どうぐ・にげる。name-name docs/guide/controls.md「コマンド窓の配置と名前」。kako-jun 2026-11-14 #276）
 #   未対応（一枚絵フィールドでは name-name が無視する。書かない）: battle_perspective / battle_horizon（遠近の擬似3D。docs/systems.md 戦闘節）。name-name 側の Issue（#1154）で追う
 #   敵名窓: FF 式（battle_enemy_list: window）。戦闘開始・終了は FF5/6 風の遷移（battle_transition: ff）
 # 戦闘背景（battle_background）は、採用済みのジオラマ背景が無いので書かない（別担当の準備待ち。黒で出さないための迂回は置かない）。
@@ -49,6 +50,7 @@ FF_LOOK = [
     "field_emotions: field/sit-field-emotions.json",
     "battle_commands: skill, spell, item, escape",
     "battle_command_labels: spell=まほう",
+    "battle_command_layout: cross",
 ]
 ENTRY_EVENT = "opening_battle"
 FIELD_EVENTS = ("opening_battle", "evacuation_after_play", "play_cancelled_promise")
