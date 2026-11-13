@@ -43,6 +43,10 @@ class SampleMapLedgerTests(YamlFixture):
         self.mutate("サンプルMAP", lambda rows: rows[0].update(エンカウント="なし", 起動イベント="no_such_event"))
         self.assert_rejected(self.verify(), "no_such_event")
 
+    def test_unknown_battle_background_is_rejected(self):
+        self.mutate("サンプルMAP", lambda rows: rows[0].update(戦闘背景="BG999"))
+        self.assert_rejected(self.verify(), "サンプルMAP.戦闘背景", "BG999")
+
     def test_state_outside_vocabulary_is_rejected(self):
         self.mutate("サンプルMAP", lambda rows: rows[0].update(状態="たぶんOK"))
         self.assert_rejected(self.verify(), "サンプルMAP.状態", "SMP-01")

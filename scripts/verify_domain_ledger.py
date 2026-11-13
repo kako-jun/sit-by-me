@@ -18,7 +18,7 @@ ASSET_SIDE_TABLES = ("素材共有", "素材更新", "素材メタデータ", "�
 SAMPLE_STATES = ("採用",)
 
 
-def check_sample_maps(data, warnings=None):
+def check_sample_maps(data):
     """早期デモ専用のサンプルMAP（docs/demo/README.md。サンプルは1マップ）。
 
     サンプルID は本編の MAP ID と別。背景は流用元MAPの採用済み画像を流用するだけで、
@@ -43,7 +43,7 @@ def check_sample_maps(data, warnings=None):
         if row["戦闘背景"] and row["戦闘背景"] not in battle_bgs:
             errors.append(f"サンプルMAP.戦闘背景: {ident} の {row['戦闘背景']} が戦闘背景にない")
         if row["状態"] not in SAMPLE_STATES:
-            errors.append(f"サンプルMAP.状態: {ident} は {' / '.join(SAMPLE_STATES)} のどちらか（{row['状態']!r}）")
+            errors.append(f"サンプルMAP.状態: {ident} は {' / '.join(SAMPLE_STATES)} でなければならない（{row['状態']!r}）")
         if row["エンカウント"] not in ("あり", "なし"):
             errors.append(f"サンプルMAP.エンカウント: {ident} は あり/なし のどちらか（{row['エンカウント']!r}）")
         for event in filter(None, row["起動イベント"].split(";")):
@@ -55,9 +55,8 @@ def check_sample_maps(data, warnings=None):
 def check(require_reviewed=False, from_json=None):
     names = list(L.SCHEMA)[list(L.SCHEMA).index("制作規約"):]
     data = {name: rows(name) for name in names}
-    data.update({name: rows(name) for name in ("エリア", "MAP", "決定", "未決", "素材", "端", "戦闘背景", "接続") + ASSET_SIDE_TABLES})
+    data.update({name: rows(name) for name in ("エリア", "MAP", "決定", "未決", "素材", "戦闘背景") + ASSET_SIDE_TABLES})
     errors = []
-    warnings = []
 
     def need(ok, message):
         if not ok:
@@ -149,7 +148,7 @@ def check(require_reviewed=False, from_json=None):
             except (ValueError, TypeError, KeyError, IndexError) as exc:
                 errors.append(f"{table} {key}: {exc}")
 
-    errors.extend(check_sample_maps(data, warnings))
+    errors.extend(check_sample_maps(data))
 
     urls = set()
     sources = {r["出典ID"]: r for r in data["Issue出典"]}
@@ -192,8 +191,6 @@ def check(require_reviewed=False, from_json=None):
         need(not any(r["分類"] == "要確認" for r in data["Issue命題"]), "Issue命題: 要確認が残る")
     if errors:
         raise SystemExit("\n".join("FAIL: " + e for e in errors))
-    for w in warnings:
-        print("WARN: " + w)
     print(f"PASS: {len(names)} normalized tables; Issue sources={len(sources)}, semantic review pending={pending}")
 
 
