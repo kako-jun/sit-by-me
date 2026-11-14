@@ -299,6 +299,13 @@ class Notation(FieldMdCase):
         block = self.out("play/data.md").split("[モンスター M001]")[1].split("[/モンスター]")[0]
         self.assertIn("サイズ: 2x2\n", block)
 
+    def test_m001_large_layout_keys(self):
+        # 決定 DEMO.ff-look-m001-large-layout（kako-jun 2026-11-14）。overlap_bottom は選択待ちで未設定
+        script = self.out("play/script.md")
+        for line in ("battle_enemy_grid_align: center\n", "battle_enemy_grid_extent: wide\n", "battle_party_layout: tall\n"):
+            self.assertIn(line, script)
+        self.assertNotIn("battle_enemy_window_overlap_bottom", script)
+
     def test_readme_save_key_is_project_scoped(self):
         # /play/sit-by-me は name-name-save-<docKey=プロジェクト名>-<slot> を読む（field.html だけ field）
         readme = self.out("play/README.md")
