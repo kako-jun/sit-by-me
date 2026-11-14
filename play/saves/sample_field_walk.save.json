@@ -1,6 +1,6 @@
 {
   "_provenance": {
-    "input_sha": "cd5aeba842318817ba72c794e3af6f7df1abd66da7206ada6bea95b2bc6481ca"
+    "input_sha": "81f71b1e6be56bde5a4abd7b987caff5e3c26a3875d121e49d167710b0c26577"
   },
   "slot": 0,
   "sceneId": null,
@@ -12,7 +12,7 @@
   "characters": [],
   "currentBgmPath": null,
   "savedAt": "2026-01-01T00:00:00.000Z",
-  "sceneName": "サンプルのマップ（時の最果て）を歩く",
+  "sceneName": "時の最果てを歩く",
   "rpg": {
     "version": 1,
     "party": [
