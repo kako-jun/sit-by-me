@@ -17,6 +17,7 @@ import argparse
 import hashlib
 import json
 import re
+import sys
 from pathlib import Path
 
 import yaml
@@ -46,7 +47,13 @@ FF_LOOK = [
     "window_style: ff-blue",
     "sprite_style: acrylic",
     "battle_enemy_list: window",
-    "battle_transition: ff",
+    "battle_transition: ff-mosaic",
+    "battle_motion: snappy",
+    "battle_enemy_grid: 6x2",
+    "battle_enemy_window_overlap: 0.5",
+    "battle_enemy_grid_align: center",
+    "battle_enemy_grid_extent: wide",
+    "battle_party_layout: tall",
     "field_emotions: field/sit-field-emotions.json",
     "battle_commands: skill, spell, item, escape",
     "battle_command_labels: spell=まほう",
@@ -275,6 +282,31 @@ def sample_monster_ids(sample):
     return ids
 
 
+def _enemy_sizes():
+    """敵ごとのサイズ区分。正本は台帳 敵サイズ.yaml の「グリッド種別」（決定 SIT.enemy-size-classes）。「形態」の範囲（M102〜M103）は展開する。
+
+    NxM の数字が無い値は区分が決まっていないので無視し、警告を出す（書かない＝name-name の既定 1x1）。
+    台帳に無い敵も書かない。サイズを推測で決めない。
+    """
+    sizes = {}
+    for r in _table("敵サイズ"):
+        text = str(r.get("グリッド種別", ""))
+        m = re.search(r"(\d+)x(\d+)", text)
+        first = r["敵ID"]
+        if not m:
+            if re.search(r"区分|大型|中型|小型", text) or not text:
+                print(f"警告: {first} のサイズは数字の区分が無いため無視する（既定 1x1）: {text}", file=sys.stderr)
+            continue
+        ids = [first]
+        rng = re.fullmatch(r"([A-Z])(\d+)[〜~]([A-Z])(\d+)", str(r.get("形態", "")))
+        if rng and rng.group(1) == rng.group(3):
+            width = len(rng.group(2))
+            ids = [f"{rng.group(1)}{n:0{width}d}" for n in range(int(rng.group(2)), int(rng.group(4)) + 1)]
+        for mid in ids:
+            sizes.setdefault(mid, f"{m.group(1)}x{m.group(2)}")
+    return sizes
+
+
 def render_script(records):
     entry = records[ENTRY_EVENT]
     head = _frontmatter("Sit by Me", FF_LOOK)
@@ -305,6 +337,7 @@ def render_data(records, sample=None):
         "[メニュー: item, magic, equip, appstore, magicite, job, status, save, config]",
         "",
     ]
+    sizes = _enemy_sizes()
     for mid in monster_ids:
         enemy = enemies[mid]
         if mid in SAMPLE_ENEMY_STATS:
@@ -319,6 +352,7 @@ def render_data(records, sample=None):
             f"[モンスター {mid}]",
             f"名前: {enemy['名称']}",
             *stats,
+            *([f"サイズ: {sizes[mid]}"] if mid in sizes else []),
             f"スプライト: {MONSTER_SPRITE.format(id=mid)}",
             "[/モンスター]",
             "",

@@ -32,16 +32,17 @@ kako-jun の指摘「ゲーム画面と同じ見た目にしろ。今回言っ�
 | 15 | FF 系サイドビュー（敵が左・味方が右・下にコマンドと HP） | systems.md 10 行 | `battle_layout: Side` |
 | 16 | ATB（FF5 風。待機とアクティブ） | systems.md 13 行 | `battle_atb: on`・`wait`。能力値 0 だとゲージが動かないので AGI を暫定値で追加 |
 | 17 | 「○○があらわれた」を出さない。開始は敵味方が横からスライドして登場 | systems.md 7 行 | ff＋side で登場スライド。name-name の resume-demo.md には「再開時にも「あらわれた」のログが出る」とある。ff ではログ窓に通常のログを出さないはずだが、再開時に出ないかは実機で確認する（?） |
-| 18 | 被ダメージで点滅させず、ダメージ数字のポップアップ。行動は踏み出す・のけぞり | systems.md 14・24 行 | `battle_presentation: ff` |
+| 18 | 被ダメージで点滅させず、ダメージ数字のポップアップ。行動は踏み出す・のけぞり | systems.md 14・24 行、キビキビは決定 `DEMO.ff-look-snappy-ff-mosaic`（name-name #956） | `battle_presentation: ff`、`battle_motion: snappy`（踏み出し・のけぞりが速く、敵の通常攻撃は踏み出さず敵自身が一瞬モザイクになる。時間配分は暫定で #803 の実測待ち） |
 | 19 | メッセージ窓は 1 行（呪文・特技名と勝敗メッセージだけ）。文字は大きく | systems.md 23 行、kako-jun 指摘 | 文字を大きくする name-name #1148 が OPEN |
 | 20 | 敵名窓（常時表示。敵画像の下には名前・HP を出さず、コマンド窓の右隣の青い窓に縦に並べる） | decisions 台帳 SIT.battle-enemy-name-list（決定.yaml 2515 行付近）。「常時」は kako-jun の口頭の指摘で出典の記録なし | `battle_enemy_list: window` |
+| 21b | 敵は見えないグリッド（6x2）に並ぶ。`wide` では実際に占めるセルの範囲を画面幅に合わせるので、セルの大きさは戦闘ごとの敵の数・配置で変わる（仕様は name-name docs/spec/markdown-v0.1.md）。最前列でない敵への通常攻撃は半分ダメージ（最前列＝出ている敵の中で占有セルの右端の列が最も右の敵。開始時に決まる）。通常攻撃だけに効き魔法・特技・アイテムには効かない。単体の敵はどこにいても最前列で、M104+M148 の 2 体も同じ列に置かれるので、今のデモでは効かない | 決定 `DEMO.ff-look-enemy-grid`・`DEMO.ff-look-m001-size`・`DEMO.ff-look-m001-large-layout`、name-name docs/guide/enemy-formation.md | `battle_enemy_grid: 6x2`。サイズは台帳 敵サイズ.yaml の「グリッド種別」を `data.md` の `サイズ:` に出す（値は台帳が正本。数字の無い値と台帳に無い敵は書かず 1x1）。`battle_enemy_window_overlap: 0.5`。M001（段ボールのドラゴン）は中央の 2x2 に置く（決定 `DEMO.ff-look-m001-size`。`敵: M001@C1`）。大きく見せる設定 `battle_enemy_grid_align: center`・`battle_enemy_grid_extent: wide`・`battle_party_layout: tall`（決定 `DEMO.ff-look-m001-large-layout`。キーの意味は name-name docs/spec/markdown-v0.1.md）。下のパネルへの重なり `battle_enemy_window_overlap_bottom` は未設定（kako-jun の選択待ち）。実画面の実測は PR #284 に記録 |
 | 21 | 敵ごとの HP ゲージは出さない | systems.md 9 行 | ff の既定でゲージが無いことを実機で確認する |
 | 22 | 味方のステータス（HP・MP・ゲージ）を下に表示 | systems.md 23 行 | 実機で確認する |
 | 23 | 基本コマンドは わざ・まほう・どうぐ・にげる（「たたかう」は無い） | systems.md 12 行 | `battle_commands: skill, spell, item, escape` |
 | 23b | コマンド窓は十字（上=わざ・左=まほう・右=どうぐ・下=にげる） | name-name controls.md「コマンド窓の配置と名前」、kako-jun 2026-11-14 #276 | `battle_command_layout: cross`（`battle_commands` の並びが位置） |
 | 24 | 「じゅもん」でなく「まほう」と表示 | systems.md 12 行 | `battle_command_labels: spell=まほう`。一枚絵フィールドで効くのは name-name #1154（PR #1159）の対応後。実機未確認 |
 | 25 | 基本の攻撃は無属性ダメージ魔法 | systems.md 12 行、decisions.md 294 行 | MAG-07 おにぱんちを追加（効果の数値は暫定）。劇戦闘の最強級の固定付与は具体が未決で書かない |
-| 26 | 戦闘開始・終了の画面遷移は FF5/6 風 | 出典なし（kako-jun の口頭の指摘。docs に決定の行が無い） | `battle_transition: ff` |
+| 26 | 戦闘開始・終了の画面遷移は FF5/6 風 | name-name #830・#953（kako-jun 2026-10-14・10-28）、決定 `DEMO.ff-look-snappy-ff-mosaic` | `battle_transition: ff-mosaic`（FF5/6 風の暗転に粗いモザイクも入る） |
 | 27 | 勝利リザルトは FF5 式（先頭に「戦いに勝った！」→円→経験値…） | systems.md 295〜303 行 | name-name #1039・#1113。実機未確認 |
 | 28 | 倒れ: down ポーズがあれば差し替え、無ければ 90 度回転。敵はモザイクで消える | systems.md 25 行 | name-name #953。味方のポーズは実在 |
 | 29 | 戦闘背景はジオラマ風の生成画像（遠近の浅い擬似 3D・地平線の位置を設定） | systems.md 11 行、decisions.md 17・228 行 | 戦闘背景 BG011（舞台）・BG012（寺町の道路）の採用の状態は台帳 [戦闘背景.yaml](../ledger/戦闘背景.yaml) を見る。遠近の `battle_perspective`・`battle_horizon` は一枚絵フィールドが無視する |

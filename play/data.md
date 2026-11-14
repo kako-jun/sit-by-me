@@ -19,6 +19,7 @@ HP: 9999
 ATK: 10
 DEF: 0
 AGI: 5
+サイズ: 2x2
 スプライト: enemies/M001.webp
 [/モンスター]
 
@@ -30,6 +31,7 @@ DEF: 0
 AGI: 3
 EXP: 12
 GOLD: 30
+サイズ: 2x1
 スプライト: enemies/M101.webp
 [/モンスター]
 
@@ -41,6 +43,7 @@ DEF: 0
 AGI: 9
 EXP: 8
 GOLD: 15
+サイズ: 2x1
 スプライト: enemies/M104.webp
 [/モンスター]
 
@@ -52,6 +55,7 @@ DEF: 0
 AGI: 5
 EXP: 10
 GOLD: 20
+サイズ: 2x1
 スプライト: enemies/M148.webp
 [/モンスター]
 
