@@ -40,9 +40,9 @@
 | B8 | 体内 prompt の対象・ラベル | MAP/語彙へ移行中 | prompt builder が YAML を読む |
 | B9 | 体内画像検査閾値 | 既定値への移行は要照合 | 検査器と台帳が一致 |
 | B10 | body register の重複矩形 | 体内描画定数へ移行中 | 定義一箇所 |
-| B11 | 旧 md 列位置と固定文 | `md_table.rb` と語彙/プロンプト文面へ移行中 | 対象レンダラ・builder の YAML 読込 |
+| B11 | 旧 md 列位置と固定文 | `md_table.py` と語彙/プロンプト文面へ移行中 | 対象レンダラ・builder の YAML 読込 |
 | B12 | oblique 台帳ゲートと manifest | 台帳 builder に置換済み | 再生成・鮮度検査 |
-| B13 | md 正本の旧 verify | `verify_ledger.rb` に移行中 | 旧 md は参照/ビューのみ |
+| B13 | md 正本の旧 verify | `verify_ledger.py` に移行中 | 旧 md は参照/ビューのみ |
 | B14 | 旧 fixture 依存 | テスト修正中。既存失敗52件は別基準線 | 新たな失敗0件 |
 | D1 | 寝室方針の三重記述 | `決定/時期差分/MAP.yaml` に取込済み | 旧三表を参照/ビューに |
 | D2 | 畳と板張りの食い違い | `TRM.no-tatami` と関連 YAML に修正済み | 生成 prompt の禁止・必須語検査 |

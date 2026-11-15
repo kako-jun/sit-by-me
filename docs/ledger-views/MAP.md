@@ -1,6 +1,6 @@
 # MAP 一覧
 
-> **生成ビュー（手編集禁止）**。生成元: `MAP.yaml`・`端.yaml`・`未決.yaml`・`エリア.yaml`（`docs/ledger/`）。直すのは台帳。再生成: `uv run python3 .claude/skills/sit-field-background/tools/ledger_views.py build`（リポ直下）。鮮度検査: `uv run python3 .claude/skills/sit-field-background/tools/ledger_views.py check`（`ruby scripts/verify_ledger.rb` に含まれる）。
+> **生成ビュー（手編集禁止）**。生成元: `MAP.yaml`・`端.yaml`・`未決.yaml`・`エリア.yaml`（`docs/ledger/`）。直すのは台帳。再生成: `uv run python3 .claude/skills/sit-field-background/tools/ledger_views.py build`（リポ直下）。鮮度検査: `uv run python3 .claude/skills/sit-field-background/tools/ledger_views.py check`（`uv run python3 scripts/verify_ledger.py` に含まれる）。
 
 MAP 1行=画像1枚（時期違いは同一IDの差し替え）。状態・採用状態・未決は台帳の値そのまま。
 

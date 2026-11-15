@@ -1,6 +1,6 @@
 """台帳から導出される imagegen 編集プロンプトを、ファイルに書かずに全MAP分 JSON で標準出力する（画像生成 API は呼ばない）。
 
-verify_prompt_reflects_ledger.rb が呼ぶ。oblique_build.build_one のプロンプト段と同じ導出
+verify_prompt_reflects_ledger.py が呼ぶ。oblique_build.build_one のプロンプト段と同じ導出
 （必須キー欠落ならプロンプトを組めないので gated に欠落一覧。屋外MAPの look 未記入は生成の起動だけを止める理由なので、
 プロンプトは組んで反映検査に回し、理由は stopped に出す。それ以外は LQ.sections + build_prompt）。
   uv run --with numpy --with opencv-python-headless --with pillow python3 oblique_prompt_probe.py [PLANS_DIR]

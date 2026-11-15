@@ -838,7 +838,7 @@ def validate_plan(p):
                 E.append(f"depends_on が自己参照: {p.get('map_id')}")
             if len(set(dep)) != len(dep):
                 E.append("depends_on に重複がある")
-            # ※ depends_on が無い変種はこの規則の外（上の if dep is not None の中）。素通りしないよう、台帳側は verify_prompt_reflects_ledger.rb の検査 (vi) が、起動側は dependency-graph.json と plan の一致検査（oblique_e2_schedule.py graph）が補う
+            # ※ depends_on が無い変種はこの規則の外（上の if dep is not None の中）。素通りしないよう、台帳側は verify_prompt_reflects_ledger.py の検査 (vi) が、起動側は dependency-graph.json と plan の一致検査（oblique_e2_schedule.py graph）が補う
             if p.get("variant") and base not in dep:  # 同じ部屋・建物の別時期は基準MAPの確定画像を必ず参照する（#193）
                 E.append(f"時期差分MAP {p.get('map_id')} の depends_on に基準MAP {base} が無い（別時期の同一性のため基準の確定画像を参照に含める）")
     return E, Wn
@@ -1096,7 +1096,7 @@ def build_prompt(p, key, ledger_text=""):
 
 
 def build_prompt_raw(p, key, ledger_text=""):
-    """imagegen 編集用プロンプト（決定論）。モック=編集元1枚。原文束は台帳（build_map_prompt.rb）に依存するので別セクション。
+    """imagegen 編集用プロンプト（決定論）。モック=編集元1枚。原文束は台帳（build_map_prompt.py）に依存するので別セクション。
     文面はすべて台帳『プロンプト文面』（oblique_text.text）。ここは並べ方と差し込みだけ。"""
     pool = load_decor(p)
     if pool:

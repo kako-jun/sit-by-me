@@ -2,7 +2,7 @@
 
 同じ表・同じ入力なら同じ出力（行は主キー・表の並び順で固定）。決定は status（ready か否か）に依存せず必ず入れる。
   uv run python3 ledger_query.py MAP_ID          # 台帳節（edit-prompt に入る文）を表示
-  uv run python3 ledger_query.py --missing MAP_ID # 必須キーの欠落（Ruby の検証器に委譲）
+  uv run python3 ledger_query.py --missing MAP_ID # 必須キーの欠落（scripts/ledger_required_keys.py に委譲）
 """
 import os
 import re
@@ -82,7 +82,7 @@ class Ledger:
     def free_texts(self, map_id, plan=None):
         """特徴(自由記述)。自由記述欄のある全表（エリア・MAP・建物・建物部位・建物窓列・建物関係・建物時期差分・端・接続・要素・窓・素材・採用要素）のうち
         このMAPに関わる行を、MAP → エリア → 建物 → 建物部位 → 建物窓列 → 建物関係 → 建物時期差分 → 要素 → 窓 → 端 → 接続 → 素材(採用) → 採用要素 の順で返す。
-        （決定の自由記述は DECISIONS 節の行末に入る。verify_ledger.rb の check_free_text_tables が、自由記述欄のある表の取りこぼしを検出する）"""
+        （決定の自由記述は DECISIONS 節の行末に入る。verify_ledger.py の check_free_text_tables が、自由記述欄のある表の取りこぼしを検出する）"""
         out = []
         m = self.map_row(map_id)
         if m and m[L.FREE]:
@@ -138,20 +138,20 @@ class Ledger:
 
 
 def missing_keys(map_id):
-    """必須キーの欠落（Ruby の検証器に委譲。空なら起動してよい）。
+    """必須キーの欠落（scripts/ledger_required_keys.py に委譲。空なら起動してよい）。
 
     閉じる側に倒す: 『終了コード1・stderr 空・欠落行あり』だけを欠落とみなす。『終了コード0・出力なし』だけが OK。
-    Ruby の例外（終了コード1・stdout 空・stderr にバックトレース）や、それ以外の組み合わせは RuntimeError で止める
+    検査器の例外（終了コード1・stdout 空・stderr にトレースバック）や、それ以外の組み合わせは RuntimeError で止める
     （例外を『欠落なし』と読んでゲートを素通しさせない）。
     """
-    script = os.path.join(L.REPO, "scripts", "ledger_required_keys.rb")
-    r = subprocess.run(["ruby", script, base_of(map_id)], capture_output=True, text=True, timeout=60)
+    script = os.path.join(L.REPO, "scripts", "ledger_required_keys.py")
+    r = subprocess.run([sys.executable, script, base_of(map_id)], capture_output=True, text=True, timeout=60)
     lines = [x for x in r.stdout.splitlines() if x.strip()]
     if r.returncode == 0 and not lines and not r.stderr.strip():
         return []
     if r.returncode == 1 and lines and not r.stderr.strip():
         return lines
-    raise RuntimeError(f"{map_id}: 必須キー検査(ledger_required_keys.rb)が異常終了した（exit {r.returncode}）。ゲートを開けないため停止: "
+    raise RuntimeError(f"{map_id}: 必須キー検査(ledger_required_keys.py)が異常終了した（exit {r.returncode}）。ゲートを開けないため停止: "
                        f"{(r.stderr.strip() or r.stdout.strip())[:300]}")
 
 

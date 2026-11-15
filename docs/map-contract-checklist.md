@@ -6,7 +6,7 @@
 
 **注記**: ステータス名 `recreate-required-1920x1080` は名前は1920×1080だが1672×941（16:9）も許容する（改名は別件）。
 
-**台帳 `docs/ledger/MAP.yaml` に行があるMAPは状態列を `台帳` とする**（旧 `recreate-required-1920x1080`・`blocked` は台帳化したMAPでは廃止）。状態・採用状態・未決・既定値・決定は台帳（`MAP.yaml`・`未決.yaml`・`既定値.yaml`・`決定.yaml`）が正本で、`ruby scripts/verify_ledger.rb` が検査する。この表はRef・旧状態・旧画像/出力記録・台帳への参照として残す。
+**台帳 `docs/ledger/MAP.yaml` に行があるMAPは状態列を `台帳` とする**（旧 `recreate-required-1920x1080`・`blocked` は台帳化したMAPでは廃止）。状態・採用状態・未決・既定値・決定は台帳（`MAP.yaml`・`未決.yaml`・`既定値.yaml`・`決定.yaml`）が正本で、`uv run python3 scripts/verify_ledger.py` が検査する。この表はRef・旧状態・旧画像/出力記録・台帳への参照として残す。
 
 **2026-10-18 / #51**: TRM-02〜TRM-16は当時 `recreate-required-1920x1080`（2026-10-24以降は台帳。旧TRM-01は2026-10-23にTRM-03の右の区画＝園庭へ統合して廃止し、行を削除。旧legacy画像 `legacy/TRM-01.webp` とそのmaskは2026-10-23に削除済み。履歴はgit）、生成契約は `blocked`。以下の旧画像パスは参照専用で、旧mask・旧passは新候補の採用根拠にならない。現行再作成状態は [候補台帳](teramachi-rebuild-candidates.md)、建物群の生成前入力は [制作前確認](production/20261018-teramachi-preflight.md) を参照する。
 

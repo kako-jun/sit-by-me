@@ -24,7 +24,7 @@ Find evidence that a proposed or generated artifact is wrong before it is adopte
 戦闘背景（`battle-backgrounds/`・台帳 `戦闘背景.yaml`）を見るとき、次を一つずつ確認する。
 
 1. **スキル経由か**: 画像・割付図・送信文が `battle_bg_build.py`（build/check/zoom）の出力か。手書きの送信文・場当たりの合成があれば `major`。
-2. **台帳が単一正本か**: 安全矩形・床・物・描画オフセットが『配置』列だけにあり、カメラ欄・SKILL.md・コードに数値の二重書きが無いか。派生物（割付図・送信文・INDEX・ビュー）が古くないか（`build_ledger.py check`・`verify_prompt_reflects_ledger.rb`）。
+2. **台帳が単一正本か**: 安全矩形・床・物・描画オフセットが『配置』列だけにあり、カメラ欄・SKILL.md・コードに数値の二重書きが無いか。派生物（割付図・送信文・INDEX・ビュー）が古くないか（`build_ledger.py check`・`verify_prompt_reflects_ledger.py`）。
 3. **安全矩形**: 敵・味方の枠と下段の窓3枠に、城・樅・緞帳・柱・ランタンが入っていないか（`check --zoomed` の物画素0.5%以下・床画素95%以上＋`overlay.png` の目視。自動検査は屋根・床・物の画素だけ）。
 4. **構図**: 前縁が画面に入っていないか・水平線が無いか・床板の線が奥の縁と同じ右上がりの遠近か・奥の縁の上がりが35px以上か・少し斜め左のカメラか・舞台が実マップ（TRM-02）の舞台どおりか。
 5. **描画オフセット**: 実測値の出典（生の絵の測定）が備考にあるか。補正後の絵で奥の縁が台帳の狙いに近いか。
@@ -108,7 +108,7 @@ Do not repair the candidate while reviewing it. Hand blockers back to the author
 寺町の道路系 MAP（TRM-06〜17）の台帳・スキル・生成物をレビューするとき、通常の観点に加えて次を見る。作り方の索引は `.claude/skills/sit-field-background/pitfalls.md` の H。
 
 1. **派生物の古さ**: 台帳の文面・plan を変えたのに `<MAP>-edit-prompt.txt` が古くないか。`oblique_e2_schedule.py stale` が0件か、`oblique_build.py --all docs/production/oblique-mocks/connections.json` の後か。訂正前の文面（旧表現）が派生物に残っていないか grep する。
-2. **台帳の単一正本**: 決定・文面・要素・plan が重複・食い違っていないか（同じ内容の決定を足していないか。既存の訂正を優先）。ID が旧称のとき備考にあるか。逐語の出典が実在するか（`audit_issue_decisions.rb --check-quotes`）。kako-jun の発言を創作していないか（暫定の採用は『逐語の引用なし』と明記）。
+2. **台帳の単一正本**: 決定・文面・要素・plan が重複・食い違っていないか（同じ内容の決定を足していないか。既存の訂正を優先）。ID が旧称のとき備考にあるか。逐語の出典が実在するか（`audit_issue_decisions.py --check-quotes`）。kako-jun の発言を創作していないか（暫定の採用は『逐語の引用なし』と明記）。
 3. **変異テスト**: 追加したゲート・検査・テストは、その行を壊したら落ちるか（relativize を外す、ゲートの条件を緩める、def にも一致する弱い assert など、生存する変異が無いか）。配線は呼び出し行に一致させる。
 4. **生成物の目視適合表**: 全 MAP を目視し、次の表（電線・消雪穴・扉の隔離・継ぎ目・用水・材料・前縁・器・ピンク・寸法）で適合を書く。電線なし／穴は中央線だけ・粗く水なし／景色の扉は隔離（道・石段・参道・敷石が届かない）／要素一覧にない戸なし／継ぎ目の道・用水の位置／台座は素の断面（向き混在 OK、テープは継ぎ目だけ、ワンパターンでない）／机の置き物は台帳決定のまま／石垣は石（屋根色禁止）／ピンク残り0／寸法 1672×941 厳密。
 5. **採用の手順**: スキルの `--adopt --canonical` だけか。寸法の例外（リサイズ）を承認なしで通していないか。採用が暫定（kako-jun の目視承認なし）ならそう記録されているか。

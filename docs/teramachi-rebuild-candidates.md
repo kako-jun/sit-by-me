@@ -39,7 +39,7 @@
 | TRM-02 | `TRM-02-kindergarten-playroom-rebuild-candidate.png` |
 | TRM-12 | `TRM-12-danchi-apartment-rebuild-v2-candidate.png` |
 
-## 旧ゲート（2026-10-16 時点。現行の運用は台帳と `ruby scripts/verify_ledger.rb`）
+## 旧ゲート（2026-10-16 時点。現行の運用は台帳と `uv run python3 scripts/verify_ledger.py`）
 
 1. 独立 red-team が生画像を確認し、各候補を採用可／再生成に判定する。
 2. 採用可候補にのみ、輪郭のない編集用 traversal map と前景用マスクを作成する。

@@ -13,7 +13,7 @@ import json
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-# LEDGER_ROOT でリポジトリ root を差し替えられる（テストの fixture 用。Ruby 側 ledger_yaml.rb と同じ環境変数）
+# LEDGER_ROOT でリポジトリ root を差し替えられる（テストの fixture 用。scripts/ledger_yaml.py と同じ環境変数）
 REPO = os.environ.get("LEDGER_ROOT") or os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 LEDGER = os.path.join(REPO, "docs", "ledger")
 BUILDER_VERSION = "ledger-build/1"
@@ -51,7 +51,7 @@ SCHEMA = {
     "必須キー": ["対象テーブル", "キー", "必須度", "条件", "語彙グループ", "説明"],
     "未決": ["未決ID", "対象テーブル", "対象ID", "キー", "内容", "状態", "解決決定ID"],
     "キー別名": ["正規名", "別名", "対象テーブル", "説明"],
-    # Issue点検: GitHub の Issue 本文・コメントのうち『kako-jun の決定』と読める候補と、決定表との突合結果（audit_issue_decisions.rb が更新）
+    # Issue点検: GitHub の Issue 本文・コメントのうち『kako-jun の決定』と読める候補と、決定表との突合結果（audit_issue_decisions.py が更新）
     # 分類: 決定表に反映済み（決定IDが要る）／未反映(要取込み)／決定でない／対象外
     "Issue点検": ["Issue番号", "コメントURL", "候補の要約", "分類", "決定ID", "備考"],
     # ファイル配置: パターンは repo root からの相対パス（/ 区切り）に fullmatch する正規表現。{MAP_ID} は MAP ID の正規表現に展開する
@@ -142,7 +142,7 @@ TABLE_DOC = {
     "必須キー": "対象テーブルごとの必須キー定義。",
     "未決": "未決（要確認）の一覧。",
     "キー別名": "列名・キー名の別名と正規名。",
-    "Issue点検": "Issue の決定候補と決定表の突合結果（audit_issue_decisions.rb が更新。分類=決定表に反映済み／未反映(要取込み)／決定でない／対象外）。",
+    "Issue点検": "Issue の決定候補と決定表の突合結果（audit_issue_decisions.py が更新。分類=決定表に反映済み／未反映(要取込み)／決定でない／対象外）。",
     "描画定数": "斜めツール（oblique_mock.py・oblique_topology.py）の寸法・視点・幅クラス・窓種別・台座の飾りの位置。コードはここを読む。",
     "戦闘背景": "戦闘背景の台帳（1行=1枚）。参照MAP・使う戦闘・カメラを持つ。エリア固定は継承。",
     "プロンプト文面": "imagegen 用プロンプト・接続表・窓一覧・接続図に出る文面（{名前}=変数の差し込み口）。コードは oblique_text.text で読み、文面を直接持たない。",
@@ -323,7 +323,7 @@ def split_list(s):
 
 if __name__ == "__main__":
     import sys
-    if sys.argv[1:] == ["schema"]:  # Ruby 側の検査（verify_ledger.rb）が表定義を読む口
+    if sys.argv[1:] == ["schema"]:  # 表定義(SCHEMA)を JSON で出す
         print(json.dumps(SCHEMA, ensure_ascii=False))
     else:
         sys.exit("usage: ledger_io.py schema")
