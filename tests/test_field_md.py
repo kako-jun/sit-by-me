@@ -46,7 +46,7 @@ class FieldMdCase(unittest.TestCase):
                 for f in src.glob("*.webp"):
                     (dst / f.name).touch()
         # サンプル場面が引く画像は実在だけを見るので、空ファイルで足りる（実寸・画素は SampleField.test_spawn_is_walkable_in_real_mask が実物で見る）
-        for rel in ("fields/reference/sample-field-smp01-adopted.webp", "fields/masks/SMP-01-mask.webp", "fields/reference/teramachi-grounds-exterior-trm03-adopted.webp", "fields/masks/TRM-03-exterior-mask.webp",
+        for rel in ("fields/reference/sample-field-smp01-adopted.webp", "fields/masks/SMP-01-mask.webp", "fields/foreground/SMP-01-foreground.webp", "fields/reference/teramachi-grounds-exterior-trm03-adopted.webp", "fields/masks/TRM-03-exterior-mask.webp",
                     "fields/play/bg012.webp", "fields/play/bg013.webp", *[f"enemies/{m}.webp" for m in field_md.SAMPLE_ENEMY_STATS]):
             path = self.tmp / "assets/images" / rel
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -397,6 +397,11 @@ class SampleField(FieldMdCase):
         self.assertIn("戦闘背景=fields/play/bg013.webp", text)  # 台帳 戦闘背景.yaml の配信用複製
         self.assertIn("背景=fields/reference/sample-field-smp01-adopted.webp", text)  # 素材.yaml の SMP-01 専用
         self.assertIn("マスク=fields/masks/SMP-01-mask.webp", text)
+        self.assertIn("前面=fields/foreground/SMP-01-foreground.webp", text)  # 柱の前面レイヤー（#286）
+        self.assertLess(text.index("前面="), text.index("戦闘背景="))
+        self.assertIn("title: 時の最果て\n", text)  # 表示名に括弧書きを出さない（#286）
+        self.assertIn("## sample_field: 時の最果て\n", text)
+        self.assertNotIn("サンプル専用）", text)
         self.assertNotIn("[トリガー", text)  # 歩くだけ。NPC・マップ端の切り替えも無い
         self.assertNotIn("[NPC", text)
         self.assertIn("サンプル専用・暫定", self.out("play/README.md"))
@@ -531,6 +536,28 @@ class SampleField(FieldMdCase):
         x, y = map(int, sample["position"][1:].split(","))
         mask = Image.open(REAL / "assets/images" / sample["mask"]).convert("L")
         self.assertGreater(mask.getpixel((x, y)), 128)  # 白=歩行可
+
+    def test_pillars_blocked_only_at_foot_and_foreground_covers_back(self):
+        """柱の裏は歩け、足元の矩形は歩けず、足場の外は歩けない。前面レイヤーは柱の足元の奥の辺より上だけ不透明（#286）。"""
+        try:
+            from PIL import Image
+        except ImportError:
+            self.skipTest("Pillow が無い（uv run --with pillow python3 -m unittest で実行すると検査される）")
+        mask = Image.open(REAL / "assets/images/fields/masks/SMP-01-mask.webp").convert("L")
+        fg = Image.open(REAL / "assets/images/fields/foreground/SMP-01-foreground.webp")
+        self.assertEqual(fg.mode, "RGBA")
+        self.assertEqual(fg.size, mask.size)
+        alpha = fg.getchannel("A")
+        # 柱 c3（左・中段）: 足元の矩形は画像上 x406〜470・y437〜478。奥の辺は y437
+        self.assertEqual(mask.getpixel((438, 458)), 0)  # 足元の矩形の中は不可
+        self.assertGreater(mask.getpixel((438, 420)), 128)  # 柱の裏（奥の辺のすぐ上）は可
+        self.assertGreater(mask.getpixel((438, 495)), 128)  # 柱の手前も可
+        self.assertEqual(mask.getpixel((438, 488)), 0)  # 柱の台座（円形の土台）の下端まで不可。台座の手前縁に立てない
+        self.assertGreater(mask.getpixel((438, 493)), 128)
+        self.assertEqual(mask.getpixel((100, 400)), 0)  # 足場の外（虚空）は不可
+        self.assertGreater(alpha.getpixel((438, 380)), 0)  # 柱の裏に立つ人物の体の位置は前面に覆われる
+        self.assertEqual(alpha.getpixel((438, 458)), 0)  # 柱の足元より下は前面ではない（手前に立つ人物を隠さない）
+        self.assertEqual(alpha.getpixel((838, 700)), 0)  # 足場の中央は透明
 
 
 class ResumeSaves(FieldMdCase):

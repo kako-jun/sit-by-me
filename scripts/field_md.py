@@ -192,6 +192,12 @@ def sample_map(records):
         raise SystemExit(f"サンプルMAP: {source} の採用済み背景(基準) と -mask.webp のマスクは1件ずつ必要（{len(backgrounds)}/{len(masks)}）")
     prefix = "assets/images/"
     paths = {"背景": backgrounds[0]["パス"], "マスク": masks[0]["パス"]}
+    # 前面レイヤー（name-name の `前面=`、#866。主人公より手前に重ねる透過画像。柱の裏を歩ける場面だけ。0件か1件、Issue #286）
+    foregrounds = [a for a in assets if a["所有者ID"] == source and a["種別"] == "前面" and a["状態"] == "採用"]
+    if len(foregrounds) > 1:
+        raise SystemExit(f"サンプルMAP: {source} の採用済みの前面は1件まで（{len(foregrounds)}）")
+    if foregrounds:
+        paths["前面"] = foregrounds[0]["パス"]
     for kind, path in paths.items():
         if not path.startswith(prefix) or not (ROOT / path).is_file():
             raise SystemExit(f"サンプルMAP: {kind} の画像が実在しません: {path}")
@@ -225,6 +231,7 @@ def sample_map(records):
     encounter = row["エンカウント"] == "あり"
     return {
         "title": row["名称"], "background": paths["背景"][len(prefix):], "mask": paths["マスク"][len(prefix):], "battle": battle,
+        "foreground": paths["前面"][len(prefix):] if "前面" in paths else "",
         "entry_from": entry_from, "position": position, "encounter": encounter, "source": source, "own": own,
     }
 
@@ -265,7 +272,8 @@ def render_sample_field(sample):
             "エンカウントの率・群・敵の数値は仮（数値の正本は #237）。出現位置は" + ("再開点 sample_field_walk の位置" if own else "サンプルへ入る側のイベントの出現位置"))
     lines = [f"## {SAMPLE_SCENE}: {sample['title']}", ""]
     battle = f" 戦闘背景={sample['battle']}" if sample["battle"] else ""
-    lines.append(f"[フィールドマップ 背景={sample['background']} マスク={sample['mask']}{battle}]")
+    foreground = f" 前面={sample['foreground']}" if sample["foreground"] else ""
+    lines.append(f"[フィールドマップ 背景={sample['background']} マスク={sample['mask']}{foreground}{battle}]")
     if sample["encounter"]:
         lines.append(f"[エンカウント率: {SAMPLE_ENCOUNTER_RATE}]")
         lines.append(f"[エンカウント群: {', '.join(SAMPLE_ENCOUNTER_GROUPS)}]")
