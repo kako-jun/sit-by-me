@@ -389,4 +389,4 @@ M003は左右龍の共通意匠ID、戦闘はM015/M016のみ。左右3層案・S
 
 - 主人公(男) C001 の呼称を旧呼称から「オットン」に変更する（kako-jun の名称変更の指示と「旧表記をぜろにしたい」の指示。逐語は出典の引用コメントにある。出典: https://github.com/kako-jun/sit-by-me/issues/206#issuecomment-6571392665）。
 - 人物ID C001・旧接頭辞 otton・画像ファイル名・牌「東（トン）」は変えない。
-- リポのファイルから旧呼称を全て置換した。例外は、GitHub Issue/コメント本文を逐語で写した台帳（`docs/ledger/Issue出典.yaml` の本文ミラーと本文ハッシュ、`docs/ledger/Issue命題.yaml` の原文抜粋）で、出典検査（`scripts/verify_domain_ledger.py`、`scripts/audit_issue_decisions.rb --check-sources`）が Issue 本文との一致を要求するため、置換せず保留している。
+- リポのファイルから旧呼称を全て置換した。例外は、GitHub Issue/コメント本文を逐語で写した台帳（`docs/ledger/Issue出典.yaml` の本文ミラーと本文ハッシュ、`docs/ledger/Issue命題.yaml` の原文抜粋）で、出典検査（`scripts/verify_domain_ledger.py`、`scripts/audit_issue_decisions.py --check-sources`）が Issue 本文との一致を要求するため、置換せず保留している。

@@ -349,7 +349,7 @@ class FormsManifest(unittest.TestCase):
 
     def test_snapshot(self):
         doc = json.loads(field_md.forms_manifest(self.LISTING))
-        self.assertEqual(doc["_provenance"]["input_sha"], field_md.provenance_sha(doc))  # verify_ledger.rb が要求する印
+        self.assertEqual(doc["_provenance"]["input_sha"], field_md.provenance_sha(doc))  # verify_ledger.py が要求する印
         self.assertEqual(doc, {
             "_provenance": doc["_provenance"],
             field_md.FORMS_GENERATED_KEY: doc[field_md.FORMS_GENERATED_KEY],

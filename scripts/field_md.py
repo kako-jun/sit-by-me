@@ -440,7 +440,7 @@ def resume_rows():
 
 
 def provenance_sha(doc):
-    """JSON 生成物の入力ハッシュ = `_provenance` を除いた本体の正規化 JSON の sha256。verify_ledger.rb が
+    """JSON 生成物の入力ハッシュ = `_provenance` を除いた本体の正規化 JSON の sha256。verify_ledger.py が
     最上位の `_provenance.input_sha` と生成物表の入力ハッシュの一致を要求するため、本体から導く（自己参照を避ける）。"""
     body = {k: v for k, v in doc.items() if k != "_provenance"}
     return hashlib.sha256(json.dumps(body, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()

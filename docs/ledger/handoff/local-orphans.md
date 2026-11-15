@@ -192,3 +192,5 @@
 8. md 設計書のうち表で表せる部分を生成ビュー化(`docs/views/`)。散文(story・art-direction・decisions の物語/美術の決定、map-topology の経緯節)は残し、決定IDからリンク。
 
 履歴(D・E の記録系)は消さず、INDEX の「履歴」節に集約して台帳の来歴列から参照する。
+
+> 追記（2026-11-15, #289）: この文書に出る `.rb` スクリプトは当時の名前。現在は同名の Python（`uv run python3 scripts/<名前>.py`）に移植済みで、`.rb` は無い。

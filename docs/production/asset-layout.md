@@ -2,7 +2,7 @@
 
 本制作の画像正本は `assets/images/`。配置変更は採用判定ではない。
 
-**置き場所の規則（パターン・種別・用途・許可リスト理由）の正本は台帳 [ファイル配置.yaml](../ledger/ファイル配置.yaml)**（検査は `scripts/verify_asset_layout.py`（画像ID規則）と `scripts/verify_index_reachable.rb`（全ファイルが配置規則に一致・INDEX から到達））。下の表は人向けの解説で、パターンは配置IDで表を引く。全体の入口は [INDEX](../INDEX.md)。
+**置き場所の規則（パターン・種別・用途・許可リスト理由）の正本は台帳 [ファイル配置.yaml](../ledger/ファイル配置.yaml)**（検査は `scripts/verify_asset_layout.py`（画像ID規則）と `scripts/verify_index_reachable.py`（全ファイルが配置規則に一致・INDEX から到達））。下の表は人向けの解説で、パターンは配置IDで表を引く。全体の入口は [INDEX](../INDEX.md)。
 
 ## 保存運用（#68決定、2026-10-19）
 
@@ -69,4 +69,4 @@ M001の旧640px透過画像は移動で品質再承認しない。今後の再�
 
 削除した147ファイルは再作成必須の背景44、対応するrebuild専用mask/config82、pre-sync重複10、失敗または更新中の未審査戦闘候補11。未審査候補の削除理由を画素不合格と捏造しない。削除でワークツリーから約203.3MiBを除去するが、Git履歴には復元可能な原本が残る。
 
-検証は `uv run python3 scripts/verify_asset_layout.py` と `ruby scripts/verify_map_ledger.rb`。画像byte hash、全移動先一意性、ID形式、旧path消失を確認する。実HTTPの画像読込は `uv run python3 -m unittest discover -s tests -v` で確認する。配信rootはリポジトリrootのまま。
+検証は `uv run python3 scripts/verify_asset_layout.py` と `uv run python3 scripts/verify_map_ledger.py`。画像byte hash、全移動先一意性、ID形式、旧path消失を確認する。実HTTPの画像読込は `uv run python3 -m unittest discover -s tests -v` で確認する。配信rootはリポジトリrootのまま。

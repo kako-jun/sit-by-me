@@ -13,7 +13,7 @@ import json
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-# LEDGER_ROOT でリポジトリ root を差し替えられる（テストの fixture 用。Ruby 側 ledger_yaml.rb と同じ環境変数）
+# LEDGER_ROOT でリポジトリ root を差し替えられる（テストの fixture 用。scripts/ledger_yaml.py と同じ環境変数）
 REPO = os.environ.get("LEDGER_ROOT") or os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 LEDGER = os.path.join(REPO, "docs", "ledger")
 BUILDER_VERSION = "ledger-build/1"
@@ -51,7 +51,7 @@ SCHEMA = {
     "必須キー": ["対象テーブル", "キー", "必須度", "条件", "語彙グループ", "説明"],
     "未決": ["未決ID", "対象テーブル", "対象ID", "キー", "内容", "状態", "解決決定ID"],
     "キー別名": ["正規名", "別名", "対象テーブル", "説明"],
-    # Issue点検: GitHub の Issue 本文・コメントのうち『kako-jun の決定』と読める候補と、決定表との突合結果（audit_issue_decisions.rb が更新）
+    # Issue点検: GitHub の Issue 本文・コメントのうち『kako-jun の決定』と読める候補と、決定表との突合結果（audit_issue_decisions.py が更新）
     # 分類: 決定表に反映済み（決定IDが要る）／未反映(要取込み)／決定でない／対象外
     "Issue点検": ["Issue番号", "コメントURL", "候補の要約", "分類", "決定ID", "備考"],
     # ファイル配置: パターンは repo root からの相対パス（/ 区切り）に fullmatch する正規表現。{MAP_ID} は MAP ID の正規表現に展開する
@@ -142,7 +142,7 @@ TABLE_DOC = {
     "必須キー": "対象テーブルごとの必須キー定義。",
     "未決": "未決（要確認）の一覧。",
     "キー別名": "列名・キー名の別名と正規名。",
-    "Issue点検": "Issue の決定候補と決定表の突合結果（audit_issue_decisions.rb が更新。分類=決定表に反映済み／未反映(要取込み)／決定でない／対象外）。",
+    "Issue点検": "Issue の決定候補と決定表の突合結果（audit_issue_decisions.py が更新。分類=決定表に反映済み／未反映(要取込み)／決定でない／対象外）。",
     "描画定数": "斜めツール（oblique_mock.py・oblique_topology.py）の寸法・視点・幅クラス・窓種別・台座の飾りの位置。コードはここを読む。",
     "戦闘背景": "戦闘背景の台帳（1行=1枚）。参照MAP・使う戦闘・カメラを持つ。エリア固定は継承。",
     "プロンプト文面": "imagegen 用プロンプト・接続表・窓一覧・接続図に出る文面（{名前}=変数の差し込み口）。コードは oblique_text.text で読み、文面を直接持たない。",
@@ -223,7 +223,7 @@ def _str(v):
 QUOTED_STYLES = ('"', "'", "|", ">")
 
 
-def _check_syntax(table, text):
+def check_syntax(table, text):
     """YAML の構文木で検査する: 全スカラー（キーも値も）は引用符つきか block scalar（未引用だと no/yes/null/2026-10-21 などが
     型変換される）、同じ行（辞書）に同じキーを2回書かない（yaml.safe_load は後勝ちで黙って上書きする）。"""
     import yaml
@@ -249,7 +249,7 @@ def _check_syntax(table, text):
 
 
 def parse(table, text):
-    node = _check_syntax(table, text)
+    node = check_syntax(table, text)
     if node is None:
         return []
     cols = SCHEMA.get(table, [])
@@ -320,10 +320,3 @@ def en(d, v):
 def split_list(s):
     return [x for x in (s or "").split(";") if x]
 
-
-if __name__ == "__main__":
-    import sys
-    if sys.argv[1:] == ["schema"]:  # Ruby 側の検査（verify_ledger.rb）が表定義を読む口
-        print(json.dumps(SCHEMA, ensure_ascii=False))
-    else:
-        sys.exit("usage: ledger_io.py schema")

@@ -1,6 +1,6 @@
 """標準入力の JSON（行の配列）を台帳の1表として書く（YAML の書き出しは Python の ledger_io だけが行う）。
   echo '[{...}]' | uv run python3 ledger_write_rows.py TABLE
-audit_issue_decisions.rb --write が使う。root は LEDGER_ROOT で差し替え可。
+audit_issue_decisions.py --write が使う。root は LEDGER_ROOT で差し替え可。
 """
 import json
 import os

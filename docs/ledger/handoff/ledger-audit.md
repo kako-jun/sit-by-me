@@ -144,3 +144,5 @@ manifest.json:   "ledger": {"row_id","decision_hashes":{"TRM-05.floor":"sha8"}}(
 1. 決定の置き場: MAP制作の決定を `map-specifications.md` の「決定ブロック」に集約し、decisions.md(物語・美術)にはリンクだけにする。推奨: はい(MAP別のため、既存の spec 行と同じ場所で読める)。代案=新規 `docs/map-decisions.md`(spec が肥大するのを避ける)。
 2. `legacy` status の廃止(map-asset-registry.md が既に「要確認・kako-jun判断待ち」と明記)と candidates.md の統合/廃止。推奨: candidates.md は成果物リンク列に統合して廃止、legacy は寺町以外が上書きで置き換わった時点で消す。
 3. edit-prompt への台帳取り込みの強さ: 決定ブロックを status 非依存で必ず prompt に含める(推奨)か、ready の MAP だけにするか。推奨は前者(今回の漏れは status が ready でなくても prompt が作られたから起きた)。
+
+> 追記（2026-11-15, #289）: この文書に出る `.rb` スクリプトは当時の名前。現在は同名の Python（`uv run python3 scripts/<名前>.py`）に移植済みで、`.rb` は無い。

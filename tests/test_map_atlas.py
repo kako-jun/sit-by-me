@@ -4,7 +4,7 @@ import json
 import subprocess
 import unittest
 import xml.etree.ElementTree as ET
-from tests.ledger_test_support import environment
+from tests.ledger_test_support import PY, environment
 
 from tests import test_map_topology as topology_tests
 
@@ -28,7 +28,7 @@ class MapAtlasTests(topology_tests.MapTopologyFixture):
 
     def render(self):
         self.refresh_source_views()
-        result = subprocess.run(["ruby", str(topology_tests.ROOT / "scripts/render_map_atlas.rb")], cwd=self.root,
+        result = subprocess.run([PY, str(topology_tests.ROOT / "scripts/render_map_atlas.py")], cwd=self.root,
                                 env=environment(self.root), capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
 

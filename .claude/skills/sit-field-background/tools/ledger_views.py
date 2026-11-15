@@ -1,7 +1,7 @@
 """人が読む md ビュー（docs/ledger-views/*.md）を台帳（docs/ledger/*.yaml）から生成・鮮度検査する。
 
   uv run python3 ledger_views.py build   # docs/ledger-views/*.md を書き直す（余計な .md は消さずエラーにする）
-  uv run python3 ledger_views.py check   # 台帳から再生成した内容と一致しなければ exit 1（verify_ledger.rb が実行）
+  uv run python3 ledger_views.py check   # 台帳から再生成した内容と一致しなければ exit 1（verify_ledger.py が実行）
 
 ビューは MAP・建物・決定・未決・採用要素・接続の6つ。手編集禁止（直すのは台帳。編集しても check が失敗する）。
 root は環境変数 LEDGER_ROOT で差し替えられる（テスト用）。
@@ -28,7 +28,7 @@ def table(header, rows):
 def head(title, table_names, note=""):
     srcs = "・".join(f"`{t}.yaml`" for t in table_names)
     lines = [f"# {title}", "",
-             f"> **生成ビュー（手編集禁止）**。生成元: {srcs}（`docs/ledger/`）。直すのは台帳。再生成: `{CMD} build`（リポ直下）。鮮度検査: `{CMD} check`（`ruby scripts/verify_ledger.rb` に含まれる）。"]
+             f"> **生成ビュー（手編集禁止）**。生成元: {srcs}（`docs/ledger/`）。直すのは台帳。再生成: `{CMD} build`（リポ直下）。鮮度検査: `{CMD} check`（`uv run python3 scripts/verify_ledger.py` に含まれる）。"]
     if note:
         lines.append(f"> {note}")
     return lines + [""]

@@ -103,3 +103,5 @@ Issue #156（https://github.com/kako-jun/sit-by-me/issues/156）が正本。要�
 - **画像生成は停止中**。再開は台帳整理の完了＋kako-jun の指示後。生成画像は Claude は見ない（kako-jun が見る）。
 - Issue にだけ書かない: 決定は先に `決定.yaml`、Issue は決定IDを参照。
 - worktree/ブランチ: 本作業 `sit-by-me-wt-ledger-master`（ローカルの作業ツリー）（ledger-master-phase1-20261023）。他: `sit-by-me-wt-oblique`（oblique-mask-tools-20261023。別担当）、`sit-by-me-wt-teramachi-rest`（teramachi-rest-mocks-20261023。読むだけ）、`sit-by-me`（本体）。git stash 禁止。コミットに Co-Authored-By を付けない。
+
+> 追記（2026-11-15, #289）: この文書に出る `.rb` スクリプトは当時の名前。現在は同名の Python（`uv run python3 scripts/<名前>.py`）に移植済みで、`.rb` は無い。

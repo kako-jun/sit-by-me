@@ -122,7 +122,7 @@ def verify(root):
         for path in sorted((root / directory).rglob('*')):
             relative = path.relative_to(root).as_posix()
             if not path.is_file() or relative.startswith(SKIP_PREFIXES) or path.suffix not in {
-                    '.md', '.json', '.rb', '.py', '.csv', '.yaml'}:
+                    '.md', '.json', '.py', '.csv', '.yaml'}:
                 continue
             text = path.read_text(encoding='utf-8')
             # BGMスロットは別体系のE01等を使う。台帳移行後の表は docs/ledger/BGM*.yaml にある
