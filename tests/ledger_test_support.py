@@ -19,8 +19,7 @@ def row(table, **values):
 
 
 def environment(root):
-    return {**os.environ, "LEDGER_ROOT": str(root), "BODY_DOCS_ROOT": str(root),
-            "PATH": "/opt/homebrew/opt/ruby/bin:" + os.environ.get("PATH", "")}
+    return {**os.environ, "LEDGER_ROOT": str(root), "BODY_DOCS_ROOT": str(root)}
 
 
 class YamlFixture(unittest.TestCase):
@@ -52,3 +51,7 @@ class YamlFixture(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
         for diagnostic in diagnostics:
             self.assertIn(diagnostic, result.stdout + result.stderr)
+
+
+# 検証・描画スクリプト（scripts/*.py）を起動する Python（テストを動かしているものと同じ）
+PY = sys.executable

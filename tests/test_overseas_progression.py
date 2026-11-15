@@ -5,13 +5,14 @@ import json
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 import tempfile
 import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = "docs/topology/overseas-progression.json"
-SCRIPT = "scripts/verify_overseas_progression.rb"
+SCRIPT = "scripts/verify_overseas_progression.py"
 
 
 class OverseasProgressionTests(unittest.TestCase):
@@ -25,7 +26,7 @@ class OverseasProgressionTests(unittest.TestCase):
         self.contract = json.loads(self.path.read_text())
 
     def cli(self):
-        return subprocess.run(["ruby", SCRIPT], cwd=self.root,
+        return subprocess.run([sys.executable, SCRIPT], cwd=self.root,
                               text=True, capture_output=True)
 
     def reject(self, mutate):
@@ -42,22 +43,25 @@ class OverseasProgressionTests(unittest.TestCase):
     def run_routes(self, routes):
         # Call the production design evaluator. No test-side transition engine.
         code = """
-c = OverseasProgression.load(ARGV[0])
-traces = JSON.parse(STDIN.read).map do |events|
-  state = c.fetch('initial'); trace = []
-  events.each do |event|
-    before = Marshal.load(Marshal.dump(state))
-    candidate = OverseasProgression.step(c, state, event)
-    raise 'input mutated' unless before == state
-    state = candidate if candidate
-    trace << {'event'=>event, 'accepted'=>!candidate.nil?, 'state'=>state}
-  end
-  trace
-end
-puts JSON.generate(traces)
+import copy, json, sys
+sys.path.insert(0, sys.argv[2])
+import verify_overseas_progression as O
+c = O.load(sys.argv[1])
+traces = []
+for events in json.loads(sys.stdin.read()):
+    state = c["initial"]
+    trace = []
+    for event in events:
+        before = copy.deepcopy(state)
+        candidate = O.step(c, state, event)
+        assert before == state, "input mutated"
+        if candidate:
+            state = candidate
+        trace.append({"event": event, "accepted": candidate is not None, "state": state})
+    traces.append(trace)
+print(json.dumps(traces))
 """
-        result = subprocess.run(["ruby", "-r", str(self.root / SCRIPT), "-e", code,
-                                 str(self.path)], cwd=self.root, input=json.dumps(routes),
+        result = subprocess.run([sys.executable, "-c", code, str(self.path), str(self.root / "scripts")], cwd=self.root, input=json.dumps(routes),
                                 text=True, capture_output=True)
         self.assertEqual(result.returncode, 0, result.stderr)
         return json.loads(result.stdout)

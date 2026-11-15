@@ -2,7 +2,7 @@
 import json
 import subprocess
 
-from tests.ledger_test_support import ROOT, L, YamlFixture, environment, row
+from tests.ledger_test_support import ROOT, L, YamlFixture, PY, environment, row
 
 
 class DomainLedgerTests(YamlFixture):
@@ -103,13 +103,13 @@ class EndpointMandatoryGateTests(YamlFixture):
         self.mutate("端", change)
 
     def gate(self):
-        return subprocess.run(["ruby", str(ROOT / "scripts/ledger_required_keys.rb"), "TRM-03"],
+        return subprocess.run([PY, str(ROOT / "scripts/ledger_required_keys.py"), "TRM-03"],
                               cwd=ROOT, env=environment(self.root), capture_output=True, text=True)
 
     def reflect_empty_prompt(self, gate):
         path = self.root / "prompt.json"
         path.write_text(json.dumps([{"map_id": "TRM-03", "gated": gate.stdout.splitlines(), "prompt": ""}]))
-        return subprocess.run(["ruby", str(ROOT / "scripts/verify_prompt_reflects_ledger.rb"),
+        return subprocess.run([PY, str(ROOT / "scripts/verify_prompt_reflects_ledger.py"),
                                "--from-json", str(path), "--maps", "TRM-03"],
                               cwd=ROOT, env=environment(self.root), capture_output=True, text=True)
 

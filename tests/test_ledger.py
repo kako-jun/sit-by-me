@@ -1,6 +1,6 @@
 """台帳（docs/ledger）・INDEX・ファイル配置表の検証が、壊れた fixture で実際に失敗することを確認する。
 
-root は環境変数 LEDGER_ROOT で差し替える（verify_index_reachable.rb・ledger_index.py・ledger_yaml.rb・ledger_io.py 共通の方針）。
+root は環境変数 LEDGER_ROOT で差し替える（verify_index_reachable.py・ledger_index.py・ledger_yaml.py・ledger_io.py 共通の方針）。
 実行: uv run python3 -m unittest tests.test_ledger  （または discover -s tests）
 """
 import json
@@ -19,7 +19,7 @@ TOOLS = ROOT / ".claude/skills/sit-field-background/tools"
 sys.path.insert(0, str(TOOLS))
 import ledger_io  # noqa: E402  (テストでは表のテキスト生成 dumps だけを使う)
 
-RUBY = next((p for p in ("/opt/homebrew/opt/ruby/bin/ruby", shutil.which("ruby")) if p and os.path.exists(p)), "ruby")
+PY = sys.executable
 LAYOUT_COLS = ledger_io.SCHEMA["ファイル配置"]
 
 
@@ -83,7 +83,7 @@ class Fixture(unittest.TestCase):
                               capture_output=True, text=True, cwd=ROOT)
 
     def reachable(self):
-        return subprocess.run([RUBY, str(ROOT / "scripts/verify_index_reachable.rb")], env=env_for(self.root),
+        return subprocess.run([PY, str(ROOT / "scripts/verify_index_reachable.py")], env=env_for(self.root),
                               capture_output=True, text=True)
 
     def assertFails(self, result, *needles):
@@ -163,7 +163,7 @@ class IndexReachabilityTests(Fixture):
         self.assertFails(self.reachable(), "壊れたリンク")
 
     def test_real_repo_has_no_orphans(self):
-        r = subprocess.run([RUBY, str(ROOT / "scripts/verify_index_reachable.rb")], capture_output=True, text=True)
+        r = subprocess.run([PY, str(ROOT / "scripts/verify_index_reachable.py")], capture_output=True, text=True)
         self.assertEqual(r.returncode, 0, r.stderr)
 
 
@@ -244,7 +244,7 @@ class LedgerViewsTests(Fixture):
 
 
 class VerifyLedgerIntegrationTests(unittest.TestCase):
-    """実リポの台帳をコピーして verify_ledger.rb が新表の違反と古い INDEX を検出するか（他の検査の結果とは独立に、該当メッセージの有無を見る）。"""
+    """実リポの台帳をコピーして verify_ledger.py が新表の違反と古い INDEX を検出するか（他の検査の結果とは独立に、該当メッセージの有無を見る）。"""
 
     @classmethod
     def setUpClass(cls):
@@ -272,7 +272,7 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
 
     def verify(self):
         env = {**os.environ, "LEDGER_ROOT": str(self.work), "LEDGER_SKIP_REGEN": "1"}
-        return subprocess.run([RUBY, str(self.work / "scripts/verify_ledger.rb")], env=env, capture_output=True, text=True, cwd=self.work)
+        return subprocess.run([PY, str(self.work / "scripts/verify_ledger.py")], env=env, capture_output=True, text=True, cwd=self.work)
 
     def test_stale_index_is_reported(self):
         p = self.work / "docs/INDEX.md"
@@ -315,7 +315,7 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
         p.write_text(ledger_io.dumps("生成物", rows), encoding="utf-8")
         self.assertIn("どの配置規則", self.verify().stderr)
 
-    # ---- Issue点検.yaml（verify_ledger.rb の外部キー・語彙・整合）
+    # ---- Issue点検.yaml（verify_ledger.py の外部キー・語彙・整合）
     def mutate(self, **changes):
         p = self.work / "docs/ledger/Issue点検.yaml"
         rows = ledger_io.parse("Issue点検", p.read_text(encoding="utf-8"))
@@ -359,7 +359,7 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
         self.edit_table("決定", mut)
         self.assertIn("ledger-views/ の生成ビューが古い", self.verify().stderr)
 
-    # ---- 描画定数・プロンプト文面（コードの直書きを台帳へ移した表。コードとの対応を verify_ledger.rb が見る）
+    # ---- 描画定数・プロンプト文面（コードの直書きを台帳へ移した表。コードとの対応を verify_ledger.py が見る）
     def edit_table(self, table, fn):
         p = self.work / f"docs/ledger/{table}.yaml"
         rows = ledger_io.parse(table, p.read_text(encoding="utf-8"))
@@ -505,7 +505,7 @@ class VerifyLedgerIntegrationTests(unittest.TestCase):
 
 
 class LegacyMdReaderTests(unittest.TestCase):
-    """旧 md を読む scripts は見出し行の列名で読む（md_table.rb）。列の並び替えで壊れず、台帳管理のMAPは台帳で止まる。"""
+    """旧 md を読む scripts は見出し行の列名で読む（md_table.py）。列の並び替えで壊れず、台帳管理のMAPは台帳で止まる。"""
 
     CHECKLIST = """| ID | 状態 | Ref | mask / 出力 | 具体的TBD |
 |---|---|---|---|---|
@@ -537,8 +537,8 @@ class LegacyMdReaderTests(unittest.TestCase):
 """
     TOPO_REORDERED = TOPO.replace("| From | To | 種別 | 主路・状態 |", "| From | To | 主路・状態 | 種別 |").replace("| edge | 北へ |", "| 北へ | edge |").replace("| edge | 東へ |", "| 東へ | edge |")
 
-    def run_ruby(self, root, *args):
-        return subprocess.run([RUBY, str(root / "scripts/build_map_prompt.rb"), *args], capture_output=True, text=True)
+    def run_script(self, root, *args):
+        return subprocess.run([PY, str(root / "scripts/build_map_prompt.py"), *args], capture_output=True, text=True)
 
     def make_root(self, checklist, spec, topo):
         tmp = tempfile.TemporaryDirectory()
@@ -546,9 +546,9 @@ class LegacyMdReaderTests(unittest.TestCase):
         root = Path(tmp.name)
         (root / "scripts").mkdir()
         (root / "docs/ledger").mkdir(parents=True)
-        for f in ("build_map_prompt.rb", "md_table.rb", "ledger_yaml.rb"):
+        for f in ("build_map_prompt.py", "md_table.py", "ledger_yaml.py"):
             shutil.copy(ROOT / "scripts" / f, root / "scripts" / f)
-        # ledger_yaml.rb は表定義(SCHEMA)を ledger_io.py schema から読む
+        # ledger_yaml.py は表定義(SCHEMA)と構文検査を ledger_io.py から import する
         tools = root / ".claude/skills/sit-field-background/tools"
         tools.mkdir(parents=True)
         shutil.copy(ROOT / ".claude/skills/sit-field-background/tools/ledger_io.py", tools / "ledger_io.py")
@@ -560,8 +560,8 @@ class LegacyMdReaderTests(unittest.TestCase):
         return root
 
     def test_prompt_is_the_same_when_columns_are_reordered(self):
-        a = self.run_ruby(self.make_root(self.CHECKLIST, self.SPEC, self.TOPO), "KRB-01")
-        b = self.run_ruby(self.make_root(self.CHECKLIST_REORDERED, self.SPEC_REORDERED, self.TOPO_REORDERED), "KRB-01")
+        a = self.run_script(self.make_root(self.CHECKLIST, self.SPEC, self.TOPO), "KRB-01")
+        b = self.run_script(self.make_root(self.CHECKLIST_REORDERED, self.SPEC_REORDERED, self.TOPO_REORDERED), "KRB-01")
         self.assertEqual(a.returncode, 0, a.stderr)
         self.assertIn("Subject / unique landmark: 交差点", a.stdout)
         self.assertIn("KRB-01.top / KRB-11.bottom / edge; KRB-01.right / KRB-12.left / edge", a.stdout)
@@ -570,7 +570,7 @@ class LegacyMdReaderTests(unittest.TestCase):
     def test_ledger_root_redirects_where_the_md_files_are_read_from(self):
         # スクリプトを複製せず本物の scripts/ を使い、LEDGER_ROOT だけで md の読み先（docs/*.md）を差し替える
         root = self.make_root(self.CHECKLIST, self.SPEC, self.TOPO)
-        r = subprocess.run([RUBY, str(ROOT / "scripts/build_map_prompt.rb"), "KRB-01"], env=env_for(root), capture_output=True, text=True)
+        r = subprocess.run([PY, str(ROOT / "scripts/build_map_prompt.py"), "KRB-01"], env=env_for(root), capture_output=True, text=True)
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertIn("Subject / unique landmark: 交差点", r.stdout)  # fixture の md の内容（本物の docs には無い）
 
@@ -580,13 +580,13 @@ class LegacyMdReaderTests(unittest.TestCase):
         # that check a valid empty registry, then require the missing topology
         # registry diagnostic to name this isolated root.
         (root / "docs/ledger/文書ビュー.yaml").write_text(ledger_io.dumps("文書ビュー", []), encoding="utf-8")
-        r = subprocess.run([RUBY, str(ROOT / "scripts/verify_map_ledger.rb")], env=env_for(root), capture_output=True, text=True)
+        r = subprocess.run([PY, str(ROOT / "scripts/verify_map_ledger.py")], env=env_for(root), capture_output=True, text=True)
         self.assertNotEqual(r.returncode, 0)
         self.assertIn(str(root), r.stderr)  # fixture に無い docs/topology/map-ids.json を fixture の root から読もうとして失敗する（本物の docs を読まない）
 
     def test_blocked_status_still_blocks(self):
         root = self.make_root(self.CHECKLIST.replace("ready", "blocked"), self.SPEC, self.TOPO)
-        r = self.run_ruby(root, "KRB-01")
+        r = self.run_script(root, "KRB-01")
         self.assertNotEqual(r.returncode, 0)
         self.assertIn("prompt generation is blocked", r.stderr)
 
@@ -594,7 +594,7 @@ class LegacyMdReaderTests(unittest.TestCase):
         root = self.make_root(self.CHECKLIST, self.SPEC, self.TOPO)
         shutil.copy(ROOT / "docs/ledger/MAP.yaml", root / "docs/ledger/MAP.yaml")
         shutil.copy(ROOT / "docs/ledger/未決.yaml", root / "docs/ledger/未決.yaml")
-        r = self.run_ruby(root, "TRM-04")
+        r = self.run_script(root, "TRM-04")
         self.assertNotEqual(r.returncode, 0)
         self.assertIn("managed by the ledger", r.stderr)
         self.assertIn("U-042", r.stderr)  # TRM-04.dais の未決
@@ -620,7 +620,7 @@ class OperationRulesPresentTests(unittest.TestCase):
 
 
 class PromptReflectionTests(unittest.TestCase):
-    """verify_prompt_reflects_ledger.rb が、過去に漏れた事例（畳・化石の石・-fire の勝手口・火事版の上半分・渡り廊下の窓列）や
+    """verify_prompt_reflects_ledger.py が、過去に漏れた事例（畳・化石の石・-fire の勝手口・火事版の上半分・渡り廊下の窓列）や
     自由記述・継承要素の漏れを、壊した fixture で実際に検出するか。プロンプトは fixture 内のツールで導出する（画像生成はしない）。"""
 
     @classmethod
@@ -635,7 +635,7 @@ class PromptReflectionTests(unittest.TestCase):
         oblique.mkdir(parents=True)
         for f in (ROOT / "docs/production/oblique-mocks").glob("*.json"):
             shutil.copy(f, oblique / f.name)
-        # verify_prompt_reflects_ledger.rb は素材見本シート（material-swatch-sheet.webp）の存在を検査する（無いと『1件の漏れ』になり、自由記述の反映と無関係に失敗する）
+        # verify_prompt_reflects_ledger.py は素材見本シート（material-swatch-sheet.webp）の存在を検査する（無いと『1件の漏れ』になり、自由記述の反映と無関係に失敗する）
         shutil.copytree(ROOT / "docs/production/oblique-mocks/material-swatch", oblique / "material-swatch")
         for name in ("pyproject.toml", "uv.lock"):
             shutil.copy(ROOT / name, cls.base / name)
@@ -679,7 +679,7 @@ class PromptReflectionTests(unittest.TestCase):
 
     def verify(self, *args):
         env = {**os.environ, "LEDGER_ROOT": str(self.work), "LEDGER_PROBE_CMD": self.probe_cmd()}
-        return subprocess.run([RUBY, str(self.work / "scripts/verify_prompt_reflects_ledger.rb"), *args], env=env, capture_output=True, text=True, cwd=self.work)
+        return subprocess.run([PY, str(self.work / "scripts/verify_prompt_reflects_ledger.py"), *args], env=env, capture_output=True, text=True, cwd=self.work)
 
     def assertDetects(self, *needles):
         r = self.verify()
@@ -1055,7 +1055,7 @@ class E2RunMarkerTests(unittest.TestCase):
 
 
 class IssueAuditBase(unittest.TestCase):
-    """audit_issue_decisions.rb のテスト共通土台。audit_issue_decisions.rb: Issue の決定候補を決定表と突合して分類し、Issue点検.yaml の過不足を検出する（--from-json でオフライン）。"""
+    """audit_issue_decisions.py のテスト共通土台。audit_issue_decisions.py: Issue の決定候補を決定表と突合して分類し、Issue点検.yaml の過不足を検出する（--from-json でオフライン）。"""
 
     URL = "https://github.com/kako-jun/sit-by-me/issues"
 
@@ -1105,7 +1105,7 @@ class IssueAuditBase(unittest.TestCase):
     def audit(self, *args):
         j = self.work / "all.json"
         j.write_text(json.dumps(self.data, ensure_ascii=False), encoding="utf-8")
-        return subprocess.run([RUBY, str(self.work / "scripts/audit_issue_decisions.rb"), "--from-json", str(j), *args],
+        return subprocess.run([PY, str(self.work / "scripts/audit_issue_decisions.py"), "--from-json", str(j), *args],
                               env=env_for(self.work), capture_output=True, text=True, cwd=self.work)
 
     def table(self):
@@ -1191,7 +1191,7 @@ class LedgerCopyBase(unittest.TestCase):
         oblique.mkdir(parents=True)
         for f in (ROOT / "docs/production/oblique-mocks").glob("*.json"):
             shutil.copy(f, oblique / f.name)
-        # verify_prompt_reflects_ledger.rb は素材見本シート（material-swatch-sheet.webp）の存在を検査する（無いと『1件の漏れ』になり、自由記述の反映と無関係に失敗する）
+        # verify_prompt_reflects_ledger.py は素材見本シート（material-swatch-sheet.webp）の存在を検査する（無いと『1件の漏れ』になり、自由記述の反映と無関係に失敗する）
         shutil.copytree(ROOT / "docs/production/oblique-mocks/material-swatch", oblique / "material-swatch")
         for name in ("pyproject.toml", "uv.lock"):
             shutil.copy(ROOT / name, cls.base / name)
@@ -1243,7 +1243,7 @@ class LedgerCopyBase(unittest.TestCase):
         p.write_text(text[:j] + new + text[j + len(old):], encoding="utf-8")
 
     def verify_ledger(self):
-        return subprocess.run([RUBY, str(self.work / "scripts/verify_ledger.rb")], env=self.env(LEDGER_SKIP_REGEN="1"), capture_output=True, text=True, cwd=self.work)
+        return subprocess.run([PY, str(self.work / "scripts/verify_ledger.py")], env=self.env(LEDGER_SKIP_REGEN="1"), capture_output=True, text=True, cwd=self.work)
 
     def probe_cmd(self):
         probe = shlex.quote(str(self.work / ".claude/skills/sit-field-background/tools/oblique_prompt_probe.py"))
@@ -1254,7 +1254,7 @@ class LedgerCopyBase(unittest.TestCase):
             return f"uv run --project {shlex.quote(str(self.work))} --with numpy --with opencv-python-headless --with pillow python3 {probe}"
 
     def verify_prompt(self, *args):
-        return subprocess.run([RUBY, str(self.work / "scripts/verify_prompt_reflects_ledger.rb"), *args], env=self.env(LEDGER_PROBE_CMD=self.probe_cmd()),
+        return subprocess.run([PY, str(self.work / "scripts/verify_prompt_reflects_ledger.py"), *args], env=self.env(LEDGER_PROBE_CMD=self.probe_cmd()),
                               capture_output=True, text=True, cwd=self.work)
 
     def py(self, script, *args):
@@ -1268,7 +1268,7 @@ class LedgerCopyBase(unittest.TestCase):
 
 
 class MissingKeysGateTests(LedgerCopyBase):
-    """ledger_query.missing_keys は、Ruby の検査器が例外で落ちたときに『欠落なし』と読んでゲートを開けてはならない（閉じる側）。"""
+    """ledger_query.missing_keys は、必須キーの検査器が例外で落ちたときに『欠落なし』と読んでゲートを開けてはならない（閉じる側）。"""
 
     def missing(self, map_id):
         code = "import ledger_query as Q, sys; r = Q.missing_keys(sys.argv[1]); print('MISSING:' + repr(r))"
@@ -1282,7 +1282,7 @@ class MissingKeysGateTests(LedgerCopyBase):
         self.assertIn("MISSING:[", r.stdout)
         self.assertNotIn("MISSING:[]", r.stdout)
 
-    def test_ruby_exception_stops_instead_of_opening_the_gate(self):
+    def test_required_keys_exception_stops_instead_of_opening_the_gate(self):
         # Corrupt a table the mandatory-key checker actually consumes. An
         # unrelated decision table is no longer read by this scoped checker.
         self.replace_text("MAP", '"MAP_ID": "TRM-02"', '"MAP_ID": TRM-02')
@@ -1292,12 +1292,12 @@ class MissingKeysGateTests(LedgerCopyBase):
         self.assertNotIn("MISSING:[]", r.stdout)
 
 
-class RubyCrashGateTests(LedgerCopyBase):
-    """台帳の内容と無関係に必須キー検査器(Ruby)が落ちた場合でも、生成ゲート・プロンプト導出が『欠落なし』として進まない。"""
+class RequiredKeysCrashGateTests(LedgerCopyBase):
+    """台帳の内容と無関係に必須キー検査器が落ちた場合でも、生成ゲート・プロンプト導出が『欠落なし』として進まない。"""
 
     def crash_checker(self):
-        p = self.work / "scripts/ledger_required_keys.rb"
-        p.write_text('raise "boom（テスト用の異常終了）"\n' + p.read_text(encoding="utf-8"), encoding="utf-8")
+        p = self.work / "scripts/ledger_required_keys.py"
+        p.write_text('raise RuntimeError("boom（テスト用の異常終了）")\n' + p.read_text(encoding="utf-8"), encoding="utf-8")
 
     def test_missing_keys_stops_when_the_checker_crashes(self):
         self.crash_checker()
@@ -1394,15 +1394,15 @@ class SchemaAndSyntaxTests(LedgerCopyBase):
         r = self.py("ledger_build.py", "check")
         self.assertFailsWith(r, "決定参考")
 
-    def test_ruby_reader_itself_rejects_a_misspelled_column(self):
-        # 軽微 a: verify_ledger を経由しない Ruby の読み手（LedgerYaml.read）も列を照合する。黙って空欄扱いにしない
+    def test_yaml_reader_itself_rejects_a_misspelled_column(self):
+        # 軽微 a: verify_ledger を経由しない scripts 側の読み手（ledger_yaml.read）も列を照合する。黙って空欄扱いにしない
         self.replace_in_row("端", self.ANCHOR, '"決定参照"', '"決定参考"')
-        r = subprocess.run([RUBY, "-e", "require './scripts/ledger_yaml'; LedgerYaml.read('端')"], env=self.env(), capture_output=True, text=True, cwd=self.work)
+        r = subprocess.run([PY, "-c", "import sys; sys.path.insert(0, 'scripts'); import ledger_yaml; ledger_yaml.read('端')"], env=self.env(), capture_output=True, text=True, cwd=self.work)
         self.assertNotEqual(r.returncode, 0)
         self.assertIn("表定義", r.stderr)
         self.assertIn("決定参考", r.stderr)
 
-    def test_unquoted_scalar_is_rejected_by_ruby_and_python(self):
+    def test_unquoted_scalar_is_rejected_by_yaml_readers(self):
         self.replace_in_row("端", self.ANCHOR, '"中心": "', '"中心": 841 #"')
         self.assertFailsWith(self.verify_ledger(), "引用符のないスカラー")
         self.assertFailsWith(self.py("ledger_build.py", "check"), "引用符のないスカラー")
@@ -1412,7 +1412,7 @@ class SchemaAndSyntaxTests(LedgerCopyBase):
         self.assertFailsWith(self.verify_ledger(), "引用符のないスカラー")
         self.assertFailsWith(self.py("ledger_build.py", "check"), "引用符のないスカラー")
 
-    def test_duplicate_key_is_rejected_by_ruby_and_python(self):
+    def test_duplicate_key_is_rejected_by_yaml_readers(self):
         self.replace_in_row("端", self.ANCHOR, '  "MAP_ID": "TRM-05"\n', '  "MAP_ID": "TRM-05"\n  "MAP_ID": "TRM-02"\n')
         self.assertFailsWith(self.verify_ledger(), "重複")
         self.assertFailsWith(self.py("ledger_build.py", "check"), "重複")
@@ -1422,7 +1422,7 @@ class RequiredKeysDefinitionTests(LedgerCopyBase):
     """必須キー表の壊れ方（未知の対象テーブル・行の削除・必須度の誤り・条件の列名の綴り間違い）で、検査が黙って無効にならない。"""
 
     def required(self, map_id="TRM-05"):
-        return subprocess.run([RUBY, str(self.work / "scripts/ledger_required_keys.rb"), map_id], env=self.env(), capture_output=True, text=True, cwd=self.work)
+        return subprocess.run([PY, str(self.work / "scripts/ledger_required_keys.py"), map_id], env=self.env(), capture_output=True, text=True, cwd=self.work)
 
     def test_clean_map_passes_the_gate(self):
         self.assertEqual(self.required().returncode, 0)
@@ -1456,7 +1456,7 @@ class RequiredKeysDefinitionTests(LedgerCopyBase):
 
 class FreeTextAllTablesTests(LedgerCopyBase):
     """特徴(自由記述)の欄がある全表（エリア・建物関係・建物時期差分・接続・素材 を含む）の記述が、プロンプトの FEATURES 節に出て、
-    出なくなったら verify_prompt_reflects_ledger.rb が検出する。"""
+    出なくなったら verify_prompt_reflects_ledger.py が検出する。"""
 
     CASES = [
         # (表, キー列, キー値, 検査するMAP, 目印)
@@ -1553,7 +1553,7 @@ class ConnectionEndpointExistsTests(LedgerCopyBase):
 
 
 class SourceQuoteTests(IssueAuditBase):
-    """audit_issue_decisions.rb --check-quotes: 決定.逐語の各引用が、出典URL（; 区切り複数）のどれかのコメント本文に実在する。
+    """audit_issue_decisions.py --check-quotes: 決定.逐語の各引用が、出典URL（; 区切り複数）のどれかのコメント本文に実在する。
     コメントは --from-json のキャッシュ JSON から読む（オフライン）。"""
 
     def setUp(self):
@@ -1647,7 +1647,7 @@ class SourceQuoteTests(IssueAuditBase):
         self.assertIn("D.b", r.stdout)
 
     def test_real_ledger_decisions_all_have_issue_source_urls(self):
-        # 実リポの決定表: 出典が Issue のものは全て Issue のコメント/本文の URL（; 区切り）で、出典の Issue 番号と一致する（verify_ledger.rb が検査）
+        # 実リポの決定表: 出典が Issue のものは全て Issue のコメント/本文の URL（; 区切り）で、出典の Issue 番号と一致する（verify_ledger.py が検査）
         rows = ledger_io.parse("決定", (ROOT / "docs/ledger/決定.yaml").read_text(encoding="utf-8"))
         for d in rows:
             if d["出典"].startswith("Issue"):
@@ -1658,7 +1658,7 @@ class SourceQuoteTests(IssueAuditBase):
 
 
 class DecisionSourceTests(LedgerCopyBase):
-    """決定の出典URL（; 区切り複数）の形式検査（verify_ledger.rb）と、レビューで見つかった決定表の誤りの回帰。"""
+    """決定の出典URL（; 区切り複数）の形式検査（verify_ledger.py）と、レビューで見つかった決定表の誤りの回帰。"""
 
     def source_errors(self):
         return [ln for ln in self.verify_ledger().stderr.splitlines() if ln.startswith("FAIL") and "決定" in ln and ("出典" in ln)]

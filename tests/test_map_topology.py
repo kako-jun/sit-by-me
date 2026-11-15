@@ -7,7 +7,7 @@ import subprocess
 import tempfile
 import unittest
 import xml.etree.ElementTree as ET
-from tests.ledger_test_support import L, environment
+from tests.ledger_test_support import L, PY, environment
 import ledger_flat as F
 import ledger_build as B
 
@@ -39,7 +39,7 @@ class MapTopologyFixture(unittest.TestCase):
 
     def cli(self):
         self.refresh_source_views()
-        return subprocess.run(["ruby", str(ROOT / "scripts/verify_map_ledger.rb")],
+        return subprocess.run([PY, str(ROOT / "scripts/verify_map_ledger.py")],
                               cwd=self.root, env=environment(self.root), capture_output=True, text=True)
 
     def yaml_rows(self, table):
@@ -114,8 +114,8 @@ class MapTopologyFixture(unittest.TestCase):
 
     def render(self):
         self.refresh_source_views()
-        for script in ("render_late_topology.rb", "render_sunnyland_topology.rb", "render_map_atlas.rb"):
-            result = subprocess.run(["ruby", str(ROOT / "scripts" / script)],
+        for script in ("render_late_topology.py", "render_sunnyland_topology.py", "render_map_atlas.py"):
+            result = subprocess.run([PY, str(ROOT / "scripts" / script)],
                                     cwd=self.root, env=environment(self.root), capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
 
@@ -124,7 +124,7 @@ class MapTopologyFixture(unittest.TestCase):
         # itself. Also require the verifier to identify the broken domain fact,
         # so a stale diagram alone cannot make this mutation test pass.
         self.refresh_source_views()
-        result = subprocess.run(["ruby", str(ROOT / "scripts/render_sunnyland_topology.rb")],
+        result = subprocess.run([PY, str(ROOT / "scripts/render_sunnyland_topology.py")],
                                 cwd=self.root, env=environment(self.root), capture_output=True, text=True)
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("sunnyland connection ledger mismatch", result.stderr)
