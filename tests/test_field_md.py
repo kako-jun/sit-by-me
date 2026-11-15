@@ -552,6 +552,8 @@ class SampleField(FieldMdCase):
         self.assertEqual(mask.getpixel((438, 458)), 0)  # 足元の矩形の中は不可
         self.assertGreater(mask.getpixel((438, 420)), 128)  # 柱の裏（奥の辺のすぐ上）は可
         self.assertGreater(mask.getpixel((438, 495)), 128)  # 柱の手前も可
+        self.assertEqual(mask.getpixel((438, 488)), 0)  # 柱の台座（円形の土台）の下端まで不可。台座の手前縁に立てない
+        self.assertGreater(mask.getpixel((438, 493)), 128)
         self.assertEqual(mask.getpixel((100, 400)), 0)  # 足場の外（虚空）は不可
         self.assertGreater(alpha.getpixel((438, 380)), 0)  # 柱の裏に立つ人物の体の位置は前面に覆われる
         self.assertEqual(alpha.getpixel((438, 458)), 0)  # 柱の足元より下は前面ではない（手前に立つ人物を隠さない）
