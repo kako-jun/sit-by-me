@@ -89,3 +89,5 @@ uv run python3 -m unittest discover -s tests
 ```
 
 全suiteの並列runnerは完成確認前。以前の一時runnerにはcwd/PYTHONPATH/Ruby PATHの誤りがあったため、そのまま流用しない。handoff削除・既存基準線移動も未完了なので、実ファイルとテストの参照先を確認する。
+
+> 追記（2026-11-15, #289）: この文書に出る `.rb` スクリプトは当時の名前。現在は同名の Python（`uv run python3 scripts/<名前>.py`）に移植済みで、`.rb` は無い。

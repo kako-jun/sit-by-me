@@ -28,3 +28,5 @@ The initial two workflow findings were corrected and independently rechecked in 
 ## CLI portability follow-up
 
 Independently reviewed the small follow-up against merged `8a5fac2`: `scripts/verify_asset_layout.py` now ignores only files whose basename is exactly `.DS_Store` when checking the retired sample tree. Other hidden files remain failures, and `rglob('*')` also detects extensionless files. The verifier does not delete or modify Finder metadata. Ran all **10 tests**, including nested metadata byte preservation and rejection of `old.PNG`/`.hidden.png`, plus the actual verifier (**712/565/167 passed**). Disposition: **pass; no findings**, limited to this CLI portability fix. This does not change any asset adoption or quality decision.
+
+> 追記（2026-11-15, #289）: この文書に出る `.rb` スクリプトは当時の名前。現在は同名の Python（`uv run python3 scripts/<名前>.py`）に移植済みで、`.rb` は無い。
