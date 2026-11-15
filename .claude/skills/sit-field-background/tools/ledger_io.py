@@ -223,7 +223,7 @@ def _str(v):
 QUOTED_STYLES = ('"', "'", "|", ">")
 
 
-def _check_syntax(table, text):
+def check_syntax(table, text):
     """YAML の構文木で検査する: 全スカラー（キーも値も）は引用符つきか block scalar（未引用だと no/yes/null/2026-10-21 などが
     型変換される）、同じ行（辞書）に同じキーを2回書かない（yaml.safe_load は後勝ちで黙って上書きする）。"""
     import yaml
@@ -249,7 +249,7 @@ def _check_syntax(table, text):
 
 
 def parse(table, text):
-    node = _check_syntax(table, text)
+    node = check_syntax(table, text)
     if node is None:
         return []
     cols = SCHEMA.get(table, [])
@@ -320,10 +320,3 @@ def en(d, v):
 def split_list(s):
     return [x for x in (s or "").split(";") if x]
 
-
-if __name__ == "__main__":
-    import sys
-    if sys.argv[1:] == ["schema"]:  # 表定義(SCHEMA)を JSON で出す
-        print(json.dumps(SCHEMA, ensure_ascii=False))
-    else:
-        sys.exit("usage: ledger_io.py schema")

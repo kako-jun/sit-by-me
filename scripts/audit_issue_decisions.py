@@ -38,6 +38,12 @@ A = re.ASCII
 WS = " \t\r\n\f\v"
 
 
+
+def die(msg):
+    """Ruby の abort/warn と同じく、末尾が改行なら改行を足さずに stderr へ出して exit 1"""
+    sys.stderr.write(msg if msg.endswith("\n") else msg + "\n")
+    sys.exit(1)
+
 def strip(s):
     return s.strip(WS + "\0")
 
@@ -248,7 +254,7 @@ def fetch_all():
         p = subprocess.run(["gh", "api", "--paginate", "--slurp", path], capture_output=True, text=True)
         if p.returncode != 0:
             out = (p.stdout + p.stderr).splitlines()[-3:]
-            sys.exit(f"gh api {path} に失敗: {''.join(l + chr(10) for l in out)}")
+            die(f"gh api {path} に失敗: {''.join(l + chr(10) for l in out)}")
         flat = []
         for x in json.loads(p.stdout):
             flat.extend(x) if isinstance(x, list) else flat.append(x)
@@ -266,7 +272,7 @@ def write_table(rows, root):
     p = subprocess.run(["uv", "run", "--project", root, "python3", tool, "Issue点検"], input=json.dumps(merged, ensure_ascii=False),
                        capture_output=True, text=True, env={**os.environ, "LEDGER_ROOT": root})
     if p.returncode != 0:
-        sys.exit(f"Issue点検.yaml の書き込みに失敗: {p.stdout}{p.stderr}")
+        die(f"Issue点検.yaml の書き込みに失敗: {p.stdout}{p.stderr}")
     return len(merged)
 
 

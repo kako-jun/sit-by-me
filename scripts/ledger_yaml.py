@@ -3,6 +3,8 @@
 マスターは日本語キーの YAML（表ごと1ファイル、中身は行のリスト）。全スカラーは文字列。
 構文検査・表定義(SCHEMA)は .claude/skills/sit-field-background/tools/ledger_io.py に一本化してあり、ここは root 差し替えと
 行の包み（欠けた列は '' を返す Row）だけを足す。書き出しは ledger_io.py だけが行う。
+scripts/ だけを複製した最小の検査用 root（ledger_io.py が無い）では、表定義が無いので列照合だけ省く（構文検査は下の
+フォールバックで行う。旧 Ruby 版と同じ挙動）。
 """
 import glob
 import os
@@ -16,7 +18,7 @@ if os.path.isfile(os.path.join(TOOLS, "ledger_io.py")) and TOOLS not in sys.path
     sys.path.insert(0, TOOLS)
 try:
     import ledger_io  # noqa: E402
-except ImportError:  # scripts/ だけを複製した最小の検査用 root（ledger_io.py が無い）では構文・列照合を省く
+except ImportError:  # 最小の検査用 root。列照合を省き、構文検査はフォールバックを使う
     ledger_io = None
 
 
@@ -31,6 +33,30 @@ def path(table):
     return os.path.join(LEDGER, f"{table}.yaml")
 
 
+def _fallback_check_syntax(table, text):
+    """ledger_io.check_syntax と同じ規則（ledger_io.py が無い最小 root 用。規則を変えるときは両方）。"""
+    import yaml
+    node = yaml.compose(text, Loader=getattr(yaml, "CSafeLoader", yaml.SafeLoader))
+    if node is None:
+        return None
+    if not isinstance(node, yaml.SequenceNode):
+        raise ValueError(f"{table}: 最上位は行のリストでなければならない")
+    for i, item in enumerate(node.value):
+        if not isinstance(item, yaml.MappingNode):
+            raise ValueError(f"{table}: {i + 1}行目が辞書でない")
+        seen = {}
+        for k, v in item.value:
+            for n in (k, v):
+                if not isinstance(n, yaml.ScalarNode):
+                    raise ValueError(f"{table}: {n.start_mark.line + 1}行目: スカラー以外（入れ子）は使えない")
+                if n.style not in ('"', "'", "|", ">"):
+                    raise ValueError(f"{table}: {n.start_mark.line + 1}行目: 引用符のないスカラー『{n.value}』（全スカラーは \"…\" か |- ブロックで書く）")
+            if k.value in seen:
+                raise ValueError(f"{table}: {k.start_mark.line + 1}行目: キー『{k.value}』が同じ行（{seen[k.value]}行目に既出）で重複している")
+            seen[k.value] = k.start_mark.line + 1
+    return node
+
+
 def schema():
     return ledger_io.SCHEMA if ledger_io else {}
 
@@ -41,9 +67,7 @@ def read(table, root=None):
         return []
     with open(p, encoding="utf-8", newline="") as f:
         text = f.read()
-    if ledger_io is None:
-        raise RuntimeError("ledger_io.py が無く台帳を読めない")
-    node = ledger_io._check_syntax(table, text)
+    node = (ledger_io.check_syntax if ledger_io else _fallback_check_syntax)(table, text)
     if node is None:
         return []
     cols = schema().get(table)

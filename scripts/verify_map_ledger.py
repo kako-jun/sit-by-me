@@ -28,7 +28,8 @@ def read(name):
 
 
 def fail(message):
-    print(f"FAIL: {message}", file=sys.stderr)
+    msg = f"FAIL: {message}"
+    sys.stderr.write(msg if msg.endswith("\n") else msg + "\n")
     sys.exit(1)
 
 

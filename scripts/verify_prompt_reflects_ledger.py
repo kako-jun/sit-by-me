@@ -40,6 +40,12 @@ A = re.ASCII
 WS = " \t\r\n\f\v"
 
 
+
+def die(msg):
+    """Ruby の abort/warn と同じく、末尾が改行なら改行を足さずに stderr へ出して exit 1"""
+    sys.stderr.write(msg if msg.endswith("\n") else msg + "\n")
+    sys.exit(1)
+
 def strip(s):
     return s.strip(WS + "\0")
 
@@ -686,7 +692,7 @@ def load_records(argv, root):
     p = subprocess.run(cmd, shell=True, capture_output=True, text=True, env={**os.environ, "LEDGER_ROOT": root})
     out = p.stdout + p.stderr  # Open3.capture2e 相当（標準出力と標準エラーを混ぜる）
     if p.returncode != 0:
-        sys.exit("プロンプトの導出に失敗: " + "".join(l + "\n" for l in out.splitlines()[-5:]))
+        die("プロンプトの導出に失敗: " + "".join(l + "\n" for l in out.splitlines()[-5:]))
     return json.loads(p.stdout[p.stdout.index("["):])
 
 
