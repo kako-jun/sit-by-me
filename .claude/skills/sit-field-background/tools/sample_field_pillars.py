@@ -5,7 +5,7 @@
 - 歩行マスク（白=歩ける・黒=不可。RGB・可逆 WebP・1672x941）: 足場の円盤の内側から、柱と光の柱の「足元の矩形」だけを黒にする。
   旧版は柱の見た目の覆い（高さぶんの箱のシルエット）まで黒にしていたので、柱の裏（奥側）を歩けなかった。
 - 前面レイヤー（透過 WebP・背景と同寸。name-name の `前面=`、#866）: 主人公より手前に重ねる絵。柱ごとに
-  『柱の箱のシルエット（左右・上へ余白 MARGIN px）のうち、足元の矩形の奥の辺（画像の y）より上』だけを採用背景から切り抜く。
+  『柱の箱のシルエット（右・上へ余白 MARGIN px、左へ MARGIN+LEFT_EXTRA px）のうち、足元の矩形の奥の辺（画像の y）より上』だけを採用背景から切り抜く。
   人物が柱の裏にいるとき（足元が奥の辺より上）は、体が柱に隠れて柱が手前に見える。足元の矩形は歩行不可なので、柱の足元は通れない。
   限界: 前面レイヤーは1枚の静止画で、人物との前後を毎フレーム比べない。足元の矩形の脇（柱の見た目の幅の内側）に立つ人物の頭が、
   足元が奥の辺より下で約38px 以内のとき柱の上部に隠れる。光の柱は足場の奥の縁に立ち、その裏に歩ける床が無いので前面には出さない。
@@ -32,7 +32,8 @@ BACKGROUND = os.path.join(REPO, "assets", "images", "fields", "reference", "samp
 MASK_OUT = os.path.join(REPO, "assets", "images", "fields", "masks", "SMP-01-mask.webp")
 FOREGROUND_OUT = os.path.join(REPO, "assets", "images", "fields", "foreground", "SMP-01-foreground.webp")
 PREVIEW_OUT = os.path.join(REPO, "docs", "production", "sample-field", "SMP-01-foreground-preview.png")
-MARGIN = 6  # 採用画像の柱の笠は plan の箱より左右・上に数px はみ出す。余白は必要最小限（広いと柱の脇の床・空まで前面に写り、脇に立つ人物の端をつぶす）
+MARGIN = 6  # 採用画像の柱の笠は plan の箱より右・上へ数px、左へ最大約7px はみ出す。余白は必要最小限（広いと柱の脇の床・空まで前面に写り、脇に立つ人物の端をつぶす）
+LEFT_EXTRA = 8  # 左だけ余白を MARGIN+LEFT_EXTRA=14px にする（笠の左端は c5 で約7px はみ出す。右側・胴は MARGIN のまま）
 FOOT_EXT = 12  # 柱の台座（円形の土台）は plan の足元の矩形の手前の辺より画像で約12px 下まである。その分まで足元の矩形を広げて、台座の手前縁に立てないようにする（柱のみ）
 
 
@@ -76,6 +77,7 @@ def derive_foreground_alpha(p):
         for pts, _, _ in M.box_polys(b["rect"], b["h"], b["color"]):
             _fill(sil, pts, 255)
         sil = cv2.dilate(sil, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * MARGIN + 1, 2 * MARGIN + 1)))
+        sil[:, :-LEFT_EXTRA] = np.maximum(sil[:, :-LEFT_EXTRA], sil[:, LEFT_EXTRA:])  # 左へ LEFT_EXTRA px 広げる
         sil[cut:, :] = 0
         alpha = np.maximum(alpha, sil)
         cuts[b["id"]] = cut
