@@ -1,0 +1,11 @@
+{
+  "cursor": "cursor.ogg",
+  "confirm": "confirm.ogg",
+  "cancel": "cancel.ogg",
+  "error": "error.ogg",
+  "encounter": "encounter.ogg",
+  "mosaic": "mosaic.ogg",
+  "attack": "attack.ogg",
+  "damage": "damage.ogg",
+  "heal": "heal.ogg"
+}

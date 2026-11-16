@@ -10,6 +10,7 @@
 - [企画メモ](docs/concept.md)
 - [物語](docs/story.md)
 - [ゲームシステム](docs/systems.md)
+- [仮SE](docs/se-registry.md)
 - [素材の方針](docs/assets-policy.md)
 - [決定ログ](docs/decisions.md)
 - [モンスター台帳](docs/monsters.md)

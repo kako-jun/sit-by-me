@@ -1,0 +1,12 @@
+{
+  "seed": 104,
+  "wave": "saw",
+  "frequency": 900,
+  "end_frequency": 120,
+  "duration": 0.65,
+  "attack": 0.006,
+  "release": 0.16,
+  "decay": 1.0,
+  "gain": 0.26,
+  "filter": 0.22
+}

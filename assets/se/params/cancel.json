@@ -1,0 +1,12 @@
+{
+  "seed": 102,
+  "wave": "triangle",
+  "frequency": 580,
+  "end_frequency": 300,
+  "duration": 0.13,
+  "attack": 0.003,
+  "release": 0.06,
+  "decay": 1.6,
+  "gain": 0.3,
+  "filter": 0.42
+}
