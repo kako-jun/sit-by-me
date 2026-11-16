@@ -1,0 +1,12 @@
+{
+  "seed": 100,
+  "wave": "square",
+  "frequency": 740,
+  "end_frequency": 830,
+  "duration": 0.065,
+  "attack": 0.002,
+  "release": 0.025,
+  "decay": 2.5,
+  "gain": 0.2,
+  "filter": 0.3
+}
