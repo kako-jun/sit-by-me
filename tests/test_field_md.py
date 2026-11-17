@@ -300,11 +300,19 @@ class Notation(FieldMdCase):
         self.assertIn("サイズ: 2x2\n", block)
 
     def test_m001_large_layout_keys(self):
-        # 決定 DEMO.ff-look-m001-large-layout（kako-jun 2026-11-14）。overlap_bottom は選択待ちで未設定
+        # 決定 DEMO.ff-look-m001-large-layout（kako-jun 2026-11-14）。overlap_bottom は DEMO.ff-look-dialog-and-menu-keys で 0.25
         script = self.out("play/script.md")
         for line in ("battle_enemy_grid_align: center\n", "battle_enemy_grid_extent: wide\n", "battle_party_layout: tall\n"):
             self.assertIn(line, script)
-        self.assertNotIn("battle_enemy_window_overlap_bottom", script)
+        self.assertIn("battle_enemy_window_overlap_bottom: 0.25\n", script)
+        self.assertIn("battle_enemy_window_overlap: 0.5\n", script)
+
+    def test_dialog_and_menu_keys(self):
+        # 決定 DEMO.ff-look-dialog-and-menu-keys（kako-jun 2026-11-15, #292）。会話窓の高さは既定（0.28）で足りるので書かない
+        script = self.out("play/script.md")
+        for line in ("dialog_font_size: battle\n", "dialog_name_style: plate\n", "field_menu_use_message: off\n", "battle_text_overflow: scroll\n"):
+            self.assertIn(line, script)
+        self.assertNotIn("dialog_window_height", script)
 
     def test_readme_save_key_is_project_scoped(self):
         # /play/sit-by-me は name-name-save-<docKey=プロジェクト名>-<slot> を読む（field.html だけ field）
