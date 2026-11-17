@@ -314,6 +314,12 @@ class Notation(FieldMdCase):
             self.assertIn(line, script)
         self.assertNotIn("dialog_window_height", script)
 
+    def test_atb_switch_weak_trace_keys(self):
+        # 決定 DEMO.ff-look-atb-switch-weak-trace（kako-jun, #296）。weak の絵はまだ無い（無いキャラは通常の待機のまま）
+        script = self.out("play/script.md")
+        for line in ("battle_atb_switch: on\n", "battle_weak_threshold: 0.25\n", "trace: on\n", "battle_atb: on\n"):
+            self.assertIn(line, script)
+
     def test_readme_save_key_is_project_scoped(self):
         # /play/sit-by-me は name-name-save-<docKey=プロジェクト名>-<slot> を読む（field.html だけ field）
         readme = self.out("play/README.md")
