@@ -20,6 +20,9 @@ dialog_font_size: battle
 dialog_name_style: plate
 field_menu_use_message: off
 battle_text_overflow: scroll
+battle_atb_switch: on
+battle_weak_threshold: 0.25
+trace: on
 field_emotions: field/sit-field-emotions.json
 battle_commands: skill, spell, item, escape
 battle_command_labels: spell=まほう

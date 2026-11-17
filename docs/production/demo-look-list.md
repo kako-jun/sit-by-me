@@ -30,7 +30,7 @@ kako-jun の指摘「ゲーム画面と同じ見た目にしろ。今回言っ�
 | # | 決定（要点） | 出典 | 11-11 時点のメモ（古い可能性あり。最新は Issue と実機） |
 |---|---|---|---|
 | 15 | FF 系サイドビュー（敵が左・味方が右・下にコマンドと HP） | systems.md 10 行 | `battle_layout: Side` |
-| 16 | ATB（FF5 風。待機とアクティブ） | systems.md 13 行 | `battle_atb: on`・`wait`。能力値 0 だとゲージが動かないので AGI を暫定値で追加 |
+| 16 | ATB（FF5 風。待機とアクティブ） | systems.md 13 行 | `battle_atb: on`・`wait`。能力値 0 だとゲージが動かないので AGI を暫定値で追加。満タンの味方が複数のとき、味方のタップで入力キャラを切り替える `battle_atb_switch: on`（決定 `DEMO.ff-look-atb-switch-weak-trace`） |
 | 17 | 「○○があらわれた」を出さない。開始は敵味方が横からスライドして登場 | systems.md 7 行 | ff＋side で登場スライド。name-name の resume-demo.md には「再開時にも「あらわれた」のログが出る」とある。ff ではログ窓に通常のログを出さないはずだが、再開時に出ないかは実機で確認する（?） |
 | 18 | 被ダメージで点滅させず、ダメージ数字のポップアップ。行動は踏み出す・のけぞり | systems.md 14・24 行、キビキビは決定 `DEMO.ff-look-snappy-ff-mosaic`（name-name #956） | `battle_presentation: ff`、`battle_motion: snappy`（踏み出し・のけぞりが速く、敵の通常攻撃は踏み出さず敵自身が一瞬モザイクになる。時間配分は暫定で #803 の実測待ち） |
 | 19 | メッセージ窓は 1 行（呪文・特技名と勝敗メッセージだけ）。文字は大きく | systems.md 23 行、kako-jun 指摘 | 文字を大きくする name-name #1148 が OPEN |
@@ -44,7 +44,7 @@ kako-jun の指摘「ゲーム画面と同じ見た目にしろ。今回言っ�
 | 25 | 基本の攻撃は無属性ダメージ魔法 | systems.md 12 行、decisions.md 294 行 | MAG-07 おにぱんちを追加（効果の数値は暫定）。劇戦闘の最強級の固定付与は具体が未決で書かない |
 | 26 | 戦闘開始・終了の画面遷移は FF5/6 風 | name-name #830・#953（kako-jun 2026-10-14・10-28）、決定 `DEMO.ff-look-snappy-ff-mosaic` | `battle_transition: ff-mosaic`（FF5/6 風の暗転に粗いモザイクも入る） |
 | 27 | 勝利リザルトは FF5 式（先頭に「戦いに勝った！」→円→経験値…） | systems.md 295〜303 行 | name-name #1039・#1113。実機未確認 |
-| 28 | 倒れ: down ポーズがあれば差し替え、無ければ 90 度回転。敵はモザイクで消える | systems.md 25 行 | name-name #953。味方のポーズは実在 |
+| 28 | 倒れ: down ポーズがあれば差し替え、無ければ 90 度回転。敵はモザイクで消える。HP が 1/4 未満の待機は瀕死（しゃがみ）ポーズ | systems.md 25 行、name-name #1194（kako-jun「FFではHPの残りが減ると瀕死のしゃがんだ絵になる」） | name-name #953。味方のポーズは実在。`battle_weak_threshold: 0.25`（決定 `DEMO.ff-look-atb-switch-weak-trace`）。`weak` の絵はまだ無く、無いキャラは通常の待機のまま（絵の生成は別 Issue）。内部の記録 `trace: on` も同決定（画面には出ない。取り出しは URL に `?trace`） |
 | 29 | 戦闘背景はジオラマ風の生成画像（遠近の浅い擬似 3D・地平線の位置を設定） | systems.md 11 行、decisions.md 17・228 行 | 戦闘背景 BG011（舞台）・BG012（寺町の道路）の採用の状態は台帳 [戦闘背景.yaml](../ledger/戦闘背景.yaml) を見る。遠近の `battle_perspective`・`battle_horizon` は一枚絵フィールドが無視する |
 
 ## キャラ・背景・フィールド
