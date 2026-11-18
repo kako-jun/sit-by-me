@@ -2,6 +2,8 @@
 from pathlib import Path
 import shutil
 import sys
+import contextlib
+import io
 import tempfile
 import unittest
 from unittest import mock
@@ -28,7 +30,8 @@ class PreviewFreshness(unittest.TestCase):
             self.addCleanup(patcher.stop)
 
     def test_committed_preview_is_fresh(self):
-        P.check()
+        with contextlib.redirect_stdout(io.StringIO()):
+            P.check()
 
     def test_ledger_change_without_regeneration_fails(self):
         path = self.sources / "opening_battle.yaml"
@@ -45,10 +48,17 @@ class PreviewFreshness(unittest.TestCase):
         with self.assertRaises(SystemExit):
             P.check()
 
-    def test_orphan_event_md_fails(self):
-        (self.preview / "events" / "removed.md").write_text("x", encoding="utf-8")
+    def test_crlf_drift_fails(self):
+        path = self.preview / "all_events.md"
+        path.write_bytes(path.read_bytes().replace(b"\n", b"\r\n"))
         with self.assertRaises(SystemExit):
             P.check()
+
+    def test_orphan_event_md_fails(self):
+        (self.preview / "events" / "removed.md").write_text("x", encoding="utf-8")
+        with self.assertRaises(SystemExit) as ctx:
+            P.check()
+        self.assertIn("手で消して", str(ctx.exception))
 
 
 if __name__ == "__main__":

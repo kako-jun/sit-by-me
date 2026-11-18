@@ -142,12 +142,19 @@ def check():
     _, outputs = build_outputs()
     stale = []
     for path, content, _ in outputs:
-        if not path.is_file() or path.read_text(encoding="utf-8") != content:
+        # Compare bytes so CRLF or other newline drift is caught too.
+        if not path.is_file() or path.read_bytes() != content.encode("utf-8"):
             stale.append(path)
-    stale += orphans_of(outputs)
-    if stale:
-        names = ", ".join(str(path.relative_to(ROOT)) for path in stale)
-        raise SystemExit(f"FAIL: event-preview が台帳と一致しません（uv run python3 scripts/preview_event.py で再生成）: {names}")
+    orphans = orphans_of(outputs)
+    if stale or orphans:
+        messages = []
+        if stale:
+            names = ", ".join(str(path.relative_to(ROOT)) for path in stale)
+            messages.append(f"台帳と一致しません（uv run python3 scripts/preview_event.py で再生成）: {names}")
+        if orphans:
+            names = ", ".join(str(path.relative_to(ROOT)) for path in orphans)
+            messages.append(f"対応する台帳のない md が残っています（再生成は止まるので、内容を確認して手で消してください）: {names}")
+        raise SystemExit("FAIL: event-preview が " + " / ".join(messages))
     print(f"event-preview は最新です: {PREVIEW.relative_to(ROOT)}")
 
 
