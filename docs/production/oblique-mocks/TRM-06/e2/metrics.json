@@ -38,27 +38,27 @@
   {
    "take": "1",
    "file": "docs/production/oblique-mocks/TRM-06/e2/take1.png",
-   "resized_for_measure": true,
+   "resized_for_measure": false,
    "orig_size": [
-    1671,
+    1672,
     941
    ],
    "aspect_ok": true,
    "edge": {
-    "recall6_room": 0.731,
-    "recall6_shifted_baseline": 0.684,
-    "margin": 0.047,
-    "chamfer_room_px": 5.36,
-    "recall6_full": 0.588,
-    "gen_edge_density_room": 0.11
+    "recall6_room": 0.854,
+    "recall6_shifted_baseline": 0.745,
+    "margin": 0.109,
+    "chamfer_room_px": 3.1,
+    "recall6_full": 0.817,
+    "gen_edge_density_room": 0.1151
    },
    "regions": {
     "door:TRM-06.door-house": {
      "shift": {
-      "best_score": 0.696,
-      "dx": 8,
-      "dy": 24,
-      "score_at_0": 0.513
+      "best_score": 0.703,
+      "dx": 26,
+      "dy": 40,
+      "score_at_0": 0.383
      },
      "pink_residual": 0.0,
      "unreliable_self_check": false
@@ -71,13 +71,13 @@
    },
    "missing_openings_doors_windows": [],
    "opening_floor": {},
-   "tatami_like_frac": 0.0005,
+   "tatami_like_frac": 0.0003,
    "floor": {
-    "lum_std": 66.03,
+    "lum_std": 62.95,
     "mean_rgb": [
-     143.3,
-     117.0,
-     101.6
+     145.3,
+     121.1,
+     109.6
     ],
     "mock_mean_rgb": [
      172.5,
@@ -87,23 +87,23 @@
    },
    "pink_residual_whole_image": 0.0,
    "provenance": {
-    "sha256": "163f397a471e7d6102f67018f8e4509232d45c2fa5478dbcb0b3ac13897b1d05",
-    "bytes": 3649162,
+    "sha256": "76d8694de26a89f15ee85fd2a79d9023a0feb502e746547309efbf7a53e461a5",
+    "bytes": 3630832,
     "size": [
-     1671,
+     1672,
      941
     ],
     "mode": "RGB",
-    "unique_colors": 220671,
-    "matches_codex_generated_image": "~/.codex/generated_images/01a1cdb6-1b34-7461-9a19-49c40dab5b20/exec-d00fa44e-3dd2-406d-ba79-2bd110caeeb2.png",
+    "unique_colors": 237256,
+    "matches_codex_generated_image": "~/.codex/generated_images/01a1ef8e-c11a-7cd2-9c4f-15006782ecfa/exec-5cb99ab7-6120-4180-829d-681d512b8852.png",
     "new_generated_images_in_run": 1,
     "log_mentions_unavailable": true,
     "log_fabrication_tool_calls": 0,
     "log_mentions_image_gen": true
    },
    "global_shift_median_px": [
-    8.0,
-    24.0
+    26.0,
+    40.0
    ],
    "region_ok_ratio": 0.0,
    "structure": {
@@ -113,7 +113,7 @@
    },
    "gates": {
     "aspect": true,
-    "size_exact": false,
+    "size_exact": true,
     "edge_recall": true,
     "edge_margin": false,
     "chamfer": true,
