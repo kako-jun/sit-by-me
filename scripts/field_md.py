@@ -43,7 +43,7 @@ TRIGGER_AUTO_ONCE = "場面開始・1回"  # 発火条件の許容値（空欄�
 #     field_menu_use_message: off（まほう回復の結果の文を出さない）/ battle_text_overflow: scroll（下の窓の名前を省略せず流す）/ battle_enemy_window_overlap_bottom: 0.25（上の overlap 0.5 とは別キー）
 #   操作・瀕死・記録（決定 DEMO.ff-look-atb-switch-weak-trace。3 キーとも既定は従来で、互いに・他のキーと独立）:
 #     battle_atb_switch: on（満タンの味方が複数のとき、タップで入力キャラを切り替える。battle_atb: on のときだけ効く）
-#     battle_weak_threshold: 0.25（味方の HP が最大の 1/4 未満で瀕死ポーズ weak。weak の絵が無いキャラは通常の待機のまま。4人とも weak 画像あり: 素材 A-1366〜A-1369・決定 DEMO.weak-pose-images）
+#     battle_weak_threshold: 0.25（味方の HP が最大の 1/4 未満で瀕死ポーズ weak。weak の絵が無いキャラは通常の待機のまま。4人とも weak 画像あり: 小学生は素材 A-1366〜A-1369・決定 DEMO.weak-pose-images、残りの全形態は A-1370〜A-1392・DEMO.weak-pose-all-forms）
 #     trace: on（起きたことを端末の中だけに記録。画面には出ない。取り出しは URL に ?trace）
 # 戦闘背景（battle_background）は、採用済みのジオラマ背景が無いので書かない（別担当の準備待ち。黒で出さないための迂回は置かない）。
 FF_LOOK = [
