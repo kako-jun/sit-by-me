@@ -12,7 +12,7 @@
 
 ## プレビューの生成
 
-[プレビュー生成スクリプト](../../../scripts/preview_event.py) を `uv run python3 scripts/preview_event.py` で実行すると、各イベントのmdと[目次](../../production/event-preview/README.md)・[全編通読用](../../production/event-preview/all_events.md)を生成する。本文・条件・前後関係は人間レビュー用の仮稿。表示順は閲覧用で、ゲームの進行順を確定しない。台帳メタデータと脚本本文の整合、実際の画面表示やゲームへの接続は保証しない。
+[プレビュー生成スクリプト](../../../scripts/preview_event.py) を `uv run python3 scripts/preview_event.py` で実行すると、各イベントのmdと[目次](../../production/event-preview/README.md)・[全編通読用](../../production/event-preview/all_events.md)を生成する。本文・条件・前後関係は人間レビュー用の仮稿。表示順は閲覧用で、ゲームの進行順を確定しない。`uv run python3 scripts/preview_event.py check` は再生成結果と現行ファイルの一致を検査し（`build_ledger.py check` からも呼ばれ、`build_ledger.py build` でも再生成される）、台帳を変えて再生成し忘れた古い仮稿を検出する。台帳メタデータと脚本本文の整合、実際の画面表示やゲームへの接続は保証しない。
 
 ## 一枚絵フィールドで動く md の生成（#250 第一歩）
 

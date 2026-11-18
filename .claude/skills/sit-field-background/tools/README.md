@@ -129,7 +129,7 @@ Issue 本文・コメントから『kako-jun の決定』と読める候補を�
 
 回収した制作補助は次の入力を使う（いずれも画像生成APIは呼ばない）。`layout_guide.py --map TRM-04 --out guide.png` は現行YAMLの `ledger_build.build_plan` からガイドを出し、`--preset trm02|trm04|trm05` も同じ入力へ解決する。`oblique_town.py connections-teramachi.json --out DIR --check-only` は画像を作らず台帳接続を検査する。`pasteback.py --base BASE --raw RAW --mask MASK --out OUT`（または `--rects`）は指定範囲だけ貼り戻し、ぼかしはマスク内に限る。戦闘の `.claude/skills/sit-battle-background/tools/battle_base.py --measure` は `描画定数.yaml` の `battle.*` を測り、画像を作らない。
 
-唯一のマスターは `docs/ledger/*.yaml`。全派生物はリポ直下で `uv run python3 scripts/build_ledger.py build`、鮮度は同コマンドの `check` で検査する。MAP・エリア・海外進行のJSON、歴史的素材移行manifest、BGM CSV、コンテンツ全列ビュー、元MAP文書の互換表、6種のMAPビューとINDEXを順に更新する。旧MAP文書の生成ブロックは手で直さない。根拠の `doc:line` は移行前の行番号で、現在の行番号ではない。
+唯一のマスターは `docs/ledger/*.yaml`。全派生物はリポ直下で `uv run python3 scripts/build_ledger.py build`、鮮度は同コマンドの `check` で検査する。MAP・エリア・海外進行のJSON、歴史的素材移行manifest、BGM CSV、コンテンツ全列ビュー、元MAP文書の互換表、6種のMAPビューとINDEX、イベント台帳のレビュー用仮稿（`docs/production/event-preview/`、`scripts/preview_event.py`）を順に更新・検査する（event-preview は「生成物」台帳には載せず、`preview_event.py check` の再生成一致で鮮度を見る。台帳に載せる要否は別 Issue）。旧MAP文書の生成ブロックは手で直さない。根拠の `doc:line` は移行前の行番号で、現在の行番号ではない。
 
 端の必須項目は種別で分ける。戸口・開口・抽象通路には壁側を要求する。`イベント`・`移動` は物語イベントや一方向の到着を表す論理的な端点なので、背景の壁側を生成ゲートの必須条件にはしない。到着位置などの未決はそのまま保持し、方角を推測して埋めない。
 
