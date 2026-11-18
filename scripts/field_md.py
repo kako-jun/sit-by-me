@@ -45,6 +45,10 @@ TRIGGER_AUTO_ONCE = "場面開始・1回"  # 発火条件の許容値（空欄�
 #     battle_atb_switch: on（満タンの味方が複数のとき、タップで入力キャラを切り替える。battle_atb: on のときだけ効く）
 #     battle_weak_threshold: 0.25（味方の HP が最大の 1/4 未満で瀕死ポーズ weak。weak の絵が無いキャラは通常の待機のまま。4人とも weak 画像あり: 小学生は素材 A-1366〜A-1369・決定 DEMO.weak-pose-images、残りの全形態は A-1370〜A-1392・DEMO.weak-pose-all-forms）
 #     trace: on（起きたことを端末の中だけに記録。画面には出ない。取り出しは URL に ?trace）
+#   台座の奥側の縁・経験値・ステータス画面の配置（決定 DEMO.ff-look-base-back-edge-menu-exp-status-layout。3 キーとも既定は従来で、互いに・他のキーと独立）:
+#     sprite_style_base_back_edge: thin（アクスタの台座の円の奥側の縁を手前より薄くする。戦闘・フィールド・メニューの全部。kako-jun 2026-11-18 name-name #1187 で 0.2 倍を選択）
+#     field_menu_exp: on（メニュー左のパーティ枠とステータス画面に経験値・「次のレベルまで」。味方の経験値表 SAMPLE_EXP_TABLE から計算）
+#     field_menu_status_layout: ff（ステータス画面を FF5・FF6 風に領域分け）。固有素質・装備・想像の刃の statusByParty は name-name #1186 で決定待ちのため渡さない
 # 戦闘背景（battle_background）は、採用済みのジオラマ背景が無いので書かない（別担当の準備待ち。黒で出さないための迂回は置かない）。
 FF_LOOK = [
     "battle_layout: Side",
@@ -53,6 +57,7 @@ FF_LOOK = [
     "battle_atb_mode: wait",
     "window_style: ff-blue",
     "sprite_style: acrylic",
+    "sprite_style_base_back_edge: thin",
     "battle_enemy_list: window",
     "battle_transition: ff-mosaic",
     "battle_motion: snappy",
@@ -69,6 +74,8 @@ FF_LOOK = [
     "battle_atb_switch: on",
     "battle_weak_threshold: 0.25",
     "trace: on",
+    "field_menu_exp: on",
+    "field_menu_status_layout: ff",
     "field_emotions: field/sit-field-emotions.json",
     "battle_commands: skill, spell, item, escape",
     "battle_command_labels: spell=まほう",
