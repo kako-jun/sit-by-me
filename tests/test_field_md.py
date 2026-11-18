@@ -315,7 +315,7 @@ class Notation(FieldMdCase):
         self.assertNotIn("dialog_window_height", script)
 
     def test_atb_switch_weak_trace_keys(self):
-        # 決定 DEMO.ff-look-atb-switch-weak-trace（kako-jun, #296）。weak の絵はまだ無い（無いキャラは通常の待機のまま）
+        # 決定 DEMO.ff-look-atb-switch-weak-trace（kako-jun, #296）。weak の絵は4人とも採用済み（素材 A-1366〜A-1369・決定 DEMO.weak-pose-images、#298）。絵の無いキャラは通常の待機のまま
         script = self.out("play/script.md")
         for line in ("battle_atb_switch: on\n", "battle_weak_threshold: 0.25\n", "trace: on\n", "battle_atb: on\n"):
             self.assertIn(line, script)
@@ -373,6 +373,17 @@ class FormsManifest(unittest.TestCase):
                 "C002": {"forms": {"kids": {"poses": {"plain": ["cast"]}, "walk": False}}},
             },
         })
+
+    def test_weak_pose_sorted_after_victory(self):
+        # 決定 DEMO.weak-pose-images（#298）: weak は victory の後ろ。C001 は character 版、他は plain 版として拾う
+        listing = {
+            "C001": {"poses": ["C001-elementary-character-weak.webp", "C001-elementary-character-victory.webp",
+                               "C001-elementary-character-idle.webp"], "walk": []},
+            "C002": {"poses": ["C002-elementary-weak.webp", "C002-elementary-victory.webp", "C002-elementary-idle.webp"], "walk": []},
+        }
+        doc = json.loads(field_md.forms_manifest(listing))
+        self.assertEqual(doc["characters"]["C001"]["forms"]["elementary"]["poses"], {"character": ["idle", "victory", "weak"]})
+        self.assertEqual(doc["characters"]["C002"]["forms"]["elementary"]["poses"], {"plain": ["idle", "victory", "weak"]})
 
     def test_text_format_and_purity(self):
         text = field_md.forms_manifest(self.LISTING)
