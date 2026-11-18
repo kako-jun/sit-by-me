@@ -1,6 +1,6 @@
 {
   "_provenance": {
-    "input_sha": "38bb91ef93ba7f122a3923f133309298d7d28b18c164a283ef5d8dc2972289ae"
+    "input_sha": "4157a3ad18c755e0da8c23d466771cac002cdcbaec3269a7da57efb99e3c95e6"
   },
   "_generated": "scripts/field_md.py が assets/images/characters の素材から生成。手で編集しない（#250）",
   "characters": {
@@ -16,7 +16,7 @@
         },
         "elementary": {
           "poses": {
-            "character": ["idle", "ready", "step", "swing-windup", "slash", "swing-followthrough", "cast", "special", "hurt", "down", "victory"]
+            "character": ["idle", "ready", "step", "swing-windup", "slash", "swing-followthrough", "cast", "special", "hurt", "down", "victory", "weak"]
           },
           "walk": true
         },
@@ -70,7 +70,7 @@
         },
         "elementary": {
           "poses": {
-            "plain": ["idle", "ready", "step", "swing-windup", "slash", "swing-followthrough", "cast", "special", "hurt", "down", "victory"]
+            "plain": ["idle", "ready", "step", "swing-windup", "slash", "swing-followthrough", "cast", "special", "hurt", "down", "victory", "weak"]
           },
           "walk": true
         },
@@ -122,7 +122,7 @@
         },
         "elementary": {
           "poses": {
-            "plain": ["idle", "ready", "step", "swing-windup", "slash", "swing-followthrough", "cast", "special", "hurt", "down", "victory"]
+            "plain": ["idle", "ready", "step", "swing-windup", "slash", "swing-followthrough", "cast", "special", "hurt", "down", "victory", "weak"]
           },
           "walk": true
         },
@@ -150,7 +150,7 @@
         },
         "elementary": {
           "poses": {
-            "plain": ["idle", "ready", "step", "swing-windup", "slash", "swing-followthrough", "cast", "special", "hurt", "down", "victory"]
+            "plain": ["idle", "ready", "step", "swing-windup", "slash", "swing-followthrough", "cast", "special", "hurt", "down", "victory", "weak"]
           },
           "walk": true
         },

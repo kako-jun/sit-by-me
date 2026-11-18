@@ -44,7 +44,7 @@ kako-jun の指摘「ゲーム画面と同じ見た目にしろ。今回言っ�
 | 25 | 基本の攻撃は無属性ダメージ魔法 | systems.md 12 行、decisions.md 294 行 | MAG-07 おにぱんちを追加（効果の数値は暫定）。劇戦闘の最強級の固定付与は具体が未決で書かない |
 | 26 | 戦闘開始・終了の画面遷移は FF5/6 風 | name-name #830・#953（kako-jun 2026-10-14・10-28）、決定 `DEMO.ff-look-snappy-ff-mosaic` | `battle_transition: ff-mosaic`（FF5/6 風の暗転に粗いモザイクも入る） |
 | 27 | 勝利リザルトは FF5 式（先頭に「戦いに勝った！」→円→経験値…） | systems.md 295〜303 行 | name-name #1039・#1113。実機未確認 |
-| 28 | 倒れ: down ポーズがあれば差し替え、無ければ 90 度回転。敵はモザイクで消える。HP が 1/4 未満の待機は瀕死（しゃがみ）ポーズ | systems.md 25 行、name-name #1194（kako-jun「FFではHPの残りが減ると瀕死のしゃがんだ絵になる」） | name-name #953。味方のポーズは実在。`battle_weak_threshold: 0.25`（決定 `DEMO.ff-look-atb-switch-weak-trace`）。`weak` の絵はまだ無く、無いキャラは通常の待機のまま（絵の生成は別 Issue） |
+| 28 | 倒れ: down ポーズがあれば差し替え、無ければ 90 度回転。敵はモザイクで消える。HP が 1/4 未満の待機は瀕死（しゃがみ）ポーズ | systems.md 25 行、name-name #1194（kako-jun「FFではHPの残りが減ると瀕死のしゃがんだ絵になる」） | name-name #953。味方のポーズは実在。`battle_weak_threshold: 0.25`（決定 `DEMO.ff-look-atb-switch-weak-trace`）。`weak` の絵は4人とも採用済み（素材 A-1366〜A-1369・決定 `DEMO.weak-pose-images`。人物ごとに別の姿勢: C001 膝立ち・C002 片膝で手を地面・C003 深くしゃがむ・C004 横座り。Issue #298）。絵の無いキャラは通常の待機のまま |
 | 29 | 戦闘背景はジオラマ風の生成画像（遠近の浅い擬似 3D・地平線の位置を設定） | systems.md 11 行、decisions.md 17・228 行 | 戦闘背景 BG011（舞台）・BG012（寺町の道路）の採用の状態は台帳 [戦闘背景.yaml](../ledger/戦闘背景.yaml) を見る。遠近の `battle_perspective`・`battle_horizon` は一枚絵フィールドが無視する |
 
 ## キャラ・背景・フィールド
