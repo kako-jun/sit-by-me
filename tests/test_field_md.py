@@ -327,6 +327,12 @@ class Notation(FieldMdCase):
             self.assertIn(line, script)
         self.assertNotIn("statusByParty", script)
 
+    def test_battle_target_cursor_key(self):
+        # 決定 DEMO.ff-look-battle-target-cursor（kako-jun, #311）
+        script = self.out("play/script.md")
+        self.assertIn("battle_target_cursor: ff\n", script)
+        self.assertIn("battle_enemy_list: window\n", script)
+
     def test_readme_save_key_is_project_scoped(self):
         # /play/sit-by-me は name-name-save-<docKey=プロジェクト名>-<slot> を読む（field.html だけ field）
         readme = self.out("play/README.md")

@@ -9,6 +9,7 @@ window_style: ff-blue
 sprite_style: acrylic
 sprite_style_base_back_edge: thin
 battle_enemy_list: window
+battle_target_cursor: ff
 battle_transition: ff-mosaic
 battle_motion: snappy
 battle_enemy_grid: 6x2

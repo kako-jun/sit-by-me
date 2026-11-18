@@ -49,6 +49,8 @@ TRIGGER_AUTO_ONCE = "場面開始・1回"  # 発火条件の許容値（空欄�
 #     sprite_style_base_back_edge: thin（アクスタの台座の円の奥側の縁を手前より薄くする。戦闘・フィールド・メニューの全部。kako-jun 2026-11-18 name-name #1187 で 0.2 倍を選択）
 #     field_menu_exp: on（メニュー左のパーティ枠とステータス画面に経験値・「次のレベルまで」。味方の経験値表 SAMPLE_EXP_TABLE から計算）
 #     field_menu_status_layout: ff（ステータス画面を FF5・FF6 風に領域分け）。固有素質・装備・想像の刃の statusByParty は name-name #1186 で決定待ちのため渡さない
+#   戦闘の対象選択（決定 DEMO.ff-look-battle-target-cursor。既定 off で、他のキーと独立）:
+#     battle_target_cursor: ff（対象は手のカーソルだけで指し、対象の頭上の ▼ は出さない。▼ は入力中の味方だけ。敵名窓は対象の行を帯で強調。name-name #1189）
 # 戦闘背景（battle_background）は、採用済みのジオラマ背景が無いので書かない（別担当の準備待ち。黒で出さないための迂回は置かない）。
 FF_LOOK = [
     "battle_layout: Side",
@@ -59,6 +61,7 @@ FF_LOOK = [
     "sprite_style: acrylic",
     "sprite_style_base_back_edge: thin",
     "battle_enemy_list: window",
+    "battle_target_cursor: ff",
     "battle_transition: ff-mosaic",
     "battle_motion: snappy",
     "battle_enemy_grid: 6x2",
