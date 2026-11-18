@@ -7,6 +7,7 @@ battle_atb: on
 battle_atb_mode: wait
 window_style: ff-blue
 sprite_style: acrylic
+sprite_style_base_back_edge: thin
 battle_enemy_list: window
 battle_transition: ff-mosaic
 battle_motion: snappy
@@ -23,6 +24,8 @@ battle_text_overflow: scroll
 battle_atb_switch: on
 battle_weak_threshold: 0.25
 trace: on
+field_menu_exp: on
+field_menu_status_layout: ff
 field_emotions: field/sit-field-emotions.json
 battle_commands: skill, spell, item, escape
 battle_command_labels: spell=まほう

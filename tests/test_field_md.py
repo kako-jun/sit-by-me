@@ -320,6 +320,13 @@ class Notation(FieldMdCase):
         for line in ("battle_atb_switch: on\n", "battle_weak_threshold: 0.25\n", "trace: on\n", "battle_atb: on\n"):
             self.assertIn(line, script)
 
+    def test_base_back_edge_menu_exp_status_layout_keys(self):
+        # 決定 DEMO.ff-look-base-back-edge-menu-exp-status-layout（kako-jun, #308）。statusByParty（固有素質など）は決定待ちなので渡さない
+        script = self.out("play/script.md")
+        for line in ("sprite_style_base_back_edge: thin\n", "field_menu_exp: on\n", "field_menu_status_layout: ff\n", "sprite_style: acrylic\n"):
+            self.assertIn(line, script)
+        self.assertNotIn("statusByParty", script)
+
     def test_readme_save_key_is_project_scoped(self):
         # /play/sit-by-me は name-name-save-<docKey=プロジェクト名>-<slot> を読む（field.html だけ field）
         readme = self.out("play/README.md")
