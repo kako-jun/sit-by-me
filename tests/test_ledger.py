@@ -2041,7 +2041,7 @@ class NoLocalPathsTests(unittest.TestCase):
 
     def test_no_codex_session_ids(self):
         import re
-        pat = re.compile(r"(?:generated_images/|session id:\s*|exec-)" + self.UUID)
+        pat = re.compile(r"(?:generated_images/|session[ _]id[:=]\s*|exec-)" + self.UUID)
         bad = [str(p.relative_to(ROOT)) for p in self.files() if pat.search(p.read_text(encoding="utf-8", errors="replace"))]
         self.assertEqual(bad, [])
 
