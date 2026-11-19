@@ -46,6 +46,14 @@ def save_of(record, people, enemies, scenes):
     for mid in mons:
         if mid not in enemies:
             raise SystemExit(f"{ident}: 戦闘 {mid} が敵台帳にありません")
+    script_id = str(record.get("戦闘脚本ID") or "")
+    if script_id:
+        if not mons:
+            raise SystemExit(f"{ident}: 戦闘脚本ID は 戦闘 のある再開点だけに付ける")
+        event = ROOT / "docs/ledger/イベント" / f"{record['場面ID']}.yaml"
+        body = str((yaml.safe_load(event.read_text(encoding="utf-8")) if event.exists() else {}).get("脚本") or "")
+        if f"[戦闘 {script_id}]" not in body.splitlines():
+            raise SystemExit(f"{ident}: 戦闘脚本ID {script_id} が場面 {record['場面ID']} のイベント台帳の脚本に [戦闘 {script_id}] として宣言されていません")
     fire = str(record.get("再開直後") or "")
     if fire not in ("", FIRE_AUTO):
         raise SystemExit(f"{ident}: 再開直後 は {FIRE_AUTO!r} か空欄だけ: {fire!r}")
@@ -67,6 +75,9 @@ def save_of(record, people, enemies, scenes):
             "atb": {"partyGauge": ([1000, 600, 300, 0] + [0] * len(party))[: len(party)],
                     "enemyGauge": [0] * len(mons), "queue": [0]},
         }
+        if script_id:
+            # 脚本制御の戦闘の進行（name-name #1233）。ゲージは最初のコマンド待ち＝まだ誰も行動していないので、経過ターン 0・発動済み/参戦/逃走なし
+            rpg["battle"]["script"] = {"id": script_id, "turn": 0, "fired": [], "joined": [], "fled": []}
     return {
         "slot": 0, "sceneId": None, "eventIndex": 0, "textIndex": 0, "flags": {},
         "backgroundPath": None, "isBlackout": False, "characters": [], "currentBgmPath": None,
