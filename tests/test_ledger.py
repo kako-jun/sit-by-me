@@ -1623,6 +1623,33 @@ class SourceQuoteTests(IssueAuditBase):
         r = self.check(self.decision("D.loose", "「A,A」", [self.u(205)]))  # 括弧なしの部分一致では通さない
         self.assertEqual(r.returncode, 1)
 
+    def test_short_quote_matches_a_whole_blockquote_line_only(self):
+        # Issue #314: 2字の逐語「たせ」は出典コメントに引用行 `> たせ` としてある。1行全体の一致は認め、行の一部の一致は認めない
+        self.data["comments"] += [self.comment(206, 7, "## 指示(逐語)\n> 端にドアがないのはおかしいのでは？\n> たせ\n\n説明"),
+                                  self.comment(207, 7, "## 別\n> たせば良い\nたせ")]
+        self.assertEqual(self.check(self.decision("D.line", "「端にドアがないのはおかしいのでは？」「たせ」", [self.u(206)])).returncode, 0)
+        r = self.check(self.decision("D.partline", "「たせ」", [self.u(207)]))  # 引用行の一部・引用行でない行では通さない
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("たせ", r.stderr)
+
+    def test_quote_in_another_repository_comment_is_checked_against_the_fetched_body(self):
+        # Issue #314: 出典が name-name など別リポの Issue コメントのとき、取得した本文（data["external"]）で照合する
+        ext = "https://github.com/kako-jun/name-name/issues/1051#issuecomment-901"
+        self.data["external"] = [{"id": "901", "body": "## kako-jun の決定(逐語)\n> デモ用の特殊なことはしない。", "html_url": ext}]
+        self.assertEqual(self.check(self.decision("D.ext", "「デモ用の特殊なことはしない。」", [ext])).returncode, 0)
+        r = self.check(self.decision("D.extalt", "「デモ用の特別なことはしない。」", [ext]))
+        self.assertEqual(r.returncode, 1)
+        del self.data["external"]  # 取得していなければ『見つけられない』で落ちる（黙って通さない）
+        r = self.check(self.decision("D.extmissing", "「デモ用の特殊なことはしない。」", [ext]))
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("見つけられない", r.stderr)
+
+    def test_other_repository_issue_body_does_not_collide_with_the_same_number_here(self):
+        # 別リポの Issue 本文 URL は sit-by-me の同じ番号の本文と取り違えない
+        r = self.check(self.decision("D.collide", "「本文にだけある発言です、ここ」", ["https://github.com/kako-jun/name-name/issues/7"]))
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("見つけられない", r.stderr)
+
     def test_outer_double_corner_brackets_are_checked_as_quotes(self):
         r = self.check(self.decision("D.corner", "『机の材質など、必ず指定が必要なものは強制する』", [self.u(201)]))
         self.assertEqual(r.returncode, 0, r.stderr)

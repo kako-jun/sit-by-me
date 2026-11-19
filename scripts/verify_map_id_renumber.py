@@ -20,8 +20,12 @@ MAP_ONLY_FILES = (
     'docs/topology/areas.json', 'docs/topology/overseas-progression.json',
 )
 # 直後が英字でも検出する(E18door型)。イベントID(E001, 3桁)は一致しない
-# URLエンコード(%E3%82...)の16進は旧IDではない
-OLD_TOKEN_ANY = re.compile(r'(?<![A-Za-z0-9%])([EFN])(0\d|[1-9]\d?)(?![0-9])')
+# URLエンコード(%E3%82...)の16進・色差 ΔE4.9 は旧IDではない
+OLD_TOKEN_ANY = re.compile(r'(?<![A-Za-z0-9%Δ])([EFN])(0\d|[1-9]\d?)(?![0-9])')
+# フィールドモブの候補計画の番号（大人 E01〜E20。子供 K01〜K20 と対。Issue #180・#208）は旧MAP IDと同じ形だが別体系。
+# 番号の直前・直後が候補計画の文脈のときだけ見逃す（同じ行のほかの旧IDは検査する）
+FIELD_MOB_PLAN = re.compile(r'(?:(?<=フィールドモブ )|(?<=候補計画 )|(?<=characters/shared/candidates/))E(?:0[1-9]|1\d|20)(?![0-9])'
+                            r'|E(?:0[1-9]|1\d|20)(?= / FORM-\d{3})|(?<=`)E(?:0[1-9]|1\d|20)(?=\.webp`)')
 # E/F/N+数字が別体系(決定ラベルN1・BGMスロット等)で出る文書・行は旧ID検査から除く
 EXEMPT_OLD_ID_FILES = ('docs/ability-candidates.md', 'scripts/verify_map_id_renumber.py')
 # 旧IDの言及のうち、新IDを併記したもの・別体系（決定ラベルN1、生成ラウンドE1/E2）の語句。
@@ -30,7 +34,7 @@ EXEMPT_OLD_ID_PHRASES = (
     '旧E14（現 KRB-01）', '旧ID E02/E10 は現 TRM-16/TRM-06', '「E02 西端を暫定',
     '元Issueの F83（現 KRB-02）・E14（現 KRB-01）は改番前のID',
     '**N1: ぬすむの刀', 'ぬすむの刀の置き場所**。N1）',  # 決定ラベルN1
-    '2026-10-23 E2 の生成物', 'E2（生成実験）', 'E1の絵',  # 2026-10-23の生成ラウンド名
+    '2026-10-23 E2 の生成物', 'E2（生成実験）', 'E1の絵', 'を E2 の参照画像',  # 2026-10-23の生成ラウンド名
 )
 # Issue本文・発言の引用をそのまま保持する台帳表。当時の旧ID・旧slugが原文のまま残るのが正しい
 QUOTE_LEDGER_FILES = tuple(f'docs/ledger/{name}.yaml' for name in ('Issue出典', 'Issue命題', 'Issue点検')) + (
@@ -42,6 +46,8 @@ QUOTE_SLUG_LINE_WORDS = ('ID付け替えPR-M', '機械的な一括置換は不�
 OLD_ID_EXEMPT_PREFIXES = (
     'docs/ledger/migration-closure.md',  # E1〜E5等は移管項目の通し番号
     'docs/ledger/素材移行.yaml', 'docs/ledger/views/',  # 旧ファイル名の履歴 / 生成ビュー(元のYAMLを直接検査する)
+    'docs/production/20261029-field-npc-candidates.md',  # フィールドモブの候補計画の番号（K01〜K20・E01〜E20）の制作記録
+    'docs/reference/area-landscape/old-good-teramachi-method.md',  # 改番前の旧ID（E01〜E17）を当時の記録として論じる参照資料
 )
 # 制作ログ・測定器・制作手順は E1/E2（生成ラウンド）や N1/E1（出口の方位）を別の意味で使う。
 # 文書ごと・行ごとには除外せず、トークン単位だけ見逃す: E1/E2 の直後が LOG_ROUND_TOKEN の語、
@@ -151,13 +157,20 @@ def verify(root):
                 continue  # 引用表の原文の旧IDは残す
             if is_bgm or relative in EXEMPT_OLD_ID_FILES or relative.startswith(OLD_ID_EXEMPT_PREFIXES):
                 continue
+            in_quote_block = False
             for line in text.splitlines():
-                if relative == "docs/ledger/決定.yaml" and line.lstrip().startswith('"逐語":'):
-                    continue  # 決定表の逐語欄は原文の転記なので、当時の旧IDが原文のまま残るのが正しい
+                if relative == "docs/ledger/決定.yaml":
+                    if in_quote_block and line.startswith('    '):
+                        continue  # 逐語欄（複数行の |- ブロック）の2行目以降
+                    in_quote_block = False
+                    if line.lstrip().startswith('"逐語":'):
+                        in_quote_block = line.rstrip().endswith(('|-', '|'))
+                        continue  # 決定表の逐語欄は原文の転記なので、当時の旧IDが原文のまま残るのが正しい
                 if relative == "docs/ledger-views/決定.md" and line.startswith("> "):
                     continue  # 生成ビューの逐語引用（決定.yaml の逐語欄と同じ原文）
                 for phrase in EXEMPT_OLD_ID_PHRASES:
                     line = line.replace(phrase, '')
+                line = FIELD_MOB_PLAN.sub('', line)
                 for found in OLD_TOKEN_ANY.finditer(line):
                     if found[0] == 'N1' and line[found.end():found.end() + 1] == 'b':
                         continue  # 決定ラベルN1b
