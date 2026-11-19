@@ -638,15 +638,16 @@ class ResumeSaves(FieldMdCase):
         # 劇戦闘の脚本（name-name #1233）: id は場面の [戦闘 id]。ゲージが最初のコマンド待ちなので経過ターン 0
         self.assertEqual(rpg["battle"]["script"], {"id": "opening_battle", "turn": 0, "fired": [], "joined": [], "fled": []})
 
-    def test_battle_script_id_must_be_declared_and_only_with_battle(self):
+    def test_battle_script_id_must_be_declared(self):
         path = self.tmp / "docs/ledger/再開点/opening_battle_fight.yaml"
-        text = path.read_text(encoding="utf-8")
-        path.write_text(text.replace('"戦闘脚本ID": "opening_battle"', '"戦闘脚本ID": "no_such_battle"'), encoding="utf-8")
-        with self.assertRaises(SystemExit):
+        path.write_text(path.read_text(encoding="utf-8").replace('"戦闘脚本ID": "opening_battle"', '"戦闘脚本ID": "no_such_battle"'), encoding="utf-8")
+        with self.assertRaisesRegex(SystemExit, "宣言されていません"):
             field_md.outputs()
+
+    def test_battle_script_id_only_with_battle(self):
         path = self.tmp / "docs/ledger/再開点/playroom_walk.yaml"
         path.write_text(path.read_text(encoding="utf-8") + '"戦闘脚本ID": "opening_battle"\n', encoding="utf-8")
-        with self.assertRaises(SystemExit):
+        with self.assertRaisesRegex(SystemExit, "戦闘 のある再開点だけ"):
             field_md.outputs()
 
 

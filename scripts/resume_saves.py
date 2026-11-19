@@ -50,6 +50,7 @@ def save_of(record, people, enemies, scenes):
     if script_id:
         if not mons:
             raise SystemExit(f"{ident}: 戦闘脚本ID は 戦闘 のある再開点だけに付ける")
+        # 前提: 場面ID と同名のイベント台帳（イベント/<場面ID>.yaml）に [戦闘 id] を宣言する
         event = ROOT / "docs/ledger/イベント" / f"{record['場面ID']}.yaml"
         body = str((yaml.safe_load(event.read_text(encoding="utf-8")) if event.exists() else {}).get("脚本") or "")
         if f"[戦闘 {script_id}]" not in body.splitlines():
