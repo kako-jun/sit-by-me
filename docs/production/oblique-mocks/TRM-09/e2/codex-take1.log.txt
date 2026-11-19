@@ -8,7 +8,7 @@ approval: never
 sandbox: workspace-write [workdir, /tmp, $TMPDIR] (network access enabled)
 reasoning effort: high
 reasoning summaries: none
-session id: 01a1cd6c-119c-7d11-a3ee-5e75677247ee
+session id: <session-id>
 --------
 user
 Invoke the $imagegen skill and use the built-in image_gen tool at the HIGHEST quality (quality: high), edit-mode with the 4 attached reference images in the order described below, size 1672x941, then save the REAL generated PNG (decode the 

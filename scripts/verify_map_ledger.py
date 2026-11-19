@@ -48,13 +48,6 @@ if os.path.isfile(view_builder):
     if not ok:
         fail(f"MAP生成ビューが台帳と一致しない: {' / '.join(lines_keep(out)[:3])}")
 
-# 隣り合う屋外MAPのつなぎ目で、道の縁の境界の種類が両側で一致する（決定 SIT.road-edge-solid-boundary、Issue #191）。未決以外の食い違いはFAIL
-seam_checker = os.path.join(HERE, "verify_seam_boundaries.py")
-if os.path.isfile(seam_checker):
-    out, ok = run_merged(["uv", "run", "--with", "numpy", "--with", "scipy", "--with", "opencv-python-headless", "--with", "pillow", "python3", seam_checker], {"LEDGER_ROOT": ROOT})
-    if not ok:
-        fail(f"つなぎ目の境界の種類が隣のMAPと食い違う: {' / '.join([l for l in lines_keep(out) if 'FAIL' in l][:3])}")
-
 MAP_ID_PATTERN = "(?:" + "|".join(json.loads(read("topology/map-ids.json"))["areas"].keys()) + r")-\d{2}"
 
 
@@ -395,5 +388,13 @@ try:
     MapAtlasVerification.verify(ROOT)
 except Exception as e:
     fail(f"全MAP図: {e}")
+
+# 隣り合う屋外MAPのつなぎ目で、道の縁の境界の種類が両側で一致する（決定 SIT.road-edge-solid-boundary、Issue #191）。未決以外の食い違いはFAIL。
+# 接続の構造（ID登録・反対辺・端の再利用など）を先に全部通してから見る。壊れた接続でここが先に落ちると、構造の診断が『つなぎ目の食い違い』に隠れる（#316）
+seam_checker = os.path.join(HERE, "verify_seam_boundaries.py")
+if os.path.isfile(seam_checker):
+    out, ok = run_merged(["uv", "run", "--with", "numpy", "--with", "scipy", "--with", "opencv-python-headless", "--with", "pillow", "python3", seam_checker], {"LEDGER_ROOT": ROOT})
+    if not ok:
+        fail(f"つなぎ目の境界の種類が隣のMAPと食い違う: {' / '.join([l for l in lines_keep(out) if 'FAIL' in l][:3])}")
 
 print(f"PASS: MAP contracts={len(contract_ids)}, assets={len(asset_ids)}, specs={len(spec_ids)}, refs={len(reference_ids)}, topology MAPs={len(topology_ids)}, topology rows={len(topology_rows)}, pending={len(pending)}, cycles garden={garden_cycles} castle={castle_cycles} towers={tower_cycles}, full atlas={len(contract_ids)} MAPs/{len(topology_rows)} connections/{len(membership['areas'])} areas, overview and all area diagrams verified")

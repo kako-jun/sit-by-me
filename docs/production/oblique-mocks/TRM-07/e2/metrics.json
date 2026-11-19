@@ -85,7 +85,7 @@
     ],
     "mode": "RGB",
     "unique_colors": 208109,
-    "matches_codex_generated_image": "~/.codex/generated_images/01a1cb72-1f0b-7d42-9394-307b1cc7ab36/exec-0f1c54e1-33db-437a-81f4-3ce110118a58.png",
+    "matches_codex_generated_image": "~/.codex/generated_images/<session-id>/exec-<exec-id>.png",
     "new_generated_images_in_run": 1,
     "log_mentions_unavailable": true,
     "log_fabrication_tool_calls": 0,

@@ -1975,25 +1975,26 @@ class AreaLandscapeContentTests(unittest.TestCase):
 
 
 class HandoffAndDocsFollowTests(unittest.TestCase):
-    """引き継ぎ文書（HANDOFF.md）の数値が台帳の実測と一致し、矛盾せず、handoff/ の削除手順がある。tools/README の渡り廊下の説明が現行。"""
+    """引き継ぎ文書（HANDOFF.md）が現在の件数を数字で持たず（台帳の生成ビューを指す）、矛盾せず、handoff/ の削除手順がある。tools/README の渡り廊下の説明が現行。"""
 
     HANDOFF = (ROOT / "docs/ledger/handoff/HANDOFF.md").read_text(encoding="utf-8")
 
     def rows(self, table):
         return ledger_io.parse(table, (ROOT / f"docs/ledger/{table}.yaml").read_text(encoding="utf-8"))
 
-    def test_numbers_match_the_ledger(self):
+    def test_current_counts_are_not_hardcoded_but_point_to_the_generated_view(self):
+        # 現在の件数は台帳が真実。引き継ぎ文書に数字で書くと台帳を変えるたびに古くなる（#316）。
+        # 数字は書かず、台帳から生成して鮮度検査される INDEX の生成ビューを指す。
         import re
-        dec = self.rows("決定")
-        valid = sum(1 for d in dec if d["状態"] == "有効")
         section = re.search(r"(?ms)^# 現行台帳との照合[^\n]*\n(.*?)(?=^# |\Z)", self.HANDOFF)
         self.assertIsNotNone(section, "現在値と歴史的スナップショットを区別する見出しが必要")
         current = section[1]
-        m = re.search(r"決定(\d+)（有効(\d+)・訂正済み(\d+)）", current)
-        self.assertEqual((int(m[1]), int(m[2]), int(m[3])), (len(dec), valid, len(dec) - valid))
-        self.assertEqual(int(re.search(r"`未決.yaml` に(\d+)件", current)[1]), len(self.rows("未決")))
-        self.assertEqual(int(re.search(r"ファイル配置.yaml`（(\d+)規則", current)[1]), len(self.rows("ファイル配置")))
-        self.assertIn(f"表（docs/ledger/）{len(list((ROOT / 'docs/ledger').glob('*.yaml')))}枚", current)
+        # 「既存決定6件へ紐付け」「新規決定95件」のような出来事の記録は対象外（前が漢字の複合語）。現在の総数の書き方だけを捕まえる
+        for pat in (r"(?<![\u4e00-\u9fff])決定\s*\d+", r"未決[^\n。、]{0,12}?\d+\s*件", r"ファイル配置[^\n。、]{0,12}?\d+\s*規則", r"表[^\n。、]{0,15}?\d+\s*枚"):
+            self.assertIsNone(re.search(pat, current), f"現行の件数を数字で書かない: {pat}")
+        self.assertIn("](../../INDEX.md#台帳の生成ビュー)", current)
+        self.assertIn("## 台帳の生成ビュー", (ROOT / "docs/INDEX.md").read_text(encoding="utf-8"))
+        self.assertTrue((ROOT / "docs/ledger-views/決定.md").is_file())
         # Phase-one counts are evidence about that phase, never current totals.
         history = self.HANDOFF.split("## どこまで済んだか（このブランチの実装）", 1)[1].split("## ", 1)[0]
         for fact in ("歴史的スナップショット", "決定68（有効65・訂正済み3）", "MAP17行", "未決50"):
@@ -2040,7 +2041,7 @@ class NoLocalPathsTests(unittest.TestCase):
 
     def test_no_codex_session_ids(self):
         import re
-        pat = re.compile(r"(?:generated_images/|session id:\s*|exec-)" + self.UUID)
+        pat = re.compile(r"(?:generated_images/|session[ _]id[:=]\s*|exec-)" + self.UUID)
         bad = [str(p.relative_to(ROOT)) for p in self.files() if pat.search(p.read_text(encoding="utf-8", errors="replace"))]
         self.assertEqual(bad, [])
 

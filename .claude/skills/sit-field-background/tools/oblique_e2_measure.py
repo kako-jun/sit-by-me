@@ -79,8 +79,11 @@ def sha(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 
+CODEX_UUID = r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+
+
 def relativize(text, root):
-    """git に入れる測定・ログから、この PC の絶対パス（worktree 名・ホーム）を消す。リポ内は相対（root 自身は '.'）、ホームは ~ にする。
+    """git に入れる測定・ログから、この PC の絶対パス（worktree 名・ホーム）と codex のセッションID・exec ID を消す。リポ内は相対（root 自身は '.'）、ホームは ~ にする。
     root や home の前方一致だけの別パス（/home/kako-jun2 など）は置換しない（境界で区切る）。"""
     root = str(root).rstrip("/")
     home = os.path.expanduser("~").rstrip("/")
@@ -90,6 +93,9 @@ def relativize(text, root):
         text = re.sub(re.escape(r_) + r"(?![\w.-])", ".", text)
     if home and home != "/":
         text = re.sub(re.escape(home) + r"(?=$|[/\s\"'`,;:)\]])", "~", text)
+    # codex のセッションID・exec ID も公開リポに残さない（汎用表記 <session-id>・<exec-id>。本物確認の正本は sha256 と真偽値で、ID は使わない）
+    text = re.sub(r"(generated_images/|session[ _]id[:=]\s*)" + CODEX_UUID, r"\1<session-id>", text)
+    text = re.sub(r"\bexec-" + CODEX_UUID, "exec-<exec-id>", text)
     return text
 
 

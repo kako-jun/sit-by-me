@@ -37,6 +37,16 @@ class Relativize(unittest.TestCase):
         t = f"{root}2/a {home}2/b {root}-old/c"
         self.assertEqual(EM.relativize(t, root), t)
 
+    def test_codex_session_and_exec_ids_are_replaced(self):
+        sid, eid = "01a1cb7c-f4a8-7033-80a0-593a7f7be675", "7e80e98c-acd9-4dcf-beb9-38e6ea551aa1"
+        t = f'session id: {sid}\n"~/.codex/generated_images/{sid}/exec-{eid}.png"'
+        r = EM.relativize(t, "/home/someone/repos/x-r07")
+        self.assertEqual(r, 'session id: <session-id>\n"~/.codex/generated_images/<session-id>/exec-<exec-id>.png"')
+        self.assertEqual(EM.relativize(f"session_id={sid}", "/x"), "session_id=<session-id>")
+        # sha256 などの UUID 形でない16進は消さない（本物確認の正本）
+        h = "d297be02b468c0457f7d7931627495fd424ef33ffad52eab6a748151e746e8fd"
+        self.assertEqual(EM.relativize(h, "/home/someone/repos/x-r07"), h)
+
     def test_write_paths_and_run_sh_use_relativize(self):
         self.assertIn('(out / "metrics.json").write_text(relativize(json.dumps(summary', SRC)
         self.assertIn('(out / "metrics.md").write_text(relativize("\\n".join(L)', SRC)
