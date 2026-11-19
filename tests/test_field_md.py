@@ -483,7 +483,7 @@ class SampleField(FieldMdCase):
         data = self.out("play/data.md")
         self.assertIn("サンプル専用・暫定", data.split("-->")[0])
         for mid, stats in field_md.SAMPLE_ENEMY_STATS.items():
-            self.assertLess(stats[0], field_md.PROVISIONAL_HP["monster"])  # 9999 とは別。数ターンで終わる
+            self.assertLess(stats[0], field_md.PROVISIONAL_HP["monster"])  # 9999 とは別の仮値
             self.assertIn(f"[モンスター {mid}]", data)
 
     def test_e001_to_e003_unchanged_apart_from_sample_move(self):
