@@ -7,7 +7,7 @@ docs/ledger/Issue点検.yaml（分類つき）の過不足を検査・更新す�
   uv run python3 scripts/audit_issue_decisions.py --fetch F             # gh の取得結果を F に保存して終わる（--from-json 用）
   uv run python3 scripts/audit_issue_decisions.py --write               # Issue点検.yaml を更新（【手動】と書いた行の分類は保つ）
   uv run python3 scripts/audit_issue_decisions.py --list 未反映(要取込み)  # 分類ごとの一覧
-  uv run python3 scripts/audit_issue_decisions.py --check-quotes [--from-json F]  # 決定.逐語の各引用が 出典URL（; 区切り複数）のコメント本文に実在するか検査（違反があれば exit 1）
+  uv run python3 scripts/audit_issue_decisions.py --check-quotes [--from-json F]  # 決定.逐語の各引用が 出典URL（; 区切り複数。sit-by-me 以外のリポの Issue も gh で取得）のコメント本文に実在するか検査（違反があれば exit 1。4字未満の引用は「」ごとか引用行 > の1行全体で一致）
   uv run python3 scripts/audit_issue_decisions.py --check-sources [--from-json F] # 全実Issueの出典・ハッシュ・命題リンクを検査
   uv run python3 scripts/audit_issue_decisions.py --check-sources --require-reviewed # 全命題の意味判定完了も要求（未判定があれば exit 1）
   LEDGER_ROOT=/path/to/root ...                               # root 差し替え（テスト用）
@@ -71,6 +71,8 @@ class IssueAudit:
     def __init__(self, data, tables=None):
         self._issues = {i["number"]: i for i in data["issues"]}
         self._comments = data["comments"]
+        # 決定.出典URL が指す sit-by-me 以外の Issue（name-name など）のコメント・本文。逐語の照合だけに使い、候補の抽出には使わない
+        self._external = data.get("external", [])
         self._t = tables if tables is not None else LY.load_all()
         self.quote_stats = None
         self._index_ledger()
@@ -83,9 +85,38 @@ class IssueAudit:
 
     @staticmethod
     def source_id(url):
-        """出典URL -> コメントID（文字列）／Issue 本文（"issue-N"）／どちらでもなければ None"""
-        m = re.search(r"/issues/(\d+)(?:#issuecomment-(\d+))?\Z", url, A)
-        return (m.group(2) or f"issue-{m.group(1)}") if m else None
+        """出典URL -> コメントID（文字列。GitHub 全体で一意）／Issue 本文（sit-by-me は "issue-N"、他のリポは "owner/repo#issue-N"）／どちらでもなければ None"""
+        m = re.search(r"(?:github\.com/([^/]+/[^/]+))?/issues/(\d+)(?:#issuecomment-(\d+))?\Z", url, A)
+        if not m:
+            return None
+        if m.group(3):
+            return m.group(3)
+        repo = m.group(1)
+        return f"issue-{m.group(2)}" if repo in (None, IssueAudit.REPO) else f"{repo}#issue-{m.group(2)}"
+
+    @staticmethod
+    def external_sources(decisions):
+        """決定.出典URL のうち sit-by-me 以外のリポの Issue コメント・本文 -> [(source_id, gh api のパス)]"""
+        out = {}
+        for d in decisions:
+            for u in (strip(u) for u in d["出典URL"].split(";")):
+                m = re.fullmatch(r"https://github\.com/([^/]+/[^/]+)/issues/(\d+)(?:#issuecomment-(\d+))?", u, A)
+                if not m or m.group(1) == IssueAudit.REPO:
+                    continue
+                path = f"repos/{m.group(1)}/issues/comments/{m.group(3)}" if m.group(3) else f"repos/{m.group(1)}/issues/{m.group(2)}"
+                out[IssueAudit.source_id(u)] = path
+        return sorted(out.items())
+
+    @staticmethod
+    def issue_of(url):
+        """URL -> (owner/repo, Issue番号)。リポを含まない相対URLは sit-by-me とみなす。読めなければ None"""
+        m = re.search(r"(?:github\.com/([^/]+/[^/]+))?/(?:issues|pull)/(\d+)", url or "", A)
+        return ((m.group(1) or IssueAudit.REPO), m.group(2)) if m else None
+
+    @classmethod
+    def quote_lines(cls, body):
+        """本文の引用行（行頭の > ）を1行ずつ squash した集合。短い逐語を1行全体の一致で照合するのに使う"""
+        return {cls.squash(l.lstrip(WS).lstrip(">")) for l in (body or "").splitlines() if l.lstrip(WS).startswith(">")}
 
     @staticmethod
     def squash(s):
@@ -121,9 +152,11 @@ class IssueAudit:
         """決定表の各決定について、逐語の各引用が出典URL群のどれかのコメント（または Issue 本文）の本文に実在することを検査する。戻り値: エラー文のリスト。"""
         bodies = {}
         for i in self._issues.values():
-            bodies[f"issue-{i['number']}"] = (self.squash(i["body"]), i["html_url"])
+            bodies[f"issue-{i['number']}"] = (self.squash(i["body"]), i["html_url"], self.quote_lines(i["body"]))
         for c in self._comments:
-            bodies[str(c["id"])] = (self.squash(c["body"]), c["html_url"])
+            bodies[str(c["id"])] = (self.squash(c["body"]), c["html_url"], self.quote_lines(c["body"]))
+        for e in self._external:
+            bodies[e["id"]] = (self.squash(e["body"]), e["html_url"], self.quote_lines(e["body"]))
         errors = []
         self.quote_stats = {"decisions": len(self._t["決定"]), "checked": 0, "quotes": 0, "exceptions": []}
         for d in self._t["決定"]:
@@ -144,6 +177,9 @@ class IssueAudit:
             for u, sid in srcs:
                 if sid and sid not in bodies:
                     errors.append(f"決定 {id_}: 出典URL『{u}』のコメントを取得結果に見つけられない")
+                elif sid and self.issue_of(bodies[sid][1]) and self.issue_of(u) != self.issue_of(bodies[sid][1]):
+                    # コメントIDは GitHub 全体で一意なので、URL の Issue 番号を書き違えても取得できてしまう。実際の Issue と照らす
+                    errors.append(f"決定 {id_}: 出典URL『{u}』の Issue が、そのコメントの実際の Issue（{bodies[sid][1]}）と違う")
             if not qs:
                 if marked:
                     self.quote_stats["exceptions"].append(id_)
@@ -154,10 +190,12 @@ class IssueAudit:
             self.quote_stats["quotes"] += len(qs)
             have = [bodies[sid] for _, sid in srcs if sid in bodies]
             for q in qs:
-                needle = f"「{q}」" if len(q) < self.SHORT_QUOTE else q
-                if any(needle in b for b, _ in have):
+                # 短い引用は部分一致だと別の文に紛れるので、「」ごとの一致か、引用行（> …）1行全体との一致だけを認める
+                short = len(q) < self.SHORT_QUOTE
+                needle = f"「{q}」" if short else q
+                if any(needle in b or (short and q in ql) for b, _, ql in have):
                     continue
-                cands = [u for b, u in bodies.values() if needle in b][:3]
+                cands = [u for b, u, ql in bodies.values() if needle in b or (short and q in ql)][:3]
                 errors.append(f"決定 {id_}: 逐語の引用「{q[:30]}」が出典URL群のどのコメントにも実在しない" + ("（どのコメントにも無い）" if not cands else f"（実在するコメント: {' '.join(cands)}）"))
         return errors
 
@@ -260,8 +298,16 @@ def fetch_all():
             flat.extend(x) if isinstance(x, list) else flat.append(x)
         return flat
 
+    external = []
+    for sid, path in IssueAudit.external_sources(LY.read("決定")):
+        p = subprocess.run(["gh", "api", path], capture_output=True, text=True)
+        if p.returncode != 0:
+            continue  # 取得できない出典は check_quotes が『見つけられない』として報告する
+        x = json.loads(p.stdout)
+        external.append({"id": sid, "body": x.get("body") or "", "html_url": x.get("html_url") or ""})
     return {"issues": fetch(f"repos/{IssueAudit.REPO}/issues?state=all&per_page=100"),
-            "comments": fetch(f"repos/{IssueAudit.REPO}/issues/comments?per_page=100")}
+            "comments": fetch(f"repos/{IssueAudit.REPO}/issues/comments?per_page=100"),
+            "external": external}
 
 
 def write_table(rows, root):

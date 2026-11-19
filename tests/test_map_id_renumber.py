@@ -126,6 +126,29 @@ class MapIdRenumberTests(unittest.TestCase):
         self.append("docs/ledger/決定.yaml", "\n  \"決定の要点\": \"E15 から入る\"\n")
         self.reject("old ID E15 remains")
 
+    def test_multiline_decision_quote_block_passes_but_next_field_is_checked(self):
+        # Issue #314: 逐語欄が複数行（|- ブロック）のとき、2行目以降も原文として見逃す。次の欄は検査する
+        self.append("docs/ledger/決定.yaml", "\n  \"逐語\": |-\n    1行目\n    被災前の能登は E28、F12\n")
+        result = self.run_cli()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.append("docs/ledger/決定.yaml", "  \"出典\": \"E15 の話\"\n")
+        self.reject("old ID E15 remains")
+
+    def test_field_mob_plan_numbers_pass_only_in_their_context(self):
+        # Issue #314: フィールドモブの候補計画の番号（E01〜E20）は別体系。文脈つきのときだけ見逃す
+        self.append("docs/ledger/人物.yaml",
+                    "\n  \"呼称\": \"フィールドモブ E01\"\n  \"特徴(自由記述)\": \"候補計画 E07。候補あり `E07.webp`。\"\n"
+                    "  \"パス\": \"assets/images/characters/shared/candidates/E08.webp\"\n  \"特徴(自由記述)\": \"E09 / FORM-060。\"\n")
+        result = self.run_cli()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.append("docs/ledger/人物.yaml", "  \"特徴(自由記述)\": \"候補計画 E07。E15 から入る\"\n")
+        self.reject("old ID E15 remains")
+
+    def test_color_difference_delta_e_is_not_an_old_id(self):
+        self.append(".claude/skills/sit-field-background/SKILL.md", "\n頬 ΔE4.9 でも暗い\n")
+        result = self.run_cli()
+        self.assertEqual(result.returncode, 0, result.stderr)
+
     def test_prefix_exempt_word_does_not_hide_other_old_ids(self):
         self.append("docs/ledger/決定.yaml", "\n# 旧E14（現 KRB-01）と旧E15\n")
         self.reject("old ID E15 remains")

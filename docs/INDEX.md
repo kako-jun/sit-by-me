@@ -93,7 +93,7 @@
 | [語彙](ledger/語彙.yaml) | 170 | 許す・禁じる語彙と英語プロンプト断片。 | 語彙ID / グループ / 値 / 英語断片 / 説明 |
 | [決定](ledger/決定.yaml) | 728 | kako-jun の決定（逐語・出典つき）。status に関係なくプロンプトへ入る。 | 決定ID / 日付 / 対象種別 / 対象ID / 対象名 / 決定の要点 / 逐語 / 出典 / 出典URL / 状態 / 置換先 / プロンプト出力 / 必須語 / 禁止語 / 対象MAP / 備考 / 特徴(自由記述) |
 | [採用要素](ledger/採用要素.yaml) | 6 | 採用画像から次の絵へ継承する要素。 | 採用要素ID / 素材ID / 元MAP / 要素 / 内容 / 継承先MAP / 継承方法 / 状態 / 確認語 / 決定参照 / 特徴(自由記述) |
-| [素材](ledger/素材.yaml) | 1391 | 素材（画像・マスクなど。没も行で保持）。 | 素材ID / 所有者ID / 種別 / パス / 状態 / 日付 / 来歴 / sha256 / 特徴(自由記述) |
+| [素材](ledger/素材.yaml) | 1395 | 素材（画像・マスクなど。没も行で保持）。 | 素材ID / 所有者ID / 種別 / パス / 状態 / 日付 / 来歴 / sha256 / 特徴(自由記述) |
 | [素材共有](ledger/素材共有.yaml) | 3 | 所有者以外の人物・敵・召喚獣が同一素材を利用する明示的な関係。素材行を複製せず、出典を保持する。 | 共有ID / 利用者ID / 素材ID / 根拠 |
 | [素材更新](ledger/素材更新.yaml) | 285 | 元の素材移行SHAを保持したまま後続の上流更新を記録するSHA連鎖。出典commitと出典パスを必須とする。 | 更新ID / 素材ID / パス / 旧sha256 / 新sha256 / 出典commit / 出典パス / 根拠 |
 | [素材メタデータ](ledger/素材メタデータ.yaml) | 10 | 上流の画像用JSONを安全化してYAML正本に変換した出典とハッシュ。原文の秘匿値は保持しない。 | メタデータID / パス / 所有者ID / 原文sha256 / 安全化sha256 / 出典commit / 安全化方針 |
@@ -103,7 +103,7 @@
 | [未決](ledger/未決.yaml) | 2003 | 未決（要確認）の一覧。 | 未決ID / 対象テーブル / 対象ID / キー / 内容 / 状態 / 解決決定ID |
 | [キー別名](ledger/キー別名.yaml) | 20 | 列名・キー名の別名と正規名。 | 正規名 / 別名 / 対象テーブル / 説明 |
 | [Issue点検](ledger/Issue点検.yaml) | 529 | Issue の決定候補と決定表の突合結果（audit_issue_decisions.py が更新。分類=決定表に反映済み／未反映(要取込み)／決定でない／対象外）。 | Issue番号 / コメントURL / 候補の要約 / 分類 / 決定ID / 備考 |
-| [ファイル配置](ledger/ファイル配置.yaml) | 72 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
+| [ファイル配置](ledger/ファイル配置.yaml) | 75 | リポ内のファイルの置き場所規則（パターン・種別・用途・所有表/生成元・許可リスト理由）。asset-layout.md と verify_asset_layout.py の規則を合流した正本。 | 配置ID / パターン / 種別 / 用途 / 所有表 / 生成元 / 到達 / 入口 / 許可リスト理由 / 検査 / 備考 |
 | [描画定数](ledger/描画定数.yaml) | 31 | 斜めツール（oblique_mock.py・oblique_topology.py）の寸法・視点・幅クラス・窓種別・台座の飾りの位置。コードはここを読む。 | 定数ID / グループ / 値 / 単位 / 説明 / コード内の名前 |
 | [プロンプト文面](ledger/プロンプト文面.yaml) | 209 | imagegen 用プロンプト・接続表・窓一覧・接続図に出る文面（{名前}=変数の差し込み口）。コードは oblique_text.text で読み、文面を直接持たない。 | 文面ID / 区分 / 文面 / 変数 / 使用箇所 / 備考 |
 | [戦闘背景](ledger/戦闘背景.yaml) | 3 | 戦闘背景の台帳（1行=1枚）。参照MAP・使う戦闘・カメラを持つ。エリア固定は継承。 | 背景ID / 名称 / エリア / 参照MAP / 使う戦闘 / カメラ / 配置 / 状態 / 画像パス / 配信用複製 / 備考 |
@@ -269,6 +269,9 @@
 | play-field-md | 生成物（name-name 用 md） | イベント台帳から生成した一枚絵フィールド用の入口・共通定義・場面 md。name-name の scriptsDir=play として読まれる | 許可 | play/README.md |
 | field-character-forms | 生成物（人物の形態の目録JSON） | name-name の [人物の形態 目録=…] が読む、形態ごとのポーズ・歩行絵の一覧。素材のファイル名から生成 | 許可 | play/README.md |
 | field-play-background | 配信用の背景（再圧縮した複製） | name-name の /play の一枚絵フィールド用。採用画像（fields/reference/）と戦闘背景（battle-backgrounds/、台帳 戦闘背景.yaml の配信用複製列）を worker の raw 配信上限 1MiB に収めた複製。正本は元の採用画像 | 許可 | assets/images |
+| se-params | データ | 仮SEの合成パラメータ（ID ごと。ID と用途の一覧は docs/se-registry.md） | 許可 | docs/se-registry.md |
+| se-sounds | 派生物・機械出力 | 仮SEの音声（合成パラメータから生成） | 許可 | docs/se-registry.md |
+| se-manifest | データ | name-name の仮SE再生経路用の割当（ID→音声ファイル） | 許可 | docs/se-registry.md |
 | resume-point-ledger | 再開点の台帳の試作 | セーブから途中の場面を再開するための再開点（場面・位置・パーティ・戦闘）。play/saves/ のセーブ JSON の正本 | 許可 | play/README.md |
 | play-resume-saves | 生成物（再開用セーブ JSON） | name-name の ?resume= で読むセーブ。再開点の台帳から生成 | 許可 | play/README.md |
 

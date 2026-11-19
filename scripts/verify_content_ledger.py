@@ -114,8 +114,9 @@ def check() -> None:
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     assert manifest == manifest_payload(), "derived asset manifest differs from YAML"
     actions = Counter(r["操作"] for r in data["素材移行"])
-    assert actions == {"move": 395, "delete": 317}, actions
-    assert sum(bool(r["剪定パス"]) for r in data["素材移行"]) == 134
+    # BG001 は PR #274（Issue #191、2026-11-12）で move から delete に変わった（BG011 の暫定採用で退役。剪定パスも1件増）
+    assert actions == {"move": 394, "delete": 318}, actions
+    assert sum(bool(r["剪定パス"]) for r in data["素材移行"]) == 135  # BG001 の退役（PR #274）で1件増
     print(f"PASS: {len(EXPECTED)} content tables; {len(assets)} assets ({len(present)} present, {len(restored)} restored weapon records); {len(data['素材移行'])} migration entries")
 
 
