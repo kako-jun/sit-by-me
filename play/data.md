@@ -14,7 +14,7 @@ hidden: true
 [メニュー: item, magic, equip, appstore, magicite, job, status, save, config]
 
 [モンスター M001]
-名前: 段ボールのドラゴン
+名前: 段ボールドラゴン
 HP: 9999
 ATK: 10
 DEF: 0
