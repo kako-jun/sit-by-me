@@ -36,4 +36,4 @@
 
 ## 途中の場面から始める（再開点）
 
-オープニングを毎回通らず、任意の場面から確認するための仕組み（#250）。再開点は `docs/ledger/再開点/<再開点ID>.yaml`（場面ID・位置・向き・パーティ・戦闘）が正本で、[生成スクリプト](../../../scripts/resume_saves.py) が `play/saves/<再開点ID>.save.json` を作る（`field_md.py` の出力に含まれ、`build_ledger.py build` / `check` の対象）。台帳に実在する人物・敵だけを使う。`再開直後` 列（空欄、または `場面開始を起こす`）で、セーブの `field.fireAuto: true`（name-name Issue #1155）を付ける。手順は [play/README.md](../../../play/README.md)。
+オープニングを毎回通らず、任意の場面から確認するための仕組み（#250）。再開点は `docs/ledger/再開点/<再開点ID>.yaml`（場面ID・位置・向き・パーティ・戦闘）が正本で、[生成スクリプト](../../../scripts/resume_saves.py) が `play/saves/<再開点ID>.save.json` を作る（`field_md.py` の出力に含まれ、`build_ledger.py build` / `check` の対象）。台帳に実在する人物・敵だけを使う。`再開直後` 列（空欄、または `場面開始を起こす`）で、セーブの `field.fireAuto: true`（name-name Issue #1155）を付ける。`戦闘脚本ID` 列（戦闘のある再開点だけ）を書くとセーブの `battle.script`（経過ターン 0・発動済み/参戦/逃走なし。name-name #1233）が出る。id は場面と同名のイベント台帳（このディレクトリの `<場面ID>.yaml`）の脚本の `[戦闘 id]` と照合し、無い・戦闘の無い再開点に付けると FAIL。手順は [play/README.md](../../../play/README.md)。
