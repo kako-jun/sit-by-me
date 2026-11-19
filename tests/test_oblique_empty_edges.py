@@ -1,7 +1,7 @@
 """#191: 戸口なし・外周の南北端に壁なしの屋外MAPで、斜めツールが空列 max() で落ちない回帰テスト。
 
 小さな合成 plan だけで検証する（生成済み plan・台帳の MAP 行に依存しない）。
-実行: uv run --with pytest --with numpy --with opencv-python-headless --with pillow python3 -m pytest tests/test_oblique_empty_edges.py
+実行: uv run python3 -m unittest tests.test_oblique_empty_edges（画像系の依存は pyproject.toml の dev グループ）
 """
 from pathlib import Path
 import sys
@@ -21,7 +21,8 @@ def wall(wid, rect, h=40):
 
 
 def plan(walls):
-    return {"walls": walls, "floors": [], "doors": [], "windows": [], "boxes": []}
+    # 実 plan は必ず map_id を持つ（台座の前縁の飾りの乱数の種。#270 から coord_section が読む）
+    return {"map_id": "TEST-01", "walls": walls, "floors": [], "doors": [], "windows": [], "boxes": []}
 
 
 def top_head(hb, hf):
