@@ -91,17 +91,21 @@ FIELD_EVENTS = ("opening_battle", "evacuation_after_play", "play_cancelled_promi
 SAMPLE_SCENE = "sample_field"
 SAMPLE_NOTE = "サンプル専用・暫定"
 # サンプル専用エンカウント（決定 DEMO.sample-road-encounter-switch。本編の「スマホ購入前の寺町では通常エンカウントなし」は変えない）。
-# 率・群・敵の数値はすべて暫定（数値の正本は台帳に無く #237 で案を詰める）。戦闘が数ターンで終わる程度の仮値。
+# 率・群・敵の数値はすべて暫定（数値の正本は台帳に無く #237 で案を詰める）。戦闘が数ターンで終わる程度の仮値（敵ごとの HP・AGI は下の SAMPLE_ENEMY_STATS の注記）。
 #   率 1/8: 歩き始めて数歩〜十数歩で遭遇する程度の、デモで確かめやすい値（DQ4 式の分母。name-name の docs/spec/markdown-v0.1.md「エンカウント」）。
 #   敵は台帳 敵.yaml の実在の敵で、採用済み画像（assets/images/enemies/<ID>.webp）があるものだけ。
 #   ドロップは付けない: 敵戦利品.yaml は全敵「未定」で、アイテム台帳に実在する落とし物が無いため（架空を作らない）。
 SAMPLE_ENCOUNTER_RATE = "1/8"
 SAMPLE_ENCOUNTER_GROUPS = ("M101", "M104", "M148", "M104+M148")
-# (HP, ATK, DEF, AGI, EXP, GOLD)。M001 の 9999 とは別の、数ターンで終わる仮値。GOLD は name-name のキー名で、通貨は円（decisions.md 183 行）。
+# (HP, ATK, DEF, AGI, EXP, GOLD)。M001 の 9999 とは別の仮値。GOLD は name-name のキー名で、通貨は円（decisions.md 183 行）。
+# HP・AGI は「敵の行動回数の差が戦闘中に分かる」ための調整（#237、kako-jun 方針 2026-11-19。敵のゲージは見せない）。
+#   味方4人は AGI 10・「おにぱんち」40..60 なので、1巡（ゲージ2.5秒分）で約200ダメージ。敵は AGI×0.04/ms でゲージが溜まる。
+#   M101 ロードローラー（遅い）: 3巡では倒れない HP 800 で、必ず1回は動く。M148 水たまり（中間）: 約2回。M104 自転車（速い）: 5回以上。
+#   見積もり表は #237。ゲージ時間だけの見積もりで、演出の待ち時間ぶんは実機でさらに増える。
 SAMPLE_ENEMY_STATS = {
-    "M101": (90, 14, 0, 3, 12, 30),
-    "M104": (50, 10, 0, 9, 8, 15),
-    "M148": (70, 8, 0, 5, 10, 20),
+    "M101": (800, 14, 0, 3, 12, 30),
+    "M104": (500, 10, 0, 20, 8, 15),
+    "M148": (500, 8, 0, 8, 10, 20),
 }
 # サンプル専用・暫定の味方の経験値表と成長（決定 SIT.currency-yen「経験値・レベルの概念を置く」。数値の正本は台帳に無く #237 で詰める）。
 # name-name の書式: 経験値表=Lv1→2 から順の累計 exp（長さ+1 が上限 Lv）、成長=Lv が1上がるごとに足す能力値。
@@ -411,7 +415,7 @@ def render_data(records, sample=None):
         ]
     note = "数値は台帳 opening_battle の暫定を参照（HP・ATK・DEF・AGI と魔法の効果は仮値）。魔法は台帳 魔法.yaml の MAG-07・MAG-08 だけ"
     if sample and sample["encounter"]:
-        note += f"。{SAMPLE_NOTE}: M101・M104・M148 の HP・ATK・DEF・AGI・EXP・GOLD も仮値（M001 の仮値とは別。数値の正本は #237）。味方 C001〜C004 の経験値表・成長も暫定値（生存者への等分で3〜4戦で Lv2）"
+        note += f"。{SAMPLE_NOTE}: M101・M104・M148 の HP・ATK・DEF・AGI・EXP・GOLD も仮値（M001 の仮値とは別。HP・AGI は敵ごとの行動回数の差が出る値。数値の正本は #237）。味方 C001〜C004 の経験値表・成長も暫定値（生存者への等分で3〜4戦で Lv2）"
     return f"{head}\n{_head(note)}\n\n" + "\n".join(lines).rstrip() + "\n"
 
 
