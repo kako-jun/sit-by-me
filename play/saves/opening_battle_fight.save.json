@@ -1,6 +1,6 @@
 {
   "_provenance": {
-    "input_sha": "1f793a4feca73078611423823ed8151bd2da73f7b1fa56f74f3a0e0e6f70cefe"
+    "input_sha": "11c2f097ad333e067e48b9cedb6b16a8f0a3a633743447ab491432eeb48e0b33"
   },
   "slot": 0,
   "sceneId": null,
@@ -66,6 +66,13 @@
         "queue": [
           0
         ]
+      },
+      "script": {
+        "id": "opening_battle",
+        "turn": 0,
+        "fired": [],
+        "joined": [],
+        "fled": []
       }
     }
   }
