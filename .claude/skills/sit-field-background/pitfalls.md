@@ -142,5 +142,5 @@
 | 画像にモックのピンクが残った | 出入口・戸口のマーカー色をそのまま写した | ピンクは画像のどこにも残さない。`oblique_e2_measure.py` の `pink_whole` ゲート（全体 0.0001 以下） |
 | 採用手順が『寸法が 1672×941 でない』で止まる | 画像モデルが 1px 少なく（1671×941）返すことがある | 生成直後の `size_exact` ゲートと『寸法NG・再生成が必要』（終了コード3）。**リサイズで通さない**。1回再生成し、それでも違えば kako-jun の承認＋記録が要る |
 | 台帳の文面を変えたのに画像が古い文面のまま | 派生物 `<MAP>-edit-prompt.txt` が古い | `oblique_build.py --all docs/production/oblique-mocks/connections.json` の後に `oblique_e2_schedule.py stale`（0件）。寺町全体の `connections-teramachi.json` は `--all` に渡さない |
-| git に絶対パス（worktree 名）が入った | 測定・ログに絶対パスが出る | `oblique_e2_measure.py` が書き出しで相対化。既存は `--relativize`。run.sh のログも自動 |
+| git に絶対パス（worktree 名）や codex のセッションID・exec ID が入った | 測定・ログに絶対パスと ID が出る | `oblique_e2_measure.py` が書き出しで相対化し、ID は `<session-id>`・`<exec-id>` に置き換える。既存は `--relativize`。run.sh のログも自動（ID は切り詰めた `.log.txt` には残らない。保存失敗の回収で `session id:` を見るのは、消す前の生ログ `.log`） |
 | 生成が止まる・足りない | 枠の扱い | **各 MAP の再生成枠は1回、同時2件まで**（追加は kako-jun の許可）。take が出来なかったときはログ txt の末尾に原因が残る |

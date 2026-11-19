@@ -94,8 +94,8 @@ def relativize(text, root):
     if home and home != "/":
         text = re.sub(re.escape(home) + r"(?=$|[/\s\"'`,;:)\]])", "~", text)
     # codex のセッションID・exec ID も公開リポに残さない（汎用表記 <session-id>・<exec-id>。本物確認の正本は sha256 と真偽値で、ID は使わない）
-    text = re.sub(r"(generated_images/|session id:\s*)" + CODEX_UUID, r"\1<session-id>", text)
-    text = re.sub(r"exec-" + CODEX_UUID, "exec-<exec-id>", text)
+    text = re.sub(r"(generated_images/|session[ _]id[:=]\s*)" + CODEX_UUID, r"\1<session-id>", text)
+    text = re.sub(r"\bexec-" + CODEX_UUID, "exec-<exec-id>", text)
     return text
 
 

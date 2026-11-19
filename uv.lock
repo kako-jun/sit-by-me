@@ -740,8 +740,8 @@ requires-dist = [{ name = "pyyaml", specifier = ">=6" }]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "numpy" },
-    { name = "opencv-python-headless" },
-    { name = "pillow" },
-    { name = "scipy" },
+    { name = "numpy", specifier = ">=2" },
+    { name = "opencv-python-headless", specifier = ">=4.8" },
+    { name = "pillow", specifier = ">=10" },
+    { name = "scipy", specifier = ">=1.11" },
 ]

@@ -42,6 +42,7 @@ class Relativize(unittest.TestCase):
         t = f'session id: {sid}\n"~/.codex/generated_images/{sid}/exec-{eid}.png"'
         r = EM.relativize(t, "/home/someone/repos/x-r07")
         self.assertEqual(r, 'session id: <session-id>\n"~/.codex/generated_images/<session-id>/exec-<exec-id>.png"')
+        self.assertEqual(EM.relativize(f"session_id={sid}", "/x"), "session_id=<session-id>")
         # sha256 などの UUID 形でない16進は消さない（本物確認の正本）
         h = "d297be02b468c0457f7d7931627495fd424ef33ffad52eab6a748151e746e8fd"
         self.assertEqual(EM.relativize(h, "/home/someone/repos/x-r07"), h)

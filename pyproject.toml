@@ -11,4 +11,4 @@ package = false
 # 画像の検査・斜めツール（oblique_*・verify_seam_boundaries・戦闘背景）とそのテストが使う。
 # dev は uv run の既定グループなので、素の `uv run python3 -m unittest discover -s tests` で全テストが cv2 などを読める（#316）。
 [dependency-groups]
-dev = ["numpy", "opencv-python-headless", "pillow", "scipy"]
+dev = ["numpy>=2", "opencv-python-headless>=4.8", "pillow>=10", "scipy>=1.11"]

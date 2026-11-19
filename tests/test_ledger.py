@@ -1989,7 +1989,8 @@ class HandoffAndDocsFollowTests(unittest.TestCase):
         section = re.search(r"(?ms)^# 現行台帳との照合[^\n]*\n(.*?)(?=^# |\Z)", self.HANDOFF)
         self.assertIsNotNone(section, "現在値と歴史的スナップショットを区別する見出しが必要")
         current = section[1]
-        for pat in (r"決定\d+（有効\d+・訂正済み\d+）", r"`未決.yaml` に\d+件", r"ファイル配置.yaml`（\d+規則", r"表（docs/ledger/）\d+枚"):
+        # 「既存決定6件へ紐付け」「新規決定95件」のような出来事の記録は対象外（前が漢字の複合語）。現在の総数の書き方だけを捕まえる
+        for pat in (r"(?<![\u4e00-\u9fff])決定\s*\d+", r"未決[^\n。、]{0,12}?\d+\s*件", r"ファイル配置[^\n。、]{0,12}?\d+\s*規則", r"表[^\n。、]{0,15}?\d+\s*枚"):
             self.assertIsNone(re.search(pat, current), f"現行の件数を数字で書かない: {pat}")
         self.assertIn("](../../INDEX.md#台帳の生成ビュー)", current)
         self.assertIn("## 台帳の生成ビュー", (ROOT / "docs/INDEX.md").read_text(encoding="utf-8"))
