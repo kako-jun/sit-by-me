@@ -107,6 +107,12 @@ class IssueAudit:
                 out[IssueAudit.source_id(u)] = path
         return sorted(out.items())
 
+    @staticmethod
+    def issue_of(url):
+        """URL -> (owner/repo, Issue番号)。リポを含まない相対URLは sit-by-me とみなす。読めなければ None"""
+        m = re.search(r"(?:github\.com/([^/]+/[^/]+))?/(?:issues|pull)/(\d+)", url or "", A)
+        return ((m.group(1) or IssueAudit.REPO), m.group(2)) if m else None
+
     @classmethod
     def quote_lines(cls, body):
         """本文の引用行（行頭の > ）を1行ずつ squash した集合。短い逐語を1行全体の一致で照合するのに使う"""
@@ -171,6 +177,9 @@ class IssueAudit:
             for u, sid in srcs:
                 if sid and sid not in bodies:
                     errors.append(f"決定 {id_}: 出典URL『{u}』のコメントを取得結果に見つけられない")
+                elif sid and self.issue_of(bodies[sid][1]) and self.issue_of(u) != self.issue_of(bodies[sid][1]):
+                    # コメントIDは GitHub 全体で一意なので、URL の Issue 番号を書き違えても取得できてしまう。実際の Issue と照らす
+                    errors.append(f"決定 {id_}: 出典URL『{u}』の Issue が、そのコメントの実際の Issue（{bodies[sid][1]}）と違う")
             if not qs:
                 if marked:
                     self.quote_stats["exceptions"].append(id_)

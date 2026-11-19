@@ -1644,6 +1644,12 @@ class SourceQuoteTests(IssueAuditBase):
         self.assertEqual(r.returncode, 1)
         self.assertIn("見つけられない", r.stderr)
 
+    def test_wrong_issue_number_in_comment_url_fails(self):
+        # コメントIDは一意なので Issue 番号を書き違えても取得できてしまう。実際の Issue と違えば落とす
+        r = self.check(self.decision("D.wrongnum", "「机の材質など、必ず指定が必要なものは強制する」", [f"{self.URL}/9#issuecomment-201"]))
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("実際の Issue", r.stderr)
+
     def test_other_repository_issue_body_does_not_collide_with_the_same_number_here(self):
         # 別リポの Issue 本文 URL は sit-by-me の同じ番号の本文と取り違えない
         r = self.check(self.decision("D.collide", "「本文にだけある発言です、ここ」", ["https://github.com/kako-jun/name-name/issues/7"]))
